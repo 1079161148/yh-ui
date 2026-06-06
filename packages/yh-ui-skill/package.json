@@ -1,0 +1,47 @@
+{
+  "name": "@yh-ui/yh-ui-skill",
+  "version": "1.0.31",
+  "description": "YH-UI skill installer for modern AI coding tools",
+  "type": "module",
+  "bin": {
+    "yh-ui-skill": "./dist/cli.mjs"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "assets"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/sync-yh-ui-skill-assets.mjs && unbuild",
+    "dev": "node ../../scripts/sync-yh-ui-skill-assets.mjs && unbuild --stub",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "prepack": "node ../../scripts/sync-yh-ui-skill-assets.mjs && node ../../scripts/prepare-package-manifest.mjs prepare",
+    "postpack": "node ../../scripts/prepare-package-manifest.mjs restore"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1079161148/yh-ui.git",
+    "directory": "packages/yh-ui-skill"
+  },
+  "keywords": [
+    "yh-ui",
+    "ai",
+    "skill",
+    "cli",
+    "agent"
+  ],
+  "homepage": "https://1079161148.github.io/yh-ui/",
+  "author": "YH-UI Team",
+  "license": "MIT"
+}
+

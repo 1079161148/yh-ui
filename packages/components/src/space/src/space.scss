@@ -1,0 +1,36 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(space) {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  @include m(vertical) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  @include when(wrap) {
+    flex-wrap: wrap;
+  }
+
+  @include when(fill) {
+    width: 100%;
+  }
+
+  @include e(item) {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  @include e(spacer) {
+    display: inline-flex;
+    align-items: center;
+    color: var(--yh-text-color-placeholder);
+    padding: 0 var(--yh-space-spacer-padding, 2px);
+    flex-shrink: 0;
+  }
+}

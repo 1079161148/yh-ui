@@ -1,0 +1,274 @@
+@use 'sass:math';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(slider) {
+  --yh-slider-main-color: var(--yh-color-primary);
+  --yh-slider-main-color-rgb: 64, 158, 255;
+  --yh-slider-secondary-color: var(--yh-color-primary);
+  --yh-slider-bg-color: var(--yh-border-color-light);
+  --yh-slider-hover-bg-color: var(--yh-border-color-dark);
+  --yh-slider-button-size: 16px;
+  --yh-slider-button-border: 2px;
+  --yh-slider-runway-height: 6px;
+  --yh-slider-transition: var(--yh-transition-base);
+
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  height: var(--yh-slider-height, 32px);
+  position: relative;
+  user-select: none;
+  box-sizing: border-box;
+
+  @include when(vertical) {
+    display: inline-flex;
+    width: auto;
+    height: 100%;
+    flex-direction: column;
+    padding: 0;
+    margin: 0 12px;
+    align-items: center;
+
+    @include e(runway) {
+      width: var(--yh-slider-runway-height);
+      height: 100%;
+      flex: 1;
+      margin: 0;
+      position: relative;
+    }
+
+    @include e(button-wrapper) {
+      left: 50%;
+      transform: translate(-50%, 50%);
+      top: auto;
+      z-index: 10;
+    }
+
+    @include e(bar) {
+      width: 100%;
+      height: auto;
+      left: 0;
+      bottom: 0;
+      top: auto;
+      background: linear-gradient(
+        to top,
+        var(--yh-slider-main-color),
+        var(--yh-slider-secondary-color)
+      );
+    }
+
+    @include e(stop) {
+      left: 50%;
+      top: auto;
+      transform: translate(-50%, 50%);
+    }
+
+    @include e(marks) {
+      position: absolute;
+      left: 18px;
+      top: 0;
+      bottom: 0;
+      width: 0;
+    }
+
+    @include e(mark-text) {
+      left: 0;
+      top: auto;
+      transform: translateY(50%);
+      white-space: nowrap;
+    }
+
+    @include e(input) {
+      margin-right: 0;
+      margin-top: 20px;
+      width: 50px;
+    }
+  }
+
+  @include e(input) {
+    flex-shrink: 0;
+    margin-right: 20px;
+    width: 120px;
+  }
+
+  @include e(runway) {
+    flex: 1;
+    height: var(--yh-slider-runway-height);
+    background-color: var(--yh-slider-bg-color);
+    border-radius: math.div(6px, 2);
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+
+    &:hover {
+      background-color: var(--yh-slider-hover-bg-color);
+    }
+  }
+
+  // 禁用状态样式
+  @include when(disabled) {
+    @include e(runway) {
+      cursor: not-allowed;
+      background-color: var(--yh-fill-color-light);
+
+      &:hover {
+        background-color: var(--yh-fill-color-light);
+      }
+    }
+
+    @include e(bar) {
+      background: var(--yh-text-color-placeholder);
+      box-shadow: none;
+    }
+
+    @include e(button) {
+      border-color: var(--yh-text-color-placeholder);
+      background-color: var(--yh-bg-color);
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+
+    @include e(button-wrapper) {
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(bar) {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      var(--yh-slider-main-color),
+      var(--yh-slider-secondary-color)
+    );
+    box-shadow: 0 4px 12px rgba(var(--yh-slider-main-color-rgb, 64, 158, 255), 0.2);
+    transition:
+      width var(--yh-duration-base),
+      left var(--yh-duration-base),
+      height var(--yh-duration-base),
+      bottom var(--yh-duration-base);
+  }
+
+  @include e(button-wrapper) {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    cursor: grab;
+    transition:
+      left var(--yh-duration-base),
+      bottom var(--yh-duration-base);
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    @include when(dragging) {
+      z-index: 11;
+    }
+  }
+
+  @include e(button) {
+    width: var(--yh-slider-button-size);
+    height: var(--yh-slider-button-size);
+    border: var(--yh-slider-button-border) solid var(--yh-slider-main-color);
+    background-color: var(--yh-bg-color);
+    border-radius: 50%;
+    transition: var(--yh-slider-transition);
+    box-shadow: var(--yh-shadow-sm);
+
+    @include when(hover) {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 6px rgba(var(--yh-slider-main-color-rgb, 64, 158, 255), 0.15);
+    }
+
+    @include when(dragging) {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 6px rgba(var(--yh-slider-main-color-rgb, 64, 158, 255), 0.15);
+    }
+  }
+
+  @include e(stop) {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: var(--yh-bg-color);
+    border-radius: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  @include e(mark-text) {
+    position: absolute;
+    top: 15px;
+    transform: translateX(-50%);
+    font-size: var(--yh-font-size-base);
+    color: var(--yh-text-color-secondary);
+    margin-top: 10px;
+  }
+
+  @include e(tooltip) {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 10px;
+    background: var(--yh-text-color-primary);
+    backdrop-filter: blur(4px);
+    color: var(--yh-bg-color);
+    border-radius: var(--yh-radius-base);
+    font-size: var(--yh-font-size-xs);
+    white-space: nowrap;
+    z-index: 20;
+    box-shadow: var(--yh-shadow-md);
+  }
+
+  @include e(tooltip-arrow) {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--yh-text-color-primary);
+  }
+
+  // Sizes
+  @include m(large) {
+    --yh-slider-height: 48px;
+    --yh-slider-runway-height: 10px;
+    --yh-slider-button-size: 24px;
+  }
+
+  @include m(small) {
+    --yh-slider-height: 24px;
+    --yh-slider-runway-height: 4px;
+    --yh-slider-button-size: 12px;
+  }
+}
+
+.yh-fade-enter-active,
+.yh-fade-leave-active {
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+}
+
+.yh-fade-enter-from,
+.yh-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-50%) translateY(5px);
+}

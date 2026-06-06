@@ -1,0 +1,124 @@
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:meta';
+// mixins 编译时不直接携带全局变量样式输出
+
+// Utilities
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin container($name: null, $type: inline-size) {
+  container-type: $type;
+
+  @if $name != null {
+    container-name: $name;
+  }
+}
+
+@mixin container-query($condition, $name: null) {
+  @if $name == null {
+    @container #{$condition} {
+      @content;
+    }
+  } @else {
+    @container #{$name} (#{$condition}) {
+      @content;
+    }
+  }
+}
+
+// BEM
+$namespace: 'yh' !default;
+$prefix: $namespace + '-' !default;
+$state-prefix: 'is-' !default;
+$modifier-separator: '--' !default;
+$element-separator: '__' !default;
+
+// 声明全局变量
+$B: null;
+$E: null;
+
+@function containsSpecial($selector) {
+  $selector: meta.inspect($selector);
+  // 如果选择器包含修饰符、状态前缀或冒号（伪类）
+  @if string.index($selector, $modifier-separator) or
+    string.index($selector, '.' + $state-prefix) or
+    string.index($selector, ':')
+  {
+    @return true;
+  }
+  @return false;
+}
+
+@mixin b($block) {
+  $B: $namespace + '-' + $block !global;
+  .#{$B} {
+    @content;
+  }
+}
+
+@mixin e($element) {
+  $E: $element !global;
+  $selector: &;
+  $currentSelector: '';
+
+  @each $unit in $element {
+    $currentSelector: #{$currentSelector + '.' + $B + $element-separator + $unit};
+    @if $unit != list.nth($element, list.length($element)) {
+      $currentSelector: #{$currentSelector + ','};
+    }
+  }
+
+  @if containsSpecial($selector) {
+    @at-root {
+      #{$selector} {
+        #{$currentSelector} {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @at-root {
+      #{$currentSelector} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin m($modifier) {
+  $selector: &;
+  $currentSelector: '';
+
+  @each $unit in $modifier {
+    $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit};
+    @if $unit != list.nth($modifier, list.length($modifier)) {
+      $currentSelector: #{$currentSelector + ','};
+    }
+  }
+
+  @at-root {
+    #{$currentSelector} {
+      @content;
+    }
+  }
+}
+
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
+
+@mixin is($state, $condition: true) {
+  @if $condition {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(divider) {
+  // --- 组件主题变量 ---
+  --yh-divider-border-color: var(--yh-border-color-lighter, #dcdfe6);
+  --yh-divider-border-width: 1px;
+  --yh-divider-border-style: solid;
+  --yh-divider-margin-horizontal: 24px 0;
+  --yh-divider-margin-vertical: 0 8px;
+  --yh-divider-text-color: var(--yh-text-color-primary, #303133);
+
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+
+  @include m(horizontal) {
+    display: flex;
+    width: 100%;
+    margin: var(--yh-divider-margin-horizontal);
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-top: var(--yh-divider-border-width) var(--yh-divider-border-style)
+        var(--yh-divider-border-color);
+    }
+  }
+
+  @include m(vertical) {
+    display: inline-block;
+    width: 0;
+    min-height: 1em;
+    margin: var(--yh-divider-margin-vertical);
+    vertical-align: middle;
+    position: relative;
+    border-left: var(--yh-divider-border-width) var(--yh-divider-border-style)
+      var(--yh-divider-border-color);
+  }
+
+  // 内容位置
+  @include m(content-left) {
+    &::before {
+      flex: 0 0 5%;
+    }
+  }
+
+  @include m(content-right) {
+    &::after {
+      flex: 0 0 5%;
+    }
+  }
+
+  @include e(text) {
+    padding: 0 16px;
+    font-weight: 500;
+    color: var(--yh-divider-text-color);
+    font-size: 14px;
+    white-space: nowrap;
+  }
+}

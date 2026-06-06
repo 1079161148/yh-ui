@@ -1,0 +1,145 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(tag) {
+  --yh-tag-bg-color: var(--yh-color-primary-light-9);
+  --yh-tag-border-color: var(--yh-color-primary-light-8);
+  --yh-tag-text-color: var(--yh-color-primary);
+  --yh-tag-hover-color: var(--yh-color-primary);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  padding: 0 9px;
+  font-size: var(--yh-font-size-xs);
+  line-height: 1;
+  color: var(--yh-tag-text-color);
+  background-color: var(--yh-tag-bg-color);
+  border: 1px solid var(--yh-tag-border-color);
+  border-radius: var(--yh-radius-sm);
+  box-sizing: border-box;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+
+  /* 尺寸修饰符 */
+  @include m(large) {
+    height: 32px;
+    padding: 0 12px;
+    font-size: var(--yh-font-size-base);
+  }
+
+  @include m(small) {
+    height: 20px;
+    padding: 0 6px;
+    font-size: 12px;
+  }
+
+  /* 类型修饰符 */
+  @include m(success) {
+    --yh-tag-bg-color: var(--yh-color-success-light-9);
+    --yh-tag-border-color: var(--yh-color-success-light-8);
+    --yh-tag-text-color: var(--yh-color-success);
+  }
+
+  @include m(warning) {
+    --yh-tag-bg-color: var(--yh-color-warning-light-9);
+    --yh-tag-border-color: var(--yh-color-warning-light-8);
+    --yh-tag-text-color: var(--yh-color-warning);
+  }
+
+  @include m(danger) {
+    --yh-tag-bg-color: var(--yh-color-danger-light-9);
+    --yh-tag-border-color: var(--yh-color-danger-light-8);
+    --yh-tag-text-color: var(--yh-color-danger);
+  }
+
+  @include m(info) {
+    --yh-tag-bg-color: var(--yh-color-info-light-9);
+    --yh-tag-border-color: var(--yh-color-info-light-8);
+    --yh-tag-text-color: var(--yh-color-info);
+  }
+
+  /* 主题效果 */
+  @include m(dark) {
+    --yh-tag-bg-color: var(--yh-color-primary);
+    --yh-tag-border-color: var(--yh-color-primary);
+    --yh-tag-text-color: #ffffff;
+  }
+
+  @include m(plain) {
+    --yh-tag-bg-color: transparent;
+  }
+
+  /* 可选中标签 */
+  @include when(checkable) {
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &:active {
+      opacity: 0.7;
+    }
+  }
+
+  /* 选中状态 */
+  @include when(checked) {
+    background-color: var(--yh-tag-text-color);
+    border-color: var(--yh-tag-text-color);
+    color: #ffffff;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  /* 圆角标签 */
+  @include when(round) {
+    border-radius: var(--yh-radius-round);
+  }
+
+  /* 可关闭标签 */
+  @include when(closable) {
+    padding-right: 6px;
+  }
+
+  @include e(close) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.15s ease;
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    &:hover {
+      color: #ffffff;
+      background-color: var(--yh-tag-text-color);
+    }
+  }
+
+  @include e(content) {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @include e(icon) {
+    margin-right: 4px;
+    display: inline-flex;
+  }
+
+  @include e(suffix-icon) {
+    margin-left: 4px;
+    display: inline-flex;
+  }
+}

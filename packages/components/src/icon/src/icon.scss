@@ -1,0 +1,49 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(icon) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  font-size: inherit;
+  line-height: 1;
+  color: inherit;
+  fill: currentColor;
+  vertical-align: -0.15em;
+  outline: none;
+
+  @include e(svg) {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+
+  @include e(inner) {
+    width: 1em;
+    height: 1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 1em;
+      height: 1em;
+      fill: currentColor;
+    }
+  }
+
+  @include m(spin) {
+    animation: yh-icon-spin 2s linear infinite;
+  }
+}
+
+@keyframes yh-icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

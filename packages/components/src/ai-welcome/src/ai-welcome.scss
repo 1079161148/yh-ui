@@ -1,0 +1,148 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-welcome) {
+  --yh-ai-welcome-padding: var(--yh-spacing-xl);
+  --yh-ai-welcome-max-width: 800px;
+  --yh-ai-welcome-title-fz: 2.5rem;
+  --yh-ai-welcome-desc-fz: 1.125rem;
+  --yh-ai-welcome-card-bg: var(--yh-bg-color-overlay);
+  --yh-ai-welcome-card-hover-bg: var(--yh-fill-color-light);
+  --yh-ai-welcome-card-border: 1px solid var(--yh-border-color-lighter);
+  --yh-ai-welcome-primary-gradient: linear-gradient(
+    135deg,
+    var(--yh-color-primary) 0%,
+    #a855f7 100%
+  );
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--yh-ai-welcome-padding);
+  max-width: var(--yh-ai-welcome-max-width);
+  margin: 0 auto;
+  animation: yh-fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include e(header) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--yh-spacing-lg);
+    margin-bottom: var(--yh-spacing-xl);
+  }
+
+  @include e(icon-wrapper) {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: var(--yh-ai-welcome-primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+    box-shadow: 0 8px 16px rgba(var(--yh-color-primary-rgb), 0.2);
+    margin-bottom: 8px;
+  }
+
+  @include e(title) {
+    font-size: var(--yh-ai-welcome-title-fz);
+    font-weight: 800;
+    margin: 0;
+    background: var(--yh-ai-welcome-primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  @include e(description) {
+    font-size: var(--yh-ai-welcome-desc-fz);
+    color: var(--yh-text-color-secondary);
+    max-width: 600px;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @include e(body) {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--yh-spacing-md);
+    margin-top: calc(var(--yh-spacing-xl) * 1.5);
+  }
+
+  @include e(card) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: var(--yh-spacing-lg);
+    background-color: var(--yh-ai-welcome-card-bg);
+    border: var(--yh-ai-welcome-card-border);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--yh-ai-welcome-primary-gradient);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 0;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: var(--yh-color-primary);
+      box-shadow: var(--yh-shadow-light);
+
+      @include e(card-icon) {
+        color: var(--yh-color-primary);
+        transform: scale(1.1);
+      }
+    }
+
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  @include e(card-icon) {
+    font-size: 24px;
+    color: var(--yh-text-color-placeholder);
+    margin-bottom: 12px;
+    transition: all 0.3s;
+  }
+
+  @include e(card-title) {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary);
+    margin-bottom: 6px;
+  }
+
+  @include e(card-description) {
+    font-size: 13px;
+    color: var(--yh-text-color-secondary);
+    line-height: 1.5;
+  }
+}
+
+@keyframes yh-fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

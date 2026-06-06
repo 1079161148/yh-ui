@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "emitDeclarationOnly": false,
+    "baseUrl": ".",
+    "rootDir": "../../",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["node", "nuxt"],
+    "paths": {
+      "@yh-ui/hooks": ["../hooks/src"],
+      "@yh-ui/components": ["../components/src"],
+      "@yh-ui/utils": ["../utils/src"],
+      "@yh-ui/locale": ["../locale/src"],
+      "@yh-ui/theme": ["../theme/src"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/__tests__", "**/*.test.ts"]
+}

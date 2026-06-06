@@ -1,0 +1,198 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(submit-bar) {
+  // ─── CSS 变量 ──────────────────────────────────────────────────────────────
+  --yh-submit-bar-bg: var(--yh-bg-color);
+  --yh-submit-bar-border: var(--yh-border-color-lighter);
+  --yh-submit-bar-height: 56px;
+  --yh-submit-bar-price-color: var(--yh-color-danger);
+  --yh-submit-bar-price-size: 22px;
+  --yh-submit-bar-label-color: var(--yh-text-color-regular);
+  --yh-submit-bar-btn-radius: var(--yh-radius-large);
+  --yh-submit-bar-btn-min-width: 108px;
+  --yh-submit-bar-tip-bg: var(--yh-color-warning-light-9);
+  --yh-submit-bar-tip-color: var(--yh-color-warning);
+  --yh-submit-bar-z-index: 200;
+  --yh-submit-bar-shadow: 0 -2px 12px var(--yh-shadow-color);
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--yh-submit-bar-z-index);
+  background: var(--yh-submit-bar-bg);
+  border-top: 1px solid var(--yh-submit-bar-border);
+  box-shadow: var(--yh-submit-bar-shadow);
+
+  @include when(safe-area) {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  @include e(tip) {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    background: var(--yh-submit-bar-tip-bg);
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-submit-bar-tip-color);
+    line-height: 1.4;
+  }
+
+  @include e(inner) {
+    display: flex;
+    align-items: center;
+    height: var(--yh-submit-bar-height);
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  @include e(check) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  @include e(check-input) {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--yh-color-primary);
+    cursor: pointer;
+  }
+
+  @include e(check-label) {
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-text-color-regular);
+    white-space: nowrap;
+  }
+
+  @include e(price-area) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  @include e(selected-count) {
+    font-size: var(--yh-font-size-xs);
+    color: var(--yh-text-color-secondary);
+    margin-bottom: 2px;
+  }
+
+  @include e(price-row) {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  @include e(label) {
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-submit-bar-label-color);
+    white-space: nowrap;
+  }
+
+  @include e(price) {
+    color: var(--yh-submit-bar-price-color);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  @include e(currency) {
+    font-size: var(--yh-font-size-sm);
+  }
+
+  @include e(price-int) {
+    font-size: var(--yh-submit-bar-price-size);
+    line-height: 1;
+  }
+
+  @include e(price-dec) {
+    font-size: var(--yh-font-size-sm);
+  }
+
+  @include e(btn) {
+    flex-shrink: 0;
+    min-width: var(--yh-submit-bar-btn-min-width);
+    height: 40px;
+    border: none;
+    border-radius: var(--yh-submit-bar-btn-radius);
+    font-size: var(--yh-font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition:
+      background var(--yh-transition-base),
+      opacity var(--yh-transition-base);
+
+    @include m(primary) {
+      background: var(--yh-color-primary);
+      color: #fff;
+      &:hover {
+        background: var(--yh-color-primary-dark-2);
+      }
+    }
+
+    @include m(danger) {
+      background: var(--yh-color-danger);
+      color: #fff;
+      &:hover {
+        background: var(--yh-color-danger-dark-2);
+      }
+    }
+
+    @include m(warning) {
+      background: var(--yh-color-warning);
+      color: #fff;
+      &:hover {
+        background: var(--yh-color-warning-dark-2);
+      }
+    }
+
+    @include m(success) {
+      background: var(--yh-color-success);
+      color: #fff;
+      &:hover {
+        background: var(--yh-color-success-dark-2);
+      }
+    }
+
+    @include m(default) {
+      background: var(--yh-fill-color-light);
+      color: var(--yh-text-color-regular);
+      border: 1px solid var(--yh-border-color);
+    }
+
+    @include when(disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(btn-loading) {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
+    animation: yh-submit-bar-spin 0.8s linear infinite;
+  }
+
+  @keyframes yh-submit-bar-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @include e(safe) {
+    height: env(safe-area-inset-bottom, 0);
+  }
+}

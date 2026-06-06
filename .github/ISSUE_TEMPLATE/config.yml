@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Product roadmap
+    url: https://1079161148.github.io/yh-ui/guide/roadmap
+    about: See what YH-UI is prioritizing over the next 30, 60, and 90 days.
+  - name: Starter plan
+    url: https://1079161148.github.io/yh-ui/guide/starter
+    about: Learn which starter kits and flagship scenarios YH-UI is building toward.
+  - name: Support and services
+    url: https://1079161148.github.io/yh-ui/guide/support
+    about: See when to use community support versus design-partner or integration support paths.
+  - name: Security issue
+    url: https://github.com/1079161148/yh-ui/blob/main/SECURITY.md
+    about: Please report security issues through the process described in SECURITY.md.
+  - name: Documentation site
+    url: https://1079161148.github.io/yh-ui/
+    about: Check the documentation before opening an issue.

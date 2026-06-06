@@ -1,0 +1,237 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(category-nav) {
+  // ─── CSS 变量 ──────────────────────────────────────────────────────────────
+  --yh-category-nav-side-width: 84px;
+  --yh-category-nav-side-bg: var(--yh-fill-color-lighter);
+  --yh-category-nav-side-active-bg: var(--yh-bg-color);
+  --yh-category-nav-side-active-color: var(--yh-color-primary);
+  --yh-category-nav-side-active-indicator: 3px solid var(--yh-color-primary);
+  --yh-category-nav-content-bg: var(--yh-bg-color);
+  --yh-category-nav-sub-image-size: 64px;
+  --yh-category-nav-columns: 3;
+  --yh-category-nav-section-title-color: var(--yh-text-color-secondary);
+  --yh-category-nav-sub-active-color: var(--yh-color-primary);
+  --yh-category-nav-height: 100%;
+
+  display: flex;
+  height: var(--yh-category-nav-height);
+  overflow: hidden;
+  background: var(--yh-category-nav-content-bg);
+
+  @include e(side) {
+    position: relative;
+    width: var(--yh-category-nav-side-width);
+    flex-shrink: 0;
+    background: var(--yh-category-nav-side-bg);
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-right: 1px solid var(--yh-border-color-lighter);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @include e(side-item) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 56px;
+    padding: 8px 6px;
+    gap: 4px;
+    border: none;
+    background: transparent;
+    font-size: var(--yh-font-size-xs);
+    color: var(--yh-text-color-regular);
+    cursor: pointer;
+    text-align: center;
+    transition:
+      background var(--yh-transition-base),
+      color var(--yh-transition-base);
+
+    @include when(active) {
+      background: var(--yh-category-nav-side-active-bg);
+      color: var(--yh-category-nav-side-active-color);
+      font-weight: 600;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 20%;
+        height: 60%;
+        width: 3px;
+        border-radius: 0 2px 2px 0;
+        background: var(--yh-category-nav-side-active-color, var(--yh-color-primary));
+      }
+    }
+  }
+
+  @include e(badge) {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+    background: var(--yh-color-danger);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 16px;
+    text-align: center;
+  }
+
+  @include e(side-img) {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: var(--yh-radius-base);
+  }
+
+  @include e(side-icon) {
+    font-size: 22px;
+    color: inherit;
+  }
+
+  @include e(side-name) {
+    font-size: var(--yh-font-size-xs);
+    line-height: 1.3;
+    word-break: break-all;
+  }
+
+  @include e(content) {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--yh-category-nav-content-bg);
+    scrollbar-width: thin;
+    scrollbar-color: var(--yh-border-color-lighter) transparent;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--yh-border-color-lighter);
+      border-radius: 2px;
+    }
+  }
+
+  @include e(section) {
+    padding: 10px 12px 0;
+  }
+
+  @include e(section-title) {
+    padding: 4px 0 8px;
+    font-size: var(--yh-font-size-sm);
+    font-weight: 600;
+    color: var(--yh-category-nav-section-title-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    &::before {
+      content: '';
+      width: 3px;
+      height: 14px;
+      border-radius: 2px;
+      background: var(--yh-category-nav-side-active-color, var(--yh-color-primary));
+    }
+  }
+
+  @include e(sub-grid) {
+    display: grid;
+    grid-template-columns: repeat(var(--yh-category-nav-columns), 1fr);
+    gap: 8px;
+    padding-bottom: 10px;
+  }
+
+  @include e(sub-item) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 4px;
+    border: 1px solid transparent;
+    border-radius: var(--yh-radius-base);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      background var(--yh-transition-base),
+      border-color var(--yh-transition-base);
+
+    &:hover {
+      background: var(--yh-fill-color-light);
+    }
+
+    @include when(active) {
+      border-color: var(--yh-category-nav-sub-active-color);
+      background: var(--yh-color-primary-light-9);
+    }
+  }
+
+  @include e(sub-img) {
+    width: var(--yh-category-nav-sub-image-size);
+    height: var(--yh-category-nav-sub-image-size);
+    object-fit: cover;
+    border-radius: var(--yh-radius-base);
+    background: var(--yh-fill-color-light);
+  }
+
+  @include e(sub-name) {
+    font-size: var(--yh-font-size-xs);
+    color: var(--yh-text-color-regular);
+    text-align: center;
+    line-height: 1.3;
+    word-break: break-all;
+  }
+
+  @include e(sub-count) {
+    font-size: 10px;
+    color: var(--yh-text-color-disabled);
+  }
+
+  @include e(empty) {
+    text-align: center;
+    color: var(--yh-text-color-placeholder);
+    font-size: var(--yh-font-size-sm);
+    padding: 40px 0;
+  }
+
+  // ─── 骨架屏 ───────────────────────────────────────────────────────────────
+  @include e(skeleton) {
+    background: linear-gradient(
+      90deg,
+      var(--yh-fill-color-lighter) 25%,
+      var(--yh-fill-color-light) 50%,
+      var(--yh-fill-color-lighter) 75%
+    );
+    background-size: 200% 100%;
+    animation: yh-category-nav-shimmer 1.5s infinite;
+    border-radius: var(--yh-radius-base);
+    border: none !important; // 移除激活边框
+
+    &.yh-category-nav__side-item {
+      height: 48px;
+      width: calc(100% - 16px);
+      margin: 8px auto;
+    }
+
+    &.yh-category-nav__sub-item {
+      height: 80px;
+      width: 100%;
+    }
+  }
+
+  @keyframes yh-category-nav-shimmer {
+    to {
+      background-position: -200% 0;
+    }
+  }
+}

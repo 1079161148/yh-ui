@@ -1,0 +1,68 @@
+name: Showcase submission
+description: Share a real project built with YH-UI for potential showcase inclusion.
+title: "[Showcase]: "
+labels:
+  - showcase
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing your project.
+
+        Showcase entries help YH-UI learn which product surfaces matter in the real world. Public links are helpful, but screenshots and private context are also fine when sharing is sensitive.
+  - type: input
+    id: project_name
+    attributes:
+      label: Project name
+      placeholder: "Acme Ops Console"
+    validations:
+      required: true
+  - type: dropdown
+    id: scenario
+    attributes:
+      label: Scenario
+      options:
+        - AI workspace
+        - Workflow / automation
+        - Complex admin / operations
+        - Ecommerce operations
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: One-line summary
+      description: What does the product do?
+    validations:
+      required: true
+  - type: textarea
+    id: usage
+    attributes:
+      label: YH-UI modules in use
+      description: Which packages or product surfaces are you using?
+      placeholder: "YhTable, AiChat, Flow, theming, request hooks..."
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What YH-UI helped solve
+      description: What became easier, faster, or more consistent?
+    validations:
+      required: true
+  - type: textarea
+    id: links
+    attributes:
+      label: Links or screenshots
+      description: Public URL, repo, screenshots, or a short walkthrough.
+    validations:
+      required: false
+  - type: checkboxes
+    id: permissions
+    attributes:
+      label: Permission
+      options:
+        - label: You may feature this project publicly in YH-UI docs or showcase materials.
+        - label: You may mention the company or team name publicly.
+        - label: You may contact us for a follow-up case study.

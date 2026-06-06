@@ -1,0 +1,22 @@
+# YH-UI AI Entry
+
+YH-UI is a Vue 3.5+ component system with core components, AI UI, flow editor, request hooks, theme, icons, locale, and Nuxt integration.
+
+Primary AI skill:
+
+- `skills/yh-ui/SKILL.md`
+
+High-value references:
+
+- `skills/yh-ui/references/source-truth.md`: generated package/component/API source truth.
+- `skills/yh-ui/references/agent-workflows.md`: task routing for AI coding agents.
+- `skills/yh-ui/references/vue-component-practices.md`: Vue 3 component-library practices.
+- `skills/yh-ui/references/codegen-rubric.md`: code generation acceptance checklist.
+- `skills/yh-ui/references/component-map.md`: scenario-to-component mapping.
+- `skills/yh-ui/references/api-cheatsheet.md`: generated priority API cheatsheet.
+- `skills/yh-ui/references/recipes-table.md`: YhTable deep recipe.
+- `skills/yh-ui/references/recipes-form-schema.md`: YhFormSchema deep recipe.
+- `skills/yh-ui/references/recipes-ai.md`: YhAi component deep recipe.
+- `skills/yh-ui/references/recipes-flow.md`: Flow deep recipe.
+
+Use `@yh-ui/nuxt` for Nuxt, `@yh-ui/components` for component-only imports, `@yh-ui/yh-ui` for all-in-one Vue install, `@yh-ui/request` for request state, `@yh-ui/flow` for flow editors, and `@yh-ui/ai-sdk` for AI SDK integrations.

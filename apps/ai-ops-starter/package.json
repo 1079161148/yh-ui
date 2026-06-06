@@ -1,0 +1,28 @@
+{
+  "name": "yh-ui-ai-ops-starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 3011",
+    "dev:workspace": "vite --mode workspace --host 127.0.0.1 --port 3012",
+    "build": "vue-tsc --noEmit && vite build",
+    "build:workspace": "vue-tsc --noEmit && vite build --mode workspace",
+    "preview": "vite preview --host 127.0.0.1 --port 4174",
+    "preview:workspace": "vite preview --mode workspace --host 127.0.0.1 --port 4175"
+  },
+  "dependencies": {
+    "@yh-ui/flow": "workspace:*",
+    "@yh-ui/hooks": "workspace:*",
+    "@yh-ui/request": "workspace:*",
+    "@yh-ui/yh-ui": "workspace:*",
+    "vue": "^3.5.27",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vue-tsc": "^2.2.0"
+  }
+}

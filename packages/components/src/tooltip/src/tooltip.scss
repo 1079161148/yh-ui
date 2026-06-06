@@ -1,0 +1,119 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+/* 
+  YH-UI 智能自适应主题引擎
+  逻辑优先级：显式强制设置 > 全局环境感应 (html.dark) > 默认浅色
+*/
+
+@include b(tooltip) {
+  display: inline-block;
+  line-height: var(--yh-line-height-none);
+
+  @include e(popper) {
+    position: absolute;
+    z-index: var(--yh-z-index-tooltip);
+    font-size: var(--yh-font-size-sm);
+    line-height: 1.6;
+    border-radius: var(--yh-radius-md);
+    max-width: 350px;
+    word-wrap: break-word;
+    box-shadow: var(--yh-shadow-lg);
+    pointer-events: none;
+    backdrop-filter: blur(12px) saturate(180%);
+    transition:
+      transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+      opacity 0.2s ease,
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+    overflow: visible;
+
+    /* 默认共享变量：确保 SVG 始终引用同一套变量 */
+    --yh-tooltip-bg: var(--yh-bg-color-overlay);
+    --yh-tooltip-border: var(--yh-border-color-light);
+    --yh-tooltip-text: var(--yh-text-color-primary);
+
+    @include is(interactive) {
+      pointer-events: auto;
+    }
+
+    /* --- 1. 基础亮色样式 --- */
+    background: var(--yh-tooltip-bg);
+    color: var(--yh-tooltip-text);
+    border: 1px solid var(--yh-tooltip-border);
+
+    /* --- 2. 强行设定：暗黑模式 (Explicit) --- */
+    &.is-dark,
+    &.yh-popover__popper--dark {
+      --yh-tooltip-bg: var(--yh-text-color-primary);
+      --yh-tooltip-border: transparent;
+      --yh-tooltip-text: var(--yh-bg-color);
+      background: var(--yh-tooltip-bg);
+      color: var(--yh-tooltip-text);
+      border: 1px solid var(--yh-tooltip-border);
+    }
+
+    /* --- 3. 核心：全局环境感应方案 --- */
+    /* 当 HTML 或 Body 带有 .dark 类名时，强制切换变量 */
+    :root.dark &,
+    html.dark &,
+    body.dark & {
+      --yh-tooltip-bg: var(--yh-bg-color-overlay);
+      --yh-tooltip-border: var(--yh-border-color-light);
+      --yh-tooltip-text: var(--yh-text-color-primary);
+      background: var(--yh-tooltip-bg);
+      color: var(--yh-tooltip-text);
+      border: 1px solid var(--yh-tooltip-border);
+
+      /* 重写阴影，增强对比 */
+      box-shadow: var(--yh-shadow-xl);
+    }
+  }
+
+  /* 内容区域适配 */
+  @include e(content) {
+    padding: 8px 12px;
+    box-sizing: border-box;
+    color: inherit;
+  }
+
+  /* SVG 小三角：通过 fill/stroke 强制同步变量 */
+  @include e(arrow-wrapper) {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    z-index: 5;
+    fill: var(--yh-tooltip-bg) !important;
+    stroke: var(--yh-tooltip-border) !important;
+    pointer-events: none;
+  }
+
+  @include e(arrow) {
+    display: block;
+    fill: inherit !important;
+    stroke: inherit !important;
+    stroke-width: 1px;
+    margin-top: -1px;
+    transform-origin: center;
+  }
+}
+
+/* 动画系统 */
+[data-placement^='top'] .yh-tooltip__arrow {
+  transform: rotate(0deg);
+}
+[data-placement^='bottom'] .yh-tooltip__arrow {
+  transform: rotate(180deg);
+}
+[data-placement^='left'] .yh-tooltip__arrow {
+  transform: rotate(-90deg);
+}
+[data-placement^='right'] .yh-tooltip__arrow {
+  transform: rotate(90deg);
+}
+
+.yh-tooltip-fade-enter-from,
+.yh-tooltip-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.96);
+}

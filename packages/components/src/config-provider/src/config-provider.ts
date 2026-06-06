@@ -1,0 +1,175 @@
+import { defineComponent, provide, renderSlot, watch, computed, ref, h, onMounted } from 'vue'
+import type { PropType, ExtractPropTypes } from 'vue'
+import { useTheme, ThemeManager } from '@yh-ui/theme'
+import type { PresetTheme, ThemeColors } from '@yh-ui/theme'
+import { zhCn } from '@yh-ui/locale'
+import type { Language } from '@yh-ui/locale'
+
+import { configProviderContextKey } from '@yh-ui/hooks'
+import type { ConfigProviderContext } from '@yh-ui/hooks'
+
+export const configProviderProps = {
+  theme: {
+    type: String as PropType<string | PresetTheme>,
+    default: 'default'
+  },
+  locale: {
+    type: Object as PropType<Language>,
+    default: zhCn
+  },
+  size: {
+    type: String as PropType<'small' | 'default' | 'large'>,
+    default: 'default'
+  },
+  zIndex: {
+    type: Number,
+    default: 2000
+  },
+  message: {
+    type: Object as PropType<ConfigProviderContext['message']>,
+    default: () => ({})
+  },
+  global: {
+    type: Boolean,
+    default: true
+  }
+}
+
+export type ConfigProviderProps = ExtractPropTypes<typeof configProviderProps>
+
+export interface ConfigProviderSlots {
+  default?: () => unknown
+}
+
+export default defineComponent({
+  name: 'YhConfigProvider',
+  props: configProviderProps,
+  setup(props, { slots }) {
+    const containerRef = ref<HTMLElement | null>(null)
+    // 标记是否已初始化（mounted）
+    const isMounted = ref(false)
+    // 为非全局模式创建独立的主题管理器实例（延迟创建，等待 mounted 设置 scope）
+    let themeManager: ThemeManager | null = null
+
+    // 有效的预设主题名称
+    const validPresets = ['default', 'dark', 'blue', 'green', 'purple', 'orange']
+
+    // 判断主题是否为有效的预设名称
+    const isValidPreset = (theme: string | PresetTheme): boolean => {
+      return validPresets.includes(theme as string)
+    }
+
+    // 获取或创建主题管理器
+    const getThemeManager = (): ThemeManager => {
+      if (props.global) {
+        return useTheme()
+      }
+      if (!themeManager) {
+        // 延迟创建，不在构造函数中初始化
+        themeManager = new ThemeManager({ preset: 'default' })
+      }
+      return themeManager
+    }
+
+    // 统一处理主题切换（带作用域支持）
+    const applyTheme = (theme: string | PresetTheme, el?: HTMLElement | null) => {
+      if (!theme) return
+
+      const manager = getThemeManager()
+
+      // 如果是非全局模式且提供了容器元素，设置作用域
+      if (!props.global && el) {
+        manager.apply({ scope: el })
+      }
+
+      if (isValidPreset(theme)) {
+        manager.setThemePreset(theme as PresetTheme)
+      } else if (typeof theme === 'string' && theme.startsWith('#')) {
+        manager.setThemeColor(theme)
+      }
+    }
+
+    // 初始化
+    onMounted(() => {
+      isMounted.value = true
+
+      if (!props.global && containerRef.value) {
+        // 非全局模式：初始化主题管理器并设置作用域
+        const manager = getThemeManager()
+        const initialPreset = isValidPreset(props.theme) ? (props.theme as PresetTheme) : 'default'
+
+        // 应用初始配置到容器
+        manager.apply({
+          scope: containerRef.value,
+          preset: initialPreset
+        })
+
+        // 如果主题是自定义颜色值，额外应用
+        if (!isValidPreset(props.theme) && props.theme.startsWith('#')) {
+          manager.setThemeColor(props.theme)
+        }
+      } else if (props.global) {
+        // 全局模式：直接应用主题
+        applyTheme(props.theme)
+      }
+    })
+
+    // 监听主题变化
+    watch(
+      () => props.theme,
+      (newTheme) => {
+        // 只有在 mounted 后才处理变化，避免在服务端渲染或初始化阶段出错
+        if (isMounted.value) {
+          applyTheme(newTheme, containerRef.value)
+        }
+      }
+    )
+
+    const config = computed<ConfigProviderContext>(() => ({
+      size: props.size,
+      zIndex: props.zIndex,
+      locale: props.locale,
+      message: props.message
+    }))
+
+    // 为 SSR 提供主题样式
+    const themeStyles = computed(() => {
+      const manager = getThemeManager()
+
+      // 显式依赖主题管理器状态，确保全局主题切换时包裹层内联变量也会同步刷新，
+      // 避免容器上的旧变量覆盖掉 :root 上已经更新的主题色。
+      const themeState = manager.state
+      void themeState.theme
+      void themeState.dark
+      void themeState.density
+      void themeState.colorBlindMode
+      void themeState.algorithm
+      void themeState.componentThemeVersion
+      void themeState.breakpoint
+      void JSON.stringify(themeState.colors)
+
+      const colors: ThemeColors = {}
+      if (!isValidPreset(props.theme) && props.theme.startsWith('#')) {
+        colors.primary = props.theme
+      }
+      return manager.getThemeStyles(colors)
+    })
+
+    // 注意：提供 computed 本身而不是 .value，确保子组件能响应式获取更新
+    provide(configProviderContextKey, config)
+
+    return () => {
+      // 非全局模式：使用普通 div 容器（不要用 display:contents，否则 CSS 变量无法继承）
+      // 全局模式：可以使用 fragment 风格
+      return h(
+        'div',
+        {
+          ref: containerRef,
+          class: 'yh-config-provider',
+          style: themeStyles.value
+        },
+        [renderSlot(slots, 'default')]
+      )
+    }
+  }
+})

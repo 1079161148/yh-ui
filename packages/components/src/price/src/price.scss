@@ -1,0 +1,151 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(price) {
+  --yh-price-color: var(--yh-color-danger);
+  --yh-price-font-family: var(--yh-font-family);
+  --yh-price-integer-size: 1.25em;
+  --yh-price-symbol-size: 0.75em;
+  --yh-price-decimal-scale: 0.8;
+  --yh-price-tag-bg: var(--yh-color-danger);
+
+  display: inline-flex;
+  align-items: baseline;
+  vertical-align: middle;
+  color: var(--yh-price-color);
+  font-family: var(--yh-price-font-family);
+  line-height: 1;
+  white-space: nowrap;
+  flex-wrap: wrap;
+
+  @include when(bold) {
+    font-weight: var(--yh-font-weight-bold);
+  }
+
+  @include when(gradient) {
+    display: inline-flex;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    transition: all 0.3s ease;
+  }
+
+  @include when(line-through) {
+    color: var(--yh-text-color-placeholder);
+    text-decoration: line-through;
+    font-weight: var(--yh-font-weight-normal);
+    --yh-price-color: var(--yh-text-color-placeholder);
+  }
+
+  @include e(main) {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  @include e(separator) {
+    margin: 0 2px;
+    font-size: 0.8em;
+  }
+
+  @include e(approx) {
+    font-size: 0.8em;
+    margin-right: 2px;
+  }
+
+  @include e(prefix) {
+    font-size: 0.7em;
+    margin-right: 2px;
+    font-weight: var(--yh-font-weight-normal);
+  }
+
+  @include e(symbol) {
+    font-size: var(--yh-price-symbol-size);
+    margin-right: 1px;
+    font-family: sans-serif;
+  }
+
+  @include e(integer) {
+    font-size: var(--yh-price-integer-size);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @include e(decimal) {
+    font-size: calc(100% * var(--yh-price-decimal-scale));
+    font-variant-numeric: tabular-nums;
+  }
+
+  @include e(unit) {
+    font-size: 0.75em;
+    margin-left: 2px;
+    font-weight: var(--yh-font-weight-normal);
+    color: var(--yh-text-color-secondary);
+  }
+
+  @include e(suffix) {
+    font-size: 0.75em;
+    margin-left: 2px;
+    font-weight: var(--yh-font-weight-normal);
+  }
+
+  @include e(tag) {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 4px;
+    font-size: 10px;
+    line-height: 1;
+    border-radius: var(--yh-radius-sm);
+    background-color: var(--yh-price-tag-bg);
+    color: var(--yh-color-white);
+    margin-right: 6px;
+    font-weight: normal;
+    font-style: normal;
+    transform: translateY(-1px);
+
+    @include m(primary) {
+      background-color: var(--yh-color-primary);
+    }
+    @include m(success) {
+      background-color: var(--yh-color-success);
+    }
+    @include m(warning) {
+      background-color: var(--yh-color-warning);
+    }
+    @include m(danger) {
+      background-color: var(--yh-color-danger);
+    }
+    @include m(info) {
+      background-color: var(--yh-color-info);
+    }
+  }
+
+  @include e(delete) {
+    display: inline-flex;
+    align-items: baseline;
+    font-size: 0.7em;
+    color: var(--yh-text-color-placeholder);
+    text-decoration: line-through;
+    margin-left: 8px;
+    font-weight: normal;
+
+    @include e(delete-label) {
+      margin-right: 2px;
+      text-decoration: none;
+      display: inline-block;
+    }
+  }
+
+  /* Standard sizes */
+  @include m(large) {
+    font-size: 24px;
+    --yh-price-integer-size: 1.4em;
+  }
+
+  @include m(default) {
+    font-size: 16px;
+  }
+
+  @include m(small) {
+    font-size: 13px;
+    --yh-price-integer-size: 1.1em;
+  }
+}

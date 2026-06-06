@@ -1,0 +1,63 @@
+{
+  "name": "@yh-ui/nuxt",
+  "version": "1.0.31",
+  "description": "Nuxt module for YH-UI",
+  "type": "module",
+  "main": "./dist/module.cjs",
+  "module": "./dist/module.mjs",
+  "types": "./dist/module.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/module.d.ts",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
+    "postpack": "node ../../scripts/prepare-package-manifest.mjs restore",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.11.0 || ^4.0.0",
+    "@yh-ui/components": "workspace:*",
+    "@yh-ui/hooks": "workspace:*",
+    "@yh-ui/theme": "workspace:*"
+  },
+  "devDependencies": {
+    "@nuxt/schema": "^3.11.0 || ^4.0.0",
+    "nuxt": "^3.11.0 || ^4.0.0-rc.1",
+    "vue": "^3.5.0"
+  },
+  "peerDependencies": {
+    "nuxt": "^3.11.0 || ^4.0.0-rc.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1079161148/yh-ui.git",
+    "directory": "packages/nuxt"
+  },
+  "keywords": [
+    "yh-ui",
+    "nuxt",
+    "module"
+  ],
+  "homepage": "https://1079161148.github.io/yh-ui/",
+  "author": "YH-UI Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
+

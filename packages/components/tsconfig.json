@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "baseUrl": ".",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["node", "vite/client"],
+    "declarationMap": false,
+    "paths": {
+      "@yh-ui/hooks": ["../hooks/src/index.ts"],
+      "@yh-ui/utils": ["../utils/src/index.ts"],
+      "@yh-ui/locale": ["../locale/src/index.ts"],
+      "@yh-ui/theme": ["../theme/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
+  "files": ["src/env.d.ts"],
+  "exclude": ["**/__tests__", "**/*.test.ts", "dist"]
+}

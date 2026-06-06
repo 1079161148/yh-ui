@@ -1,0 +1,455 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(input-tag) {
+  --yh-input-tag-min-height: var(--yh-component-size-default);
+  --yh-input-tag-font-size: var(--yh-font-size-base);
+  --yh-input-tag-bg-color: var(--yh-fill-color-blank);
+  --yh-input-tag-border-color: var(--yh-border-color);
+  --yh-input-tag-text-color: var(--yh-text-color-regular);
+  --yh-input-tag-placeholder-color: var(--yh-text-color-placeholder);
+  --yh-input-tag-hover-border-color: var(--yh-input-tag-focus-border-color);
+  --yh-input-tag-focus-border-color: var(--yh-color-primary);
+  --yh-input-tag-tag-height: 22px;
+  --yh-input-tag-gap: 4px;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--yh-input-tag-min-height);
+  padding: 2px 8px;
+  font-size: var(--yh-input-tag-font-size);
+  background-color: var(--yh-input-tag-bg-color);
+  border: var(--yh-border-width) var(--yh-border-style) var(--yh-input-tag-border-color);
+  border-radius: var(--yh-radius-base);
+  box-sizing: border-box;
+  cursor: text;
+  transition: var(--yh-transition-fast);
+
+  &:hover:not(.is-disabled) {
+    border-color: var(--yh-input-tag-hover-border-color);
+  }
+
+  @include e(prefix) {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--yh-text-color-placeholder);
+    margin-right: 8px;
+  }
+
+  @include e(suffix) {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--yh-text-color-placeholder);
+    margin-left: 8px;
+  }
+
+  @include e(prefix-text) {
+    font-size: inherit;
+    white-space: nowrap;
+  }
+
+  @include e(suffix-text) {
+    font-size: inherit;
+    white-space: nowrap;
+  }
+
+  @include e(wrapper) {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--yh-input-tag-gap);
+    min-width: 0;
+  }
+
+  @include e(tag) {
+    display: inline-flex;
+    align-items: center;
+    height: var(--yh-input-tag-tag-height);
+    padding: 0 6px;
+    font-size: var(--yh-font-size-xs);
+    line-height: 1;
+    border-radius: var(--yh-radius-sm);
+    box-sizing: border-box;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    cursor: default;
+    transition: var(--yh-transition-fast);
+
+    @include when(light) {
+      @include when(primary) {
+        color: var(--yh-color-primary);
+        background-color: var(--yh-color-primary-light-9);
+        border: 1px solid var(--yh-color-primary-light-7);
+      }
+
+      @include when(success) {
+        color: var(--yh-color-success);
+        background-color: var(--yh-color-success-light-9);
+        border: 1px solid var(--yh-color-success-light-7);
+      }
+
+      @include when(warning) {
+        color: var(--yh-color-warning);
+        background-color: var(--yh-color-warning-light-9);
+        border: 1px solid var(--yh-color-warning-light-7);
+      }
+
+      @include when(danger) {
+        color: var(--yh-color-danger);
+        background-color: var(--yh-color-danger-light-9);
+        border: 1px solid var(--yh-color-danger-light-7);
+      }
+
+      @include when(info) {
+        color: var(--yh-color-info);
+        background-color: var(--yh-color-info-light-9);
+        border: 1px solid var(--yh-color-info-light-7);
+      }
+    }
+
+    @include when(dark) {
+      color: #fff;
+
+      @include when(primary) {
+        background-color: var(--yh-color-primary);
+        border: 1px solid var(--yh-color-primary);
+      }
+
+      @include when(success) {
+        background-color: var(--yh-color-success);
+        border: 1px solid var(--yh-color-success);
+      }
+
+      @include when(warning) {
+        background-color: var(--yh-color-warning);
+        border: 1px solid var(--yh-color-warning);
+      }
+
+      @include when(danger) {
+        background-color: var(--yh-color-danger);
+        border: 1px solid var(--yh-color-danger);
+      }
+
+      @include when(info) {
+        background-color: var(--yh-color-info);
+        border: 1px solid var(--yh-color-info);
+      }
+    }
+
+    @include when(plain) {
+      background-color: transparent;
+
+      @include when(primary) {
+        color: var(--yh-color-primary);
+        border: 1px solid var(--yh-color-primary-light-5);
+      }
+
+      @include when(success) {
+        color: var(--yh-color-success);
+        border: 1px solid var(--yh-color-success-light-5);
+      }
+
+      @include when(warning) {
+        color: var(--yh-color-warning);
+        border: 1px solid var(--yh-color-warning-light-5);
+      }
+
+      @include when(danger) {
+        color: var(--yh-color-danger);
+        border: 1px solid var(--yh-color-danger-light-5);
+      }
+
+      @include when(info) {
+        color: var(--yh-color-info);
+        border: 1px solid var(--yh-color-info-light-5);
+      }
+    }
+
+    @include when(dragging) {
+      opacity: 0.5;
+    }
+
+    @include when(drag-over) {
+      transform: translateX(4px);
+    }
+
+    &[draggable='true'] {
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+
+  @include e(tag-content) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @include e(tag-close) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-left: 2px;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: var(--yh-transition-fast);
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    &:hover {
+      background-color: currentColor;
+
+      svg {
+        color: var(--yh-fill-color-blank);
+      }
+    }
+  }
+
+  @include e(collapsed) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--yh-input-tag-tag-height);
+    padding: 0 6px;
+    font-size: var(--yh-font-size-xs);
+    line-height: 1;
+    border-radius: var(--yh-radius-sm);
+    cursor: pointer;
+    transition: var(--yh-transition-fast);
+
+    @include when(light) {
+      @include when(primary) {
+        color: var(--yh-color-primary);
+        background-color: var(--yh-color-primary-light-9);
+        border: 1px solid var(--yh-color-primary-light-7);
+      }
+
+      @include when(success) {
+        color: var(--yh-color-success);
+        background-color: var(--yh-color-success-light-9);
+        border: 1px solid var(--yh-color-success-light-7);
+      }
+
+      @include when(warning) {
+        color: var(--yh-color-warning);
+        background-color: var(--yh-color-warning-light-9);
+        border: 1px solid var(--yh-color-warning-light-7);
+      }
+
+      @include when(danger) {
+        color: var(--yh-color-danger);
+        background-color: var(--yh-color-danger-light-9);
+        border: 1px solid var(--yh-color-danger-light-7);
+      }
+
+      @include when(info) {
+        color: var(--yh-text-color-secondary);
+        background-color: var(--yh-fill-color-light);
+        border: 1px solid var(--yh-border-color-light);
+      }
+    }
+
+    &:hover {
+      background-color: var(--yh-fill-color);
+    }
+  }
+
+  @include e(tooltip) {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 300px;
+    padding: 8px 12px;
+    background-color: var(--yh-bg-color-overlay);
+    border: 1px solid var(--yh-border-color-light);
+    border-radius: var(--yh-radius-base);
+    box-shadow: var(--yh-box-shadow-light);
+    z-index: 2000;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--yh-bg-color-overlay);
+    }
+  }
+
+  @include e(tooltip-tag) {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: var(--yh-font-size-xs);
+    border-radius: var(--yh-radius-sm);
+
+    @include when(light) {
+      @include when(primary) {
+        color: var(--yh-color-primary);
+        background-color: var(--yh-color-primary-light-9);
+      }
+
+      @include when(success) {
+        color: var(--yh-color-success);
+        background-color: var(--yh-color-success-light-9);
+      }
+
+      @include when(warning) {
+        color: var(--yh-color-warning);
+        background-color: var(--yh-color-warning-light-9);
+      }
+
+      @include when(danger) {
+        color: var(--yh-color-danger);
+        background-color: var(--yh-color-danger-light-9);
+      }
+
+      @include when(info) {
+        color: var(--yh-color-info);
+        background-color: var(--yh-color-info-light-9);
+      }
+    }
+  }
+
+  @include e(inner) {
+    flex: 1;
+    min-width: 50px;
+    height: var(--yh-input-tag-tag-height);
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    color: var(--yh-input-tag-text-color);
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+      color: var(--yh-input-tag-placeholder-color);
+    }
+  }
+
+  @include e(clear) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    color: var(--yh-text-color-placeholder);
+    cursor: pointer;
+    transition: var(--yh-transition-fast);
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &:hover {
+      color: var(--yh-text-color-secondary);
+    }
+  }
+
+  @include when(focused) {
+    border-color: var(--yh-input-tag-focus-border-color);
+    box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
+  }
+
+  @include when(disabled) {
+    background-color: var(--yh-fill-color-light);
+    cursor: not-allowed;
+
+    @include e(inner) {
+      cursor: not-allowed;
+    }
+
+    @include e(tag) {
+      opacity: 0.6;
+    }
+  }
+
+  @include m(large) {
+    --yh-input-tag-min-height: var(--yh-component-size-large);
+    --yh-input-tag-font-size: var(--yh-font-size-md);
+    --yh-input-tag-tag-height: 26px;
+    --yh-input-tag-gap: 6px;
+
+    padding: 4px 12px;
+
+    @include e(tag) {
+      padding: 0 8px;
+      font-size: var(--yh-font-size-sm);
+    }
+
+    @include e(collapsed) {
+      padding: 0 8px;
+      font-size: var(--yh-font-size-sm);
+    }
+
+    @include e(tag-close) {
+      width: 16px;
+      height: 16px;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  @include m(small) {
+    --yh-input-tag-min-height: var(--yh-component-size-small);
+    --yh-input-tag-font-size: var(--yh-font-size-xs);
+    --yh-input-tag-tag-height: 18px;
+    --yh-input-tag-gap: 2px;
+
+    padding: 1px 6px;
+
+    @include e(tag) {
+      padding: 0 4px;
+      font-size: 11px;
+    }
+
+    @include e(collapsed) {
+      padding: 0 4px;
+      font-size: 11px;
+    }
+
+    @include e(tag-close) {
+      width: 12px;
+      height: 12px;
+      margin-left: 1px;
+
+      svg {
+        width: 8px;
+        height: 8px;
+      }
+    }
+  }
+}
+
+.yh-fade-enter-active,
+.yh-fade-leave-active {
+  transition: opacity var(--yh-duration-fast) var(--yh-timing-ease-in-out);
+}
+
+.yh-fade-enter-from,
+.yh-fade-leave-to {
+  opacity: 0;
+}

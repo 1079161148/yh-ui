@@ -1,0 +1,368 @@
+/**
+ * utils/src/dom.ts 单元测试
+ */
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import {
+  isClient,
+  isServer,
+  getStyle,
+  setStyle,
+  hasClass,
+  addClass,
+  removeClass,
+  toggleClass,
+  getScrollContainer,
+  isInViewport,
+  getScrollbarWidth
+} from '../src/dom'
+
+describe('utils/dom', () => {
+  // ======================== isClient / isServer ========================
+  describe('isClient / isServer', () => {
+    it('should be true in jsdom environment', () => {
+      expect(isClient).toBe(true)
+      expect(isServer).toBe(false)
+    })
+  })
+
+  // ======================== getStyle ========================
+  describe('getStyle', () => {
+    it('should return style value from element inline style', () => {
+      const el = document.createElement('div')
+      el.style.color = 'red'
+      document.body.appendChild(el)
+      const val = getStyle(el, 'color')
+      expect(val).toBeTruthy()
+      document.body.removeChild(el)
+    })
+
+    it('should return empty string when element is falsy', () => {
+      expect(getStyle(null as unknown as HTMLElement, 'color')).toBe('')
+    })
+
+    it('should return empty string when styleName is falsy', () => {
+      const el = document.createElement('div')
+      expect(getStyle(el, null as unknown as keyof CSSStyleDeclaration)).toBe('')
+    })
+
+    it('should catch error in getStyle and return inline style', () => {
+      const el = document.createElement('div')
+      // do not set inline value for this key, forcing computedStyle path and catch branch
+      const getComputedStyleSpy = vi
+        .spyOn(document.defaultView as Window, 'getComputedStyle')
+        .mockImplementation(() => {
+          throw new Error('mock error')
+        })
+      expect(getStyle(el, 'color')).toBe('')
+      getComputedStyleSpy.mockRestore()
+    })
+
+    it('should read computed style when inline style is empty', () => {
+      const el = document.createElement('div')
+      const fakeComputed = { color: 'rgb(1, 2, 3)' } as unknown as CSSStyleDeclaration
+      const getComputedStyleSpy = vi
+        .spyOn(document.defaultView as Window, 'getComputedStyle')
+        .mockReturnValue(fakeComputed)
+      expect(getStyle(el, 'color')).toBe('rgb(1, 2, 3)')
+      getComputedStyleSpy.mockRestore()
+    })
+
+    it('should return empty string when computed style object is unavailable', () => {
+      const el = document.createElement('div')
+      const originalDefaultView = Object.getOwnPropertyDescriptor(document, 'defaultView')
+      Object.defineProperty(document, 'defaultView', { value: undefined, configurable: true })
+      expect(getStyle(el, 'color')).toBe('')
+      if (originalDefaultView) {
+        Object.defineProperty(document, 'defaultView', originalDefaultView)
+      }
+    })
+  })
+
+  // ======================== setStyle ========================
+  describe('setStyle', () => {
+    let el: HTMLElement
+
+    beforeEach(() => {
+      el = document.createElement('div')
+    })
+
+    it('should set a string style', () => {
+      setStyle(el, 'color', 'blue')
+      expect(el.style.color).toBe('blue')
+    })
+
+    it('should set multiple styles via object', () => {
+      setStyle(el, { color: 'green', fontSize: '16px' })
+      expect(el.style.color).toBe('green')
+      expect(el.style.fontSize).toBe('16px')
+    })
+
+    it('should set empty string when value is undefined', () => {
+      el.style.color = 'red'
+      setStyle(el, 'color', undefined)
+      expect(el.style.color).toBe('')
+    })
+
+    it('should do nothing when element is falsy', () => {
+      expect(() => setStyle(null as unknown as HTMLElement, 'color', 'red')).not.toThrow()
+    })
+  })
+
+  // ======================== hasClass ========================
+  describe('hasClass', () => {
+    let el: HTMLElement
+
+    beforeEach(() => {
+      el = document.createElement('div')
+      el.classList.add('foo', 'bar')
+    })
+
+    it('should return true if class exists', () => {
+      expect(hasClass(el, 'foo')).toBe(true)
+      expect(hasClass(el, 'bar')).toBe(true)
+    })
+
+    it('should return false if class does not exist', () => {
+      expect(hasClass(el, 'baz')).toBe(false)
+    })
+
+    it('should return false when element is falsy', () => {
+      expect(hasClass(null as unknown as HTMLElement, 'foo')).toBe(false)
+    })
+
+    it('should return false when cls is empty', () => {
+      expect(hasClass(el, '')).toBe(false)
+    })
+
+    it('should throw when cls contains space', () => {
+      expect(() => hasClass(el, 'foo bar')).toThrow()
+    })
+  })
+
+  // ======================== addClass ========================
+  describe('addClass', () => {
+    let el: HTMLElement
+
+    beforeEach(() => {
+      el = document.createElement('div')
+    })
+
+    it('should add a single class', () => {
+      addClass(el, 'active')
+      expect(el.classList.contains('active')).toBe(true)
+    })
+
+    it('should add multiple classes (space separated)', () => {
+      addClass(el, 'a b c')
+      expect(el.classList.contains('a')).toBe(true)
+      expect(el.classList.contains('b')).toBe(true)
+      expect(el.classList.contains('c')).toBe(true)
+    })
+
+    it('should do nothing when cls is empty', () => {
+      addClass(el, '')
+      expect(el.className).toBe('')
+    })
+
+    it('should do nothing when element is falsy', () => {
+      expect(() => addClass(null as unknown as HTMLElement, 'foo')).not.toThrow()
+    })
+  })
+
+  // ======================== removeClass ========================
+  describe('removeClass', () => {
+    let el: HTMLElement
+
+    beforeEach(() => {
+      el = document.createElement('div')
+      el.classList.add('a', 'b', 'c')
+    })
+
+    it('should remove a class', () => {
+      removeClass(el, 'a')
+      expect(el.classList.contains('a')).toBe(false)
+      expect(el.classList.contains('b')).toBe(true)
+    })
+
+    it('should remove multiple classes', () => {
+      removeClass(el, 'a b')
+      expect(el.classList.contains('a')).toBe(false)
+      expect(el.classList.contains('b')).toBe(false)
+      expect(el.classList.contains('c')).toBe(true)
+    })
+
+    it('should do nothing when cls is empty', () => {
+      removeClass(el, '')
+      expect(el.classList.contains('a')).toBe(true)
+    })
+  })
+
+  // ======================== toggleClass ========================
+  describe('toggleClass', () => {
+    let el: HTMLElement
+
+    beforeEach(() => {
+      el = document.createElement('div')
+    })
+
+    it('should toggle class on', () => {
+      toggleClass(el, 'active')
+      expect(el.classList.contains('active')).toBe(true)
+    })
+
+    it('should toggle class off', () => {
+      el.classList.add('active')
+      toggleClass(el, 'active')
+      expect(el.classList.contains('active')).toBe(false)
+    })
+
+    it('should force add with force=true', () => {
+      toggleClass(el, 'active', true)
+      toggleClass(el, 'active', true)
+      expect(el.classList.contains('active')).toBe(true)
+    })
+
+    it('should force remove with force=false', () => {
+      el.classList.add('active')
+      toggleClass(el, 'active', false)
+      expect(el.classList.contains('active')).toBe(false)
+    })
+
+    it('should do nothing when element is falsy', () => {
+      expect(() => toggleClass(null as unknown as HTMLElement, 'foo')).not.toThrow()
+    })
+  })
+
+  // ======================== getScrollContainer ========================
+  describe('getScrollContainer', () => {
+    it('should return window for document.body child', () => {
+      const el = document.createElement('div')
+      document.body.appendChild(el)
+      const container = getScrollContainer(el)
+      expect(container).toBe(window)
+      document.body.removeChild(el)
+    })
+
+    it('should return scrollable parent', () => {
+      const parent = document.createElement('div')
+      parent.style.overflow = 'scroll'
+      const child = document.createElement('div')
+      parent.appendChild(child)
+      document.body.appendChild(parent)
+      const container = getScrollContainer(child)
+      expect(container).toBe(parent)
+      document.body.removeChild(parent)
+    })
+
+    it('should detect vertical scroll container with overflowY', () => {
+      const parent = document.createElement('div')
+      parent.style.overflowY = 'auto'
+      const child = document.createElement('div')
+      parent.appendChild(child)
+      document.body.appendChild(parent)
+      const container = getScrollContainer(child, true)
+      expect(container).toBe(parent)
+      document.body.removeChild(parent)
+    })
+
+    it('should return undefined when parent chain ends without document/body hit', () => {
+      const detached = document.createElement('div')
+      expect(getScrollContainer(detached)).toBeUndefined()
+    })
+  })
+
+  // ======================== isInViewport ========================
+  describe('isInViewport', () => {
+    it('should return false when element is falsy', () => {
+      expect(isInViewport(null as unknown as HTMLElement)).toBe(false)
+    })
+
+    it('should return true for element in viewport (mocked getBoundingClientRect)', () => {
+      const el = document.createElement('div')
+      el.getBoundingClientRect = () => ({
+        top: 10,
+        left: 10,
+        bottom: 100,
+        right: 100,
+        width: 90,
+        height: 90,
+        x: 10,
+        y: 10,
+        toJSON: () => {}
+      })
+      document.body.appendChild(el)
+      expect(isInViewport(el)).toBe(true)
+      document.body.removeChild(el)
+    })
+
+    it('should return false for element outside viewport', () => {
+      const el = document.createElement('div')
+      el.getBoundingClientRect = () => ({
+        top: -100,
+        left: -100,
+        bottom: -10,
+        right: -10,
+        width: 90,
+        height: 90,
+        x: -100,
+        y: -100,
+        toJSON: () => {}
+      })
+      document.body.appendChild(el)
+      expect(isInViewport(el)).toBe(false)
+      document.body.removeChild(el)
+    })
+
+    it('should use documentElement width fallback when window.innerWidth is 0', () => {
+      const el = document.createElement('div')
+      el.getBoundingClientRect = () => ({
+        top: 10,
+        left: 10,
+        bottom: 100,
+        right: 100,
+        width: 90,
+        height: 90,
+        x: 10,
+        y: 10,
+        toJSON: () => {}
+      })
+
+      const widthDesc = Object.getOwnPropertyDescriptor(window, 'innerWidth')
+      Object.defineProperty(window, 'innerWidth', { value: 0, configurable: true })
+      document.documentElement.style.width = '200px'
+      Object.defineProperty(document.documentElement, 'clientWidth', { value: 200, configurable: true })
+
+      expect(isInViewport(el)).toBe(true)
+
+      if (widthDesc) Object.defineProperty(window, 'innerWidth', widthDesc)
+    })
+  })
+
+  describe('getScrollbarWidth', () => {
+    it('returns a non-negative width and caches result', () => {
+      const a = getScrollbarWidth()
+      const b = getScrollbarWidth()
+      expect(typeof a).toBe('number')
+      expect(a).toBeGreaterThanOrEqual(0)
+      expect(b).toBe(a)
+    })
+  })
+
+  describe('server-like branches', () => {
+    it('covers !isClient guards by importing module without window', async () => {
+      vi.resetModules()
+      const prevWindow = (globalThis as any).window
+      const prevDocument = (globalThis as any).document
+      vi.stubGlobal('window', undefined as unknown as Window)
+      vi.stubGlobal('document', undefined as unknown as Document)
+
+      const domMod = await import('../src/dom')
+      expect(domMod.getScrollContainer(null as unknown as HTMLElement)).toBeUndefined()
+      expect(domMod.getScrollbarWidth()).toBe(0)
+
+      vi.stubGlobal('window', prevWindow)
+      vi.stubGlobal('document', prevDocument)
+      vi.resetModules()
+    })
+  })
+})

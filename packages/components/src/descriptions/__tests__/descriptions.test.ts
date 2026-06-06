@@ -1,0 +1,237 @@
+import { describe, it, expect } from 'vitest'
+import { mount } from '@vue/test-utils'
+import { YhDescriptions, YhDescriptionsItem } from '../index'
+import { h } from 'vue'
+
+describe('Descriptions', () => {
+  it('should render basic descriptions', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: {
+        title: 'Title',
+        extra: 'Extra'
+      },
+      slots: {
+        default: [
+          h(YhDescriptionsItem, { label: 'Label 1' }, () => 'Content 1'),
+          h(YhDescriptionsItem, { label: 'Label 2' }, () => 'Content 2')
+        ]
+      }
+    })
+
+    expect(wrapper.find('.yh-descriptions__title').text()).toBe('Title')
+    expect(wrapper.find('.yh-descriptions__extra').text()).toBe('Extra')
+    expect(wrapper.findAll('.yh-descriptions__label').length).toBe(2)
+    expect(wrapper.findAll('.yh-descriptions__content').length).toBe(2)
+    expect(wrapper.find('.yh-descriptions__label').text()).toContain('Label 1')
+    expect(wrapper.find('.yh-descriptions__content').text()).toBe('Content 1')
+  })
+
+  it('should support border', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: { border: true }
+    })
+    expect(wrapper.classes()).toContain('is-bordered')
+  })
+
+  it('should support vertical direction', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: { direction: 'vertical' }
+    })
+    expect(wrapper.classes()).toContain('is-vertical')
+  })
+
+  it('should support custom column', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: { column: 4 },
+      slots: {
+        default: [
+          h(YhDescriptionsItem, { label: 'L1' }, () => 'C1'),
+          h(YhDescriptionsItem, { label: 'L2' }, () => 'C2'),
+          h(YhDescriptionsItem, { label: 'L3' }, () => 'C3'),
+          h(YhDescriptionsItem, { label: 'L4' }, () => 'C4')
+        ]
+      }
+    })
+    // Check if they are in the same row
+    expect(wrapper.findAll('tr').length).toBe(1)
+  })
+
+  it('should handle span correctly', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: { column: 3 },
+      slots: {
+        default: [
+          h(YhDescriptionsItem, { label: 'L1', span: 2 }, () => 'C1'),
+          h(YhDescriptionsItem, { label: 'L2' }, () => 'C2')
+        ]
+      }
+    })
+    // Should still be in 1 row
+    expect(wrapper.findAll('tr').length).toBe(1)
+    expect(wrapper.findAll('.yh-descriptions__content')[0].attributes('colspan')).toBe('3') // span 2 * 2 - 1 = 3
+  })
+
+  it('DescriptionsItem should render slot', () => {
+    const wrapper = mount(YhDescriptionsItem, {
+      slots: {
+        default: () => 'Test Content'
+      }
+    })
+    expect(wrapper.text()).toBe('Test Content')
+  })
+
+  it('should support various alignments and styles', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: {
+        labelAlign: 'right',
+        align: 'center',
+        labelStyle: { color: 'red' }
+      },
+      slots: {
+        default: [
+          h(YhDescriptionsItem, { label: 'L1', labelAlign: 'left', align: 'right' }, () => 'C1')
+        ]
+      }
+    })
+    const label = wrapper.find('.yh-descriptions__label')
+    const content = wrapper.find('.yh-descriptions__content')
+    expect((label.element as HTMLElement).style.textAlign).toBe('left')
+    expect((content.element as HTMLElement).style.textAlign).toBe('right')
+    expect((label.element as HTMLElement).style.color).toBe('red')
+  })
+
+  it('should handle span overflow and fill remaining', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: { column: 3 },
+      slots: {
+        default: [
+          h(YhDescriptionsItem, { label: 'L1', span: 2 }, () => 'C1'),
+          h(YhDescriptionsItem, { label: 'L2', span: 2 }, () => 'C2'),
+          h(YhDescriptionsItem, { label: 'L3' }, () => 'C3')
+        ]
+      }
+    })
+    // L1(2) + L2(2) -> L1(2)+fill(1), then L2(2)+L3(1)
+    expect(wrapper.findAll('tr').length).toBe(2)
+  })
+
+  it('should support custom class names', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: {
+        labelClassName: 'custom-label-global',
+        contentClassName: 'custom-content-global'
+      },
+      slots: {
+        default: [
+          h(
+            YhDescriptionsItem,
+            {
+              label: 'L1',
+              labelClassName: 'custom-label-item',
+              className: 'custom-content-item'
+            },
+            () => 'C1'
+          )
+        ]
+      }
+    })
+    expect(wrapper.find('.custom-label-global').exists()).toBe(true)
+    expect(wrapper.find('.custom-content-global').exists()).toBe(true)
+    expect(wrapper.find('.custom-label-item').exists()).toBe(true)
+    expect(wrapper.find('.custom-content-item').exists()).toBe(true)
+  })
+
+  it('should flatten fragment children and ignore non-item nodes', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: { column: 2 },
+      slots: {
+        default: () => [
+          h('div', 'ignored'),
+          [
+            h(YhDescriptionsItem, { label: 'Nested 1' }, () => 'Content 1'),
+            h(YhDescriptionsItem, { label: 'Nested 2' }, () => 'Content 2')
+          ]
+        ]
+      }
+    })
+
+    expect(wrapper.findAll('.yh-descriptions__label')).toHaveLength(2)
+    expect(wrapper.text()).not.toContain('ignored')
+  })
+
+  it('should support slots, width and minWidth mappings', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: {
+        title: 'Fallback title',
+        extra: 'Fallback extra',
+        contentStyle: { backgroundColor: 'rgb(1, 2, 3)' }
+      },
+      slots: {
+        title: () => 'Slot title',
+        extra: () => 'Slot extra',
+        default: [
+          h(
+            YhDescriptionsItem,
+            {
+              width: 120,
+              minWidth: '88px',
+              contentStyle: { color: 'blue' }
+            },
+            {
+              label: () => 'Slot label',
+              default: () => 'Slot content'
+            }
+          )
+        ]
+      }
+    })
+
+    const label = wrapper.find('.yh-descriptions__label')
+    const content = wrapper.find('.yh-descriptions__content')
+
+    expect(wrapper.find('.yh-descriptions__title').text()).toBe('Slot title')
+    expect(wrapper.find('.yh-descriptions__extra').text()).toBe('Slot extra')
+    expect(label.text()).toContain('Slot label')
+    expect(content.text()).toBe('Slot content')
+    expect((label.element as HTMLElement).style.width).toBe('120px')
+    expect((label.element as HTMLElement).style.minWidth).toBe('88px')
+    expect((content.element as HTMLElement).style.backgroundColor).toBe('rgb(1, 2, 3)')
+    expect((content.element as HTMLElement).style.color).toBe('blue')
+  })
+
+  it('should hide colon when bordered and render vertical colspans', () => {
+    const bordered = mount(YhDescriptions, {
+      props: { border: true, colon: true },
+      slots: {
+        default: [h(YhDescriptionsItem, { label: 'No colon' }, () => 'Value')]
+      }
+    })
+    expect(bordered.find('.yh-descriptions__label').text()).not.toContain(':')
+
+    const vertical = mount(YhDescriptions, {
+      props: { direction: 'vertical', column: 3 },
+      slots: {
+        default: [h(YhDescriptionsItem, { label: 'Vertical', span: 2 }, () => 'Value')]
+      }
+    })
+
+    const verticalLabel = vertical.find('.yh-descriptions__label')
+    const verticalContent = vertical.find('.yh-descriptions__content')
+    expect(vertical.findAll('tr')).toHaveLength(2)
+    expect(verticalLabel.attributes('colspan')).toBe('3')
+    expect(verticalContent.attributes('colspan')).toBe('3')
+  })
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhDescriptions, {
+      props: {
+        themeOverrides: {
+          'title-font-size': '18px'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-descriptions').attributes('style')).toContain(
+      '--yh-descriptions-title-font-size: 18px'
+    )
+  })
+})

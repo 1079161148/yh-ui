@@ -1,0 +1,228 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-code-block) {
+  --yh-ai-code-block-bg: #282c34;
+  --yh-ai-code-block-header-bg: #21252b;
+  --yh-ai-code-block-border-color: #181a1f;
+  --yh-ai-code-block-color: #abb2bf;
+  --yh-ai-code-block-lang-color: #828997;
+  --yh-ai-code-block-border-radius: 8px;
+  --yh-ai-code-block-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  margin: 16px 0;
+  border-radius: var(--yh-ai-code-block-border-radius);
+  overflow: hidden;
+  background-color: var(--yh-ai-code-block-bg);
+  color: var(--yh-ai-code-block-color);
+  box-shadow: var(--yh-ai-code-block-shadow);
+  font-family: var(--yh-font-family-mono);
+  font-size: 14px;
+  @include container(ai-code-block);
+
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: var(--yh-ai-code-block-header-bg);
+    border-bottom: 1px solid var(--yh-ai-code-block-border-color);
+    user-select: none;
+  }
+
+  @include when(collapsible) {
+    @include e(header) {
+      cursor: pointer;
+      &:hover {
+        background-color: var(--yh-ai-code-block-border-color);
+      }
+    }
+  }
+
+  @include e(header-left) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @include e(collapse-icon) {
+    font-size: 14px;
+    color: var(--yh-ai-code-block-lang-color);
+    transition: transform 0.3s;
+  }
+
+  @include e(lang) {
+    font-size: 12px;
+    color: var(--yh-ai-code-block-lang-color);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  @include e(actions) {
+    display: flex;
+    align-items: center;
+
+    .yh-button {
+      --yh-button-text-color: #828997;
+      --yh-button-hover-text-color: #c8cdd4;
+      --yh-button-active-text-color: #fff;
+      --yh-button-bg-color: transparent;
+      --yh-button-hover-bg-color: rgba(255, 255, 255, 0.08);
+      --yh-button-active-bg-color: rgba(255, 255, 255, 0.12);
+
+      // Special style for run button
+      .yh-icon-video-play {
+        color: var(--yh-color-primary);
+        margin-right: 4px;
+      }
+    }
+  }
+
+  @include e(body) {
+    display: flex;
+    position: relative;
+    overflow-x: auto;
+    background-color: var(--yh-ai-code-block-bg);
+
+    &::-webkit-scrollbar {
+      height: 8px;
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #4b5263;
+      border-radius: 4px;
+    }
+  }
+
+  @include e(line-numbers) {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    background-color: var(--yh-ai-code-block-header-bg);
+    border-right: 1px solid var(--yh-ai-code-block-border-color);
+    user-select: none;
+    text-align: right;
+    min-width: 40px;
+    flex-shrink: 0;
+  }
+
+  @include e(line-number) {
+    padding: 0 10px;
+    color: #4b5263;
+    font-size: 12px;
+    line-height: 1.6;
+
+    @include when(active) {
+      color: #abb2bf;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  @include e(content) {
+    flex: 1;
+    min-width: 0;
+    padding: 16px 0;
+
+    pre {
+      margin: 0;
+      white-space: pre;
+      word-break: normal;
+      word-wrap: normal;
+      line-height: 1.6;
+    }
+
+    code {
+      display: block;
+      font-family: inherit;
+      color: inherit;
+    }
+
+    .hljs {
+      padding: 0;
+      background: transparent;
+    }
+
+    @include e(line) {
+      padding: 0 16px;
+      min-height: 1.6em;
+
+      &.is-active {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-left: 2px solid var(--yh-color-primary);
+        padding-left: 14px;
+      }
+    }
+  }
+
+  @include e(editor-wrapper) {
+    width: 100%;
+    min-height: 300px;
+    padding: 12px;
+  }
+
+  @include e(editor-actions) {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--yh-ai-code-block-border-color);
+  }
+
+  @include when(editing) {
+    @include e(body) {
+      display: block;
+      background-color: #1e1e1e;
+    }
+
+    @include e(header) {
+      background-color: #2d2d2d;
+    }
+  }
+
+  @include container-query('max-width: 560px', ai-code-block) {
+    @include e(header) {
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    @include e(actions) {
+      width: 100%;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      row-gap: 4px;
+    }
+
+    @include e(line-numbers) {
+      min-width: 32px;
+      padding: 12px 0;
+    }
+
+    @include e(content) {
+      padding: 12px 0;
+
+      @include e(line) {
+        padding: 0 12px;
+
+        &.is-active {
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+
+  @include container-query('max-width: 420px', ai-code-block) {
+    @include e(header) {
+      padding: 8px 12px;
+    }
+
+    @include e(body) {
+      font-size: 13px;
+    }
+
+    @include e(editor-wrapper) {
+      padding: 8px;
+    }
+  }
+}

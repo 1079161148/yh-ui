@@ -1,0 +1,561 @@
+name: Release & Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to release (branch, commit, or tag)'
+        required: true
+        default: 'main'
+      publish_to_npm:
+        description: 'Publish packages to npm'
+        required: true
+        type: boolean
+        default: true
+      deploy_docs:
+        description: 'Deploy docs after publish'
+        required: true
+        type: boolean
+        default: true
+      exhaustive_docs_sandboxes:
+        description: 'Run exhaustive docs sandbox validation instead of the fast release smoke'
+        required: true
+        type: boolean
+        default: false
+
+concurrency:
+  group: release-${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '20'
+  # npm Trusted Publishing (OIDC) requires Node.js 22.x on the publish job.
+  NPM_PUBLISH_NODE_VERSION: '22'
+  PNPM_VERSION: '9'
+  NODE_OPTIONS: '--max-old-space-size=6144'
+
+jobs:
+  validate-quality:
+    name: Release Validation / Quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check code format
+        timeout-minutes: 5
+        run: pnpm format:check
+
+      - name: Type check
+        timeout-minutes: 10
+        run: pnpm typecheck
+
+      - name: Lint
+        timeout-minutes: 10
+        run: pnpm lint
+
+      - name: Verify release versions
+        timeout-minutes: 5
+        run: pnpm verify:release-versions
+
+      - name: Check changelog
+        timeout-minutes: 5
+        run: pnpm changelog:check
+
+  validate-tests:
+    name: Release Validation / Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run test suite
+        timeout-minutes: 20
+        run: pnpm test:ci
+
+  validate-build-artifacts:
+    name: Release Validation / Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        timeout-minutes: 20
+        run: pnpm build
+
+      - name: Check package size
+        timeout-minutes: 5
+        run: pnpm verify:package-size
+
+      - name: Verify packed manifests
+        timeout-minutes: 10
+        run: pnpm verify:packed-manifests
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-packages-release
+          path: |
+            packages/*/dist
+          retention-days: 3
+
+  validate-browser:
+    name: Release Validation / Browser
+    runs-on: ubuntu-latest
+    needs: [validate-build-artifacts]
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        timeout-minutes: 10
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-packages-release
+          path: packages
+
+      - name: Verify component quality
+        timeout-minutes: 5
+        run: pnpm verify:component-quality
+
+      - name: Verify accessibility
+        timeout-minutes: 15
+        run: pnpm verify:a11y
+
+      - name: Run consumer smoke tests
+        timeout-minutes: 10
+        run: pnpm verify:consumer-smoke
+
+      - name: Verify playgrounds
+        timeout-minutes: 15
+        run: pnpm verify:playgrounds
+
+      - name: Run visual regression checks
+        timeout-minutes: 15
+        run: pnpm verify:visual-regression
+
+      - name: Upload browser validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-validation-artifacts
+          if-no-files-found: ignore
+          path: |
+            test-results
+            coverage/component-quality
+          retention-days: 7
+
+  validate-docs:
+    name: Release Validation / Docs & Sandboxes
+    runs-on: ubuntu-latest
+    needs: [validate-build-artifacts]
+    timeout-minutes: 50
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        timeout-minutes: 10
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-packages-release
+          path: packages
+
+      - name: Build documentation
+        timeout-minutes: 20
+        run: pnpm docs:build
+
+      - name: Upload docs site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-site-release
+          path: docs/.vitepress/dist
+          retention-days: 3
+
+      - name: Verify docs i18n
+        timeout-minutes: 5
+        run: pnpm verify:docs-i18n
+
+      - name: Verify local StackBlitz
+        timeout-minutes: 10
+        run: pnpm verify:stackblitz-local
+
+      - name: Verify docs sandboxes (release smoke)
+        if: github.event_name != 'workflow_dispatch' || !inputs.exhaustive_docs_sandboxes
+        timeout-minutes: 12
+        run: pnpm verify:docs-sandboxes
+
+      - name: Verify docs sandboxes (exhaustive)
+        if: github.event_name == 'workflow_dispatch' && inputs.exhaustive_docs_sandboxes
+        timeout-minutes: 60
+        run: pnpm verify:docs-sandboxes:exhaustive
+
+      - name: Verify local CodeSandbox
+        timeout-minutes: 20
+        run: pnpm verify:codesandbox-local
+
+      - name: Verify docs playground
+        timeout-minutes: 10
+        run: pnpm verify:docs-playground
+
+      - name: Upload docs validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-validation-artifacts
+          if-no-files-found: ignore
+          path: |
+            test-results
+            .codex-temp
+          retention-days: 7
+
+  validate-remote-codesandbox:
+    name: Advisory / Remote CodeSandbox
+    runs-on: ubuntu-latest
+    needs: [validate-docs]
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        timeout-minutes: 10
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Verify remote CodeSandbox
+        id: verify_remote_codesandbox
+        timeout-minutes: 20
+        continue-on-error: true
+        run: pnpm verify:codesandbox-remote
+
+      - name: Record remote sandbox advisory failure
+        if: steps.verify_remote_codesandbox.outcome == 'failure'
+        run: |
+          echo "::warning::Remote CodeSandbox validation failed due to external-service behavior. Continuing release with artifacts attached for inspection."
+          {
+            echo "## Remote CodeSandbox"
+            echo
+            echo "Remote CodeSandbox validation failed, but this job is advisory and does not block publish."
+            echo "Inspect the attached remote sandbox artifacts for details if you need to investigate service-side regressions."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload remote sandbox artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: remote-codesandbox-artifacts
+          if-no-files-found: ignore
+          path: .codex-temp
+          retention-days: 7
+
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    needs:
+      - validate-quality
+      - validate-tests
+      - validate-build-artifacts
+      - validate-browser
+      - validate-docs
+    if: github.event_name != 'workflow_dispatch' || inputs.publish_to_npm
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js for npm Trusted Publishing
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NPM_PUBLISH_NODE_VERSION }}
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Upgrade npm for Trusted Publishing
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-packages-release
+          path: packages
+
+      - name: Verify npm publish environment
+        run: |
+          node --version
+          npm --version
+          echo "Trusted Publishing uses GitHub Actions OIDC during npm publish."
+          echo "No npm login state, NPM_TOKEN, or NODE_AUTH_TOKEN precheck is required here."
+          echo "Proceeding to package publish, where npm will exchange the GitHub Actions OIDC token."
+
+      - name: Extract release version
+        id: version
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "VERSION=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          else
+            echo "VERSION=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate GitHub Release notes
+        run: pnpm release-notes:extract -- --output release-notes.md
+
+      - name: Publish packages to npm
+        run: pnpm publish:all
+        env:
+          NPM_REGISTRY_URL: 'https://registry.npmjs.org'
+
+      - name: Wait for published packages to become visible
+        run: pnpm wait:published-packages
+        env:
+          NPM_REGISTRY_URL: 'https://registry.npmjs.org'
+
+      - name: Verify published registry manifests
+        run: pnpm verify:published-release
+        env:
+          NPM_REGISTRY_URL: 'https://registry.npmjs.org'
+
+      - name: Create or update GitHub Release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs')
+            const tag = '${{ steps.version.outputs.VERSION }}'
+            const tagName = `v${tag}`
+            const targetCommitish = '${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.sha }}'
+            const body = fs.readFileSync('release-notes.md', 'utf8')
+
+            try {
+              const existing = await github.rest.repos.getReleaseByTag({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag: tagName
+              })
+
+              await github.rest.repos.updateRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: existing.data.id,
+                tag_name: tagName,
+                name: tagName,
+                body,
+                draft: false,
+                prerelease: tag.includes('-')
+              })
+            } catch (error) {
+              if (error.status !== 404) throw error
+
+              await github.rest.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: tagName,
+                target_commitish: targetCommitish,
+                name: tagName,
+                body,
+                draft: false,
+                prerelease: tag.includes('-')
+              })
+            }
+
+  verify-published-release:
+    name: Verify Published Release
+    runs-on: ubuntu-latest
+    needs: [publish]
+    if: github.event_name != 'workflow_dispatch' || inputs.publish_to_npm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify published package version and CDN availability
+        run: pnpm verify:published-release
+        env:
+          NPM_REGISTRY_URL: 'https://registry.npmjs.org'
+
+  deploy-docs:
+    name: Deploy Documentation
+    runs-on: ubuntu-latest
+    needs:
+      - validate-quality
+      - validate-tests
+      - validate-build-artifacts
+      - validate-browser
+      - validate-docs
+      - publish
+    if: |
+      (github.event_name != 'workflow_dispatch' || inputs.deploy_docs) &&
+      (
+        github.event_name != 'workflow_dispatch' ||
+        inputs.publish_to_npm ||
+        needs.publish.result == 'skipped'
+      )
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download docs site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-site-release
+          path: docs-site-release
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs-site-release
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

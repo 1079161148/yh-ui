@@ -1,0 +1,243 @@
+/**
+ * @vitest-environment happy-dom
+ */
+import { mount } from '@vue/test-utils'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { h, markRaw, nextTick } from 'vue'
+import YhAlert from '../src/alert.vue'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
+
+describe('YhAlert', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    // Mock requestAnimationFrame to advance with setTimeout for testing
+    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => setTimeout(cb, 16))
+    vi.stubGlobal('cancelAnimationFrame', (id: any) => clearTimeout(id))
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+    vi.restoreAllMocks()
+  })
+
+  it('should render correctly with title and description', async () => {
+    const wrapper = mount(YhAlert, {
+      props: {
+        title: 'Test Title',
+        description: 'Test Description'
+      }
+    })
+    const alert = wrapper.find('.yh-alert')
+    expect(alert.exists()).toBe(true)
+    expect(alert.find('.yh-alert__title').text()).toBe('Test Title')
+    expect(alert.find('.yh-alert__description').text()).toBe('Test Description')
+  })
+
+  it('should show correct type and effect class', () => {
+    const types = ['success', 'info', 'warning', 'error'] as const
+    types.forEach((type) => {
+      const wrapper = mount(YhAlert, { props: { type } })
+      expect(wrapper.find('.yh-alert').classes()).toContain(`yh-alert--${type}`)
+    })
+
+    const effects = ['light', 'dark', 'outline', 'glass'] as const
+    effects.forEach((effect) => {
+      const wrapper = mount(YhAlert, { props: { effect } })
+      expect(wrapper.find('.yh-alert').classes()).toContain(`yh-alert--${effect}`)
+    })
+  })
+
+  it('should emit close event when clicked', async () => {
+    const wrapper = mount(YhAlert, {
+      props: { closable: true }
+    })
+    const closeBtn = wrapper.find('.yh-alert__close')
+    await closeBtn.trigger('click')
+    expect(wrapper.emitted('close')).toBeTruthy()
+    // In Vitest, Transition might not remove the element immediately or at all in stub mode
+    // We check the internal 'visible' state or if the class is gone?
+    // Actually v-if="visible" should remove it from DOM.
+    await nextTick()
+    expect(wrapper.find('.yh-alert').exists()).toBe(false)
+  })
+
+  it('should handle auto-close and progress bar', async () => {
+    const wrapper = mount(YhAlert, {
+      props: {
+        duration: 1000,
+        showProgress: true
+      }
+    })
+
+    expect(wrapper.find('.yh-alert__progress-track').exists()).toBe(true)
+
+    // Advance half way
+    vi.advanceTimersByTime(500)
+    await nextTick()
+
+    const vm = wrapper.vm as any
+    expect(vm.progress).toBeLessThan(100)
+    expect(vm.progress).toBeGreaterThan(0)
+
+    // Finish
+    vi.advanceTimersByTime(600)
+    await nextTick()
+    await nextTick() // Two ticks to ensure visibility update propagates
+    expect(wrapper.find('.yh-alert').exists()).toBe(false)
+  })
+
+  it('should pause on hover', async () => {
+    const wrapper = mount(YhAlert, {
+      props: {
+        duration: 2000,
+        showProgress: true,
+        pauseOnHover: true
+      }
+    })
+
+    await nextTick()
+    vi.advanceTimersByTime(100)
+    await nextTick()
+    const progressStart = (wrapper.vm as any).progress
+
+    // Mouse enter
+    await wrapper.find('.yh-alert').trigger('mouseenter')
+
+    // Advance another 500ms
+    vi.advanceTimersByTime(500)
+    await nextTick()
+
+    // Progress should be same (paused)
+    expect((wrapper.vm as any).progress).toBe(progressStart)
+
+    // Mouse leave
+    await wrapper.find('.yh-alert').trigger('mouseleave')
+
+    // Advance 100ms
+    vi.advanceTimersByTime(100)
+    await nextTick()
+
+    // Progress should decrease again
+    expect((wrapper.vm as any).progress).toBeLessThan(progressStart)
+  })
+
+  it('should support scrollable (marquee)', () => {
+    const wrapper = mount(YhAlert, {
+      props: {
+        description: 'Long text...',
+        scrollable: true
+      }
+    })
+    expect(wrapper.find('.yh-alert').classes()).toContain('is-scrollable')
+    // Should have 2 description copies for endless loop
+    expect(wrapper.findAll('.yh-alert__description').length).toBe(2)
+  })
+
+  it('should render custom slots', () => {
+    const wrapper = mount(YhAlert, {
+      slots: {
+        title: '<span class="custom-title">Custom</span>',
+        default: '<span class="custom-desc">Desc</span>',
+        action: '<button class="custom-action">OK</button>'
+      }
+    })
+    expect(wrapper.find('.custom-title').exists()).toBe(true)
+    expect(wrapper.find('.custom-desc').exists()).toBe(true)
+    expect(wrapper.find('.custom-action').exists()).toBe(true)
+  })
+  it('should use config-provider locale text', () => {
+    const wrapper = mount(YhConfigProvider, {
+      props: { locale: en },
+      slots: {
+        default: () => h(YhAlert, { closable: true })
+      }
+    })
+
+    expect(wrapper.find('.yh-alert__close').attributes('aria-label')).toBe('Close')
+  })
+
+  it('should apply theme overrides as inline css vars', () => {
+    const wrapper = mount(YhAlert, {
+      props: {
+        themeOverrides: {
+          padding: '20px'
+        }
+      }
+    })
+
+    expect(wrapper.find('.yh-alert').attributes('style')).toContain('--yh-alert-padding: 20px')
+  })
+
+  it('should render custom close text and custom close icon', () => {
+    const CloseIcon = markRaw({
+      template: '<i class="custom-close-icon" />'
+    })
+
+    const textWrapper = mount(YhAlert, {
+      props: {
+        closable: true,
+        closeText: 'Dismiss'
+      }
+    })
+    expect(textWrapper.find('.yh-alert__close').text()).toContain('Dismiss')
+
+    const iconWrapper = mount(YhAlert, {
+      props: {
+        closable: true,
+        closeIcon: CloseIcon
+      }
+    })
+    expect(iconWrapper.find('.custom-close-icon').exists()).toBe(true)
+  })
+
+  it('should keep counting down when pauseOnHover is disabled', async () => {
+    const wrapper = mount(YhAlert, {
+      props: {
+        duration: 1200,
+        showProgress: true,
+        pauseOnHover: false
+      }
+    })
+
+    vi.advanceTimersByTime(100)
+    await nextTick()
+    const progressBeforeHover = (wrapper.vm as any).progress
+
+    await wrapper.find('.yh-alert').trigger('mouseenter')
+    vi.advanceTimersByTime(300)
+    await nextTick()
+
+    expect((wrapper.vm as any).progress).toBeLessThan(progressBeforeHover)
+  })
+
+  it('covers custom icon, close slot, centered class and no-duration hover branches', async () => {
+    const Icon = markRaw({ template: '<i class="alert-icon" />' })
+    const wrapper = mount(YhAlert, {
+      props: {
+        type: 'error',
+        icon: Icon,
+        showIcon: true,
+        center: true,
+        duration: 0,
+        pauseOnHover: true,
+        closable: true,
+        scrollSpeed: 12
+      },
+      slots: {
+        close: '<button class="close-slot">x</button>'
+      }
+    })
+
+    expect(wrapper.find('.yh-alert').classes()).toContain('is-center')
+    expect(wrapper.find('.alert-icon').exists()).toBe(true)
+    expect(wrapper.find('.close-slot').exists()).toBe(true)
+    expect(wrapper.find('.yh-alert').attributes('style')).toContain('--yh-alert-scroll-speed: 12s')
+
+    await wrapper.find('.yh-alert').trigger('mouseenter')
+    await wrapper.find('.yh-alert').trigger('mouseleave')
+    vi.advanceTimersByTime(1000)
+    await nextTick()
+    expect(wrapper.find('.yh-alert').exists()).toBe(true)
+  })
+})

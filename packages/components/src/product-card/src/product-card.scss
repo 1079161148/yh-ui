@@ -1,0 +1,419 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(product-card) {
+  --yh-product-card-bg: var(--yh-bg-color-overlay);
+  --yh-product-card-radius: var(--yh-radius-base);
+  --yh-product-card-title-size: 15px;
+  --yh-product-card-price-color: var(--yh-color-danger);
+  --yh-product-card-vip-color: #f7d081;
+  --yh-product-card-btn-bg: var(--yh-color-primary);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--yh-product-card-bg);
+  border-radius: var(--yh-product-card-radius);
+  overflow: hidden;
+  transition: all var(--yh-transition-base);
+  cursor: pointer;
+
+  @include when(border) {
+    border: 1px solid var(--yh-border-color-lighter);
+  }
+
+  @include when(shadow) {
+    &:hover {
+      box-shadow: var(--yh-shadow-base);
+      transform: translateY(-5px);
+    }
+  }
+
+  @include when(sold-out) {
+    cursor: not-allowed;
+    @include e(image) {
+      filter: grayscale(0.8);
+      opacity: 0.8;
+    }
+    // 修复：SASS 不支持 @include 逗号分隔
+    @include e(title) {
+      opacity: 0.6;
+    }
+    @include e(price-row) {
+      opacity: 0.6;
+    }
+  }
+
+  // 1. Ribbon System (Feature 1)
+  @include e(ribbon) {
+    position: absolute;
+    top: 12px;
+    right: -28px;
+    z-index: 10;
+    width: 100px;
+    padding: 2px 0;
+    background-color: var(--yh-color-danger);
+    color: #fff;
+    font-size: 11px;
+    text-align: center;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    pointer-events: none;
+  }
+
+  // 2. Image & Media (Feature 3)
+  @include e(image-wrapper) {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: var(--yh-fill-color-light);
+
+    @include e(image) {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--yh-transition-slow);
+    }
+
+    &:hover {
+      @include e(image) {
+        transform: scale(1.08);
+      }
+    }
+  }
+
+  @include e(video-overlay) {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include e(video) {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  @include e(sold-out-mask) {
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include e(sold-out-text) {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      border: 2px solid #fff;
+      padding: 4px 12px;
+      border-radius: 4px;
+      letter-spacing: 2px;
+    }
+  }
+
+  // 3. Content Area
+  @include e(content) {
+    flex: 1;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @include e(badges) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+
+    @include when(inline) {
+      display: inline-flex;
+      vertical-align: middle;
+      margin-right: 8px;
+      margin-bottom: 0;
+    }
+  }
+
+  @include e(badge-img-wrap) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    vertical-align: middle;
+    overflow: hidden;
+  }
+
+  @include e(badge-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  @include e(badge-tag) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    font-size: 10px;
+    padding: 0 6px;
+    border-radius: 2px;
+    white-space: nowrap;
+    font-weight: 500;
+
+    @include when(primary) {
+      background: var(--yh-color-primary-light-9);
+      color: var(--yh-color-primary);
+    }
+    @include when(danger) {
+      background: var(--yh-color-danger-light-9);
+      color: var(--yh-color-danger);
+    }
+    @include when(success) {
+      background: var(--yh-color-success-light-9);
+      color: var(--yh-color-success);
+    }
+    @include when(warning) {
+      background: var(--yh-color-warning-light-9);
+      color: var(--yh-color-warning);
+    }
+    @include when(info) {
+      background: var(--yh-color-info-light-9);
+      color: var(--yh-color-info);
+    }
+  }
+
+  @include e(title) {
+    margin: 0;
+    font-size: var(--yh-product-card-title-size);
+    color: var(--yh-text-color-primary);
+    line-height: 1.4;
+    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--yh-product-card-title-lines, 2);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @include e(description) {
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: var(--yh-product-card-desc-lines, 1);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // 4. Price System (Feature 2)
+  @include e(price-row) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 4px;
+  }
+
+  @include e(main-price) {
+    color: var(--yh-product-card-price-color);
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+
+    @include e(currency) {
+      font-size: 12px;
+      font-weight: bold;
+    }
+    @include e(price-val) {
+      font-size: 20px;
+      font-weight: bold;
+      font-family: 'Din', sans-serif;
+    }
+    @include e(unit) {
+      font-size: 11px;
+      color: var(--yh-text-color-placeholder);
+      margin-left: 2px;
+    }
+  }
+
+  @include e(vip-row) {
+    display: inline-flex;
+    align-items: center;
+    background: #1a1a1a;
+    color: var(--yh-product-card-vip-color);
+    padding: 0 6px;
+    border-radius: 2px;
+    font-size: 10px;
+    width: fit-content;
+
+    @include e(vip-label) {
+      font-weight: bold;
+      margin-right: 4px;
+    }
+    @include e(vip-price) {
+      font-weight: bold;
+      font-family: 'Din';
+    }
+  }
+
+  @include e(market-price) {
+    font-size: 11px;
+    color: var(--yh-text-color-placeholder);
+    text-decoration: line-through;
+  }
+
+  // 5. Stock Area
+  @include e(stock-area) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+
+    @include e(stock-bar-bg) {
+      flex: 1;
+      height: 6px;
+      background: var(--yh-fill-color-darker);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    @include e(stock-bar-inner) {
+      height: 100%;
+      border-radius: 10px;
+      transition: width var(--yh-transition-slow) ease-in-out;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+    }
+
+    @include e(stock-text) {
+      font-size: 10px;
+      color: var(--yh-text-color-secondary);
+      flex-shrink: 0;
+    }
+  }
+
+  // 6. Action Button (Feature 4)
+  @include e(footer) {
+    margin-top: 8px;
+  }
+
+  @include e(action-btn) {
+    width: 100%;
+    height: 36px;
+    border: none;
+    background-color: var(--yh-product-card-btn-bg);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: filter var(--yh-transition-fast);
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+    &:active {
+      filter: brightness(0.9);
+    }
+
+    @include when(disabled) {
+      background: var(--yh-fill-color-dark) !important;
+      cursor: not-allowed;
+      filter: none;
+    }
+
+    @include when(loading) {
+      cursor: wait;
+      opacity: 0.8;
+    }
+  }
+
+  @include e(loading-spinner) {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: yh-rotate 0.8s linear infinite;
+  }
+
+  /* --- 布局适配 --- */
+  @include m(horizontal) {
+    flex-direction: row;
+    height: 160px;
+
+    @include e(image-wrapper) {
+      width: 160px;
+      height: 100%;
+    }
+
+    @include e(content) {
+      padding: 12px 16px;
+      justify-content: space-between;
+    }
+
+    @include e(action-btn) {
+      width: auto;
+      padding: 0 24px;
+      align-self: flex-end;
+    }
+  }
+
+  @include m(compact) {
+    @include e(content) {
+      padding: 8px;
+      gap: 4px;
+    }
+    @include e(title) {
+      font-size: 13px;
+      -webkit-line-clamp: 1;
+    }
+    @include e(description) {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+    @include e(price-val) {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    @include e(footer) {
+      margin-top: 4px;
+    }
+    @include e(action-btn) {
+      height: 26px;
+      font-size: 12px;
+    }
+  }
+}
+
+@keyframes yh-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes yh-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

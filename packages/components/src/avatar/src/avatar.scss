@@ -1,0 +1,65 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(avatar) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  vertical-align: middle;
+  background-color: var(--yh-avatar-bg-color, var(--yh-color-primary-light-8, #d9ecff));
+  color: var(--yh-avatar-text-color, var(--yh-color-primary, #409eff));
+  user-select: none;
+  font-weight: 600;
+  transition: box-shadow 0.2s ease;
+
+  // 圆形
+  @include m(circle) {
+    border-radius: 50%;
+  }
+
+  // 方形（圆角）
+  @include m(square) {
+    border-radius: var(--yh-avatar-radius, var(--yh-border-radius-base, 4px));
+  }
+
+  // 预设尺寸
+  @include m(large) {
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+    line-height: 56px;
+  }
+
+  @include m(default) {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+  }
+
+  @include m(small) {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    line-height: 28px;
+  }
+
+  @include e(img) {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  @include e(icon) {
+    font-size: inherit;
+    color: inherit;
+  }
+
+  @include e(text) {
+    font-size: inherit;
+    color: inherit;
+    white-space: nowrap;
+  }
+}

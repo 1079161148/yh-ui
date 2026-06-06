@@ -1,0 +1,61 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-code-runner) {
+  /* 组件级 CSS 变量，便于 themeOverrides 覆盖，保持与现有 AI 组件一致 */
+  --yh-ai-code-runner-bg: #1e1e1e;
+  --yh-ai-code-runner-toolbar-bg: #2d2d2d;
+  --yh-ai-code-runner-text: #d4d4d4;
+  --yh-ai-code-runner-placeholder: #6a6a6a;
+  --yh-ai-code-runner-error: var(--yh-color-danger);
+
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--yh-border-color);
+  border-radius: var(--yh-radius-md);
+  overflow: hidden;
+  background: var(--yh-ai-code-runner-bg);
+
+  @include e(toolbar) {
+    display: flex;
+    gap: var(--yh-spacing-sm);
+    padding: var(--yh-spacing-sm) var(--yh-spacing-md);
+    background: var(--yh-ai-code-runner-toolbar-bg);
+    border-bottom: 1px solid var(--yh-border-color);
+  }
+
+  @include e(terminal) {
+    flex: 1;
+    min-height: 0;
+    padding: var(--yh-spacing-md);
+    overflow-y: auto;
+    font-family: var(--yh-font-family-monospace, 'Fira Code', 'Consolas', monospace);
+    font-size: var(--yh-font-size-sm);
+    line-height: var(--yh-line-height-relaxed);
+    color: var(--yh-ai-code-runner-text);
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--yh-scrollbar-thumb-color);
+      border-radius: 3px;
+    }
+  }
+
+  @include e(placeholder) {
+    color: var(--yh-ai-code-runner-placeholder);
+    font-style: italic;
+  }
+
+  @include e(line) {
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin-bottom: 2px;
+
+    &.yh-ai-code-runner--error {
+      color: var(--yh-ai-code-runner-error);
+    }
+  }
+}

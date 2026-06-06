@@ -1,0 +1,88 @@
+# Logs
+logs
+*.log
+.eslintcache
+*.eslintcache
+npm-debug.log*
+pnpm-debug.log*
+apps/*/*.log
+
+# Dependencies
+node_modules
+.pnpm-store
+apps/*/node_modules
+
+# Build outputs
+dist
+dist-workspace
+*.local
+.output
+.cache
+.nuxt
+.nitro
+stats.html
+apps/*/dist
+apps/*/dist-workspace
+
+# Symlinks / Junctions (auto-created by postinstall)
+packages/theme/styles
+
+# Editor directories
+.idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+*.lcov
+test-results/
+.vitest-reports/
+
+# Type declarations (generated)
+*.tsbuildinfo
+packages/*/src/**/*.d.ts
+packages/*/src/**/*.d.ts.map
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# VitePress cache
+docs/.vitepress/cache
+docs/.vitepress/dist
+
+# Docs generated public runtime assets
+docs/public/components
+docs/public/hooks
+docs/public/icons
+docs/public/locale
+docs/public/theme
+docs/public/utils
+docs/public/yh-ui
+docs/public/playground
+docs/public/codesandbox-runtime
+
+# Temporary files
+*.tmp
+*.temp
+.pack-check/
+.codex-temp/
+packages/*/*.tgz
+apps/*/*.png
+
+# Internal Tool Directories
+.agent/
+.kiro/
+.claude/
+package-lock.json

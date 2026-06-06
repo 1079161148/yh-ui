@@ -1,0 +1,119 @@
+import type { ExtractPropTypes, PropType, SlotsType } from 'vue'
+import type { AiConversation } from '@yh-ui/hooks'
+
+export const aiConversationsProps = {
+  /**
+   * @description Data list for the conversation sidebar
+   */
+  data: {
+    type: Array as PropType<AiConversation[]>,
+    default: () => []
+  },
+  /**
+   * @description Currently selected conversation ID
+   */
+  activeId: {
+    type: String,
+    default: ''
+  },
+  /**
+   * @description Show loading state
+   */
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description Theme overrides for the component
+   */
+  themeOverrides: {
+    type: Object as PropType<import('@yh-ui/theme').AiConversationsThemeVars>,
+    default: undefined
+  },
+  /**
+   * @description 是否按时间分组显示对话
+   */
+  grouped: {
+    type: Boolean,
+    default: true
+  },
+  // ========== 虚拟滚动相关属性 ==========
+
+  /**
+   * @description 是否启用虚拟滚动
+   */
+  virtualScroll: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 虚拟滚动容器高度
+   */
+  virtualScrollHeight: {
+    type: Number,
+    default: 400
+  },
+  /**
+   * @description 虚拟滚动每项高度
+   */
+  virtualScrollItemHeight: {
+    type: Number,
+    default: 72
+  },
+  /**
+   * @description 虚拟滚动 overscan 数量
+   */
+  virtualScrollOverscan: {
+    type: Number,
+    default: 3
+  }
+}
+
+export type AiConversationsProps = ExtractPropTypes<typeof aiConversationsProps>
+
+export const aiConversationsEmits = {
+  /**
+   * @description Emit when active item changes
+   */
+  'update:activeId': (id: string) => typeof id === 'string',
+  /**
+   * @description User clicks the "Create New" or "Plus" button
+   */
+  create: () => true,
+  /**
+   * @description User deletes a conversation item
+   */
+  delete: (conversation: AiConversation) => typeof conversation === 'object',
+  /**
+   * @description User edits a conversation title
+   */
+  edit: (conversation: AiConversation, newTitle: string) =>
+    typeof conversation === 'object' && typeof newTitle === 'string',
+  /**
+   * @description User clicks an item
+   */
+  click: (conversation: AiConversation) => typeof conversation === 'object',
+  /**
+   * @description User pins/unpins a conversation
+   */
+  pin: (conversation: AiConversation, pinned: boolean) =>
+    typeof conversation === 'object' && typeof pinned === 'boolean'
+}
+
+export type AiConversationsEmits = typeof aiConversationsEmits
+
+export interface AiConversationsSlots {
+  'add-icon'?: () => unknown
+  'add-text'?: () => unknown
+  'group-label'?: (props: { label: string }) => unknown
+  'edit-icon'?: () => unknown
+  'delete-icon'?: () => unknown
+  empty?: () => unknown
+}
+
+export type AiConversationsSlotTypes = SlotsType<AiConversationsSlots>
+
+export interface AiConversationsExpose {
+  scrollToItem: (id: string) => void
+  scrollToIndex: (index: number) => void
+}

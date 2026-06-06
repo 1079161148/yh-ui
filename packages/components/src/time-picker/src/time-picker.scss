@@ -1,0 +1,319 @@
+@use 'sass:map';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+:root {
+  --yh-time-picker-width: 220px;
+  --yh-time-picker-range-width: 360px;
+  --yh-time-picker-active-color: var(--yh-color-primary);
+  --yh-time-picker-active-bg: var(--yh-color-primary-light-9);
+  --yh-time-picker-hover-bg: var(--yh-fill-color-light);
+  --yh-time-picker-panel-bg: var(--yh-bg-color);
+  --yh-time-picker-border-radius: var(--yh-radius-md);
+}
+
+@include b(time-picker) {
+  position: relative;
+  display: inline-flex;
+  width: var(--yh-time-picker-width);
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+
+  // Sizes
+  @include m(large) {
+    width: 240px;
+    font-size: 16px;
+
+    @include e(wrapper) {
+      padding: 10px 12px;
+    }
+
+    @include e((inner, range-input)) {
+      font-size: 16px;
+    }
+  }
+
+  @include m(small) {
+    width: 180px;
+    font-size: 12px;
+
+    @include e(wrapper) {
+      padding: 4px 8px;
+    }
+
+    @include e((inner, range-input)) {
+      font-size: 12px;
+    }
+  }
+
+  // Range mode
+  @include is(range) {
+    width: var(--yh-time-picker-range-width);
+
+    @include e(wrapper) {
+      justify-content: space-between;
+    }
+  }
+
+  // Disabled state
+  @include is(disabled) {
+    cursor: not-allowed;
+
+    @include e(wrapper) {
+      background-color: var(--yh-fill-color-light);
+      border-color: var(--yh-border-color-light);
+    }
+
+    @include e((inner, range-input)) {
+      color: var(--yh-text-color-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  // Focused state
+  @include is(focused) {
+    @include e(wrapper) {
+      border-color: var(--yh-color-primary);
+      box-shadow: 0 0 0 2px rgba(var(--yh-color-primary-rgb), 0.15);
+    }
+  }
+
+  // Wrapper
+  @include e(wrapper) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 6px 10px;
+    background-color: var(--yh-bg-color);
+    border: 1px solid var(--yh-border-color);
+    border-radius: var(--yh-border-radius-base);
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: var(--yh-border-color-hover);
+    }
+  }
+
+  // Prefix
+  @include e(prefix) {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    color: var(--yh-text-color-placeholder);
+  }
+
+  // Input
+  @include e(inner) {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    font-family: inherit;
+    color: var(--yh-text-color-regular);
+    background: transparent;
+    border: none;
+    outline: none;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+
+    &::placeholder {
+      color: var(--yh-text-color-placeholder);
+    }
+  }
+
+  // Range inputs
+  @include e(range-input) {
+    flex: 1;
+    width: 0;
+    min-width: 60px;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    font-family: inherit;
+    text-align: center;
+    color: var(--yh-text-color-regular);
+    background: transparent;
+    border: none;
+    outline: none;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+
+    &::placeholder {
+      color: var(--yh-text-color-placeholder);
+    }
+  }
+
+  @include e(range-separator) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 8px;
+    color: var(--yh-text-color-secondary);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  // Suffix
+  @include e(suffix) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-left: 8px;
+    width: 40px;
+    flex-shrink: 0;
+  }
+
+  // Icons
+  @include e(icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+    color: var(--yh-text-color-placeholder);
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+
+  @include e(clear) {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--yh-text-color-regular);
+    }
+  }
+
+  @include e(arrow) {
+    transition: transform 0.2s;
+
+    @include is(reverse) {
+      transform: rotate(180deg);
+    }
+  }
+
+  // Panel
+  @include e(panel) {
+    position: absolute;
+    z-index: var(--yh-z-index-popup);
+    min-width: 200px;
+    padding: 8px 0;
+    background-color: var(--yh-bg-color);
+    border-radius: var(--yh-border-radius-base);
+    box-shadow: var(--yh-box-shadow-light);
+    border: 1px solid var(--yh-border-color-light);
+
+    // Animation classes for Vue Transition
+    &-enter-active,
+    &-leave-active {
+      transition:
+        opacity 0.2s,
+        transform 0.2s;
+    }
+
+    &-enter-from,
+    &-leave-to {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  // Range panel
+  @include e(range-panel) {
+    display: flex;
+    align-items: flex-start;
+    padding: 0 8px;
+  }
+
+  @include e(range-panel-item) {
+    flex: 1;
+  }
+
+  @include e(range-panel-title) {
+    padding: 8px 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--yh-text-color-secondary);
+    text-align: center;
+  }
+
+  @include e(range-panel-separator) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 16px 0;
+    color: var(--yh-text-color-placeholder);
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  // Footer
+  @include e(footer) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-top: 1px solid var(--yh-border-color-lighter);
+    margin-top: 8px;
+  }
+
+  @include e(footer-actions) {
+    display: flex;
+    gap: 8px;
+  }
+
+  @include e(footer-btn) {
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--yh-text-color-regular);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--yh-border-radius-base);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      color: var(--yh-color-primary);
+    }
+
+    @include m(cancel) {
+      border-color: var(--yh-border-color);
+      background-color: var(--yh-bg-color);
+
+      &:hover {
+        border-color: var(--yh-color-primary);
+        color: var(--yh-color-primary);
+      }
+    }
+
+    @include m(confirm) {
+      color: var(--yh-color-white) !important;
+      font-weight: 600;
+      background-color: var(--yh-color-primary);
+      border-color: var(--yh-color-primary);
+      box-shadow: var(--yh-shadow-sm);
+
+      &:hover {
+        background-color: var(--yh-color-primary-light-3) !important;
+        border-color: var(--yh-color-primary-light-3) !important;
+        color: var(--yh-color-white) !important;
+        box-shadow: var(--yh-shadow-md);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        background-color: var(--yh-color-primary-dark-2) !important;
+        border-color: var(--yh-color-primary-dark-2) !important;
+        transform: translateY(0);
+      }
+    }
+  }
+}

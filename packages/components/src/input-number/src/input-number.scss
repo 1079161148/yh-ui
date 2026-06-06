@@ -1,0 +1,389 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(input-number) {
+  --yh-input-number-width: 150px;
+  --yh-input-number-height: var(--yh-component-size-default);
+  --yh-input-number-font-size: var(--yh-font-size-base);
+  --yh-input-number-bg-color: var(--yh-fill-color-blank);
+  --yh-input-number-border-color: var(--yh-border-color);
+  --yh-input-number-text-color: var(--yh-text-color-regular);
+  --yh-input-number-placeholder-color: var(--yh-text-color-placeholder);
+  --yh-input-number-hover-border-color: var(--yh-input-number-focus-border-color);
+  --yh-input-number-focus-border-color: var(--yh-color-primary);
+  --yh-input-number-btn-bg-color: transparent;
+  --yh-input-number-btn-hover-bg-color: var(--yh-fill-color-light);
+  --yh-input-number-btn-color: var(--yh-text-color-secondary);
+  --yh-input-number-btn-hover-color: var(--yh-color-primary);
+  --yh-input-number-border-radius: var(--yh-radius-base);
+
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  width: var(--yh-input-number-width);
+  height: var(--yh-input-number-height);
+  background-color: var(--yh-input-number-bg-color);
+  border: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
+  border-radius: var(--yh-input-number-border-radius);
+  transition: var(--yh-transition-fast);
+  box-sizing: border-box;
+
+  &:hover:not(.is-disabled) {
+    border-color: var(--yh-input-number-hover-border-color);
+  }
+
+  @include when(focused) {
+    &:not(.is-disabled) {
+      border-color: var(--yh-input-number-focus-border-color);
+      box-shadow: 0 0 0 2px var(--yh-color-primary-light-8);
+    }
+  }
+
+  @include e(wrapper) {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    height: 100%;
+  }
+
+  @include e(inner) {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0 8px;
+    font-size: var(--yh-input-number-font-size);
+    font-family: inherit;
+    color: var(--yh-input-number-text-color);
+    text-align: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    appearance: none;
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &::placeholder {
+      color: var(--yh-input-number-placeholder-color);
+    }
+  }
+
+  @include e(prefix) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 100%;
+    color: var(--yh-text-color-secondary);
+    font-size: var(--yh-input-number-font-size);
+    padding-left: 8px;
+  }
+
+  @include e(suffix) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 100%;
+    color: var(--yh-text-color-secondary);
+    font-size: var(--yh-input-number-font-size);
+    padding-right: 8px;
+  }
+
+  @include e(prefix-text) {
+    font-size: inherit;
+    white-space: nowrap;
+    color: var(--yh-text-color-secondary);
+  }
+
+  @include e(suffix-text) {
+    font-size: inherit;
+    white-space: nowrap;
+    color: var(--yh-text-color-secondary);
+  }
+
+  @include e(clear) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    color: var(--yh-text-color-placeholder);
+    cursor: pointer;
+    transition: var(--yh-transition-fast);
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &:hover {
+      color: var(--yh-text-color-secondary);
+    }
+  }
+
+  @include e(decrease) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 100%;
+    color: var(--yh-input-number-btn-color);
+    background-color: var(--yh-input-number-btn-bg-color);
+    cursor: pointer;
+    user-select: none;
+    transition: var(--yh-transition-fast);
+    border-right: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
+    border-radius: calc(var(--yh-input-number-border-radius) - 1px) 0 0
+      calc(var(--yh-input-number-border-radius) - 1px);
+
+    svg {
+      width: 14px;
+      height: 14px;
+      transition: var(--yh-transition-fast);
+    }
+
+    &:hover:not(.is-disabled) {
+      color: var(--yh-input-number-btn-hover-color);
+      background-color: var(--yh-input-number-btn-hover-bg-color);
+
+      svg {
+        transform: scale(1.1);
+      }
+    }
+
+    &:active:not(.is-disabled) {
+      svg {
+        transform: scale(0.95);
+      }
+    }
+
+    @include when(disabled) {
+      color: var(--yh-text-color-disabled);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  @include e(increase) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 100%;
+    color: var(--yh-input-number-btn-color);
+    background-color: var(--yh-input-number-btn-bg-color);
+    cursor: pointer;
+    user-select: none;
+    transition: var(--yh-transition-fast);
+    border-left: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
+    border-radius: 0 calc(var(--yh-input-number-border-radius) - 1px)
+      calc(var(--yh-input-number-border-radius) - 1px) 0;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      transition: var(--yh-transition-fast);
+    }
+
+    &:hover:not(.is-disabled) {
+      color: var(--yh-input-number-btn-hover-color);
+      background-color: var(--yh-input-number-btn-hover-bg-color);
+
+      svg {
+        transform: scale(1.1);
+      }
+    }
+
+    &:active:not(.is-disabled) {
+      svg {
+        transform: scale(0.95);
+      }
+    }
+
+    @include when(disabled) {
+      color: var(--yh-text-color-disabled);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  @include when(controls-right) {
+    @include e(wrapper) {
+      @include e(inner) {
+        text-align: left;
+        padding-left: 12px;
+      }
+    }
+
+    @include e(controls) {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-left: var(--yh-border-width) var(--yh-border-style) var(--yh-input-number-border-color);
+    }
+
+    @include e(decrease) {
+      width: 32px;
+      height: 50%;
+      border: 0;
+      border-radius: 0 0 calc(var(--yh-input-number-border-radius) - 1px) 0;
+      flex-shrink: 0;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    @include e(increase) {
+      width: 32px;
+      height: 50%;
+      border: 0;
+      border-bottom: var(--yh-border-width) var(--yh-border-style)
+        var(--yh-input-number-border-color);
+      border-radius: 0 calc(var(--yh-input-number-border-radius) - 1px) 0 0;
+      flex-shrink: 0;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  @include when(without-controls) {
+    @include e(inner) {
+      border-radius: var(--yh-input-number-border-radius);
+    }
+  }
+
+  @include when(has-prefix) {
+    @include e(inner) {
+      text-align: left;
+      padding-left: 4px;
+    }
+  }
+
+  @include when(has-suffix) {
+    @include e(inner) {
+      padding-right: 4px;
+    }
+  }
+
+  @include when(error) {
+    border-color: var(--yh-color-danger);
+
+    @include when(focused) {
+      box-shadow: 0 0 0 2px var(--yh-color-danger-light-8);
+    }
+  }
+
+  @include when(disabled) {
+    background-color: var(--yh-fill-color-light);
+    cursor: not-allowed;
+
+    @include e(inner) {
+      color: var(--yh-text-color-placeholder);
+      cursor: not-allowed;
+    }
+
+    @include e(decrease) {
+      color: var(--yh-text-color-disabled);
+      cursor: not-allowed;
+    }
+
+    @include e(increase) {
+      color: var(--yh-text-color-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  @include m(large) {
+    --yh-input-number-width: 180px;
+    --yh-input-number-height: var(--yh-component-size-large);
+    --yh-input-number-font-size: var(--yh-font-size-md);
+
+    @include e(decrease) {
+      width: 40px;
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    @include e(increase) {
+      width: 40px;
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    @include when(controls-right) {
+      @include e(decrease) {
+        width: 36px;
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+
+      @include e(increase) {
+        width: 36px;
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+
+  @include m(small) {
+    --yh-input-number-width: 130px;
+    --yh-input-number-height: var(--yh-component-size-small);
+    --yh-input-number-font-size: var(--yh-font-size-xs);
+
+    @include e(decrease) {
+      width: 24px;
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    @include e(increase) {
+      width: 24px;
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    @include when(controls-right) {
+      @include e(decrease) {
+        width: 24px;
+        svg {
+          width: 10px;
+          height: 10px;
+        }
+      }
+
+      @include e(increase) {
+        width: 24px;
+        svg {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+  }
+}

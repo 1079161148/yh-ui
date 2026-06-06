@@ -1,0 +1,9 @@
+/**
+ * YH-UI 组件全局样式
+ * 注意：组件样式已由各 Vue SFC <style> 块自行携带
+ * 此文件仅保留基础变量和 mixin 的引用，供外部按需导入
+ */
+
+@use 'variables' as *;
+@use 'mixins/mixins' as *;
+@use 'reset' as *;

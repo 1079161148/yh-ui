@@ -1,0 +1,263 @@
+@use 'sass:math';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(lucky-draw) {
+  // Theme Variables
+  --yh-lucky-primary: #ff4757;
+  --yh-lucky-border-bg: linear-gradient(180deg, #ff8a65 0%, #ff5252 100%);
+  --yh-lucky-shadow: 0 10px 25px rgba(255, 82, 82, 0.3);
+
+  position: relative;
+  display: inline-block;
+  user-select: none;
+  font-family: var(--yh-font-family);
+
+  // --- Wheel Mode ---
+  @include m(wheel) {
+    padding: 14px;
+    border-radius: var(--yh-radius-circle);
+    background: var(--yh-lucky-border-bg);
+    box-shadow: var(--yh-lucky-shadow);
+    border: 6px solid #ff7b63;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border-radius: var(--yh-radius-circle);
+      border: 4px dotted rgba(255, 255, 255, 0.9);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @include e(wheel-container) {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--yh-radius-circle);
+      background: var(--yh-color-white);
+      overflow: hidden;
+      box-shadow: 0 0 0 4px #ff3b3b;
+
+      // === Tangential Layout (Icon + Text) ===
+      @include e(prize-content) {
+        position: absolute;
+        top: 8%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 96px; // Ensure enough room for 'iPhone 15' horizontally
+      }
+
+      @include e(prize-name) {
+        font-size: var(--yh-font-size-sm);
+        font-weight: var(--yh-font-weight-bold);
+        color: #e5533e;
+        line-height: var(--yh-line-height-tight);
+        text-align: center;
+        margin-bottom: 4px;
+
+        // Fix: Prevent line wraps!
+        white-space: nowrap;
+        width: 100%;
+      }
+
+      @include e(prize-icon) {
+        font-size: 26px;
+        margin: 0;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+      }
+
+      // === Radial Layout ===
+      @include when(pure-text) {
+        @include e(prize-content) {
+          top: 6%;
+          height: 28%;
+          width: auto;
+          justify-content: center;
+        }
+        @include e(prize-name) {
+          writing-mode: vertical-rl;
+          white-space: nowrap;
+          color: #8c1e1e;
+          font-size: var(--yh-font-size-base);
+          letter-spacing: 2px;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+
+  @include e(wheel-inner) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--yh-radius-circle);
+    will-change: transform;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  @include e(prize-item) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: center center;
+    box-sizing: border-box;
+  }
+
+  // --- Center Pointer/Button ---
+  @include e(pointer) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    z-index: 100;
+    cursor: pointer;
+    filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.3));
+    transition: transform var(--yh-duration-fast);
+
+    &:active {
+      transform: translate(-50%, -50%) scale(0.92);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-bottom: 24px solid #da1f3b;
+    }
+  }
+
+  @include e(pointer-btn) {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--yh-radius-circle);
+    background: radial-gradient(circle at center, #ff2346 0%, #d80b2a 100%);
+    border: 3px solid #ffcc00;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.3);
+
+    span {
+      font-size: var(--yh-font-size-sm);
+      font-weight: 900;
+      color: var(--yh-color-white);
+      line-height: 1.1;
+      width: 2.2em;
+      display: inline-block;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  // --- Grid Mode ---
+  @include m(grid) {
+    background: #eef2ff;
+    padding: 14px;
+    border-radius: var(--yh-radius-round);
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.06),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.03);
+
+    @include e(grid-item) {
+      background: var(--yh-color-white);
+      border-radius: var(--yh-radius-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 16px 8px 8px 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+      border: 2px solid transparent;
+      transition: all var(--yh-duration-base) var(--yh-timing-ease-in-out);
+
+      @include when(active) {
+        background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
+        transform: scale(1.06);
+        box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        z-index: 2;
+        border-color: transparent;
+
+        @include e(prize-name) {
+          color: var(--yh-color-white);
+        }
+        @include e(prize-icon) {
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) brightness(1.1);
+        }
+      }
+    }
+
+    @include e(prize-icon) {
+      font-size: 32px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    @include e(prize-name) {
+      font-size: var(--yh-font-size-xs);
+      font-weight: var(--yh-font-weight-semibold);
+      color: #666;
+      text-align: center;
+      line-height: 1.35;
+      margin-top: 0;
+    }
+  }
+
+  @include e(grid-container) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @include e(grid-btn) {
+    background: linear-gradient(180deg, #ff4757 0%, #e82c3c 100%);
+    color: var(--yh-color-white);
+    border-radius: var(--yh-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--yh-font-size-md);
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow:
+      0 5px 0 #b71322,
+      0 8px 15px rgba(232, 44, 60, 0.4);
+    transition: all 0.1s;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+    &:active {
+      transform: translateY(4px);
+      box-shadow:
+        0 1px 0 #b71322,
+        0 3px 5px rgba(232, 44, 60, 0.4);
+    }
+  }
+}

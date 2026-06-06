@@ -1,0 +1,455 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-agent-card) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: var(--yh-bg-color);
+  border: 1.5px solid var(--yh-border-color-light);
+  border-radius: var(--yh-border-radius-large, 12px);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      var(--yh-color-primary-light-9, rgba(64, 158, 255, 0.04)) 0%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.25s;
+    pointer-events: none;
+  }
+
+  &:hover {
+    border-color: var(--yh-color-primary-light-5, #79bbff);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.1),
+      0 0 0 1px var(--yh-color-primary-light-6, #a0cfff);
+    transform: translateY(-2px);
+
+    &::before {
+      opacity: 1;
+    }
+
+    @include e(overlay-actions) {
+      opacity: 1;
+    }
+
+    @include e(use-btn) {
+      background: var(--yh-color-primary);
+      color: #fff;
+    }
+  }
+
+  @include is(selected) {
+    border-color: var(--yh-color-primary);
+    box-shadow: 0 0 0 2px var(--yh-color-primary-light-6, #a0cfff);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  // ── 布局变体 ──
+  @include m(horizontal) {
+    flex-direction: row;
+    align-items: flex-start;
+
+    @include e(avatar-wrapper) {
+      flex-shrink: 0;
+    }
+
+    @include e(body) {
+      flex: 1;
+      min-width: 0;
+    }
+
+    @include e(actions) {
+      flex-shrink: 0;
+      flex-direction: column;
+      align-self: center;
+      padding-right: 32px;
+    }
+
+    @include e(overlay-actions) {
+      flex-direction: column;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+
+      button {
+        width: 24px;
+        height: 24px;
+        font-size: 13px;
+        background: var(--yh-bg-color);
+        box-shadow: var(--yh-box-shadow-light);
+      }
+    }
+  }
+
+  @include m(compact) {
+    padding: 12px 16px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+
+    @include e(description) {
+      display: none;
+    }
+    @include e(stats) {
+      display: flex;
+      margin-top: 0;
+      gap: 12px;
+
+      .yh-icon {
+        font-size: 13px;
+      }
+    }
+    @include e(capabilities) {
+      display: none;
+    }
+    @include e(actions) {
+      margin-top: 0;
+      flex-shrink: 0;
+      padding-right: 32px;
+    }
+
+    @include e(overlay-actions) {
+      flex-direction: column;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+
+      button {
+        width: 24px;
+        height: 24px;
+        border-radius: 5px;
+        font-size: 12px;
+        background: var(--yh-bg-color);
+        box-shadow: var(--yh-box-shadow-light);
+      }
+    }
+  }
+
+  // ── 悬浮操作层 ──
+  @include e(overlay-actions) {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 6px;
+      background: var(--yh-bg-color-overlay, rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(8px);
+      color: var(--yh-text-color-regular);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 14px;
+
+      &:hover {
+        background: var(--yh-color-primary-light-9);
+        color: var(--yh-color-primary);
+      }
+    }
+  }
+
+  @include e(fav-btn) {
+    @include is(active) {
+      color: var(--yh-color-warning) !important;
+    }
+  }
+
+  // ── 头像 ──
+  @include e(avatar-wrapper) {
+    position: relative;
+    width: fit-content;
+  }
+
+  @include e(avatar) {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(
+      135deg,
+      var(--yh-color-primary-light-8),
+      var(--yh-color-primary-light-5)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: var(--yh-color-primary);
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+  }
+
+  @include e(status-dot) {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--yh-bg-color);
+
+    &.is-online {
+      background: var(--yh-color-success);
+    }
+    &.is-busy {
+      background: var(--yh-color-warning);
+    }
+    &.is-offline {
+      background: var(--yh-text-color-disabled);
+    }
+  }
+
+  // ── 主体 ──
+  @include e(body) {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @include e(header) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  @include e(name-row) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  @include e(name) {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(verified-icon) {
+    color: var(--yh-color-primary);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  @include e(model) {
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+  }
+
+  @include e(description) {
+    font-size: 13px;
+    color: var(--yh-text-color-regular);
+    line-height: 1.6;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  // ── 能力标签 ──
+  @include e(capabilities) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  @include e(capability-tag) {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--yh-color-primary-light-9);
+    color: var(--yh-color-primary);
+    border: 1px solid var(--yh-color-primary-light-6);
+
+    @include m(primary) {
+      background: var(--yh-color-primary-light-9);
+      color: var(--yh-color-primary);
+      border-color: var(--yh-color-primary-light-6);
+    }
+    @include m(success) {
+      background: var(--yh-color-success-light-9);
+      color: var(--yh-color-success);
+      border-color: var(--yh-color-success-light-5);
+    }
+    @include m(warning) {
+      background: var(--yh-color-warning-light-9);
+      color: var(--yh-color-warning);
+      border-color: var(--yh-color-warning-light-5);
+    }
+    @include m(danger) {
+      background: var(--yh-color-danger-light-9);
+      color: var(--yh-color-danger);
+      border-color: var(--yh-color-danger-light-5);
+    }
+    @include m(info) {
+      background: var(--yh-color-info-light-9);
+      color: var(--yh-color-info);
+      border-color: var(--yh-color-info-light-5);
+    }
+  }
+
+  @include e(capability-more) {
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
+    background: var(--yh-fill-color-light);
+    color: var(--yh-text-color-secondary);
+  }
+
+  // ── 统计 ──
+  @include e(stats) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 2px;
+  }
+
+  @include e(stat-item) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+
+    .yh-icon {
+      font-size: 13px;
+    }
+  }
+
+  @include e(stars) {
+    display: flex;
+    gap: 1px;
+
+    .yh-icon {
+      font-size: 12px;
+      color: var(--yh-text-color-disabled);
+
+      @include is(filled) {
+        color: var(--yh-color-warning);
+      }
+    }
+  }
+
+  @include e(review-count) {
+    color: var(--yh-text-color-disabled);
+    font-size: 11px;
+  }
+
+  // ── 操作 ──
+  @include e(actions) {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  @include e(use-btn) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px 16px;
+    border: 1.5px solid var(--yh-color-primary-light-5, #79bbff);
+    border-radius: var(--yh-border-radius-base, 6px);
+    background: transparent;
+    color: var(--yh-color-primary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: var(--yh-color-primary);
+      color: #fff;
+      border-color: var(--yh-color-primary);
+    }
+  }
+
+  // ── 骨架屏 ──
+  @include is(loading) {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  @include e(skeleton-avatar) {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(
+      90deg,
+      var(--yh-fill-color) 25%,
+      var(--yh-fill-color-light) 50%,
+      var(--yh-fill-color) 75%
+    );
+    background-size: 200% 100%;
+    animation: yh-agent-shimmer 1.5s infinite;
+  }
+
+  @include e(skeleton-lines) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  @include e(skeleton-line) {
+    height: 14px;
+    border-radius: 7px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--yh-fill-color) 25%,
+      var(--yh-fill-color-light) 50%,
+      var(--yh-fill-color) 75%
+    );
+    background-size: 200% 100%;
+    animation: yh-agent-shimmer 1.5s infinite;
+  }
+}
+
+@keyframes yh-agent-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

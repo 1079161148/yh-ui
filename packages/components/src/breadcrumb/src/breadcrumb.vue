@@ -1,0 +1,63 @@
+<script setup lang="ts">
+import { provide, toRefs, useSlots, computed, h, Fragment, type VNodeChild } from 'vue'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import { breadcrumbProps } from './breadcrumb'
+
+defineOptions({
+  name: 'YhBreadcrumb'
+})
+
+const props = defineProps(breadcrumbProps)
+const ns = useNamespace('breadcrumb')
+const { t } = useLocale()
+const slots = useSlots()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme(
+  'breadcrumb',
+  computed(() => props.themeOverrides)
+)
+
+// 向子组件提供配置
+provide('breadcrumbProps', toRefs(props))
+
+/**
+ * 核心逻辑：智能溢出处理
+ * 如果设置了 maxItems，我们将处理子节点
+ */
+const breadcrumbItems = computed(() => {
+  const children = slots.default?.() || []
+
+  // 展平 Fragment
+  const items = children.flatMap((child) => {
+    if (child.type === Fragment) return (child.children as VNodeChild[]) || []
+    return [child]
+  })
+
+  if (props.maxItems <= 0 || items.length <= props.maxItems) {
+    return items
+  }
+
+  // 计算需要隐藏的部分 (保留头和尾，中间折叠)
+  const first = items[0]
+
+  // 创建一个特殊的 Ellipsis 项
+  const ellipsisItem = h('span', { class: ns.e('ellipsis'), title: t('breadcrumb.more') }, '...')
+
+  // 这里简化处理：保留第一个和最后几个
+  const result = [first, ellipsisItem, ...items.slice(items.length - (props.maxItems - 1))]
+
+  return result
+})
+</script>
+
+<template>
+  <div :class="ns.b()" :style="themeStyle" role="navigation" :aria-label="t('breadcrumb.label')">
+    <component :is="item" v-for="(item, index) in breadcrumbItems" :key="index" />
+  </div>
+</template>
+
+<style lang="scss">
+@use './breadcrumb.scss';
+</style>

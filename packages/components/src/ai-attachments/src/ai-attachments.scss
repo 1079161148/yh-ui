@@ -1,0 +1,304 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+@use 'sass:math';
+
+// 主题变量
+$theme-vars: (
+  bg-color: var(--yh-bg-color, #fff),
+  border-color: var(--yh-border-color, #dcdfe6),
+  border-dashed-color: var(--yh-border-colordashed, #d9d9d9),
+  text-color: var(--yh-text-color, #303133),
+  text-secondary-color: var(--yh-text-color-secondary, #909399),
+  hover-bg-color: var(--yh-fill-color-light, #f5f7fa),
+  primary-color: var(--yh-color-primary, #409eff),
+  shadow: var(--yh-box-shadow, 0 2px 12px 0 rgba(0, 0, 0, 0.1))
+);
+
+@mixin themeify {
+  @each $name, $value in $theme-vars {
+    --yh-ai-attachments-#{$name}: #{$value};
+  }
+}
+
+.#{$prefix}ai-attachments {
+  @include themeify;
+
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 8px;
+  background: var(--yh-ai-attachments-bg-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+
+  // 溢出模式
+  &--overflow-scrollX {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    .#{$prefix}ai-attachments__list {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+
+    .#{$prefix}ai-attachments__item {
+      flex-shrink: 0;
+    }
+  }
+
+  &--overflow-scrollY {
+    flex-wrap: wrap;
+    overflow-y: auto;
+    max-height: 400px;
+  }
+
+  &--overflow-wrap {
+    flex-wrap: wrap;
+  }
+
+  // 文件列表
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  // 文件项（与上传框统一宽高）
+  &__item {
+    position: relative;
+    width: 120px;
+    min-width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+
+    &:hover .#{$prefix}ai-attachments__delete-btn {
+      opacity: 1;
+    }
+
+    // 错误状态：红框与错误文案
+    &.is-error .#{$prefix}ai-file-card {
+      border-color: var(--yh-color-danger, #f56c6c);
+      .#{$prefix}ai-file-card__description {
+        color: var(--yh-color-danger, #f56c6c);
+      }
+    }
+
+    .#{$prefix}ai-file-card {
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      padding: 6px;
+
+      // 长文本单行省略，min-width:0 使 flex 子项可收缩，省略号才能正确显示
+      .#{$prefix}ai-file-card__info {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .#{$prefix}ai-file-card__name {
+        max-width: 100%;
+        width: 100%;
+        min-width: 0;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .#{$prefix}ai-file-card__size {
+        font-size: 11px;
+      }
+    }
+  }
+
+  // 上传区域（与文件项统一宽高）
+  &__upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // 上传区域比文件卡片更“开阔”：优先占满剩余空间，同时保留体面的最小宽度
+    flex: 1 1 220px;
+    width: auto;
+    min-width: 220px;
+    height: 120px;
+    padding: 16px;
+    border: 2px dashed var(--yh-ai-attachments-border-dashed-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+
+    &:hover {
+      border-color: var(--yh-ai-attachments-primary-color);
+      background: var(--yh-ai-attachments-hover-bg-color);
+    }
+
+    &.is-dragging {
+      border-color: var(--yh-ai-attachments-primary-color);
+      background: rgba(var(--yh-ai-attachments-primary-color), 0.1);
+    }
+  }
+
+  // 上传内容（紧凑风格，与第二张图一致）
+  &__upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--yh-ai-attachments-text-secondary-color);
+  }
+
+  // 上传文本
+  &__upload-text {
+    text-align: center;
+  }
+
+  // 上传标题（统一 12px 标准）
+  &__upload-title {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--yh-ai-attachments-text-color);
+  }
+
+  // 上传描述（统一 12px 标准）
+  &__upload-description {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--yh-ai-attachments-text-secondary-color);
+  }
+
+  // 上传进度容器（居中显示百分比 + 底部进度条）
+  &__progress-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    z-index: 5;
+  }
+
+  &__progress-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--yh-ai-attachments-primary-color);
+  }
+
+  // 进度条
+  &__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--yh-fill-color, #f5f7fa);
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+
+  &__progress-wrap &__progress {
+    position: relative;
+    width: 80px;
+    left: auto;
+    right: auto;
+  }
+
+  &__progress-bar {
+    height: 100%;
+    background: var(--yh-ai-attachments-primary-color);
+    transition: width 0.3s ease;
+  }
+
+  // 删除按钮
+  &__delete-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  // 拖拽遮罩
+  &__drop-mask {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--yh-ai-attachments-primary-color), 0.1);
+    border: 2px dashed var(--yh-ai-attachments-primary-color);
+    border-radius: 8px;
+    z-index: 100;
+  }
+
+  // 拖拽内容
+  &__drop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--yh-ai-attachments-primary-color);
+  }
+
+  // 拖拽文本（统一 12px）
+  &__drop-text {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  // 滚动按钮
+  &__scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--yh-ai-attachments-bg-color);
+    border: 1px solid var(--yh-ai-attachments-border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--yh-ai-attachments-hover-bg-color);
+      border-color: var(--yh-ai-attachments-primary-color);
+    }
+
+    &--scroll-prev {
+      left: -16px;
+    }
+
+    &--scroll-next {
+      right: -16px;
+    }
+  }
+
+  // 文件输入
+  &__file-input {
+    display: none;
+  }
+}

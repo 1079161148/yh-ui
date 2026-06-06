@@ -1,0 +1,335 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(message-box-wrapper) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  // 核心：补偿弹窗遮罩层的宽度，确保居中点与 body 同步
+  padding-right: var(--yh-scrollbar-width, 0px);
+  overflow: hidden;
+}
+
+@include b(message-box) {
+  position: relative;
+  background: var(--yh-bg-color-overlay, #ffffff);
+  border-radius: 20px;
+  border: 1px solid var(--yh-border-color-light, #ebeef5);
+  box-shadow:
+    0 12px 32px -4px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  width: 420px;
+  max-width: 90vw;
+  outline: none;
+  overflow: visible;
+
+  // 硬件加速位
+  transform-origin: center center;
+  backface-visibility: hidden;
+  // 初始状态优化：由 translate3d(0,0,0) 确保不触发行高重计算
+  transform: translate3d(0, 0, 0);
+
+  @include is(dragging) {
+    transition: none !important;
+  }
+
+  @include m(glass) {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+
+    @include e(bg) {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow:
+        inset 0 0 30px rgba(255, 255, 255, 0.2),
+        0 20px 60px rgba(0, 0, 0, 0.15);
+
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.04;
+        pointer-events: none;
+        border-radius: inherit;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      @media (prefers-color-scheme: dark) {
+        background: linear-gradient(135deg, rgba(45, 45, 45, 0.85), rgba(30, 30, 30, 0.7));
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      // 兼容 VitePress/VuePress 等文档框架的 dark class
+      :root.dark &,
+      html.dark &,
+      body.dark & {
+        background: linear-gradient(135deg, rgba(45, 45, 45, 0.85), rgba(30, 30, 30, 0.7));
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    // 在亚克力模式下大幅提升文本对比度和清晰度
+    @include e(header) {
+      .yh-message-box__title {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+        @media (prefers-color-scheme: dark) {
+          color: #ffffff;
+        }
+        :root.dark &,
+        html.dark &,
+        body.dark & {
+          color: #ffffff;
+        }
+      }
+    }
+
+    @include e(message) {
+      font-weight: 500; // 稍微加粗，防止模糊
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffffff;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      }
+      :root.dark &,
+      html.dark &,
+      body.dark & {
+        color: #ffffff;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    @include e(footer) {
+      // 按钮在磨砂背景下也需要更清晰
+      .yh-button:not(.yh-button--primary) {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+
+        @media (prefers-color-scheme: dark) {
+          color: #ffffff;
+        }
+        :root.dark &,
+        html.dark &,
+        body.dark & {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  @include m(center) {
+    @include e(header) {
+      justify-content: center;
+      .yh-message-box__close {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+      }
+    }
+    @include e(content) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-top: 24px;
+    }
+    @include e(status) {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 40px;
+    }
+    @include e(footer) {
+      justify-content: center;
+    }
+  }
+
+  @include e(header) {
+    padding: 24px 24px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include is(draggable) {
+      cursor: move;
+      user-select: none;
+    }
+  }
+
+  @include e(title) {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary, #1d1d1f);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  @include e(close) {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: var(--yh-text-color-placeholder);
+    font-size: 20px;
+    transition: all 0.2s;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--yh-text-color-primary);
+      transform: rotate(90deg);
+    }
+  }
+
+  @include e(content) {
+    padding: 12px 24px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  @include e(status) {
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    @include is(success) {
+      color: #34c759;
+    }
+    @include is(warning) {
+      color: #ff9f0a;
+    }
+    @include is(error) {
+      color: #ff3b30;
+    }
+    @include is(info) {
+      color: #007aff;
+    }
+  }
+
+  @include e(message) {
+    font-size: 15px;
+    color: var(--yh-text-color-regular, #3a3a3c);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  @include e(input) {
+    padding: 0 24px 20px;
+    .yh-input.is-error {
+      --yh-input-border-color: var(--yh-color-danger);
+      --yh-input-hover-border-color: var(--yh-color-danger);
+      --yh-input-focus-border-color: var(--yh-color-danger);
+    }
+  }
+
+  @include e(err-msg) {
+    color: var(--yh-color-danger);
+    font-size: 12px;
+    margin-top: 4px;
+    padding-left: 2px;
+  }
+
+  @include e(footer) {
+    padding: 12px 24px 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+
+    .yh-button {
+      min-width: 80px;
+      font-weight: 500;
+
+      &--small {
+        padding: 8px 16px;
+        height: auto;
+      }
+    }
+  }
+
+  /* 响应式适配 */
+  @media (max-width: 480px) {
+    width: calc(100vw - 32px);
+    margin: 0 16px;
+    border-radius: 16px;
+
+    @include e(header) {
+      padding: 20px 20px 8px;
+    }
+    @include e(content) {
+      padding: 8px 20px 20px;
+    }
+    @include e(footer) {
+      padding: 8px 20px 20px;
+    }
+  }
+}
+
+.yh-zoom-in-top-enter-active,
+.yh-zoom-in-top-leave-active {
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+  transform-origin: top;
+}
+.yh-zoom-in-top-enter-from,
+.yh-zoom-in-top-leave-to {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+// 锁定状态下的全局对齐，对齐文档站点（VitePress）的所有固定/粘性定位元素
+html.yh-popup-parent--hidden {
+  overflow: hidden !important;
+  body {
+    overflow: hidden !important;
+  }
+}
+
+@include b(message-box-fade) {
+  &-enter-active {
+    transition:
+      opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    .yh-message-box__bg {
+      // 动画期间减小亚克力负荷
+      backdrop-filter: blur(10px) saturate(150%);
+    }
+  }
+
+  &-leave-active {
+    transition:
+      opacity 0.2s cubic-bezier(0.4, 0, 1, 1),
+      transform 0.2s cubic-bezier(0.4, 0, 1, 1);
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    .yh-message-box {
+      transform: scale(0.95) translate3d(0, -15px, 0);
+    }
+  }
+}

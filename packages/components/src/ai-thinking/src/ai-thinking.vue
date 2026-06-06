@@ -1,0 +1,98 @@
+<script setup lang="ts">
+import { useNamespace, useLocale } from '@yh-ui/hooks'
+import { computed, watch } from 'vue'
+import { YhIcon } from '../../icon'
+
+import { aiThinkingProps, aiThinkingEmits } from './ai-thinking'
+import { useComponentTheme } from '@yh-ui/theme'
+
+defineOptions({
+  name: 'YhAiThinking'
+})
+
+const props = defineProps(aiThinkingProps)
+const emit = defineEmits(aiThinkingEmits)
+const ns = useNamespace('ai-thinking')
+const { t } = useLocale()
+const { themeStyle } = useComponentTheme('ai-thinking', props.themeOverrides)
+
+const isExpanded = computed({
+  get: () => props.modelValue,
+  set: (val) => emit('update:modelValue', val)
+})
+
+const displayTitle = computed(() => {
+  if (props.title) return props.title
+  switch (props.status) {
+    case 'start':
+      return t('ai.thinking.start')
+    case 'thinking':
+      return t('ai.thinking.thinking')
+    case 'end':
+      return t('ai.thinking.complete')
+    case 'error':
+      return t('ai.thinking.error')
+    default:
+      return t('ai.thinking.thinking')
+  }
+})
+
+const statusIcon = computed(() => {
+  switch (props.status) {
+    case 'start':
+      return 'loading'
+    case 'thinking':
+      return 'loading'
+    case 'end':
+      return 'check-circle'
+    case 'error':
+      return 'circle-close'
+    default:
+      return 'loading'
+  }
+})
+
+watch(
+  () => props.status,
+  (newStatus) => {
+    if (props.autoCollapse && newStatus === 'end') {
+      isExpanded.value = false
+    }
+  }
+)
+
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value
+}
+</script>
+
+<template>
+  <div
+    :class="[ns.b(), ns.m(status), ns.is('expanded', isExpanded), className]"
+    :style="[themeStyle, style]"
+  >
+    <div :class="ns.e('header')" @click="toggleExpand">
+      <div :class="ns.e('icon-wrapper')">
+        <YhIcon
+          :name="statusIcon"
+          :class="[
+            ns.e('status-icon'),
+            { 'is-loading': status === 'thinking' || status === 'start' }
+          ]"
+        />
+      </div>
+      <div :class="ns.e('title')">{{ displayTitle }}</div>
+      <YhIcon name="arrow-down" :class="[ns.e('arrow'), { 'is-expanded': isExpanded }]" />
+    </div>
+
+    <div v-show="isExpanded && ($slots.default || content)" :class="ns.e('body')">
+      <div :class="ns.e('content')">
+        <slot>{{ content }}</slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss">
+@use './ai-thinking.scss';
+</style>

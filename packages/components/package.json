@@ -1,0 +1,121 @@
+{
+  "name": "@yh-ui/components",
+  "version": "1.0.31",
+  "description": "YH-UI Vue 3 Components",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss",
+    "**/*.sass"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./resolver": {
+      "types": "./dist/resolver.d.ts",
+      "import": "./dist/resolver.mjs",
+      "require": "./dist/resolver.cjs"
+    },
+    "./style": "./dist/style.css",
+    "./style.css": "./dist/style.css",
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild && node ../../scripts/post-build-styles.mjs components && pnpm run build:dts && node ../../scripts/post-build-styles.mjs components",
+    "build:dts": "vue-tsc --emitDeclarationOnly --outDir dist --project tsconfig.json --rootDir ../../ && node ../../scripts/post-build-dts.mjs",
+    "dev": "unbuild --stub",
+    "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
+    "postpack": "node ../../scripts/prepare-package-manifest.mjs restore",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@webcontainer/api": "^1.6.1",
+    "@floating-ui/dom": "^1.7.4",
+    "@yh-ui/hooks": "workspace:*",
+    "@yh-ui/locale": "workspace:*",
+    "@yh-ui/theme": "workspace:*",
+    "@yh-ui/utils": "workspace:*",
+    "async-validator": "^4.2.5",
+    "dayjs": "catalog:",
+    "dompurify": "^3.3.3"
+  },
+  "peerDependencies": {
+    "vue": "catalog:",
+    "monaco-editor": "^0.55.1",
+    "xlsx": "^0.18.5",
+    "viewerjs": "^1.11.7",
+    "markdown-it": "^14.1.1"
+  },
+  "peerDependenciesMeta": {
+    "monaco-editor": {
+      "optional": true
+    },
+    "xlsx": {
+      "optional": true
+    },
+    "viewerjs": {
+      "optional": true
+    },
+    "markdown-it": {
+      "optional": true
+    }
+  },
+  "optionalDependencies": {
+    "echarts": ">=5.0.0",
+    "highlight.js": ">=11.0.0",
+    "mermaid": ">=11.0.0"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "monaco-editor": "^0.55.1",
+    "xlsx": "^0.18.5",
+    "viewerjs": "^1.11.7",
+    "markdown-it": "^14.1.1",
+    "sass": "^1.83.1",
+    "typescript": "catalog:",
+    "unbuild": "^3.3.1",
+    "vue": "catalog:",
+    "vue-sfc-transformer": "^0.1.17",
+    "vue-tsc": "^2.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1079161148/yh-ui.git",
+    "directory": "packages/components"
+  },
+  "keywords": [
+    "yh-ui",
+    "vue3",
+    "components",
+    "ai-components",
+    "table",
+    "typescript"
+  ],
+  "homepage": "https://1079161148.github.io/yh-ui/",
+  "author": "YH-UI Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
+

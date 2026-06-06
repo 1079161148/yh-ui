@@ -1,0 +1,63 @@
+{
+  "name": "@yh-ui/theme",
+  "version": "1.0.31",
+  "description": "YH-UI theme and design tokens",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss",
+    "src/styles/**"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./styles/*": "./src/styles/*",
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src/styles"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
+    "postpack": "node ../../scripts/prepare-package-manifest.mjs restore",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1079161148/yh-ui.git",
+    "directory": "packages/theme"
+  },
+  "keywords": [
+    "yh-ui",
+    "theme",
+    "design-tokens"
+  ],
+  "homepage": "https://1079161148.github.io/yh-ui/",
+  "author": "YH-UI Team",
+  "peerDependencies": {
+    "vue": "catalog:"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "viewerjs": "^1.11.7"
+  }
+}
+

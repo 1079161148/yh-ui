@@ -1,0 +1,339 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(filter-bar) {
+  // ─── CSS 变量 ──────────────────────────────────────────────────────────────
+  --yh-filter-bar-bg: var(--yh-bg-color);
+  --yh-filter-bar-border: var(--yh-border-color-lighter);
+  --yh-filter-bar-height: 44px;
+  --yh-filter-bar-tab-color: var(--yh-text-color-regular);
+  --yh-filter-bar-tab-active-color: var(--yh-color-primary);
+  --yh-filter-bar-tab-active-bg: var(--yh-color-primary-light-9);
+  --yh-filter-bar-tab-radius: var(--yh-radius-base);
+  --yh-filter-bar-badge-bg: var(--yh-color-danger);
+  --yh-filter-bar-panel-bg: var(--yh-bg-color);
+  --yh-filter-bar-panel-shadow: 0 4px 20px var(--yh-shadow-color);
+  --yh-filter-bar-panel-opt-bg: var(--yh-fill-color-light);
+  --yh-filter-bar-panel-opt-active-bg: var(--yh-color-primary-light-9);
+  --yh-filter-bar-panel-opt-active-color: var(--yh-color-primary);
+  --yh-filter-bar-panel-opt-active-border: var(--yh-color-primary);
+  --yh-filter-bar-z-index: 100;
+
+  position: relative;
+  background: var(--yh-filter-bar-bg);
+  border-bottom: 1px solid var(--yh-filter-bar-border);
+  z-index: var(--yh-filter-bar-z-index);
+  transition: box-shadow var(--yh-transition-base);
+
+  @include when(sticky) {
+    position: sticky;
+    top: 0;
+  }
+
+  @include when(stuck) {
+    box-shadow: 0 2px 12px var(--yh-shadow-color);
+  }
+
+  @include e(bar) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 12px;
+    height: var(--yh-filter-bar-height);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @include e(tab) {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 5px 12px;
+    border: none;
+    background: transparent;
+    color: var(--yh-filter-bar-tab-color);
+    font-size: var(--yh-font-size-sm);
+    font-weight: var(--yh-font-weight-medium);
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition:
+      color var(--yh-transition-base),
+      background var(--yh-transition-base);
+
+    &:hover {
+      color: var(--yh-filter-bar-tab-active-color);
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+
+    @include when(active) {
+      color: var(--yh-filter-bar-tab-active-color);
+      background: transparent;
+      font-weight: 600;
+    }
+  }
+
+  @include e(view-btn) {
+    margin-left: auto;
+    padding: 0 4px; /* Slightly tighter padding for the icon */
+    font-size: 16px; /* Icon size */
+    color: var(--yh-text-color-secondary);
+
+    &:hover {
+      color: var(--yh-filter-bar-tab-active-color);
+    }
+  }
+
+  @include e(sort-arrows) {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1px;
+    font-size: 10px;
+    line-height: 1;
+    margin-left: 4px;
+    color: var(--yh-text-color-placeholder);
+  }
+
+  @include e(arrow-up) {
+    display: inline-flex;
+    transition: color var(--yh-transition-base);
+    @include when(active) {
+      color: var(--yh-filter-bar-tab-active-color);
+    }
+  }
+
+  @include e(arrow-down) {
+    display: inline-flex;
+    transition: color var(--yh-transition-base);
+    @include when(active) {
+      color: var(--yh-filter-bar-tab-active-color);
+    }
+  }
+
+  @include e(arrow-icon) {
+    font-style: normal;
+    display: inline-flex;
+    font-size: 10px;
+    margin-left: 2px;
+    color: var(--yh-text-color-placeholder);
+    transition: transform var(--yh-transition-base);
+  }
+
+  @include e(badge) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+    background: var(--yh-filter-bar-badge-bg);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  @include e(filter-icon) {
+    font-style: normal;
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  // ─── 内联筛选 ─────────────────────────────────────────────────────────────
+  @include e(inline-filter) {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  @include e(inline-label) {
+    font-size: var(--yh-font-size-xs);
+    color: var(--yh-text-color-secondary);
+    white-space: nowrap;
+  }
+
+  @include e(inline-opt) {
+    padding: 4px 14px;
+    border: none;
+    border-radius: 999px;
+    background: var(--yh-fill-color-light);
+    font-size: var(--yh-font-size-xs);
+    font-weight: 500;
+    color: var(--yh-text-color-regular);
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      color 0.3s ease,
+      background 0.3s ease,
+      transform 0.2s cubic-bezier(0.3, 1.5, 0.4, 1.5);
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    @include when(active) {
+      color: var(--yh-filter-bar-tab-active-color);
+      background: var(--yh-filter-bar-panel-opt-active-bg);
+      font-weight: 600;
+    }
+  }
+
+  // ─── 筛选面板遮罩 ──────────────────────────────────────────────────────────
+  @include e(panel) {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--yh-filter-bar-z-index) + 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  @include e(overlay) {
+    position: absolute;
+    inset: 0;
+    background: var(--yh-overlay-color-light, rgba(0, 0, 0, 0.45));
+  }
+
+  @include e(panel-body) {
+    position: relative;
+    background: var(--yh-filter-bar-panel-bg);
+    border-radius: var(--yh-radius-large) var(--yh-radius-large) 0 0;
+    box-shadow: var(--yh-filter-bar-panel-shadow);
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include e(panel-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid var(--yh-border-color-lighter);
+    flex-shrink: 0;
+  }
+
+  @include e(panel-title) {
+    font-size: var(--yh-font-size-md);
+    font-weight: 600;
+    color: var(--yh-text-color-primary);
+  }
+
+  @include e(panel-close) {
+    border: none;
+    background: none;
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-text-color-secondary);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  @include e(panel-content) {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px;
+  }
+
+  @include e(panel-options) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  @include e(panel-opt) {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 999px;
+    background: var(--yh-filter-bar-panel-opt-bg);
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-text-color-regular);
+    cursor: pointer;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease,
+      background 0.3s ease;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    @include when(active) {
+      color: var(--yh-filter-bar-panel-opt-active-color);
+      background: var(--yh-filter-bar-panel-opt-active-bg);
+      font-weight: 600;
+    }
+  }
+
+  @include e(no-options) {
+    color: var(--yh-text-color-placeholder);
+    text-align: center;
+    font-size: var(--yh-font-size-sm);
+    padding: 20px 0;
+  }
+
+  @include e(panel-footer) {
+    display: flex;
+    gap: 12px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--yh-border-color-lighter);
+    flex-shrink: 0;
+  }
+
+  @include e(btn) {
+    flex: 1;
+    height: 40px;
+    border-radius: var(--yh-radius-base);
+    font-size: var(--yh-font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition:
+      background var(--yh-transition-base),
+      color var(--yh-transition-base);
+  }
+
+  @include e(btn-reset) {
+    background: var(--yh-fill-color-light);
+    color: var(--yh-text-color-regular);
+  }
+
+  @include e(btn-confirm) {
+    background: var(--yh-color-primary);
+    color: #fff;
+
+    &:hover {
+      background: var(--yh-color-primary-dark-2);
+    }
+  }
+}
+
+// ─── 面板动画 ─────────────────────────────────────────────────────────────────
+.yh-filter-bar-panel-enter-active,
+.yh-filter-bar-panel-leave-active {
+  transition: opacity 0.25s ease;
+
+  .yh-filter-bar__panel-body {
+    transition: transform 0.25s ease;
+  }
+}
+
+.yh-filter-bar-panel-enter-from,
+.yh-filter-bar-panel-leave-to {
+  opacity: 0;
+
+  .yh-filter-bar__panel-body {
+    transform: translateY(100%);
+  }
+}

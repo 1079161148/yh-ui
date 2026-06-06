@@ -1,0 +1,293 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-conversations) {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-right: 1px solid var(--yh-ai-conversations-border-color, var(--yh-border-color));
+  background-color: var(--yh-ai-conversations-bg-color, var(--yh-bg-color));
+
+  @include e(header) {
+    padding: var(--yh-ai-conversations-header-padding, 16px);
+    border-bottom: 1px solid var(--yh-ai-conversations-border-color, var(--yh-border-color));
+  }
+
+  @include e(add-btn) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 16px;
+    background-color: var(--yh-bg-color);
+    border: 1px solid var(--yh-border-color);
+    border-radius: var(--yh-border-radius-base);
+    color: var(--yh-text-color-primary);
+    cursor: pointer;
+    transition: all var(--yh-transition-duration);
+    gap: 4px;
+
+    &:hover {
+      border-color: var(--yh-color-primary);
+      color: var(--yh-color-primary);
+      background-color: var(--yh-color-primary-light-9);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  @include e(list) {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+
+    @include when(virtual) {
+      flex: none; // 防止 flex: 1 覆盖内联 height
+      display: block;
+      padding: 0;
+      position: relative; // translateY 方案必须有 relative 定位
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background: var(--yh-border-color-light);
+    }
+  }
+
+  @include e(loading-placer) {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+  }
+
+  @include e(item) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 50px;
+    height: auto;
+    padding: var(--yh-ai-conversations-item-padding, 12px 16px);
+    margin: 0 4px 8px;
+    border-radius: var(--yh-border-radius-base);
+    cursor: pointer;
+    transition: all var(--yh-transition-duration);
+    background-color: transparent;
+    position: relative;
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: var(--yh-ai-conversations-hover-bg-color, var(--yh-bg-color-page));
+
+      .#{$namespace}-ai-conversations__actions {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    @include when(active) {
+      background-color: var(--yh-ai-conversations-active-bg-color, var(--yh-color-primary-light-9));
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 20%;
+        bottom: 20%;
+        width: 3px;
+        background-color: var(--yh-color-primary);
+        border-radius: 0 2px 2px 0;
+      }
+
+      .#{$namespace}-ai-conversations__title {
+        color: var(--yh-ai-conversations-active-text-color, var(--yh-color-primary));
+        font-weight: 600;
+      }
+
+      .#{$namespace}-ai-conversations__time,
+      .#{$namespace}-ai-conversations__excerpt {
+        color: var(--yh-color-primary-light-3);
+      }
+    }
+  }
+
+  @include e(item-content) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
+  }
+
+  @include e(title) {
+    font-size: var(--yh-ai-conversations-title-font-size, 14px);
+    color: var(--yh-text-color-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color var(--yh-transition-duration);
+  }
+
+  @include e(input) {
+    width: 100%;
+    font-size: 14px;
+    border: 1px solid var(--yh-color-primary);
+    border-radius: 4px;
+    padding: 2px 6px;
+    outline: none;
+    background: var(--yh-bg-color);
+    color: var(--yh-text-color-primary);
+  }
+
+  @include e(time) {
+    font-size: var(--yh-ai-conversations-time-font-size, 12px);
+    color: var(--yh-text-color-secondary);
+  }
+
+  @include e(excerpt) {
+    font-size: 12px;
+    color: var(--yh-text-color-regular);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @include e(actions) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--yh-transition-duration);
+  }
+
+  @include e(action-btn) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    color: var(--yh-text-color-secondary);
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--yh-fill-color-light);
+      color: var(--yh-text-color-primary);
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  @include e(empty) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--yh-text-color-secondary);
+    font-size: 14px;
+  }
+
+  // ── 时间分组标签 ──────────────────────────────────────
+  @include e(group-label) {
+    padding: 8px 16px 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--yh-text-color-disabled);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    user-select: none;
+  }
+
+  // ── 置顶图标 ──────────────────────────────────────────
+  @include e(pin-icon) {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+    color: var(--yh-color-primary-light-3);
+    flex-shrink: 0;
+  }
+
+  @include e(item) {
+    @include is(pinned) {
+      background-color: var(--yh-ai-conversations-hover-bg-color, var(--yh-bg-color-page));
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 25%;
+        bottom: 25%;
+        width: 3px;
+        background-color: var(--yh-color-primary-light-3);
+        border-radius: 0 2px 2px 0;
+      }
+    }
+  }
+
+  @include e(action-btn) {
+    @include is(active) {
+      color: var(--yh-color-primary) !important;
+    }
+  }
+
+  // ── 骨架屏 ────────────────────────────────────────────
+  @include e(skeleton-item) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: var(--yh-border-radius-base);
+  }
+
+  @include e(skeleton-line) {
+    height: 13px;
+    border-radius: 7px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--yh-fill-color) 25%,
+      var(--yh-fill-color-light) 50%,
+      var(--yh-fill-color) 75%
+    );
+    background-size: 200% 100%;
+    animation: yh-conv-shimmer 1.5s infinite;
+  }
+}
+
+// ── TransitionGroup 动画 ──────────────────────────────────
+.yh-conversation-item-enter-active,
+.yh-conversation-item-leave-active {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.yh-conversation-item-enter-from {
+  opacity: 0;
+  transform: translateX(-12px);
+}
+.yh-conversation-item-leave-to {
+  opacity: 0;
+  transform: translateX(12px);
+}
+
+@keyframes yh-conv-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

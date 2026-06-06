@@ -1,0 +1,108 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(radio) {
+  --yh-radio-size: 14px;
+  --yh-radio-input-border: var(--yh-border-color);
+  --yh-radio-checked-bg-color: var(--yh-color-primary);
+  --yh-radio-checked-border-color: var(--yh-color-primary);
+  --yh-radio-checked-icon-color: var(--yh-color-primary);
+  --yh-radio-text-color: var(--yh-text-color-regular);
+
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  margin-right: 32px;
+  font-size: var(--yh-font-size-base);
+  line-height: 1;
+
+  @include e(input) {
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    display: inline-flex;
+    position: relative;
+    vertical-align: middle;
+
+    @include e(inner) {
+      border: 1px solid var(--yh-radio-input-border);
+      border-radius: var(--yh-radius-circle);
+      width: var(--yh-radio-size);
+      height: var(--yh-radio-size);
+      background-color: var(--yh-fill-color-blank, #fff);
+      position: relative;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      transition:
+        border-color 0.2s,
+        background-color 0.2s;
+
+      @include when(checked) {
+        border-color: var(--yh-radio-checked-border-color);
+        background-color: var(--yh-radio-checked-bg-color);
+      }
+
+      @include when(disabled) {
+        background-color: var(--yh-fill-color-light, #f5f7fa);
+        border-color: var(--yh-border-color-light, #e4e7ed);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  @include e(dot) {
+    width: 4px;
+    height: 4px;
+    border-radius: var(--yh-radius-circle);
+    background-color: var(--yh-fill-color-blank, #fff);
+    content: '';
+    transition: transform 0.15s ease-in;
+  }
+
+  @include e(original) {
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+  }
+
+  @include when(checked) {
+    @include e(label) {
+      color: var(--yh-radio-checked-border-color);
+    }
+  }
+
+  @include when(disabled) {
+    cursor: not-allowed;
+    @include e(label) {
+      color: var(--yh-text-color-disabled, #c0c4cc);
+    }
+  }
+
+  @include e(label) {
+    font-size: inherit;
+    padding-left: 8px;
+    color: var(--yh-radio-text-color);
+  }
+
+  @include m(large) {
+    --yh-radio-size: 16px;
+    font-size: var(--yh-font-size-md);
+  }
+
+  @include m(small) {
+    --yh-radio-size: 12px;
+    font-size: var(--yh-font-size-xs);
+  }
+}

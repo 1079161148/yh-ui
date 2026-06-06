@@ -1,0 +1,714 @@
+<script setup lang="ts">
+/**
+ * YhCascader - 级联选择器组件
+ * @description 从层级数据中选择一个或多个值，严格类型化
+ */
+import { computed, ref, watch, nextTick, provide, onMounted, onBeforeUnmount } from 'vue'
+import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
+import { useComponentTheme } from '@yh-ui/theme'
+import { useConfig } from '@yh-ui/hooks'
+import type {
+  CascaderProps,
+  CascaderEmits,
+  CascaderExpose,
+  CascaderOption,
+  CascaderContext,
+  CascaderValue
+} from './cascader'
+import { CascaderContextKey, defaultCascaderConfig } from './cascader'
+import CascaderPanel from './cascader-panel.vue'
+
+defineOptions({
+  name: 'YhCascader'
+})
+
+const props = withDefaults(defineProps<CascaderProps>(), {
+  disabled: false,
+  clearable: false,
+  size: undefined,
+  filterable: false,
+  separator: ' / ',
+  showAllLevels: true,
+  collapseTags: false,
+  collapseTagsTooltip: false,
+  maxCollapseTags: 1,
+  teleported: true,
+  tagType: '',
+  validateEvent: true,
+  multiple: false,
+  checkStrictly: false,
+  expandTrigger: undefined,
+  emitPath: true,
+  virtual: false,
+  virtualItemHeight: 34
+})
+
+const emit = defineEmits<CascaderEmits>()
+const ns = useNamespace('cascader')
+const { t } = useLocale()
+const inputId = useId()
+
+// 组件级 themeOverrides
+const { themeStyle } = useComponentTheme(
+  'cascader',
+  computed(() => props.themeOverrides)
+)
+
+// 表单集成
+const { form, formItem, validate: triggerValidate } = useFormItem()
+
+// 全局配置
+const { globalSize } = useConfig()
+
+const cascaderSize = computed(
+  () => props.size || formItem?.size || form?.size || globalSize.value || 'default'
+)
+
+// 合并配置 - 直接属性优先于 props 配置
+const config = computed(() => ({
+  ...defaultCascaderConfig,
+  ...props.props,
+  // 直接属性覆盖
+  multiple: props.multiple || props.props?.multiple || false,
+  checkStrictly: props.checkStrictly || props.props?.checkStrictly || false,
+  expandTrigger: props.expandTrigger || props.props?.expandTrigger || 'click',
+  emitPath: props.emitPath ?? props.props?.emitPath ?? true
+}))
+
+// 元素引用
+const wrapperRef = ref<HTMLElement>()
+const inputRef = ref<HTMLInputElement>()
+const dropdownRef = ref<HTMLElement>()
+
+// 内部状态
+const visible = ref(false)
+const focused = ref(false)
+const hovering = ref(false)
+const query = ref('')
+const expandedPath = ref<(string | number)[]>([])
+const isClickingDropdown = ref(false)
+
+// 下拉框位置
+const dropdownStyle = ref<Record<string, string>>({})
+
+// 更新下拉框位置
+const updateDropdownPosition = () => {
+  if (!wrapperRef.value || !props.teleported) return
+
+  const rect = wrapperRef.value.getBoundingClientRect()
+
+  // 从所在容器提取当前有效的主题变量，支持局部主题覆盖
+  const styles = window.getComputedStyle(wrapperRef.value)
+  const primary = styles.getPropertyValue('--yh-color-primary').trim()
+  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+  const primaryLight9 = styles.getPropertyValue('--yh-color-primary-light-9').trim()
+
+  dropdownStyle.value = {
+    position: 'fixed',
+    top: `${rect.bottom + 4}px`,
+    left: `${rect.left}px`,
+    minWidth: `${rect.width}px`,
+    zIndex: '2000',
+    '--yh-color-primary': primary,
+    '--yh-color-primary-rgb': primaryRgb,
+    '--yh-color-primary-light-9': primaryLight9
+  }
+}
+
+// 监听 visible 变化更新位置
+watch(visible, (val: boolean) => {
+  if (val && props.teleported) {
+    nextTick(updateDropdownPosition)
+  }
+})
+
+// 监听窗口滚动和调整大小
+onMounted(() => {
+  if (props.teleported) {
+    window.addEventListener('scroll', updateDropdownPosition, true)
+    window.addEventListener('resize', updateDropdownPosition)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (props.teleported) {
+    window.removeEventListener('scroll', updateDropdownPosition, true)
+    window.removeEventListener('resize', updateDropdownPosition)
+  }
+})
+
+// 是否多选
+const isMultiple = computed(() => config.value.multiple)
+
+// 获取节点路径的标签
+const getPathLabels = (path: (string | number)[]): string[] => {
+  const labels: string[] = []
+  let currentOptions = props.options || []
+
+  for (const value of path) {
+    const valKey = config.value.value
+    const labelKey = config.value.label
+    const childrenKey = config.value.children
+
+    const option = currentOptions.find((o) => o[valKey] === value)
+    if (option) {
+      labels.push(String(option[labelKey] || ''))
+      currentOptions = (option[childrenKey] as CascaderOption[]) || []
+    }
+  }
+
+  return labels
+}
+
+// 根据值查找完整路径
+const findPathByValue = (
+  targetValue: string | number,
+  options: CascaderOption[]
+): (string | number)[] | null => {
+  const valKey = config.value.value
+  const childrenKey = config.value.children
+
+  for (const option of options) {
+    const val = option[valKey] as string | number
+    const children = option[childrenKey] as CascaderOption[]
+    if (val === targetValue) return [val]
+    if (children && children.length > 0) {
+      const path = findPathByValue(targetValue, children)
+      if (path) return [val, ...path]
+    }
+  }
+  return null
+}
+
+// 显示文本
+const presentText = computed(() => {
+  if (isMultiple.value) return ''
+
+  const value = props.modelValue
+  if (value === undefined || value === null) return ''
+
+  let path: (string | number)[] = []
+  if (Array.isArray(value)) {
+    path = value as (string | number)[]
+  } else {
+    // 非路径模式，查找到完整路径
+    path = findPathByValue(value as string | number, props.options || []) || []
+  }
+
+  if (path.length === 0) return ''
+
+  const labels = getPathLabels(path)
+  return props.showAllLevels ? labels.join(props.separator) : labels[labels.length - 1]
+})
+
+// 多选标签
+const presentTags = computed(() => {
+  if (!isMultiple.value) return []
+
+  const values = props.modelValue
+  if (!Array.isArray(values) || values.length === 0) return []
+
+  return (values as (string | number | (string | number)[])[]).map((v) => {
+    let path: (string | number)[] = []
+    if (Array.isArray(v)) {
+      path = v as (string | number)[]
+    } else {
+      path = findPathByValue(v as string | number, props.options || []) || []
+    }
+    const labels = getPathLabels(path)
+    return {
+      path,
+      text: props.showAllLevels ? labels.join(props.separator) : labels[labels.length - 1]
+    }
+  })
+})
+
+// 显示的标签（折叠）
+const displayTags = computed(() => {
+  if (props.collapseTags) {
+    return presentTags.value.slice(0, props.maxCollapseTags)
+  }
+  return presentTags.value
+})
+
+// 折叠的标签数量
+const collapsedCount = computed(() => {
+  if (!isMultiple.value || !props.collapseTags) return 0
+  return Math.max(0, presentTags.value.length - props.maxCollapseTags)
+})
+
+// 是否显示清空按钮
+const showClear = computed(() => {
+  if (!props.clearable || props.disabled || !hovering.value) return false
+
+  if (isMultiple.value) {
+    return Array.isArray(props.modelValue) && props.modelValue.length > 0
+  } else {
+    return (
+      props.modelValue !== undefined &&
+      props.modelValue !== null &&
+      (Array.isArray(props.modelValue) ? props.modelValue.length > 0 : true)
+    )
+  }
+})
+
+// 是否有值
+const hasValue = computed(() => {
+  if (isMultiple.value) {
+    return Array.isArray(props.modelValue) && props.modelValue.length > 0
+  }
+  return (
+    props.modelValue !== undefined &&
+    props.modelValue !== null &&
+    (Array.isArray(props.modelValue) ? props.modelValue.length > 0 : true)
+  )
+})
+
+// 过滤后的选项
+const filteredSuggestions = computed(() => {
+  if (!props.filterable || !query.value) return []
+
+  const results: { path: (string | number)[]; labels: string[] }[] = []
+  const keyword = query.value.toLowerCase()
+
+  const traverse = (options: CascaderOption[], path: (string | number)[], labels: string[]) => {
+    const valKey = config.value.value
+    const labelKey = config.value.label
+    const childrenKey = config.value.children
+
+    for (const option of options) {
+      const value = option[valKey] as string | number
+      const label = String(option[labelKey] || '')
+      const children = option[childrenKey] as CascaderOption[]
+      const currentPath = [...path, value]
+      const currentLabels = [...labels, label]
+
+      // 搜索项判断：匹配完整路径中的任何一段名称
+      const fullPathLabel = currentLabels.join(props.separator || ' / ').toLowerCase()
+      const matches = props.filterMethod
+        ? props.filterMethod(option, query.value)
+        : fullPathLabel.includes(keyword)
+
+      // 只有可以选中的节点（叶子节点或任意一级开启）才加入建议列表
+      const isLeafNode = !children || children.length === 0
+      if (matches && (isLeafNode || config.value.checkStrictly)) {
+        results.push({ path: currentPath, labels: currentLabels })
+      }
+
+      if (children && children.length > 0) {
+        traverse(children, currentPath, currentLabels)
+      }
+    }
+  }
+
+  traverse(props.options || [], [], [])
+  return results
+})
+
+// 类名
+const wrapperClasses = computed(() => [
+  ns.b(),
+  ns.m(cascaderSize.value),
+  ns.is('disabled', props.disabled),
+  ns.is('focused', focused.value || visible.value)
+])
+
+// 展开节点
+const handleExpand = (option: CascaderOption, level: number) => {
+  const value = option[config.value.value] as string | number
+  expandedPath.value = [...expandedPath.value.slice(0, level), value]
+  emit('expand-change', expandedPath.value)
+}
+
+// 选中节点
+const handleCheck = (option: CascaderOption, path: (string | number)[]) => {
+  const disabledKey = config.value.disabled
+  if (option[disabledKey]) return
+
+  if (isMultiple.value) {
+    const values = ((props.modelValue as (string | number)[][]) || []).slice()
+    const pathStr = path.join(',')
+    const index = values.findIndex((v) => v.join(',') === pathStr)
+
+    if (index > -1) {
+      values.splice(index, 1)
+    } else {
+      values.push(path)
+    }
+
+    emit('update:modelValue', values)
+    emit('change', values)
+  } else {
+    const value = config.value.emitPath ? path : path[path.length - 1]
+    emit('update:modelValue', value as CascaderValue)
+    emit('change', value as CascaderValue)
+    visible.value = false
+  }
+
+  if (props.validateEvent) {
+    triggerValidate('change')
+  }
+
+  query.value = ''
+}
+
+// 判断是否选中
+const isChecked = (path: (string | number)[]) => {
+  if (isMultiple.value) {
+    const values = props.modelValue as (string | number)[][] | undefined
+    if (!values || !Array.isArray(values)) return false
+    const pathStr = path.join(',')
+    return values.some((v) => Array.isArray(v) && v.join(',') === pathStr)
+  }
+
+  const value = props.modelValue
+  if (value === undefined || value === null) return false
+
+  if (config.value.emitPath) {
+    if (!Array.isArray(value)) return false
+    return (value as (string | number)[]).join(',') === path.join(',')
+  } else {
+    // 非路径模式下，比较末尾值
+    return value === path[path.length - 1]
+  }
+}
+
+// 移除标签
+const handleRemoveTag = (path: (string | number)[], event: Event) => {
+  event.stopPropagation()
+  if (props.disabled) return
+
+  const values = ((props.modelValue as (string | number)[][]) || []).slice()
+  const pathStr = path.join(',')
+  const index = values.findIndex((v) => v.join(',') === pathStr)
+
+  if (index > -1) {
+    values.splice(index, 1)
+    emit('update:modelValue', values)
+    emit('change', values)
+    if (props.validateEvent) {
+      triggerValidate('change')
+    }
+  }
+}
+
+// 清空
+const handleClear = (event: Event) => {
+  event.stopPropagation()
+  const value = isMultiple.value || config.value.emitPath ? [] : undefined
+  emit('update:modelValue', value)
+  emit('change', value)
+  emit('clear')
+  query.value = ''
+  expandedPath.value = []
+  if (props.validateEvent) {
+    triggerValidate('change')
+  }
+}
+
+// 切换下拉框
+const toggleDropdown = () => {
+  if (props.disabled) return
+  visible.value = !visible.value
+  emit('visible-change', visible.value)
+  if (visible.value) {
+    nextTick(() => {
+      if (props.filterable) {
+        inputRef.value?.focus()
+      }
+    })
+  }
+}
+
+// 选择过滤建议
+const handleSelectSuggestion = (suggestion: { path: (string | number)[]; labels: string[] }) => {
+  if (isMultiple.value) {
+    const values = ((props.modelValue as (string | number)[][]) || []).slice()
+    const pathStr = suggestion.path.join(',')
+    const index = values.findIndex((v) => v.join(',') === pathStr)
+
+    if (index === -1) {
+      values.push(suggestion.path)
+      emit('update:modelValue', values)
+      emit('change', values)
+    }
+  } else {
+    const value = config.value.emitPath
+      ? suggestion.path
+      : suggestion.path[suggestion.path.length - 1]
+    emit('update:modelValue', value as CascaderValue)
+    emit('change', value as CascaderValue)
+    visible.value = false
+  }
+
+  query.value = ''
+  if (props.validateEvent) {
+    triggerValidate('change')
+  }
+}
+
+// 输入处理
+const handleInput = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  query.value = target.value
+  // 输入时确保下拉框打开
+  if (!visible.value && query.value) {
+    visible.value = true
+    emit('visible-change', true)
+  }
+}
+
+// 焦点处理
+const handleFocus = (event: FocusEvent) => {
+  focused.value = true
+  emit('focus', event)
+}
+
+const handleBlur = (event: FocusEvent) => {
+  // 如果正在点击下拉框，不处理 blur
+  if (isClickingDropdown.value) {
+    return
+  }
+
+  focused.value = false
+  visible.value = false
+  emit('blur', event)
+  emit('visible-change', false)
+  if (props.validateEvent) {
+    triggerValidate('blur')
+  }
+}
+
+// 下拉框 mousedown 处理
+const handleDropdownMousedown = (event: MouseEvent) => {
+  event.preventDefault()
+  isClickingDropdown.value = true
+}
+
+// 下拉框 mouseup 处理
+const handleDropdownMouseup = () => {
+  setTimeout(() => {
+    isClickingDropdown.value = false
+  }, 0)
+}
+
+const handleMouseEnter = () => {
+  hovering.value = true
+}
+
+const handleMouseLeave = () => {
+  hovering.value = false
+}
+
+// 获取选中节点
+const getCheckedNodes = (leafOnly = false): CascaderOption[] => {
+  const nodes: CascaderOption[] = []
+
+  const findNode = (
+    options: CascaderOption[],
+    path: (string | number)[],
+    index: number
+  ): CascaderOption | null => {
+    if (index >= path.length) return null
+    const valKey = config.value.value
+    const childrenKey = config.value.children
+
+    const option = options.find((o) => o[valKey] === path[index])
+    if (!option) return null
+    if (index === path.length - 1) return option
+    return findNode((option[childrenKey] as CascaderOption[]) || [], path, index + 1)
+  }
+
+  if (isMultiple.value) {
+    const values = props.modelValue as (string | number)[][] | undefined
+    if (values && Array.isArray(values)) {
+      for (const path of values) {
+        const node = findNode(props.options || [], path, 0)
+        if (node && (!leafOnly || !(node[config.value.children] as CascaderOption[])?.length)) {
+          nodes.push(node)
+        }
+      }
+    }
+  } else {
+    const value = props.modelValue
+    if (value) {
+      const path = Array.isArray(value)
+        ? value
+        : findPathByValue(value as string | number, props.options || [])
+      if (path) {
+        const node = findNode(props.options || [], path as (string | number)[], 0)
+        if (node && (!leafOnly || !(node[config.value.children] as CascaderOption[])?.length)) {
+          nodes.push(node)
+        }
+      }
+    }
+  }
+
+  return nodes
+}
+
+// 暴露方法
+const focus = () => {
+  inputRef.value?.focus()
+}
+
+const blur = () => {
+  inputRef.value?.blur()
+}
+
+// 提供上下文 - 保持响应式
+provide<CascaderContext>(CascaderContextKey, {
+  props,
+  config: computed(() => config.value),
+  expandedPath: computed(() => expandedPath.value),
+  checkedValue: computed(() => props.modelValue),
+  handleExpand,
+  handleCheck,
+  isChecked
+})
+
+defineExpose<CascaderExpose>({
+  focus,
+  blur,
+  getCheckedNodes,
+  inputRef
+})
+</script>
+
+<template>
+  <div
+    ref="wrapperRef"
+    :class="wrapperClasses"
+    :style="themeStyle"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+    @click="toggleDropdown"
+  >
+    <!-- 输入区域 -->
+    <div :class="ns.e('wrapper')">
+      <!-- 多选标签 -->
+      <template v-if="isMultiple">
+        <span
+          v-for="tag in displayTags"
+          :key="tag.path.join(',')"
+          :class="[ns.e('tag'), tagType ? `yh-tag--${tagType}` : '']"
+        >
+          <span :class="ns.e('tag-text')">{{ tag.text }}</span>
+          <span :class="ns.e('tag-close')" @click="handleRemoveTag(tag.path, $event)">
+            <svg viewBox="0 0 1024 1024" width="1em" height="1em">
+              <path
+                fill="currentColor"
+                d="M764.288 214.592L512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"
+              />
+            </svg>
+          </span>
+        </span>
+        <span v-if="collapsedCount > 0" :class="ns.e('tag')"> +{{ collapsedCount }} </span>
+      </template>
+
+      <!-- 输入框 -->
+      <input
+        ref="inputRef"
+        :id="inputId"
+        :class="ns.e('inner')"
+        :value="filterable ? query : ''"
+        :placeholder="hasValue ? '' : placeholder || t('cascader.placeholder')"
+        :disabled="disabled"
+        :readonly="!filterable"
+        autocomplete="off"
+        role="combobox"
+        :aria-expanded="visible"
+        @input="handleInput"
+        @focus="handleFocus"
+        @blur="handleBlur"
+      />
+
+      <!-- 单选显示值 -->
+      <span v-if="!isMultiple && hasValue && !query" :class="ns.e('selected-value')">
+        {{ presentText }}
+      </span>
+
+      <!-- 后缀图标 -->
+      <span :class="ns.e('suffix')">
+        <!-- 清空按钮 -->
+        <span v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]" @click.stop="handleClear">
+          <svg viewBox="0 0 1024 1024" width="1em" height="1em">
+            <path
+              fill="currentColor"
+              d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"
+            />
+          </svg>
+        </span>
+
+        <!-- 箭头图标 -->
+        <span :class="[ns.e('icon'), ns.e('arrow'), { 'is-reverse': visible }]">
+          <svg viewBox="0 0 1024 1024" width="1em" height="1em">
+            <path
+              fill="currentColor"
+              d="M831.872 340.864L512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"
+            />
+          </svg>
+        </span>
+      </span>
+    </div>
+
+    <!-- 下拉框 -->
+    <Teleport to="body" :disabled="!teleported">
+      <Transition :name="ns.b('dropdown')">
+        <div
+          v-show="visible"
+          ref="dropdownRef"
+          :class="[ns.e('dropdown'), popperClass]"
+          :style="teleported ? dropdownStyle : {}"
+          @mousedown="handleDropdownMousedown"
+          @mouseup="handleDropdownMouseup"
+        >
+          <!-- 过滤建议 -->
+          <div
+            v-if="filterable && query && filteredSuggestions.length > 0"
+            :class="ns.e('suggestions')"
+          >
+            <div
+              v-for="suggestion in filteredSuggestions"
+              :key="suggestion.path.join(',')"
+              :class="[ns.e('suggestion'), ns.is('checked', isChecked(suggestion.path))]"
+              @click.stop="handleSelectSuggestion(suggestion)"
+            >
+              {{ suggestion.labels.join(separator) }}
+            </div>
+          </div>
+
+          <!-- 无匹配数据 -->
+          <div
+            v-else-if="filterable && query && filteredSuggestions.length === 0"
+            :class="ns.e('empty')"
+          >
+            <slot name="empty">{{ t('cascader.noMatch') }}</slot>
+          </div>
+
+          <!-- 级联面板 -->
+          <CascaderPanel
+            v-else
+            :options="options"
+            :expanded-path="expandedPath"
+            :config="config"
+            :is-multiple="isMultiple"
+            :virtual="virtual"
+            :item-height="virtualItemHeight"
+            @expand="handleExpand"
+            @check="handleCheck"
+            :is-checked="isChecked"
+          >
+            <template #default="{ node, data }">
+              <slot :node="node" :data="data"></slot>
+            </template>
+          </CascaderPanel>
+        </div>
+      </Transition>
+    </Teleport>
+  </div>
+</template>
+
+<style lang="scss">
+@use './cascader.scss';
+</style>

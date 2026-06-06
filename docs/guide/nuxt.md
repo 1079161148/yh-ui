@@ -1,0 +1,561 @@
+# 在 Nuxt 中使用 YH-UI
+
+本指南将帮助您在 Nuxt 3/4 项目中集成和使用 YH-UI 组件库。
+
+## 安装
+
+### 1. 安装依赖
+
+```bash
+pnpm add @yh-ui/nuxt
+
+# 或使用 npm
+npm install @yh-ui/nuxt
+
+# 或使用 yarn
+yarn add @yh-ui/nuxt
+```
+
+### 2. 注册模块
+
+在 `nuxt.config.ts` 中添加 `@yh-ui/nuxt` 模块：
+
+```typescript
+export default defineNuxtConfig({
+  modules: ['@yh-ui/nuxt']
+})
+```
+
+## 核心优势
+
+为什么选择 YH-UI 与 Nuxt 配合使用？
+
+1.  **🚀 SSR 零配置支持**：所有组件均经过深度 SSR 优化，确保 HTML 在服务端生成，提升 SEO 和首屏加载速度，且无需繁琐配置。
+2.  **🧩 语义化自动导入**：模块自动注册所有 `Yh` 组件、Composables 和全局方法。你只管写代码，IDE 提供完美提示，无需任何 `import`。
+3.  **⚡ 性能极致优化**：支持 Tree Shaking，配合 Nuxt 的代码分割机制，仅打包你真正使用的组件，让包体积维持在最小。
+4.  **🔒 状态隔离与安全**：针对 SSR 环境下的全局状态污染风险，我们提供了请求级的 `useZIndex` 和 `useId` 隔离机制，确保多用户并发访问的安全。
+5.  **🎨 样式按需加载**：样式系统支持 SCSS/CSS 按需注入，支持与 Nuxt 主题系统深度集成。
+
+## 注意事项 (Precautions)
+
+在使用过程中，请务必关注以下几点以避免常见的 SSR 陷阱：
+
+### 1. 客户端专用逻辑 (Client-only)
+
+由于代码会在服务端和客户端同时执行，直接访问 `window`、`document` 或 `localStorage` 会导致服务端报错。
+
+- **推荐做法**：使用 `onMounted` 钩子或 Nuxt 提供的 `import { isClient } from '@yh-ui/utils'` 进行环境检查。
+
+### 2. 水合不匹配 (Hydration Mismatch)
+
+如果服务端生成的 HTML 与客户端初次渲染的 HTML 不一致（例如直接在 setup 中生成随机数或获取实时时间并渲染），会导致 Vue 报错。
+
+- **推荐做法**：确保渲染数据的一致性，或使用 `<ClientOnly>` 组件包裹动态内容。
+
+### 3. 组件 Ref 获取
+
+在 Nuxt 中，建议使用 `ref<InstanceType<typeof YhButton>>()` 获取组件实例，以获得最佳的类型支持。
+
+您可以通过 `yhUI` 配置键来自定义模块行为：
+
+```typescript
+export default defineNuxtConfig({
+  modules: ['@yh-ui/nuxt'],
+
+  yhUI: {
+    // 默认会自动注入打包后的 CSS 样式；只有想关闭时才需要显式配置
+    importStyle: true
+  }
+})
+```
+
+默认情况下无需额外配置，`@yh-ui/nuxt` 会自动注入 YH-UI 的 CSS 样式，对纯 CSS 项目同样开箱即用。
+模块会直接把显式 CSS 子路径 `@yh-ui/components/style.css` 注入到 `nuxt.options.css`，而不是依赖源码目录下的 Sass 文件，也能避免 Nuxt SSR 样式提取告警。
+
+### 可用配置
+
+| 选项             | 类型      | 默认值 | 说明                                                 |
+| ---------------- | --------- | ------ | ---------------------------------------------------- |
+| `importStyle`    | `boolean` | `true` | 是否自动注入 YH-UI CSS 样式；纯 CSS 项目保持默认即可 |
+| `prefix`         | `string`  | `'Yh'` | 组件前缀，例如设置为 `My` 则组件名为 `MyButton`      |
+| `buildTranspile` | `boolean` | `true` | 是否自动转译相关依赖                                 |
+
+当 `importStyle` 为 `true` 时，Nuxt 模块会把 `@yh-ui/components/style.css` 追加到 `nuxt.options.css`。
+
+## 自动导入
+
+### 组件自动导入
+
+所有 `Yh` 开头的组件都会自动导入，无需手动注册：
+
+```vue
+<template>
+  <div>
+    <!-- 直接使用，无需导入 -->
+    <YhButton type="primary">点击我</YhButton>
+    <YhInput v-model="value" placeholder="输入内容" />
+    <YhSelect v-model="selected">
+      <YhOption label="选项1" value="1" />
+      <YhOption label="选项2" value="2" />
+    </YhSelect>
+  </div>
+</template>
+
+<script setup>
+// 无需导入组件
+const value = ref('')
+const selected = ref('')
+</script>
+```
+
+### Composables 自动导入
+
+常用的 Hooks 也会自动导入：
+
+```vue
+<script setup>
+// 直接使用，无需导入
+const ns = useNamespace('my-component')
+const id = useId()
+const yhId = useYhId()
+const { nextZIndex } = useZIndex()
+
+// 生成 BEM 类名
+const className = computed(() => ns.b()) // 'yh-my-component'
+const blockClass = computed(() => ns.b('header')) // 'yh-my-component-header'
+</script>
+```
+
+**可用的 Composables**:
+
+- `useNamespace` - BEM 类名生成
+- `useId` - Vue/Nuxt 原生唯一 ID 生成
+- `useYhId` - YH-UI hooks 唯一 ID 别名导入
+- `useZIndex` - z-index 管理
+- `useLocale` - 国际化
+- `useFormItem` - 表单项集成
+- `useGlobalNamespace` - 全局命名空间
+
+### 全局方法自动导入
+
+Message 和 Notification 方法也会自动导入：
+
+```vue
+<script setup>
+const showSuccess = () => {
+  // 直接使用，无需导入
+  YhMessage.success('操作成功！')
+}
+
+const showNotification = () => {
+  YhNotification({
+    title: '通知标题',
+    message: '这是通知内容',
+    type: 'success'
+  })
+}
+</script>
+```
+
+## SSR 支持
+
+YH-UI 完全支持 Server-Side Rendering (SSR)，所有组件都经过了 SSR 兼容性测试。
+
+### SSR 安全性
+
+#### ✅ 完全 SSR 安全的功能
+
+- 所有基础组件渲染
+- Props 和事件绑定
+- 样式应用
+- BEM 类名生成
+- ID 生成（使用 Vue 3.5 原生 `useId`）
+- z-index 管理（应用级隔离）
+
+#### 🔒 客户端限制的功能
+
+以下功能仅在客户端环境生效，SSR 阶段会被安全忽略：
+
+- DOM 操作（如 `focus()`, `blur()`）
+- 浏览器事件监听（如 `resize`, `scroll`）
+- `window` 或 `document` 访问
+
+### Hydration 一致性
+
+YH-UI 确保服务端和客户端渲染的 HTML 结构完全一致，避免 Hydration Mismatch 错误。
+
+#### 内部机制
+
+1. **ID 生成**: 使用 Vue 3.5+ 原生 `useId()` API
+2. **Z-Index 管理**: 每个 SSR 请求拥有独立的计数器
+3. **DOM 访问保护**: 所有 DOM 操作都包裹在 `onMounted` 中
+
+### 最佳实践
+
+#### 1. 避免在 setup 中直接访问 DOM
+
+```vue
+<script setup>
+// ❌ 错误：SSR 时 window 不存在
+const width = window.innerWidth
+
+// ✅ 正确：在 onMounted 中访问
+const width = ref(0)
+onMounted(() => {
+  width.value = window.innerWidth
+})
+</script>
+```
+
+#### 2. 使用 isClient / isServer 检查
+
+```vue
+<script setup>
+import { isClient } from '@yh-ui/utils'
+
+// ✅ 正确：条件执行
+if (isClient) {
+  // 客户端专用逻辑
+  console.log('Running in browser')
+}
+</script>
+```
+
+#### 3. 异步数据获取
+
+```vue
+<script setup>
+// ✅ 推荐：使用 Nuxt 的数据获取方法
+const { data } = await useFetch('/api/data')
+</script>
+```
+
+## 完整示例
+
+### 基础页面
+
+```vue
+<!-- pages/index.vue -->
+<template>
+  <div class="container">
+    <h1>YH-UI + Nuxt 示例</h1>
+
+    <!-- 表单 -->
+    <YhForm :model="form" label-width="100px">
+      <YhFormItem label="用户名">
+        <YhInput v-model="form.username" placeholder="请输入用户名" />
+      </YhFormItem>
+
+      <YhFormItem label="密码">
+        <YhInput v-model="form.password" type="password" show-password placeholder="请输入密码" />
+      </YhFormItem>
+
+      <YhFormItem label="类型">
+        <YhSelect v-model="form.type" placeholder="请选择">
+          <YhOption label="类型1" value="1" />
+          <YhOption label="类型2" value="2" />
+          <YhOption label="类型3" value="3" />
+        </YhSelect>
+      </YhFormItem>
+
+      <YhFormItem>
+        <YhButton type="primary" @click="handleSubmit"> 提交 </YhButton>
+        <YhButton @click="handleReset"> 重置 </YhButton>
+      </YhFormItem>
+    </YhForm>
+  </div>
+</template>
+
+<script setup lang="ts">
+// 组件和方法都是自动导入的
+
+const form = reactive({
+  username: '',
+  password: '',
+  type: ''
+})
+
+const handleSubmit = () => {
+  YhMessage.success('提交成功！')
+}
+
+const handleReset = () => {
+  form.username = ''
+  form.password = ''
+  form.type = ''
+}
+</script>
+
+<style scoped>
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+</style>
+```
+
+### 带数据获取的页面
+
+```vue
+<!-- pages/users.vue -->
+<template>
+  <div class="user-list">
+    <YhCard v-for="user in users" :key="user.id" class="user-card">
+      <template #header>
+        <div class="card-header">
+          <span>{{ user.name }}</span>
+          <YhTag :type="user.status">{{ user.status }}</YhTag>
+        </div>
+      </template>
+
+      <div class="user-info">
+        <p>邮箱: {{ user.email }}</p>
+        <p>电话: {{ user.phone }}</p>
+      </div>
+
+      <template #footer>
+        <YhButton type="primary" size="small" @click="editUser(user)"> 编辑 </YhButton>
+        <YhButton type="danger" size="small" @click="deleteUser(user.id)"> 删除 </YhButton>
+      </template>
+    </YhCard>
+  </div>
+</template>
+
+<script setup lang="ts">
+// 使用 Nuxt 的数据获取 (SSR 友好)
+const { data: users } = await useFetch('/api/users')
+
+const editUser = (user) => {
+  YhNotification({
+    title: '编辑用户',
+    message: `正在编辑用户: ${user.name}`,
+    type: 'info'
+  })
+}
+
+const deleteUser = async (userid) => {
+  try {
+    await $fetch(`/api/users/${id}`, { method: 'DELETE' })
+    YhMessage.success('删除成功')
+  } catch (error) {
+    YhMessage.error('删除失败')
+  }
+}
+</script>
+
+<style scoped>
+.user-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.user-card {
+  height: 100%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
+```
+
+## 主题定制
+
+### 全局配置
+
+使用 `ConfigProvider` 组件进行全局配置：
+
+```vue
+<!-- app.vue -->
+<template>
+  <YhConfigProvider :theme="theme" :locale="locale" size="default">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </YhConfigProvider>
+</template>
+
+<script setup lang="ts">
+const theme = ref({
+  primaryColor: '#6366f1',
+  borderRadius: '8px'
+})
+
+const locale = ref('zh-CN')
+</script>
+```
+
+### CSS 变量覆盖
+
+在全局样式中覆盖 CSS 变量：
+
+```css
+/* assets/css/main.css */
+:root {
+  /* 主色调 */
+  --yh-color-primary: #6366f1;
+  --yh-color-success: #10b981;
+  --yh-color-warning: #f59e0b;
+  --yh-color-danger: #ef4444;
+
+  /* 圆角 */
+  --yh-border-radius-base: 8px;
+
+  /* 字体 */
+  --yh-font-family: 'Inter', sans-serif;
+}
+```
+
+## 性能优化
+
+### Tree Shaking
+
+YH-UI 支持 Tree Shaking，未使用的组件不会被打包：
+
+```vue
+<template>
+  <!-- 只使用 Button，其他组件不会被打包 -->
+  <YhButton>Click Me</YhButton>
+</template>
+```
+
+### 按需加载
+
+对于大型组件（如 Table、Transfer），考虑在需要时动态导入：
+
+```vue
+<script setup>
+// 动态导入（虽然组件已自动导入，但可以用于代码分割）
+const showTree = ref(false)
+
+const loadTreeSelect = async () => {
+  showTree.value = true
+}
+</script>
+
+<template>
+  <div>
+    <YhButton @click="loadTreeSelect">加载树选择器</YhButton>
+    <YhTreeSelect v-if="showTree" v-model="value" :data="treeData" />
+  </div>
+</template>
+```
+
+## 类型支持
+
+YH-UI 提供完整的 TypeScript 类型定义，享受类型提示和自动完成：
+
+```vue
+<script setup lang="ts">
+import type { FormInstance } from '@yh-ui/components'
+
+const formRef = ref<FormInstance>()
+
+const validate = async () => {
+  try {
+    await formRef.value?.validate()
+    // 验证通过
+  } catch (error) {
+    // 验证失败
+  }
+}
+</script>
+
+<template>
+  <YhForm ref="formRef" :model="form">
+    <!-- ... -->
+  </YhForm>
+</template>
+```
+
+## AI 组件与 Nuxt
+
+YH-UI 的 AI 组件系列（如 `AiChat`、`AiBubble`、`AiBubbleList` 等）针对 Nuxt 进行了深度优化：
+
+### 自动导入 AI 组件
+
+无需配置，直接在页面中使用：
+
+```vue
+<template>
+  <YhAiBubbleList :items="messages" :virtual-scroll="true" />
+</template>
+
+<script setup>
+const messages = ref([{ role: 'assistant', content: '你好！我是 Nuxt 驱动的 AI 助理。' }])
+</script>
+```
+
+### SSR 兼容性
+
+AI 组件中涉及浏览器 API 的功能（如 `Pyodide` 运行时、录音、Markdown 动画等）会自动感应环境并在渲染期间进行安全降级，确保首屏 HTML 能够正确生成且不报错。
+
+## 常见问题
+
+### 1. 组件未自动导入？
+
+确保已正确安装并注册 `@yh-ui/nuxt` 模块：
+
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@yh-ui/nuxt'] // 确保此行存在
+})
+```
+
+### 2. 样式未加载？
+
+检查是否显式关闭了样式自动注入：
+
+```typescript
+export default defineNuxtConfig({
+  yhUI: {
+    importStyle: true // 默认就是 true，只有被关闭时才需要恢复
+  }
+})
+```
+
+### 3. Hydration Mismatch 错误？
+
+这通常是由于在 `setup` 中直接访问 `window` 或 `document` 导致的。请使用 `onMounted`:
+
+```vue
+<script setup>
+// ❌ 错误
+const width = ref(window.innerWidth)
+
+// ✅ 正确
+const width = ref(0)
+onMounted(() => {
+  width.value = window.innerWidth
+})
+</script>
+```
+
+### 4. 如何禁用某个组件的自动导入？
+
+目前所有组件都会自动导入。如果需要精细控制，可以手动导入：
+
+```vue
+<script setup>
+import { YhButton } from '@yh-ui/components'
+// 显式导入会覆盖自动导入
+</script>
+```
+
+## 获取帮助
+
+- [GitHub Issues](https://github.com/1079161148/yh-ui/issues)
+- [文档](https://yh-ui.example.com)
+- [更新日志](https://github.com/1079161148/yh-ui/blob/main/CHANGELOG.md)
+
+## 相关链接
+
+- [Nuxt 官方文档](https://nuxtjs.org.cn)
+- [Vue 3 文档](https://cn.vuejs.org)
+- [YH-UI 组件文档](/)

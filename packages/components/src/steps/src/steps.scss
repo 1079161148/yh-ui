@@ -1,0 +1,520 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(steps) {
+  --yh-steps-icon-size: 28px;
+  --yh-steps-line-color: var(--yh-border-color-light);
+  --yh-steps-finish-color: var(--yh-color-primary);
+  --yh-steps-process-color: var(--yh-color-primary);
+  --yh-steps-wait-color: var(--yh-text-color-placeholder);
+  --yh-steps-error-color: var(--yh-color-danger);
+  --yh-steps-success-color: var(--yh-color-success);
+
+  display: flex;
+
+  // ============= 水平方向 =============
+  @include m(horizontal) {
+    flex-direction: row;
+  }
+
+  // ============= 垂直方向 =============
+  @include m(vertical) {
+    flex-direction: column;
+
+    .yh-step {
+      flex-direction: row;
+      padding-bottom: 20px;
+
+      .yh-step__line {
+        position: absolute;
+        top: calc(var(--yh-steps-icon-size) + 8px);
+        left: calc(var(--yh-steps-icon-size) / 2);
+        width: 1px;
+        height: calc(100% - var(--yh-steps-icon-size) - 8px);
+        background: var(--yh-steps-line-color);
+      }
+
+      .yh-step__line-inner {
+        display: block;
+        width: 100%;
+        height: 0;
+        background: var(--yh-steps-finish-color);
+        transition: height var(--yh-duration-base);
+      }
+
+      &.is-finish .yh-step__line-inner,
+      &.is-success .yh-step__line-inner {
+        height: 100%;
+      }
+
+      .yh-step__main {
+        padding-left: 16px;
+      }
+    }
+  }
+
+  // ============= 小尺寸 =============
+  @include m(size-small) {
+    --yh-steps-icon-size: 22px;
+
+    .yh-step__head {
+      border-width: 1.5px;
+    }
+
+    .yh-step__number {
+      font-size: 12px;
+    }
+
+    .yh-step__title {
+      font-size: var(--yh-font-size-sm);
+    }
+
+    .yh-step__description {
+      font-size: 12px;
+    }
+  }
+
+  // ============= 标签垂直位置 =============
+  @include m(label-vertical) {
+    .yh-step {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .yh-step__head {
+        margin-bottom: 8px;
+      }
+
+      .yh-step__main {
+        padding-top: 0;
+      }
+    }
+  }
+
+  // ============= 居中对齐 =============
+  @include is(center) {
+    .yh-step {
+      flex: 1 !important;
+      flex-direction: column;
+      align-items: center;
+
+      .yh-step__head {
+        margin-bottom: 8px;
+      }
+
+      .yh-step__main {
+        text-align: center;
+        padding-top: 0;
+      }
+
+      .yh-step__line {
+        left: calc(50% + var(--yh-steps-icon-size) / 2 + 5px);
+        right: calc(-50% + var(--yh-steps-icon-size) / 2 + 5px);
+        width: auto;
+      }
+    }
+  }
+
+  // ============= 简洁风格 =============
+  @include is(simple) {
+    background-color: var(--yh-fill-color-light);
+    border-radius: var(--yh-radius-md);
+    padding: 12px 20px;
+
+    .yh-step {
+      flex-direction: row;
+      align-items: center;
+
+      .yh-step__head {
+        display: none;
+      }
+
+      .yh-step__line {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 24px;
+        height: 1px;
+        margin: 0 12px;
+        background: var(--yh-steps-line-color);
+      }
+
+      .yh-step__main {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .yh-step__title {
+        font-size: var(--yh-font-size-base);
+
+        &::before {
+          content: counter(step);
+          counter-increment: step;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          margin-right: 8px;
+          border-radius: 50%;
+          font-size: 12px;
+          background: var(--yh-steps-wait-color);
+          color: #fff;
+        }
+      }
+
+      &.is-process .yh-step__title::before {
+        background: var(--yh-steps-process-color);
+      }
+
+      &.is-finish .yh-step__title::before,
+      &.is-success .yh-step__title::before {
+        background: var(--yh-steps-finish-color);
+      }
+
+      &.is-error .yh-step__title::before {
+        background: var(--yh-steps-error-color);
+      }
+    }
+
+    counter-reset: step;
+  }
+
+  // ============= 点状风格 =============
+  @include is(dot) {
+    --yh-steps-icon-size: 10px;
+
+    .yh-step {
+      .yh-step__head {
+        width: var(--yh-steps-icon-size);
+        height: var(--yh-steps-icon-size);
+        min-width: var(--yh-steps-icon-size);
+        border-radius: 50%;
+        background: var(--yh-steps-wait-color);
+        border: none;
+
+        &.is-process {
+          background: var(--yh-steps-process-color);
+          box-shadow: 0 0 0 4px rgba(var(--yh-color-primary-rgb), 0.2);
+        }
+
+        &.is-finish,
+        &.is-success {
+          background: var(--yh-steps-finish-color);
+        }
+
+        &.is-error {
+          background: var(--yh-steps-error-color);
+        }
+      }
+
+      .yh-step__number {
+        display: none;
+      }
+
+      .yh-step__icon {
+        display: none;
+      }
+
+      .yh-step__icon-inner {
+        display: none;
+      }
+
+      .yh-step__line {
+        top: calc(var(--yh-steps-icon-size) / 2);
+        left: calc(var(--yh-steps-icon-size) + 8px);
+      }
+    }
+  }
+
+  // ============= 导航风格 (Premium) =============
+  @include is(navigation) {
+    background: var(--yh-fill-color-light);
+    border-radius: var(--yh-radius-md);
+    padding: 0;
+
+    .yh-step {
+      flex: 1;
+      padding: 16px 24px;
+      cursor: pointer;
+      position: relative;
+      transition: background var(--yh-duration-fast);
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+        width: 10px;
+        height: 10px;
+        border-top: 2px solid var(--yh-steps-line-color);
+        border-right: 2px solid var(--yh-steps-line-color);
+      }
+
+      &.is-last::after {
+        display: none;
+      }
+
+      &:hover {
+        background: var(--yh-fill-color);
+      }
+
+      &.is-process {
+        background: var(--yh-color-primary-light-9);
+      }
+
+      .yh-step__head {
+        display: none;
+      }
+
+      .yh-step__line {
+        display: none;
+      }
+
+      .yh-step__main {
+        padding-left: 0;
+      }
+
+      .yh-step__title {
+        font-weight: 500;
+      }
+    }
+  }
+
+  // ============= 可点击 =============
+  @include is(clickable) {
+    .yh-step:not(.is-disabled) {
+      cursor: pointer;
+
+      &:hover .yh-step__title {
+        color: var(--yh-steps-process-color);
+      }
+    }
+  }
+
+  // ============= 进度条模式 =============
+  @include is(progress) {
+    .yh-step__line {
+      background: var(--yh-steps-line-color);
+      overflow: hidden;
+      border-radius: 1px;
+    }
+
+    .yh-step__line-inner {
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        var(--yh-steps-finish-color),
+        var(--yh-color-primary-light-3)
+      );
+      transition: width 0.3s ease;
+    }
+  }
+
+  // ============= 时间线模式 =============
+  @include is(timeline) {
+    &.yh-steps--vertical {
+      .yh-step {
+        padding-left: 100px;
+        position: relative;
+
+        .yh-step__time {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 80px;
+          text-align: right;
+          font-size: var(--yh-font-size-sm);
+          color: var(--yh-text-color-secondary);
+        }
+
+        .yh-step__line {
+          left: calc(100px + var(--yh-steps-icon-size) / 2);
+        }
+
+        .yh-step__head {
+          position: relative;
+        }
+      }
+    }
+
+    &.yh-steps--horizontal {
+      .yh-step__time {
+        font-size: 12px;
+        color: var(--yh-text-color-secondary);
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+// Step 组件样式
+@include b(step) {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  padding-right: 16px;
+
+  &:last-child {
+    flex: none;
+    padding-right: 0;
+  }
+
+  // ============= 禁用状态 =============
+  @include is(disabled) {
+    cursor: not-allowed !important;
+    opacity: 0.6;
+
+    .yh-step__head,
+    .yh-step__title,
+    .yh-step__description {
+      color: var(--yh-text-color-disabled) !important;
+      border-color: var(--yh-border-color-lighter) !important;
+    }
+  }
+
+  // ============= 可点击状态 =============
+  @include is(clickable) {
+    cursor: pointer;
+
+    &:hover .yh-step__head {
+      border-color: var(--yh-steps-process-color);
+    }
+  }
+
+  // ============= 时间线步骤 =============
+  @include is(timeline) {
+    padding-left: 0;
+  }
+
+  @include e(head) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--yh-steps-icon-size);
+    height: var(--yh-steps-icon-size);
+    min-width: var(--yh-steps-icon-size);
+    border-radius: 50%;
+    border: 2px solid var(--yh-steps-wait-color);
+    color: var(--yh-steps-wait-color);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all var(--yh-duration-fast);
+    background: var(--yh-bg-color);
+    z-index: 1;
+
+    @include is(process) {
+      border-color: var(--yh-steps-process-color);
+      color: var(--yh-steps-process-color);
+      background: var(--yh-color-primary-light-9);
+    }
+
+    @include is(finish) {
+      border-color: var(--yh-steps-finish-color);
+      color: var(--yh-steps-finish-color);
+    }
+
+    @include is(success) {
+      border-color: var(--yh-steps-finish-color);
+      color: var(--yh-steps-finish-color);
+    }
+
+    @include is(error) {
+      border-color: var(--yh-steps-error-color);
+      color: var(--yh-steps-error-color);
+    }
+  }
+
+  @include e(icon) {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  @include e(icon-inner) {
+    fill: currentColor;
+  }
+
+  @include e(number) {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  // 水平方向连接线
+  @include e(line) {
+    position: absolute;
+    top: calc(var(--yh-steps-icon-size) / 2);
+    left: calc(var(--yh-steps-icon-size) + 10px);
+    right: 10px;
+    height: 1px;
+    background: var(--yh-steps-line-color);
+  }
+
+  @include e(line-inner) {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--yh-steps-finish-color);
+    transition: width var(--yh-duration-base);
+  }
+
+  &.is-finish .yh-step__line-inner,
+  &.is-success .yh-step__line-inner {
+    width: 100%;
+  }
+
+  @include e(main) {
+    padding-top: 10px;
+    white-space: normal;
+  }
+
+  @include e(title) {
+    font-size: var(--yh-font-size-base);
+    font-weight: 500;
+    color: var(--yh-text-color-primary);
+    line-height: 1.5;
+    transition: color var(--yh-duration-fast);
+
+    @include is(wait) {
+      color: var(--yh-text-color-secondary);
+    }
+
+    @include is(process) {
+      color: var(--yh-steps-process-color);
+    }
+
+    @include is(finish) {
+      color: var(--yh-text-color-primary);
+    }
+
+    @include is(success) {
+      color: var(--yh-text-color-primary);
+    }
+
+    @include is(error) {
+      color: var(--yh-steps-error-color);
+    }
+  }
+
+  @include e(description) {
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-text-color-secondary);
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+
+  @include e(time) {
+    font-size: var(--yh-font-size-sm);
+    color: var(--yh-text-color-secondary);
+  }
+
+  @include e(content) {
+    margin-top: 12px;
+    padding: 16px;
+    background: var(--yh-fill-color-light);
+    border-radius: var(--yh-radius-sm);
+  }
+}

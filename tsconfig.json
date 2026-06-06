@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "resolvePackageJsonExports": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "types": ["node", "vitest/globals", "vite/client"],
+    "paths": {
+      "@yh-ui/icons": ["./packages/icons/src/index.ts"],
+      "@yh-ui/icons/components": ["./packages/icons/src/components.ts"],
+      "@yh-ui/icons/vue": ["./packages/icons/src/vue/icon.ts"],
+      "@yh-ui/*": ["./packages/*/src"]
+    },
+    "baseUrl": "."
+  },
+  "files": [],
+  "references": [
+    { "path": "./packages/locale" },
+    { "path": "./packages/utils" },
+    { "path": "./packages/hooks" },
+    { "path": "./packages/components" },
+    { "path": "./packages/yh-ui" },
+    { "path": "./packages/yh-ui-skill" },
+    { "path": "./packages/nuxt" },
+    { "path": "./packages/ai-sdk" },
+    { "path": "./packages/request" },
+    { "path": "./packages/icons" },
+    { "path": "./packages/theme" }
+  ],
+  "vueCompilerOptions": {
+    "target": 3
+  }
+}

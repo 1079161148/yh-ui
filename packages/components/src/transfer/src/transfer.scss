@@ -1,0 +1,256 @@
+@use 'sass:map';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+/* 穿梭框面板独立样式 */
+@include b(transfer-panel) {
+  display: inline-flex;
+  flex-direction: column;
+  background: var(--yh-fill-color-blank, #fff);
+  border: 1px solid var(--yh-border-color-lighter, #ebeef5);
+  border-radius: var(--yh-radius-base, 4px);
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 200px;
+  height: 300px;
+
+  @include e(header) {
+    height: 40px;
+    background: var(--yh-fill-color-light, #f5f7fa);
+    padding: 0 12px;
+    border-bottom: 1px solid var(--yh-border-color-lighter, #ebeef5);
+    display: flex;
+    align-items: center;
+    color: var(--yh-text-color-primary, #303133);
+    box-sizing: border-box;
+  }
+
+  @include e(check-all) {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px;
+
+    @include when(disabled) {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  @include e(title) {
+    flex: 1;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(count) {
+    font-size: 12px;
+    color: var(--yh-text-color-secondary, #909399);
+    margin-left: 4px;
+  }
+
+  @include e(filter) {
+    padding: 10px;
+    box-sizing: border-box;
+
+    @include e(filter-input) {
+      width: 100%;
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid var(--yh-border-color, #dcdfe6);
+      border-radius: var(--yh-radius-base, 4px);
+      font-size: 12px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color var(--yh-transition-base, 0.2s);
+
+      &:focus {
+        border-color: var(--yh-color-primary, #409eff);
+      }
+    }
+  }
+
+  @include e(body) {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  @include e(list) {
+    margin: 0;
+    padding: 6px 0;
+    list-style: none;
+    flex: 1;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  @include e(virtual-wrapper) {
+    overflow-y: auto;
+    width: 100%;
+    flex: 1;
+  }
+
+  @include e(item) {
+    padding: 0 12px;
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--yh-text-color-regular, #606266);
+
+    &:hover:not(.is-disabled) {
+      background: var(--yh-fill-color-light, #f5f7fa);
+      color: var(--yh-color-primary, #409eff);
+    }
+
+    @include when(disabled) {
+      color: var(--yh-text-color-disabled, #c0c4cc);
+      cursor: not-allowed;
+    }
+
+    @include e(item-checkbox) {
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--yh-border-color, #dcdfe6);
+      border-radius: 2px;
+      margin-right: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--yh-fill-color-blank, #fff);
+      position: relative;
+      flex-shrink: 0;
+      transition: all 0.2s;
+
+      @include when(checked) {
+        background-color: var(--yh-color-primary, #409eff);
+        border-color: var(--yh-color-primary, #409eff);
+        color: #fff;
+      }
+
+      @include when(indeterminate) {
+        background-color: var(--yh-color-primary, #409eff);
+        border-color: var(--yh-color-primary, #409eff);
+        color: #fff;
+      }
+
+      @include e(item-checkbox__icon) {
+        width: 100%;
+        height: 100%;
+        transform: scale(0.8);
+      }
+    }
+
+    @include e(item-label) {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  @include e(empty) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--yh-text-color-secondary, #909399);
+    padding: 20px 0;
+
+    @include e(empty-text) {
+      font-size: 14px;
+    }
+
+    @include e(empty-icon) {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 8px;
+      color: var(--yh-border-color-light, #dcdfe6);
+    }
+  }
+
+  @include e(footer) {
+    border-top: 1px solid var(--yh-border-color-lighter, #ebeef5);
+    background: var(--yh-fill-color-blank, #fff);
+  }
+}
+
+/* 穿梭框整体样式 */
+@include b(transfer) {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  vertical-align: middle;
+
+  @include e(buttons) {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0 12px;
+    gap: 10px;
+  }
+
+  @include e(button) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid var(--yh-border-color, #dcdfe6);
+    background: var(--yh-fill-color-light, #f5f7fa);
+    color: var(--yh-text-color-regular, #909399);
+    cursor: pointer;
+    padding: 0 10px;
+    transition: var(--yh-transition-base, 0.3s);
+    white-space: nowrap;
+
+    &:hover:not(:disabled) {
+      color: var(--yh-color-primary, #409eff);
+      border-color: var(--yh-color-primary, #409eff);
+    }
+
+    @include when(active) {
+      &:not(:disabled) {
+        background: var(--yh-color-primary, #409eff);
+        color: #fff;
+        border-color: var(--yh-color-primary, #409eff);
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    @include e(text) {
+      margin: 0 4px;
+    }
+  }
+
+  /* 尺寸支持 */
+  @include m(large) {
+    .yh-transfer-panel {
+      width: 240px;
+      height: 360px;
+    }
+  }
+  @include m(small) {
+    .yh-transfer-panel {
+      width: 180px;
+      height: 260px;
+    }
+  }
+}

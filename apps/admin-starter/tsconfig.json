@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@yh-ui/yh-ui": ["../../packages/yh-ui/src/index.ts"],
+      "@yh-ui/components": ["../../packages/components/src/index.ts"],
+      "@yh-ui/hooks": ["../../packages/hooks/src/index.ts"],
+      "@yh-ui/icons": ["../../packages/icons/src/index.ts"],
+      "@yh-ui/icons/components": ["../../packages/icons/src/components.ts"],
+      "@yh-ui/icons/vue": ["../../packages/icons/src/vue/icon.ts"],
+      "@yh-ui/locale": ["../../packages/locale/src/index.ts"],
+      "@yh-ui/theme": ["../../packages/theme/src/index.ts"],
+      "@yh-ui/utils": ["../../packages/utils/src/index.ts"],
+      "@yh-ui/request": ["../../packages/request/src/index.ts"]
+    },
+    "composite": false,
+    "types": ["vite/client"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "vite.config.ts"]
+}

@@ -1,0 +1,64 @@
+@use 'sass:math';
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(col) {
+  box-sizing: border-box;
+
+  // 生成 0-24 grid classes
+  @for $i from 0 through 24 {
+    &.yh-col-#{$i} {
+      max-width: (math.div(1, 24) * $i * 100) * 1%;
+      flex: 0 0 (math.div(1, 24) * $i * 100) * 1%;
+    }
+
+    &.yh-col-offset-#{$i} {
+      margin-left: (math.div(1, 24) * $i * 100) * 1%;
+    }
+
+    &.yh-col-pull-#{$i} {
+      position: relative;
+      right: (math.div(1, 24) * $i * 100) * 1%;
+    }
+
+    &.yh-col-push-#{$i} {
+      position: relative;
+      left: (math.div(1, 24) * $i * 100) * 1%;
+    }
+  }
+
+  // 0 span means hidden
+  &.yh-col-0 {
+    display: none;
+  }
+}
+
+// Media queries for xs, sm, md, lg, xl
+// Assuming standard breakpoints defined in var or define here
+$breakpoints: (
+  'xs': 768px,
+  'sm': 768px,
+  'md': 992px,
+  'lg': 1200px,
+  'xl': 1920px
+);
+
+@each $break-point-name, $width in $breakpoints {
+  @media only screen and (min-width: $width) {
+    @for $i from 0 through 24 {
+      .yh-col-#{$break-point-name}-#{$i} {
+        @if $i == 0 {
+          display: none;
+        } @else {
+          display: block; // revert hidden
+          max-width: (math.div(1, 24) * $i * 100) * 1%;
+          flex: 0 0 (math.div(1, 24) * $i * 100) * 1%;
+        }
+      }
+      .yh-col-#{$break-point-name}-offset-#{$i} {
+        margin-left: (math.div(1, 24) * $i * 100) * 1%;
+      }
+      // pull/push logic specific for responsive... usually just offset and span
+    }
+  }
+}

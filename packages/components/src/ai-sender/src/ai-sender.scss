@@ -1,0 +1,365 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(ai-sender) {
+  --yh-ai-sender-bg: var(--yh-ai-sender-bg-color, var(--yh-bg-color-overlay));
+  --yh-ai-sender-border-color: var(--yh-ai-sender-border-color, var(--yh-border-color));
+  --yh-ai-sender-focus-border-color: var(
+    --yh-ai-sender-focus-border-color,
+    var(--yh-color-primary)
+  );
+  --yh-ai-sender-border-radius: var(--yh-ai-sender-border-radius, 16px);
+  --yh-ai-sender-shadow: var(--yh-ai-sender-box-shadow, 0 4px 16px rgba(0, 0, 0, 0.08));
+  --yh-ai-sender-focus-shadow: var(
+    --yh-ai-sender-focus-box-shadow,
+    0 6px 20px rgba(var(--yh-color-primary-rgb), 0.15)
+  );
+
+  width: 100%;
+  position: relative;
+  border-radius: var(--yh-ai-sender-border-radius);
+  background-color: var(--yh-ai-sender-bg);
+  box-shadow: var(--yh-ai-sender-shadow);
+  border: 1px solid var(--yh-ai-sender-border-color);
+  transition: all 0.3s ease;
+
+  // Manual hover+focus styles based on is-focused class
+  @include when(focused) {
+    border-color: var(--yh-ai-sender-focus-border-color);
+    box-shadow: var(--yh-ai-sender-focus-shadow);
+  }
+
+  @include when(disabled) {
+    background-color: var(--yh-fill-color-light);
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  @include e(input-wrapper) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    padding: 12px 16px;
+    gap: 8px;
+    position: relative;
+
+    @include e(attachments) {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    @include e(attachment-item) {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: var(--yh-fill-color-light);
+      border: 1px solid var(--yh-border-color-lighter);
+      border-radius: 8px;
+      max-width: 180px;
+      transition: all 0.2s;
+
+      @include when(uploading) {
+        opacity: 0.8;
+      }
+
+      &:hover {
+        background: var(--yh-fill-color-lighter);
+
+        @include e(attachment-remove) {
+          opacity: 1;
+        }
+      }
+    }
+
+    @include e(attachment-preview) {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--yh-bg-color);
+      flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .yh-icon {
+        font-size: 18px;
+        color: var(--yh-text-color-secondary);
+      }
+    }
+
+    @include e(attachment-info) {
+      flex: 1;
+      min-width: 0;
+    }
+
+    @include e(attachment-name) {
+      font-size: 12px;
+      color: var(--yh-text-color-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    @include e(attachment-progress) {
+      width: 100%;
+      height: 2px;
+      background: var(--yh-border-color-lighter);
+      border-radius: 1px;
+      margin-top: 4px;
+      overflow: hidden;
+    }
+
+    @include e(progress-bar) {
+      height: 100%;
+      background: var(--yh-color-primary);
+      transition: width 0.3s;
+    }
+
+    @include e(attachment-remove) {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--yh-text-color-regular);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      .yh-icon {
+        font-size: 10px;
+      }
+
+      &:hover {
+        background: var(--yh-color-danger);
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  @include e(prefix) {
+    display: flex;
+    align-items: center;
+    padding-bottom: 4px;
+  }
+
+  @include e(textarea-container) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  @include e(textarea) {
+    width: 100%;
+    min-height: 24px;
+    max-height: 200px;
+    line-height: 1.5;
+    border: none;
+    outline: none;
+    background: transparent;
+    resize: none;
+    color: var(--yh-text-color-primary);
+    font-family: inherit;
+    font-size: var(--yh-font-size-base);
+
+    &::placeholder {
+      color: var(--yh-text-color-placeholder);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(suffix) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    padding-bottom: 4px;
+  }
+
+  @include e(word-limit) {
+    font-size: 12px;
+    color: var(--yh-text-color-placeholder);
+  }
+
+  @include e(clear-icon) {
+    color: var(--yh-text-color-placeholder);
+    cursor: pointer;
+    transition: color 0.2s;
+    font-size: 16px;
+
+    &:hover {
+      color: var(--yh-text-color-regular);
+    }
+  }
+
+  @include e(actions) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 2px;
+  }
+
+  @include e(send-btn) {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    &:not(:disabled):hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  @include e(command-panel) {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--yh-bg-color-overlay);
+    border: 1px solid var(--yh-border-color-lighter);
+    border-radius: 12px;
+    box-shadow: var(--yh-shadow-light);
+    padding: 6px;
+    z-index: 1000;
+    max-height: 240px;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+    animation: yh-fade-in-up 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  @include e(command-item) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    @include when(active) {
+      background: var(--yh-fill-color-light);
+
+      @include e(command-label) {
+        color: var(--yh-color-primary);
+      }
+    }
+
+    &:hover {
+      background: var(--yh-fill-color-lighter);
+    }
+  }
+
+  @include e(command-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--yh-fill-color-light);
+    border-radius: 6px;
+    color: var(--yh-text-color-secondary);
+    font-size: 16px;
+  }
+
+  @include e(command-info) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  @include e(command-label) {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--yh-text-color-primary);
+    line-height: 1.4;
+  }
+
+  @include e(command-desc) {
+    font-size: 12px;
+    color: var(--yh-text-color-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+}
+
+@keyframes yh-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@include b(ai-sender) {
+  @include e(drag-overlay) {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--yh-color-primary-rgb), 0.1);
+    backdrop-filter: blur(4px);
+    border: 2px dashed var(--yh-color-primary);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  @include e(drag-message) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--yh-color-primary);
+    font-size: 14px;
+    font-weight: 500;
+
+    .yh-icon {
+      font-size: 32px;
+    }
+  }
+}
+
+@keyframes yh-sender-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

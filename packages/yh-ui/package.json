@@ -1,0 +1,80 @@
+{
+  "name": "@yh-ui/yh-ui",
+  "version": "1.0.31",
+  "description": "YH-UI - A Modern Vue 3 Component Library",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./full": {
+      "import": "./dist/full.mjs"
+    },
+    "./css": "./dist/style.css",
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/prepare-build-artifacts.mjs yh-ui && unbuild && node ../../scripts/post-build-styles.mjs yh-ui",
+    "dev": "unbuild --stub",
+    "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
+    "postpack": "node ../../scripts/prepare-package-manifest.mjs restore"
+  },
+  "buildArtifacts": {
+    "clean": [
+      "dist"
+    ],
+    "placeholders": [
+      {
+        "path": "dist/full.mjs",
+        "contents": "export {}\n"
+      },
+      {
+        "path": "dist/style.css",
+        "contents": "/* build placeholder */\n"
+      }
+    ]
+  },
+  "dependencies": {
+    "@yh-ui/components": "workspace:*",
+    "@yh-ui/hooks": "workspace:*",
+    "@yh-ui/icons": "workspace:*",
+    "@yh-ui/locale": "workspace:*",
+    "@yh-ui/theme": "workspace:*",
+    "@yh-ui/utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1079161148/yh-ui.git",
+    "directory": "packages/yh-ui"
+  },
+  "keywords": [
+    "yh-ui",
+    "vue3",
+    "component-library",
+    "ui-components",
+    "typescript"
+  ],
+  "homepage": "https://1079161148.github.io/yh-ui/",
+  "author": "YH-UI Team",
+  "license": "MIT"
+}
+

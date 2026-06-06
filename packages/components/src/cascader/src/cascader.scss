@@ -1,0 +1,398 @@
+@use '@yh-ui/theme/styles/mixins/mixins' as *;
+@use '@yh-ui/theme/styles/variables' as *;
+
+@include b(cascader) {
+  // --- 组件主题变量 ---
+  --yh-cascader-height: 32px;
+  --yh-cascader-height-large: 40px;
+  --yh-cascader-height-small: 24px;
+  --yh-cascader-bg-color: var(--yh-fill-color-blank, #fff);
+  --yh-cascader-border-color: var(--yh-border-color, #dcdfe6);
+  --yh-cascader-border-color-hover: var(--yh-border-color-hover, #c0c4cc);
+  --yh-cascader-border-color-focus: var(--yh-color-primary, #409eff);
+  --yh-cascader-border-radius: var(--yh-border-radius-base, 4px);
+  --yh-cascader-text-color: var(--yh-text-color-regular, #606266);
+  --yh-cascader-placeholder-color: var(--yh-text-color-placeholder, #a8abb2);
+  --yh-cascader-disabled-bg-color: var(--yh-fill-color-light, #f5f7fa);
+  --yh-cascader-disabled-text-color: var(--yh-text-color-placeholder, #a8abb2);
+
+  --yh-cascader-node-height: 34px;
+  --yh-cascader-node-bg-color-hover: var(--yh-fill-color-light, #f5f7fa);
+  --yh-cascader-node-text-color-hover: var(--yh-text-color-regular, #606266);
+  --yh-cascader-node-bg-color-active: var(--yh-fill-color-light, #f5f7fa);
+  --yh-cascader-node-text-color-active: var(--yh-color-primary, #409eff);
+
+  --yh-cascader-dropdown-bg-color: var(--yh-bg-color-overlay, #fff);
+  --yh-cascader-dropdown-border-color: var(--yh-border-color-light, #e4e7ed);
+  --yh-cascader-dropdown-shadow: var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+  --yh-cascader-menu-min-width: 180px;
+  --yh-cascader-menu-max-height: 274px;
+  --yh-cascader-menu-border-color: var(--yh-border-color-light, #e4e7ed);
+
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  font-size: 14px;
+  cursor: pointer;
+
+  @include e(wrapper) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    width: 100%;
+    min-height: var(--yh-cascader-height);
+    padding: 2px 30px 2px 11px;
+    background-color: var(--yh-cascader-bg-color);
+    border: 1px solid var(--yh-cascader-border-color);
+    border-radius: var(--yh-cascader-border-radius);
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+
+    &:hover {
+      border-color: var(--yh-cascader-border-color-hover);
+    }
+  }
+
+  @include e(inner) {
+    flex: 1;
+    min-width: 50px;
+    height: calc(var(--yh-cascader-height) - 6px);
+    padding: 0;
+    color: var(--yh-cascader-text-color);
+    font-size: inherit;
+    line-height: calc(var(--yh-cascader-height) - 6px);
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &::placeholder {
+      color: var(--yh-cascader-placeholder-color);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(selected-value) {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--yh-cascader-text-color);
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 50px);
+  }
+
+  @include e(suffix) {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--yh-cascader-placeholder-color);
+  }
+
+  @include e(icon) {
+    width: 14px;
+    height: 14px;
+    line-height: 1;
+  }
+
+  @include e(clear) {
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--yh-text-color-secondary, #909399);
+    }
+  }
+
+  @include e(arrow) {
+    transition: transform 0.3s;
+
+    @include is(reverse) {
+      transform: rotate(180deg);
+    }
+  }
+
+  @include e(tag) {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    height: 22px;
+    padding: 0 8px;
+    font-size: 12px;
+    color: var(--yh-text-color-regular, #606266);
+    background-color: var(--yh-fill-color, #f0f2f5);
+    border-radius: var(--yh-border-radius-small, 2px);
+  }
+
+  @include e(tag-text) {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(tag-close) {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--yh-color-danger, #f56c6c);
+    }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  @include e(dropdown) {
+    // 由于 Teleport 到 body，需要在此重新定义 CSS 变量（带硬编码回退值）
+    --yh-cascader-dropdown-bg-color: var(--yh-bg-color-overlay, #fff);
+    --yh-cascader-dropdown-border-color: var(--yh-border-color-light, #e4e7ed);
+    --yh-cascader-dropdown-shadow: var(--yh-box-shadow-light, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+    --yh-cascader-border-radius: var(--yh-border-radius-base, 4px);
+    --yh-cascader-menu-border-color: var(--yh-border-color-light, #e4e7ed);
+    --yh-cascader-text-color: var(--yh-text-color-regular, #606266);
+    --yh-cascader-node-height: 34px;
+    --yh-cascader-node-bg-color-hover: var(--yh-fill-color-light, #f5f7fa);
+    --yh-cascader-node-text-color-active: var(--yh-color-primary, #409eff);
+    --yh-cascader-menu-min-width: 180px;
+    --yh-cascader-menu-max-height: 274px;
+
+    position: absolute;
+    z-index: 2000;
+    margin-top: 4px;
+    background-color: var(--yh-cascader-dropdown-bg-color, #fff);
+    border: 1px solid var(--yh-cascader-dropdown-border-color, #e4e7ed);
+    border-radius: var(--yh-border-radius-base, 4px);
+    box-shadow: var(--yh-cascader-dropdown-shadow, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+  }
+
+  @include e(panel) {
+    display: flex;
+    background-color: var(--yh-cascader-dropdown-bg-color, #fff);
+    border-radius: var(--yh-cascader-border-radius, 4px);
+    overflow: hidden;
+  }
+
+  @include e(menu) {
+    min-width: var(--yh-cascader-menu-min-width);
+    max-height: var(--yh-cascader-menu-max-height);
+    padding: 6px 0;
+    overflow-y: auto;
+    border-right: 1px solid var(--yh-cascader-menu-border-color);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  @include e(node) {
+    display: flex;
+    align-items: center;
+    padding: 0 30px 0 20px;
+    height: var(--yh-cascader-node-height);
+    line-height: var(--yh-cascader-node-height);
+    font-size: 14px;
+    color: var(--yh-cascader-text-color);
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+      background-color: var(--yh-cascader-node-bg-color-hover);
+      color: var(--yh-cascader-node-text-color-hover);
+    }
+
+    @include is(expanded) {
+      background-color: var(--yh-cascader-node-bg-color-active);
+      color: var(--yh-cascader-node-text-color-active);
+    }
+
+    @include is(checked) {
+      color: var(--yh-color-primary, #409eff);
+      background-color: var(--yh-color-primary-light-9, #ecf5ff);
+      font-weight: 600;
+
+      @include is(expanded) {
+        background-color: var(--yh-color-primary-light-9, #ecf5ff);
+      }
+    }
+
+    @include is(disabled) {
+      color: var(--yh-cascader-disabled-text-color);
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  @include e(checkbox) {
+    margin-right: 8px;
+  }
+
+  @include e(checkbox-inner) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--yh-border-color, #dcdfe6);
+    border-radius: 2px;
+    background-color: var(--yh-bg-color, #fff);
+    transition: all 0.2s;
+
+    @include is(checked) {
+      background-color: var(--yh-color-primary, #409eff);
+      border-color: var(--yh-color-primary, #409eff);
+    }
+
+    svg {
+      width: 10px;
+      height: 10px;
+      color: #fff;
+    }
+  }
+
+  @include e(label) {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(expand-icon) {
+    position: absolute;
+    right: 10px;
+    color: var(--yh-cascader-placeholder-color);
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  @include e(suggestions) {
+    max-height: var(--yh-cascader-menu-max-height);
+    padding: 6px 0;
+    overflow-y: auto;
+  }
+
+  @include e(suggestion) {
+    padding: 0 20px;
+    height: var(--yh-cascader-node-height);
+    line-height: var(--yh-cascader-node-height);
+    font-size: 14px;
+    color: var(--yh-cascader-text-color);
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover {
+      background-color: var(--yh-cascader-node-bg-color-hover);
+    }
+
+    @include is(checked) {
+      color: var(--yh-color-primary, #409eff);
+      background-color: var(--yh-color-primary-light-9, #ecf5ff);
+      font-weight: 600;
+    }
+  }
+
+  @include e(empty) {
+    padding: 10px 0;
+    text-align: center;
+    color: var(--yh-text-color-secondary, #909399);
+    font-size: 14px;
+  }
+
+  // 聚焦状态
+  @include is(focused) {
+    @include e(wrapper) {
+      border-color: var(--yh-cascader-border-color-focus);
+    }
+  }
+
+  // 禁用状态
+  @include is(disabled) {
+    cursor: not-allowed;
+
+    @include e(wrapper) {
+      background-color: var(--yh-cascader-disabled-bg-color);
+      border-color: var(--yh-cascader-dropdown-border-color);
+      cursor: not-allowed;
+    }
+
+    @include e(inner) {
+      color: var(--yh-cascader-disabled-text-color);
+    }
+  }
+
+  // 尺寸 - large
+  @include m(large) {
+    font-size: 14px;
+
+    @include e(wrapper) {
+      min-height: var(--yh-cascader-height-large);
+    }
+
+    @include e(inner) {
+      height: calc(var(--yh-cascader-height-large) - 6px);
+      line-height: calc(var(--yh-cascader-height-large) - 6px);
+    }
+
+    @include e(tag) {
+      height: 26px;
+    }
+  }
+
+  // 尺寸 - small
+  @include m(small) {
+    font-size: 12px;
+
+    @include e(wrapper) {
+      min-height: var(--yh-cascader-height-small);
+    }
+
+    @include e(inner) {
+      height: calc(var(--yh-cascader-height-small) - 6px);
+      line-height: calc(var(--yh-cascader-height-small) - 6px);
+    }
+
+    @include e(tag) {
+      height: 18px;
+      font-size: 10px;
+    }
+  }
+}
+
+// 下拉动画
+.yh-cascader-dropdown-enter-active,
+.yh-cascader-dropdown-leave-active {
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+}
+
+.yh-cascader-dropdown-enter-from,
+.yh-cascader-dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}

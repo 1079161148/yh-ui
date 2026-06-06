@@ -1,0 +1,1941 @@
+/**
+ * YH-UI VitePress Custom Theme Styles
+ * 
+ * Features:
+ * - Glassmorphism navbar
+ * - Gradient theme colors
+ * - Micro-animations
+ * - Collapsible sidebar
+ * - Dark mode support
+ */
+
+/* ============================================
+   CSS Variables & Theme Colors
+   ============================================ */
+:root {
+  /* Stable docs-shell brand tokens */
+  --yh-docs-brand-1: #409eff;
+  --yh-docs-brand-2: #79bbff;
+  --yh-docs-brand-3: #337ecc;
+  --yh-docs-brand-rgb: 64, 158, 255;
+  --yh-docs-brand-soft: rgba(var(--yh-docs-brand-rgb), 0.14);
+
+  /* VitePress brand colors */
+  --vp-c-brand-1: var(--yh-docs-brand-1);
+  --vp-c-brand-2: var(--yh-docs-brand-2);
+  --vp-c-brand-3: var(--yh-docs-brand-3);
+  --vp-c-brand-soft: var(--yh-docs-brand-soft);
+
+  /* ===== Naive UI Style Layout ===== */
+  /* 左侧侧边栏 - 增加宽度 */
+  --vp-sidebar-width: 230px;
+
+  /* 右侧大纲 - 更窄 */
+  --vp-aside-width: 140px;
+
+  /* 导航栏高度 */
+  --vp-nav-height: 56px;
+
+  /* 内容区最大宽度 - 更宽 */
+  --vp-layout-max-width: 1600px;
+
+  /* Gradient colors */
+  --yh-gradient-primary: linear-gradient(
+    135deg,
+    var(--yh-docs-brand-1) 0%,
+    var(--yh-docs-brand-2) 55%,
+    #6366f1 100%
+  );
+  --yh-gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --yh-gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --yh-gradient-success: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --yh-gradient-warm: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+  --yh-gradient-cool: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+  --yh-gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+
+  /* Glassmorphism */
+  --yh-glass-bg: rgba(255, 255, 255, 0.95);
+  --yh-glass-blur: 10px;
+  --yh-glass-border: rgba(0, 0, 0, 0.08);
+
+  /* Shadows */
+  --yh-shadow-glow: 0 0 20px rgba(64, 158, 255, 0.3);
+  --yh-shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --yh-shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --yh-shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Animation durations */
+  --yh-anim-fast: 150ms;
+  --yh-anim-normal: 250ms;
+  --yh-anim-slow: 400ms;
+
+  /* VitePress overrides */
+  --vp-button-brand-bg: var(--yh-gradient-primary);
+  --vp-button-brand-hover-bg: linear-gradient(135deg, #66b1ff 0%, #818cf8 100%);
+  --vp-button-brand-active-bg: linear-gradient(135deg, #337ecc 0%, #4f46e5 100%);
+
+  /* Home hero gradient */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: var(--yh-gradient-primary);
+  --vp-home-hero-image-background-image: linear-gradient(
+    135deg,
+    rgba(64, 158, 255, 0.4) 0%,
+    rgba(99, 102, 241, 0.4) 100%
+  );
+  --vp-home-hero-image-filter: blur(68px);
+}
+
+/* Dark mode variables */
+.dark {
+  --yh-glass-bg: rgba(30, 30, 30, 0.75);
+  --yh-glass-border: rgba(255, 255, 255, 0.08);
+  --yh-shadow-glow: 0 0 30px rgba(64, 158, 255, 0.2);
+  --yh-shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --yh-shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.4);
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    135deg,
+    rgba(64, 158, 255, 0.3) 0%,
+    rgba(99, 102, 241, 0.3) 100%
+  );
+}
+
+/* ============================================
+   Navbar - Fixed Header (Naive UI Style)
+   ============================================ */
+.VPNav {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  height: var(--vp-nav-height) !important;
+  background: var(--vp-c-bg) !important;
+  border-bottom: 1px solid var(--vp-c-divider) !important;
+  box-shadow: none;
+  transition: box-shadow var(--yh-anim-normal) ease;
+
+  /* 滚动时添加阴影 */
+  &.scrolled {
+    box-shadow: var(--yh-shadow-soft);
+  }
+
+  // 锁定状态下的偏移补偿
+  html.yh-popup-parent--hidden & {
+    padding-right: var(--yh-scrollbar-width, 0) !important;
+  }
+}
+
+.VPNavBar {
+  background: transparent !important;
+  max-width: var(--vp-layout-max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+
+  .title {
+    transition: opacity var(--yh-anim-fast) ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+/* Nav links with animated underline */
+.VPNavBarMenuLink {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--yh-gradient-primary);
+    border-radius: 1px;
+    transform: translateX(-50%);
+    transition: width var(--yh-anim-normal) ease;
+  }
+
+  &:hover::after,
+  &.active::after {
+    width: 80%;
+  }
+
+  &:hover {
+    color: var(--vp-c-brand-1) !important;
+  }
+}
+
+/* Logo animation */
+.VPNavBarTitle .logo {
+  transition:
+    transform var(--yh-anim-normal) ease,
+    filter var(--yh-anim-normal) ease;
+
+  &:hover {
+    transform: rotate(-5deg) scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(64, 158, 255, 0.5));
+  }
+}
+
+/* ============================================
+   Sidebar - Narrow & Fixed (Naive UI Style)
+   ============================================ */
+.VPSidebar {
+  position: fixed !important;
+  top: var(--vp-nav-height) !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: var(--vp-sidebar-width) !important;
+  max-width: var(--vp-sidebar-width) !important;
+  /* 重置所有 padding，防止 VitePress 默认响应式布局干扰 */
+  padding: 16px 0 32px 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+  background: var(--vp-c-bg) !important;
+  border-right: 1px solid var(--vp-c-divider) !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition:
+    transform var(--yh-anim-slow) cubic-bezier(0.4, 0, 0.2, 1),
+    width var(--yh-anim-slow) cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 导航容器 */
+  .nav,
+  #VPSidebarNav {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 12px !important;
+    margin: 0 !important;
+  }
+
+  /* 分组标题更紧凑 */
+  .group {
+    width: 100%;
+    padding: 4px 0;
+  }
+
+  /* 链接项更紧凑 */
+  .VPSidebarItem {
+    width: 100%;
+
+    .item {
+      padding: 6px 8px;
+      font-size: 13px;
+      width: 100%;
+    }
+
+    .text {
+      line-height: 1.4;
+    }
+  }
+
+  /* 折叠状态 */
+  &.is-collapsed {
+    transform: translateX(-100%);
+    width: 0 !important;
+  }
+
+  // 锁定状态下的偏移补偿
+  html.yh-popup-parent--hidden & {
+    padding-right: var(--yh-scrollbar-width, 0) !important;
+  }
+
+  // 优化滚动条体验：对标 Element Plus / Naive UI 的 hover 显式逻辑
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+    transition: background 0.3s;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: var(--vp-c-divider);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--vp-c-text-3);
+    }
+  }
+}
+
+// 补偿右侧大纲及其他站站点级固定元素
+html.yh-popup-parent--hidden {
+  .VPDocAside,
+  .aside-container,
+  .VPLocalNav,
+  .back-to-top {
+    padding-right: var(--yh-scrollbar-width, 0) !important;
+  }
+}
+
+// 右侧大纲也应用同样的滚动条逻辑
+.VPDocAside {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: var(--vp-c-divider);
+    }
+  }
+}
+
+/* Sidebar group animations */
+.VPSidebarItem {
+  transition: all var(--yh-anim-normal) ease;
+
+  &.level-0 > .item {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 3px;
+      height: 0;
+      background: var(--yh-gradient-primary);
+      border-radius: 0 2px 2px 0;
+      transform: translateY(-50%);
+      transition: height var(--yh-anim-normal) ease;
+    }
+
+    &:hover::before {
+      height: 60%;
+    }
+  }
+
+  /* Collapsible arrow animation */
+  .caret {
+    transition: transform var(--yh-anim-normal) ease !important;
+  }
+
+  &.collapsed .caret {
+    transform: rotate(-90deg);
+  }
+}
+
+/* Sidebar links */
+.VPSidebarItem.level-1 > .item > .link,
+.VPSidebarItem.level-2 > .item > .link,
+.VPSidebarItem.level-3 > .item > .link {
+  position: relative;
+  transition: all var(--yh-anim-fast) ease;
+  margin: 2px 8px;
+
+  &:hover {
+    color: var(--vp-c-brand-1) !important;
+    background: transparent !important;
+    transform: translateX(2px);
+
+    .text {
+      color: var(--vp-c-brand-1) !important;
+    }
+  }
+}
+
+.VPSidebarItem.level-1.is-active > .item > .link,
+.VPSidebarItem.level-2.is-active > .item > .link,
+.VPSidebarItem.level-3.is-active > .item > .link {
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 600;
+  background: transparent !important;
+
+  .text {
+    color: var(--vp-c-brand-1) !important;
+    font-weight: 600;
+  }
+}
+
+/* Sidebar group title */
+.VPSidebarItem .text {
+  transition: color var(--yh-anim-fast) ease;
+}
+
+/* ============================================
+   Content Area Enhancements
+   ============================================ */
+.VPDoc {
+  /* Smooth content transitions */
+  .content-container {
+    animation: fadeInUp var(--yh-anim-slow) ease-out;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Headers with gradient underline */
+.vp-doc h1,
+.vp-doc h2 {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--yh-gradient-primary);
+    border-radius: 2px;
+    transition: width var(--yh-anim-normal) ease;
+  }
+
+  &:hover::after {
+    width: 100px;
+  }
+}
+
+.vp-doc h1::after {
+  width: 80px;
+
+  &:hover {
+    width: 140px;
+  }
+}
+
+/* Code blocks with enhanced styling */
+.vp-doc div[class*='language-'] {
+  border-radius: 12px;
+  box-shadow: var(--yh-shadow-soft);
+  transition:
+    box-shadow var(--yh-anim-normal) ease,
+    transform var(--yh-anim-normal) ease;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: var(--yh-shadow-medium);
+    transform: translateY(-2px);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--yh-gradient-primary);
+  }
+}
+
+/* Inline code */
+.vp-doc :not(pre) > code {
+  background: linear-gradient(135deg, var(--vp-c-brand-soft) 0%, rgba(99, 102, 241, 0.1) 100%);
+  border-radius: 4px;
+  padding: 2px 6px;
+  transition: all var(--yh-anim-fast) ease;
+  word-break: break-word;
+  white-space: normal;
+
+  &:hover {
+    background: linear-gradient(135deg, rgba(64, 158, 255, 0.2) 0%, rgba(99, 102, 241, 0.15) 100%);
+  }
+}
+
+/* Global Wrap Fixes */
+.vp-doc {
+  p,
+  li,
+  table td,
+  table th {
+    word-break: break-word;
+  }
+}
+
+/* ============================================
+   Demo Block - Enhanced Styling
+   ============================================ */
+.demo-box {
+  margin: 20px 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg);
+  /* 移除 overflow: hidden 允许内容超出盒子 */
+  box-shadow: var(--yh-shadow-soft);
+  transition: all var(--yh-anim-normal) ease;
+
+  &:hover {
+    box-shadow: var(--yh-shadow-medium);
+    border-color: var(--vp-c-brand-soft);
+  }
+
+  &__preview {
+    padding: 28px;
+    background: var(--vp-c-bg);
+    position: relative;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--yh-gradient-primary);
+      opacity: 0;
+      transition: opacity var(--yh-anim-normal) ease;
+      border-top-left-radius: 11px;
+      border-top-right-radius: 11px;
+    }
+  }
+
+  &:hover &__preview::before {
+    opacity: 1;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-top: 1px solid var(--vp-c-divider);
+    background: var(--yh-glass-bg);
+    backdrop-filter: blur(8px);
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    transition: border-radius 0.2s;
+
+    &.is-open {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  &__actions-left {
+    display: flex;
+    align-items: center;
+  }
+
+  &__actions-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--vp-c-text-1);
+    position: relative;
+    padding-left: 12px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 16px;
+      background: var(--yh-gradient-primary);
+      border-radius: 2px;
+    }
+  }
+
+  &__action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--vp-c-text-2);
+    cursor: pointer;
+    transition: all var(--yh-anim-fast) ease;
+
+    &:hover {
+      background: var(--vp-c-brand-soft);
+      color: var(--vp-c-brand-1);
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      transition: transform var(--yh-anim-fast) ease;
+    }
+
+    &:hover svg {
+      transform: rotate(5deg);
+    }
+  }
+
+  &__code {
+    border-top: 1px solid var(--vp-c-divider);
+    background: var(--vp-c-bg-alt);
+    animation: slideDown var(--yh-anim-normal) ease-out;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+  }
+
+  &__code-tabs {
+    display: flex;
+    gap: 0;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--vp-c-divider);
+    background: var(--yh-glass-bg);
+  }
+
+  &__code-tab {
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--vp-c-text-2);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all var(--yh-anim-fast) ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--yh-gradient-primary);
+      transform: scaleX(0);
+      transition: transform var(--yh-anim-normal) ease;
+    }
+
+    &:hover {
+      color: var(--vp-c-text-1);
+    }
+
+    &.active {
+      color: var(--vp-c-brand-1);
+
+      &::before {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &__code-content {
+    padding: 16px;
+    overflow-x: auto;
+
+    pre {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+    }
+
+    code {
+      font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, 'Andale Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre;
+      color: var(--vp-c-text-1);
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 800px;
+  }
+}
+
+/* Animation classes for code toggle */
+.slide-fade-enter-active {
+  transition: all var(--yh-anim-normal) ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-10px);
+}
+
+.slide-fade-enter-to,
+.slide-fade-leave-from {
+  opacity: 1;
+  max-height: 800px;
+  transform: translateY(0);
+}
+
+/* ============================================
+   Table Styling - 样式隔离方案
+   ============================================ */
+
+/* 
+ * 方案：直接使用 .vp-doc > table 选择 Markdown 原生表格
+ * YhTable 组件不是直接子元素，所以不会被选中
+ */
+
+/* Markdown 原生表格样式（直接子元素选择器，不会影响 YhTable 内部的 table） */
+.vp-doc > table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--yh-shadow-soft);
+  margin: 20px 0;
+}
+
+.vp-doc > table th,
+.vp-doc > table td {
+  padding: 14px 18px;
+  text-align: left;
+  border: none;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc > table th {
+  background: var(--yh-glass-bg);
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+
+  &:first-child {
+    border-top-left-radius: 12px;
+  }
+
+  &:last-child {
+    border-top-right-radius: 12px;
+  }
+}
+
+.vp-doc > table td {
+  background: var(--vp-c-bg);
+}
+
+.vp-doc > table tr {
+  transition: background var(--yh-anim-fast) ease;
+
+  &:hover td {
+    background: var(--vp-c-bg-soft);
+  }
+
+  &:last-child td {
+    border-bottom: none;
+
+    &:first-child {
+      border-bottom-left-radius: 12px;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 12px;
+    }
+  }
+}
+
+/*
+ * ------------------------------------------------------------
+ * YhTable 工业级环境隔离层 (VitePress Specialized)
+ *
+ * 原理：VitePress 默认 .vp-doc 对 table/tr/th/td 有强制样式
+ * （display:block, padding:8px 16px, border, striped-bg 等），
+ * 权重 0,1,1 高于组件 BEM 的 0,1,0。
+ *
+ * 解决策略（三层级权重管控）：
+ *   Layer 1 (0,2,1) — 用原生元素选择器中和 VitePress 默认样式
+ *   Layer 2 (0,3,0) — 用 BEM 类选择器重新施加组件自身样式
+ *   Layer 3 (0,4,0+)— 让组件修饰符(.is-border/.is-stripe)自然胜出
+ *
+ * 不使用 !important，不使用 :where()（其零权重会被组件自身反超）
+ * ------------------------------------------------------------
+ */
+.vp-doc .yh-table {
+  box-sizing: border-box;
+  margin: 1.5rem 0;
+
+  // ==================== Layer 1: 中和 VitePress 原始样式 ====================
+  // .vp-doc .yh-table table = 0,2,1 → 胜过 .vp-doc table = 0,1,1
+  table {
+    display: table;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+    width: 100%;
+  }
+
+  // .vp-doc .yh-table tr = 0,2,1 → 胜过 .vp-doc tr = 0,1,1
+  tr {
+    background-color: transparent;
+    border: none;
+    transition: none;
+  }
+
+  // .vp-doc .yh-table tr:nth-child(2n) = 0,3,1
+  // → 胜过 .vp-doc tr:nth-child(2n) = 0,2,1
+  tr:nth-child(2n) {
+    background-color: transparent;
+  }
+
+  // .vp-doc .yh-table th / td = 0,2,1
+  th,
+  td {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    text-align: inherit;
+    line-height: inherit;
+  }
+
+  thead,
+  tbody,
+  tfoot {
+    background-color: transparent;
+    border: none;
+  }
+
+  // ==================== Layer 2: 重新施加组件 BEM 样式 ====================
+  // 权重 0,3,0 → 胜过 Layer 1 的 0,2,1
+
+  .yh-table__header,
+  .yh-table__body,
+  .yh-table__footer {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    display: table;
+  }
+
+  .yh-table__header-cell {
+    box-sizing: border-box;
+    padding: var(--yh-table-cell-padding);
+    background-color: var(--yh-table-header-bg);
+    color: var(--yh-table-header-text-color);
+    font-weight: var(--yh-table-header-font-weight);
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    background-clip: padding-box;
+  }
+
+  .yh-table__cell {
+    box-sizing: border-box;
+    padding: var(--yh-table-cell-padding);
+    background-color: var(--yh-table-row-bg);
+    vertical-align: middle;
+    border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    transition: background-color var(--yh-duration-base) var(--yh-timing-ease);
+    background-clip: padding-box;
+  }
+
+  .yh-table__cell-content {
+    padding: 0 var(--yh-table-cell-spacing);
+    display: block;
+    box-sizing: border-box;
+    word-break: break-all;
+    line-height: var(--yh-line-height-normal);
+
+    &.is-ellipsis {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // 特殊列居中对齐
+  .yh-table__selection-cell,
+  .yh-table__expand-cell,
+  .yh-table__index-cell {
+    text-align: center;
+  }
+
+  // ==================== 排序图标 ====================
+  .yh-table__sort-icon {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 4px;
+    flex-shrink: 0;
+
+    .sort-caret {
+      width: 0;
+      height: 0;
+      border: solid 5px transparent;
+
+      &.ascending {
+        border-bottom-color: var(--yh-text-color-placeholder, #c0c4cc);
+
+        &.is-active {
+          border-bottom-color: var(--yh-color-primary, #409eff);
+        }
+      }
+
+      &.descending {
+        border-top-color: var(--yh-text-color-placeholder, #c0c4cc);
+
+        &.is-active {
+          border-top-color: var(--yh-color-primary, #409eff);
+        }
+      }
+    }
+  }
+
+  // 表头 cell-content 需要 flex 以对齐排序图标
+  .yh-table__header-cell .yh-table__cell-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .yh-table__header-cell.is-sortable {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  // ==================== 树形 / 展开图标 ====================
+  .yh-table__tree-indent {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  .yh-table__tree-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    transform: rotate(0deg);
+    color: var(--yh-text-color-secondary, #909399);
+    margin-right: 4px;
+    flex-shrink: 0;
+
+    &.is-expanded {
+      transform: rotate(90deg);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .yh-table__tree-leaf-spacer {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    flex-shrink: 0;
+  }
+
+  .yh-table__expand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    transform: rotate(0deg);
+    color: var(--yh-text-color-secondary, #909399);
+
+    &.is-expanded {
+      transform: rotate(90deg);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .yh-table__expanded-row td {
+    padding: 0;
+    border-bottom: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    background-color: var(--yh-table-row-bg);
+  }
+
+  // ==================== 汇总行 ====================
+  .yh-table__footer-wrapper {
+    overflow: hidden;
+    border-top: var(--yh-border-width) var(--yh-border-style) var(--yh-table-border-color);
+    flex-shrink: 0;
+  }
+
+  .yh-table__summary-row .yh-table__cell {
+    font-weight: 600;
+    background-color: var(--yh-table-header-bg, #fafafa);
+  }
+
+  // ==================== Layer 3: 行状态与染色 ====================
+  .yh-table__row {
+    background-color: var(--yh-table-row-bg);
+
+    &:hover .yh-table__cell {
+      background-color: var(--yh-table-row-hover-bg);
+    }
+
+    &.is-current .yh-table__cell {
+      background-color: var(--yh-table-row-current-bg);
+    }
+
+    &.success-row .yh-table__cell {
+      background-color: var(--yh-table-row-success-bg);
+    }
+
+    &.warning-row .yh-table__cell {
+      background-color: var(--yh-table-row-warning-bg);
+    }
+  }
+
+  // ==================== Sticky 布局护航 ====================
+  // 固定列必须使用显式不透明背景，防止滚动内容穿透
+  td.is-fixed-left,
+  td.is-fixed-right {
+    position: sticky;
+    z-index: 5;
+    background-color: var(--yh-table-row-bg);
+  }
+
+  th.is-fixed-left,
+  th.is-fixed-right {
+    position: sticky;
+    z-index: 10;
+    background-color: var(--yh-table-header-bg);
+  }
+
+  // 斑马纹行的固定列背景跟随
+  .yh-table__row:nth-child(even) td.is-fixed-left,
+  .yh-table__row:nth-child(even) td.is-fixed-right {
+    background-color: var(--yh-table-row-stripe-bg, var(--yh-table-row-bg));
+  }
+
+  // 悬浮行的固定列背景跟随
+  .yh-table__row:hover td.is-fixed-left,
+  .yh-table__row:hover td.is-fixed-right {
+    background-color: var(--yh-table-row-hover-bg);
+  }
+
+  // ==================== 滚动容器 ====================
+  .yh-table__body-wrapper {
+    overflow: auto;
+    flex: 1;
+    min-height: 0;
+  }
+
+  // ==================== 边框模式 ====================
+  // 不在此处重复 border，组件通过 ::after 伪元素绘制外框
+  // .is-border 的 cell border-right 权重为 0,3,0 (.yh-table.is-border .cell)
+  // 已自然胜过 Layer 1 的 0,2,1，无需额外覆盖
+}
+
+/* Props table specific */
+.props-table {
+  font-size: 14px;
+}
+
+.props-table code {
+  padding: 3px 8px;
+  background: linear-gradient(135deg, var(--vp-c-brand-soft) 0%, rgba(99, 102, 241, 0.08) 100%);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all var(--yh-anim-fast) ease;
+
+  &:hover {
+    background: linear-gradient(135deg, rgba(64, 158, 255, 0.2) 0%, rgba(99, 102, 241, 0.15) 100%);
+    transform: scale(1.02);
+  }
+}
+
+/* ============================================
+   Buttons & Interactive Elements
+   ============================================ */
+.VPButton {
+  transition: all var(--yh-anim-normal) ease !important;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.6s ease,
+      height 0.6s ease;
+  }
+
+  &:hover::before {
+    width: 300%;
+    height: 300%;
+  }
+
+  &.brand {
+    background: var(--yh-gradient-primary) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(64, 158, 255, 0.4);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(64, 158, 255, 0.5);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &.alt {
+    border: 2px solid var(--vp-c-brand-1) !important;
+
+    &:hover {
+      background: var(--vp-c-brand-soft) !important;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* ============================================
+   Home Page Hero Enhancements
+   ============================================ */
+.VPHero {
+  .name {
+    background: var(--yh-gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 8s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  .tagline {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+
+  .actions {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+
+  .image-container {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* ============================================
+   Feature Cards on Home Page
+   ============================================ */
+.VPFeature {
+  transition: all var(--yh-anim-normal) ease !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--yh-gradient-primary);
+    opacity: 0;
+    transition: opacity var(--yh-anim-normal) ease;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--yh-shadow-elevated) !important;
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  .icon {
+    transition: transform var(--yh-anim-normal) ease;
+  }
+
+  &:hover .icon {
+    transform: scale(1.15) rotate(-5deg);
+  }
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vp-c-bg-soft);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--vp-c-brand-1) 0%, var(--vp-c-brand-2) 100%);
+  border-radius: 4px;
+  transition: background var(--yh-anim-normal) ease;
+
+  &:hover {
+    background: linear-gradient(180deg, var(--vp-c-brand-2) 0%, var(--vp-c-brand-1) 100%);
+  }
+}
+
+/* ============================================
+   Search Box Enhancement
+   ============================================ */
+.DocSearch-Button {
+  border-radius: 12px !important;
+  background: var(--yh-glass-bg) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--yh-glass-border) !important;
+  transition: all var(--yh-anim-normal) ease !important;
+
+  &:hover {
+    box-shadow: var(--yh-shadow-glow);
+    border-color: var(--vp-c-brand-1) !important;
+  }
+}
+
+/* VitePress local search */
+.VPLocalSearchBox {
+  .search-input {
+    border-radius: 12px;
+    background: var(--yh-glass-bg);
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* ============================================
+   Footer Enhancement
+   ============================================ */
+.VPFooter {
+  background: var(--yh-glass-bg) !important;
+  backdrop-filter: blur(var(--yh-glass-blur));
+  border-top: 1px solid var(--yh-glass-border) !important;
+}
+
+/* ============================================
+   Loading & Transition Effects
+   ============================================ */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity var(--yh-anim-normal) ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Page transition */
+.VPContent {
+  transition: opacity var(--yh-anim-normal) ease;
+}
+
+/* ============================================
+   Tooltip Styling
+   ============================================ */
+[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  background: var(--vp-c-bg-elv);
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: var(--yh-shadow-medium);
+  z-index: 100;
+  animation: tooltipFade 0.2s ease;
+}
+
+@keyframes tooltipFade {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ============================================
+   Component Specific Fixes (Documentation Site Only)
+   ============================================ */
+.vp-doc {
+  /* Pagination 适配：防止 VitePress 的 li, ul 样式破坏分页布局 */
+  .yh-pagination {
+    ul,
+    li {
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      line-height: normal !important;
+
+      &::before {
+        display: none !important;
+      }
+    }
+
+    .yh-pagination__item {
+      display: inline-flex !important;
+    }
+
+    /* 绝对锁定跳转输入框宽度 */
+    .yh-pagination__jumper {
+      .yh-input {
+        width: 50px !important;
+        max-width: 50px !important;
+        flex: none !important; // 彻底禁止弹性伸展
+
+        input {
+          width: 100% !important;
+          padding: 0 !important;
+          text-align: center !important;
+        }
+      }
+    }
+  }
+
+  /* Descriptions 适配：强制主权回归，确保尺寸切换与边框完美对齐 */
+  .yh-descriptions {
+    display: block !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+
+    .yh-descriptions__body {
+      background-color: transparent !important;
+      border-radius: 0 !important;
+    }
+
+    table {
+      display: table !important;
+      width: 100% !important;
+      border-collapse: collapse !important;
+      table-layout: auto !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      background-color: transparent !important;
+      // 移除强制 border:none，允许组件 bordered 逻辑自行生效
+    }
+
+    /* 只清除行的背景（杀掉 VitePress 默认斑马纹） */
+    .vp-doc & tr,
+    .vp-doc & tr:nth-child(2n),
+    tr {
+      display: table-row !important;
+      background-color: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+    }
+
+    /* 旗舰级修正：强制单元格跟随组件变量走，彻底解决尺寸切换无效问题 */
+    th,
+    td {
+      display: table-cell !important;
+      border-radius: 0 !important;
+      vertical-align: middle !important;
+      // 核心修复：强制跟随组件变量，不受 VitePress 硬编码影响
+      padding: var(--yh-descriptions-padding) !important;
+      font-size: var(--yh-descriptions-item-font-size) !important;
+      color: inherit !important;
+    }
+
+    /* 必须显式捕获无边框状态，杀掉 VitePress 的默认细线 */
+    &:not(.is-bordered) {
+      &,
+      table,
+      tr,
+      th,
+      td {
+        border: none !important;
+      }
+    }
+
+    /* 响应式样式保持 */
+    @media (max-width: 768px) {
+      table {
+        table-layout: auto !important;
+        border-radius: 0 !important;
+      }
+    }
+  }
+
+  /* 统一修复演示区域可能存在的边距干扰 */
+  .demo-box__preview {
+    .yh-button + .yh-button {
+      margin-left: 12px;
+    }
+  }
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+@media (max-width: 768px) {
+  .demo-box {
+    border-radius: 8px;
+
+    &__preview {
+      padding: 16px;
+    }
+
+    &__actions {
+      padding: 8px 12px;
+    }
+  }
+
+  .vp-doc > table {
+    border-radius: 8px;
+  }
+
+  .vp-doc > table th,
+  .vp-doc > table td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+  .VPNav,
+  .VPSidebar,
+  .demo-box__actions {
+    display: none !important;
+  }
+
+  .demo-box {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+/* ============================================
+   Naive UI Style - Complete Layout Override
+   ============================================ */
+
+/* 主内容区域 - 更宽 */
+.VPContent {
+  padding-top: var(--vp-nav-height) !important;
+  padding-left: var(--vp-sidebar-width) !important;
+
+  &.has-sidebar {
+    padding-left: var(--vp-sidebar-width) !important;
+  }
+
+  /* 侧边栏折叠时 */
+  &.sidebar-collapsed {
+    padding-left: 0 !important;
+  }
+}
+
+/* 文档内容容器 - 最大化宽度 */
+.VPDoc {
+  padding: 32px 32px 96px !important;
+
+  .container {
+    max-width: 100% !important;
+    margin: 0;
+  }
+
+  .content {
+    max-width: 100% !important;
+    margin: 0;
+  }
+
+  /* 有右侧大纲时 */
+  &.has-aside {
+    .content-container {
+      max-width: calc(100% - var(--vp-aside-width) - 32px) !important;
+    }
+  }
+}
+
+/* 右侧大纲 - 更窄 */
+.VPDocAside {
+  position: fixed;
+  top: var(--vp-nav-height);
+  right: 0;
+  bottom: 0;
+  width: var(--vp-aside-width) !important;
+  padding: 32px 16px 32px 8px;
+  overflow-y: auto;
+
+  .outline-marker {
+    display: none;
+  }
+
+  .outline-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--vp-c-text-3);
+    margin-bottom: 8px;
+  }
+
+  .outline-link {
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 4px 0;
+    color: var(--vp-c-text-2);
+    transition: color var(--yh-anim-fast) ease;
+
+    &:hover,
+    &.active {
+      color: var(--vp-c-brand-1);
+    }
+  }
+}
+
+/* 内容区域适配右侧大纲 */
+.VPDoc.has-aside .content-container {
+  margin-right: var(--vp-aside-width);
+}
+
+/* 文档内容样式优化 */
+.vp-doc {
+  /* 标题不需要额外的下划线装饰 */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &::after {
+      display: none;
+    }
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--vp-c-divider);
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 36px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--vp-c-divider-light);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+}
+
+/* 英文文档排版优化 - 标题下方段落与 DemoBlock 间距、换行 */
+[lang='en-US'] .vp-doc {
+  p {
+    line-height: 1.75;
+    word-break: break-word;
+    hyphens: auto;
+    margin-bottom: 1em;
+  }
+
+  /* 标题与下方段落、DemoBlock 的间距 */
+  h2 + p,
+  h3 + p {
+    margin-top: 0;
+  }
+
+  /* 段落与 DemoBlock 之间的间距 */
+  p + .demo-box {
+    margin-top: 12px;
+  }
+}
+
+/* 大屏幕优化 */
+@media (min-width: 1440px) {
+  :root {
+    --vp-sidebar-width: 250px;
+    --vp-aside-width: 160px;
+  }
+}
+
+/* 超大屏幕 */
+@media (min-width: 1920px) {
+  :root {
+    --vp-sidebar-width: 270px;
+    --vp-aside-width: 180px;
+  }
+
+  .VPDoc {
+    padding: 40px 48px 96px !important;
+  }
+}
+
+/* 小屏幕隐藏右侧大纲 */
+@media (max-width: 1280px) {
+  .VPDocAside {
+    display: none;
+  }
+
+  .VPDoc.has-aside .content-container {
+    margin-right: 0;
+    max-width: 100% !important;
+  }
+}
+
+/* 移动端布局 */
+@media (max-width: 960px) {
+  .VPSidebar {
+    transform: translateX(-100%);
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  /* 增加权重确保覆盖层级 1475 行的样式 */
+  .VPContent,
+  .VPContent.has-sidebar {
+    padding-left: 0 !important;
+  }
+
+  .VPDoc {
+    padding: 24px 16px 64px !important;
+  }
+}
+
+/* ============================================
+   Calendar 日历组件适配
+   ============================================ */
+.vp-doc .yh-calendar {
+  /* 确保日历有足够的最小宽度 */
+  min-width: 100% !important;
+  overflow: visible !important;
+
+  /* 头部布局修复 */
+  .yh-calendar__header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 16px 20px !important;
+    height: auto !important;
+    min-height: 80px !important;
+  }
+
+  .yh-calendar__title {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .yh-calendar__controls {
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .yh-calendar__nav-group {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  /* 重置 VitePress 对 table 的干扰 */
+  .yh-calendar__table {
+    display: table !important;
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 6px 6px !important;
+    table-layout: fixed !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  thead,
+  tbody {
+    display: table-header-group !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  tbody {
+    display: table-row-group !important;
+  }
+
+  tr {
+    display: table-row !important;
+    background: transparent !important;
+    border: none !important;
+
+    &:nth-child(2n) {
+      background: transparent !important;
+    }
+
+    &:hover td {
+      background: transparent !important;
+    }
+  }
+
+  th,
+  td {
+    display: table-cell !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  /* 星期标题行 */
+  .yh-calendar__weekday {
+    height: 44px !important;
+    color: var(--yh-calendar-weekday-color, #64748b) !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    position: relative !important;
+    white-space: nowrap !important;
+
+    &::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background: rgba(255, 255, 255, 0.7) !important;
+      border-radius: 8px !important;
+      z-index: 0 !important;
+      border: 1px solid rgba(0, 0, 0, 0.02) !important;
+    }
+  }
+
+  /* 日期单元格 */
+  .yh-calendar__day {
+    height: 60px !important;
+    cursor: pointer !important;
+    position: relative !important;
+
+    &::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background-color: #ffffff !important;
+      border-radius: 8px !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+      z-index: 0 !important;
+    }
+  }
+
+  /* 周数列 */
+  .yh-calendar__week-number,
+  .yh-calendar__week-number-header {
+    min-width: 36px !important;
+    width: 36px !important;
+  }
+}
+
+/* ============================================
+   Demo Utilities & Specific Components
+   ============================================ */
+.yh-demo-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.yh-demo-row {
+  display: flex; /* 改回 flex 布局以获得更精准的起始对齐 */
+  align-items: flex-start;
+  gap: 32px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--vp-c-divider-light);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .yh-demo-label {
+    flex: 0 0 120px;
+    font-size: 14px;
+    color: var(--vp-c-text-2);
+    font-weight: 500;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* 默认高度锁定为 32px (默认输入框高度) */
+    height: 32px;
+    transition: all var(--yh-anim-fast) ease;
+
+    &::after {
+      display: none; /* 彻底移除点号 */
+    }
+  }
+
+  /* 尺寸适配：同步锁定标签高度与对应尺寸的输入框一致 */
+  &--large .yh-demo-label {
+    height: 40px;
+  }
+
+  &--small .yh-demo-label {
+    height: 24px;
+  }
+
+  .yh-demo-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* 允许内容堆叠而不影响 Label */
+    gap: 8px;
+    min-width: 0;
+
+    /* 内部第一行如果是行内容器，也保持对齐 */
+    .yh-input,
+    .yh-select {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+}
+
+.yh-demo-flex {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 覆盖 demo-box 的预览区域背景，增加设计感 */
+.demo-box__preview {
+  background-image: radial-gradient(var(--vp-c-divider-light) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: center;
+}
+
+/* 针对 Slider 在文档中的特殊对齐 */
+.vp-doc .slider-demo-block {
+  margin-bottom: 0;
+}
+
+.vp-doc .slider-demo-block .yh-slider {
+  margin-left: 0;
+}
+
+/* 垂直模式容器 */
+.vertical-demo-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 60px;
+  padding: 20px 0;
+  justify-content: center;
+}
+
+.demo-val-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 16px;
+  border: 1px solid var(--vp-c-brand-soft);
+  box-shadow: 0 2px 10px rgba(64, 158, 255, 0.1);
+}
