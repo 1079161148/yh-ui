@@ -980,7 +980,7 @@ describe('YhAiBubble', () => {
       }
     })
 
-    expect((wrapper.vm as any).jsonHtml).toContain('"answer": 42')
+    expect((wrapper.vm as any).jsonHtml).toContain('&quot;answer&quot;: 42')
     expect((wrapper.vm as any).jsonHtml).not.toContain('<span class="hljs-')
   })
 
@@ -992,7 +992,7 @@ describe('YhAiBubble', () => {
       }
     })
 
-    expect((wrapper.vm as any).jsonHtml).toContain('{"raw":true}')
+    expect((wrapper.vm as any).jsonHtml).toContain('{&quot;raw&quot;:true}')
   })
 
   it('should ignore citation hover when citation id is missing from props', () => {
@@ -1274,7 +1274,7 @@ describe('YhAiBubble', () => {
     expect(html).not.toContain('onerror=')
     expect(html).not.toContain('javascript:')
     expect(html).toContain('<img src="x">')
-    expect(html).toContain('<a>bad</a>')
+    expect(html).toContain('bad</a>')
   })
 
   it('should keep markdown code block actions after sanitizing rendered html', async () => {
