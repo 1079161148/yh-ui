@@ -34,7 +34,7 @@ env:
   NODE_VERSION: '20'
   # npm Trusted Publishing (OIDC) requires Node.js 22.x on the publish job.
   NPM_PUBLISH_NODE_VERSION: '22'
-  PNPM_VERSION: '9'
+  PNPM_VERSION: '11'
   NODE_OPTIONS: '--max-old-space-size=6144'
 
 jobs:

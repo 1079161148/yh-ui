@@ -4,6 +4,71 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.36] - 2026-06-07
+
+> TODO: 发布前补充本版本面向用户的变更摘要，并删除这一行。
+
+### Added
+
+- TODO: 记录新增能力、组件、文档或公开 API。
+
+### Changed
+
+- TODO: 记录行为变化、体验优化、工程调整或文档重整。
+
+### Fixed
+
+- TODO: 记录 bug 修复、兼容性修复或发布流程修复。
+
+### Notes
+
+- TODO: 记录迁移提示、兼容性边界、验证结果或其他发布说明。
+
+## [1.0.35] - 2026-06-07
+
+> 修复发布流水线中的构建和验证问题，消除所有 lint 警告和 build 阻塞。
+
+### Fixed
+
+- 修复 docs build 因 SSR 阶段 fetch 外部 API 失败的问题 — able/selection.md 中的 demo 改用 onMounted 调用
+- 修复 lint 报错 — 删除未使用的 SandboxPackageJson 接口，消除
+  o-explicit-any 警告
+- 修复 pnpm release 因 main 分支无 upstream 而 push 失败的问题
+- 修复 erify:packed-manifests 在沙箱环境中因 npm 缓存目录权限而失败的问题
+
+## [1.0.34] - 2026-06-07
+
+> TODO: 发布前补充本版本面向用户的变更摘要，并删除这一行。
+
+### Added
+
+- TODO: 记录新增能力、组件、文档或公开 API。
+
+### Changed
+
+- TODO: 记录行为变化、体验优化、工程调整或文档重整。
+
+### Fixed
+
+- TODO: 记录 bug 修复、兼容性修复或发布流程修复。
+
+### Notes
+
+- TODO: 记录迁移提示、兼容性边界、验证结果或其他发布说明。
+
+## [1.0.33] - 2026-06-07
+
+Patch release focusing on release pipeline verification and build stability.
+
+### Changed
+
+- Maintenance update to verify the complete release and publication workflow.
+- Optimized build artifact placeholders for `@yh-ui/yh-ui` package.
+
+### Fixed
+
+- Fixed release verification failures caused by empty changelog placeholders.
+
 ## [1.0.32] - 2026-06-06
 
 Patch release focusing on fixing build errors and CI issues.

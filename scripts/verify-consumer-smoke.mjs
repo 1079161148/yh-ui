@@ -16,6 +16,25 @@ const consumerSmokeReportPath = path.resolve(rootDir, 'test-results', 'consumer-
 const shouldSkipPreview = ['1', 'true', 'yes'].includes(
   String(process.env.YH_CONSUMER_SMOKE_SKIP_PREVIEW || '').toLowerCase()
 )
+const nuxtWarningSuppressions = ['--disable-warning=DEP0155']
+
+function mergeNodeOptions(...segments) {
+  return segments
+    .flatMap((segment) => String(segment || '').split(/\s+/))
+    .map((segment) => segment.trim())
+    .filter(Boolean)
+    .join(' ')
+}
+
+function withNodeWarningSuppressions(envOverrides = {}) {
+  const baseNodeOptions =
+    envOverrides.NODE_OPTIONS ?? process.env.NODE_OPTIONS ?? ''
+
+  return {
+    ...envOverrides,
+    NODE_OPTIONS: mergeNodeOptions(baseNodeOptions, ...nuxtWarningSuppressions)
+  }
+}
 
 const viteConsumerSizeBudgets = {
   'index.html': {
@@ -60,11 +79,14 @@ function getAvailablePort() {
   })
 }
 
-function runNodeCommand(args, cwd) {
+function runNodeCommand(args, cwd, envOverrides = {}) {
   return new Promise((resolve, reject) => {
     const child = spawn(process.execPath, args, {
       cwd,
-      env: process.env,
+      env: {
+        ...process.env,
+        ...envOverrides
+      },
       stdio: 'inherit',
       windowsHide: true
     })
@@ -659,20 +681,21 @@ async function verifyViteConsumer() {
 async function verifyNuxtConsumer() {
   const cwd = path.resolve(rootDir, 'playground-nuxt')
   const port = await getAvailablePort()
+  const nuxtEnv = withNodeWarningSuppressions()
 
   await runCommand(pnpmCli, ['-C', path.resolve(rootDir, 'packages/nuxt'), 'build'], rootDir)
-  await runNodeCommand([nuxtCli, 'build'], cwd)
+  await runNodeCommand([nuxtCli, 'build'], cwd, nuxtEnv)
 
   const preview = await startPreview(
     cwd,
     [path.resolve(cwd, '.output/server/index.mjs')],
     `http://127.0.0.1:${port}/`,
-    {
+    withNodeWarningSuppressions({
       HOST: '127.0.0.1',
       NITRO_HOST: '127.0.0.1',
       PORT: `${port}`,
       NITRO_PORT: `${port}`
-    }
+    })
   )
 
   const browser = await chromium.launch({ headless: true })

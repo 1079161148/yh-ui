@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process'
-import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
+import { access, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import http from 'node:http'
 import net from 'node:net'
 import { dirname, join, relative, resolve } from 'node:path'
@@ -14,14 +14,11 @@ const tempRootDir = resolve(rootDir, '.codex-temp/codesandbox-local')
 const packagesRoot = resolve(rootDir, 'packages')
 const packOutputDir = resolve(tempRootDir, 'packs')
 const codeSandboxRuntimeDir = resolve(rootDir, 'docs', 'public', 'codesandbox-runtime')
+const codeSandboxManifestPath = join(codeSandboxRuntimeDir, 'manifest.json')
 const isWin = process.platform === 'win32'
 const npmCommand = isWin ? 'npm.cmd' : 'npm'
 const pnpmCommand = isWin ? 'pnpm.cmd' : 'pnpm'
 const shutdownGraceMs = 2_000
-const codeSandboxManifestPromise = readFile(
-  join(codeSandboxRuntimeDir, 'manifest.json'),
-  'utf8'
-).then((text) => JSON.parse(text))
 
 const SANDBOX_WORKSPACE_PACKAGES = [
   '@yh-ui/components',
@@ -60,6 +57,18 @@ interface TestCase {
   text?: string
   verifyFiles?: (files: Record<string, string>) => void
   evaluate?: (page: BrowserPage) => Promise<void>
+}
+
+async function loadCodeSandboxManifest() {
+  try {
+    await access(codeSandboxManifestPath)
+  } catch {
+    console.log('[verify:codesandbox-local] codesandbox runtime missing, rebuilding required assets')
+    await runCommand(pnpmCommand, rootDir, ['run', 'sync:docs-public'])
+    await runCommand(pnpmCommand, rootDir, ['run', 'build:codesandbox-runtime'])
+  }
+
+  return JSON.parse(await readFile(codeSandboxManifestPath, 'utf8'))
 }
 
 function verifyAiChatVendoredFiles(files: Record<string, string>) {
@@ -613,7 +622,7 @@ function applyWorkspacePackageOverrides(
 
 async function buildProjectFiles(testCase: TestCase): Promise<Record<string, string>> {
   return createCodeSandboxProjectFiles(testCase.title, testCase.code, testCase.context, {
-    manifest: await codeSandboxManifestPromise,
+    manifest: await loadCodeSandboxManifest(),
     loadRuntimeAssetText: async (relativePath) =>
       readFile(join(codeSandboxRuntimeDir, ...relativePath.split('/')), 'utf8'),
     loadSiteAssetText: async (assetPath) =>

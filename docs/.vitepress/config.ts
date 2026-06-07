@@ -754,7 +754,7 @@ export default defineConfig({
     }
   },
   markdown: { lineNumbers: true, theme: { light: 'github-light', dark: 'github-dark' } },
-  buildConcurrency: 8,
+  buildConcurrency: 4,
   vite: {
     resolve: {
       alias: {
@@ -766,7 +766,8 @@ export default defineConfig({
         '@yh-ui/locale': resolve(__dirname, '../../packages/locale/src'),
         '@yh-ui/icons': resolve(__dirname, '../../packages/icons/src'),
         '@yh-ui/request': resolve(__dirname, '../../packages/request/src'),
-        '@yh-ui/flow': resolve(__dirname, '../../packages/flow/src')
+        '@yh-ui/flow': resolve(__dirname, '../../packages/flow/src'),
+        '@yh-ui/yh-ui': resolve(__dirname, '../../packages/yh-ui/src')
       }
     },
     optimizeDeps: {
@@ -776,6 +777,7 @@ export default defineConfig({
     },
     build: {
       chunkSizeWarningLimit: 8192,
+      sourcemap: false,
       rollupOptions: {
         output: {
           manualChunks(id) {

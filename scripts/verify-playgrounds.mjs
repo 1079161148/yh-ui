@@ -6,6 +6,7 @@ import { chromium } from 'playwright'
 
 const root = resolve(import.meta.dirname, '..')
 const artifactDir = resolve(root, 'test-results', 'playgrounds')
+const nuxtNodeOptions = '--disable-warning=DEP0155'
 
 const targets = [
   {
@@ -70,6 +71,13 @@ function startTarget(target) {
   const resolvedArgs = args.map((arg) => (arg === '__PORT__' ? String(target.port) : arg))
   const child = spawn(cmd, resolvedArgs, {
     cwd: target.cwd,
+    env:
+      target.name === 'nuxt'
+        ? {
+            ...process.env,
+            NODE_OPTIONS: [process.env.NODE_OPTIONS || '', nuxtNodeOptions].join(' ').trim()
+          }
+        : process.env,
     detached: process.platform !== 'win32',
     shell: process.platform === 'win32',
     stdio: ['ignore', 'pipe', 'pipe']

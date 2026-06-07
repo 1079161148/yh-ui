@@ -57,7 +57,7 @@ This route has been tightened into a more product-like composition instead of a 
 - a right column for `Thought chain` and `Knowledge recall`
 - an artifact drawer powered by `YhAiArtifacts`
 
-![AI Workspace Starter](/images/starter/ai-workspace.png)
+<img src="/images/starter/ai-workspace.png" alt="AI Workspace Starter" class="zoomable" />
 
 ### Why this matters
 

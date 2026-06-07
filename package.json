@@ -1,6 +1,6 @@
 {
   "name": "yh-ui-monorepo",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "private": true,
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
@@ -135,7 +135,7 @@
   },
   "engines": {
     "node": ">=18.0.0",
-    "pnpm": ">=9.0.0"
+    "pnpm": ">=11.0.0 <12.0.0"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,vue}": [

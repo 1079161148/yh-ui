@@ -57,7 +57,7 @@ Starter 的作用不是展示组件，而是让团队在第一周就能把产品
 - 右侧承载 `Thought chain` 与 `Knowledge recall`
 - 工件抽屉通过 `YhAiArtifacts` 打开，形成完整的工作台闭环
 
-![AI Workspace Starter](/images/starter/ai-workspace.png)
+<img src="/images/starter/ai-workspace.png" alt="AI Workspace Starter" class="zoomable" />
 
 ### 这版 starter 的意义
 

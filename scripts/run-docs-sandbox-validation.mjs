@@ -1,8 +1,12 @@
+import { access } from 'node:fs/promises'
+import { resolve } from 'node:path'
 import { spawn } from 'node:child_process'
 import process from 'node:process'
 
 const isWin = process.platform === 'win32'
 const pnpm = isWin ? 'pnpm.cmd' : 'pnpm'
+const rootDir = process.cwd()
+const codeSandboxManifestPath = resolve(rootDir, 'docs/public/codesandbox-runtime/manifest.json')
 
 const DEFAULT_SMOKE_ROUTES = [
   '/yh-ui/components/button.html',
@@ -39,19 +43,15 @@ function createEnv(mode) {
   return env
 }
 
-function run(mode) {
+function runCommand(args, env = process.env, label = args.join(' ')) {
   return new Promise((resolve, reject) => {
-    const child = spawn(
-      pnpm,
-      ['exec', 'vite-node', 'scripts/verify-docs-sandboxes-exhaustive.mts'],
-      {
-        cwd: process.cwd(),
-        env: createEnv(mode),
-        shell: isWin,
-        stdio: 'inherit',
-        windowsHide: true
-      }
-    )
+    const child = spawn(pnpm, args, {
+      cwd: rootDir,
+      env,
+      shell: isWin,
+      stdio: 'inherit',
+      windowsHide: true
+    })
 
     child.on('error', reject)
     child.on('close', (code) => {
@@ -60,9 +60,33 @@ function run(mode) {
         return
       }
 
-      reject(new Error(`Docs sandbox validation (${mode}) failed with exit code ${code}`))
+      reject(new Error(`Command "${label}" failed with exit code ${code}`))
     })
   })
+}
+
+async function ensureCodeSandboxRuntime() {
+  try {
+    await access(codeSandboxManifestPath)
+    return
+  } catch {}
+
+  console.log('[docs-sandbox] codesandbox runtime missing, rebuilding required assets')
+  await runCommand(['run', 'sync:docs-public'], process.env, 'pnpm run sync:docs-public')
+  await runCommand(
+    ['run', 'build:codesandbox-runtime'],
+    process.env,
+    'pnpm run build:codesandbox-runtime'
+  )
+}
+
+async function run(mode) {
+  await ensureCodeSandboxRuntime()
+  await runCommand(
+    ['exec', 'vite-node', 'scripts/verify-docs-sandboxes-exhaustive.mts'],
+    createEnv(mode),
+    `docs sandbox validation (${mode})`
+  )
 }
 
 const mode = resolveMode(process.argv)

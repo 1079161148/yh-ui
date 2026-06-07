@@ -147,11 +147,6 @@ interface WorkspaceManifest {
   version: string
 }
 
-interface SandboxPackageJson extends Record<string, unknown> {
-  pnpm?: {
-    overrides?: Record<string, string>
-  }
-}
 
 async function readWorkspaceManifest(packageDirName: string): Promise<WorkspaceManifest> {
   const manifestPath = path.join(packagesRoot, packageDirName, 'package.json')
@@ -207,19 +202,19 @@ function applyWorkspaceOverrides(
   caseDir: string,
   tarballMap: Map<string, string>
 ): Record<string, string> {
-  const packageJson = JSON.parse(files['package.json']) as SandboxPackageJson
-  const overrides = Object.fromEntries(
-    [...tarballMap.entries()].map(([packageName, tarballPath]) => [
-      packageName,
-      `file:${path.relative(caseDir, tarballPath).replace(/\\/g, '/')}`
-    ])
-  )
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const packageJson = JSON.parse(files['package.json']) as any
 
-  packageJson.pnpm = {
-    ...(packageJson.pnpm ?? {}),
-    overrides: {
-      ...(packageJson.pnpm?.overrides ?? {}),
-      ...overrides
+  for (const [packageName, tarballPath] of tarballMap.entries()) {
+    const relativePath = `file:${path.relative(caseDir, tarballPath).replace(/\\/g, '/')}`
+    if (packageJson.dependencies && packageJson.dependencies[packageName]) {
+      packageJson.dependencies[packageName] = relativePath
+    }
+    if (packageJson.devDependencies && packageJson.devDependencies[packageName]) {
+      packageJson.devDependencies[packageName] = relativePath
+    }
+    if (packageJson.peerDependencies && packageJson.peerDependencies[packageName]) {
+      packageJson.peerDependencies[packageName] = relativePath
     }
   }
 

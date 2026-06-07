@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/yh-ui-skill",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "YH-UI skill installer for modern AI coding tools",
   "type": "module",
   "bin": {

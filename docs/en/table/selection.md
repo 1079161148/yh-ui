@@ -3,7 +3,7 @@
 The Table component supports single and multiple selection.
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 // --- 1. Basic Selection Data ---
@@ -297,7 +297,7 @@ const clearAllPractical = () => {
 const practicalSelectedList = computed(() => Array.from(practicalSelectedMap.value.values()))
 
 // Initial load
-fetchPosts(1)
+onMounted(() => { fetchPosts(1) })
 
 // --- 6. Practical Case: Initialize Echo Selected Data ---
 const echoTableRef = ref()
@@ -373,7 +373,7 @@ const echoSelectedList = computed(() => Array.from(echoSelectedMap.value.values(
 
 // Initialize: Load selected data first, then request first page
 initEchoSelections()
-fetchEchoPosts(1)
+onMounted(() => { fetchEchoPosts(1) })
 
 const tsPractical = `<${_T}>
   <yh-table
@@ -420,7 +420,7 @@ const tsPractical = `<${_T}>
 </${_T}>
 
 <${_S} setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 const tableRef = ref()
 const tableData = ref<Record<string, unknown>[]>([])
@@ -533,7 +533,7 @@ const tsEcho = `<${_T}>
 </${_T}>
 
 <${_S} setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 const tableRef = ref()
 const tableData = ref<Record<string, unknown>[]>([])
