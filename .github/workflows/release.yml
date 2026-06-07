@@ -31,7 +31,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '22'
   # npm Trusted Publishing (OIDC) requires Node.js 22.x on the publish job.
   NPM_PUBLISH_NODE_VERSION: '22'
   PNPM_VERSION: '11'

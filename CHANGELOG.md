@@ -6,23 +6,18 @@ YH-UI 的重要版本变更会记录在这里。
 
 ## [1.0.36] - 2026-06-07
 
-> TODO: 发布前补充本版本面向用户的变更摘要，并删除这一行。
-
-### Added
-
-- TODO: 记录新增能力、组件、文档或公开 API。
+> 修复 CI/CD 流水线版本兼容性问题，统一 pnpm 和 Node.js 版本，消除发布流程中的所有阻塞。
 
 ### Changed
 
-- TODO: 记录行为变化、体验优化、工程调整或文档重整。
+- CI workflow Node.js 版本从 20 升级到 22，匹配 pnpm 11 的 engines 要求
+- CI workflow pnpm 版本从 9 升级到 11，lockfile version 9.0 格式统一
+- package.json engines 约束收紧（node >=22.13, pnpm >=11.5），engine-strict=true 防止版本不匹配
 
 ### Fixed
 
-- TODO: 记录 bug 修复、兼容性修复或发布流程修复。
-
-### Notes
-
-- TODO: 记录迁移提示、兼容性边界、验证结果或其他发布说明。
+- 修复锁文件版本不匹配导致的 CI 构建失败（ERR_PNPM_LOCKFILE_CONFIG_MISMATCH）
+- 修复 pnpm engines 检查导致的 setup 失败（ERR_PNPM_UNSUPPORTED_ENGINE）
 
 ## [1.0.35] - 2026-06-07
 
