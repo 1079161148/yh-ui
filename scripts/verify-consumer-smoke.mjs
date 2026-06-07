@@ -27,8 +27,7 @@ function mergeNodeOptions(...segments) {
 }
 
 function withNodeWarningSuppressions(envOverrides = {}) {
-  const baseNodeOptions =
-    envOverrides.NODE_OPTIONS ?? process.env.NODE_OPTIONS ?? ''
+  const baseNodeOptions = envOverrides.NODE_OPTIONS ?? process.env.NODE_OPTIONS ?? ''
 
   return {
     ...envOverrides,

@@ -147,7 +147,6 @@ interface WorkspaceManifest {
   version: string
 }
 
-
 async function readWorkspaceManifest(packageDirName: string): Promise<WorkspaceManifest> {
   const manifestPath = path.join(packagesRoot, packageDirName, 'package.json')
   return JSON.parse(await readFile(manifestPath, 'utf8')) as WorkspaceManifest
@@ -203,7 +202,7 @@ function applyWorkspaceOverrides(
   tarballMap: Map<string, string>
 ): Record<string, string> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const packageJson = JSON.parse(files['package.json']) as any
+  const packageJson = JSON.parse(files['package.json']) as any
 
   for (const [packageName, tarballPath] of tarballMap.entries()) {
     const relativePath = `file:${path.relative(caseDir, tarballPath).replace(/\\/g, '/')}`

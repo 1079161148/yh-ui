@@ -63,7 +63,9 @@ async function loadCodeSandboxManifest() {
   try {
     await access(codeSandboxManifestPath)
   } catch {
-    console.log('[verify:codesandbox-local] codesandbox runtime missing, rebuilding required assets')
+    console.log(
+      '[verify:codesandbox-local] codesandbox runtime missing, rebuilding required assets'
+    )
     await runCommand(pnpmCommand, rootDir, ['run', 'sync:docs-public'])
     await runCommand(pnpmCommand, rootDir, ['run', 'build:codesandbox-runtime'])
   }
