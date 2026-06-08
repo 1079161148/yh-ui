@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/flow",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "description": "YH-UI High-performance Flow Chart Component",
   "type": "module",
   "sideEffects": false,
@@ -32,8 +32,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@yh-ui/utils": "workspace:*",
-    "@yh-ui/hooks": "workspace:*"
+    "@yh-ui/utils": "^1.0.37",
+    "@yh-ui/hooks": "^1.0.37"
   },
   "devDependencies": {
     "vue": "catalog:",

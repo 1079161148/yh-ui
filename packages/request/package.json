@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/request",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "description": "YH-UI HTTP request hooks - Enterprise-grade request management",
   "type": "module",
   "sideEffects": false,
@@ -32,7 +32,7 @@
     "postpack": "node ../../scripts/prepare-package-manifest.mjs restore"
   },
   "dependencies": {
-    "@yh-ui/utils": "workspace:*"
+    "@yh-ui/utils": "^1.0.37"
   },
   "devDependencies": {
     "vue": "catalog:",

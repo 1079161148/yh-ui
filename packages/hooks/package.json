@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/hooks",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "description": "YH-UI composition hooks",
   "type": "module",
   "sideEffects": false,
@@ -32,8 +32,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@yh-ui/locale": "workspace:*",
-    "@yh-ui/utils": "workspace:*",
+    "@yh-ui/locale": "^1.0.37",
+    "@yh-ui/utils": "^1.0.37",
     "dayjs": "catalog:"
   },
   "devDependencies": {
