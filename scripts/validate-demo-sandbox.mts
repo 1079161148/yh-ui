@@ -204,7 +204,7 @@ function applyWorkspaceOverrides(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const packageJson = JSON.parse(files['package.json']) as any
 
-  let workspaceYaml = 'overrides:\n'
+  let workspaceYaml = 'packages:\n  - "."\noverrides:\n'
 
   for (const [packageName, tarballPath] of tarballMap.entries()) {
     const relativePath = `file:${path.relative(caseDir, tarballPath).replace(/\\/g, '/')}`
@@ -438,7 +438,7 @@ async function validateCase(testCase: (typeof cases)[number], tarballMap: Map<st
   await mkdir(caseDir, { recursive: true })
   await writeProject(caseDir, files)
 
-  await runPnpm(['install', '--ignore-workspace'], caseDir)
+  await runPnpm(['install', '--config.ignore-scripts=true'], caseDir)
   await runPnpm(['run', 'build'], caseDir)
   await runSmokeValidation(caseDir, testCase.smoke)
 }
