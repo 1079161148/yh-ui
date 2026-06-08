@@ -204,6 +204,8 @@ function applyWorkspaceOverrides(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const packageJson = JSON.parse(files['package.json']) as any
 
+  let workspaceYaml = 'overrides:\n'
+
   for (const [packageName, tarballPath] of tarballMap.entries()) {
     const relativePath = `file:${path.relative(caseDir, tarballPath).replace(/\\/g, '/')}`
     if (packageJson.dependencies && packageJson.dependencies[packageName]) {
@@ -215,11 +217,13 @@ function applyWorkspaceOverrides(
     if (packageJson.peerDependencies && packageJson.peerDependencies[packageName]) {
       packageJson.peerDependencies[packageName] = relativePath
     }
+    workspaceYaml += `  "${packageName}": "${relativePath}"\n`
   }
 
   return {
     ...files,
-    'package.json': JSON.stringify(packageJson, null, 2) + '\n'
+    'package.json': JSON.stringify(packageJson, null, 2) + '\n',
+    'pnpm-workspace.yaml': workspaceYaml
   }
 }
 

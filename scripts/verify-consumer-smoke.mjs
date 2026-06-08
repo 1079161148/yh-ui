@@ -16,7 +16,7 @@ const consumerSmokeReportPath = path.resolve(rootDir, 'test-results', 'consumer-
 const shouldSkipPreview = ['1', 'true', 'yes'].includes(
   String(process.env.YH_CONSUMER_SMOKE_SKIP_PREVIEW || '').toLowerCase()
 )
-const nuxtWarningSuppressions = ['--disable-warning=DEP0155']
+const nuxtWarningSuppressions = ['--disable-warning=DEP0155', '--max-old-space-size=6144']
 
 function mergeNodeOptions(...segments) {
   return segments

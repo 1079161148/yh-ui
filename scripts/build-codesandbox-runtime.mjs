@@ -648,7 +648,7 @@ async function main() {
     return
   }
 
-  await rm(runtimeOutDir, { recursive: true, force: true })
+  await rm(runtimeOutDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 })
   await ensureDir(runtimeOutDir)
   await buildSupportBarrelImportMaps()
 

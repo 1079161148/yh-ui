@@ -162,7 +162,7 @@ async function publishPackage(pkg) {
   try {
     // Publish the verified tarball instead of the directory so the uploaded package
     // matches the exact output of npm pack / prepack manifest rewriting.
-    await run(npmCommand, ['publish', packed.tarballName, '--access', 'public'], { cwd: pkg.dir })
+    await run(npmCommand, ['publish', packed.tarballPath, '--access', 'public'], { cwd: pkg.dir })
     return 'published'
   } finally {
     await fs.rm(packed.tarballPath, { force: true })
