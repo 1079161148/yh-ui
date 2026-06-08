@@ -4,6 +4,18 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.38] - 2026-06-08
+
+> 修复 1.0.37 中未包含的 dayjs ESM 兼容性修复，解决消费端 `dayjs.extend is not a function` 运行时错误。
+
+### Fixed
+
+- **components**: 将 `dayjs` 导入从 `import dayjs from 'dayjs'` 改为 `import * as dayjsModule` + 运行时 default 检测的兼容性写法，确保在 Vite/Rollup 等 ESM 环境下正确获取 dayjs 函数及其 `extend` 方法。
+
+### Notes
+
+- **兼容性**: 1.0.37 虽已发布至 npm，但由于发布时未包含此修复，消费端仍会遇到 `dayjs.extend is not a function`。请升级至 1.0.38 以彻底解决该问题。
+
 ## [1.0.37] - 2026-06-08
 
 > 修复日历相关组件在 Vite 等消费端环境下的 `dayjs.extend` 导入错误，并修正内部工作区依赖结构。
