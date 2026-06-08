@@ -4,6 +4,18 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.39] - 2026-06-08
+
+> 彻底修复 dayjs 在消费端不同构建环境下的 ESM 默认导出与运行时兼容性问题，避免报错。
+
+### Fixed
+
+- **components, hooks**: 彻底修复 `dayjs` 在 Vite 开发服务器下的 ESM 默认导出语法错误 (`does not provide an export named 'default'`)。同时通过运行时 fallback 检测保留了 CJS/ESM 混用打包环境下的 `dayjs.extend` 调用支持，实现全场景无缝兼容。
+
+### Notes
+
+- **兼容性**: 建议所有遇到消费端 `dayjs` 报错（无论是 `does not provide an export named 'default'` 还是 `dayjs.extend is not a function`）的用户升级至 `1.0.39` 版本。
+
 ## [1.0.38] - 2026-06-08
 
 > 修复 1.0.37 中未包含的 dayjs ESM 兼容性修复，解决消费端 `dayjs.extend is not a function` 运行时错误。
