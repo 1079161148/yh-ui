@@ -45,10 +45,10 @@
   "dependencies": {
     "@webcontainer/api": "^1.6.1",
     "@floating-ui/dom": "^1.7.4",
-    "@yh-ui/hooks": "^1.0.37",
-    "@yh-ui/locale": "^1.0.37",
-    "@yh-ui/theme": "^1.0.37",
-    "@yh-ui/utils": "^1.0.37",
+    "@yh-ui/hooks": "workspace:*",
+    "@yh-ui/locale": "workspace:*",
+    "@yh-ui/theme": "workspace:*",
+    "@yh-ui/utils": "workspace:*",
     "async-validator": "^4.2.5",
     "dayjs": "catalog:",
     "dompurify": "^3.3.3"

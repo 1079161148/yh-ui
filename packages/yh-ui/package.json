@@ -48,12 +48,12 @@
     ]
   },
   "dependencies": {
-    "@yh-ui/components": "^1.0.37",
-    "@yh-ui/hooks": "^1.0.37",
-    "@yh-ui/icons": "^1.0.37",
-    "@yh-ui/locale": "^1.0.37",
-    "@yh-ui/theme": "^1.0.37",
-    "@yh-ui/utils": "^1.0.37"
+    "@yh-ui/components": "workspace:*",
+    "@yh-ui/hooks": "workspace:*",
+    "@yh-ui/icons": "workspace:*",
+    "@yh-ui/locale": "workspace:*",
+    "@yh-ui/theme": "workspace:*",
+    "@yh-ui/utils": "workspace:*"
   },
   "peerDependencies": {
     "vue": "catalog:"

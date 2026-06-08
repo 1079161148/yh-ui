@@ -363,16 +363,16 @@ importers:
         specifier: ^1.6.1
         version: 1.6.4
       '@yh-ui/hooks':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../hooks
       '@yh-ui/locale':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../locale
       '@yh-ui/theme':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../theme
       '@yh-ui/utils':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../utils
       async-validator:
         specifier: ^4.2.5
@@ -434,10 +434,10 @@ importers:
   packages/flow:
     dependencies:
       '@yh-ui/hooks':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../hooks
       '@yh-ui/utils':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../utils
     devDependencies:
       vue:
@@ -453,10 +453,10 @@ importers:
   packages/hooks:
     dependencies:
       '@yh-ui/locale':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../locale
       '@yh-ui/utils':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../utils
       dayjs:
         specifier: ^1.11.19
@@ -493,13 +493,13 @@ importers:
         specifier: ^3.11.0 || ^4.0.0
         version: 4.4.7(magicast@0.5.3)
       '@yh-ui/components':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../components
       '@yh-ui/hooks':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../hooks
       '@yh-ui/theme':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../theme
     devDependencies:
       '@nuxt/schema':
@@ -515,7 +515,7 @@ importers:
   packages/request:
     dependencies:
       '@yh-ui/utils':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../utils
     devDependencies:
       vue:
@@ -547,22 +547,22 @@ importers:
   packages/yh-ui:
     dependencies:
       '@yh-ui/components':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../components
       '@yh-ui/hooks':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../hooks
       '@yh-ui/icons':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../icons
       '@yh-ui/locale':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../locale
       '@yh-ui/theme':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../theme
       '@yh-ui/utils':
-        specifier: workspace:*
+        specifier: ^1.0.37
         version: link:../utils
       vue:
         specifier: ^3.5.27

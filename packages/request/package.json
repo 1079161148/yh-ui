@@ -32,7 +32,7 @@
     "postpack": "node ../../scripts/prepare-package-manifest.mjs restore"
   },
   "dependencies": {
-    "@yh-ui/utils": "^1.0.37"
+    "@yh-ui/utils": "workspace:*"
   },
   "devDependencies": {
     "vue": "catalog:",

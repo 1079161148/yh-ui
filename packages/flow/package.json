@@ -32,8 +32,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@yh-ui/utils": "^1.0.37",
-    "@yh-ui/hooks": "^1.0.37"
+    "@yh-ui/utils": "workspace:*",
+    "@yh-ui/hooks": "workspace:*"
   },
   "devDependencies": {
     "vue": "catalog:",
