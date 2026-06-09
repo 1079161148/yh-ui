@@ -1,10 +1,10 @@
 import type { PluginFunc } from 'dayjs'
-import _advancedFormat from 'dayjs/esm/plugin/advancedFormat/index.js'
-import _customParseFormat from 'dayjs/esm/plugin/customParseFormat/index.js'
-import _isBetween from 'dayjs/esm/plugin/isBetween/index.js'
-import _isoWeek from 'dayjs/esm/plugin/isoWeek/index.js'
-import _quarterOfYear from 'dayjs/esm/plugin/quarterOfYear/index.js'
-import _weekOfYear from 'dayjs/esm/plugin/weekOfYear/index.js'
+import _advancedFormat from 'dayjs/plugin/advancedFormat'
+import _customParseFormat from 'dayjs/plugin/customParseFormat'
+import _isBetween from 'dayjs/plugin/isBetween'
+import _isoWeek from 'dayjs/plugin/isoWeek'
+import _quarterOfYear from 'dayjs/plugin/quarterOfYear'
+import _weekOfYear from 'dayjs/plugin/weekOfYear'
 
 // CJS/ESM interop: dayjs plugins ship as CJS, handle both .default and direct export
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
