@@ -4,6 +4,15 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.49] - 2026-06-10
+
+> 修复因静态引入可选 peer 依赖（viewerjs 和 highlight.js）样式文件导致消费端编译/构建报错的问题。
+
+### Fixed
+
+- **components**: 移除了 `image.vue`、`image-viewer.vue`、`upload.vue` 中对 `viewerjs/dist/viewer.css` 的静态 top-level 引入，并在 `viewerjs.ts` 的加载器中采用动态 `import()` 方式在运行时并行加载该 CSS，从而彻底消除了未安装 `viewerjs` 的项目在编译期无法解析样式的 Uncaught Error 报错。
+- **components**: 移除了 `ai-code-block.vue`、`ai-artifacts.vue`、`ai-bubble.vue` 中对 `highlight.js/styles/atom-one-dark.css` 的静态 top-level 引入，在 `highlight.ts` 中新增并导出了 `loadHighlightStyle` 工具函数，用于在运行时动态、容错地引入该样式，从而彻底解决了未安装 `highlight.js` 依赖的项目在构建或开发冷启动时的样式解析错误。
+
 ## [1.0.48] - 2026-06-09
 
 > 修复 CSS style.css 中的 :html.dark 和 :deep 告警，并使 useTheme() 属性具备 Vue 响应性。

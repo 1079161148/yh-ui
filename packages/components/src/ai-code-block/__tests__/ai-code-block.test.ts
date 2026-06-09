@@ -14,7 +14,8 @@ vi.mock('../../highlight', () => ({
       value: '<span class="hljs-keyword">const</span>'
     })),
     highlightAuto: vi.fn(() => ({ value: '<span>auto</span>' }))
-  }
+  },
+  loadHighlightStyle: vi.fn()
 }))
 vi.mock('highlight.js/styles/atom-one-dark.css', () => ({}))
 

@@ -2,7 +2,11 @@ type ViewerModule = typeof import('viewerjs')
 
 export async function loadViewer(): Promise<ViewerModule['default']> {
   try {
-    const viewerModule = await import('viewerjs')
+    const [viewerModule] = await Promise.all([
+      import('viewerjs'),
+      // @ts-ignore
+      import('viewerjs/dist/viewer.css')
+    ])
     return (
       'default' in viewerModule ? (viewerModule.default ?? viewerModule) : viewerModule
     ) as ViewerModule['default']

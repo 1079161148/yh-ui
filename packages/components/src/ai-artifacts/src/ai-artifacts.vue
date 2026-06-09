@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { ref, computed, watch, onBeforeUnmount, nextTick, shallowRef } from 'vue'
+import { ref, computed, watch, onBeforeUnmount, nextTick, shallowRef, onMounted } from 'vue'
 import {
   aiArtifactsProps,
   aiArtifactsEmits,
@@ -11,8 +11,7 @@ import { YhIcon } from '../../icon'
 import { YhButton } from '../../button'
 import { YhSpin } from '../../spin'
 import { useComponentTheme } from '@yh-ui/theme'
-import hljs from '../../highlight'
-import 'highlight.js/styles/atom-one-dark.css'
+import hljs, { loadHighlightStyle } from '../../highlight'
 import { sanitizeHighlightedHtml } from '../../sanitize'
 
 defineOptions({
@@ -258,6 +257,10 @@ onBeforeUnmount(() => {
     echartsInstance.value.dispose()
     echartsInstance.value = null
   }
+})
+
+onMounted(() => {
+  loadHighlightStyle()
 })
 
 // 图表高度样式

@@ -11,7 +11,6 @@ import type { ImageEmits } from './image'
 import YhImageViewer from './image-viewer.vue'
 import type Viewer from 'viewerjs'
 import { loadViewer } from '../../viewerjs'
-import 'viewerjs/dist/viewer.css'
 
 defineOptions({
   name: 'YhImage'

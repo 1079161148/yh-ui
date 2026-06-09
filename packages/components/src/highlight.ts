@@ -73,4 +73,15 @@ const hljs = {
   }
 }
 
+export async function loadHighlightStyle() {
+  if (typeof window !== 'undefined') {
+    try {
+      // @ts-ignore
+      await import('highlight.js/styles/atom-one-dark.css')
+    } catch (err) {
+      console.warn('[YhUi] Failed to load highlight.js stylesheet', err)
+    }
+  }
+}
+
 export default hljs

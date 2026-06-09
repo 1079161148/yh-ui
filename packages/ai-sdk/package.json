@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/ai-sdk",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "description": "YH-UI AI SDK integration for Vercel AI SDK and LangChain",
   "type": "module",
   "sideEffects": false,

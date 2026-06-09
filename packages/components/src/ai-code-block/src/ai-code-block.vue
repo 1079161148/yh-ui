@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { ref, computed, watch, useSlots, type VNodeChild, type VNode, Comment, Text } from 'vue'
+import {
+  ref,
+  computed,
+  watch,
+  useSlots,
+  type VNodeChild,
+  type VNode,
+  Comment,
+  Text,
+  onMounted
+} from 'vue'
 import { YhButton } from '../../button'
 import { YhIcon } from '../../icon'
-import hljs from '../../highlight'
-import 'highlight.js/styles/atom-one-dark.css'
+import hljs, { loadHighlightStyle } from '../../highlight'
 
 import { aiCodeBlockProps, aiCodeBlockEmits } from './ai-code-block'
 import { useComponentTheme } from '@yh-ui/theme'
@@ -144,6 +153,10 @@ const toggleCollapse = () => {
     collapsed.value = !collapsed.value
   }
 }
+
+onMounted(() => {
+  loadHighlightStyle()
+})
 </script>
 
 <template>

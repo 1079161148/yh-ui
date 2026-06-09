@@ -4,7 +4,6 @@ import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { imageViewerProps, imageViewerEmits, type ImageViewerExpose } from './image-viewer'
 import type Viewer from 'viewerjs'
 import { loadViewer } from '../../viewerjs'
-import 'viewerjs/dist/viewer.css'
 
 defineOptions({
   name: 'YhImageViewer'

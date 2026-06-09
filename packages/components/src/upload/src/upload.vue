@@ -199,7 +199,6 @@ import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
 import type Viewer from 'viewerjs'
 import { loadViewer } from '../../viewerjs'
-import 'viewerjs/dist/viewer.css'
 
 defineOptions({
   name: 'YhUpload'

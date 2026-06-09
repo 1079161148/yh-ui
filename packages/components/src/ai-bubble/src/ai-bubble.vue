@@ -26,8 +26,7 @@ import { loadMarkdown } from '../../markdown-it'
 import type Token from 'markdown-it/lib/token.mjs'
 import type StateBlock from 'markdown-it/lib/rules_block/state_block.mjs'
 import type StateInline from 'markdown-it/lib/rules_inline/state_inline.mjs'
-import hljs from '../../highlight'
-import 'highlight.js/styles/atom-one-dark.css'
+import hljs, { loadHighlightStyle } from '../../highlight'
 import { sanitizeHighlightedHtml, sanitizeMarkup, sanitizeSvgMarkup } from '../../sanitize'
 
 defineOptions({
@@ -1234,6 +1233,7 @@ const handleCodeBlockAction = async (e: Event) => {
 // Mount event listeners for code blocks
 onMounted(() => {
   hasMounted.value = true
+  loadHighlightStyle()
   document.addEventListener('click', handleCodeBlockAction)
 })
 
