@@ -4,6 +4,14 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.42] - 2026-06-09
+
+> 修复 Descriptions 组件中英文档在 Prettier 格式化后可能被还原为空行的语法解析错误。
+
+### Fixed
+
+- **docs**: 将 `docs/components/descriptions.md` 与 `docs/en/components/descriptions.md` 中的 `<yh-descriptions>` 多行标签重构为单行标签格式。这彻底避免了 Prettier 格式化（在 pre-commit 或编辑器保存时）自动将其恢复为带空行格式所导致的 VitePress 构建中断问题。
+
 ## [1.0.41] - 2026-06-09
 
 > 修复 Descriptions 组件中英文档中空行导致的模板编译错误，解决 CI 构建阻碍问题。

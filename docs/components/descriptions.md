@@ -281,14 +281,7 @@ const user = ref({
     <yh-radio value="small">Small</yh-radio>
   </yh-radio-group>
 
-<yh-descriptions
-title="垂直带边框布局"
-:column="3"
-:size="size"
-border
-direction="vertical"
-
->
+  <yh-descriptions title="垂直带边框布局" :column="3" :size="size" border direction="vertical">
 
     <yh-descriptions-item label="应用标识">YH-Admin-Edge</yh-descriptions-item>
     <yh-descriptions-item label="系统版本">v2.5.4-Stable</yh-descriptions-item>
@@ -302,14 +295,7 @@ direction="vertical"
 
   </yh-descriptions>
 
-<yh-descriptions
-title="垂直无边框布局"
-:column="3"
-:size="size"
-direction="vertical"
-style="margin-top: 20px"
-
->
+  <yh-descriptions title="垂直无边框布局" :column="3" :size="size" direction="vertical" style="margin-top: 20px">
 
     <yh-descriptions-item label="应用标识">YH-Admin-Edge</yh-descriptions-item>
     <yh-descriptions-item label="系统版本">v2.5.4-Stable</yh-descriptions-item>

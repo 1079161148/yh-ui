@@ -217,14 +217,7 @@ Displays multiple read-only fields in groups, commonly used for displaying infor
     <yh-radio value="small">Small</yh-radio>
   </yh-radio-group>
 
-<yh-descriptions
-title="Vertical Layout with Border"
-:column="3"
-:size="size"
-border
-direction="vertical"
-
->
+  <yh-descriptions title="Vertical Layout with Border" :column="3" :size="size" border direction="vertical">
 
     <yh-descriptions-item label="App ID">YH-Admin-Edge</yh-descriptions-item>
     <yh-descriptions-item label="Version">v2.5.4-Stable</yh-descriptions-item>
@@ -238,14 +231,7 @@ direction="vertical"
 
   </yh-descriptions>
 
-<yh-descriptions
-title="Vertical Layout without Border"
-:column="3"
-:size="size"
-direction="vertical"
-style="margin-top: 20px"
-
->
+  <yh-descriptions title="Vertical Layout without Border" :column="3" :size="size" direction="vertical" style="margin-top: 20px">
 
     <yh-descriptions-item label="App ID">YH-Admin-Edge</yh-descriptions-item>
     <yh-descriptions-item label="Version">v2.5.4-Stable</yh-descriptions-item>
