@@ -1278,12 +1278,12 @@ export async function createSandboxProjectFiles(
     ((assetPath: string) => fetchTextAsset(resolveSiteAssetUrl(base, assetPath)))
   const interopDeps = [
     'dayjs',
-    'dayjs/plugin/isBetween.js',
-    'dayjs/plugin/weekOfYear.js',
-    'dayjs/plugin/isoWeek.js',
-    'dayjs/plugin/quarterOfYear.js',
-    'dayjs/plugin/advancedFormat.js',
-    'dayjs/plugin/customParseFormat.js',
+    'dayjs/plugin/isBetween',
+    'dayjs/plugin/weekOfYear',
+    'dayjs/plugin/isoWeek',
+    'dayjs/plugin/quarterOfYear',
+    'dayjs/plugin/advancedFormat',
+    'dayjs/plugin/customParseFormat',
     ...(usesMermaidRuntime ? ['mermaid', '@braintree/sanitize-url'] : [])
   ]
   const sandboxConfigJson =
