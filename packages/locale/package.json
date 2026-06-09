@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/locale",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "description": "YH-UI internationalization locale files",
   "type": "module",
   "sideEffects": false,

@@ -4,6 +4,16 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.44] - 2026-06-09
+
+> 彻底修复 dayjs 消费端导入和插件解析报错，补齐 vite-plugin.ts 构建产物，并解决 CI 冒烟测试中的 404 运行时资源丢失问题。
+
+### Fixed
+
+- **components, hooks**: 彻底修复 `dayjs` 极其严格的 symlink 结构以及 Vite / Rollup 等 ESM 消费端环境下的 `does not provide an export named 'default'` 默认导出报错。
+- **components**: 修复 `dayjs` 插件导入路径（如 `dayjs/plugin/...`），回退到标准 CJS 路径，解决 pnpm 软链接下 Vite 运行时动态分析依赖引发重载并导致 404 缓存失效的问题。
+- **build**: 将之前本地未追踪的 `vite-plugin.ts` 文件编入 git 提交中，使得构建产物包含 `vite-plugin.mjs` 和 `vite-plugin.cjs`，从根本上解决发布流水线中 CDN 校验 404 超时的问题。
+
 ## [1.0.43] - 2026-06-09
 
 > 彻底修复 dayjs 消费端导入和插件解析报错，并优化发布流程中 metadata.json 的版本自动同步机制。
