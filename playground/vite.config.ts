@@ -17,9 +17,20 @@ export default defineConfig({
       '@yh-ui/icons': resolve(__dirname, '../packages/icons/src')
     }
   },
-  // 优化依赖预构建，确保 dayjs locale 能正确加载
+  // 优化依赖预构建：dayjs 和所有插件都是 CJS 格式，必须预构建为 ESM
+  // 否则在源码模式下（alias 指向 src/）Vite 冷启动时可能直接投递 CJS 文件
+  // 导致浏览器报 "does not provide an export named 'default'"
   optimizeDeps: {
-    include: ['dayjs']
+    include: [
+      'dayjs',
+      'dayjs/plugin/advancedFormat',
+      'dayjs/plugin/customParseFormat',
+      'dayjs/plugin/isBetween',
+      'dayjs/plugin/isoWeek',
+      'dayjs/plugin/quarterOfYear',
+      'dayjs/plugin/weekOfYear'
+    ],
+    needsInterop: ['dayjs']
   },
   server: {
     port: 3000,

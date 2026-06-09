@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { pathToFileURL } from 'url'
 import { basename } from 'pathe'
 import { vueLoader } from 'vue-sfc-transformer/mkdist'
+import { build as esbuild } from 'esbuild'
 
 export default defineBuildConfig({
   entries: [
@@ -44,9 +45,11 @@ export default defineBuildConfig({
     '@yh-ui/utils',
     '@yh-ui/theme',
     '@yh-ui/locale',
-    // 使用正则精确匹配，避免 unbuild 的前缀匹配逻辑把 'dayjs/plugin/*' 也外部化。
-    // 字符串 'dayjs' 会匹配所有以 'dayjs/' 开头的路径（包括 dayjs/plugin/*），
-    // 导致 rollup 无法将插件代码内联进 dayjs-plugins.mjs。
+    // 注意：不再把 dayjs 加入 mkdist externals。
+    // dayjs.mjs / dayjs.cjs 由 build:done 钩子通过 esbuild 重新打包，
+    // 将 dayjs 内联进去，使产物完全自包含，消费方无需任何 optimizeDeps 配置。
+    // dayjs-plugins 的 rollup 入口通过下方正则仍会把 'dayjs' 外部化（该入口
+    // 只需内联插件函数，不内联 dayjs 核心）。
     /^dayjs$/,
     'viewerjs',
     'async-validator',
@@ -59,6 +62,44 @@ export default defineBuildConfig({
     '@yh-ui/locale': resolve(__dirname, '../locale/src')
   },
   hooks: {
+    /**
+     * 在整个构建完成后，用 esbuild 将 dist/dayjs.mjs 和 dist/dayjs.cjs 重新打包，
+     * 把 dayjs (CJS/UMD, 无 ESM default export) 内联进去，产物完全自包含。
+     *
+     * 根因：dayjs 只有 "main": "dayjs.min.js"，没有 ESM 入口。
+     * mkdist 转译后 dayjs.mjs 里保留 `import dayjsObject from "dayjs"`，
+     * 在未配置 optimizeDeps 的消费端 Vite 中浏览器直接加载 dayjs.min.js（CJS），
+     * 报 "does not provide an export named 'default'"。
+     * 内联后消费方零配置，彻底消除此报错。
+     */
+    async 'build:done'(_ctx) {
+      const src = resolve(__dirname, 'src/dayjs.ts')
+      await Promise.all([
+        esbuild({
+          entryPoints: [src],
+          bundle: true, // 将 dayjs 内联，不保留裸 import
+          format: 'esm',
+          outfile: resolve(__dirname, 'dist/dayjs.mjs'),
+          platform: 'neutral', // 兼容 SSR / Node
+          mainFields: ['module', 'main'], // platform:neutral 不自动读 main 字段，须显式指定
+          target: 'es2018',
+          allowOverwrite: true,
+          legalComments: 'eof' // 保留 dayjs MIT 许可证注释
+        }),
+        esbuild({
+          entryPoints: [src],
+          bundle: true,
+          format: 'cjs',
+          outfile: resolve(__dirname, 'dist/dayjs.cjs'),
+          platform: 'neutral',
+          mainFields: ['module', 'main'],
+          target: 'es2018',
+          allowOverwrite: true,
+          legalComments: 'eof'
+        })
+      ])
+    },
+
     async 'mkdist:entry:options'(_ctx, _entry, options) {
       const customSassLoader = async (input: {
         extension: string

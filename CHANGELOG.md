@@ -4,6 +4,16 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.46] - 2026-06-09
+
+> 彻底通过在构建时内联打包 dayjs 依赖来解决消费端 ESM 默认导出错误。
+
+### Fixed
+
+- **components, hooks**: 在 `build.config.ts` 的 `build:done` 钩子中，使用 `esbuild` 自动将 `dayjs` 依赖内联打包至 `dist/dayjs.mjs` 和 `dist/dayjs.cjs`，从而彻底解决 Vite 等 ESM 消费端环境下 `does not provide an export named 'default'` 的错误。
+- **components**: 优化 `vite-plugin.ts`，加入 `needsInterop: ['dayjs']` 并显式添加嵌套依赖配置（`@yh-ui/components > dayjs` 和 `@yh-ui/hooks > dayjs`），进一步提供双重保障。
+- **playground**: 将 `playground/vite.config.ts` 中的 `optimizeDeps` 补充 dayjs 插件及 interop 配置，以提高冷启动可靠性。
+
 ## [1.0.45] - 2026-06-09
 
 > 导出 useMessage、useNotification 和 useMessageBox 组合式 API Hook，并在 Message、Notification 和 Dialog 组件的中英文文档中补充调用指南与 API 说明。

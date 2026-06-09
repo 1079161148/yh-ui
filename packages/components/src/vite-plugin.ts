@@ -52,9 +52,20 @@ export function YhUIVitePlugin(options: YhUIVitePluginOptions = {}): Plugin {
 
       return {
         optimizeDeps: {
-          // 强制 Vite 将 dayjs CJS 插件预构建为 ESM，解决 pnpm 严格模式下的 404 和
-          // "does not provide an export named 'default'" 报错
-          include: [...DAYJS_PLUGINS]
+          // 强制 Vite 将 dayjs 及其 CJS 插件预构建为 ESM，解决 pnpm 严格模式下的 404 和
+          // "does not provide an export named 'default'" 报错。
+          // 嵌套依赖格式（'pkg > dep'）确保 dayjs 从我们的 dist 文件导入时也走预构建版本。
+          include: [
+            ...DAYJS_PLUGINS,
+            // 当消费方使用我们发布的 dist（而非 source alias）时，
+            // 我们的 dist/dayjs.mjs 现已内联 dayjs，无需此项；
+            // 但保留以兼容旧版本 / 直接安装 @yh-ui/hooks 的场景。
+            '@yh-ui/components > dayjs',
+            '@yh-ui/hooks > dayjs'
+          ],
+          // dayjs 是 CJS/UMD 模块，明确告知 Vite 需要 ESM 互操作包装，
+          // 避免冷启动时出现 "does not provide an export named 'default'" 竞态问题。
+          needsInterop: ['dayjs']
         },
         ssr: {
           // SSR 模式下同样需要处理这些 CJS 模块
