@@ -100,12 +100,12 @@ export default defineConfig(({ mode }) => {
     optimizeDeps: {
       include: [
         'dayjs',
-        'dayjs/plugin/advancedFormat.js',
-        'dayjs/plugin/customParseFormat.js',
-        'dayjs/plugin/isBetween.js',
-        'dayjs/plugin/isoWeek.js',
-        'dayjs/plugin/quarterOfYear.js',
-        'dayjs/plugin/weekOfYear.js'
+        'dayjs/plugin/advancedFormat',
+        'dayjs/plugin/customParseFormat',
+        'dayjs/plugin/isBetween',
+        'dayjs/plugin/isoWeek',
+        'dayjs/plugin/quarterOfYear',
+        'dayjs/plugin/weekOfYear'
       ],
       exclude: isWorkspaceMode ? workspaceDependencyExcludes : ['@yh-ui/request']
     },
