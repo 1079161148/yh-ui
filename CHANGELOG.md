@@ -4,6 +4,14 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.41] - 2026-06-09
+
+> 修复 Descriptions 组件中英文档中空行导致的模板编译错误，解决 CI 构建阻碍问题。
+
+### Fixed
+
+- **docs**: 修复 `docs/components/descriptions.md` 与 `docs/en/components/descriptions.md` 中 `<yh-descriptions>` 标签内部出现的空行，避免 Markdown 解析器与 Vue 模板编译器冲突引发的 `Invalid end tag` 编译报错。
+
 ## [1.0.40] - 2026-06-09
 
 > 更新中英文 skills 安装部署文档，补充全量参考文件清单、修正 Cursor 目标目录描述，并修复 dayjs 语言包加载路径。
