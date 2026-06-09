@@ -30,6 +30,8 @@ export const useId = (idOverrides?: Ref<string | undefined>): Ref<string> => {
   return id
 }
 
+export const useYhId = useId
+
 /**
  * useIdInjection - ID 注入工具
  * @description 用于组件内部生成关联 ID

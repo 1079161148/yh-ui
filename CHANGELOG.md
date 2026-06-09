@@ -4,6 +4,22 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.51] - 2026-06-10
+
+> 补充 `useYhId` 作为 `@yh-ui/hooks` 的直接具名导出，修复 CI coverage 因纯 barrel 文件（locale/all.ts、locale/runtime.ts）拉低覆盖率阈值导致失败的问题，并同步更新内部技能文档。
+
+### Added
+
+- **hooks**: `@yh-ui/hooks` 现在直接导出 `useYhId` 作为 `useId` 的别名。消费者可通过 `import { useYhId } from '@yh-ui/hooks'` 避免与 Vue 3.5+ 原生 `useId` 的命名冲突；Nuxt 模块继续将 `useYhId` 作为 auto-import 提供。
+
+### Fixed
+
+- **coverage**: 将 `packages/locale/src/all.ts` 和 `packages/locale/src/runtime.ts` 加入 vitest 覆盖率排除列表。这两个文件均为纯 re-export barrel 文件，无可测逻辑，此前因被统计导致 locale 覆盖率从 65% 骤降至 1.49% 并触发 CI 失败。
+
+### Notes
+
+- 内部技能文档（`source-truth.md`）已更新，正确描述 `useYhId` 现为 `@yh-ui/hooks` 的直接具名导出，并说明 Nuxt auto-import 中的使用方式。
+
 ## [1.0.50] - 2026-06-10
 
 > 重构 `@yh-ui/locale` 的导出结构以解决消费端编译产生 136+ 个小 locale chunks 的构建问题，并开启 `@yh-ui/yh-ui` 的 `sideEffects: false` 配置提升 Tree-Shaking 效果。

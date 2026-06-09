@@ -149,7 +149,9 @@ Expose: `clearFilter`, `clearSelection`, `clearSort`, `doLayout`, `exportData`, 
 
 Use hooks from these source modules:
 
-`useNamespace`, `useZIndex`, `useSKU`, `useCountdown`, `useLocale`, `useId`, `useFormItem`, `useVirtualScroll`, `useCache`, `useEventListener`, `useScrollLock`, `useClickOutside`, `useConfig`, AI hooks from `use-ai`, and reactive storage helpers from `storage`.
+`useNamespace`, `useZIndex`, `useSKU`, `useCountdown`, `useLocale`, `useId`, `useYhId`, `useFormItem`, `useVirtualScroll`, `useCache`, `useEventListener`, `useScrollLock`, `useClickOutside`, `useConfig`, AI hooks from `use-ai`, and reactive storage helpers from `storage`.
+
+> **Note**: `useYhId` is an alias for `useId` exported from `@yh-ui/hooks`. Use `useYhId` when naming conflicts with Vue 3.5+ native `useId` are a concern. In Nuxt, `useYhId` is also available as an auto-import from `@yh-ui/hooks`.
 
 ## `@yh-ui/flow` Exports
 
@@ -196,7 +198,7 @@ Use these real capabilities:
 
 The Nuxt module registers component names using the configured prefix, default `Yh`. It also auto-imports common hooks and globals from `@yh-ui/hooks` and `@yh-ui/components`.
 
-Important nuance: native `useId` is not overridden. YH-UI's hook is imported as `useYhId`.
+Important nuance: native `useId` is not overridden. YH-UI's hook is also exported as `useYhId` directly from `@yh-ui/hooks`, and in Nuxt it is auto-imported as `useYhId`.
 
 ## Known Non-Goals
 

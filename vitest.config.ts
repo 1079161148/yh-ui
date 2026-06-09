@@ -86,6 +86,9 @@ const defaultCoverageExclude = [
   // AI SDK：MCP / LangChain 适配层分支极多，适合集成/E2E 专项覆盖；计入默认统计拉低分支指标
   'packages/ai-sdk/src/mcp.ts',
   'packages/ai-sdk/src/langchain.ts',
+  // locale: all.ts / runtime.ts 均为纯 re-export barrel 文件，不含可测逻辑，与 **/index.ts 保持一致排除
+  'packages/locale/src/all.ts',
+  'packages/locale/src/runtime.ts',
   ...loadBranchCoverageExcludePatterns()
 ]
 const componentSystemCoverageExclude = [
