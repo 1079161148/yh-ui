@@ -4,6 +4,14 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.47] - 2026-06-09
+
+> 彻底修复 dayjs-plugins 模块在 Vite / ESM 环境下的 default export 报错。
+
+### Fixed
+
+- **components**: 在 `build.config.ts` 的 `build:done` 钩子中，使用 `esbuild` 将 `src/dayjs-plugins.ts` 编译并内联打包，生成完全自包含的 `dist/dayjs-plugins.mjs` 和 `dist/dayjs-plugins.cjs`。这彻底消除了消费端浏览器加载这些插件时对于 `dayjs/plugin/` 子路径 ESM 默认导出的依赖，真正实现消费方零配置。
+
 ## [1.0.46] - 2026-06-09
 
 > 彻底通过在构建时内联打包 dayjs 依赖来解决消费端 ESM 默认导出错误。

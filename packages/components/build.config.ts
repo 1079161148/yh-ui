@@ -74,6 +74,7 @@ export default defineBuildConfig({
      */
     async 'build:done'(_ctx) {
       const src = resolve(__dirname, 'src/dayjs.ts')
+      const pluginsSrc = resolve(__dirname, 'src/dayjs-plugins.ts')
       await Promise.all([
         esbuild({
           entryPoints: [src],
@@ -91,6 +92,28 @@ export default defineBuildConfig({
           bundle: true,
           format: 'cjs',
           outfile: resolve(__dirname, 'dist/dayjs.cjs'),
+          platform: 'neutral',
+          mainFields: ['module', 'main'],
+          target: 'es2018',
+          allowOverwrite: true,
+          legalComments: 'eof'
+        }),
+        esbuild({
+          entryPoints: [pluginsSrc],
+          bundle: true,
+          format: 'esm',
+          outfile: resolve(__dirname, 'dist/dayjs-plugins.mjs'),
+          platform: 'neutral',
+          mainFields: ['module', 'main'],
+          target: 'es2018',
+          allowOverwrite: true,
+          legalComments: 'eof'
+        }),
+        esbuild({
+          entryPoints: [pluginsSrc],
+          bundle: true,
+          format: 'cjs',
+          outfile: resolve(__dirname, 'dist/dayjs-plugins.cjs'),
           platform: 'neutral',
           mainFields: ['module', 'main'],
           target: 'es2018',
