@@ -4,6 +4,16 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.43] - 2026-06-09
+
+> 彻底修复 dayjs 消费端导入和插件解析报错，并优化发布流程中 metadata.json 的版本自动同步机制。
+
+### Fixed
+
+- **components, hooks**: 彻底修复 `dayjs` 极其严格的 symlink 结构以及 Vite / Rollup 等 ESM 消费端环境下的 `does not provide an export named 'default'` 默认导出报错。
+- **components**: 修复 `dayjs` 插件导入路径（如 `dayjs/plugin/...`），移除 `.js` 后缀，解决 pnpm 软链接下 Vite 无法正确解析插件文件的问题。
+- **release**: 优化 `packages/yh-ui-skill/assets/metadata.json` 自动更新逻辑，在 root `package.json` 的 `version:*` 和 `release` 脚本中嵌入 `sync-yh-ui-skill-assets.mjs`，避免后续发版时 metadata 版本同步遗漏。
+
 ## [1.0.42] - 2026-06-09
 
 > 修复 Descriptions 组件中英文档在 Prettier 格式化后可能被还原为空行的语法解析错误。

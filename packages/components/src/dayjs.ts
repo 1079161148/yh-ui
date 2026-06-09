@@ -1,4 +1,4 @@
-import dayjsObject from 'dayjs'
+import * as dayjsObject from 'dayjs'
 import type dayjsType from 'dayjs'
 
 const dayjs = (
