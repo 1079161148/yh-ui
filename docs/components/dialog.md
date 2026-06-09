@@ -783,16 +783,60 @@ YH-UI 完美适配 Nuxt 3。你可以直接在 `app.vue` 或 any 页面中使用
 
 你可以根据业务复杂度选择最合适的调用方式。
 
-### 组合式 API (推荐)
+### 组合式 API Hook (useDialog)
 
-通过 `v-model` 双向绑定，这是最符合 Vue 3 设计心智的方式。
+在 `<script setup>` 中，推荐使用 `useDialog` Hook 来发起函数式弹窗调用，它能自动继承当前的应用上下文：
 
-### 单独引用
+```vue
+<script setup lang="ts">
+import { useDialog } from '@yh-ui/yh-ui'
 
-在子组件中手动引入 `YhDialog` 使用。
+const { showDialog } = useDialog()
+
+const handleOpen = async () => {
+  const { action } = await showDialog({
+    title: '提示',
+    content: '这是一个函数式调用的对话框',
+    confirmText: '确定',
+    cancelText: '取消'
+  })
+  if (action === 'confirm') {
+    // 确认后的逻辑
+  }
+}
+</script>
+```
+
+### 声明式组件 (v-model)
+
+通过 `v-model` 双向绑定在模板中声明组件，这是最符合 Vue 声明式设计心智的方式：
+
+```vue
+<template>
+  <yh-button @click="visible = true">打开对话框</yh-button>
+
+  <yh-dialog v-model="visible" title="标准设计预览">
+    <span>对话框内容</span>
+  </yh-dialog>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const visible = ref(false)
+</script>
+```
+
+### 静态方法直接调用 (YhDialogMethod)
+
+通过导入 `YhDialogMethod` 静态对象直接发起弹窗，适合在非组件逻辑（例如路由守卫或 Pinia Store）中快速调用：
 
 ```ts
-import { YhDialog } from '@yh-ui/components'
+import { YhDialogMethod } from '@yh-ui/yh-ui'
+
+YhDialogMethod.success({
+  title: '指令式调用',
+  content: '这是通过 YhDialogMethod.success 直接发起的弹窗，无需 v-model。'
+})
 ```
 
 ## API
@@ -879,6 +923,37 @@ import { YhDialog } from '@yh-ui/components'
 | handleClose   | 执行关闭逻辑（会触发 before-close）     | `() => void`       |
 | handleCancel  | 执行取消逻辑（触发 cancel 事件并关闭）  | `() => void`       |
 | handleConfirm | 执行确定逻辑（触发 confirm 事件并关闭） | `() => void`       |
+
+### useDialog Hook API
+
+`useDialog` Hook 提供了组件上下文自适应的函数式弹窗调用工具。
+
+```ts
+const { showDialog } = useDialog()
+```
+
+#### showDialog 参数 (UseDialogOptions)
+
+`UseDialogOptions` 继承了 `YhDialog` 的所有 Props（除了 `modelValue`），并额外支持以下属性：
+
+| 属性名       | 说明                                         | 类型                                             | 默认值 |
+| ------------ | -------------------------------------------- | ------------------------------------------------ | ------ |
+| `content`    | 弹窗主体内容，支持字符串、渲染函数或组件对象 | `string \| (() => VNode \| string) \| Component` | -      |
+| `title`      | 弹窗标题，支持字符串、渲染函数               | `string \| (() => VNode \| string)`              | -      |
+| `action`     | 底部操作区域内容，支持渲染函数               | `() => VNode`                                    | -      |
+| `appContext` | 可手动传入特定的 Vue 应用上下文              | `AppContext`                                     | `null` |
+| `onConfirm`  | 点击确认按钮时的回调                         | `() => void`                                     | -      |
+| `onCancel`   | 点击取消按钮时的回调                         | `() => void`                                     | -      |
+| `onClose`    | 弹窗关闭时的回调                             | `() => void`                                     | -      |
+| `onClosed`   | 弹窗关闭动画结束后的回调                     | `() => void`                                     | -      |
+
+#### showDialog 返回值
+
+调用 `showDialog` 将返回一个 Promise，resolve 的结果包含用户的交互动作 `action`：
+
+```ts
+Promise<{ action: 'confirm' | 'cancel' | 'close' }>
+```
 
 ### 主题变量
 

@@ -518,9 +518,29 @@ Combined with Nuxt's `app:error` hook, you can use `YhNotification.error` to cap
 
 YhNotification supports multiple calling methods. Choose the appropriate one according to your project needs.
 
-### Composition API (Recommended)
+### Composition API Hook (useNotification)
 
-Import and use directly in `<script setup>`:
+In `<script setup>`, it is recommended to use the `useNotification` hook to retrieve the global notification service instance, maintaining API consistency with Naive UI and other mainstream Vue 3 libraries:
+
+```vue
+<template>
+  <yh-button @click="showNotification">Show Notification</yh-button>
+</template>
+
+<script setup lang="ts">
+import { useNotification } from '@yh-ui/yh-ui'
+
+const notification = useNotification()
+
+const showNotification = () => {
+  notification.success('Success', 'This is a success message')
+}
+</script>
+```
+
+### Composition API (Direct Import)
+
+Alternatively, you can import the `YhNotification` function directly:
 
 ```vue
 <template>

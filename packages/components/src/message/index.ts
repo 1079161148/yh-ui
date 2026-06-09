@@ -12,6 +12,7 @@ YhMessage.install = (app: App) => {
 export default YhMessage
 
 export * from './src/message'
+export * from './src/use-message'
 
 export type YhMessageProps = import('./src/message').MessageProps
 export type YhMessageEmits = import('./src/message').MessageEmits

@@ -436,9 +436,29 @@ In Nuxt's `useFetch` interceptors or `onError` hooks, you can directly use `YhMe
 
 YhMessage supports multiple calling methods. Choose the appropriate one according to your project needs.
 
-### Composition API (Recommended)
+### Composition API Hook (useMessage)
 
-Import and use directly in `<script setup>`:
+In `<script setup>`, it is recommended to use the `useMessage` hook to retrieve the global message service instance, maintaining API consistency with mainstream Vue 3 libraries like Naive UI:
+
+```vue
+<template>
+  <yh-button @click="showMessage">Show Message</yh-button>
+</template>
+
+<script setup lang="ts">
+import { useMessage } from '@yh-ui/yh-ui'
+
+const message = useMessage()
+
+const showMessage = () => {
+  message.success('This is a success message')
+}
+</script>
+```
+
+### Composition API (Direct Import)
+
+Alternatively, you can import the `YhMessage` function directly:
 
 ```vue
 <template>

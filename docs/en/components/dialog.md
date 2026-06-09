@@ -776,8 +776,68 @@ In some scenarios, you may want to skip `v-model` template declarations and laun
 </DemoBlock>
 
 <DemoBlock title="Functional Button Swap" :ts-code="tsFunctionalSwap" :js-code="jsFunctionalSwap">
-<yh-button type="primary" plain @click="handleFunctionalSwap">Swap Button Demo</yh-button>
+  <yh-button type="primary" plain @click="handleFunctionalSwap">Swap Button Demo</yh-button>
 </DemoBlock>
+
+## Call Signature
+
+You can choose the most appropriate way to launch a dialog based on your requirements.
+
+### Composition API Hook (useDialog)
+
+In `<script setup>`, it is recommended to use the `useDialog` Hook to launch a functional dialog, which automatically inherits the current application context:
+
+```vue
+<script setup lang="ts">
+import { useDialog } from '@yh-ui/yh-ui'
+
+const { showDialog } = useDialog()
+
+const handleOpen = async () => {
+  const { action } = await showDialog({
+    title: 'Notification',
+    content: 'This is a functional dialog.',
+    confirmText: 'Confirm',
+    cancelText: 'Cancel'
+  })
+  if (action === 'confirm') {
+    // Logic after confirmation
+  }
+}
+</script>
+```
+
+### Declarative Component (v-model)
+
+Declare the dialog component in the template with `v-model` binding:
+
+```vue
+<template>
+  <yh-button @click="visible = true">Open Dialog</yh-button>
+
+  <yh-dialog v-model="visible" title="Standard Design Preview">
+    <span>Dialog Content</span>
+  </yh-dialog>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const visible = ref(false)
+</script>
+```
+
+### Direct Imperative Method (YhDialogMethod)
+
+Call via the static `YhDialogMethod` object, which is useful for non-component code logic (e.g., router guards or Pinia stores):
+
+```ts
+import { YhDialogMethod } from '@yh-ui/yh-ui'
+
+YhDialogMethod.success({
+  title: 'Imperative Call',
+  content: 'This is a dialog launched directly via YhDialogMethod.success without v-model.'
+})
+```
 
 ## API
 
@@ -865,6 +925,37 @@ In some scenarios, you may want to skip `v-model` template declarations and laun
 | handleClose   | Executes close logic (triggers before-close)               | `() => void`               |
 | handleCancel  | Executes cancel logic (triggers cancel event and closes)   | `() => void`               |
 | handleConfirm | Executes confirm logic (triggers confirm event and closes) | `() => void`               |
+
+### useDialog Hook API
+
+The `useDialog` Hook provides a functional dialog tool that automatically adapts to the application context.
+
+```ts
+const { showDialog } = useDialog()
+```
+
+#### showDialog Parameters (UseDialogOptions)
+
+`UseDialogOptions` inherits all props of `YhDialog` (except `modelValue`), and supports the following additional properties:
+
+| Property     | Description                                                                     | Type                                             | Default |
+| ------------ | ------------------------------------------------------------------------------- | ------------------------------------------------ | ------- |
+| `content`    | Main body content of the dialog, supports string, render function, or component | `string \| (() => VNode \| string) \| Component` | -       |
+| `title`      | Title of the dialog, supports string or render function                         | `string \| (() => VNode \| string)`              | -       |
+| `action`     | Content of the footer action area, supports render function                     | `() => VNode`                                    | -       |
+| `appContext` | Manually specify a custom Vue AppContext                                        | `AppContext`                                     | `null`  |
+| `onConfirm`  | Callback when clicking the Confirm button                                       | `() => void`                                     | -       |
+| `onCancel`   | Callback when clicking the Cancel button                                        | `() => void`                                     | -       |
+| `onClose`    | Callback when the dialog closes                                                 | `() => void`                                     | -       |
+| `onClosed`   | Callback after the closing animation finishes                                   | `() => void`                                     | -       |
+
+#### showDialog Return Value
+
+Calling `showDialog` returns a Promise resolving to the user interaction action:
+
+```ts
+Promise<{ action: 'confirm' | 'cancel' | 'close' }>
+```
 
 ### Theme Variables
 

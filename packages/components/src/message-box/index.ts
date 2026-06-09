@@ -20,6 +20,7 @@ YhMessageBox.install = (app: App) => {
 export default YhMessageBox
 
 export * from './src/message-box'
+export * from './src/use-message-box'
 
 export type YhMessageBoxType = import('./src/message-box').MessageBoxType
 export type YhMessageBoxData = import('./src/message-box').MessageBoxData

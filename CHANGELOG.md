@@ -4,6 +4,15 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.45] - 2026-06-09
+
+> 导出 useMessage、useNotification 和 useMessageBox 组合式 API Hook，并在 Message、Notification 和 Dialog 组件的中英文文档中补充调用指南与 API 说明。
+
+### Added
+
+- **components**: 导出 `useMessage`、`useNotification` 和 `useMessageBox` 组合式 API Hook，支持直接从入口导入。
+- **docs**: 补充 Message 与 Notification 对应 Hook 的使用样例，并在 Dialog 文档中新增 `useDialog` Hook API 详细参考表格。
+
 ## [1.0.44] - 2026-06-09
 
 > 彻底修复 dayjs 消费端导入和插件解析报错，补齐 vite-plugin.ts 构建产物，并解决 CI 冒烟测试中的 404 运行时资源丢失问题。

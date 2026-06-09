@@ -12,6 +12,7 @@ YhNotification.install = (app: App) => {
 export default YhNotification
 
 export * from './src/notification'
+export * from './src/use-notification'
 
 export type YhNotificationProps = import('./src/notification').NotificationProps
 export type YhNotificationEmits = import('./src/notification').NotificationEmits

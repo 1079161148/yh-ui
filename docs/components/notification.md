@@ -520,9 +520,29 @@ Notification 组件与 Nuxt 3/4 深度集成。作为指令式组件，它会自
 
 YhNotification 支持多种调用方式，可以根据项目需求选择合适的方式。
 
-### 组合式 API（推荐）
+### 组合式 API Hook (useNotification)
 
-在 `<script setup>` 中直接导入使用：
+在 `<script setup>` 中，推荐使用 `useNotification` 来获取全局 notification 服务实例，保持与 Naive UI 等主流组件库 API 一致：
+
+```vue
+<template>
+  <yh-button @click="showNotification">显示通知</yh-button>
+</template>
+
+<script setup lang="ts">
+import { useNotification } from '@yh-ui/yh-ui'
+
+const notification = useNotification()
+
+const showNotification = () => {
+  notification.success('成功', '这是一条成功消息')
+}
+</script>
+```
+
+### 组合式 API (直接导入)
+
+您也可以直接导入 `YhNotification` 函数使用：
 
 ```vue
 <template>
