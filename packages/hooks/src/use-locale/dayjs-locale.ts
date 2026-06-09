@@ -9,9 +9,12 @@ import dayjs from '../dayjs'
 // 使用 Vite 的 glob 导入所有可用语言包（按需懒加载）
 // 路径相对于当前文件，向上 4 层至 monorepo 根部 node_modules
 // 显式排除 en.js（已静态导入）
-const dayjsLocales = import.meta.glob(['../../../../node_modules/dayjs/locale/*.js'], {
-  eager: false
-})
+const dayjsLocales = import.meta.glob(
+  ['../../../../node_modules/dayjs/locale/*.js', '../../../../dayjs/locale/*.js'],
+  {
+    eager: false
+  }
+)
 
 // 已加载的 locale 缓存（en 已默认注入）
 const loadedLocales = new Set<string>(['en'])
@@ -88,8 +91,9 @@ const localeMapping: Record<string, string> = {
 }
 
 const loadDayjsLocale = async (dayjsLocale: string): Promise<boolean> => {
-  const path = `../../../../node_modules/dayjs/locale/${dayjsLocale}.js`
-  const loader = dayjsLocales[path]
+  const pathWithNodeModules = `../../../../node_modules/dayjs/locale/${dayjsLocale}.js`
+  const pathWithoutNodeModules = `../../../../dayjs/locale/${dayjsLocale}.js`
+  const loader = dayjsLocales[pathWithNodeModules] || dayjsLocales[pathWithoutNodeModules]
 
   if (loader) {
     await loader()

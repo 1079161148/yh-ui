@@ -287,6 +287,7 @@ title="垂直带边框布局"
 :size="size"
 border
 direction="vertical"
+
 >
 
     <yh-descriptions-item label="应用标识">YH-Admin-Edge</yh-descriptions-item>
@@ -307,6 +308,7 @@ title="垂直无边框布局"
 :size="size"
 direction="vertical"
 style="margin-top: 20px"
+
 >
 
     <yh-descriptions-item label="应用标识">YH-Admin-Edge</yh-descriptions-item>

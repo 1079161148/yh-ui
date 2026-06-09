@@ -59,8 +59,8 @@ yh-ui-skill doctor --target claude
 
 ## 适用场景
 
-- 让 AI 正确使用 `@yh-ui/yh-ui`、`@yh-ui/components`、`@yh-ui/nuxt`、`@yh-ui/request`、`@yh-ui/flow`、`@yh-ui/ai-sdk`。
-- 生成 YH-UI 组件示例、后台页面、AI Chat、Flow 画布、Request hooks、Nuxt 集成代码。
+- 让 AI 正确使用 `@yh-ui/yh-ui`、`@yh-ui/components`、`@yh-ui/nuxt`、`@yh-ui/request`、`@yh-ui/flow`、`@yh-ui/ai-sdk`、`@yh-ui/theme`、`@yh-ui/icons`、`@yh-ui/locale`。
+- 生成 YH-UI 组件示例、后台页面、AI Chat、Flow 画布、Request hooks、Nuxt 集成代码、全局配置、主题与图标集。
 - 修复 AI 编造的旧 API 或不存在的组件，例如 `createYhTheme`、`createRequestInstance`、错误 locale 路径。
 - 给检索型 AI 工具提供 `llms.txt` / `llms-full.txt` 入口。
 
@@ -83,14 +83,23 @@ llms-full.txt
 
 ```txt
 skills/yh-ui/references/source-truth.md
-skills/yh-ui/references/api-cheatsheet.md
 skills/yh-ui/references/agent-workflows.md
 skills/yh-ui/references/vue-component-practices.md
-skills/yh-ui/references/codegen-rubric.md
+skills/yh-ui/references/component-map.md
+skills/yh-ui/references/usage-patterns.md
+skills/yh-ui/references/api-cheatsheet.md
+skills/yh-ui/references/nuxt.md
+skills/yh-ui/references/ai-components.md
+skills/yh-ui/references/request.md
+skills/yh-ui/references/flow.md
 skills/yh-ui/references/recipes-table.md
 skills/yh-ui/references/recipes-form-schema.md
 skills/yh-ui/references/recipes-ai.md
 skills/yh-ui/references/recipes-flow.md
+skills/yh-ui/references/recipes-theme.md
+skills/yh-ui/references/recipes-icons.md
+skills/yh-ui/references/codegen-rubric.md
+skills/yh-ui/references/eval-scenarios.md
 ```
 
 ## 在 AI 工具中使用
@@ -112,9 +121,14 @@ skills/yh-ui/references/recipes-flow.md
 你正在为 YH-UI 项目生成 Vue 3 代码。请先遵守 skills/yh-ui/SKILL.md，再根据 source-truth.md 和 api-cheatsheet.md 选择真实存在的组件、props、emits、slots 和 exposed methods。
 ```
 
-### Cursor / Windsurf / 代码编辑器 Agent
+### Cursor / Trae / Windsurf / 编辑器 Agent
 
-把仓库根目录作为工作区打开，确保 Agent 能读取：
+把仓库根目录作为工作区打开，并在项目中生成配置文件，确保 Agent 能够索引规则：
+
+- **Cursor**：通过 `install --target cursor` 将规则与检索文件写入 `.cursor/` 目录（例如 `.cursor/skills/yh-ui`）。
+- **Trae**：在项目根目录下创建 `.traerules`，并将 `SKILL.md` 内容粘贴进去。在对话中可以通过 `#SKILL.md` 直接引用规则文件。
+
+确保项目内包含检索入口：
 
 ```txt
 skills/yh-ui/
@@ -122,7 +136,7 @@ llms.txt
 llms-full.txt
 ```
 
-然后在任务里明确引用：
+然后在任务或 Chat 窗口中明确引用：
 
 ```txt
 请使用 skills/yh-ui/SKILL.md 作为 YH-UI 组件库规则，生成一个带筛选、分页和 loading 状态的 YhTable 页面。

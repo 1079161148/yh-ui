@@ -25,8 +25,9 @@ Do not use this skill for:
 
 ## Core Rules
 
-- Prefer existing YH-UI components over hand-written base controls.
-- Do not invent components, props, hooks, package paths, or theme APIs.
+- **Strict YH-UI Prioritization**: Under no circumstances should you generate custom HTML/CSS controls (e.g. custom buttons, inputs, tables, dialogs, drawers, scrollbars, markdown cards) or manually construct network fetches/stream connections when YH-UI packages support them. You must 100% prioritize utilizing YH-UI components and utilities.
+- **Extension & Re-encapsulation Principle**: If a YH-UI component does not fully meet a specific UI requirement, you must first try to extend it using slot customisation, CSS overrides, or component composition. Writing custom elements from scratch is a last resort, and you must justify why YH-UI could not be extended.
+- Do not invent components, props, hooks, package paths, or theme APIs. Check `references/source-truth.md` to ensure names are real.
 - Use `@yh-ui/yh-ui` for ordinary Vue apps that want the all-in-one entry.
 - Use `@yh-ui/nuxt` for Nuxt apps and rely on auto-imported components/composables.
 - Use `@yh-ui/components` when the user asks for component-only usage.
@@ -71,6 +72,33 @@ import '@yh-ui/yh-ui/css'
 import App from './App.vue'
 
 createApp(App).use(YhUI).mount('#app')
+```
+
+### Global Config & i18n (Root Setup)
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { YhConfigProvider } from '@yh-ui/components'
+import zhCn from '@yh-ui/locale/lang/zh-cn'
+import en from '@yh-ui/locale/lang/en'
+
+const locale = ref(zhCn)
+const currentSize = ref<'default' | 'small' | 'large'>('default')
+
+function toggleLang() {
+  locale.value = locale.value.name === 'zh-cn' ? en : zhCn
+}
+</script>
+
+<template>
+  <YhConfigProvider :locale="locale" :size="currentSize">
+    <button @click="toggleLang">Switch Language</button>
+    <AppLayout>
+      <router-view />
+    </AppLayout>
+  </YhConfigProvider>
+</template>
 ```
 
 ### On-Demand Components
@@ -147,6 +175,31 @@ const edges: FlowEdge[] = []
 </template>
 ```
 
+### Theme
+
+```ts
+import { ThemePlugin } from '@yh-ui/theme'
+
+app.use(ThemePlugin, {
+  preset: 'blue',
+  dark: false,
+  persist: true
+})
+```
+
+### Icons
+
+```vue
+<script setup lang="ts">
+import { Icon } from '@yh-ui/icons/vue'
+</script>
+
+<template>
+  <Icon icon="mdi:home" :size="20" color="var(--yh-color-primary)" />
+  <Icon icon="mdi:loading" spin />
+</template>
+```
+
 ## Progressive References
 
 Read only the file needed for the task:
@@ -165,6 +218,8 @@ Read only the file needed for the task:
 - Deep form schema recipe: `references/recipes-form-schema.md`
 - Deep AI recipe: `references/recipes-ai.md`
 - Deep Flow recipe: `references/recipes-flow.md`
+- Deep Theme recipe: `references/recipes-theme.md`
+- Deep Icons recipe: `references/recipes-icons.md`
 - Code generation acceptance rubric: `references/codegen-rubric.md`
 - Evaluation prompts for regression testing: `references/eval-scenarios.md`
 

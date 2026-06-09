@@ -59,8 +59,8 @@ When developing inside this repository, use `skills/yh-ui/`, `llms.txt`, and `ll
 
 ## Use Cases
 
-- Use the real packages and exports from `@yh-ui/yh-ui`, `@yh-ui/components`, `@yh-ui/nuxt`, `@yh-ui/request`, `@yh-ui/flow`, and `@yh-ui/ai-sdk`.
-- Generate YH-UI component demos, admin pages, AI chat experiences, Flow canvases, request hooks, and Nuxt integration code.
+- Use the real packages and exports from `@yh-ui/yh-ui`, `@yh-ui/components`, `@yh-ui/nuxt`, `@yh-ui/request`, `@yh-ui/flow`, `@yh-ui/ai-sdk`, `@yh-ui/theme`, `@yh-ui/icons`, and `@yh-ui/locale`.
+- Generate YH-UI component demos, admin pages, AI chat experiences, Flow canvases, request hooks, Nuxt integration code, global configurations, themes, and icon sets.
 - Correct hallucinated legacy APIs or missing components such as `createYhTheme`, `createRequestInstance`, or invalid locale paths.
 - Provide `llms.txt` and `llms-full.txt` as retrieval entry files for search-oriented AI tools.
 
@@ -83,14 +83,23 @@ Common reference files:
 
 ```txt
 skills/yh-ui/references/source-truth.md
-skills/yh-ui/references/api-cheatsheet.md
 skills/yh-ui/references/agent-workflows.md
 skills/yh-ui/references/vue-component-practices.md
-skills/yh-ui/references/codegen-rubric.md
+skills/yh-ui/references/component-map.md
+skills/yh-ui/references/usage-patterns.md
+skills/yh-ui/references/api-cheatsheet.md
+skills/yh-ui/references/nuxt.md
+skills/yh-ui/references/ai-components.md
+skills/yh-ui/references/request.md
+skills/yh-ui/references/flow.md
 skills/yh-ui/references/recipes-table.md
 skills/yh-ui/references/recipes-form-schema.md
 skills/yh-ui/references/recipes-ai.md
 skills/yh-ui/references/recipes-flow.md
+skills/yh-ui/references/recipes-theme.md
+skills/yh-ui/references/recipes-icons.md
+skills/yh-ui/references/codegen-rubric.md
+skills/yh-ui/references/eval-scenarios.md
 ```
 
 ## Use With AI Tools
@@ -112,17 +121,22 @@ Prompt example:
 You are generating Vue 3 code for the YH-UI project. Follow skills/yh-ui/SKILL.md first, then use source-truth.md and api-cheatsheet.md to choose real components, props, emits, slots, and exposed methods.
 ```
 
-### Cursor / Windsurf / Editor Agents
+### Cursor / Trae / Windsurf / Editor Agents
 
-Open the repository root as the workspace and make sure the agent can read:
+Open the repository root as the workspace and generate configuration files in the project to ensure the agent can index the rules:
+
+- **Cursor**: Use `install --target cursor` to write rules and retrieval files into the `.cursor/` directory (e.g., `.cursor/skills/yh-ui`).
+- **Trae**: Create a `.traerules` file in the project root directory and paste the contents of `SKILL.md` into it. In conversations, you can directly reference the rules file via `#SKILL.md`.
+
+Ensure the project includes the retrieval entries:
 
 ```txt
-skills/yh-ui/SKILL.md
+skills/yh-ui/
 llms.txt
 llms-full.txt
 ```
 
-Then reference the skill explicitly in the task:
+Then reference the skill explicitly in the task or Chat window:
 
 ```txt
 Use skills/yh-ui/SKILL.md as the YH-UI rules. Generate a Vue 3 page with YhTable, filters, pagination, loading, empty state, and typed rows.

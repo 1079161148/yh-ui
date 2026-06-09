@@ -38,7 +38,12 @@ const PLAYGROUND_YH_UI_EXTERNALS = [
 ]
 
 async function cleanOutput() {
-  await rm(resolve(playgroundOutDir, 'assets'), { recursive: true, force: true, maxRetries: 10, retryDelay: 100 })
+  await rm(resolve(playgroundOutDir, 'assets'), {
+    recursive: true,
+    force: true,
+    maxRetries: 10,
+    retryDelay: 100
+  })
   await Promise.all([
     rm(resolve(playgroundOutDir, 'yh-flow-runtime.js'), { force: true }),
     rm(resolve(playgroundOutDir, 'yh-flow-runtime.css'), { force: true }),

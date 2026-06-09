@@ -20,6 +20,8 @@ const requiredReferences = [
   'references/recipes-form-schema.md',
   'references/recipes-ai.md',
   'references/recipes-flow.md',
+  'references/recipes-theme.md',
+  'references/recipes-icons.md',
   'references/codegen-rubric.md',
   'references/eval-scenarios.md'
 ]

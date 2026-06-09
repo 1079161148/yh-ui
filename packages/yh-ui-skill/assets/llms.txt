@@ -18,5 +18,7 @@ High-value references:
 - `skills/yh-ui/references/recipes-form-schema.md`: YhFormSchema deep recipe.
 - `skills/yh-ui/references/recipes-ai.md`: YhAi component deep recipe.
 - `skills/yh-ui/references/recipes-flow.md`: Flow deep recipe.
+- `skills/yh-ui/references/recipes-theme.md`: Theme deep recipe.
+- `skills/yh-ui/references/recipes-icons.md`: Icons deep recipe.
 
 Use `@yh-ui/nuxt` for Nuxt, `@yh-ui/components` for component-only imports, `@yh-ui/yh-ui` for all-in-one Vue install, `@yh-ui/request` for request state, `@yh-ui/flow` for flow editors, and `@yh-ui/ai-sdk` for AI SDK integrations.

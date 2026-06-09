@@ -1,53 +1,56 @@
 # YH-UI Agent Skill
 
-This directory packages YH-UI knowledge for modern AI coding agents. It is designed as a small cross-platform skill: one `SKILL.md` file plus progressively loaded reference files.
+[中文文档 (Chinese Documentation)](./README.zh-CN.md)
+
+This directory packages YH-UI knowledge for modern AI coding agents. It is designed as a small, progressive cross-platform skill: one `SKILL.md` file acting as the entry point, plus progressively loaded reference files.
 
 ## Use Cases
 
-- Generate Vue 3 or Nuxt code with YH-UI components.
-- Choose the right YH-UI package for a task.
-- Avoid hallucinated component names, package paths, theme APIs, and locale paths.
-- Give AI agents compact examples for admin pages, AI chat, request hooks, flow editors, themes, icons, and locale setup.
-- Anchor generated code to source exports documented in `references/source-truth.md`.
+- Generate Vue 3 or Nuxt 3 code with YH-UI components.
+- Choose the correct YH-UI package boundary for a task.
+- Avoid hallucinated component names, packages, theme options, and locale paths.
+- Enforce 100% prioritization of YH-UI's built-in components and utilities over writing custom HTML elements.
+- Provide AI agents with precise recipes for data tables, form schemas, AI chat bubbles, flow canvases, themes, and icons.
 
 ## Design Principles
 
-- `SKILL.md` stays as the operating manual and trigger surface.
-- Reference files are loaded progressively by task, keeping agent context small.
-- `source-truth.md` is the compact export map and must match source exports.
-- `api-cheatsheet.md` is generated from source using TypeScript AST extraction for priority props, emits, slots, and exposed methods.
-- Deep recipe files hold opinionated high-value patterns for complex components.
-- `codegen-rubric.md` defines what generated YH-UI code must satisfy.
-- `eval-scenarios.md` captures regression prompts for checking AI behavior over time.
+- `SKILL.md` is the trigger surface and central manual for the AI.
+- Reference files are loaded progressively by task, keeping the agent's context small and efficient.
+- `references/source-truth.md` is the compiled export map generated from source packages.
+- `references/vue-component-practices.md` defines Vue 3.5+ setup guidelines, TS type-safety structures, and component encapsulation decisions.
+- Deep recipe files hold high-value code blocks for advanced scenarios:
+  - `recipes-table.md`: Virtual scrolls, cell slots, data export, printing.
+  - `recipes-form-schema.md`: Repeating lists (`type: 'list'`), custom renderers.
+  - `recipes-ai.md`: DeepSeek-R1 thinking steps (`YhAiThoughtChain`), code execution, Mermaid diagrams.
+  - `recipes-flow.md`: BPMN and AI workflow nodes, resizers, toolbars, undo/redo logs.
+  - `recipes-theme.md`: Global config providers, density, preset themes, WCAG contrast.
+  - `recipes-icons.md`: Iconify collection loads, inline SVG.
+- `codegen-rubric.md` provides strict evaluation rules (fails the AI if it writes custom CSS/HTML for controls supported by YH-UI).
 
-## How To Use
+## Installation & Usage
 
-### ChatGPT, Codex, Claude, and compatible skill loaders
+You can deploy these rules into your local IDE setups using the monorepo CLI:
 
-Add the `skills/yh-ui` folder as a project skill or knowledge folder. The primary entry is `SKILL.md`.
+```bash
+# Install to Cursor (.cursor/rules/)
+npx @yh-ui/yh-ui-skill install --target cursor
 
-### Claude.ai / Claude Code style
+# Install to Trae (.traerules or root config)
+npx @yh-ui/yh-ui-skill install --target cursor
 
-Upload or reference this folder as a skill. The YAML frontmatter in `SKILL.md` provides the name and trigger description. Reference files are intentionally split so the model can load only what it needs.
+# Export to general project directory (.yh-ui/)
+npx @yh-ui/yh-ui-skill install --target project
+```
 
-### Cursor, Codex, and engineering agents
+### Manual Configuration
 
-Point the agent to `skills/yh-ui/SKILL.md` before asking it to generate YH-UI code. For repository-level rules, reuse the core rules from `SKILL.md` in your agent instructions.
-
-### ChatGPT project knowledge
-
-Upload `SKILL.md` plus the `references` directory. Tell the assistant to read `SKILL.md` first and open reference files only when relevant.
+- **Cursor**: Create/update `.cursorrules` or drop these files into `.cursor/rules/`.
+- **Trae**: Create/update `.traerules` at the project root with the core rules from `SKILL.md`. In chats, use `#SKILL.md` to reference rules.
+- **Claude Project / Custom GPTs**: Upload `SKILL.md` and the `references/` files as custom knowledge documents.
 
 ## Release Checklist
 
 - Run `pnpm verify:yh-ui-skill`.
 - Run `pnpm generate:yh-ui-skill` when component exports or priority APIs change.
-- Confirm package versions in the repository are current.
-- Confirm `references/source-truth.md` matches package exports when components are added or renamed.
+- Confirm `references/source-truth.md` and `references/api-cheatsheet.md` matches package exports when components are added or renamed.
 - Run the prompts in `references/eval-scenarios.md` against at least one target AI model before a major skill release.
-- Confirm README links still resolve.
-- Regenerate the skill if component package boundaries change.
-
-## License
-
-MIT. See `LICENSE.txt`.

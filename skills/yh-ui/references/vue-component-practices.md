@@ -4,20 +4,43 @@ Use these rules when generating or reviewing YH-UI Vue 3 code. They combine Vue 
 
 ## SFC Structure
 
-- Prefer `<script setup lang="ts">` for application examples and small components.
-- Order SFC blocks as `<script>`, `<template>`, then `<style>`.
-- Keep imports at the top, then types, props/emits/models, state, computed values, watchers, lifecycle hooks, and functions grouped by feature.
-- Use `scoped` styles for page/example CSS unless the task intentionally edits global theme CSS.
-- Avoid large inline template expressions. Move non-trivial logic to computed values or functions.
+- Prefer `<script setup lang="ts">` for all application pages and component definitions.
+- Always order SFC blocks as `<script>`, `<template>`, then `<style scoped>`.
+- Internal setup block sequence:
+  1. Module/library imports (separate external dependencies from local `@yh-ui` packages).
+  2. TypeScript types & interfaces.
+  3. `defineProps`, `defineEmits`, and `defineModel`.
+  4. Reactive state & refs.
+  5. Computed properties.
+  6. Watchers (`watch` / `watchEffect`).
+  7. Lifecycle hooks (`onMounted`, `onUnmounted`, etc.).
+  8. Action functions / methods.
+- Use `scoped` styles to prevent styling leakages. Never use raw global selector tags inside SFC styles.
+- Keep templates clean: move calculations, complex conditions, or array mapping out of the template into computed variables.
 
 ## Props, Emits, And v-model
 
-- Type props with TypeScript interfaces or inline type literals.
-- Use `withDefaults(defineProps<Props>(), defaults)` when defaults are needed.
-- Use typed `defineEmits` for custom events.
-- For two-way binding, prefer `defineModel` in new Vue 3.4+ examples when the target project supports it; otherwise use `modelValue` and `update:modelValue`.
-- Never mutate props directly. Emit events or copy prop values into local state when local edits are needed.
-- Keep event names explicit and user-action oriented, such as `submit`, `cancel`, `refresh`, or `update:filters`.
+- Always type props with clear TypeScript interfaces. Use type-only imports (`import type { ... }`) for external type models.
+- For **Vue 3.5+**, prefer reactive props destructuring:
+  ```ts
+  const { size = 'medium', disabled = false, data = () => [] } = defineProps<Props>()
+  ```
+  This is the official Vue 3.5+ best practice and avoids verbose `withDefaults`.
+- For Vue < 3.5 or projects without destructure support, fallback to `withDefaults(defineProps<Props>(), defaults)`.
+- Use typed `defineEmits` or `defineModel` for two-way bindings:
+
+  ```ts
+  // Two-way binding model (Vue 3.4+)
+  const modelValue = defineModel<string>({ default: '' })
+
+  // Typed custom events
+  const emit = defineEmits<{
+    change: [value: string]
+    submit: []
+  }>()
+  ```
+
+- Never mutate props. If props need internal modifications, copy them to a local `ref` or compile them via `computed` getters/setters.
 
 ## Slots And Composition
 
@@ -26,14 +49,20 @@ Use these rules when generating or reviewing YH-UI Vue 3 code. They combine Vue 
 - In app pages, compose YH-UI components directly instead of wrapping every component in a thin local abstraction.
 - Create composables only when stateful logic is reused or complex enough to deserve a named boundary.
 
-## Reactivity
+## Reactivity & Lifecycle Cleanups
 
-- Use `ref` for primitives and replaceable values.
-- Use `reactive` for stable object state that is mutated by field.
-- Use `computed` for derived values instead of maintaining duplicated state.
-- Use `watch` for side effects, not for deriving values.
-- Avoid destructuring reactive objects unless using `toRefs`, `storeToRefs`, or Vue 3.5 reactive props destructure intentionally.
-- Use `shallowRef` for large immutable objects, external instances, editors, charts, or flow graphs when deep reactivity is unnecessary.
+- Use `ref` for primitive values, lists/arrays, or objects that will be completely overwritten.
+- Use `reactive` only for complex nested states that require deep property mutation.
+- Use `computed` for all derived values instead of writing sync watchers or manually maintaining double state variables.
+- Use `watch` or `watchEffect` solely for side-effects (e.g. storage sync, async API triggers). Always specify `immediate: true` or `deep: true` only if required.
+- Use `shallowRef` for heavy objects, DOM nodes, third-party library instances (ECharts, Monco Editor, Flow canvases), as deep reactivity on these will degrade performance.
+- **Critical Lifecycle Cleanups**: Always clean up timeouts, intervals, ResizeObservers, WebSocket event listeners, and custom event listeners in `onUnmounted`:
+  ```ts
+  const timer = setInterval(tick, 1000)
+  onUnmounted(() => {
+    clearInterval(timer)
+  })
+  ```
 
 ## Accessibility
 
@@ -75,6 +104,40 @@ Use these rules when generating or reviewing YH-UI Vue 3 code. They combine Vue 
 - Prefer CSS variables and existing theme tokens over hard-coded colors.
 - Use `useNamespace` for internal BEM-style component classes when editing package components.
 - Use `useZIndex`, `useLocale`, `useId`/`useYhId`, and config hooks instead of local one-off implementations.
+
+## YH-UI Prioritization & Extension Workflow
+
+To ensure we prioritize existing UI framework logic and do not write duplicate custom HTML/CSS controls, follow this decision tree when implementing user interface requests:
+
+1. **Verify Availability**: Search `references/source-truth.md` and `references/component-map.md`. If a component exists (e.g., `YhTable`, `YhDialog`, `YhConfigProvider`, `YhScrollbar`), you **must** use it. Do not write raw `<div class="custom-scroll">` or raw `<dialog>`.
+2. **Handle Feature Gaps (Encapsulation/Extension)**: If a component is missing a sub-feature, do not abandon the component. Apply extension patterns in order of priority:
+   - **Slot Customization**: Use slots (e.g., `#toolbar`, `#empty`, `#default` custom cells) to inject the custom logic.
+   - **Props & Event Listeners**: Use component event bindings and dynamic property configs to override behavior.
+   - **CSS Variable Injection**: Inject style variables (e.g. style overrides like `--yh-button-font-weight`) to alter theme aesthetics without altering core element code.
+   - **Composite Patterns**: Group multiple YH-UI components together (e.g. wrap a `YhTable` and `YhPagination` or nesting slots) before trying to write raw elements.
+3. **Raw Component Last Resort**: Only build a custom element from scratch if the functionality is entirely absent in the UI framework and cannot be composed/wrapped. You must document this reasoning in the code comments.
+
+## TypeScript Strict Standards
+
+To maintain clean typing boundaries and avoid runtime failures, follow these TS conventions:
+
+- **Type-only imports**: When importing interfaces, schemas, or types from YH-UI packages, use the `import type` syntax:
+  ```ts
+  import type { FormSchema } from '@yh-ui/components'
+  import type { FlowNode, FlowEdge } from '@yh-ui/flow'
+  import type { ThemeOptions } from '@yh-ui/theme'
+  ```
+- **Type Template Refs**: Never leave component template refs untyped (`const refVal = ref(null)`). Always use Vue's `InstanceType` utility to extract component exports:
+
+  ```ts
+  import { ref } from 'vue'
+  import { YhTable } from '@yh-ui/components'
+
+  const tableRef = ref<InstanceType<typeof YhTable> | null>(null)
+  ```
+
+- **Exposed APIs**: Access exposed methods on components strictly through these typed instances (e.g., `tableRef.value?.exportData(...)`, `formRef.value?.validate()`).
+- **Data Models**: Strongly type response objects and row lists using `interface` declarations; never pass `any` into data bindings or request helper promises.
 
 ## Testing Expectations
 
