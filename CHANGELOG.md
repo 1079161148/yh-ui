@@ -4,6 +4,17 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.50] - 2026-06-10
+
+> 重构 `@yh-ui/locale` 的导出结构以解决消费端编译产生 136+ 个小 locale chunks 的构建问题，并开启 `@yh-ui/yh-ui` 的 `sideEffects: false` 配置提升 Tree-Shaking 效果。
+
+### Changed
+
+- **locale**: 重构了 `@yh-ui/locale` 包的导出结构。默认入口仅导出 `zhCn`、`en` 以及 `Language` 等核心类型；将全部 67 种内置语言导出移动到新的 `@yh-ui/locale/all` 子入口中。消费者可从 `@yh-ui/locale/all` 获取完整多语言，或通过 `@yh-ui/locale/lang/xx` 按需导入。这消除了消费端被动拆分出 136+ 个小 JS 文件的构建异常。
+- **yh-ui**: 在 `@yh-ui/yh-ui` 的 `package.json` 中添加 `"sideEffects": false`，确保消费端在打包 YH-UI 时能够正确地进行 Tree-Shaking。
+- **gitignore**: 项目根目录的 `.gitignore` 追加了 `.yh-ui/` 和 `node_modules/.vite/` 规则。
+- **docs**: 调整了中英文 i18n 引导文档及 Demo 代码，将全量语言导入均修改为 `@yh-ui/locale/all`，并提供最佳实践的按需导入说明。
+
 ## [1.0.49] - 2026-06-10
 
 > 修复因静态引入可选 peer 依赖（viewerjs 和 highlight.js）样式文件导致消费端编译/构建报错的问题。

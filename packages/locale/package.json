@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/locale",
-  "version": "1.0.49",
+  "version": "1.0.50",
   "description": "YH-UI internationalization locale files",
   "type": "module",
   "sideEffects": false,
@@ -12,6 +12,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
+    },
+    "./all": {
+      "types": "./dist/all.d.ts",
+      "import": "./dist/all.mjs",
+      "require": "./dist/all.cjs"
     },
     "./lang/*": {
       "types": "./dist/lang/*.d.ts",

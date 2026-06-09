@@ -85,4 +85,6 @@ apps/*/*.png
 .agent/
 .kiro/
 .claude/
+.yh-ui/
+node_modules/.vite/
 package-lock.json
