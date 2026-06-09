@@ -14,8 +14,7 @@ export default defineConfig({
       '@yh-ui/locale': resolve(__dirname, '../packages/locale/src'),
       '@yh-ui/request': resolve(__dirname, '../packages/request/src'),
       '@yh-ui/ai-sdk': resolve(__dirname, '../packages/ai-sdk/src'),
-      '@yh-ui/icons': resolve(__dirname, '../packages/icons/src'),
-      dayjs: resolve(__dirname, '../node_modules/dayjs')
+      '@yh-ui/icons': resolve(__dirname, '../packages/icons/src')
     }
   },
   // 优化依赖预构建，确保 dayjs locale 能正确加载
