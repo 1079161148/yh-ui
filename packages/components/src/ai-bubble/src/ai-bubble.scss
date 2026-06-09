@@ -106,7 +106,7 @@
     }
 
     /* Theme-specific adjustments for quality */
-    :html.dark & {
+    html.dark & {
       box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
     }
   }
@@ -325,7 +325,7 @@
     min-width: 200px;
     border: 1px solid var(--yh-border-color-extra-light);
 
-    :html.dark & {
+    html.dark & {
       background: rgba(255, 255, 255, 0.05);
     }
   }

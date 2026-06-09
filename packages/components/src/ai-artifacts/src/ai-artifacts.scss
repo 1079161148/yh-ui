@@ -30,7 +30,7 @@
     box-shadow: none;
   }
 
-  :html.dark & {
+  html.dark & {
     background: var(--yh-ai-artifacts-bg-color, rgba(26, 26, 27, 0.9));
     backdrop-filter: blur(20px);
     border-left: 1px solid rgba(255, 255, 255, 0.08);
@@ -140,7 +140,7 @@
     display: flex;
     flex-direction: column;
 
-    :html.dark & {
+    html.dark & {
       background: #0d0d0d;
     }
   }

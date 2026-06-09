@@ -4,6 +4,16 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.48] - 2026-06-09
+
+> 修复 CSS style.css 中的 :html.dark 和 :deep 告警，并使 useTheme() 属性具备 Vue 响应性。
+
+### Fixed
+
+- **components**: 修复了 `ai-bubble.scss` 和 `ai-artifacts.scss` 中的 `:html.dark` 错误选择器（移除了多余的冒号，修正为 `html.dark`）。
+- **components**: 移除了 `ai-code-editor.scss` 和 `gantt-chart.scss` 中无效的 `:deep()` 伪类，恢复标准 CSS 选择器以消除 CSS 编译警告。
+- **theme**: 优化了 `ThemeManager`（`useTheme()` 返回的实例）的 `dark`、`theme`、`breakpoint`、`density` 和 `colorBlind` 属性的 Getter。使其内部读取响应式的 `this.state` 对象，从而在 Vue 组件中被使用时能被 Vue 响应性系统追踪，支持直接的响应式更新。
+
 ## [1.0.47] - 2026-06-09
 
 > 彻底修复 dayjs-plugins 模块在 Vite / ESM 环境下的 default export 报错。

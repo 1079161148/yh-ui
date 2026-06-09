@@ -107,7 +107,6 @@
     overflow: hidden;
     flex-shrink: 0;
     box-sizing: border-box;
-
     @include when(editing) {
       padding: 0;
       .yh-input {
@@ -116,7 +115,7 @@
         --yh-input-hover-border-color: transparent;
         --yh-input-focus-border-color: var(--yh-color-primary);
 
-        :deep(.yh-input__wrapper) {
+        .yh-input__wrapper {
           box-shadow: none !important;
           border-radius: 0;
           padding: 0 12px;

@@ -935,12 +935,12 @@ export class ThemeManager {
 
   /** 获取当前是否暗色模式 */
   get dark(): boolean {
-    return this.isDark
+    return this.state.dark
   }
 
   /** 获取当前主题 */
   get theme(): PresetTheme {
-    return this.currentTheme
+    return this.state.theme
   }
 
   /** 获取所有可用预设 */
@@ -950,7 +950,7 @@ export class ThemeManager {
 
   /** 获取当前断点 */
   get breakpoint(): Breakpoint {
-    return this.currentBreakpoint
+    return this.state.breakpoint
   }
 
   /** 应用颜色到 CSS 变量 */
@@ -1270,7 +1270,7 @@ export class ThemeManager {
 
   /** 获取当前密度 */
   get density(): ThemeDensity {
-    return this.currentDensity
+    return this.state.density
   }
 
   // ==================== 色盲模式 ====================
@@ -1302,7 +1302,7 @@ export class ThemeManager {
 
   /** 获取当前色盲模式 */
   get colorBlind(): ColorBlindMode {
-    return this.colorBlindMode
+    return this.state.colorBlindMode
   }
 
   // ==================== 组件级主题覆盖 ====================
