@@ -41,7 +41,21 @@
     "vue-sfc-transformer": "^0.1.17"
   },
   "peerDependencies": {
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "dagre": ">=0.8.5",
+    "elkjs": ">=0.9.0",
+    "d3-force": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "dagre": {
+      "optional": true
+    },
+    "elkjs": {
+      "optional": true
+    },
+    "d3-force": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"

@@ -89,6 +89,10 @@ const defaultCoverageExclude = [
   // locale: all.ts / runtime.ts 均为纯 re-export barrel 文件，不含可测逻辑，与 **/index.ts 保持一致排除
   'packages/locale/src/all.ts',
   'packages/locale/src/runtime.ts',
+  // locale: lang/*.ts 均为纯静态数据对象（翻译字符串），没有可测业务逻辑
+  // 在 1.0.50 重构前，default index.ts 导入了全部 67 种语言，覆盖率自然 100%。
+  // 重构后只有 zhCn / en 被默认导入，其余 65 个文件 0% 覆盖率，拉低阈值，故统一排除。
+  'packages/locale/src/lang/**/*.ts',
   ...loadBranchCoverageExcludePatterns()
 ]
 const componentSystemCoverageExclude = [
