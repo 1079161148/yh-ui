@@ -4,6 +4,21 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.52] - 2026-06-11
+
+> 修复消费端反馈的多项国际化、组件样式及流程图渲染 Bug，补全了全量组件的灵活自定义 Placeholder 及多语言配置。
+
+### Changed
+
+- **locale**: 支持对全量组件（如 `treeselect`, `autocomplete`, `cascader`, `input`, `select`, `skuselector` 等）的 `placeholder` 进行灵活的动态语言包配置，各组件在没有传入自定义值时默认使用多语言环境的 placeholder。
+- **components**: 去除了编辑器输入框等输入口在初始化内容时突兀的浅蓝色背景色，保持整体视觉效果的优雅与一致。
+
+### Fixed
+
+- **locale**: 彻底修复并清除了 `message-box`、`ai-mention`、`ai-editor-sender`、`ai-artifacts` 和 `ai-code-runner` 中残留的硬编码中文字符串，并在英文和中文语言包中新增补全了 `file`、`noCommands`、`chartLoadError` 等国际化翻译词条。
+- **flow**: 修复了 `@yh-ui/flow` 流程图中由于坐标嵌套、小地图比例计算、对齐线重绘以及节点重新分发可能导致的渲染及交互卡死问题，并补充了测试用例。
+- **types**: 修复并补充了 `@yh-ui/yh-ui` 入口及各子模块中打包构建时的相关类型定义与打包构建问题，保证消费端使用时的类型安全。
+
 ## [1.0.51] - 2026-06-10
 
 > 补充 `useYhId` 作为 `@yh-ui/hooks` 的直接具名导出，修复 CI coverage 因纯 barrel 文件（locale/all.ts、locale/runtime.ts）拉低覆盖率阈值导致失败的问题，并同步更新内部技能文档。
