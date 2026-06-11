@@ -430,7 +430,7 @@ defineExpose<AutocompleteExpose>({
         :id="inputId"
         :class="ns.e('inner')"
         :value="modelValue"
-        :placeholder="placeholder || t('autocomplete.placeholder')"
+        :placeholder="placeholder ?? t('autocomplete.placeholder')"
         :disabled="autocompleteDisabled"
         :name="name"
         :autocomplete="autocomplete"

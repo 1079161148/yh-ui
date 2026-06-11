@@ -3,7 +3,7 @@
 Flow provides a standardized plugin interface (`FlowPlugin` / `PluginManager`) for extending capabilities like Minimap, Controls, Grid, Snap, and Export.
 
 <script setup lang="ts">
-import { ref, onMounted, h, markRaw } from 'vue'
+import { ref, onMounted, watch, h, markRaw } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 import { 
   createMiniMapPlugin, 
@@ -133,14 +133,16 @@ onMounted(() => {
 const jsCustom = toJs(tsCustom)
 
 // Register plugins for live demos
-onMounted(() => {
-  if (flowBasicRef.value) {
-    flowBasicRef.value.usePlugin(createMiniMapPlugin({ position: 'bottom-right' }))
-    flowBasicRef.value.usePlugin(createControlsPlugin())
-    flowBasicRef.value.usePlugin(createGridPlugin({ type: 'grid' }))
+watch(flowBasicRef, (flowInst) => {
+  if (flowInst) {
+    flowInst.usePlugin(createMiniMapPlugin({ position: 'bottom-right' }))
+    flowInst.usePlugin(createControlsPlugin())
+    flowInst.usePlugin(createGridPlugin({ type: 'grid' }))
   }
+})
 
-  if (flowCustomRef.value) {
+watch(flowCustomRef, (flowInst) => {
+  if (flowInst) {
     const MyUIPluginReal = {
       id: 'my-ui-plugin-real',
       name: 'MyUIPlugin',
@@ -174,7 +176,7 @@ onMounted(() => {
         })
       }
     }
-    flowCustomRef.value.usePlugin(MyUIPluginReal)
+    flowInst.usePlugin(MyUIPluginReal)
   }
 })
 </script>

@@ -106,7 +106,7 @@
 import { computed } from 'vue'
 import type { Edge, Node, HandleType, Position, EdgeTypes } from '../types'
 import { getEdgePath, getEdgeCenter, getHandlePosition, type EdgePathParams } from '../utils/edge'
-import { getCustomEdge } from '../utils/custom-types'
+import { getCustomEdge, getNodeAbsolutePosition } from '../utils/custom-types'
 
 const props = defineProps<{
   flowId: string
@@ -175,8 +175,11 @@ const edgeData = computed(() => {
     const sPosDesc = (edge.sourceHandle || 'right') as Position
     const tPosDesc = (edge.targetHandle || 'left') as Position
 
-    const sPos = getHandlePosition(sourceNode, sPosDesc, edge.sourceHandle)
-    const tPos = getHandlePosition(targetNode, tPosDesc, edge.targetHandle)
+    const sAbsNode = { ...sourceNode, position: getNodeAbsolutePosition(sourceNode, nodeMap.value) }
+    const tAbsNode = { ...targetNode, position: getNodeAbsolutePosition(targetNode, nodeMap.value) }
+
+    const sPos = getHandlePosition(sAbsNode, sPosDesc, edge.sourceHandle)
+    const tPos = getHandlePosition(tAbsNode, tPosDesc, edge.targetHandle)
 
     const pathParams: EdgePathParams = {
       sourceX: sPos.x,

@@ -41,9 +41,9 @@ watch(
 )
 
 // 将 placeholder 规范为 PlaceholderType（支持字符串简写）
-const normalizePlaceholder = (raw: unknown): PlaceholderType => {
+const normalizePlaceholder = (raw: unknown, type: 'inline' | 'drop'): PlaceholderType => {
   if (typeof raw === 'function') {
-    return (raw as (type: 'inline' | 'drop') => PlaceholderType)('inline')
+    return (raw as (type: 'inline' | 'drop') => PlaceholderType)(type)
   }
   if (typeof raw === 'string') {
     return { icon: 'upload', title: raw }
@@ -53,19 +53,36 @@ const normalizePlaceholder = (raw: unknown): PlaceholderType => {
 
 // 计算占位符
 const computedPlaceholder = computed((): PlaceholderType => {
-  return normalizePlaceholder(props.placeholder)
+  if (props.placeholder === undefined) {
+    return {
+      icon: 'upload',
+      title: t('ai.attachments.clickToUpload'),
+      description: 'Support file type: image, video, audio, document, etc.'
+    }
+  }
+  const norm = normalizePlaceholder(props.placeholder, 'inline')
+  return {
+    icon: norm.icon ?? 'upload',
+    title: norm.title,
+    description: norm.description
+  }
 })
 
 // 计算拖拽占位符
 const computedDropPlaceholder = computed((): PlaceholderType => {
-  const placeholder = props.placeholder
-  if (typeof placeholder === 'function') {
-    return placeholder('drop')
+  if (props.placeholder === undefined) {
+    return {
+      icon: 'upload',
+      title: t('ai.attachments.dropTip'),
+      description: undefined
+    }
   }
-  if (typeof placeholder === 'string') {
-    return { icon: 'upload', title: placeholder }
+  const norm = normalizePlaceholder(props.placeholder, 'drop')
+  return {
+    icon: norm.icon ?? 'upload',
+    title: norm.title,
+    description: norm.description
   }
-  return (placeholder as PlaceholderType) || {}
 })
 
 // 是否可以继续上传

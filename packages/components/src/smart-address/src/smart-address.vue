@@ -188,8 +188,14 @@ const regionCascaderValue = computed({
 })
 
 // ─── 标签辅助 ─────────────────────────────────────────────────────────────────
-const placeholder = computed(() => props.parsePlaceholder || t('smartaddress.placeholder'))
+const placeholder = computed(
+  () => props.placeholder ?? props.parsePlaceholder ?? t('smartaddress.placeholder')
+)
 const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
+const namePlh = computed(() => props.namePlaceholder ?? `${t('smartaddress.name')}...`)
+const phonePlh = computed(() => props.phonePlaceholder ?? `${t('smartaddress.phone')}...`)
+const streetPlh = computed(() => props.streetPlaceholder ?? `${t('smartaddress.street')}...`)
+const detailPlh = computed(() => props.detailPlaceholder ?? `${t('smartaddress.detail')}...`)
 </script>
 
 <template>
@@ -237,7 +243,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
           :class="ns.e('input')"
           :value="innerVal.name"
           :disabled="disabled"
-          :placeholder="`${t('smartaddress.name')}...`"
+          :placeholder="namePlh"
           @input="(e: Event) => updateField('name', (e.target as HTMLInputElement).value)"
         />
       </div>
@@ -254,7 +260,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
           type="tel"
           inputmode="numeric"
           maxlength="11"
-          :placeholder="`${t('smartaddress.phone')}...`"
+          :placeholder="phonePlh"
           @input="(e: Event) => updateField('phone', (e.target as HTMLInputElement).value)"
         />
       </div>
@@ -369,7 +375,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
           :class="ns.e('input')"
           :value="innerVal.street"
           :disabled="disabled"
-          :placeholder="`${t('smartaddress.street')}...`"
+          :placeholder="streetPlh"
           @input="(e: Event) => updateField('street', (e.target as HTMLInputElement).value)"
         />
       </div>
@@ -383,7 +389,7 @@ const btnText = computed(() => props.parseButtonText || t('smartaddress.parse'))
           :class="ns.e('input')"
           :value="innerVal.detail"
           :disabled="disabled"
-          :placeholder="`${t('smartaddress.detail')}...`"
+          :placeholder="detailPlh"
           @input="(e: Event) => updateField('detail', (e.target as HTMLInputElement).value)"
         />
       </div>

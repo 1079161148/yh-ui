@@ -6,6 +6,8 @@ import { mount } from '@vue/test-utils'
 import { nextTick, h } from 'vue'
 import AiEditorSender from '../src/ai-editor-sender.vue'
 import type { AiCommandItem, AiEditorAttachmentItem } from '../src/ai-editor-sender'
+import { YhConfigProvider } from '../../config-provider'
+import { en } from '@yh-ui/locale'
 
 // 测试用的命令数据
 const mockCommands: AiCommandItem[] = [
@@ -91,7 +93,18 @@ describe('YhAiEditorSender', () => {
   describe('Props 默认值', () => {
     it('should have default placeholder', () => {
       const wrapper = createWrapper()
-      expect(wrapper.find('textarea').attributes('placeholder')).toBe('Type a message...')
+      expect(wrapper.find('textarea').attributes('placeholder')).toBe('发送消息...')
+    })
+
+    it('should use config-provider locale placeholder', async () => {
+      const wrapper = mount(YhConfigProvider, {
+        props: { locale: en },
+        slots: {
+          default: () => h(AiEditorSender)
+        }
+      })
+      await nextTick()
+      expect(wrapper.find('textarea').attributes('placeholder')).toBe('Send a message...')
     })
 
     it('should have default modelValue as empty string', () => {

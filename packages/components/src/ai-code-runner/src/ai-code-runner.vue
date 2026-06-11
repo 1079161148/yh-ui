@@ -15,7 +15,7 @@ const props = defineProps(aiCodeRunnerProps)
 const emit = defineEmits(aiCodeRunnerEmits)
 
 const ns = useNamespace('ai-code-runner')
-const { t } = useLocale()
+const { t, lang } = useLocale()
 const { themeStyle } = useComponentTheme('ai-code-runner', props.themeOverrides)
 
 const webcontainerInstance = shallowRef<Awaited<ReturnType<typeof getWebContainerInstance>> | null>(
@@ -48,11 +48,21 @@ const initWebContainer = async () => {
     if (!webcontainerInstance.value) {
       webcontainerInstance.value = await getWebContainerInstance()
       emit('ready', webcontainerInstance.value)
-      addOutput('WebContainer 初始化完成', 'log')
+      addOutput(
+        lang.value.startsWith('zh')
+          ? 'WebContainer 初始化完成'
+          : 'WebContainer initialization completed',
+        'log'
+      )
     }
   } catch (error) {
     const errMsg = error instanceof Error ? error.message : 'Unknown error'
-    addOutput(`WebContainer 初始化失败: ${errMsg}`, 'error')
+    addOutput(
+      lang.value.startsWith('zh')
+        ? `WebContainer 初始化失败: ${errMsg}`
+        : `WebContainer initialization failed: ${errMsg}`,
+      'error'
+    )
     emit('error', errMsg)
   }
 }
@@ -67,12 +77,14 @@ const runCode = async () => {
 
     const container = webcontainerInstance.value
     if (!container) {
-      throw new Error('WebContainer 未就绪')
+      throw new Error(
+        lang.value.startsWith('zh') ? 'WebContainer 未就绪' : 'WebContainer not ready'
+      )
     }
 
     isRunning.value = true
     output.value = []
-    addOutput('开始执行代码...', 'log')
+    addOutput(lang.value.startsWith('zh') ? '开始执行代码...' : 'Starting code execution...', 'log')
     emit('run', props.code)
 
     // 1. 挂载文件系统
@@ -109,13 +121,21 @@ const runCode = async () => {
     const exitCode = await shellProcess.exit
 
     if (exitCode === 0) {
-      addOutput('执行完成', 'log')
+      addOutput(lang.value.startsWith('zh') ? '执行完成' : 'Execution completed', 'log')
     } else {
-      addOutput(`执行失败，退出码: ${exitCode ?? 'unknown'}`, 'error')
+      addOutput(
+        lang.value.startsWith('zh')
+          ? `执行失败，退出码: ${exitCode ?? 'unknown'}`
+          : `Execution failed, exit code: ${exitCode ?? 'unknown'}`,
+        'error'
+      )
     }
   } catch (error) {
     const errMsg = error instanceof Error ? error.message : String(error)
-    addOutput(`执行出错: ${errMsg}`, 'error')
+    addOutput(
+      lang.value.startsWith('zh') ? `执行出错: ${errMsg}` : `Execution error: ${errMsg}`,
+      'error'
+    )
     emit('error', errMsg)
   } finally {
     isRunning.value = false
@@ -124,7 +144,7 @@ const runCode = async () => {
 
 const stopCode = () => {
   isRunning.value = false
-  addOutput('执行已停止', 'log')
+  addOutput(lang.value.startsWith('zh') ? '执行已停止' : 'Execution stopped', 'log')
   emit('stop')
 }
 
@@ -137,7 +157,7 @@ const reset = async () => {
   output.value = []
   if (webcontainerInstance.value) {
     webcontainerInstance.value = null
-    addOutput('WebContainer 已重置', 'log')
+    addOutput(lang.value.startsWith('zh') ? 'WebContainer 已重置' : 'WebContainer reset', 'log')
   }
 }
 

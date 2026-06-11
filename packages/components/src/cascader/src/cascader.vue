@@ -612,7 +612,7 @@ defineExpose<CascaderExpose>({
         :id="inputId"
         :class="ns.e('inner')"
         :value="filterable ? query : ''"
-        :placeholder="hasValue ? '' : placeholder || t('cascader.placeholder')"
+        :placeholder="hasValue ? '' : (placeholder ?? t('cascader.placeholder'))"
         :disabled="disabled"
         :readonly="!filterable"
         autocomplete="off"

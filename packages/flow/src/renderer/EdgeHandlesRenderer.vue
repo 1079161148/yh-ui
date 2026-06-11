@@ -41,6 +41,7 @@
 import { computed } from 'vue'
 import type { Edge, Node, HandleType, Position } from '../types'
 import { getHandlePosition } from '../utils/edge'
+import { getNodeAbsolutePosition } from '../utils/custom-types'
 
 const props = defineProps<{
   edges: Edge[]
@@ -68,8 +69,17 @@ const selectedUpdatableEdges = computed(() => {
       const sPosDesc = (edge.sourceHandle || 'right') as Position
       const tPosDesc = (edge.targetHandle || 'left') as Position
 
-      const sPos = getHandlePosition(sourceNode, sPosDesc, edge.sourceHandle)
-      const tPos = getHandlePosition(targetNode, tPosDesc, edge.targetHandle)
+      const sAbsNode = {
+        ...sourceNode,
+        position: getNodeAbsolutePosition(sourceNode, nodeMap.value)
+      }
+      const tAbsNode = {
+        ...targetNode,
+        position: getNodeAbsolutePosition(targetNode, nodeMap.value)
+      }
+
+      const sPos = getHandlePosition(sAbsNode, sPosDesc, edge.sourceHandle)
+      const tPos = getHandlePosition(tAbsNode, tPosDesc, edge.targetHandle)
 
       result.push({
         edge,

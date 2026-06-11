@@ -698,7 +698,8 @@ export const zhCn: Language = {
         agent: '智能体',
         document: '文档',
         table: '表格',
-        knowledge: '知识库'
+        knowledge: '知识库',
+        file: '文件'
       },
       codeBlock: {
         copyCode: '复制代码',
@@ -717,7 +718,8 @@ export const zhCn: Language = {
       },
       sender: {
         placeholder: '发送消息...',
-        dragTip: '释放鼠标以上传文件'
+        dragTip: '释放鼠标以上传文件',
+        noCommands: '没有找到匹配的命令'
       },
       thoughtChain: {
         thoughtProcess: '思考过程',
@@ -751,7 +753,8 @@ export const zhCn: Language = {
         versions: '版本历史',
         rendering: '正在渲染组件...',
         renderingChart: '正在渲染图表...',
-        renderingCanvas: '正在准备画板...'
+        renderingCanvas: '正在准备画板...',
+        chartLoadError: '图表加载失败'
       },
       voice: {
         trigger: '点击说话',

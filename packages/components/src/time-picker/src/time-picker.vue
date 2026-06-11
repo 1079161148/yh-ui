@@ -617,7 +617,7 @@ defineExpose<TimePickerExpose>({
             <div :class="ns.e('range-panel')">
               <div :class="ns.e('range-panel-item')">
                 <div :class="ns.e('range-panel-title')">
-                  {{ startPlaceholder || t('timepicker.startPlaceholder') }}
+                  {{ startPlaceholder ?? t('timepicker.startPlaceholder') }}
                 </div>
                 <TimeSpinner
                   v-model="internalStartTimeState"
@@ -637,7 +637,7 @@ defineExpose<TimePickerExpose>({
               </div>
               <div :class="ns.e('range-panel-item')">
                 <div :class="ns.e('range-panel-title')">
-                  {{ endPlaceholder || t('timepicker.endPlaceholder') }}
+                  {{ endPlaceholder ?? t('timepicker.endPlaceholder') }}
                 </div>
                 <TimeSpinner
                   v-model="internalEndTimeState"

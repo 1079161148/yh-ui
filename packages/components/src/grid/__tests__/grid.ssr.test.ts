@@ -18,7 +18,7 @@ describe('YhGrid SSR', () => {
       }
     )
     expectSSRHasClass(html, 'yh-grid')
-    expect(html).toContain('repeat(3, 1fr)')
+    expect(html).toContain('repeat(3, minmax(0, 1fr))')
     expect(html).toMatch(/gap:\s*16px/)
     expect(html).toContain('A')
     expect(html).toContain('B')

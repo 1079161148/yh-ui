@@ -731,6 +731,7 @@ export interface Language {
         document?: string
         table?: string
         knowledge?: string
+        file?: string
       }
       codeBlock?: {
         copyCode?: string
@@ -750,6 +751,7 @@ export interface Language {
       sender?: {
         placeholder?: string
         dragTip?: string
+        noCommands?: string
       }
       thoughtChain?: {
         thoughtProcess?: string
@@ -784,6 +786,7 @@ export interface Language {
         rendering?: string
         renderingChart?: string
         renderingCanvas?: string
+        chartLoadError?: string
       }
       voice?: {
         trigger?: string

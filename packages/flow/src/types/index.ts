@@ -68,6 +68,10 @@ export interface Node<Data = NodeData> {
   dragging?: boolean
   width?: number
   height?: number
+  measured?: {
+    width: number
+    height: number
+  }
   parentId?: string
   zIndex?: number
   extent?: 'parent' | string
@@ -309,6 +313,31 @@ export interface FlowInstance {
   /** Screenshot: pass options or legacy HTMLElement as container. Returns result with dataUrl/blob. */
   exportImage?: (options?: ScreenshotOptions | HTMLElement) => Promise<ScreenshotResult>
   applyLayout?: (options?: unknown) => void | Promise<void>
+  // Node Grouping Plugin methods
+  groupSelectedNodes?: (label?: string) => string | null
+  ungroupNodes?: (groupId: string) => void
+  toggleGroupCollapse?: (groupId: string) => void
+  isGroupCollapsed?: (groupId: string) => boolean
+  getGroupChildren?: (groupId: string) => Node[]
+  getGroupRegistry?: () => Map<
+    string,
+    {
+      groupId: string
+      childIds: string[]
+      collapsed: boolean
+      originalPositions: Record<string, { x: number; y: number }>
+    }
+  >
+  // History Plugin methods
+  undo?: () => void
+  redo?: () => void
+  saveSnapshot?: (description?: string) => void
+  canUndo?: Ref<boolean>
+  canRedo?: Ref<boolean>
+  historyLength?: Ref<number>
+  clearHistory?: () => void
+  getHistory?: () => unknown[]
+  jumpToStep?: (index: number) => void
 }
 
 // ============================================

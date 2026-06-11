@@ -264,7 +264,7 @@ defineExpose({
         :value="displayValue"
         :name="name"
         :id="id || inputId"
-        :placeholder="placeholder || t('input.placeholder')"
+        :placeholder="placeholder ?? t('inputnumber.placeholder')"
         :disabled="mergedDisabled"
         :readonly="readonly"
         autocomplete="off"

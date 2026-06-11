@@ -20,12 +20,22 @@ export interface UseViewportReturn {
   panTo: (x: number, y: number) => void
   fitView: (
     bounds: { width: number; height: number },
-    nodes: { position: { x: number; y: number }; width?: number; height?: number }[],
+    nodes: {
+      position: { x: number; y: number }
+      width?: number
+      height?: number
+      measured?: { width: number; height: number }
+    }[],
     options?: { padding?: number }
   ) => void
   center: (
     bounds: { width: number; height: number },
-    nodes: { position: { x: number; y: number }; width?: number; height?: number }[],
+    nodes: {
+      position: { x: number; y: number }
+      width?: number
+      height?: number
+      measured?: { width: number; height: number }
+    }[],
     options?: { padding?: number }
   ) => void
   screenToCanvas: (screenX: number, screenY: number) => { x: number; y: number }
@@ -103,7 +113,12 @@ export function useViewport(
 
   const fitView = (
     bounds: { width: number; height: number },
-    nodes: { position: { x: number; y: number }; width?: number; height?: number }[],
+    nodes: {
+      position: { x: number; y: number }
+      width?: number
+      height?: number
+      measured?: { width: number; height: number }
+    }[],
     options: { padding?: number } = {}
   ) => {
     if (nodes.length === 0) return
@@ -116,8 +131,8 @@ export function useViewport(
     let maxY = -Infinity
 
     for (const node of nodes) {
-      const w = node.width || 200
-      const h = node.height || 50
+      const w = node.measured?.width ?? node.width ?? 200
+      const h = node.measured?.height ?? node.height ?? 50
       minX = Math.min(minX, node.position.x)
       minY = Math.min(minY, node.position.y)
       maxX = Math.max(maxX, node.position.x + w)
@@ -139,7 +154,12 @@ export function useViewport(
 
   const center = (
     bounds: { width: number; height: number },
-    nodes: { position: { x: number; y: number }; width?: number; height?: number }[],
+    nodes: {
+      position: { x: number; y: number }
+      width?: number
+      height?: number
+      measured?: { width: number; height: number }
+    }[],
     options: { padding?: number } = {}
   ) => {
     if (nodes.length === 0) return
@@ -150,8 +170,8 @@ export function useViewport(
     let centerY = 0
 
     for (const node of nodes) {
-      const w = node.width || 200
-      const h = node.height || 50
+      const w = node.measured?.width ?? node.width ?? 200
+      const h = node.measured?.height ?? node.height ?? 50
       centerX += node.position.x + w / 2
       centerY += node.position.y + h / 2
     }

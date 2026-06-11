@@ -4,7 +4,7 @@
 对于 AI Agent 编排、BPMN 子流程、多阶段数据管道等复杂场景极为实用。
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { toJs } from '../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge } from '@yh-ui/flow'
 
@@ -182,10 +182,12 @@ const demoEdges1 = ref<Edge[]>([
   { id: 'e4-5', source: '4', target: '5' }
 ])
 
-onMounted(() => {
-  flowRef1.value?.usePlugin(
-    createNodeGroupPlugin({ groupIdPrefix: 'grp', paddingX: 30, paddingY: 40 })
-  )
+watch(flowRef1, (flowInst) => {
+  if (flowInst) {
+    flowInst.usePlugin(
+      createNodeGroupPlugin({ groupIdPrefix: 'grp', paddingX: 30, paddingY: 40 })
+    )
+  }
 })
 
 const groupSelected = () => {
@@ -223,14 +225,16 @@ const demoEdges2 = ref<Edge[]>([
   { id: 'ec2-out', source: 'c2', target: 'out' }
 ])
 
-onMounted(() => {
-  const plugin = createNodeGroupPlugin()
-  flowRef2.value?.usePlugin(plugin)
-  const registry = flowRef2.value?.getGroupRegistry?.()
-  if (registry) {
-    registry.set(GROUP_ID, {
-      groupId: GROUP_ID, childIds: ['c1', 'c2'], collapsed: false, originalPositions: {}
-    })
+watch(flowRef2, (flowInst) => {
+  if (flowInst) {
+    const plugin = createNodeGroupPlugin()
+    flowInst.usePlugin(plugin)
+    const registry = flowInst.getGroupRegistry?.()
+    if (registry) {
+      registry.set(GROUP_ID, {
+        groupId: GROUP_ID, childIds: ['c1', 'c2'], collapsed: false, originalPositions: {}
+      })
+    }
   }
 })
 

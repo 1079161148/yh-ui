@@ -3,7 +3,7 @@
 `createHistoryPlugin` provides a complete **operation history** management system based on a **pure snapshot stack**. It supports **Ctrl+Z / Ctrl+Y** shortcuts and advanced **time travel** to jump directly to any historical step.
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge } from '@yh-ui/flow'
 
@@ -101,17 +101,19 @@ const demoNodes = ref<Node[]>([
 ])
 const demoEdges = ref<Edge[]>([{ id: 'e1-2', source: '1', target: '2' }])
 
-onMounted(() => {
-  const plugin = createHistoryPlugin({
-    maxHistory: 50,
-    enableKeyboard: true,
-    onHistoryChange: (u, r, len) => {
-      canUndo.value = u
-      canRedo.value = r
-      historyLen.value = len
-    }
-  })
-  flowRef.value?.usePlugin(plugin)
+watch(flowRef, (flowInst) => {
+  if (flowInst) {
+    const plugin = createHistoryPlugin({
+      maxHistory: 50,
+      enableKeyboard: true,
+      onHistoryChange: (u, r, len) => {
+        canUndo.value = u
+        canRedo.value = r
+        historyLen.value = len
+      }
+    })
+    flowInst.usePlugin(plugin)
+  }
 })
 
 const undoAction  = () => flowRef.value?.undo?.()

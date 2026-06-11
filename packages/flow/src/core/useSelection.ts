@@ -1,5 +1,6 @@
 import { ref, computed, type Ref } from 'vue'
 import type { Node, Edge, SelectionRect } from '../types'
+import { getNodeAbsolutePosition } from '../utils/custom-types'
 
 export interface UseSelectionOptions {
   nodes: Ref<Node[]>
@@ -49,17 +50,20 @@ export function useSelection(options: UseSelectionOptions): UseSelectionReturn {
       height: maxY - minY
     }
 
+    const nodeMap = new Map(nodes.value.map((n) => [n.id, n]))
+
     // 选择范围内的节点
     nodes.value = nodes.value.map((node) => {
-      const nodeWidth = node.width || 200
-      const nodeHeight = node.height || 50
+      const nodeWidth = node.measured?.width ?? node.width ?? 200
+      const nodeHeight = node.measured?.height ?? node.height ?? 50
 
+      const absPos = getNodeAbsolutePosition(node, nodeMap)
       // 节点在选择框内
       const isInside =
-        node.position.x >= minX &&
-        node.position.y >= minY &&
-        node.position.x + nodeWidth <= maxX &&
-        node.position.y + nodeHeight <= maxY
+        absPos.x >= minX &&
+        absPos.y >= minY &&
+        absPos.x + nodeWidth <= maxX &&
+        absPos.y + nodeHeight <= maxY
 
       return { ...node, selected: isInside }
     })

@@ -3,7 +3,7 @@
 `createHistoryPlugin` 基于**纯快照栈**实现完整的操作历史管理，支持 **Ctrl+Z 撤销** / **Ctrl+Y 重做** 键盘快捷键，以及跳转到任意历史步骤的**时间旅行**功能。
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { toJs } from '../.vitepress/theme/utils/demo-utils'
 import type { Node, Edge } from '@yh-ui/flow'
 
@@ -101,17 +101,19 @@ const demoNodes = ref<Node[]>([
 ])
 const demoEdges = ref<Edge[]>([{ id: 'e1-2', source: '1', target: '2' }])
 
-onMounted(() => {
-  const plugin = createHistoryPlugin({
-    maxHistory: 50,
-    enableKeyboard: true,
-    onHistoryChange: (u, r, len) => {
-      canUndo.value = u
-      canRedo.value = r
-      historyLen.value = len
-    }
-  })
-  flowRef.value?.usePlugin(plugin)
+watch(flowRef, (flowInst) => {
+  if (flowInst) {
+    const plugin = createHistoryPlugin({
+      maxHistory: 50,
+      enableKeyboard: true,
+      onHistoryChange: (u, r, len) => {
+        canUndo.value = u
+        canRedo.value = r
+        historyLen.value = len
+      }
+    })
+    flowInst.usePlugin(plugin)
+  }
 })
 
 const undoAction  = () => flowRef.value?.undo?.()

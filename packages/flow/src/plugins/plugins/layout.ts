@@ -125,8 +125,8 @@ async function applyDagreLayout(
   // 添加节点
   nodes.forEach((node) => {
     g.setNode(node.id, {
-      width: node.width || 150,
-      height: node.height || 50
+      width: node.measured?.width ?? node.width ?? 150,
+      height: node.measured?.height ?? node.height ?? 50
     })
   })
 
@@ -146,8 +146,8 @@ async function applyDagreLayout(
     return {
       ...node,
       position: {
-        x: layoutNode.x - (node.width || 150) / 2,
-        y: layoutNode.y - (node.height || 50) / 2
+        x: layoutNode.x - (node.measured?.width ?? node.width ?? 150) / 2,
+        y: layoutNode.y - (node.measured?.height ?? node.height ?? 50) / 2
       }
     }
   })
@@ -198,8 +198,8 @@ async function applyElkLayout(
     },
     children: nodes.map((node) => ({
       id: node.id,
-      width: node.width || 150,
-      height: node.height || 50
+      width: node.measured?.width ?? node.width ?? 150,
+      height: node.measured?.height ?? node.height ?? 50
     })),
     edges: edges.map((edge, index) => ({
       id: edge.id || `edge-${index}`,

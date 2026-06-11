@@ -436,6 +436,7 @@ export default defineNuxtConfig({
 | show-all           | 是否展示「全部」tab               | `boolean`                | `true`                       |
 | sticky             | 是否吸顶                          | `boolean`                | `false`                      |
 | filter-in-panel    | 是否在弹出面板中展示筛选器        | `boolean`                | `true`                       |
+| teleported         | 是否将面板 Teleport 至 body       | `boolean`                | `true`                       |
 | show-global-filter | 是否展示最右侧全局筛选漏斗按钮    | `boolean`                | `true`                       |
 | show-view-toggle   | 是否展示列表/网格视图切换图标     | `boolean`                | `false`                      |
 | sticky-offset      | 吸顶时的偏移距离 (px)             | `number`                 | `0`                          |

@@ -190,7 +190,7 @@ export const aiArtifactsProps = {
    */
   chartLoadingText: {
     type: String,
-    default: '加载图表中...'
+    default: undefined
   }
 }
 

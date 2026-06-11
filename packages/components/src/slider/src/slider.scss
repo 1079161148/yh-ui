@@ -82,14 +82,14 @@
     @include e(input) {
       margin-right: 0;
       margin-top: 20px;
-      width: 50px;
+      width: auto;
     }
   }
 
   @include e(input) {
     flex-shrink: 0;
     margin-right: 20px;
-    width: 120px;
+    width: auto;
   }
 
   @include e(runway) {

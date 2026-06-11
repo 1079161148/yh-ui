@@ -59,6 +59,7 @@
         @node-drag-end="handleNodeDragEnd"
         @connect-start="handleConnectStart"
         @node-select-toggle="handleNodeSelectToggle"
+        @nodes-measured="handleNodesMeasured"
       >
         <template #node="nodeProps">
           <slot name="node" v-bind="nodeProps" />
@@ -173,7 +174,8 @@ import {
   getNodeChildren,
   getNodeParent,
   exportFlowData,
-  importFlowData
+  importFlowData,
+  getNodeAbsolutePosition
 } from './utils/custom-types'
 import { provideFlowContext } from './core/FlowContext'
 import { createEventBus } from './utils/event-bus'
@@ -415,6 +417,12 @@ const alignmentManager = useAlignment({
   snapThreshold: snapThreshold.value
 })
 
+const nodeMap = computed(() => {
+  const m = new Map<string, Node>()
+  nodesRef.value.forEach((n) => m.set(n.id, n))
+  return m
+})
+
 // Visible nodes (virtualized)
 const visibleNodes = computed(() => {
   if (!containerRef.value) return nodesRef.value
@@ -428,13 +436,14 @@ const visibleNodes = computed(() => {
   }
 
   return nodesRef.value.filter((node) => {
-    const width = node.width || 200
-    const height = node.height || 50
+    const width = node.measured?.width ?? node.width ?? 200
+    const height = node.measured?.height ?? node.height ?? 50
+    const absPos = getNodeAbsolutePosition(node, nodeMap.value)
     return !(
-      node.position.x + width < visibleBounds.x ||
-      node.position.x > visibleBounds.x + visibleBounds.width ||
-      node.position.y + height < visibleBounds.y ||
-      node.position.y > visibleBounds.y + visibleBounds.height
+      absPos.x + width < visibleBounds.x ||
+      absPos.x > visibleBounds.x + visibleBounds.width ||
+      absPos.y + height < visibleBounds.y ||
+      absPos.y > visibleBounds.y + visibleBounds.height
     )
   })
 })
@@ -696,14 +705,15 @@ const handleMouseUp = (event: MouseEvent) => {
 // 查找鼠标位置下的目标节点
 const findTargetNode = (canvasPos: { x: number; y: number }): Node | null => {
   for (const node of nodesRef.value) {
-    const width = node.width || 200
-    const height = node.height || 50
+    const width = node.measured?.width ?? node.width ?? 200
+    const height = node.measured?.height ?? node.height ?? 50
+    const absPos = getNodeAbsolutePosition(node, nodeMap.value)
 
     if (
-      canvasPos.x >= node.position.x &&
-      canvasPos.x <= node.position.x + width &&
-      canvasPos.y >= node.position.y &&
-      canvasPos.y <= node.position.y + height
+      canvasPos.x >= absPos.x &&
+      canvasPos.x <= absPos.x + width &&
+      canvasPos.y >= absPos.y &&
+      canvasPos.y <= absPos.y + height
     ) {
       // 不能连接到源节点本身
       if (connectionStart.value && node.id !== connectionStart.value.nodeId) {
@@ -712,6 +722,10 @@ const findTargetNode = (canvasPos: { x: number; y: number }): Node | null => {
     }
   }
   return null
+}
+
+const handleNodesMeasured = () => {
+  emit('update:nodes', nodesRef.value)
 }
 
 // Node handlers（单击节点 → 选中；单选时取消连线选中）
@@ -833,7 +847,8 @@ const handleEdgeUpdateStart = (event: MouseEvent, edge: Edge, handleType: Handle
   const position: Position = (
     handleType === 'source' ? (anchorHandleId ?? 'left') : (anchorHandleId ?? 'right')
   ) as Position
-  const startPos = getHandlePosition(node, position, anchorHandleId)
+  const absNode = { ...node, position: getNodeAbsolutePosition(node, nodeMap.value) }
+  const startPos = getHandlePosition(absNode, position, anchorHandleId)
 
   isConnecting.value = true
   connectionStart.value = {
@@ -864,7 +879,8 @@ const handleConnectStart = (
   if (!rect) return
 
   const position: Position = (handleId || (handleType === 'source' ? 'right' : 'left')) as Position
-  const startPos = getHandlePosition(node, position, handleId)
+  const absNode = { ...node, position: getNodeAbsolutePosition(node, nodeMap.value) }
+  const startPos = getHandlePosition(absNode, position, handleId)
 
   isConnecting.value = true
   connectionStart.value = {
@@ -948,12 +964,17 @@ const flowInstance: FlowInstance = {
   fitView: (options?: FitViewOptions) =>
     viewport.fitView(
       { width: containerWidth.value, height: containerHeight.value },
-      nodesRef.value,
+      nodesRef.value.map((n) => ({ ...n, position: getNodeAbsolutePosition(n, nodeMap.value) })),
       options
     ),
   zoomIn: viewport.zoomIn,
   zoomOut: viewport.zoomOut,
-  centerView: viewport.center,
+  centerView: (options?: FitViewOptions) =>
+    viewport.center(
+      { width: containerWidth.value, height: containerHeight.value },
+      nodesRef.value.map((n) => ({ ...n, position: getNodeAbsolutePosition(n, nodeMap.value) })),
+      options
+    ),
   selectNode: nodesManager.selectNode,
   selectEdge: edgesManager.selectEdge,
   clearSelection: selectionManager.clearSelection,
@@ -1000,7 +1021,24 @@ const flowInstance: FlowInstance = {
   // Placeholders for plugin methods to be exposed via defineExpose
   exportJson: undefined,
   exportImage: undefined,
-  applyLayout: undefined
+  applyLayout: undefined,
+  // Node grouping placeholders
+  groupSelectedNodes: undefined,
+  ungroupNodes: undefined,
+  toggleGroupCollapse: undefined,
+  isGroupCollapsed: undefined,
+  getGroupChildren: undefined,
+  getGroupRegistry: undefined,
+  // History placeholders
+  undo: undefined,
+  redo: undefined,
+  saveSnapshot: undefined,
+  canUndo: undefined,
+  canRedo: undefined,
+  historyLength: undefined,
+  clearHistory: undefined,
+  getHistory: undefined,
+  jumpToStep: undefined
 } as FlowInstance
 
 // Provide Flow context for plugins / hooks

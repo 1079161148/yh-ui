@@ -104,11 +104,7 @@ export const aiAttachmentsProps = {
     type: [Object, Function, String] as PropType<
       PlaceholderType | ((type: 'inline' | 'drop') => PlaceholderType) | string
     >,
-    default: () => ({
-      icon: 'upload',
-      title: 'Click or Drop files here',
-      description: 'Support file type: image, video, audio, document, etc.'
-    })
+    default: undefined
   },
   /** 主题覆盖变量 */
   themeOverrides: {

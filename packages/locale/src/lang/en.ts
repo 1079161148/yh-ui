@@ -713,7 +713,8 @@ export const en: Language = {
         agent: 'Agent',
         document: 'Document',
         table: 'Table',
-        knowledge: 'Knowledge'
+        knowledge: 'Knowledge',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Copy code',
@@ -732,7 +733,8 @@ export const en: Language = {
       },
       sender: {
         placeholder: 'Send a message...',
-        dragTip: 'Release to upload files'
+        dragTip: 'Release to upload files',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Thought Process',
@@ -767,7 +769,8 @@ export const en: Language = {
         versions: 'Versions',
         rendering: 'Rendering component...',
         renderingChart: 'Rendering chart...',
-        renderingCanvas: 'Preparing canvas...'
+        renderingCanvas: 'Preparing canvas...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Click to Speak',

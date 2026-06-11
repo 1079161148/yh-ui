@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
-import {
-  computed,
-  ref,
-  onBeforeUnmount,
-  watchEffect,
-  shallowRef,
-  watch,
-  onMounted,
-  nextTick
-} from 'vue'
+import { computed, ref, onBeforeUnmount, shallowRef, watch, onMounted, nextTick } from 'vue'
 import {
   aiBubbleProps,
   type AiMarkdownOptions,
@@ -1052,11 +1043,15 @@ const loadMarkdownIt = async () => {
   }
 }
 
-watchEffect(() => {
-  if (props.markdown && !mdi.value) {
-    loadMarkdownIt()
-  }
-})
+watch(
+  [() => props.markdown, () => mdi.value],
+  ([markdown, mdiVal]) => {
+    if (markdown && !mdiVal) {
+      loadMarkdownIt()
+    }
+  },
+  { immediate: true }
+)
 
 onBeforeUnmount(() => {
   if (audioInstance) {

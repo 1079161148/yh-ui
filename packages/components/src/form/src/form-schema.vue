@@ -24,7 +24,7 @@ import YhFormItem from './form-item.vue'
 import YhButton from '../../button/src/button.vue'
 import { formSchemaProps } from './form-schema'
 import type { FormSchemaItem, FormSchemaGroup } from './form-schema'
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { get, set } from '@yh-ui/utils'
 
 defineOptions({
@@ -39,6 +39,7 @@ const emit = defineEmits<{
   (e: 'validate', isValid: boolean, invalidFields?: Record<string, unknown>): void
 }>()
 const ns = useNamespace('form-schema')
+const { t } = useLocale()
 
 const formRef = ref<FormInstance>()
 
@@ -220,7 +221,7 @@ const resolveRules = (item: FormSchemaItem) => {
     rules.unshift({
       required: true,
       type: isBoolean ? 'boolean' : undefined,
-      message: `${item.label || item.field} 不能为空`,
+      message: `${item.label || item.field} ${t('form.required')}`,
       trigger: ['blur', 'change']
     })
   }
@@ -611,7 +612,7 @@ defineExpose({
                       "
                       @click="handleDeleteListItem(item as FormSchemaItem, rowIdx)"
                     >
-                      {{ (item as FormSchemaItem).listProps?.addButtonText ? '删除' : '删除' }}
+                      {{ t('common.delete') }}
                     </yh-button>
                   </div>
 
@@ -628,7 +629,7 @@ defineExpose({
                     "
                     @click="handleAddListItem(item as FormSchemaItem)"
                   >
-                    + {{ (item as FormSchemaItem).listProps?.addButtonText ?? '添加一项' }}
+                    + {{ (item as FormSchemaItem).listProps?.addButtonText ?? t('common.add') }}
                   </yh-button>
 
                   <slot

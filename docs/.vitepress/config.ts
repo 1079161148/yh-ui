@@ -538,7 +538,6 @@ sidebar['/en/ai-sdk/'] = [
 sidebar['/flow/'] = [
   group('开始', [
     { text: '快速开始', link: '/flow/basic' },
-    { text: '更新日志', link: '/flow/changelog' },
     { text: 'API 参考', link: '/flow/api' }
   ]),
   group('核心概念', [
@@ -599,7 +598,6 @@ sidebar['/flow/'] = [
 sidebar['/en/flow/'] = [
   group('Essentials', [
     { text: 'Quick Start', link: '/en/flow/basic' },
-    { text: 'Changelog', link: '/en/flow/changelog' },
     { text: 'API Reference', link: '/en/flow/api' }
   ]),
   group('Core Concepts', [

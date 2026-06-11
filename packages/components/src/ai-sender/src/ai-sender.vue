@@ -323,9 +323,7 @@ const handleFocus = (e: FocusEvent) => {
           v-model="innerValue"
           type="textarea"
           :class="ns.e('textarea')"
-          :placeholder="
-            placeholder === 'Send a message...' ? t('ai.sender.placeholder') : placeholder
-          "
+          :placeholder="placeholder ?? t('ai.sender.placeholder')"
           :disabled="disabled || loading"
           :max-length="maxLength"
           :rows="1"

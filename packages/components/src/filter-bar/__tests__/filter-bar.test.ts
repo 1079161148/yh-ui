@@ -8,7 +8,8 @@ import { en } from '@yh-ui/locale'
 describe('FilterBar', () => {
   const props = {
     sorts: [{ key: 'price', label: 'Price' }],
-    filters: [{ key: 'brand', label: 'Brand', options: [{ label: 'Apply', value: 'apply' }] }]
+    filters: [{ key: 'brand', label: 'Brand', options: [{ label: 'Apply', value: 'apply' }] }],
+    teleported: false
   }
 
   it('renders correctly', () => {
@@ -54,7 +55,7 @@ describe('FilterBar', () => {
   it('confirms and resets panel checkbox filters', async () => {
     const wrapper = mount(FilterBar, {
       props: {
-        sorts: props.sorts,
+        ...props,
         filters: [
           {
             key: 'brand',
@@ -90,6 +91,7 @@ describe('FilterBar', () => {
   it('renders empty panel content and closes from overlay / close button', async () => {
     const wrapper = mount(FilterBar, {
       props: {
+        ...props,
         sorts: [],
         filters: [{ key: 'stock', label: 'Stock' }]
       }
@@ -222,5 +224,17 @@ describe('FilterBar', () => {
     expect(tabs.length).toBeGreaterThan(0)
     await tabs[0].trigger('click')
     expect(wrapper.emitted('reset')).toBeTruthy()
+  })
+
+  it('teleports panel to body when teleported is true', async () => {
+    const wrapper = mount(FilterBar, {
+      props: {
+        ...props,
+        teleported: true
+      }
+    })
+    await wrapper.find('.yh-filter-bar__filter-tab').trigger('click')
+    expect(wrapper.find('.yh-filter-bar__panel').exists()).toBe(false)
+    expect(document.body.querySelector('.yh-filter-bar__panel')).toBeTruthy()
   })
 })

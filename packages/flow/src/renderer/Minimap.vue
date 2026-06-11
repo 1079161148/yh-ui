@@ -80,6 +80,7 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import type { Node, ViewportTransform } from '../types'
 import { useFlowContext } from '../core/FlowContext'
+import { getNodeAbsolutePosition } from '../utils/custom-types'
 
 const props = defineProps<{
   nodeColor?: string | ((node: Node) => string)
@@ -118,6 +119,12 @@ const nodes = flowInstance.nodes
 const edges = flowInstance.edges
 const viewport = flowInstance.viewport
 
+const nodeMap = computed(() => {
+  const m = new Map<string, Node>()
+  nodes.value.forEach((n) => m.set(n.id, n))
+  return m
+})
+
 // ── 内部状态 ─────────────────────────────────────
 let _mapScale = 1
 let _minX = 0
@@ -133,15 +140,17 @@ const computeGraphBounds = () => {
     minY = Infinity,
     maxX = -Infinity,
     maxY = -Infinity
+  const m = nodeMap.value
   for (let i = 0; i < currentNodes.length; i++) {
     const n = currentNodes[i]
     if (n.hidden) continue
-    const nw = n.width || 120
-    const nh = n.height || 50
-    if (n.position.x < minX) minX = n.position.x
-    if (n.position.y < minY) minY = n.position.y
-    if (n.position.x + nw > maxX) maxX = n.position.x + nw
-    if (n.position.y + nh > maxY) maxY = n.position.y + nh
+    const nw = n.measured?.width ?? n.width ?? 120
+    const nh = n.measured?.height ?? n.height ?? 50
+    const absPos = getNodeAbsolutePosition(n, m)
+    if (absPos.x < minX) minX = absPos.x
+    if (absPos.y < minY) minY = absPos.y
+    if (absPos.x + nw > maxX) maxX = absPos.x + nw
+    if (absPos.y + nh > maxY) maxY = absPos.y + nh
   }
   if (minX === Infinity) return { minX: 0, minY: 0, maxX: 1, maxY: 1 }
   return { minX, minY, maxX, maxY }
@@ -176,8 +185,7 @@ const drawCanvas = () => {
   }
 
   // 连线
-  const nodeMap = new Map<string, Node>()
-  nodes.value.forEach((n) => nodeMap.set(n.id, n))
+  const nodeMapVal = nodeMap.value
 
   const rootStyles = getComputedStyle(canvas)
   const themeEdgeColor = rootStyles.getPropertyValue('--flow-edge-stroke').trim() || '#94a3b8'
@@ -192,16 +200,18 @@ const drawCanvas = () => {
   ctx.beginPath()
   edges.value.forEach((e) => {
     if (e.hidden) return
-    const src = nodeMap.get(e.source)
-    const tgt = nodeMap.get(e.target)
+    const src = nodeMapVal.get(e.source)
+    const tgt = nodeMapVal.get(e.target)
     if (!src || !tgt) return
+    const srcAbs = getNodeAbsolutePosition(src, nodeMapVal)
+    const tgtAbs = getNodeAbsolutePosition(tgt, nodeMapVal)
     ctx.moveTo(
-      toMX(src.position.x + (src.width || 120) / 2),
-      toMY(src.position.y + (src.height || 50) / 2)
+      toMX(srcAbs.x + (src.measured?.width ?? src.width ?? 120) / 2),
+      toMY(srcAbs.y + (src.measured?.height ?? src.height ?? 50) / 2)
     )
     ctx.lineTo(
-      toMX(tgt.position.x + (tgt.width || 120) / 2),
-      toMY(tgt.position.y + (tgt.height || 50) / 2)
+      toMX(tgtAbs.x + (tgt.measured?.width ?? tgt.width ?? 120) / 2),
+      toMY(tgtAbs.y + (tgt.measured?.height ?? tgt.height ?? 50) / 2)
     )
   })
   ctx.stroke()
@@ -216,11 +226,12 @@ const drawCanvas = () => {
     }
 
     ctx.fillStyle = color
+    const absPos = getNodeAbsolutePosition(n, nodeMapVal)
     // 保证节点在小地图上至少有 3x3 的大小
-    const nw = Math.max((n.width || 120) * _mapScale, 3)
-    const nh = Math.max((n.height || 50) * _mapScale, 3)
-    const nx = toMX(n.position.x)
-    const ny = toMY(n.position.y)
+    const nw = Math.max((n.measured?.width ?? n.width ?? 120) * _mapScale, 3)
+    const nh = Math.max((n.measured?.height ?? n.height ?? 50) * _mapScale, 3)
+    const nx = toMX(absPos.x)
+    const ny = toMY(absPos.y)
 
     ctx.fillRect(nx, ny, nw, nh)
 

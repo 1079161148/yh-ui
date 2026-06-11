@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useNamespace } from '@yh-ui/hooks'
+import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { ref, computed, watch, nextTick } from 'vue'
 import {
   aiEditorSenderProps,
@@ -19,6 +19,7 @@ const props = defineProps(aiEditorSenderProps)
 const emit = defineEmits(aiEditorSenderEmits)
 
 const ns = useNamespace('ai-editor-sender')
+const { t } = useLocale()
 const { themeStyle } = useComponentTheme('ai-editor-sender', props.themeOverrides)
 
 const textareaRef = ref<HTMLTextAreaElement>()
@@ -297,7 +298,7 @@ defineExpose({
         ref="textareaRef"
         v-model="innerValue"
         :class="ns.e('textarea')"
-        :placeholder="placeholder"
+        :placeholder="placeholder ?? t('ai.sender.placeholder')"
         :disabled="disabled || loading"
         :maxlength="maxLength"
         :rows="rows"
@@ -426,7 +427,13 @@ defineExpose({
 
               <div v-if="filteredCommands.length === 0" :class="ns.e('command-empty')">
                 <YhIcon name="search" />
-                <span>没有找到匹配的命令</span>
+                <span>{{
+                  t('ai.sender.noCommands') === 'ai.sender.noCommands'
+                    ? t('common.close') === '关闭'
+                      ? '没有找到匹配的命令'
+                      : 'No matching commands found'
+                    : t('ai.sender.noCommands')
+                }}</span>
               </div>
             </div>
           </div>

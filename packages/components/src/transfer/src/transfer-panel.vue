@@ -280,7 +280,7 @@ watch(query, () => {
         v-model="query"
         type="text"
         :class="ns.e('filter-input')"
-        :placeholder="filterPlaceholder || t('transfer.filterPlaceholder')"
+        :placeholder="filterPlaceholder ?? t('transfer.filterPlaceholder')"
         :disabled="disabled"
       />
     </div>

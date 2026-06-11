@@ -63,7 +63,10 @@
     "monaco-editor": "^0.55.1",
     "xlsx": "^0.18.5",
     "viewerjs": "^1.11.7",
-    "markdown-it": "^14.1.1"
+    "markdown-it": "^14.1.1",
+    "echarts": ">=5.0.0",
+    "highlight.js": ">=11.0.0",
+    "mermaid": ">=11.0.0"
   },
   "peerDependenciesMeta": {
     "monaco-editor": {
@@ -77,12 +80,16 @@
     },
     "markdown-it": {
       "optional": true
+    },
+    "echarts": {
+      "optional": true
+    },
+    "highlight.js": {
+      "optional": true
+    },
+    "mermaid": {
+      "optional": true
     }
-  },
-  "optionalDependencies": {
-    "echarts": ">=5.0.0",
-    "highlight.js": ">=11.0.0",
-    "mermaid": ">=11.0.0"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",

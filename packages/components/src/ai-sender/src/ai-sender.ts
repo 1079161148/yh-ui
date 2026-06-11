@@ -67,7 +67,7 @@ export const aiSenderProps = {
    */
   placeholder: {
     type: String,
-    default: 'Send a message...'
+    default: undefined
   },
   /**
    * 是否禁用

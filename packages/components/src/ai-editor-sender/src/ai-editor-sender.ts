@@ -44,7 +44,7 @@ export const aiEditorSenderProps = {
   },
   placeholder: {
     type: String,
-    default: 'Type a message...'
+    default: undefined
   },
   disabled: {
     type: Boolean,

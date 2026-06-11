@@ -91,7 +91,7 @@ const rightEmptyText = computed(
   () => props.rightEmptyText || props.emptyText || t('transfer.noData')
 )
 
-const filterPlaceholder = computed(() => props.filterPlaceholder || t('transfer.filterPlaceholder'))
+const filterPlaceholder = computed(() => props.filterPlaceholder ?? t('transfer.filterPlaceholder'))
 
 const canMoveToRight = computed(() => leftChecked.value.length > 0)
 const canMoveToLeft = computed(() => rightChecked.value.length > 0)

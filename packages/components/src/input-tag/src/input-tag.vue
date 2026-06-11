@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<InputTagProps>(), {
   disabled: false,
   readonly: false,
   separator: () => [',', 'Enter'],
-  placeholder: '',
+  placeholder: undefined,
   clearable: false,
   addOnBlur: true,
   closable: true,
@@ -455,7 +455,7 @@ defineExpose<InputTagExpose>({
         type="text"
         :class="ns.e('inner')"
         :value="inputValue"
-        :placeholder="tags.length === 0 ? placeholder || t('inputtag.placeholder') : ''"
+        :placeholder="tags.length === 0 ? (placeholder ?? t('inputtag.placeholder')) : ''"
         :disabled="disabled"
         :readonly="readonly || isMaxReached"
         @input="handleInput"

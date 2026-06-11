@@ -4,6 +4,7 @@
       v-for="node in visibleNodes"
       :key="node.id"
       :id="getNodeDomId(node.id)"
+      :ref="(el) => setNodeRef(el, node.id)"
       class="yh-flow-node"
       :class="{
         'is-selected': node.selected,
@@ -61,9 +62,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import type { Node, NodeHandle, HandleType, Position, NodeTypes } from '../types'
-import { getCustomNodeTemplate, getCustomNode } from '../utils/custom-types'
+import {
+  getCustomNodeTemplate,
+  getCustomNode,
+  getNodeAbsolutePosition
+} from '../utils/custom-types'
 import DiamondNode from '../components/nodes/DiamondNode.vue'
 import DatabaseNode from '../components/nodes/DatabaseNode.vue'
 
@@ -100,6 +105,7 @@ const emit = defineEmits<{
     handleType: HandleType
   ): void
   (e: 'node-select-toggle', nodeId: string): void
+  (e: 'nodes-measured'): void
 }>()
 
 const getComponent = (type: string) => {
@@ -119,10 +125,13 @@ const visibleNodes = computed(() => {
 
 const getNodeDomId = (nodeId: string) => `${props.flowId}-node-${nodeId}`
 
-const getNodeStyle = (node: Node) => {
-  const width = node.width || 150
-  const height = node.height || 40
+const nodeMap = computed(() => {
+  const m = new Map<string, Node>()
+  props.nodes.forEach((n) => m.set(n.id, n))
+  return m
+})
 
+const getNodeStyle = (node: Node) => {
   let zIndex = node.zIndex || 10
   if (node.type === 'group') {
     zIndex = node.selected ? 2 : 1
@@ -130,15 +139,24 @@ const getNodeStyle = (node: Node) => {
     zIndex = node.selected ? 100 : Math.max(10, zIndex)
   }
 
-  return {
-    transform: `translate(${node.position.x}px, ${node.position.y}px)`,
-    width: `${width}px`,
-    height: `${height}px`,
+  const absPos = getNodeAbsolutePosition(node, nodeMap.value)
+
+  const style: Record<string, string | number | undefined> = {
+    transform: `translate(${absPos.x}px, ${absPos.y}px)`,
     zIndex,
     '--flow-node-label-color': node.labelColor,
     '--flow-node-description-color': node.descriptionColor,
     ...node.style
   }
+
+  if (node.width !== undefined && node.width !== null) {
+    style.width = `${node.width}px`
+  }
+  if (node.height !== undefined && node.height !== null) {
+    style.height = `${node.height}px`
+  }
+
+  return style
 }
 
 const getComponentProps = (node: Node) => {
@@ -371,16 +389,22 @@ const handleMouseMove = (event: MouseEvent) => {
   const dy = (event.clientY - dragStartPos.value.y) / props.transform.zoom
 
   draggingNodes.value.forEach((nodeId) => {
+    const node = props.nodes.find((n) => n.id === nodeId)
+    if (!node) return
+
+    // If the node's parent is also being dragged, skip relative coordinate updates
+    // as it will move naturally when the parent is repositioned.
+    if (node.parentId && draggingNodes.value.includes(node.parentId)) {
+      return
+    }
+
     const startPos = nodesStartPositions.value.get(nodeId)
     if (startPos) {
       const newPosition = {
         x: startPos.x + dx,
         y: startPos.y + dy
       }
-      const node = props.nodes.find((n) => n.id === nodeId)
-      if (node) {
-        emit('node-drag', event, node, newPosition)
-      }
+      emit('node-drag', event, node, newPosition)
     }
   })
 }
@@ -426,6 +450,58 @@ const handleNodeContextMenu = (event: MouseEvent, node: Node) => {
 const handleConnectStart = (event: MouseEvent, node: Node, handle: NodeHandle) => {
   // 传递 handle.position 让 Flow.vue 精确定位连接线起点
   emit('connect-start', event, node.id, handle.id || handle.position || '', handle.type)
+}
+
+const nodeElements = new Map<string, HTMLElement>()
+let resizeObserver: ResizeObserver | null = null
+
+onMounted(() => {
+  resizeObserver = new ResizeObserver((entries) => {
+    let hasChanges = false
+    for (const entry of entries) {
+      const target = entry.target as HTMLElement
+      const nodeId = target.getAttribute('data-node-id')
+      if (nodeId) {
+        const rect = target.getBoundingClientRect()
+        const width = Math.round(rect.width)
+        const height = Math.round(rect.height)
+
+        const node = props.nodes.find((n) => n.id === nodeId)
+        if (node) {
+          if (!node.measured || node.measured.width !== width || node.measured.height !== height) {
+            node.measured = { width, height }
+            hasChanges = true
+          }
+        }
+      }
+    }
+    if (hasChanges) {
+      emit('nodes-measured')
+    }
+  })
+
+  nodeElements.forEach((el) => resizeObserver?.observe(el))
+})
+
+onBeforeUnmount(() => {
+  if (resizeObserver) {
+    resizeObserver.disconnect()
+  }
+  nodeElements.clear()
+})
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const setNodeRef = (el: any, nodeId: string) => {
+  if (el) {
+    nodeElements.set(nodeId, el)
+    resizeObserver?.observe(el)
+  } else {
+    const existingEl = nodeElements.get(nodeId)
+    if (existingEl) {
+      resizeObserver?.unobserve(existingEl)
+      nodeElements.delete(nodeId)
+    }
+  }
 }
 </script>
 

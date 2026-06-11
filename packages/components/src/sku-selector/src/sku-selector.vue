@@ -38,7 +38,7 @@ const isValueActive = (valueId: string | number) => {
 }
 
 const summaryPrefixText = computed(() => props.summaryPrefix || t('skuselector.selected'))
-const summaryPlaceholder = computed(() => t('skuselector.placeholder'))
+const summaryPlaceholder = computed(() => props.placeholder ?? t('skuselector.placeholder'))
 
 const selectedSummary = computed(() => {
   if (!props.showSelectedSummary) return ''

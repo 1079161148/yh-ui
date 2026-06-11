@@ -69,6 +69,10 @@ export const skuSelectorProps = {
     type: String,
     default: ''
   },
+  placeholder: {
+    type: String,
+    default: undefined
+  },
   themeOverrides: {
     type: Object as PropType<Record<string, string>>,
     default: () => ({})

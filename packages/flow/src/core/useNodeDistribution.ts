@@ -30,9 +30,12 @@ export function useNodeDistribution(
     const firstNode = targetNodes[0]
     const lastNode = targetNodes[targetNodes.length - 1]
 
-    const lastWidth = lastNode.width || 200
+    const lastWidth = lastNode.measured?.width ?? lastNode.width ?? 200
 
-    const totalWidth = targetNodes.reduce((sum, n) => sum + (n.width || 200), 0)
+    const totalWidth = targetNodes.reduce(
+      (sum, n) => sum + (n.measured?.width ?? n.width ?? 200),
+      0
+    )
     const totalGap = gap * (targetNodes.length - 1)
     const availableSpace =
       lastNode.position.x + lastWidth - firstNode.position.x - totalWidth - totalGap
@@ -48,7 +51,7 @@ export function useNodeDistribution(
             position: { ...nodes.value[nodeIndex].position, x: currentX }
           }
         }
-        currentX += (node.width || 200) + gap
+        currentX += (node.measured?.width ?? node.width ?? 200) + gap
       })
     } else {
       // Distribute with gaps
@@ -61,7 +64,7 @@ export function useNodeDistribution(
             position: { ...nodes.value[nodeIndex].position, x: currentX }
           }
         }
-        currentX += (node.width || 200) + gap
+        currentX += (node.measured?.width ?? node.width ?? 200) + gap
       })
     }
   }
@@ -76,9 +79,12 @@ export function useNodeDistribution(
     const firstNode = targetNodes[0]
     const lastNode = targetNodes[targetNodes.length - 1]
 
-    const lastHeight = lastNode.height || 50
+    const lastHeight = lastNode.measured?.height ?? lastNode.height ?? 50
 
-    const totalHeight = targetNodes.reduce((sum, n) => sum + (n.height || 50), 0)
+    const totalHeight = targetNodes.reduce(
+      (sum, n) => sum + (n.measured?.height ?? n.height ?? 50),
+      0
+    )
     const totalGap = gap * (targetNodes.length - 1)
     const availableSpace =
       lastNode.position.y + lastHeight - firstNode.position.y - totalHeight - totalGap
@@ -93,7 +99,7 @@ export function useNodeDistribution(
             position: { ...nodes.value[nodeIndex].position, y: currentY }
           }
         }
-        currentY += (node.height || 50) + gap
+        currentY += (node.measured?.height ?? node.height ?? 50) + gap
       })
     } else {
       let currentY = firstNode.position.y
@@ -105,7 +111,7 @@ export function useNodeDistribution(
             position: { ...nodes.value[nodeIndex].position, y: currentY }
           }
         }
-        currentY += (node.height || 50) + gap
+        currentY += (node.measured?.height ?? node.height ?? 50) + gap
       })
     }
   }
@@ -123,10 +129,14 @@ export function useNodeDistribution(
     if (alignment === 'left') {
       referenceX = Math.min(...targetNodes.map((n) => n.position.x))
     } else if (alignment === 'right') {
-      referenceX = Math.max(...targetNodes.map((n) => n.position.x + (n.width || 200)))
+      referenceX = Math.max(
+        ...targetNodes.map((n) => n.position.x + (n.measured?.width ?? n.width ?? 200))
+      )
     } else {
       // center - use average
-      const centers = targetNodes.map((n) => n.position.x + (n.width || 200) / 2)
+      const centers = targetNodes.map(
+        (n) => n.position.x + (n.measured?.width ?? n.width ?? 200) / 2
+      )
       referenceX = centers.reduce((a, b) => a + b, 0) / centers.length
     }
 
@@ -137,9 +147,9 @@ export function useNodeDistribution(
         if (alignment === 'left') {
           newX = referenceX
         } else if (alignment === 'right') {
-          newX = referenceX - (node.width || 200)
+          newX = referenceX - (node.measured?.width ?? node.width ?? 200)
         } else {
-          newX = referenceX - (node.width || 200) / 2
+          newX = referenceX - (node.measured?.width ?? node.width ?? 200) / 2
         }
 
         nodes.value[nodeIndex] = {
@@ -163,10 +173,14 @@ export function useNodeDistribution(
     if (alignment === 'top') {
       referenceY = Math.min(...targetNodes.map((n) => n.position.y))
     } else if (alignment === 'bottom') {
-      referenceY = Math.max(...targetNodes.map((n) => n.position.y + (n.height || 50)))
+      referenceY = Math.max(
+        ...targetNodes.map((n) => n.position.y + (n.measured?.height ?? n.height ?? 50))
+      )
     } else {
       // middle
-      const middles = targetNodes.map((n) => n.position.y + (n.height || 50) / 2)
+      const middles = targetNodes.map(
+        (n) => n.position.y + (n.measured?.height ?? n.height ?? 50) / 2
+      )
       referenceY = middles.reduce((a, b) => a + b, 0) / middles.length
     }
 
@@ -177,9 +191,9 @@ export function useNodeDistribution(
         if (alignment === 'top') {
           newY = referenceY
         } else if (alignment === 'bottom') {
-          newY = referenceY - (node.height || 50)
+          newY = referenceY - (node.measured?.height ?? node.height ?? 50)
         } else {
-          newY = referenceY - (node.height || 50) / 2
+          newY = referenceY - (node.measured?.height ?? node.height ?? 50) / 2
         }
 
         nodes.value[nodeIndex] = {

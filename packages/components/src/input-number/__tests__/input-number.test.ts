@@ -225,7 +225,7 @@ describe('YhInputNumber', () => {
       }
     })
 
-    expect(wrapper.find('input').attributes('placeholder')).toBe('Please input')
+    expect(wrapper.find('input').attributes('placeholder')).toBe('Please input number')
   })
 
   it('should apply theme overrides as inline css vars', () => {

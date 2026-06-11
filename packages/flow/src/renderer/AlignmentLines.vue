@@ -28,6 +28,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useFlowContext } from '../core/FlowContext'
+import { getNodeAbsolutePosition } from '../utils/custom-types'
 
 interface AlignmentLine {
   x?: number
@@ -48,6 +49,10 @@ const containerWidth = computed(() => flowInstance.$el?.clientWidth || 800)
 const containerHeight = computed(() => flowInstance.$el?.clientHeight || 600)
 const SNAP_THRESHOLD = props.snapThreshold ?? 10
 
+const nodeMap = computed(() => {
+  return new Map(nodes.value.map((n) => [n.id, n]))
+})
+
 const horizontalLines = computed(() => {
   const dNodeId = draggingNodeId.value
   const dPos = draggingPosition.value
@@ -57,22 +62,25 @@ const horizontalLines = computed(() => {
   const draggingNode = nodes.value.find((n) => n.id === dNodeId)
   if (!draggingNode) return []
 
-  const nodeHeight = draggingNode.height || 50
+  const nodeHeight = draggingNode.measured?.height ?? draggingNode.height ?? 50
   const otherNodes = nodes.value.filter((n) => n.id !== dNodeId && !n.hidden)
 
+  const m = nodeMap.value
+  const draggingNodeAbs = getNodeAbsolutePosition(draggingNode, m)
   const positions = [
-    { y: draggingNode.position.y, key: 'top' },
-    { y: draggingNode.position.y + nodeHeight / 2, key: 'center' },
-    { y: draggingNode.position.y + nodeHeight, key: 'bottom' }
+    { y: draggingNodeAbs.y, key: 'top' },
+    { y: draggingNodeAbs.y + nodeHeight / 2, key: 'center' },
+    { y: draggingNodeAbs.y + nodeHeight, key: 'bottom' }
   ]
 
   for (const pos of positions) {
     for (const node of otherNodes) {
-      const nHeight = node.height || 50
+      const nHeight = node.measured?.height ?? node.height ?? 50
+      const otherAbs = getNodeAbsolutePosition(node, m)
       const nodePositions = [
-        { y: node.position.y, key: 'top' },
-        { y: node.position.y + nHeight / 2, key: 'center' },
-        { y: node.position.y + nHeight, key: 'bottom' }
+        { y: otherAbs.y, key: 'top' },
+        { y: otherAbs.y + nHeight / 2, key: 'center' },
+        { y: otherAbs.y + nHeight, key: 'bottom' }
       ]
 
       for (const np of nodePositions) {
@@ -95,22 +103,25 @@ const verticalLines = computed(() => {
   const draggingNode = nodes.value.find((n) => n.id === dNodeId)
   if (!draggingNode) return []
 
-  const nodeWidth = draggingNode.width || 200
+  const nodeWidth = draggingNode.measured?.width ?? draggingNode.width ?? 200
   const otherNodes = nodes.value.filter((n) => n.id !== dNodeId && !n.hidden)
 
+  const m = nodeMap.value
+  const draggingNodeAbs = getNodeAbsolutePosition(draggingNode, m)
   const positions = [
-    { x: draggingNode.position.x, key: 'left' },
-    { x: draggingNode.position.x + nodeWidth / 2, key: 'center' },
-    { x: draggingNode.position.x + nodeWidth, key: 'right' }
+    { x: draggingNodeAbs.x, key: 'left' },
+    { x: draggingNodeAbs.x + nodeWidth / 2, key: 'center' },
+    { x: draggingNodeAbs.x + nodeWidth, key: 'right' }
   ]
 
   for (const pos of positions) {
     for (const node of otherNodes) {
-      const nWidth = node.width || 200
+      const nWidth = node.measured?.width ?? node.width ?? 200
+      const otherAbs = getNodeAbsolutePosition(node, m)
       const nodePositions = [
-        { x: node.position.x, key: 'left' },
-        { x: node.position.x + nWidth / 2, key: 'center' },
-        { x: node.position.x + nWidth, key: 'right' }
+        { x: otherAbs.x, key: 'left' },
+        { x: otherAbs.x + nWidth / 2, key: 'center' },
+        { x: otherAbs.x + nWidth, key: 'right' }
       ]
 
       for (const np of nodePositions) {

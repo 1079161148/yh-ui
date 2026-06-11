@@ -437,6 +437,7 @@ export default defineNuxtConfig({
 | sticky             | Whether to enable sticky positioning                  | `boolean`                | `false`                      |
 | sticky-offset      | Sticky top offset in pixels                           | `number`                 | `0`                          |
 | filter-in-panel    | Whether to render filters in the built-in popup panel | `boolean`                | `true`                       |
+| teleported         | Whether to teleport the panel to body                 | `boolean`                | `true`                       |
 | theme-overrides    | Component-level theme variable overrides              | `Record<string, string>` | `{}`                         |
 | show-global-filter | Whether to show the global filter button              | `boolean`                | `true`                       |
 | show-view-toggle   | Whether to show the list/grid view toggle button      | `boolean`                | `false`                      |

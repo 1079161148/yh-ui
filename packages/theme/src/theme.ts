@@ -738,20 +738,22 @@ export class ThemeManager {
     componentThemeVersion: 0
   })
 
-  constructor(options?: ThemeOptions) {
+  constructor(options?: FullThemeConfig) {
     this.initTheme(options)
   }
 
   /** 初始化主题 */
-  initTheme(options?: ThemeOptions): void {
+  initTheme(options?: FullThemeConfig): void {
     // 先尝试从持久化存储恢复
     if (options?.persist !== false) {
       this.persistKey = options?.persistKey || 'yh-ui-theme'
       this.restoreFromStorage()
     }
 
+    this.targetEl = getTargetElement(options?.scope)
+
     // 应用传入的选项
-    this.apply({
+    this.applyFullConfig({
       preset: 'default',
       ...options
     })
@@ -1577,7 +1579,7 @@ export function setThemePreset(preset: PresetTheme): void {
   useTheme().setPreset(preset)
 }
 
-export function initTheme(options?: ThemeOptions): ThemeManager {
+export function initTheme(options?: FullThemeConfig): ThemeManager {
   globalThemeManager = new ThemeManager(options)
   return globalThemeManager
 }
@@ -1617,7 +1619,7 @@ export function getTextColorForBackground(background: string): string {
 export const THEME_INJECTION_KEY: InjectionKey<ThemeManager> = Symbol('theme')
 
 export const ThemePlugin = {
-  install(app: App, options?: ThemeOptions) {
+  install(app: App, options?: FullThemeConfig) {
     const themeManager = initTheme(options)
     app.config.globalProperties.$theme = themeManager
     app.provide(THEME_INJECTION_KEY, themeManager)

@@ -6,13 +6,16 @@ import {
   isBetweenPlugin,
   isoWeekPlugin,
   quarterOfYearPlugin,
-  weekOfYearPlugin
+  weekOfYearPlugin,
+  weekYearPlugin
 } from '../../dayjs-plugins'
 
 // @ts-ignore
 dayjs.extend(isBetweenPlugin as PluginFunc)
 // @ts-ignore
 dayjs.extend(weekOfYearPlugin as PluginFunc)
+// @ts-ignore
+dayjs.extend(weekYearPlugin as PluginFunc)
 // @ts-ignore
 dayjs.extend(isoWeekPlugin as PluginFunc)
 // @ts-ignore

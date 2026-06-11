@@ -30,7 +30,10 @@ function resolveGap(val: number | string): string {
 
 const computedCols = computed(() => {
   const cols = props.cols
-  if (typeof cols === 'number') return `repeat(${cols}, 1fr)`
+  if (cols !== '' && cols !== null && cols !== undefined) {
+    const num = Number(cols)
+    if (!isNaN(num) && num > 0) return `repeat(${num}, minmax(0, 1fr))`
+  }
   return cols
 })
 

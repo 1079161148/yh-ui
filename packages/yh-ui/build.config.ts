@@ -4,16 +4,26 @@ import { resolve } from 'path'
 export default defineBuildConfig([
   // ── 主入口：保持现有行为，用于正常 npm 使用 ───────────────────────
   {
-    entries: ['./src/index', './src/resolver'],
-    declaration: true,
-    // 由构建前脚本负责清理并预生成占位产物，避免 exports 校验阶段误报缺失文件。
+    entries: [
+      {
+        builder: 'mkdist',
+        input: './src',
+        outDir: './dist',
+        format: 'esm',
+        ext: 'mjs',
+        declaration: true
+      },
+      {
+        builder: 'mkdist',
+        input: './src',
+        outDir: './dist',
+        format: 'cjs',
+        ext: 'cjs',
+        declaration: false
+      }
+    ],
     clean: false,
     failOnWarn: false,
-    rollup: {
-      emitCJS: true,
-      cjsBridge: true,
-      output: { exports: 'named' }
-    },
     externals: [
       'vue',
       '@yh-ui/components',

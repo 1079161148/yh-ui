@@ -53,8 +53,8 @@ function computeBoundingBox(
     maxY = -Infinity
 
   nodes.forEach((node) => {
-    const w = node.width || 150
-    const h = node.height || 50
+    const w = node.measured?.width ?? node.width ?? 150
+    const h = node.measured?.height ?? node.height ?? 50
     minX = Math.min(minX, node.position.x)
     minY = Math.min(minY, node.position.y)
     maxX = Math.max(maxX, node.position.x + w)
@@ -242,7 +242,15 @@ export function createNodeGroupPlugin(options: NodeGroupOptions = {}): FlowPlugi
 
         // 更新 group 节点的样式（折叠时缩小）
         if (hidden) {
+          const groupNode = flow.getNode(groupId)
+          const currentW = groupNode?.width ?? (groupNode?.style?.width as number) ?? 200
+          const currentH = groupNode?.height ?? (groupNode?.style?.height as number) ?? 150
           flow.updateNode(groupId, {
+            data: {
+              ...((groupNode?.data as Record<string, unknown>) || {}),
+              _origWidth: currentW,
+              _origHeight: currentH
+            },
             style: { width: 160, height: 50, minWidth: 160, minHeight: 50 },
             width: 160,
             height: 50

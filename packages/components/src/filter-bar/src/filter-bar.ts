@@ -91,6 +91,11 @@ export const filterBarProps = {
     type: Boolean,
     default: true
   },
+  /** 是否将面板 Teleport 至 body */
+  teleported: {
+    type: Boolean,
+    default: true
+  },
   /** 主题变量覆盖 */
   themeOverrides: {
     type: Object as PropType<Record<string, string>>,

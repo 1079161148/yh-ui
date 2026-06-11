@@ -141,6 +141,30 @@ export function getNodeParent(node: Node, allNodes: Node[]): Node | undefined {
   return allNodes.find((n) => n.id === node.parentId)
 }
 
+export function getNodeAbsolutePosition(
+  node: { id: string; position: { x: number; y: number }; parentId?: string },
+  allNodes:
+    | { id: string; position: { x: number; y: number }; parentId?: string }[]
+    | Map<string, { id: string; position: { x: number; y: number }; parentId?: string }>
+): { x: number; y: number } {
+  let x = node.position.x
+  let y = node.position.y
+  let current = node
+  let depth = 0
+  const maxDepth = 100
+  const nodeMap = allNodes instanceof Map ? allNodes : new Map(allNodes.map((n) => [n.id, n]))
+
+  while (current.parentId && depth < maxDepth) {
+    const parent = nodeMap.get(current.parentId)
+    if (!parent) break
+    x += parent.position.x
+    y += parent.position.y
+    current = parent
+    depth++
+  }
+  return { x, y }
+}
+
 // ============================================
 // Edge Type Registry (Advanced)
 // ============================================

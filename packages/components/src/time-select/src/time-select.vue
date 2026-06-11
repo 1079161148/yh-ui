@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<TimeSelectProps>(), {
   editable: true,
   clearable: true,
   size: undefined,
-  placeholder: '',
+  placeholder: undefined,
   effect: 'light',
   start: '09:00',
   end: '18:00',
@@ -421,7 +421,7 @@ defineExpose<TimeSelectExpose>({
         :id="inputId"
         :class="ns.e('inner')"
         :value="editable && visible ? query : ''"
-        :placeholder="hasValue ? '' : placeholder || t('timeselect.placeholder')"
+        :placeholder="hasValue ? '' : (placeholder ?? t('timeselect.placeholder'))"
         :disabled="disabled"
         :readonly="!editable"
         :name="name"

@@ -189,133 +189,140 @@
       font-weight: 600;
     }
   }
+}
 
-  // ─── 筛选面板遮罩 ──────────────────────────────────────────────────────────
-  @include e(panel) {
-    position: fixed;
-    inset: 0;
-    z-index: calc(var(--yh-filter-bar-z-index) + 1);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+// ─── 筛选面板遮罩 ──────────────────────────────────────────────────────────
+.yh-filter-bar__panel {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--yh-filter-bar-z-index, 100) + 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  --yh-filter-bar-panel-bg: var(--yh-bg-color);
+  --yh-filter-bar-panel-shadow: 0 4px 20px var(--yh-shadow-color);
+  --yh-filter-bar-panel-opt-bg: var(--yh-fill-color-light);
+  --yh-filter-bar-panel-opt-active-bg: var(--yh-color-primary-light-9);
+  --yh-filter-bar-panel-opt-active-color: var(--yh-color-primary);
+  --yh-filter-bar-panel-opt-active-border: var(--yh-color-primary);
+}
+
+.yh-filter-bar__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--yh-overlay-color-light, rgba(0, 0, 0, 0.45));
+}
+
+.yh-filter-bar__panel-body {
+  position: relative;
+  background: var(--yh-filter-bar-panel-bg);
+  border-radius: var(--yh-radius-large) var(--yh-radius-large) 0 0;
+  box-shadow: var(--yh-filter-bar-panel-shadow);
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.yh-filter-bar__panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--yh-border-color-lighter);
+  flex-shrink: 0;
+}
+
+.yh-filter-bar__panel-title {
+  font-size: var(--yh-font-size-md);
+  font-weight: 600;
+  color: var(--yh-text-color-primary);
+}
+
+.yh-filter-bar__panel-close {
+  border: none;
+  background: none;
+  font-size: var(--yh-font-size-sm);
+  color: var(--yh-text-color-secondary);
+  cursor: pointer;
+  padding: 0;
+}
+
+.yh-filter-bar__panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
+}
+
+.yh-filter-bar__panel-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.yh-filter-bar__panel-opt {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--yh-filter-bar-panel-opt-bg);
+  font-size: var(--yh-font-size-sm);
+  color: var(--yh-text-color-regular);
+  cursor: pointer;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease,
+    background 0.3s ease;
+
+  &:active {
+    transform: scale(0.95);
   }
 
-  @include e(overlay) {
-    position: absolute;
-    inset: 0;
-    background: var(--yh-overlay-color-light, rgba(0, 0, 0, 0.45));
-  }
-
-  @include e(panel-body) {
-    position: relative;
-    background: var(--yh-filter-bar-panel-bg);
-    border-radius: var(--yh-radius-large) var(--yh-radius-large) 0 0;
-    box-shadow: var(--yh-filter-bar-panel-shadow);
-    max-height: 60vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  @include e(panel-header) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px 10px;
-    border-bottom: 1px solid var(--yh-border-color-lighter);
-    flex-shrink: 0;
-  }
-
-  @include e(panel-title) {
-    font-size: var(--yh-font-size-md);
+  &.is-active {
+    color: var(--yh-filter-bar-panel-opt-active-color);
+    background: var(--yh-filter-bar-panel-opt-active-bg);
     font-weight: 600;
-    color: var(--yh-text-color-primary);
   }
+}
 
-  @include e(panel-close) {
-    border: none;
-    background: none;
-    font-size: var(--yh-font-size-sm);
-    color: var(--yh-text-color-secondary);
-    cursor: pointer;
-    padding: 0;
-  }
+.yh-filter-bar__no-options {
+  color: var(--yh-text-color-placeholder);
+  text-align: center;
+  font-size: var(--yh-font-size-sm);
+  padding: 20px 0;
+}
 
-  @include e(panel-content) {
-    flex: 1;
-    overflow-y: auto;
-    padding: 12px 16px;
-  }
+.yh-filter-bar__panel-footer {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--yh-border-color-lighter);
+  flex-shrink: 0;
+}
 
-  @include e(panel-options) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+.yh-filter-bar__btn {
+  flex: 1;
+  height: 40px;
+  border-radius: var(--yh-radius-base);
+  font-size: var(--yh-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition:
+    background var(--yh-transition-base),
+    color var(--yh-transition-base);
+}
 
-  @include e(panel-opt) {
-    padding: 6px 16px;
-    border: none;
-    border-radius: 999px;
-    background: var(--yh-filter-bar-panel-opt-bg);
-    font-size: var(--yh-font-size-sm);
-    color: var(--yh-text-color-regular);
-    cursor: pointer;
-    transition:
-      color 0.3s ease,
-      transform 0.3s ease,
-      background 0.3s ease;
+.yh-filter-bar__btn-reset {
+  background: var(--yh-fill-color-light);
+  color: var(--yh-text-color-regular);
+}
 
-    &:active {
-      transform: scale(0.95);
-    }
+.yh-filter-bar__btn-confirm {
+  background: var(--yh-color-primary);
+  color: #fff;
 
-    @include when(active) {
-      color: var(--yh-filter-bar-panel-opt-active-color);
-      background: var(--yh-filter-bar-panel-opt-active-bg);
-      font-weight: 600;
-    }
-  }
-
-  @include e(no-options) {
-    color: var(--yh-text-color-placeholder);
-    text-align: center;
-    font-size: var(--yh-font-size-sm);
-    padding: 20px 0;
-  }
-
-  @include e(panel-footer) {
-    display: flex;
-    gap: 12px;
-    padding: 12px 16px;
-    border-top: 1px solid var(--yh-border-color-lighter);
-    flex-shrink: 0;
-  }
-
-  @include e(btn) {
-    flex: 1;
-    height: 40px;
-    border-radius: var(--yh-radius-base);
-    font-size: var(--yh-font-size-base);
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition:
-      background var(--yh-transition-base),
-      color var(--yh-transition-base);
-  }
-
-  @include e(btn-reset) {
-    background: var(--yh-fill-color-light);
-    color: var(--yh-text-color-regular);
-  }
-
-  @include e(btn-confirm) {
-    background: var(--yh-color-primary);
-    color: #fff;
-
-    &:hover {
-      background: var(--yh-color-primary-dark-2);
-    }
+  &:hover {
+    background: var(--yh-color-primary-dark-2);
   }
 }
 

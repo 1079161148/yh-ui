@@ -306,66 +306,72 @@ function handleViewToggle() {
     </div>
 
     <!-- 筛选面板（下拉浮层） -->
-    <Transition :name="ns.b('panel')">
-      <div
-        v-if="isPanelOpen && filterInPanel && panelFilter"
-        :class="ns.e('panel')"
-        role="dialog"
-        :aria-label="t('filterbar.filter')"
-      >
-        <!-- 面板遮罩 -->
-        <div :class="ns.e('overlay')" @click="closePanel" />
-        <div :class="ns.e('panel-body')">
-          <!-- 标题 -->
-          <div :class="ns.e('panel-header')">
-            <span :class="ns.e('panel-title')">{{ panelFilter.label }}</span>
-            <button
-              :class="ns.e('panel-close')"
-              :aria-label="t('filterbar.cancel')"
-              @click="closePanel"
-            >
-              <svg viewBox="0 0 1024 1024" width="14" height="14" fill="currentColor">
-                <path
-                  d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9c-4.4 5.2-.7 13.1 6.1 13.1h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
-                />
-              </svg>
-            </button>
-          </div>
-          <!-- 内容 -->
-          <div :class="ns.e('panel-content')">
-            <slot
-              name="panel-content"
-              :filter="panelFilter"
-              :value="tempPanelValue"
-              :toggle="toggleOption"
-            >
-              <div v-if="panelFilter.options?.length" :class="ns.e('panel-options')">
-                <button
-                  v-for="opt in panelFilter.options"
-                  :key="String(opt.value)"
-                  :class="[ns.e('panel-opt'), ns.is('active', isOptionSelected(panelFilter, opt))]"
-                  @click="toggleOption(panelFilter, opt)"
-                >
-                  {{ opt.label }}
-                </button>
-              </div>
-              <p v-else :class="ns.e('no-options')">
-                {{ t('filterbar.noOptions') }}
-              </p>
-            </slot>
-          </div>
-          <!-- 操作区 -->
-          <div :class="ns.e('panel-footer')">
-            <button :class="[ns.e('btn'), ns.e('btn-reset')]" @click="resetPanel">
-              {{ t('filterbar.reset') }}
-            </button>
-            <button :class="[ns.e('btn'), ns.e('btn-confirm')]" @click="confirmPanel">
-              {{ t('filterbar.confirm') }}
-            </button>
+    <Teleport to="body" :disabled="!teleported">
+      <Transition :name="ns.b('panel')">
+        <div
+          v-if="isPanelOpen && filterInPanel && panelFilter"
+          :class="ns.e('panel')"
+          role="dialog"
+          :aria-label="t('filterbar.filter')"
+          :style="themeStyle"
+        >
+          <!-- 面板遮罩 -->
+          <div :class="ns.e('overlay')" @click="closePanel" />
+          <div :class="ns.e('panel-body')">
+            <!-- 标题 -->
+            <div :class="ns.e('panel-header')">
+              <span :class="ns.e('panel-title')">{{ panelFilter.label }}</span>
+              <button
+                :class="ns.e('panel-close')"
+                :aria-label="t('filterbar.cancel')"
+                @click="closePanel"
+              >
+                <svg viewBox="0 0 1024 1024" width="14" height="14" fill="currentColor">
+                  <path
+                    d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9c-4.4 5.2-.7 13.1 6.1 13.1h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <!-- 内容 -->
+            <div :class="ns.e('panel-content')">
+              <slot
+                name="panel-content"
+                :filter="panelFilter"
+                :value="tempPanelValue"
+                :toggle="toggleOption"
+              >
+                <div v-if="panelFilter.options?.length" :class="ns.e('panel-options')">
+                  <button
+                    v-for="opt in panelFilter.options"
+                    :key="String(opt.value)"
+                    :class="[
+                      ns.e('panel-opt'),
+                      ns.is('active', isOptionSelected(panelFilter, opt))
+                    ]"
+                    @click="toggleOption(panelFilter, opt)"
+                  >
+                    {{ opt.label }}
+                  </button>
+                </div>
+                <p v-else :class="ns.e('no-options')">
+                  {{ t('filterbar.noOptions') }}
+                </p>
+              </slot>
+            </div>
+            <!-- 操作区 -->
+            <div :class="ns.e('panel-footer')">
+              <button :class="[ns.e('btn'), ns.e('btn-reset')]" @click="resetPanel">
+                {{ t('filterbar.reset') }}
+              </button>
+              <button :class="[ns.e('btn'), ns.e('btn-confirm')]" @click="confirmPanel">
+                {{ t('filterbar.confirm') }}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </Transition>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 

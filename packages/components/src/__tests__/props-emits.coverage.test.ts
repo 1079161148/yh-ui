@@ -13,7 +13,7 @@ import { treeEmits, treeProps } from '../tree/src/tree'
 describe('props and emits coverage', () => {
   it('covers default factories in plain ts schemas', () => {
     expect(aiBubbleListProps.items.default()).toEqual([])
-    expect(aiArtifactsProps.chartLoadingText.default).toBe('加载图表中...')
+    expect(aiArtifactsProps.chartLoadingText.default).toBeUndefined()
     expect(calendarProps.holidays.default()).toEqual({})
     expect(drawerProps.placement.default).toBe('right')
     expect(infiniteScrollProps.direction.default).toBe('vertical')

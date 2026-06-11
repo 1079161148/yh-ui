@@ -4,7 +4,7 @@
 Perfect for AI Agent orchestration, BPMN subgraphs, and complex multi-stage pipelines.
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { toJs } from '../../.vitepress/theme/utils/demo-utils'
 import { createNodeGroupPlugin } from '@yh-ui/flow'
 import type { Node, Edge } from '@yh-ui/flow'
@@ -87,10 +87,12 @@ const demoEdges = ref<Edge[]>([
   { id: 'e4-5', source: '4', target: '5' }
 ])
 
-onMounted(() => {
-  flowRef.value?.usePlugin(
-    createNodeGroupPlugin({ groupIdPrefix: 'grp', paddingX: 30, paddingY: 40 })
-  )
+watch(flowRef, (flowInst) => {
+  if (flowInst) {
+    flowInst.usePlugin(
+      createNodeGroupPlugin({ groupIdPrefix: 'grp', paddingX: 30, paddingY: 40 })
+    )
+  }
 })
 
 const groupSelected = () => {

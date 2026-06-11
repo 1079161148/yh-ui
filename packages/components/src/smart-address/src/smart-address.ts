@@ -48,7 +48,27 @@ export const smartAddressProps = {
   },
   parsePlaceholder: {
     type: String,
-    default: ''
+    default: undefined
+  },
+  placeholder: {
+    type: String,
+    default: undefined
+  },
+  namePlaceholder: {
+    type: String,
+    default: undefined
+  },
+  phonePlaceholder: {
+    type: String,
+    default: undefined
+  },
+  streetPlaceholder: {
+    type: String,
+    default: undefined
+  },
+  detailPlaceholder: {
+    type: String,
+    default: undefined
   },
   required: {
     type: Boolean,

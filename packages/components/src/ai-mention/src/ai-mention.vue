@@ -22,7 +22,7 @@ const slots = useSlots()
 const forwardedSlotNames = computed(() => Object.keys(slots))
 
 const ns = useNamespace('ai-mention')
-const { t } = useLocale()
+const { t, lang } = useLocale()
 const { themeStyle } = useComponentTheme('ai-mention', props.themeOverrides)
 
 const mentionRef = ref<InstanceType<typeof YhMention> | null>(null)
@@ -64,10 +64,15 @@ const getTypeIcon = (type: string): string => {
 // 获取类型标签
 const getTypeLabel = (type: string): string => {
   const labelMap: Record<string, string> = {
-    document: '文档',
-    table: '表格',
-    file: '文件',
-    knowledge: '知识库'
+    document: t('ai.mention.document'),
+    table: t('ai.mention.table'),
+    file:
+      t('ai.mention.file') === 'ai.mention.file'
+        ? t('common.close') === '关闭'
+          ? '文件'
+          : 'File'
+        : t('ai.mention.file'),
+    knowledge: t('ai.mention.knowledge')
   }
   return labelMap[type] || type
 }
@@ -369,20 +374,27 @@ const handleSearch = (keyword: string, trigger: string) => {
   }
 
   if (trigger === '@' && props.enableFileTree) {
-    const typeMap: Record<string, 'document' | 'table' | 'file' | 'knowledge'> = {
-      文档: 'document',
-      文件: 'file',
-      表格: 'table',
-      知识库: 'knowledge'
+    const typeLabels = {
+      document: [t('ai.mention.document'), '文档', 'document', 'Document'],
+      file: [
+        t('ai.mention.file') === 'ai.mention.file' ? '文件' : t('ai.mention.file'),
+        '文件',
+        'file',
+        'File'
+      ],
+      table: [t('ai.mention.table'), '表格', 'table', 'Table'],
+      knowledge: [t('ai.mention.knowledge'), '知识库', 'knowledge', 'Knowledge']
     }
 
     const raw = (keyword || '').trimStart()
-    for (const [key, type] of Object.entries(typeMap)) {
-      // 仅当用户输入 "@文档/@文件/@表格/@知识库" 等前缀时才触发文件树
-      if (raw.startsWith(key)) {
-        const rest = raw.slice(key.length).trim()
+    for (const [type, labels] of Object.entries(typeLabels)) {
+      const matchedLabel = labels.find(
+        (label) => label && raw.toLowerCase().startsWith(label.toLowerCase())
+      )
+      if (matchedLabel) {
+        const rest = raw.slice(matchedLabel.length).trim()
         searchDebounceTimer = setTimeout(() => {
-          loadFileTree(type, rest)
+          loadFileTree(type as 'document' | 'table' | 'file' | 'knowledge', rest)
         }, props.searchDebounce)
         emit('search', keyword, trigger)
         return
@@ -465,14 +477,16 @@ const formatTimeFn = (timestamp?: number) => {
   const date = new Date(timestamp)
   const now = new Date()
   const diff = now.getTime() - date.getTime()
+  const isZh = lang.value.startsWith('zh')
 
   if (diff < 86400000) {
-    return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
+    return date.toLocaleTimeString(isZh ? 'zh-CN' : 'en-US', { hour: '2-digit', minute: '2-digit' })
   }
   if (diff < 604800000) {
-    return Math.floor(diff / 86400000) + '天前'
+    const days = Math.floor(diff / 86400000)
+    return isZh ? `${days}天前` : `${days} days ago`
   }
-  return date.toLocaleDateString('zh-CN')
+  return date.toLocaleDateString(isZh ? 'zh-CN' : 'en-US')
 }
 
 const showFileTree = computed(() => {
@@ -506,7 +520,7 @@ defineExpose<AiMentionExpose>({
       :options="filteredOptions"
       :triggers="triggers"
       :type="type"
-      :placeholder="placeholder || t('ai.mention.placeholder')"
+      :placeholder="placeholder ?? t('ai.mention.placeholder')"
       :disabled="disabled"
       :size="size"
       :loading="loading || fileTreeLoading"

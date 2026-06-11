@@ -12,13 +12,13 @@ describe('YhGrid', () => {
   it('默认 12 列', () => {
     const wrapper = mount(Grid)
     const style = wrapper.find('.yh-grid').attributes('style')
-    expect(style).toContain('grid-template-columns: repeat(12, 1fr)')
+    expect(style).toContain('grid-template-columns: repeat(12, minmax(0, 1fr))')
   })
 
   it('应该支持自定义列数', () => {
     const wrapper = mount(Grid, { props: { cols: 4 } })
     const style = wrapper.find('.yh-grid').attributes('style')
-    expect(style).toContain('grid-template-columns: repeat(4, 1fr)')
+    expect(style).toContain('grid-template-columns: repeat(4, minmax(0, 1fr))')
   })
 
   it('应该支持字符串列定义', () => {

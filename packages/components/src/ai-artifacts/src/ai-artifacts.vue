@@ -358,7 +358,7 @@ const chartContainerStyle = computed(() => ({
               :class="ns.e('chart-loading')"
               style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)"
             >
-              <span>{{ chartLoadingText }}</span>
+              <span>{{ chartLoadingText ?? t('ai.artifacts.renderingChart') }}</span>
             </YhSpin>
             <div
               v-else-if="echartsError"
@@ -374,7 +374,15 @@ const chartContainerStyle = computed(() => ({
               "
             >
               <YhIcon name="warning" />
-              <span>图表加载失败: {{ echartsError.message }}</span>
+              <span
+                >{{
+                  t('ai.artifacts.chartLoadError') === 'ai.artifacts.chartLoadError'
+                    ? t('common.close') === '关闭'
+                      ? '图表加载失败'
+                      : 'Chart loading failed'
+                    : t('ai.artifacts.chartLoadError')
+                }}: {{ echartsError.message }}</span
+              >
             </div>
           </div>
 

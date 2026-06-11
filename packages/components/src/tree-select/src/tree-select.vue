@@ -289,9 +289,10 @@ const singleLabel = computed(() => {
 })
 
 const inputPlaceholder = computed(() => {
-  if (props.multiple) return hasValue.value ? '' : props.placeholder || t('treeselect.placeholder')
+  if (props.multiple)
+    return hasValue.value ? '' : (props.placeholder ?? t('treeselect.placeholder'))
   if (hasValue.value && props.filterable && visible.value) return singleLabel.value
-  return props.placeholder || t('treeselect.placeholder')
+  return props.placeholder ?? t('treeselect.placeholder')
 })
 
 const selectedLabels = computed(() => {

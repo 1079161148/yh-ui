@@ -11,9 +11,6 @@ import type {
 const isServer = typeof window === 'undefined'
 let defaultAppContext: AppContext | null = null
 let defaults: MessageBoxOptions = {
-  title: '提示',
-  confirmButtonText: '确定',
-  cancelButtonText: '取消',
   closeOnClickModal: true,
   closeOnPressEscape: true,
   lockScroll: true,

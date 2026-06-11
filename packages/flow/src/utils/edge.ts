@@ -29,15 +29,21 @@ function getDir(pos: Position): { x: number; y: number } {
  * 获取连接点的位置坐标
  */
 export function getHandlePosition(
-  node: { position: { x: number; y: number }; width?: number; height?: number; style?: NodeStyle },
+  node: {
+    position: { x: number; y: number }
+    width?: number
+    height?: number
+    style?: NodeStyle
+    measured?: { width: number; height: number }
+  },
   handlePosition: Position = 'right',
   _handleId?: string | null
 ): { x: number; y: number } {
   const x = node.position.x
   const y = node.position.y
 
-  let width = node.width
-  let height = node.height
+  let width = node.measured?.width ?? node.width
+  let height = node.measured?.height ?? node.height
 
   // Try to extract from style if direct props are missing
   if (width === undefined && node.style?.width) {
