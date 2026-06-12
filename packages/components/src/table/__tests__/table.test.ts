@@ -785,3 +785,184 @@ describe('Table Complex Scenarios', () => {
     }
   })
 })
+
+describe('Table Bug Fixes', () => {
+  it('Bug 1: Local pagination cross-page selection should not lose selections', async () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: [
+          { id: 1, name: 'Row 1' },
+          { id: 2, name: 'Row 2' },
+          { id: 3, name: 'Row 3' },
+          { id: 4, name: 'Row 4' }
+        ],
+        columns: [{ prop: 'name', label: 'Name' }],
+        rowKey: 'id',
+        pagination: {
+          currentPage: 1,
+          pageSize: 2,
+          total: 4
+        },
+        selectionConfig: {
+          type: 'checkbox',
+          reserve: true
+        }
+      },
+      global: {
+        stubs: {
+          YhPagination: true,
+          YhSelect: true,
+          YhOption: true,
+          YhInput: true,
+          YhTooltip: true
+        }
+      }
+    })
+
+    const table = wrapper.vm as any
+    // Select all on page 1
+    const headerCheckbox = wrapper.find('.yh-table__header-cell .yh-table__selection-cell input')
+    await headerCheckbox.trigger('change')
+    expect(table.getSelectionRows().map((r: any) => r.id)).toEqual([1, 2])
+
+    // Switch to page 2
+    await wrapper.setProps({
+      pagination: {
+        currentPage: 2,
+        pageSize: 2,
+        total: 4
+      }
+    })
+
+    // page 2 rows are 3 and 4, selection rows should still be 1 and 2 (cross-page reserve)
+    expect(table.getSelectionRows().map((r: any) => r.id)).toEqual([1, 2])
+
+    // Select all on page 2
+    await headerCheckbox.trigger('change')
+    expect(table.getSelectionRows().map((r: any) => r.id)).toEqual([1, 2, 3, 4])
+
+    // Deselect all on page 2
+    await headerCheckbox.trigger('change')
+    expect(table.getSelectionRows().map((r: any) => r.id)).toEqual([1, 2])
+  })
+
+  it('Bug 2: filter() method single value normalization should not throw', async () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: [
+          { id: 1, category: 'A' },
+          { id: 2, category: 'B' }
+        ],
+        columns: [{ prop: 'category', label: 'Category' }]
+      }
+    })
+
+    const table = wrapper.vm as any
+    expect(() => {
+      table.filter('category', 'A')
+    }).not.toThrow()
+
+    await nextTick()
+    // Verify it is filtered correctly
+    expect(table.getTableData().tableData.length).toBe(1)
+    expect(table.getTableData().tableData[0].category).toBe('A')
+  })
+
+  it('Bug 3 & 4: Multi-level header sticky offset and minWidth resolution', () => {
+    const columns = [
+      {
+        label: 'Group 1',
+        fixed: 'left' as const,
+        children: [
+          { prop: 'col1', label: 'Col 1', width: 100 },
+          { prop: 'col2', label: 'Col 2', minWidth: 120 }
+        ]
+      },
+      { prop: 'col3', label: 'Col 3', width: 150 }
+    ]
+
+    const wrapper = mount(YhTable, {
+      props: {
+        data: [{ col1: '1', col2: '2', col3: '3' }],
+        columns
+      }
+    })
+
+    // Check style of group header cell (Group 1)
+    // The fixed left offset should span selectionWidth (0 if not configured), expandWidth (0), indexWidth (0), plus preceding column widths (0)
+    // Since there are no preceding columns, offset should be 0px
+    const ths = wrapper.findAll('.yh-table__header-cell')
+    // We have 2 header rows because of group.
+    // Row 0 has "Group 1" and "Col 3"
+    const group1Th = ths.find((t) => t.text().includes('Group 1'))
+    expect(group1Th).toBeTruthy()
+    expect(group1Th?.attributes('style')).toContain('left: 0px')
+  })
+
+  it('Bug 5: Row click current-change should pass oldRow correctly', async () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: [
+          { id: 1, name: 'Row 1' },
+          { id: 2, name: 'Row 2' }
+        ],
+        columns: [{ prop: 'name', label: 'Name' }],
+        rowKey: 'id',
+        highlightCurrentRow: true
+      }
+    })
+
+    const rows = wrapper.findAll('.yh-table__row')
+    await rows[0].trigger('click')
+
+    // First click: current is Row 1, old is null
+    expect(wrapper.emitted('current-change')?.[0]).toEqual([{ id: 1, name: 'Row 1' }, null])
+
+    await rows[1].trigger('click')
+    // Second click: current is Row 2, old is Row 1
+    expect(wrapper.emitted('current-change')?.[1]).toEqual([
+      { id: 2, name: 'Row 2' },
+      { id: 1, name: 'Row 1' }
+    ])
+  })
+
+  it('Bug 6: Context menu events should be emitted', async () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: [{ id: 1, name: 'Row 1' }],
+        columns: [{ prop: 'name', label: 'Name' }]
+      }
+    })
+
+    // Header contextmenu
+    const th = wrapper.find('.yh-table__header-cell')
+    await th.trigger('contextmenu')
+    expect(wrapper.emitted('header-contextmenu')).toBeTruthy()
+
+    // Row contextmenu
+    const tr = wrapper.find('.yh-table__row')
+    await tr.trigger('contextmenu')
+    expect(wrapper.emitted('row-contextmenu')).toBeTruthy()
+  })
+
+  it('Bug 7: Header class and style props should be rendered', () => {
+    const wrapper = mount(YhTable, {
+      props: {
+        data: [{ id: 1, name: 'Row 1' }],
+        columns: [{ prop: 'name', label: 'Name' }],
+        headerRowClassName: 'custom-header-row',
+        headerRowStyle: { height: '60px' },
+        headerCellClassName: 'custom-header-cell',
+        headerCellStyle: { color: 'red' }
+      }
+    })
+
+    const tr = wrapper.find('.yh-table__header-row')
+    expect(tr.classes()).toContain('custom-header-row')
+    expect(tr.attributes('style')).toContain('height: 60px')
+
+    const th = wrapper.find('.yh-table__header-cell')
+    expect(th.classes()).toContain('custom-header-cell')
+    expect(th.attributes('style')).toContain('color: red')
+  })
+})

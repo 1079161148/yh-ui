@@ -3,24 +3,13 @@
  * YhDialog - 对话框
  * @description 旗舰级弹窗组件，深度对标 市面组件库 / Naive UI。支持亚克力玻璃态、智能拖拽、锁定滚动、焦点捕获等顶级能力。
  */
-import { ref, watch, computed, nextTick, type CSSProperties } from 'vue'
+import { ref, watch, computed, nextTick, onMounted, onBeforeUnmount, type CSSProperties } from 'vue'
 import { useNamespace, useEventListener, useId, useScrollLock, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
 import { YhSpin } from '../../spin'
 import { YhButton } from '../../button'
 import { dialogProps, dialogEmits, type DialogExpose } from './dialog'
-
-let lastClickPos: { x: number; y: number } | null = null
-if (typeof window !== 'undefined') {
-  document.addEventListener(
-    'click',
-    (e: MouseEvent) => {
-      lastClickPos = { x: e.clientX, y: e.clientY }
-    },
-    true
-  )
-}
 
 defineOptions({
   name: 'YhDialog',
@@ -34,6 +23,24 @@ const { t } = useLocale()
 const dialogId = useId()
 
 // 组件级 themeOverrides
+const lastClickPos = ref<{ x: number; y: number } | null>(null)
+
+const handleDocumentClick = (e: MouseEvent) => {
+  lastClickPos.value = { x: e.clientX, y: e.clientY }
+}
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    document.addEventListener('click', handleDocumentClick, true)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (typeof window !== 'undefined') {
+    document.removeEventListener('click', handleDocumentClick, true)
+  }
+})
+
 const { themeStyle: themeVars } = useComponentTheme(
   'dialog',
   computed(() => props.themeOverrides)
@@ -147,10 +154,10 @@ const style = computed<CSSProperties>(() => {
     }
 
     // 处理动画起源
-    if (props.transformOrigin === 'mouse' && lastClickPos && dialogRef.value) {
+    if (props.transformOrigin === 'mouse' && lastClickPos.value && dialogRef.value) {
       const rect = dialogRef.value.getBoundingClientRect()
-      const originX = lastClickPos.x - rect.left
-      const originY = lastClickPos.y - rect.top
+      const originX = lastClickPos.value.x - rect.left
+      const originY = lastClickPos.value.y - rect.top
       styles.transformOrigin = `${originX}px ${originY}px`
     } else if (props.transformOrigin === 'center') {
       styles.transformOrigin = 'center'

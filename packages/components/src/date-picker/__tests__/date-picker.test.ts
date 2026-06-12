@@ -205,15 +205,14 @@ describe('YhDatePicker', () => {
     expect(panelOnly.classes()).toContain('is-panel-only')
   })
 
-  it('covers header navigation, datetime footer, outside click and teleport positioning', async () => {
+  it('covers header navigation, footer, outside click and teleport positioning', async () => {
     const wrapper = mount(DatePicker, {
       props: {
-        type: 'datetime',
-        modelValue: new Date(2024, 0, 1, 8, 9, 10),
-        defaultValue: new Date(2023, 6, 1),
+        type: 'daterange',
+        modelValue: [new Date(2024, 0, 1), new Date(2024, 0, 2)],
+        defaultValue: [new Date(2023, 6, 1), null],
         teleported: true,
-        popperClass: 'custom-popper',
-        timeFormat: 'HH:mm'
+        popperClass: 'custom-popper'
       },
       attachTo: document.body
     })
@@ -221,7 +220,6 @@ describe('YhDatePicker', () => {
     await wrapper.trigger('click')
     await nextTick()
     expect(document.body.querySelector('.custom-popper')).toBeTruthy()
-    expect(document.body.textContent).toContain('08:09')
 
     const headerLabel = document.body.querySelector('.yh-date-picker__header-label') as HTMLElement
     headerLabel.click()

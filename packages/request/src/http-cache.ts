@@ -96,6 +96,10 @@ export class HttpCache {
     // 检查是否过期
     const now = Date.now()
     if (entry.expireTime && now > entry.expireTime) {
+      // 如果启用了 stale-while-revalidate，且当前时间尚在允许的 staleTime 时间窗口内，则先不删除
+      if (this.options.staleWhileRevalidate && now <= entry.expireTime + this.options.staleTime) {
+        return entry
+      }
       this.cache.delete(key)
       return undefined
     }
@@ -283,6 +287,8 @@ export function createHttpCacheInterceptor(options: HttpCacheOptions = {}) {
         const entry = cache.get(key)
 
         if (entry) {
+          // 304 响应需要更新缓存新鲜度（重置主过期时间）
+          cache.set(key, entry.data, response.response)
           return {
             ...response,
             data: entry.data as T

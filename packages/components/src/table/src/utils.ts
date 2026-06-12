@@ -225,16 +225,24 @@ export const defaultFilterMethod = <T>(value: unknown, row: T, column: TableColu
  */
 export const multiValueFilter = <T extends Record<string, unknown>>(
   data: T[],
-  filters: Record<string, unknown[]>,
+  filters: Record<string, unknown>,
   columns: TableColumn<T>[],
   filterMultiple = true
 ): T[] => {
-  const activeFilters = Object.entries(filters).filter(([, values]) => values.length > 0)
+  const activeFilters = Object.entries(filters).filter(([, values]) => {
+    if (Array.isArray(values)) {
+      return values.length > 0
+    }
+    return values !== undefined && values !== null && values !== ''
+  })
 
   if (!activeFilters.length) return data
 
   return data.filter((row) => {
-    return activeFilters.every(([prop, values]) => {
+    return activeFilters.every(([prop, rawValues]) => {
+      const values = Array.isArray(rawValues) ? rawValues : [rawValues]
+      if (values.length === 0) return true
+
       const column = columns.find((col) => col.prop === prop)
       if (!column) return true
 

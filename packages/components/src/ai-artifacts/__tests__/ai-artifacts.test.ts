@@ -25,6 +25,7 @@ vi.mock('highlight.js/styles/atom-one-dark.css', () => ({}))
 // Mock Blob and URL
 if (typeof window !== 'undefined') {
   global.URL.createObjectURL = vi.fn(() => 'blob:test-url')
+  global.URL.revokeObjectURL = vi.fn()
 }
 
 // Import component
@@ -202,5 +203,39 @@ describe('YhAiArtifacts', () => {
     expect(html).toContain('token')
     expect(html).not.toContain('<script')
     expect(html).not.toContain('onerror=')
+  })
+
+  it('should revoke object URL when version/visibility changes, and on unmount', async () => {
+    const createSpy = vi.spyOn(URL, 'createObjectURL')
+    const revokeSpy = vi.spyOn(URL, 'revokeObjectURL')
+
+    const wrapper = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: mockData,
+        mode: 'preview'
+      }
+    })
+
+    await nextTick()
+    expect(createSpy).toHaveBeenCalledTimes(1)
+    expect(revokeSpy).toHaveBeenCalledTimes(0)
+
+    // Trigger update of version
+    await wrapper.setProps({
+      data: {
+        ...mockData,
+        currentVersion: 2
+      }
+    })
+    await nextTick()
+
+    // Old URL should be revoked, new URL created
+    expect(revokeSpy).toHaveBeenCalledTimes(1)
+    expect(createSpy).toHaveBeenCalledTimes(2)
+
+    // Unmount while visible
+    wrapper.unmount()
+    expect(revokeSpy).toHaveBeenCalledTimes(2)
   })
 })

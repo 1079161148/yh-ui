@@ -214,4 +214,70 @@ describe('YhAiMention 交互', () => {
     exposed.toggleFolder('excel')
     wrap.unmount()
   })
+
+  it('文件树面板应根据 mention 容器位置动态计算 top 和 left 坐标，并在 scroll 和 resize 时更新', async () => {
+    const wrap = mountAi({
+      enableFileTree: true
+    })
+    const inner = wrap.findComponent(AiMention)
+    const ta = inner.find('textarea')
+
+    const rectSpy = vi.spyOn(inner.element, 'getBoundingClientRect').mockReturnValue({
+      left: 150,
+      right: 450,
+      top: 300,
+      bottom: 350,
+      width: 300,
+      height: 50,
+      x: 150,
+      y: 300
+    } as DOMRect)
+
+    await ta.setValue('@文档')
+    await ta.trigger('input')
+    await vi.advanceTimersByTimeAsync(120)
+    await flushPromises()
+    await nextTick()
+
+    const panel = document.body.querySelector('.yh-ai-mention__file-tree-panel') as HTMLElement
+    expect(panel).toBeTruthy()
+    expect(panel.style.left).toBe('150px')
+    expect(panel.style.top).toBe('354px')
+
+    rectSpy.mockReturnValue({
+      left: 180,
+      right: 480,
+      top: 280,
+      bottom: 330,
+      width: 300,
+      height: 50,
+      x: 180,
+      y: 280
+    } as DOMRect)
+
+    window.dispatchEvent(new Event('scroll'))
+    await nextTick()
+
+    expect(panel.style.left).toBe('180px')
+    expect(panel.style.top).toBe('334px')
+
+    rectSpy.mockReturnValue({
+      left: 200,
+      right: 500,
+      top: 200,
+      bottom: 250,
+      width: 300,
+      height: 50,
+      x: 200,
+      y: 200
+    } as DOMRect)
+    window.dispatchEvent(new Event('resize'))
+    await nextTick()
+
+    expect(panel.style.left).toBe('200px')
+    expect(panel.style.top).toBe('254px')
+
+    rectSpy.mockRestore()
+    wrap.unmount()
+  })
 })

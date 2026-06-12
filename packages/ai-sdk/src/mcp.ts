@@ -182,10 +182,10 @@ class MCPStdioTransport {
   }
 
   private init(): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        // Dynamic import for Node.js only
-        const { spawn } = require('child_process') as typeof import('child_process')
+        // Dynamic import for Node.js only (ESM & CJS compatible)
+        const { spawn } = await import('child_process')
         this.process = spawn(this.command, this.args, {
           env: { ...process.env, ...this.env },
           stdio: ['pipe', 'pipe', 'pipe']
@@ -593,6 +593,7 @@ export function useMCPTools(options: UseMCPToolsOptions) {
     state: MCPClientState
     connect: () => Promise<void>
     disconnect: () => Promise<void>
+    callTool: <T = unknown>(name: string, args?: Record<string, unknown>) => Promise<T>
   }> = []
 
   // Initialize clients for each server
@@ -616,7 +617,8 @@ export function useMCPTools(options: UseMCPToolsOptions) {
         return client.state.value
       },
       connect: client.connect,
-      disconnect: client.disconnect
+      disconnect: client.disconnect,
+      callTool: client.callTool
     })
   }
 
@@ -659,10 +661,8 @@ export function useMCPTools(options: UseMCPToolsOptions) {
       if (tool) {
         // Find the client for this server
         const clientIndex = serverStates.value.indexOf(server)
-        const _client = clients[clientIndex]
-        // Use the client's callTool through the hook
-        const mcpClient = useMCPClient({ config: server.config, autoConnect: false })
-        return mcpClient.callTool<T>(name, args)
+        const client = clients[clientIndex]
+        return client.callTool<T>(name, args)
       }
     }
 

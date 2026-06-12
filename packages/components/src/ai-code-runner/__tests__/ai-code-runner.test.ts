@@ -7,6 +7,7 @@ import { getWebContainerInstance } from '../src/webcontainer'
 const { createProcess, mockWebContainer } = vi.hoisted(() => {
   const createProcess = (lines = ['hello from process'], exitCode = 0) => ({
     exit: Promise.resolve(exitCode),
+    kill: vi.fn(),
     output: {
       pipeTo: vi.fn(async (stream: WritableStream<string>) => {
         const writer = stream.getWriter()
@@ -406,7 +407,8 @@ describe('YhAiCodeRunner', () => {
 
     const wrapper = mount(AiCodeRunner, {
       props: {
-        code: ''
+        code: 'console.log("unmount-test")',
+        autorun: true
       }
     })
 
@@ -415,5 +417,77 @@ describe('YhAiCodeRunner', () => {
     await flushAsync()
 
     expect(wrapper.exists()).toBe(false)
+  })
+
+  it('should terminate active process on stop, reset, and unmount', async () => {
+    let resolveExit: ((value: number) => void) | undefined
+    const mockProcessInstance = {
+      exit: new Promise<number>((resolve) => {
+        resolveExit = resolve
+      }),
+      kill: vi.fn(),
+      output: {
+        pipeTo: vi.fn(async () => {})
+      }
+    }
+    mockWebContainer.spawn.mockImplementationOnce(() => mockProcessInstance as any)
+
+    const wrapper = mount(AiCodeRunner, {
+      props: {
+        code: 'console.log("kill-test")'
+      }
+    })
+
+    const runPromise = wrapper.vm.run()
+    await flushAsync()
+
+    expect(mockProcessInstance.kill).not.toHaveBeenCalled()
+
+    wrapper.vm.stop()
+    expect(mockProcessInstance.kill).toHaveBeenCalledTimes(1)
+
+    resolveExit?.(0)
+    await runPromise
+  })
+
+  it('should prevent old process output from appending to the terminal', async () => {
+    let oldProcessPipeTo: any
+    let resolveExit: ((value: number) => void) | undefined
+    mockWebContainer.spawn.mockImplementationOnce(
+      () =>
+        ({
+          exit: new Promise<number>((resolve) => {
+            resolveExit = resolve
+          }),
+          kill: vi.fn(),
+          output: {
+            pipeTo: vi.fn((stream) => {
+              oldProcessPipeTo = stream
+            })
+          }
+        }) as any
+    )
+
+    const wrapper = mount(AiCodeRunner, {
+      props: {
+        code: 'console.log("stale-output-test")'
+      }
+    })
+
+    const runPromise = wrapper.vm.run()
+    await flushAsync()
+
+    wrapper.vm.stop()
+    await flushAsync()
+
+    const writer = oldProcessPipeTo.getWriter()
+    await writer.write('should be ignored\n')
+    await writer.close()
+    await flushAsync()
+
+    expect(wrapper.text()).not.toContain('should be ignored')
+
+    resolveExit?.(0)
+    await runPromise
   })
 })

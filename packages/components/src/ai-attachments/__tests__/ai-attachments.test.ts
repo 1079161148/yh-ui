@@ -419,4 +419,21 @@ describe('YhAiAttachments', () => {
       expect.arrayContaining([expect.objectContaining({ type: 'file' })])
     )
   })
+
+  it('should apply listStyle and uploadIconSize props to template elements', () => {
+    const wrapper = mount(AiAttachments, {
+      props: {
+        items: [{ uid: 1, name: 'file.txt' }],
+        listStyle: { color: 'red', margin: '10px' },
+        uploadIconSize: '32px'
+      }
+    })
+
+    const list = wrapper.find('.yh-ai-attachments__list')
+    expect(list.attributes('style')).toContain('color: red')
+    expect(list.attributes('style')).toContain('margin: 10px')
+
+    const icon = wrapper.find('.yh-ai-attachments__upload').findComponent({ name: 'YhIcon' })
+    expect(icon.props('size')).toBe('32px')
+  })
 })

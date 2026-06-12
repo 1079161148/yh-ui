@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide } from 'vue'
+import { provide, reactive } from 'vue'
 import { AI_PROVIDER_KEY, type AiProviderConfig, createInterceptors } from './ai-provider'
 
 defineOptions({
@@ -55,24 +55,50 @@ const props = withDefaults(
 // 创建拦截器管理器
 const interceptors = createInterceptors()
 
-const config: AiProviderConfig = {
-  baseUrl: props.baseUrl,
-  token: props.token,
-  headers: props.headers,
-  userAvatar: props.userAvatar,
-  assistantAvatar: props.assistantAvatar,
-  userName: props.userName,
-  assistantName: props.assistantName,
-  systemPrompt: props.systemPrompt,
-  typewriter: props.typewriter,
-  timeout: props.timeout,
-  withCredentials: props.withCredentials,
-  mode: props.mode,
-  cache: props.cache,
+const config = reactive({
+  get baseUrl() {
+    return props.baseUrl
+  },
+  get token() {
+    return props.token
+  },
+  get headers() {
+    return props.headers
+  },
+  get userAvatar() {
+    return props.userAvatar
+  },
+  get assistantAvatar() {
+    return props.assistantAvatar
+  },
+  get userName() {
+    return props.userName
+  },
+  get assistantName() {
+    return props.assistantName
+  },
+  get systemPrompt() {
+    return props.systemPrompt
+  },
+  get typewriter() {
+    return props.typewriter
+  },
+  get timeout() {
+    return props.timeout
+  },
+  get withCredentials() {
+    return props.withCredentials
+  },
+  get mode() {
+    return props.mode
+  },
+  get cache() {
+    return props.cache
+  },
   // 暴露拦截器管理器
   requestInterceptors: interceptors.request,
   responseInterceptors: interceptors.response
-}
+}) as unknown as AiProviderConfig
 
 provide(AI_PROVIDER_KEY, config)
 

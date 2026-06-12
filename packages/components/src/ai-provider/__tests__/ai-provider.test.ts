@@ -152,4 +152,28 @@ describe('AiProvider', () => {
     const wrapper = mount(Child)
     expect(wrapper.find('.provider-fallback').text()).toBe('0')
   })
+
+  it('updates provider config reactively when props change', async () => {
+    const Child = defineComponent({
+      setup() {
+        const config = useAiProvider()
+        return { config }
+      },
+      template: '<div class="provider-reactive">{{ config.baseUrl }}</div>'
+    })
+
+    const wrapper = mount(AiProvider, {
+      props: {
+        baseUrl: '/api/v1'
+      },
+      slots: {
+        default: Child
+      }
+    })
+
+    expect(wrapper.find('.provider-reactive').text()).toBe('/api/v1')
+
+    await wrapper.setProps({ baseUrl: '/api/v2' })
+    expect(wrapper.find('.provider-reactive').text()).toBe('/api/v2')
+  })
 })

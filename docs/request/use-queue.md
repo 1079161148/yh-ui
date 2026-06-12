@@ -45,7 +45,7 @@ const {
 interface QueueTask<T = unknown> {
   id: string
   key?: string // 任务去重 key
-  task: () => Promise<T> // 实际执行函数
+  task: (signal: AbortSignal) => Promise<T> // 实际执行函数，接收 AbortSignal 以便支持真正取消/中断执行
   priority?: number // 优先级（数字越大越先执行）
   status: 'pending' | 'running' | 'fulfilled' | 'rejected' | 'canceled'
   result?: T
@@ -63,8 +63,8 @@ interface QueueTask<T = unknown> {
 ```typescript
 // 添加一个请求任务
 const taskId = add(
-  async () => {
-    const res = await request.get('/api/report/1')
+  async (signal) => {
+    const res = await request.get('/api/report/1', { signal })
     return res.data
   },
   {

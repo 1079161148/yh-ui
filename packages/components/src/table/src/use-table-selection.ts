@@ -10,6 +10,7 @@ import { getRowKey } from './utils'
 
 export interface TableSelectionOptions<T = Record<string, unknown>> {
   data: Ref<T[]>
+  currentPageData?: Ref<T[]>
   rowKey: RowKey
   config: Ref<TableSelectionConfig<T> | undefined>
 }
@@ -46,7 +47,7 @@ export interface TableSelectionReturn<T = Record<string, unknown>> {
 export const useTableSelection = <T extends Record<string, unknown>>(
   options: TableSelectionOptions<T>
 ): TableSelectionReturn<T> => {
-  const { data, rowKey, config } = options
+  const { data, currentPageData, rowKey, config } = options
 
   // 已选中的行 key
   const selectedRowKeys = ref<Array<string | number>>([]) as Ref<Array<string | number>>
@@ -67,9 +68,10 @@ export const useTableSelection = <T extends Record<string, unknown>>(
     return config.value.checkable(row, rowIndex)
   }
 
-  // 可选行数量
+  // 可选行数量 (当前页)
   const selectableCount = computed(() => {
-    return data.value.filter((row, index) => isRowSelectable(row, index)).length
+    const pData = currentPageData?.value ?? data.value
+    return pData.filter((row, index) => isRowSelectable(row, index)).length
   })
 
   // 判断行是否选中
@@ -89,7 +91,8 @@ export const useTableSelection = <T extends Record<string, unknown>>(
 
   // 当前页可选行的选中数量
   const selectedCountInCurrentPage = computed(() => {
-    return data.value.filter((row, index) => {
+    const pData = currentPageData?.value ?? data.value
+    return pData.filter((row, index) => {
       if (!isRowSelectable(row, index)) return false
       return isRowSelected(row)
     }).length
@@ -113,7 +116,11 @@ export const useTableSelection = <T extends Record<string, unknown>>(
   // 切换行选中状态
   const toggleRowSelection = (row: T, selected?: boolean) => {
     const key = getRowKey(row, rowKey)
-    const index = data.value.findIndex((item) => getRowKey(item, rowKey) === key)
+    const pData = currentPageData?.value ?? data.value
+    let index = pData.findIndex((item) => getRowKey(item, rowKey) === key)
+    if (index === -1) {
+      index = data.value.findIndex((item) => getRowKey(item, rowKey) === key)
+    }
 
     // 检查是否可选
     if (!isRowSelectable(row, index)) return
@@ -144,13 +151,14 @@ export const useTableSelection = <T extends Record<string, unknown>>(
   // 切换全选
   const toggleAllSelection = () => {
     const selectAllMode = config.value?.selectAllMode || 'currentPage'
+    const pData = currentPageData?.value ?? data.value
 
     if (isAllSelected.value) {
       // 取消全选
       if (selectAllMode === 'currentPage') {
         // 只取消当前页
         const currentPageKeys = new Set(
-          data.value
+          pData
             .filter((row, index) => isRowSelectable(row, index))
             .map((row) => getRowKey(row, rowKey))
         )
@@ -163,21 +171,21 @@ export const useTableSelection = <T extends Record<string, unknown>>(
       // 全选
       if (selectAllMode === 'currentPage') {
         // 只选当前页
-        const currentPageKeys = data.value
+        const currentPageKeys = pData
           .filter((row, index) => isRowSelectable(row, index))
           .map((row) => getRowKey(row, rowKey))
 
         if (reserveSelection.value) {
           // 保留其他页的选择
           const otherPageKeys = selectedRowKeys.value.filter((key) => {
-            return !data.value.some((row) => getRowKey(row, rowKey) === key)
+            return !pData.some((row) => getRowKey(row, rowKey) === key)
           })
           selectedRowKeys.value = [...new Set([...otherPageKeys, ...currentPageKeys])]
         } else {
           selectedRowKeys.value = currentPageKeys
         }
       } else {
-        // 全部数据（需要外部提供）
+        // 全部数据
         const allKeys = data.value
           .filter((row, index) => isRowSelectable(row, index))
           .map((row) => getRowKey(row, rowKey))
@@ -207,7 +215,7 @@ export const useTableSelection = <T extends Record<string, unknown>>(
     config.value?.onChange?.(selectedRowKeys.value, selectedRows.value)
   }
 
-  // 监听外部传入的 selectedRowKeys
+  // 监听外部传入 of selectedRowKeys
   watch(
     () => config.value?.selectedRowKeys,
     (newKeys) => {

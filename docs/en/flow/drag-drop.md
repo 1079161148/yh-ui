@@ -92,11 +92,17 @@ const onDrop = (event: DragEvent) => {
   if (!rect) return
   const position = flowRef.value.screenToCanvas(event.clientX - rect.left, event.clientY - rect.top)
   
+  const labelMap: Record<string, string> = {
+    input: 'Input Node',
+    default: 'Standard Node',
+    output: 'Output Node'
+  }
+
   const newNode: Node = {
     id: getId(),
     type,
     position,
-    data: { label: \`New \${type} Node\` }
+    data: { label: labelMap[type] || \`New \${type} Node\` }
   }
   
   nodes.value.push(newNode)
@@ -147,11 +153,17 @@ const onDrop = (event: DragEvent) => {
   const rect = el?.getBoundingClientRect()
   if (!rect) return
   const position = flowRef.value.screenToCanvas(event.clientX - rect.left, event.clientY - rect.top)
+  const labelMap: Record<string, string> = {
+    input: 'Input Node',
+    default: 'Standard Node',
+    output: 'Output Node'
+  }
+
   nodes.value.push({
     id: getId(),
     type,
     position,
-    data: { label: `New ${type} Node` }
+    data: { label: labelMap[type] || `New ${type} Node` }
   })
 }
 </script>

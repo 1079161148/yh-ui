@@ -49,8 +49,8 @@
       }
 
       // 只隐藏文字，保留图标
-      .yh-menu-item__label span,
-      .yh-sub-menu__label span,
+      .yh-menu-item__label > span,
+      .yh-sub-menu__label > span,
       .yh-sub-menu__icon-arrow {
         display: none;
       }

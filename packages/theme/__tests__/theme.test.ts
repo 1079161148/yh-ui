@@ -367,4 +367,22 @@ describe('Theme System Comprehensive', () => {
     expect(t.dark).toBe(true)
     t.destroy()
   })
+
+  it('scoped theme should toggle dark class on scoped element instead of documentElement', () => {
+    const scopeEl = document.createElement('div')
+    scopeEl.id = 'scoped-theme-container'
+    document.body.appendChild(scopeEl)
+
+    const scopedTheme = new ThemeManager({ scope: scopeEl, persist: false })
+    scopedTheme.setDarkMode(true)
+
+    expect(scopeEl.classList.contains('dark')).toBe(true)
+    expect(document.documentElement.classList.contains('dark')).toBe(false)
+
+    scopedTheme.setDarkMode(false)
+    expect(scopeEl.classList.contains('dark')).toBe(false)
+
+    scopedTheme.reset()
+    document.body.removeChild(scopeEl)
+  })
 })

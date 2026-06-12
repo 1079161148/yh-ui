@@ -12,6 +12,9 @@ import {
   PROVIDER_PRESETS,
   getProviderPreset,
   createProviderAdapter,
+  // Hooks
+  useConversation,
+  useConversations,
   // 前瞻性功能
   createRAGSystem,
   createChainOfThought,
@@ -339,18 +342,24 @@ describe('SSR - RAG System', () => {
     expect(chunks[0]).toHaveProperty('content')
   })
 
-  it('should retrieve documents', async () => {
-    const rag = createRAGSystem({ knowledgeBaseId: 'test', topK: 2 })
+  it('should retrieve documents based on query similarity', async () => {
+    const rag = createRAGSystem({
+      knowledgeBaseId: 'test-similarity',
+      topK: 2,
+      similarityThreshold: 0.1
+    })
 
     await rag.addDocuments([
       { content: 'TypeScript adds static typing' },
-      { content: 'JavaScript is dynamic' },
+      { content: 'Python is a scripting language' },
       { content: 'TypeScript compiles to JavaScript' }
     ])
 
     const results = await rag.retrieve('TypeScript')
-    expect(results).toBeDefined()
-    expect(Array.isArray(results)).toBe(true)
+    expect(results).toHaveLength(2)
+    expect(results[0].content).toContain('TypeScript')
+    expect(results[1].content).toContain('TypeScript')
+    expect(results[0].score).toBeGreaterThan(0)
   })
 
   it('should query with LLM', async () => {
@@ -813,5 +822,32 @@ describe('SSR - MultiModal', () => {
     expect(msg.content).toHaveLength(2)
     expect(msg.content[0].type).toBe('text')
     expect(msg.content[1].type).toBe('image')
+  })
+})
+
+describe('SSR - useConversation and useConversations', () => {
+  it('should initialize useConversation without throwing when localStorage is undefined', () => {
+    // 确保在 Node/SSR 环境下不依赖 global.localStorage
+    const oldLocalStorage = (global as any).localStorage
+    delete (global as any).localStorage
+
+    try {
+      const { messages } = useConversation({ persist: true })
+      expect(messages.value).toEqual([])
+    } finally {
+      if (oldLocalStorage) (global as any).localStorage = oldLocalStorage
+    }
+  })
+
+  it('should initialize useConversations without throwing when localStorage is undefined', () => {
+    const oldLocalStorage = (global as any).localStorage
+    delete (global as any).localStorage
+
+    try {
+      const { conversations } = useConversations({ persist: true })
+      expect(conversations.value).toEqual([])
+    } finally {
+      if (oldLocalStorage) (global as any).localStorage = oldLocalStorage
+    }
   })
 })

@@ -218,13 +218,13 @@ describe('YhScrollbar', () => {
       slots: { default: '<div>Observed</div>' }
     })
     await wrapper.vm.$nextTick()
-    expect(observe).toHaveBeenCalled()
+    expect(observe).toHaveBeenCalledTimes(2)
 
     await wrapper.setProps({ noresize: true })
     expect(disconnect).toHaveBeenCalled()
 
     await wrapper.setProps({ noresize: false })
-    expect(observe).toHaveBeenCalledTimes(2)
+    expect(observe).toHaveBeenCalledTimes(4)
 
     wrapper.unmount()
     expect(disconnect).toHaveBeenCalledTimes(2)

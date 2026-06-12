@@ -12,12 +12,13 @@ const demoShape = ref('round')
 const demoValue = ref(null)
 const demoTypes = [
   { value: 'date', label: '日期' },
-  { value: 'datetime', label: '日期时间' },
   { value: 'week', label: '周' },
   { value: 'month', label: '月份' },
   { value: 'quarter', label: '季度' },
   { value: 'year', label: '年份' },
+  { value: 'datetime', label: '日期时间' },
   { value: 'daterange', label: '日期范围' },
+  { value: 'datetimerange', label: '日期时间范围' },
   { value: 'monthrange', label: '月份范围' }
 ]
 watch(demoType, () => {
@@ -123,7 +124,6 @@ const shape = ref('round')
 const value = ref(null)
 const types = [
   { value: 'date', label: '日期' },
-  { value: 'datetime', label: '日期时间' },
   { value: 'week', label: '周' },
   { value: 'month', label: '月份' },
   { value: 'quarter', label: '季度' },
@@ -244,7 +244,6 @@ const customTS = `<${_T}>
         </svg>
       </template>
     </yh-date-picker>
-    <yh-date-picker v-model="dv2" type="datetime" time-format="HH:mm:ss" placeholder="日期时间" />
     <yh-date-picker v-model="dv3" :default-value="defaultDate" placeholder="默认面板锚点" />
   </div>
 </${_T}>
@@ -253,7 +252,6 @@ const customTS = `<${_T}>
 import { ref } from 'vue'
 
 const dv1 = ref(new Date())
-const dv2 = ref(new Date())
 const dv3 = ref(null)
 const defaultDate = new Date(2025, 0, 1)
 </${_S}>`
@@ -380,7 +378,6 @@ const nuxtJS = toJs(nuxtTS)
         </svg>
       </template>
     </yh-date-picker>
-    <yh-date-picker v-model="dv2" type="datetime" time-format="HH:mm:ss" placeholder="日期时间" />
     <yh-date-picker v-model="dv3" :default-value="defaultDate" placeholder="默认面板锚点" />
   </div>
 </DemoBlock>
@@ -471,7 +468,7 @@ const nuxtJS = toJs(nuxtTS)
 | 属性                      | 说明                                               | 类型                                                                                                                                                  | 默认值         |
 | ------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `model-value` / `v-model` | 绑定值                                             | `YhDatePickerValue \| YhDatePickerRangeValue`                                                                                                         | `null`         |
-| `type`                    | 选择模式                                           | `'date' \| 'datetime' \| 'year' \| 'month' \| 'week' \| 'quarter' \| 'daterange' \| 'datetimerange' \| 'monthrange' \| 'yearrange' \| 'quarterrange'` | `'date'`       |
+| `type`                    | 选择模式                                           | `'date' \| 'year' \| 'month' \| 'week' \| 'quarter' \| 'datetime' \| 'daterange' \| 'datetimerange' \| 'monthrange' \| 'yearrange' \| 'quarterrange'` | `'date'`       |
 | `disabled`                | 是否禁用                                           | `boolean`                                                                                                                                             | `false`        |
 | `readonly`                | 是否只读，开启后不会打开面板                       | `boolean`                                                                                                                                             | `false`        |
 | `clearable`               | 有值时是否显示清除按钮                             | `boolean`                                                                                                                                             | `true`         |

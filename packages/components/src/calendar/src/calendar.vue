@@ -115,13 +115,13 @@ const title = computed(() => {
 // 星期标题行 (根据 firstDayOfWeek 排序)
 const weekDays = computed(() => {
   const days = [
-    t('calendar.weeks.sun'),
-    t('calendar.weeks.mon'),
-    t('calendar.weeks.tue'),
-    t('calendar.weeks.wed'),
-    t('calendar.weeks.thu'),
-    t('calendar.weeks.fri'),
-    t('calendar.weeks.sat')
+    { label: t('calendar.weeks.sun'), value: 0 },
+    { label: t('calendar.weeks.mon'), value: 1 },
+    { label: t('calendar.weeks.tue'), value: 2 },
+    { label: t('calendar.weeks.wed'), value: 3 },
+    { label: t('calendar.weeks.thu'), value: 4 },
+    { label: t('calendar.weeks.fri'), value: 5 },
+    { label: t('calendar.weeks.sat'), value: 6 }
   ]
   const start = props.firstDayOfWeek % 7
   return [...days.slice(start), ...days.slice(0, start)]
@@ -256,6 +256,7 @@ const selectDate = (cell: CalendarDateCell) => {
       // 开始新的选择
       rangeStart.value = date
       rangeEnd.value = undefined
+      hoverDate.value = undefined
     } else {
       // 完成选择
       if (date.isBefore(rangeStart.value)) {
@@ -429,14 +430,17 @@ defineExpose<CalendarExpose>({
               {{ t('calendar.week') }}
             </th>
             <th
-              v-for="(day, idx) in weekDays"
-              :key="day"
+              v-for="day in weekDays"
+              :key="day.value"
               :class="[
                 ns.e('weekday'),
-                { [ns.em('weekday', 'weekend')]: highlightWeekends && (idx === 0 || idx === 6) }
+                {
+                  [ns.em('weekday', 'weekend')]:
+                    highlightWeekends && (day.value === 0 || day.value === 6)
+                }
               ]"
             >
-              <span>{{ day }}</span>
+              <span>{{ day.label }}</span>
             </th>
           </tr>
         </thead>

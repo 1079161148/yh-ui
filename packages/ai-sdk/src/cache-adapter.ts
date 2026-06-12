@@ -54,6 +54,7 @@ export function createMemoryCache(): CacheAdapter {
 export function createLocalStorageCache(prefix = 'yh-ai-cache-'): CacheAdapter {
   return {
     get(key: string) {
+      if (typeof localStorage === 'undefined') return null
       try {
         const raw = localStorage.getItem(prefix + key)
         if (!raw) return null
@@ -68,6 +69,7 @@ export function createLocalStorageCache(prefix = 'yh-ai-cache-'): CacheAdapter {
       }
     },
     set(key: string, value: unknown, ttlMs?: number) {
+      if (typeof localStorage === 'undefined') return
       try {
         const item = {
           data: value,
@@ -79,6 +81,7 @@ export function createLocalStorageCache(prefix = 'yh-ai-cache-'): CacheAdapter {
       }
     },
     delete(key: string) {
+      if (typeof localStorage === 'undefined') return
       try {
         localStorage.removeItem(prefix + key)
       } catch {
@@ -94,6 +97,7 @@ export function createLocalStorageCache(prefix = 'yh-ai-cache-'): CacheAdapter {
 export function createSessionStorageCache(prefix = 'yh-ai-cache-'): CacheAdapter {
   return {
     get(key: string) {
+      if (typeof sessionStorage === 'undefined') return null
       try {
         const raw = sessionStorage.getItem(prefix + key)
         if (!raw) return null
@@ -108,6 +112,7 @@ export function createSessionStorageCache(prefix = 'yh-ai-cache-'): CacheAdapter
       }
     },
     set(key: string, value: unknown, ttlMs?: number) {
+      if (typeof sessionStorage === 'undefined') return
       try {
         const item = {
           data: value,
@@ -119,6 +124,7 @@ export function createSessionStorageCache(prefix = 'yh-ai-cache-'): CacheAdapter
       }
     },
     delete(key: string) {
+      if (typeof sessionStorage === 'undefined') return
       try {
         sessionStorage.removeItem(prefix + key)
       } catch {

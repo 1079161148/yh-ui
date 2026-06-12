@@ -37,7 +37,7 @@ describe('useRequest', () => {
     // onMounted mocks in vitest environment could vary, manually resolve promises inside component
     await nextTick()
 
-    expect(mockService).toHaveBeenCalledWith(1)
+    expect(mockService.mock.calls[0][0]).toBe(1)
   })
 
   it('should update state during and after run', async () => {
@@ -145,7 +145,27 @@ describe('useRequest', () => {
     vi.advanceTimersByTime(150)
     // debounced function might handle promises differently, but service should be called once with last arg
     expect(mockService).toHaveBeenCalledTimes(1)
-    expect(mockService).toHaveBeenCalledWith(3)
+    expect(mockService.mock.calls[0][0]).toBe(3)
+  })
+
+  it('should pass AbortSignal to the service function', async () => {
+    let capturedSignal: AbortSignal | undefined = undefined
+    const mockService = vi.fn().mockImplementation((id, options) => {
+      capturedSignal = options?.signal
+      return new Promise((resolve) => setTimeout(() => resolve({ data: 'done' }), 100))
+    })
+
+    const { run, cancel } = useRequest(mockService, { manual: true })
+
+    const promise = run(42).catch(() => {})
+    expect(capturedSignal).toBeDefined()
+    expect(capturedSignal?.aborted).toBe(false)
+
+    cancel()
+    expect(capturedSignal?.aborted).toBe(true)
+
+    vi.advanceTimersByTime(100)
+    await promise
   })
 })
 
@@ -170,6 +190,25 @@ describe('useRequestSWR', () => {
     // the watch gets triggered
     await nextTick()
     expect(setCache).toHaveBeenCalledWith('test-key', { data: 'cached-data' })
+  })
+
+  it('should return stale data on initialization if it exists in cache', async () => {
+    const getCache = vi.fn().mockReturnValue('stale-value')
+    const mockService = vi.fn().mockResolvedValue({ data: 'fresh-data' })
+
+    const { data } = useRequestSWR('stale-key', mockService, { manual: true, getCache })
+    expect(data.value).toBe('stale-value')
+  })
+
+  it('should pre-populate stale data from cache when run is invoked', async () => {
+    const getCache = vi.fn().mockReturnValue('stale-value')
+    const mockService = vi.fn().mockResolvedValue({ data: 'fresh-data' })
+
+    const { run, data } = useRequestSWR('stale-key', mockService, { manual: true, getCache })
+    const promise = run('stale-key')
+    expect(data.value).toBe('stale-value')
+    await promise
+    expect(data.value).toEqual({ data: 'fresh-data' })
   })
 })
 

@@ -6,16 +6,16 @@ Complete API documentation, including components, types, and functions.
 
 ### Props
 
-| Property    | Description                                                 | Type               | Default     |
-| ----------- | ----------------------------------------------------------- | ------------------ | ----------- |
-| `name`      | Icon name, supports the `prefix:icon-name` format.          | `string`           | `''`        |
-| `icon`      | Icon name (equivalent to `name`, but with higher priority). | `string`           | `''`        |
-| `svg`       | Custom SVG string (excluding the `<svg>` tag).              | `string`           | `''`        |
-| `component` | Vue component                                               | `Component`        | `undefined` |
-| `size`      | Icon size                                                   | `number \| string` | `undefined` |
-| `color`     | Icon color                                                  | `string`           | `undefined` |
-| `spin`      | Whether to show a spin animation.                           | `boolean`          | `false`     |
-| `rotate`    | Rotation angle (0, 90, 180, 270).                           | `number`           | `0`         |
+| Property    | Description                                                                         | Type               | Default     |
+| ----------- | ----------------------------------------------------------------------------------- | ------------------ | ----------- |
+| `name`      | Icon name, supports the `prefix:icon-name` format.                                  | `string`           | `''`        |
+| `icon`      | Icon name (equivalent to `name`, but with higher priority).                         | `string`           | `''`        |
+| `svg`       | Custom SVG string (excluding the `<svg>` tag, automatically sanitized against XSS). | `string`           | `''`        |
+| `component` | Vue component                                                                       | `Component`        | `undefined` |
+| `size`      | Icon size                                                                           | `number \| string` | `undefined` |
+| `color`     | Icon color                                                                          | `string`           | `undefined` |
+| `spin`      | Whether to show a spin animation.                                                   | `boolean`          | `false`     |
+| `rotate`    | Rotation angle (0, 90, 180, 270).                                                   | `number`           | `0`         |
 
 ### Slots
 

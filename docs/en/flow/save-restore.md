@@ -1,4 +1,4 @@
-﻿# Save & Restore
+# Save & Restore
 
 In diagram editors, it is crucial to persist the graph's state (Nodes, Edges, and Viewport transformations) so users can resume their work later. `Flow` provides convenient instance methods to extract and rehydrate the entire board state.
 
@@ -24,8 +24,8 @@ const tsCode = `<template>
       <yh-flow
         ref="flowRef"
         v-model="viewport"
-        :nodes="nodes"
-        :edges="edges"
+        v-model:nodes="nodes"
+        v-model:edges="edges"
         background="dots"
       />
     <\/div>
@@ -73,6 +73,16 @@ const restoreState = () => {
     if (data.viewport) {
       flowRef.value?.setViewport(data.viewport)
     }
+  } else {
+    // Restore to initial default state if nothing is saved in LocalStorage
+    nodes.value = [
+      { id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: 'Node 1' } },
+      { id: '2', type: 'default', position: { x: 250, y: 150 }, data: { label: 'Node 2' } }
+    ]
+    edges.value = [
+      { id: 'e1-2', source: '1', target: '2', type: 'bezier' }
+    ]
+    flowRef.value?.setViewport({ x: 0, y: 0, zoom: 1 })
   }
 }
 
@@ -167,6 +177,16 @@ const restoreState = () => {
     if (data.viewport) {
       flowRef.value?.setViewport(data.viewport)
     }
+  } else {
+    // Restore to initial default state if nothing is saved in LocalStorage
+    nodes.value = [
+      { id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: 'Node 1' } },
+      { id: '2', type: 'default', position: { x: 250, y: 150 }, data: { label: 'Node 2' } }
+    ]
+    edges.value = [
+      { id: 'e1-2', source: '1', target: '2', type: 'bezier' }
+    ]
+    flowRef.value?.setViewport({ x: 0, y: 0, zoom: 1 })
   }
 }
 
@@ -185,8 +205,8 @@ const clearState = () => { nodes.value = []; edges.value = [] }
       <yh-flow
         ref="flowRef"
         v-model="viewport"
-        :nodes="nodes"
-        :edges="edges"
+        v-model:nodes="nodes"
+        v-model:edges="edges"
         background="dots"
       />
     </div>

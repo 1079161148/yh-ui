@@ -218,6 +218,8 @@ const { themeStyle } = useComponentTheme(
 const inputRef = ref<HTMLInputElement | null>(null)
 const dragOver = ref(false)
 let viewer: Viewer | null = null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const uploadReqs: Record<string | number, any> = {}
 
 /**
  * 触发选择文件
@@ -474,24 +476,30 @@ const startUpload = async (file: UploadFile) => {
       emit('progress', evt, file, props.fileList)
     },
     onSuccess: (res) => {
+      delete uploadReqs[file.uid]
       file.status = 'success'
       file.response = res
       emit('success', res, file, props.fileList)
     },
     onError: (err) => {
+      delete uploadReqs[file.uid]
       file.status = 'fail'
       file.error = err
       emit('error', err, file, props.fileList)
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let req: any
   if (props.httpRequest) {
-    props.httpRequest(options)
-    return
+    req = props.httpRequest(options)
+  } else {
+    req = ajaxUpload(options)
   }
 
-  // 默认 XHR 上传实现
-  ajaxUpload(options)
+  if (req) {
+    uploadReqs[file.uid] = req
+  }
 }
 
 /**
@@ -544,6 +552,7 @@ const ajaxUpload = (options: UploadRequestOptions) => {
   }
 
   xhr.send(formData)
+  return xhr
 }
 
 /**
@@ -555,6 +564,14 @@ const handleRemove = async (file: UploadFile) => {
   if (props.beforeRemove) {
     const result = await props.beforeRemove(file, props.fileList)
     if (result === false) return
+  }
+
+  const req = uploadReqs[file.uid]
+  if (req) {
+    if (typeof req.abort === 'function') {
+      req.abort()
+    }
+    delete uploadReqs[file.uid]
   }
 
   const newFileList = props.fileList.filter((f) => f.uid !== file.uid)
@@ -691,6 +708,13 @@ onBeforeUnmount(() => {
     viewer.destroy()
     viewer = null
   }
+  Object.keys(uploadReqs).forEach((uid) => {
+    const req = uploadReqs[uid]
+    if (req && typeof req.abort === 'function') {
+      req.abort()
+    }
+    delete uploadReqs[uid]
+  })
 })
 
 defineExpose({

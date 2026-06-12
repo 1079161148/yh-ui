@@ -6,16 +6,16 @@
 
 ### Props
 
-| 属性名      | 说明                                   | 类型               | 默认值      |
-| ----------- | -------------------------------------- | ------------------ | ----------- |
-| `name`      | 图标名称，支持 `前缀:图标名` 格式      | `string`           | `''`        |
-| `icon`      | 图标名称（与 name 等效，优先级更高）   | `string`           | `''`        |
-| `svg`       | 自定义 SVG 字符串（不含 `<svg>` 标签） | `string`           | `''`        |
-| `component` | Vue 组件                               | `Component`        | `undefined` |
-| `size`      | 图标尺寸                               | `number \| string` | `undefined` |
-| `color`     | 图标颜色                               | `string`           | `undefined` |
-| `spin`      | 是否显示旋转动画                       | `boolean`          | `false`     |
-| `rotate`    | 旋转角度（0, 90, 180, 270）            | `number`           | `0`         |
+| 属性名      | 说明                                                            | 类型               | 默认值      |
+| ----------- | --------------------------------------------------------------- | ------------------ | ----------- |
+| `name`      | 图标名称，支持 `前缀:图标名` 格式                               | `string`           | `''`        |
+| `icon`      | 图标名称（与 name 等效，优先级更高）                            | `string`           | `''`        |
+| `svg`       | 自定义 SVG 字符串（不含 `<svg>` 标签，会自动进行 XSS 安全过滤） | `string`           | `''`        |
+| `component` | Vue 组件                                                        | `Component`        | `undefined` |
+| `size`      | 图标尺寸                                                        | `number \| string` | `undefined` |
+| `color`     | 图标颜色                                                        | `string`           | `undefined` |
+| `spin`      | 是否显示旋转动画                                                | `boolean`          | `false`     |
+| `rotate`    | 旋转角度（0, 90, 180, 270）                                     | `number`           | `0`         |
 
 ### Slots
 

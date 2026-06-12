@@ -770,7 +770,7 @@ export default defineConfig({
     },
     optimizeDeps: {
       exclude: ['@vue/repl'],
-      include: ['monaco-editor'],
+      include: ['monaco-editor', 'dayjs', 'mermaid'],
       esbuildOptions: { sourcemap: false }
     },
     build: {

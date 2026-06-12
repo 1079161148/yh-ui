@@ -71,8 +71,16 @@ const svgContent = computed(() => {
     }
   }
 
-  // 使用图标组件
-  if (props.icon && '__svg' in (props.icon as { __svg?: string })) {
+  // 如果 props.icon 是字符串，从注册表获取
+  if (typeof props.icon === 'string') {
+    const icon = getIcon(props.icon)
+    if (icon) {
+      return icon.svg
+    }
+  }
+
+  // 使用图标组件 (props.icon 是对象类型)
+  if (props.icon && typeof props.icon === 'object' && '__svg' in props.icon) {
     return (props.icon as { __svg: string }).__svg
   }
 
@@ -88,7 +96,14 @@ const viewBox = computed(() => {
     }
   }
 
-  if (props.icon && '__viewBox' in (props.icon as { __viewBox?: string })) {
+  if (typeof props.icon === 'string') {
+    const icon = getIcon(props.icon)
+    if (icon?.viewBox) {
+      return icon.viewBox
+    }
+  }
+
+  if (props.icon && typeof props.icon === 'object' && '__viewBox' in props.icon) {
     return (props.icon as { __viewBox: string }).__viewBox
   }
 
@@ -100,7 +115,12 @@ const hasSlot = computed(() => !!slots.default)
 
 // 是否使用图标组件
 const useIconComponent = computed(() => {
-  return props.icon && !('__svg' in (props.icon as object))
+  if (!props.icon) return false
+  if (typeof props.icon === 'string') {
+    const icon = getIcon(props.icon)
+    return !icon
+  }
+  return typeof props.icon === 'object' && !('__svg' in props.icon)
 })
 </script>
 

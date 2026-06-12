@@ -91,6 +91,44 @@ describe('flow/utils/edge', () => {
       expect(result.x).toBe(100)
       expect(result.y).toBe(25)
     })
+
+    it('should resolve coordinates from handleBounds matching handleId', () => {
+      const node = {
+        position: { x: 10, y: 20 },
+        width: 100,
+        height: 50,
+        handleBounds: {
+          left: [
+            { id: 'h1', type: 'target' as const, position: 'left' as const, x: 5, y: 15 },
+            { id: 'h2', type: 'target' as const, position: 'left' as const, x: 5, y: 35 }
+          ]
+        }
+      }
+      const res1 = getHandlePosition(node as any, 'left', 'h1')
+      const res2 = getHandlePosition(node as any, 'left', 'h2')
+      expect(res1).toEqual({ x: 15, y: 35 })
+      expect(res2).toEqual({ x: 15, y: 55 })
+    })
+
+    it('should distribute handles evenly if coordinates are missing in handleBounds', () => {
+      const node = {
+        position: { x: 10, y: 20 },
+        width: 100,
+        height: 50,
+        handleBounds: {
+          left: [
+            { id: 'h1', type: 'target' as const, position: 'left' as const },
+            { id: 'h2', type: 'target' as const, position: 'left' as const }
+          ]
+        }
+      }
+      const res1 = getHandlePosition(node as any, 'left', 'h1')
+      const res2 = getHandlePosition(node as any, 'left', 'h2')
+      expect(res1.x).toBe(10)
+      expect(res1.y).toBeCloseTo(20 + 50 / 3, 5)
+      expect(res2.x).toBe(10)
+      expect(res2.y).toBeCloseTo(20 + 100 / 3, 5)
+    })
   })
 
   describe('getBezierPath', () => {

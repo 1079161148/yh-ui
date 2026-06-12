@@ -132,6 +132,58 @@ describe('WebSocket', () => {
 
       expect(client.state.value).toBe('connected')
     })
+
+    it('should NOT reconnect on manual disconnect() even if reconnect: true', async () => {
+      const client = new WebSocketClient({
+        url: 'ws://localhost',
+        reconnect: true,
+        reconnectInterval: 100
+      })
+      const promise = client.connect()
+      vi.runAllTimers()
+      await promise
+
+      client.disconnect()
+      expect(client.state.value).toBe('disconnected')
+
+      vi.runAllTimers()
+      await nextTick()
+      expect(client.state.value).toBe('disconnected') // Reconnect should be gated
+    })
+
+    it('should handle concurrent sendAndWait calls without collision', async () => {
+      const client = new WebSocketClient({ url: 'ws://localhost', reconnect: false })
+      const cp = client.connect()
+      vi.runAllTimers()
+      await cp
+
+      const ws = (client as any).ws as MockWebSocket
+
+      const sentPayloads: any[] = []
+      const originalSend = client.send.bind(client)
+      client.send = (data: any) => {
+        sentPayloads.push(data)
+        return originalSend(data)
+      }
+
+      const p1 = client.sendAndWait({ action: 'first' })
+      const p2 = client.sendAndWait({ action: 'second' })
+
+      expect(sentPayloads.length).toBe(2)
+      const id1 = sentPayloads[0].id
+      const id2 = sentPayloads[1].id
+
+      ws.onmessage?.({
+        data: JSON.stringify({ id: id2, result: 'res-second' })
+      } as MessageEvent)
+
+      ws.onmessage?.({
+        data: JSON.stringify({ id: id1, result: 'res-first' })
+      } as MessageEvent)
+
+      await expect(p1).resolves.toBe('res-first')
+      await expect(p2).resolves.toBe('res-second')
+    })
   })
 
   describe('useWebSocket hook', () => {

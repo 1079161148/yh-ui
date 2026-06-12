@@ -238,6 +238,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeyDown)
+  handleResizeEnd()
 })
 
 defineExpose<DrawerExpose>({

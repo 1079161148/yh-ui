@@ -12,7 +12,7 @@ export interface QueueTask<T = unknown> {
   /** 任务 key（用于去重） */
   key?: string
   /** 任务函数 */
-  task: () => Promise<T>
+  task: (options: { signal: AbortSignal }) => Promise<T>
   /** 任务优先级（数字越大优先级越高） */
   priority?: number
   /** 任务状态 */
@@ -80,7 +80,10 @@ export interface UseQueueReturn<T = unknown> {
   /** 总数量 */
   totalCount: ComputedRef<number>
   /** 添加任务 */
-  add: <R = unknown>(task: () => Promise<R>, options?: AddTaskOptions) => string
+  add: <R = unknown>(
+    task: (options: { signal: AbortSignal }) => Promise<R>,
+    options?: AddTaskOptions
+  ) => string
   /** 移除任务 */
   remove: (taskId: string) => void
   /** 清空队列 */
@@ -151,6 +154,9 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
   // 快速查找 Map
   const taskMap = new Map<string, QueueTask<unknown>>()
 
+  // 任务 AbortControllers
+  const abortControllers = new Map<string, AbortController>()
+
   // 状态
   const isRunning = ref(false)
   const isPaused = ref(false)
@@ -194,6 +200,9 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
     // console.log('executeTask start', task.id, task.status)
     if (task.status === 'canceled' || task.status === 'running') return
 
+    const controller = new AbortController()
+    abortControllers.set(task.id, controller)
+
     // 更新状态
     task.status = 'running'
     task.startTime = Date.now()
@@ -203,15 +212,21 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
     try {
       // 延迟执行
       if (task.delay && task.delay > 0) {
-        await new Promise((resolve) => setTimeout(resolve, task.delay))
+        await new Promise((resolve, reject) => {
+          const timeoutId = setTimeout(resolve, task.delay)
+          controller.signal.addEventListener('abort', () => {
+            clearTimeout(timeoutId)
+            reject(new Error('Canceled'))
+          })
+        })
       }
 
       // 执行任务 - 需要重新检查状态，因为可能在中途被取消
-      if ((task.status as QueueTaskStatus) === 'canceled') return
+      if ((task.status as QueueTaskStatus) === 'canceled' || controller.signal.aborted) return
 
-      const result = await task.task()
+      const result = await task.task({ signal: controller.signal })
 
-      if ((task.status as QueueTaskStatus) === 'canceled') return
+      if ((task.status as QueueTaskStatus) === 'canceled' || controller.signal.aborted) return
 
       // 更新状态
       task.status = 'fulfilled'
@@ -222,6 +237,7 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
       // 回调
       onTaskComplete?.(task)
     } catch (error) {
+      if (task.status === 'canceled' || controller.signal.aborted) return
       task.status = 'rejected'
       task.error = error instanceof Error ? error : new Error(String(error))
       task.endTime = Date.now()
@@ -236,6 +252,7 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
       }
     } finally {
       currentTaskIds.delete(task.id)
+      abortControllers.delete(task.id)
     }
   }
 
@@ -274,7 +291,10 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
   }
 
   // 添加任务
-  const add = <R = unknown>(task: () => Promise<R>, addOptions: AddTaskOptions = {}): string => {
+  const add = <R = unknown>(
+    task: (options: { signal: AbortSignal }) => Promise<R>,
+    addOptions: AddTaskOptions = {}
+  ): string => {
     const id = generateTaskId()
     const newTask: QueueTask<R> = {
       id,
@@ -320,6 +340,10 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
     taskMap.forEach((task) => {
       if (task.status === 'pending' || task.status === 'running') {
         task.status = 'canceled'
+        const controller = abortControllers.get(task.id)
+        if (controller) {
+          controller.abort()
+        }
       }
     })
     taskMap.clear()
@@ -357,16 +381,18 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
   const cancel = (taskId: string): void => {
     const task = taskMap.get(taskId)
     if (task) {
-      if (task.status === 'pending') {
-        task.status = 'canceled'
+      const prevStatus = task.status
+      task.status = 'canceled'
+      const controller = abortControllers.get(taskId)
+      if (controller) {
+        controller.abort()
+      }
+      if (prevStatus === 'pending') {
         taskMap.delete(taskId)
         const index = taskList.findIndex((t) => t.id === taskId)
         if (index > -1) taskList.splice(index, 1)
-        triggerUpdate()
-      } else if (task.status === 'running') {
-        task.status = 'canceled'
-        triggerUpdate()
       }
+      triggerUpdate()
     }
   }
 
@@ -375,6 +401,10 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
     taskMap.forEach((task) => {
       if (task.status === 'pending' || task.status === 'running') {
         task.status = 'canceled'
+        const controller = abortControllers.get(task.id)
+        if (controller) {
+          controller.abort()
+        }
       }
     })
     currentTaskIds.clear()

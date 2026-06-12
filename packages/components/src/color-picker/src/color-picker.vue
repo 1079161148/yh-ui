@@ -142,35 +142,47 @@ const handlePredefineClick = (c: string) => {
   updateColor()
 }
 
+// --- Positioning ---
+const popperStyle = ref<Record<string, string | number>>({})
+
+const updatePosition = () => {
+  if (!visible.value || !triggerRef.value) return
+  const rect = triggerRef.value.getBoundingClientRect()
+
+  const styles = window.getComputedStyle(triggerRef.value)
+  const primary = styles.getPropertyValue('--yh-color-primary').trim()
+  const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
+
+  popperStyle.value = {
+    ...(themeStyle.value as Record<string, string | number>),
+    top: `${rect.bottom + window.scrollY + 8}px`,
+    left: `${rect.left + window.scrollX}px`,
+    position: 'absolute',
+    zIndex: 3000,
+    '--yh-color-primary': primary,
+    '--yh-color-primary-rgb': primaryRgb
+  }
+}
+
+watch(visible, (val: boolean) => {
+  if (val) {
+    updatePosition()
+    window.addEventListener('scroll', updatePosition, true)
+    window.addEventListener('resize', updatePosition)
+  } else {
+    window.removeEventListener('scroll', updatePosition, true)
+    window.removeEventListener('resize', updatePosition)
+  }
+})
+
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
 })
 
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside)
-})
-
-// --- Positioning ---
-const popperStyle = ref<Record<string, string | number>>({})
-watch(visible, (val: boolean) => {
-  if (val && triggerRef.value) {
-    const rect = triggerRef.value.getBoundingClientRect()
-
-    // 提取主题变量
-    const styles = window.getComputedStyle(triggerRef.value)
-    const primary = styles.getPropertyValue('--yh-color-primary').trim()
-    const primaryRgb = styles.getPropertyValue('--yh-color-primary-rgb').trim()
-
-    popperStyle.value = {
-      ...(themeStyle.value as Record<string, string | number>),
-      top: `${rect.bottom + window.scrollY + 8}px`,
-      left: `${rect.left + window.scrollX}px`,
-      position: 'absolute',
-      zIndex: 3000,
-      '--yh-color-primary': primary,
-      '--yh-color-primary-rgb': primaryRgb
-    }
-  }
+  window.removeEventListener('scroll', updatePosition, true)
+  window.removeEventListener('resize', updatePosition)
 })
 
 defineExpose<ColorPickerExpose>({

@@ -1,4 +1,4 @@
-import type { Position, EdgeType, NodeStyle } from '../types'
+import type { Position, EdgeType, NodeStyle, NodeHandle } from '../types'
 
 export interface EdgePathParams {
   sourceX: number
@@ -35,6 +35,12 @@ export function getHandlePosition(
     height?: number
     style?: NodeStyle
     measured?: { width: number; height: number }
+    handleBounds?: {
+      top?: NodeHandle[]
+      right?: NodeHandle[]
+      bottom?: NodeHandle[]
+      left?: NodeHandle[]
+    }
   },
   handlePosition: Position = 'right',
   _handleId?: string | null
@@ -58,6 +64,38 @@ export function getHandlePosition(
   // Fallback to defaults
   width = width || 150
   height = height || 40
+
+  // Check handleBounds first
+  if (node.handleBounds && node.handleBounds[handlePosition]) {
+    const handles = node.handleBounds[handlePosition] || []
+    if (handles.length > 0) {
+      let handleIndex = -1
+      if (_handleId) {
+        handleIndex = handles.findIndex((h) => h.id === _handleId)
+      }
+      if (handleIndex === -1) {
+        handleIndex = 0
+      }
+      const handle = handles[handleIndex]
+      if (handle) {
+        if (handle.x !== undefined && handle.y !== undefined) {
+          return { x: x + handle.x, y: y + handle.y }
+        }
+        // Fallback: distribute evenly
+        const N = handles.length
+        const i = handleIndex
+        if (handlePosition === 'left' || handlePosition === 'right') {
+          const hX = handlePosition === 'left' ? 0 : width
+          const hY = (height / (N + 1)) * (i + 1)
+          return { x: x + hX, y: y + hY }
+        } else {
+          const hX = (width / (N + 1)) * (i + 1)
+          const hY = handlePosition === 'top' ? 0 : height
+          return { x: x + hX, y: y + hY }
+        }
+      }
+    }
+  }
 
   switch (handlePosition) {
     case 'top':

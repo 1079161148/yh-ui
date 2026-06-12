@@ -215,4 +215,46 @@ describe('Affix', () => {
     expect(wrapper.props('themeOverrides')).toEqual({ zIndex: '2400' })
     expect(typeof (wrapper.vm as any).update).toBe('function')
   })
+
+  it('should listen to target container scroll events', async () => {
+    const container = document.createElement('div')
+    container.id = 'container-scroll'
+    document.body.appendChild(container)
+
+    const addEventListenerSpy = vi.spyOn(container, 'addEventListener')
+    const removeEventListenerSpy = vi.spyOn(container, 'removeEventListener')
+
+    const wrapper = mount(YhAffix, {
+      props: {
+        target: '#container-scroll',
+        offset: 0
+      },
+      attachTo: document.body
+    })
+
+    expect(addEventListenerSpy).toHaveBeenCalledWith(
+      'scroll',
+      expect.any(Function),
+      expect.any(Object)
+    )
+
+    // Changing target should unbind from old and bind to new
+    const containerNew = document.createElement('div')
+    containerNew.id = 'container-new'
+    document.body.appendChild(containerNew)
+    const addEventListenerSpyNew = vi.spyOn(containerNew, 'addEventListener')
+
+    await wrapper.setProps({ target: '#container-new' })
+
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function))
+    expect(addEventListenerSpyNew).toHaveBeenCalledWith(
+      'scroll',
+      expect.any(Function),
+      expect.any(Object)
+    )
+
+    document.body.removeChild(container)
+    document.body.removeChild(containerNew)
+    wrapper.unmount()
+  })
 })

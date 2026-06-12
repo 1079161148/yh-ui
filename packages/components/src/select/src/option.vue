@@ -18,13 +18,49 @@ const props = withDefaults(defineProps<OptionProps>(), {
 const select = inject(SelectContextKey, null)
 const slots = useSlots()
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getSlotText = (vnodes: any[]): string => {
+  let text = ''
+  for (const node of vnodes) {
+    if (!node) continue
+    if (typeof node.children === 'string') {
+      text += node.children
+    } else if (Array.isArray(node.children)) {
+      text += getSlotText(node.children)
+    } else if (
+      node.type &&
+      node.type.toString() === 'Symbol(v-fgt)' &&
+      Array.isArray(node.children)
+    ) {
+      text += getSlotText(node.children)
+    } else if (node.children && typeof node.children.default === 'function') {
+      text += getSlotText(node.children.default())
+    }
+  }
+  return text.trim()
+}
+
 // 获取当前选项的数据
-const optionData = computed(() => ({
-  value: props.value,
-  // 逻辑修正：优先使用 label 属性
-  label: props.label || (slots.default ? ' ' : String(props.value)),
-  disabled: props.disabled
-}))
+const optionData = computed(() => {
+  let labelVal = props.label
+  if (!labelVal) {
+    if (slots.default) {
+      try {
+        const text = getSlotText(slots.default())
+        labelVal = text || String(props.value)
+      } catch {
+        labelVal = String(props.value)
+      }
+    } else {
+      labelVal = String(props.value)
+    }
+  }
+  return {
+    value: props.value,
+    label: labelVal,
+    disabled: props.disabled
+  }
+})
 
 // 注册
 onMounted(() => {

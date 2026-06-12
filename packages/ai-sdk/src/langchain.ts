@@ -224,6 +224,8 @@ export const langChainRuntime = {
 
     let fullContent = ''
     const toolCalls: unknown[] = []
+    const toolCallArgumentsMap = new Map<number, string>()
+    const toolCallInfoMap = new Map<number, { id?: string; name?: string }>()
 
     for await (const chunk of stream) {
       const content = String(chunk?.content || '')
@@ -237,10 +239,25 @@ export const langChainRuntime = {
       if (additionalKwargs?.tool_calls) {
         for (const tc of additionalKwargs.tool_calls) {
           toolCalls.push(tc)
-          options?.onToolCall?.({
-            name: tc.function?.name || '',
-            args: tc.function?.arguments ? JSON.parse(tc.function.arguments) : {}
-          })
+          const idx = tc.index ?? 0
+          if (tc.id) {
+            toolCallInfoMap.set(idx, { id: tc.id, name: tc.function?.name })
+            toolCallArgumentsMap.set(idx, tc.function?.arguments || '')
+          } else {
+            const currentArgs = toolCallArgumentsMap.get(idx) || ''
+            toolCallArgumentsMap.set(idx, currentArgs + (tc.function?.arguments || ''))
+          }
+
+          const rawArgs = toolCallArgumentsMap.get(idx) || ''
+          try {
+            const parsedArgs = JSON.parse(rawArgs)
+            options?.onToolCall?.({
+              name: toolCallInfoMap.get(idx)?.name || tc.function?.name || '',
+              args: parsedArgs
+            })
+          } catch {
+            // 忽略流式解析中的不完整 JSON 错误
+          }
         }
       }
     }
@@ -464,6 +481,7 @@ export function useLangChainStream(options: UseLangChainStreamOptions): UseLangC
     error.value = null
     isStreaming.value = true
     content.value = ''
+    abortController = new AbortController()
 
     try {
       const messages: BaseMessage[] = []
@@ -491,9 +509,12 @@ export function useLangChainStream(options: UseLangChainStreamOptions): UseLangC
       // 添加当前输入
       messages.push(new HumanMessage(prompt))
 
-      const stream = await model.stream(messages)
+      const stream = await model.stream(messages, { signal: abortController.signal })
 
       for await (const chunk of stream) {
+        if (abortController?.signal.aborted) {
+          break
+        }
         const chunkContent = String(chunk?.content || '')
         content.value += chunkContent
       }
@@ -504,6 +525,7 @@ export function useLangChainStream(options: UseLangChainStreamOptions): UseLangC
       }
     } finally {
       isStreaming.value = false
+      abortController = null
     }
   }
 
@@ -622,7 +644,12 @@ export function createLangChainChain(
         // 执行工具调用
         for (const tc of toolCalls) {
           const toolName = tc.function?.name || ''
-          const args = tc.function?.arguments ? JSON.parse(tc.function.arguments) : {}
+          let args = {}
+          try {
+            args = tc.function?.arguments ? JSON.parse(tc.function.arguments) : {}
+          } catch {
+            args = {}
+          }
 
           const toolResult = await toolHandler(toolName, args)
 

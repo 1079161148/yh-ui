@@ -1,64 +1,60 @@
 # useRequestSWR
 
-`useRequestSWR` is not a separate Hook, but a usage pattern based on `useRequest`: by enabling `swr`, configuring `cacheKey` / `staleTime` and other parameters, it implements the **Stale-While-Revalidate** strategy - return cached data first, then revalidate in the background.
+`useRequestSWR` is a Vue Hook specifically designed to implement the **Stale-While-Revalidate** cache strategy (return cache first, then revalidate in the background). On first load or when parameters change, it prioritizes showing cached stale data, while quietly executing a network request in the background to fetch the latest data (revalidate) and automatically update, providing a smooth user experience.
 
-## Basic Pattern: useRequest + SWR
+## Basic Usage
 
 ```typescript
-import { useRequest } from '@yh-ui/request'
+import { useRequestSWR } from '@yh-ui/request'
 
 const userId = ref(1)
 
-const { data, loading, refresh } = useRequest(
-  () => request.get<User>(`/api/users/${userId.value}`),
+const { data, loading, refresh } = useRequestSWR(
+  // First parameter: cacheKey (can be a string or a function returning a string)
+  () => `user_${userId.value}`,
+  // Second parameter: service request function, receiving current cacheKey as the first argument
+  (key) => request.get<User>(`/api/users/${userId.value}`),
+  // Third parameter: configuration options
   {
-    // Enable SWR mode
-    swr: true,
-
-    // Cache key (should be related to business meaning)
-    cacheKey: `user_${userId.value}`,
-
-    // Data fresh time: won't re-request within 5 minutes
+    // Data freshness: won't re-request if within 5 minutes
     staleTime: 5 * 60 * 1000,
 
     // Cache retention: can be recovered from cache within 10 minutes
     cacheTime: 10 * 60 * 1000,
 
-    // Auto refresh on window focus
+    // Auto-refresh on window focus
     refreshOnWindowFocus: true,
 
-    // Auto refresh when dependencies change
+    // Auto-refresh when dependencies change
     refreshDeps: [userId]
   }
 )
 ```
 
-> You can understand "useRequest + `swr: true`" as the **useRequestSWR** mode in the documentation.
-
 ## Options Reference
 
 ```typescript
-interface UseRequestSWROptions<TData, TParams extends any[]> extends UseRequestOptions<
+export interface UseRequestSWROptions<TData, TParams extends unknown[]> extends UseRequestOptions<
   TData,
   TParams
 > {
-  swr?: boolean // Enable SWR mode
+  swr?: boolean // Whether to enable SWR mode
   cacheKey?: string // Cache key
   staleTime?: number // Data freshness time (ms)
   cacheTime?: number // Cache retention time (ms)
-  getCache?: (key: string) => TData | undefined
-  setCache?: (key: string, value: TData) => void
-  refreshOnWindowFocus?: boolean
+  getCache?: (key: string) => TData | undefined // Custom read cache function
+  setCache?: (key: string, value: TData) => void // Custom write cache function
+  refreshOnWindowFocus?: boolean // Whether to re-request on window focus
   refreshDepsWait?: number // Debounce time for dependency changes
-  refreshDeps?: Ref<any>[]
+  refreshDeps?: Ref<unknown>[] // Associated dependency array
 }
 ```
 
 ### Recommended Settings
 
-- **List / Config APIs**: Set `staleTime` to 5~30 minutes
-- **Detail APIs**: `staleTime` depends on business, typically 1~5 minutes
-- **Real-time data (stocks, monitoring)**: Not recommended to enable SWR, or `staleTime = 0`
+- **List / Config APIs**: Set `staleTime` to 5~30 minutes.
+- **Detail APIs**: Depending on business logic, typically 1~5 minutes.
+- **Real-time data (e.g. stocks, monitoring)**: SWR is not recommended, or set `staleTime = 0`.
 
 ## List Scenario Example
 
@@ -69,14 +65,13 @@ const filters = reactive({
   status: 'active'
 })
 
-const { data, loading, refresh } = useRequest(
-  () =>
+const { data, loading, refresh } = useRequestSWR(
+  () => `users_${filters.page}_${filters.pageSize}_${filters.status}`,
+  (key) =>
     request.get<ListResult>('/api/users', {
       params: filters
     }),
   {
-    swr: true,
-    cacheKey: () => `users_${filters.page}_${filters.pageSize}_${filters.status}`,
     staleTime: 2 * 60 * 1000,
     cacheTime: 10 * 60 * 1000,
     refreshDeps: [toRef(filters, 'status')]
@@ -86,16 +81,14 @@ const { data, loading, refresh } = useRequest(
 
 ## Manual Cache Control
 
-You can also use custom cache implementations (like Pinia / IndexedDB) through `getCache` / `setCache`.
+You can also use custom cache implementations (such as Pinia / IndexedDB, etc.) through `getCache` / `setCache`.
 
 ```typescript
 import { reactive } from 'vue'
 
 const cacheStore = reactive(new Map<string, unknown>())
 
-const { data } = useRequest(() => request.get('/api/config'), {
-  swr: true,
-  cacheKey: 'app_config',
+const { data } = useRequestSWR('app_config', (key) => request.get('/api/config'), {
   getCache: (key) => cacheStore.get(key),
   setCache: (key, value) => cacheStore.set(key, value)
 })
@@ -112,6 +105,6 @@ In these scenarios, SWR is more suitable as a caching strategy for "detail pages
 
 ## Summary
 
-- **useRequestSWR** = `useRequest` + `swr: true` + appropriate cache configuration
-- Suitable for **read-many, write-less** APIs with moderate real-time requirements but not needing to hit the backend every time
-- Fully compatible with regular `useRequest`, just adds a layer of caching and refresh strategy
+- **useRequestSWR** supports seamlessly fetching stale data on initial render and parameter updates, then revalidating in the background, resolving white-screen issues caused by uncached reads.
+- Suitable for **read-many, write-less** scenarios, where real-time requirements are low, and hitting the backend every time is undesirable.
+- Supports independent lifecycles and reactive dependency updates.

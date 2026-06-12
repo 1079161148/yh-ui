@@ -123,6 +123,35 @@ const saveSnapAct = (desc?: string) => flowRef.value?.saveSnapshot?.(desc)
 
 ## 快速上手
 
+有以下两种方式启用历史记录功能：
+
+### 方式一：通过组件属性启用 (最简便)
+
+你可以直接在 `<yh-flow>` 组件上设置 `history` 属性。组件内部会自动注册并管理历史记录插件，且支持快捷键。
+
+```vue
+<template>
+  <yh-flow ref="flowRef" :history="true" :max-history="100" @history-change="handleHistoryChange" />
+</template>
+
+<script setup lang="ts">
+const flowRef = ref()
+
+const handleHistoryChange = ({ canUndo, canRedo }) => {
+  console.log('是否可撤销:', canUndo, '是否可重做:', canRedo)
+}
+
+// 依然可以通过 flowRef 调用方法
+const undo = () => flowRef.value?.undo?.()
+const redo = () => flowRef.value?.redo?.()
+const saveSnapshot = () => flowRef.value?.saveSnapshot?.('手动保存快照')
+</script>
+```
+
+### 方式二：手动注册插件 (高度定制)
+
+如果你需要更高级的参数控制（例如通过组件外部或特定事件自定义回调等），可以手动创建并安装插件：
+
 ```typescript
 import { createHistoryPlugin } from '@yh-ui/flow'
 
@@ -136,22 +165,15 @@ onMounted(() => {
     }
   })
   flowRef.value?.usePlugin(plugin)
-
-  // 2. 插件安装后，在关键操作时机手动保存快照
-  //    （推荐：精确控制历史粒度，性能最优）
 })
 
-// 3. 在合适的时机调用（拖拽结束 / 连线创建 / 删除等）
-const handleDragEnd = () => flowRef.value?.saveSnapshot?.('拖动节点')
-
-// 4. 撤销/重做（也可以直接按 Ctrl+Z / Ctrl+Y）
+// 2. 撤销/重做
 const undo = () => flowRef.value?.undo?.()
 const redo = () => flowRef.value?.redo?.()
 ```
 
 > [!IMPORTANT]
-> `saveSnapshot`、`undo`、`redo` 等方法是在 **`usePlugin` 安装插件后** 动态挂载到 `flowRef.value` 上的。
-> 因此必须在 `onMounted` 后才能调用这些方法（组件 ref 及插件均已就绪）。
+> 无论使用哪种方式，`saveSnapshot`、`undo`、`redo` 等扩展方法都是在**组件/插件加载就绪后**动态挂载到 `flowRef.value` 上的，请确保在 `onMounted` 或事件回调中调用它们。
 
 ## 基础用法演示
 

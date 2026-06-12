@@ -302,7 +302,7 @@ const showScrollButtons = computed(() => {
       v-if="internalItems.length > 0"
       ref="listContainerRef"
       :class="ns.e('list')"
-      :style="listStyle"
+      :style="props.listStyle"
     >
       <div
         v-for="(item, index) in internalItems"
@@ -353,7 +353,7 @@ const showScrollButtons = computed(() => {
     >
       <slot name="upload-button" :can-upload="canUpload">
         <div :class="ns.e('upload-content')">
-          <YhIcon :name="computedPlaceholder.icon || 'upload'" :size="uploadIconSize" />
+          <YhIcon :name="computedPlaceholder.icon || 'upload'" :size="props.uploadIconSize" />
           <div :class="ns.e('upload-text')">
             <div :class="ns.e('upload-title')">
               {{ isDragging ? computedDropPlaceholder.title : computedPlaceholder.title }}
@@ -370,7 +370,7 @@ const showScrollButtons = computed(() => {
     <div v-if="isDragging" :class="ns.e('drop-mask')">
       <slot name="drop-area">
         <div :class="ns.e('drop-content')">
-          <YhIcon :name="computedDropPlaceholder.icon || 'upload'" :size="uploadIconSize" />
+          <YhIcon :name="computedDropPlaceholder.icon || 'upload'" :size="props.uploadIconSize" />
           <div :class="ns.e('drop-text')">
             {{ computedDropPlaceholder.title || t('ai.attachments.dropTip') }}
           </div>

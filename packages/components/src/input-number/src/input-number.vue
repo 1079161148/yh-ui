@@ -170,7 +170,13 @@ const decrease = () => {
 
 const handleClear = () => {
   if (mergedDisabled.value || props.readonly) return
-  setCurrentValue(undefined)
+  const clearVal =
+    props.valueOnClear === 'min'
+      ? props.min
+      : props.valueOnClear === 'max'
+        ? props.max
+        : props.valueOnClear
+  setCurrentValue(clearVal === null ? undefined : (clearVal as number))
   emit('clear')
 }
 

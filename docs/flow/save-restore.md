@@ -1,4 +1,4 @@
-﻿# 保存并恢复 (Save & Restore)
+# 保存并恢复 (Save & Restore)
 
 在编辑器场景中，您非常需要将用户操作后呈现的画布（Nodes 和 Edges 的状态及视图状态）持久化，并在随后重新加载它们。在 Flow 中，我们可以利用自带的方法方便地提取和恢复整个画布状态。
 
@@ -44,6 +44,16 @@ const restoreState = () => {
     if (data.viewport) {
       flowRef.value?.setViewport(data.viewport);
     }
+  } else {
+    // 若 LocalStorage 中没有保存的数据，则恢复初始默认状态
+    nodes.value = [
+      { id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: '节点 1' } },
+      { id: '2', type: 'default', position: { x: 250, y: 150 }, data: { label: '节点 2' } }
+    ];
+    edges.value = [
+      { id: 'e1-2', source: '1', target: '2', type: 'bezier' }
+    ];
+    flowRef.value?.setViewport({ x: 0, y: 0, zoom: 1 });
   }
 };
 
@@ -62,8 +72,8 @@ const tsCode = `<${_T}>
       <yh-flow
         ref="flowRef"
         v-model="viewport"
-        :nodes="nodes"
-        :edges="edges"
+        v-model:nodes="nodes"
+        v-model:edges="edges"
         background="dots"
       />
     </div>
@@ -111,6 +121,16 @@ const restoreState = () => {
     if (data.viewport) {
       flowRef.value?.setViewport(data.viewport);
     }
+  } else {
+    // 若 LocalStorage 中没有保存的数据，则恢复初始默认状态
+    nodes.value = [
+      { id: '1', type: 'input', position: { x: 50, y: 50 }, data: { label: '节点 1' } },
+      { id: '2', type: 'default', position: { x: 250, y: 150 }, data: { label: '节点 2' } }
+    ];
+    edges.value = [
+      { id: 'e1-2', source: '1', target: '2', type: 'bezier' }
+    ];
+    flowRef.value?.setViewport({ x: 0, y: 0, zoom: 1 });
   }
 };
 
@@ -184,8 +204,8 @@ const jsCode = toJs(tsCode);
       <yh-flow
         ref="flowRef"
         v-model="viewport"
-        :nodes="nodes"
-        :edges="edges"
+        v-model:nodes="nodes"
+        v-model:edges="edges"
         background="dots"
       ></yh-flow>
     </div>

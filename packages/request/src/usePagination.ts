@@ -187,8 +187,16 @@ export function usePagination<TData = unknown, TParams extends unknown[] = [numb
   // 分页方法
   const loadPage = async (page: number): Promise<void> => {
     if (page < 1 || (totalPages.value > 0 && page > totalPages.value)) return
+    if (current.value === page) {
+      if (manual) {
+        await loadData()
+      }
+      return
+    }
     current.value = page
-    await loadData()
+    if (manual) {
+      await loadData()
+    }
   }
 
   const nextPage = async (): Promise<void> => {
@@ -209,15 +217,32 @@ export function usePagination<TData = unknown, TParams extends unknown[] = [numb
   }
 
   const refresh = async (): Promise<void> => {
-    current.value = 1
     refreshing.value = true
-    await loadData()
+    if (current.value === 1) {
+      await loadData()
+    } else {
+      current.value = 1
+      if (manual) {
+        await loadData()
+      }
+    }
   }
 
   const setPageSize = (size: number): void => {
+    if (pageSize.value === size) {
+      if (manual) {
+        loadData()
+      }
+      return
+    }
     pageSize.value = size
-    if (!manual) {
-      refresh()
+    if (manual) {
+      if (current.value === 1) {
+        loadData()
+      } else {
+        current.value = 1
+        loadData()
+      }
     }
   }
 
@@ -228,8 +253,11 @@ export function usePagination<TData = unknown, TParams extends unknown[] = [numb
   // 监听分页变化
   watch(pageSize, () => {
     if (!manual) {
-      current.value = 1
-      loadData()
+      if (current.value === 1) {
+        loadData()
+      } else {
+        current.value = 1
+      }
     }
   })
 

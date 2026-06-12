@@ -25,7 +25,7 @@ export const iconProps = {
    * 图标组件（传入 Vue 组件）
    */
   icon: {
-    type: Object as PropType<Component>,
+    type: [Object, String] as PropType<Component | string>,
     default: undefined
   },
 

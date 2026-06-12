@@ -391,7 +391,7 @@ export async function XRequest(
     ((error: Error) => {
       // 默认重试网络错误和 5xx 错误（不区分大小写）
       const msg = error.message.toLowerCase()
-      return msg.includes('fetch') || msg.includes('network')
+      return msg.includes('fetch') || msg.includes('network') || /http error: 5\d\d/.test(msg)
     })
 
   let lastError: Error | null = null
@@ -412,6 +412,10 @@ export async function XRequest(
       })
 
       mergedCallbacks.onResponse?.(response)
+
+      if (!response.ok) {
+        throw new Error(`HTTP Error: ${response.status} ${response.statusText}`)
+      }
 
       // 流式处理
       if (finalConfig.stream && response.body) {
@@ -534,7 +538,7 @@ export function useConversation(config: ConversationConfig = {}) {
 
   // 从 localStorage 加载历史
   const loadHistory = () => {
-    if (persist) {
+    if (persist && typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem(storageKey)
       if (stored) {
         try {
@@ -548,7 +552,7 @@ export function useConversation(config: ConversationConfig = {}) {
 
   // 保存到 localStorage
   const saveHistory = () => {
-    if (persist) {
+    if (persist && typeof localStorage !== 'undefined') {
       localStorage.setItem(storageKey, JSON.stringify(messages.value))
     }
   }
@@ -570,13 +574,15 @@ export function useConversation(config: ConversationConfig = {}) {
   // 清空历史
   const clearHistory = () => {
     messages.value = []
-    if (persist) {
+    if (persist && typeof localStorage !== 'undefined') {
       localStorage.removeItem(storageKey)
     }
   }
 
   // 初始化加载
-  loadHistory()
+  if (typeof localStorage !== 'undefined') {
+    loadHistory()
+  }
 
   return {
     messages,
@@ -652,7 +658,7 @@ export function useConversations(options: UseConversationsOptions = {}) {
 
   // 加载会话
   const loadConversations = () => {
-    if (persist) {
+    if (persist && typeof localStorage !== 'undefined') {
       try {
         const stored = localStorage.getItem(storageKey)
         if (stored) {
@@ -674,7 +680,7 @@ export function useConversations(options: UseConversationsOptions = {}) {
 
   // 保存会话
   const saveConversations = () => {
-    if (persist) {
+    if (persist && typeof localStorage !== 'undefined') {
       localStorage.setItem(
         storageKey,
         JSON.stringify({
@@ -775,11 +781,13 @@ export function useConversations(options: UseConversationsOptions = {}) {
   }
 
   // 初始化
-  loadConversations()
+  if (typeof localStorage !== 'undefined') {
+    loadConversations()
 
-  // 如果没有会话，创建一个
-  if (conversations.value.length === 0) {
-    create()
+    // 如果没有会话，创建一个
+    if (conversations.value.length === 0) {
+      create()
+    }
   }
 
   return {
@@ -1058,6 +1066,7 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
       const decoder = new TextDecoder()
       let fullContent = ''
       let currentToolCalls: ToolCall[] = []
+      const toolCallArguments: Record<number, string> = {}
 
       while (true) {
         const { done, value } = await reader.read()
@@ -1091,27 +1100,40 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
               if (parsed.choices?.[0]?.delta?.tool_calls) {
                 const toolCalls = parsed.choices[0].delta.tool_calls
                 for (const tc of toolCalls) {
-                  const existingIndex = currentToolCalls.findIndex((t) => t.id === tc.id)
-                  if (existingIndex >= 0) {
-                    // 更新现有工具调用
-                    currentToolCalls[existingIndex] = {
-                      ...currentToolCalls[existingIndex],
-                      arguments: {
-                        ...currentToolCalls[existingIndex].arguments,
-                        ...(tc.function?.arguments && JSON.parse(tc.function.arguments))
-                      }
-                    }
-                  } else if (tc.id && tc.function?.name) {
-                    // 新工具调用
-                    currentToolCalls.push({
+                  const idx = tc.index ?? 0
+                  if (tc.id) {
+                    currentToolCalls[idx] = {
                       id: tc.id,
                       type: 'function',
-                      name: tc.function.name,
-                      arguments: tc.function.arguments ? JSON.parse(tc.function.arguments) : {}
-                    })
+                      name: tc.function?.name || '',
+                      arguments: {}
+                    }
+                    toolCallArguments[idx] = tc.function?.arguments || ''
+                  } else {
+                    if (!currentToolCalls[idx]) {
+                      currentToolCalls[idx] = {
+                        id: '',
+                        type: 'function',
+                        name: '',
+                        arguments: {}
+                      }
+                    }
+                    if (tc.function?.arguments) {
+                      toolCallArguments[idx] =
+                        (toolCallArguments[idx] || '') + tc.function.arguments
+                    }
                   }
                 }
-                updateLastMessage({ toolCalls: [...currentToolCalls] })
+                for (let i = 0; i < currentToolCalls.length; i++) {
+                  if (!currentToolCalls[i]) continue
+                  const rawArgs = toolCallArguments[i] || ''
+                  try {
+                    currentToolCalls[i].arguments = rawArgs ? JSON.parse(rawArgs) : {}
+                  } catch {
+                    // 渐进解析失败，保持已有数据
+                  }
+                }
+                updateLastMessage({ toolCalls: [...currentToolCalls].filter(Boolean) })
               }
             } catch {
               // 忽略解析错误
@@ -1124,6 +1146,20 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
           await new Promise((resolve) => setTimeout(resolve, streamInterval))
         }
       }
+
+      // 最终解析所有工具参数
+      for (let i = 0; i < currentToolCalls.length; i++) {
+        if (!currentToolCalls[i]) continue
+        const rawArgs = toolCallArguments[i] || ''
+        try {
+          currentToolCalls[i].arguments = rawArgs ? JSON.parse(rawArgs) : {}
+        } catch {
+          currentToolCalls[i].arguments = {}
+        }
+      }
+
+      // 过滤掉任何未定义的工具调用
+      currentToolCalls = currentToolCalls.filter(Boolean)
 
       // 如果有工具调用，执行它们
       if (currentToolCalls.length > 0) {

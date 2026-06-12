@@ -585,10 +585,12 @@ const DEFAULT_TRANSITION_TIMING = 'cubic-bezier(0.4, 0, 0.2, 1)'
 
 function enableThemeTransition(
   duration: number = DEFAULT_TRANSITION_DURATION,
-  timing: string = DEFAULT_TRANSITION_TIMING
+  timing: string = DEFAULT_TRANSITION_TIMING,
+  el: HTMLElement | null = null
 ): void {
   if (typeof document === 'undefined') return
 
+  const target = el || document.documentElement
   const style = document.createElement('style')
   style.id = 'yh-theme-transition'
   style.textContent = `
@@ -606,10 +608,10 @@ function enableThemeTransition(
     }
   `
   document.head.appendChild(style)
-  document.documentElement.classList.add(THEME_TRANSITION_CLASS)
+  target.classList.add(THEME_TRANSITION_CLASS)
 
   setTimeout(() => {
-    document.documentElement.classList.remove(THEME_TRANSITION_CLASS)
+    target.classList.remove(THEME_TRANSITION_CLASS)
     style.remove()
   }, duration)
 }
@@ -725,6 +727,7 @@ export class ThemeManager {
   }
   private themeHistory: ThemeSnapshot[] = []
   private maxHistoryLength: number = 10
+  private responsiveVars = new Map<string, Partial<Record<Breakpoint, string>>>()
 
   // 响应式状态
   public readonly state = reactive({
@@ -854,11 +857,12 @@ export class ThemeManager {
     this.isDark = dark
     this.state.dark = dark
 
-    if (typeof document !== 'undefined') {
+    const el = this.targetEl || (typeof document !== 'undefined' ? document.documentElement : null)
+    if (el) {
       if (dark) {
-        document.documentElement.classList.add('dark')
+        el.classList.add('dark')
       } else {
-        document.documentElement.classList.remove('dark')
+        el.classList.remove('dark')
       }
     }
 
@@ -1157,7 +1161,11 @@ export class ThemeManager {
       const snapshot: ThemeSnapshot = JSON.parse(json)
 
       if (this.transitionEnabled) {
-        enableThemeTransition(this.transitionConfig.duration, this.transitionConfig.timing)
+        enableThemeTransition(
+          this.transitionConfig.duration,
+          this.transitionConfig.timing,
+          this.targetEl
+        )
       }
 
       this.setPreset(snapshot.preset)
@@ -1210,9 +1218,9 @@ export class ThemeManager {
     this.state.algorithm = 'default'
     this.state.componentThemeVersion += 1
 
-    document.documentElement.classList.remove('dark')
-
     const el = this.targetEl || document.documentElement
+    el.classList.remove('dark')
+
     const colorTypes = ['primary', 'success', 'warning', 'danger', 'info']
     const suffixes = [
       '',
@@ -1253,7 +1261,11 @@ export class ThemeManager {
   /** 设置密度 */
   setDensity(density: ThemeDensity): void {
     if (this.transitionEnabled) {
-      enableThemeTransition(this.transitionConfig.duration, this.transitionConfig.timing)
+      enableThemeTransition(
+        this.transitionConfig.duration,
+        this.transitionConfig.timing,
+        this.targetEl
+      )
     }
 
     this.currentDensity = density
@@ -1280,7 +1292,11 @@ export class ThemeManager {
   /** 设置色盲友好模式 */
   setColorBlindMode(mode: ColorBlindMode): void {
     if (this.transitionEnabled) {
-      enableThemeTransition(this.transitionConfig.duration, this.transitionConfig.timing)
+      enableThemeTransition(
+        this.transitionConfig.duration,
+        this.transitionConfig.timing,
+        this.targetEl
+      )
     }
 
     this.colorBlindMode = mode
@@ -1404,7 +1420,7 @@ export class ThemeManager {
         typeof config.transition === 'object'
           ? config.transition
           : { duration: DEFAULT_TRANSITION_DURATION, timing: DEFAULT_TRANSITION_TIMING }
-      enableThemeTransition(transitionConfig.duration!, transitionConfig.timing!)
+      enableThemeTransition(transitionConfig.duration!, transitionConfig.timing!, this.targetEl)
     }
 
     // 保存历史
@@ -1509,7 +1525,9 @@ export class ThemeManager {
     // 为响应式变量创建样式标签 (仅在客户端)
     if (typeof document === 'undefined') return
 
-    // 创建或更新 CSS 媒体查询
+    // 更新 Map 中的存储，防止规则在 style 标签内堆积累加
+    this.responsiveVars.set(name, values)
+
     let style = document.getElementById('yh-responsive-vars') as HTMLStyleElement
     if (!style) {
       style = document.createElement('style')
@@ -1519,26 +1537,27 @@ export class ThemeManager {
 
     let css = ''
 
-    // 生成媒体查询
-    const orderedBreakpoints: Breakpoint[] = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
-    orderedBreakpoints.forEach((bp) => {
-      if (values[bp]) {
-        if (bp === 'xs') {
-          css += `
-            :root { ${name}: ${values[bp]}; }
-          `
-        } else {
-          css += `
-            @media (min-width: ${breakpoints[bp]}px) {
-              :root { ${name}: ${values[bp]}; }
-            }
-          `
+    // 从 Map 重新生成所有的媒体查询规则
+    this.responsiveVars.forEach((vals, varName) => {
+      const orderedBreakpoints: Breakpoint[] = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
+      orderedBreakpoints.forEach((bp) => {
+        if (vals[bp]) {
+          if (bp === 'xs') {
+            css += `
+              :root { ${varName}: ${vals[bp]}; }
+            `
+          } else {
+            css += `
+              @media (min-width: ${breakpoints[bp]}px) {
+                :root { ${varName}: ${vals[bp]}; }
+              }
+            `
+          }
         }
-      }
+      })
     })
 
-    // 追加到现有样式
-    style.textContent += css
+    style.textContent = css
   }
 
   /** 销毁 */
@@ -1553,6 +1572,7 @@ export class ThemeManager {
     if (style) {
       style.remove()
     }
+    this.responsiveVars.clear()
   }
 }
 

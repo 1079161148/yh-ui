@@ -280,6 +280,18 @@ describe('Enhanced Agents', () => {
 
       expect(agent.reflections.value).toEqual([])
     })
+
+    it('should support custom scorer', async () => {
+      const scorer = vi.fn().mockResolvedValue(10)
+      const agent = createReflexionAgent({
+        mode: 'reflexion',
+        maxIterations: 1,
+        scorer
+      })
+
+      await agent.run('Test task', async () => 'Output content')
+      expect(scorer).toHaveBeenCalledWith('Output content')
+    })
   })
 
   describe('createReWOOAgent', () => {

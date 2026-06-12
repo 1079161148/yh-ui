@@ -90,8 +90,20 @@ export function createRequestError(
     requestError.isNetworkError = true
     requestError.code = 'NETWORK_ERROR'
   } else if (config?.signal?.aborted) {
-    requestError.isCanceled = true
-    requestError.code = 'CANCELED'
+    const isTimeout =
+      err.message.toLowerCase().includes('timeout') ||
+      err.name === 'TimeoutError' ||
+      (config.signal.reason instanceof Error
+        ? config.signal.reason.message.toLowerCase().includes('timeout')
+        : String(config.signal.reason).toLowerCase().includes('timeout'))
+
+    if (isTimeout) {
+      requestError.isTimeout = true
+      requestError.code = 'TIMEOUT'
+    } else {
+      requestError.isCanceled = true
+      requestError.code = 'CANCELED'
+    }
   } else if (response) {
     requestError.code = `HTTP_${response.status}`
   }

@@ -452,4 +452,25 @@ describe('useQueue', () => {
     await nextTick()
     expect(q2.isAllComplete.value).toBe(true)
   })
+
+  it('passes AbortSignal to the task and aborts it when canceled', async () => {
+    const signalSpy = vi.fn()
+    const { add, start, cancel } = useQueue({ autoStart: false, concurrency: 1 })
+    const taskId = add(async ({ signal }) => {
+      signal.addEventListener('abort', () => {
+        signalSpy()
+      })
+      return new Promise((resolve) => {
+        const t = setTimeout(() => resolve('ok'), 500)
+        signal.addEventListener('abort', () => clearTimeout(t))
+      })
+    })
+
+    start()
+    await vi.advanceTimersByTimeAsync(100)
+
+    cancel(taskId)
+
+    expect(signalSpy).toHaveBeenCalledTimes(1)
+  })
 })

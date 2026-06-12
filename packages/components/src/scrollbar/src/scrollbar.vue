@@ -142,6 +142,7 @@ onMounted(() => {
   if (!props.noresize && resize.value) {
     resizeObserver = new ResizeObserver(update)
     resizeObserver.observe(resize.value)
+    if (wrap.value) resizeObserver.observe(wrap.value)
   }
 })
 
@@ -160,9 +161,14 @@ watch(
     } else if (resize.value) {
       resizeObserver = new ResizeObserver(update)
       resizeObserver.observe(resize.value)
+      if (wrap.value) resizeObserver.observe(wrap.value)
     }
   }
 )
+
+watch([() => props.height, () => props.maxHeight], () => {
+  nextTick(update)
+})
 
 defineExpose({
   wrap,

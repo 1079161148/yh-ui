@@ -67,6 +67,96 @@ const currentView = ref<PanelView>(getInitialView(props.type))
 const innerDate = ref(new Date())
 const rangeHoverDate = ref<Date | null>(null)
 
+// 时间选择状态 (用于 datetime / datetimerange 模式)
+const timeState = ref({ hour: 0, minute: 0, second: 0 })
+const startTimeState = ref({ hour: 0, minute: 0, second: 0 })
+const endTimeState = ref({ hour: 0, minute: 0, second: 0 })
+
+const syncTimeStates = () => {
+  const val = props.modelValue
+
+  if (props.type === 'datetime') {
+    if (val && !Array.isArray(val) && dayjs(val).isValid()) {
+      const d = dayjs(val)
+      timeState.value = { hour: d.hour(), minute: d.minute(), second: d.second() }
+    } else {
+      const def = props.defaultTime
+      if (def && !Array.isArray(def) && dayjs(def).isValid()) {
+        const d = dayjs(def)
+        timeState.value = { hour: d.hour(), minute: d.minute(), second: d.second() }
+      } else {
+        timeState.value = { hour: 0, minute: 0, second: 0 }
+      }
+    }
+  } else if (props.type === 'datetimerange') {
+    const valArr = Array.isArray(val) ? val : [null, null]
+
+    // Start Time State
+    if (valArr[0] && dayjs(valArr[0]).isValid()) {
+      const d = dayjs(valArr[0])
+      startTimeState.value = { hour: d.hour(), minute: d.minute(), second: d.second() }
+    } else {
+      const def = Array.isArray(props.defaultTime) ? props.defaultTime[0] : props.defaultTime
+      if (def && dayjs(def).isValid()) {
+        const d = dayjs(def)
+        startTimeState.value = { hour: d.hour(), minute: d.minute(), second: d.second() }
+      } else {
+        startTimeState.value = { hour: 0, minute: 0, second: 0 }
+      }
+    }
+
+    // End Time State
+    if (valArr[1] && dayjs(valArr[1]).isValid()) {
+      const d = dayjs(valArr[1])
+      endTimeState.value = { hour: d.hour(), minute: d.minute(), second: d.second() }
+    } else {
+      const def = Array.isArray(props.defaultTime) ? props.defaultTime[1] : props.defaultTime
+      if (def && dayjs(def).isValid()) {
+        const d = dayjs(def)
+        endTimeState.value = { hour: d.hour(), minute: d.minute(), second: d.second() }
+      } else {
+        endTimeState.value = { hour: 0, minute: 0, second: 0 }
+      }
+    }
+  }
+}
+
+const updateSingleTime = () => {
+  const base = props.modelValue ? dayjs(props.modelValue as Date) : dayjs(innerDate.value)
+  const newDate = base
+    .hour(timeState.value.hour)
+    .minute(timeState.value.minute)
+    .second(timeState.value.second)
+    .toDate()
+  emitChange(newDate)
+}
+
+const updateRangeStartTime = () => {
+  const current = (props.modelValue as DateRangeValue) || [null, null]
+  const startBase = current[0] ? dayjs(current[0] as Date) : dayjs(innerDate.value)
+  const mergedStart = startBase
+    .hour(startTimeState.value.hour)
+    .minute(startTimeState.value.minute)
+    .second(startTimeState.value.second)
+    .toDate()
+
+  const mergedEnd = current[1] ? dayjs(current[1] as Date).toDate() : null
+  emitChange([mergedStart, mergedEnd] as DateRangeValue)
+}
+
+const updateRangeEndTime = () => {
+  const current = (props.modelValue as DateRangeValue) || [null, null]
+  const endBase = current[1] ? dayjs(current[1] as Date) : dayjs(innerDate.value)
+  const mergedEnd = endBase
+    .hour(endTimeState.value.hour)
+    .minute(endTimeState.value.minute)
+    .second(endTimeState.value.second)
+    .toDate()
+
+  const mergedStart = current[0] ? dayjs(current[0] as Date).toDate() : null
+  emitChange([mergedStart, mergedEnd] as DateRangeValue)
+}
+
 // 元素引用
 const wrapperRef = ref<HTMLElement>()
 const panelRef = ref<HTMLElement>()
@@ -251,7 +341,14 @@ const performFinalSelect = (date: Date) => {
   if (isRange.value) {
     const current = (props.modelValue as DateRangeValue) || [null, null]
     if (!current[0] || (current[0] && current[1])) {
-      emit('update:modelValue', [date, null])
+      const mergedStart = props.type.includes('datetime')
+        ? dayjs(date)
+            .hour(startTimeState.value.hour)
+            .minute(startTimeState.value.minute)
+            .second(startTimeState.value.second)
+            .toDate()
+        : date
+      emitChange([mergedStart, null])
     } else {
       let start: Date = dayjs(current[0] as string | number | Date).toDate()
       let end: Date | null = date
@@ -262,11 +359,37 @@ const performFinalSelect = (date: Date) => {
           end = null
         }
       }
-      emitChange([start, end] as DateRangeValue)
-      if (end && !props.panelOnly) visible.value = false
+
+      const mergedStart = props.type.includes('datetime')
+        ? dayjs(start)
+            .hour(startTimeState.value.hour)
+            .minute(startTimeState.value.minute)
+            .second(startTimeState.value.second)
+            .toDate()
+        : start
+
+      const mergedEnd = end
+        ? props.type.includes('datetime')
+          ? dayjs(end)
+              .hour(endTimeState.value.hour)
+              .minute(endTimeState.value.minute)
+              .second(endTimeState.value.second)
+              .toDate()
+          : end
+        : null
+
+      emitChange([mergedStart, mergedEnd] as DateRangeValue)
+      if (end && !props.panelOnly && !props.type.includes('datetime')) visible.value = false
     }
   } else {
-    emitChange(date)
+    const mergedDate = props.type.includes('datetime')
+      ? dayjs(date)
+          .hour(timeState.value.hour)
+          .minute(timeState.value.minute)
+          .second(timeState.value.second)
+          .toDate()
+      : date
+    emitChange(mergedDate)
     // 只有非 datetime 类型才在选中后自动关闭
     if (!props.panelOnly && !props.type.includes('datetime')) {
       visible.value = false
@@ -345,6 +468,7 @@ const syncInnerDate = () => {
   } else {
     innerDate.value = new Date()
   }
+  syncTimeStates()
 }
 
 watch(visible, (val: boolean) => {
@@ -639,12 +763,92 @@ onBeforeUnmount(() => {
 
           <div v-if="shouldShowFooter" :class="ns.e('footer')">
             <slot name="footer">
-              <div v-if="type.includes('datetime') && !isRange" :class="ns.e('footer-time')">
-                {{
-                  dayjs((modelValue as DateValue) || new Date()).format(
-                    props.timeFormat || 'HH:mm:ss'
-                  )
-                }}
+              <div v-if="type === 'datetime'" :class="ns.e('footer-time')">
+                <select v-model="timeState.hour" @change="updateSingleTime">
+                  <option v-for="h in 24" :key="h - 1" :value="h - 1">
+                    {{ String(h - 1).padStart(2, '0') }}
+                  </option>
+                </select>
+                <span :class="ns.e('time-separator')">:</span>
+                <select v-model="timeState.minute" @change="updateSingleTime">
+                  <option v-for="m in 60" :key="m - 1" :value="m - 1">
+                    {{ String(m - 1).padStart(2, '0') }}
+                  </option>
+                </select>
+                <span
+                  v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                  :class="ns.e('time-separator')"
+                  >:</span
+                >
+                <select
+                  v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                  v-model="timeState.second"
+                  @change="updateSingleTime"
+                >
+                  <option v-for="s in 60" :key="s - 1" :value="s - 1">
+                    {{ String(s - 1).padStart(2, '0') }}
+                  </option>
+                </select>
+              </div>
+              <div v-else-if="type === 'datetimerange'" :class="ns.e('footer-time-range')">
+                <div :class="ns.e('footer-time')">
+                  <span :class="ns.e('time-label')"
+                    >{{ t('datepicker.startTime') || 'Start' }}:</span
+                  >
+                  <select v-model="startTimeState.hour" @change="updateRangeStartTime">
+                    <option v-for="h in 24" :key="h - 1" :value="h - 1">
+                      {{ String(h - 1).padStart(2, '0') }}
+                    </option>
+                  </select>
+                  <span :class="ns.e('time-separator')">:</span>
+                  <select v-model="startTimeState.minute" @change="updateRangeStartTime">
+                    <option v-for="m in 60" :key="m - 1" :value="m - 1">
+                      {{ String(m - 1).padStart(2, '0') }}
+                    </option>
+                  </select>
+                  <span
+                    v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                    :class="ns.e('time-separator')"
+                    >:</span
+                  >
+                  <select
+                    v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                    v-model="startTimeState.second"
+                    @change="updateRangeStartTime"
+                  >
+                    <option v-for="s in 60" :key="s - 1" :value="s - 1">
+                      {{ String(s - 1).padStart(2, '0') }}
+                    </option>
+                  </select>
+                </div>
+                <div :class="ns.e('footer-time')">
+                  <span :class="ns.e('time-label')">{{ t('datepicker.endTime') || 'End' }}:</span>
+                  <select v-model="endTimeState.hour" @change="updateRangeEndTime">
+                    <option v-for="h in 24" :key="h - 1" :value="h - 1">
+                      {{ String(h - 1).padStart(2, '0') }}
+                    </option>
+                  </select>
+                  <span :class="ns.e('time-separator')">:</span>
+                  <select v-model="endTimeState.minute" @change="updateRangeEndTime">
+                    <option v-for="m in 60" :key="m - 1" :value="m - 1">
+                      {{ String(m - 1).padStart(2, '0') }}
+                    </option>
+                  </select>
+                  <span
+                    v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                    :class="ns.e('time-separator')"
+                    >:</span
+                  >
+                  <select
+                    v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                    v-model="endTimeState.second"
+                    @change="updateRangeEndTime"
+                  >
+                    <option v-for="s in 60" :key="s - 1" :value="s - 1">
+                      {{ String(s - 1).padStart(2, '0') }}
+                    </option>
+                  </select>
+                </div>
               </div>
               <div :class="ns.e('footer-btns')">
                 <button

@@ -154,4 +154,23 @@ describe('Icon', () => {
 
     expect(wrapper.props('themeOverrides')).toEqual({ color: '#409eff' })
   })
+
+  it('Bug 8: should support string icon values and not throw', () => {
+    registerIcon({ name: 'lucide:home', svg: '<rect x="3" y="3" width="18" height="18" />' })
+    const wrapper = mount(YhIcon, {
+      props: {
+        icon: 'lucide:home'
+      }
+    })
+    expect(wrapper.find('svg').html()).toContain('rect')
+
+    // If icon is a string and not in registry, it shouldn't throw but fallback to rendering as component name
+    expect(() => {
+      mount(YhIcon, {
+        props: {
+          icon: 'non-existent-icon'
+        }
+      })
+    }).not.toThrow()
+  })
 })

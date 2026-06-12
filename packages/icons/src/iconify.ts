@@ -7,9 +7,21 @@
  * - SSR 支持
  */
 
-import { Icon as IconifyIcon, loadIcon, getIcon } from '@iconify/vue'
+import { Icon as IconifyIcon, loadIcon, getIcon, addAPIProvider } from '@iconify/vue'
 import { h, type VNode } from 'vue'
 import type { IconName, IconSize, IconColor, IconRotate } from './types'
+
+// 优化 Iconify 默认 API 提供商配置，免去消费方自行排查网络超时的麻烦：
+// 移除在国内经常超时连接失败的 api.unisvg.com 域名，并缩短重试等待时间以获得更佳的响应体验。
+try {
+  addAPIProvider('', {
+    resources: ['https://api.iconify.design', 'https://api.simplesvg.com'],
+    rotate: 1000,
+    timeout: 3000
+  })
+} catch {
+  // 忽略防重入报错
+}
 
 /**
  * 创建 Iconify 图标组件
@@ -45,6 +57,27 @@ export interface IconifyProps {
   rotate?: IconRotate
 }
 
+const SPIN_STYLE_ID = 'yh-icon-spin-style'
+const spinStyleContent = `
+@keyframes yh-icon-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.yh-icons--spin {
+  animation: yh-icon-spin 1s linear infinite;
+}
+`
+
+function ensureSpinStyle(): void {
+  if (typeof document === 'undefined') return
+  if (document.getElementById(SPIN_STYLE_ID)) return
+
+  const style = document.createElement('style')
+  style.id = SPIN_STYLE_ID
+  style.textContent = spinStyleContent
+  document.head.appendChild(style)
+}
+
 /**
  * 创建 SVG 属性
  */
@@ -52,6 +85,7 @@ function createSvgProps(props: IconifyProps) {
   const { icon, size, color, spin, rotate } = props
 
   const style: Record<string, string> = {}
+  const classList: string[] = []
 
   // 处理尺寸
   if (size) {
@@ -71,13 +105,15 @@ function createSvgProps(props: IconifyProps) {
     style.transform = `rotate(${rotate}deg)`
   }
 
-  // 处理旋转动画 - 直接添加内联样式
+  // 处理旋转动画
   if (spin) {
-    style.animation = 'spin 1s linear infinite'
+    ensureSpinStyle()
+    classList.push('yh-icons--spin')
   }
 
   return {
     icon,
+    class: classList.length > 0 ? classList.join(' ') : undefined,
     style: Object.keys(style).length > 0 ? style : undefined
   }
 }

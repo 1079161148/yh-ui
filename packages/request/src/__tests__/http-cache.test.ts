@@ -131,6 +131,38 @@ describe('HttpCache', () => {
       expect(fb?.data).toEqual({ n: 1 })
       expect(fb?.isStale).toBe(false)
     })
+
+    it('getWithFallback handles stale-while-revalidate properly', () => {
+      vi.useFakeTimers()
+      const cache = new HttpCache({
+        maxAge: 1000,
+        staleWhileRevalidate: true,
+        staleTime: 2000
+      })
+      const response = new Response('ok')
+
+      cache.set('key', 'data', response)
+
+      // 1. Before expiration: not stale, valid data
+      const fb1 = cache.getWithFallback('key')
+      expect(fb1).toBeDefined()
+      expect(fb1?.data).toBe('data')
+      expect(fb1?.isStale).toBe(false)
+
+      // 2. Exceeded maxAge but within staleTime: stale, but returns data
+      vi.advanceTimersByTime(1500)
+      const fb2 = cache.getWithFallback('key')
+      expect(fb2).toBeDefined()
+      expect(fb2?.data).toBe('data')
+      expect(fb2?.isStale).toBe(true)
+
+      // 3. Exceeded staleTime: completely expired and deleted
+      vi.advanceTimersByTime(2000)
+      const fb3 = cache.getWithFallback('key')
+      expect(fb3).toBeUndefined()
+
+      vi.useRealTimers()
+    })
   })
 
   describe('createHttpCacheInterceptor', () => {

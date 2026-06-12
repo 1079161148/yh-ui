@@ -156,7 +156,8 @@ import {
   createControlsPlugin,
   createSnapPlugin,
   createExportPlugin,
-  createLayoutPlugin
+  createLayoutPlugin,
+  createHistoryPlugin
 } from './plugins/plugins'
 import { useViewport } from './core/useViewport'
 import { useNodes } from './core/useNodes'
@@ -384,8 +385,10 @@ const usePlugin = (plugin: FlowPlugin) => {
 }
 
 const removePlugin = (pluginId: string) => {
-  pluginManager.unregister(pluginId)
-  registeredPlugins.value = pluginManager.getPlugins()
+  if (pluginManager.hasPlugin(pluginId)) {
+    pluginManager.unregister(pluginId)
+    registeredPlugins.value = pluginManager.getPlugins()
+  }
 }
 
 const nodesManager = useNodes(viewportRef, {
@@ -404,12 +407,55 @@ const selectionManager = useSelection({
   edges: edgesRef
 })
 
-const historyManager = useHistory(nodesRef, edgesRef, {
+const localHistoryManager = useHistory(nodesRef, edgesRef, {
   maxHistory: props.maxHistory || 50,
   onHistoryChange: (canUndo, canRedo) => {
     emit('historyChange', { canUndo, canRedo })
   }
 })
+
+const getHistoryPlugin = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return pluginManager.getPlugin('history') as any
+}
+
+const historyManager = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  push: (state: any) => {
+    const plugin = getHistoryPlugin()
+    if (plugin) {
+      plugin.saveSnapshot()
+    } else {
+      localHistoryManager.push(state)
+    }
+  },
+  undo: () => {
+    const plugin = getHistoryPlugin()
+    if (plugin) {
+      plugin.undo()
+    } else {
+      localHistoryManager.undo()
+    }
+  },
+  redo: () => {
+    const plugin = getHistoryPlugin()
+    if (plugin) {
+      plugin.redo()
+    } else {
+      localHistoryManager.redo()
+    }
+  },
+  clear: () => {
+    const plugin = getHistoryPlugin()
+    if (plugin) {
+      plugin.clearHistory()
+    } else {
+      localHistoryManager.clear()
+    }
+  }
+}
+// 保存初始快照
+historyManager.push({ nodes: nodesRef.value, edges: edgesRef.value })
 
 // Alignment (snap to nodes)
 const alignmentManager = useAlignment({
@@ -588,6 +634,80 @@ const handleMouseMove = (event: MouseEvent) => {
   }
 }
 
+const getNodeHandles = (node: Node, type: 'source' | 'target') => {
+  if (node.handleBounds) {
+    const handles = []
+    if (node.handleBounds.top) handles.push(...node.handleBounds.top)
+    if (node.handleBounds.right) handles.push(...node.handleBounds.right)
+    if (node.handleBounds.bottom) handles.push(...node.handleBounds.bottom)
+    if (node.handleBounds.left) handles.push(...node.handleBounds.left)
+    return handles.filter((h) => h.type === type)
+  }
+
+  // Default rules corresponding to NodeRenderer's getHandles fallback:
+  if (node.type === 'group') return []
+  if (node.type === 'input') {
+    return type === 'source' ? [{ id: undefined, type: 'source', position: 'right' }] : []
+  }
+  if (node.type === 'output') {
+    return type === 'target' ? [{ id: undefined, type: 'target', position: 'left' }] : []
+  }
+  if (node.type === 'bpmn-start') {
+    return type === 'source' ? [{ id: undefined, type: 'source', position: 'right' }] : []
+  }
+  if (node.type === 'bpmn-end') {
+    return type === 'target' ? [{ id: undefined, type: 'target', position: 'left' }] : []
+  }
+  if (
+    node.type === 'bpmn-task' ||
+    node.type === 'bpmn-service-task' ||
+    node.type === 'bpmn-user-task'
+  ) {
+    if (type === 'source') return [{ id: undefined, type: 'source', position: 'right' }]
+    return [{ id: undefined, type: 'target', position: 'left' }]
+  }
+  if (
+    node.type === 'bpmn-exclusive-gateway' ||
+    node.type === 'bpmn-parallel-gateway' ||
+    node.type === 'bpmn-inclusive-gateway'
+  ) {
+    if (type === 'source') {
+      return [
+        { id: undefined, type: 'source', position: 'right' },
+        { id: undefined, type: 'source', position: 'bottom' }
+      ]
+    }
+    return [{ id: undefined, type: 'target', position: 'left' }]
+  }
+  if (node.type === 'ai-start') {
+    return type === 'source' ? [{ id: undefined, type: 'source', position: 'right' }] : []
+  }
+  if (node.type === 'ai-end') {
+    return type === 'target' ? [{ id: undefined, type: 'target', position: 'left' }] : []
+  }
+  if (
+    node.type === 'ai-llm' ||
+    node.type === 'ai-prompt' ||
+    node.type === 'ai-agent' ||
+    node.type === 'ai-tool' ||
+    node.type === 'ai-memory'
+  ) {
+    if (type === 'source') return [{ id: undefined, type: 'source', position: 'right' }]
+    return [{ id: undefined, type: 'target', position: 'left' }]
+  }
+  if (node.type === 'ai-condition') {
+    if (type === 'source') {
+      return [
+        { id: undefined, type: 'source', position: 'right' },
+        { id: undefined, type: 'source', position: 'bottom' }
+      ]
+    }
+    return [{ id: undefined, type: 'target', position: 'left' }]
+  }
+  if (type === 'source') return [{ id: undefined, type: 'source', position: 'right' }]
+  return [{ id: undefined, type: 'target', position: 'left' }]
+}
+
 const handleMouseUp = (event: MouseEvent) => {
   isPanning.value = false
 
@@ -627,24 +747,52 @@ const handleMouseUp = (event: MouseEvent) => {
             : updatingEdge.value.edge.target
           : targetNode.id
 
+        // 解析鼠标指针下的具体 handle ID
+        let dropHandleId: string | undefined = undefined
+        let dropHandleType: string | undefined = undefined
+
+        const element = document.elementFromPoint(event.clientX, event.clientY)
+        const handleEl = element?.closest('.yh-flow-handle') as HTMLElement | null
+        if (handleEl) {
+          dropHandleId = handleEl.getAttribute('data-handle-id') || undefined
+          dropHandleType = handleEl.getAttribute('data-handle-type') || undefined
+        }
+
+        let finalSourceHandle: string | undefined = undefined
+        let finalTargetHandle: string | undefined = undefined
+
+        if (updatingEdge.value) {
+          const { edge, handleType } = updatingEdge.value
+          if (handleType === 'source') {
+            finalSourceHandle =
+              dropHandleType === 'source'
+                ? dropHandleId
+                : getNodeHandles(targetNode, 'source')[0]?.id || undefined
+            finalTargetHandle = edge.targetHandle || undefined
+          } else {
+            finalSourceHandle = edge.sourceHandle || undefined
+            finalTargetHandle =
+              dropHandleType === 'target'
+                ? dropHandleId
+                : getNodeHandles(targetNode, 'target')[0]?.id || undefined
+          }
+        } else {
+          finalSourceHandle = connectionStart.value?.handleId || undefined
+          finalTargetHandle =
+            dropHandleType === 'target'
+              ? dropHandleId
+              : getNodeHandles(targetNode, 'target')[0]?.id || undefined
+        }
+
         // 验证连接是否有效
         const sourceNode = nodesRef.value.find((n) => n.id === sourceNodeId)
-        const validationResult = validateConnection(
-          sourceNode,
-          nodesRef.value.find((n) => n.id === targetNodeId),
-          {
-            source: sourceNodeId,
-            target: targetNodeId,
-            sourceHandle:
-              updatingEdge.value && updatingEdge.value.handleType === 'source'
-                ? undefined
-                : updatingEdge.value?.edge.sourceHandle || connectionStart.value?.handleId,
-            targetHandle:
-              updatingEdge.value && updatingEdge.value.handleType === 'target'
-                ? undefined
-                : updatingEdge.value?.edge.targetHandle
-          }
-        )
+        const targetNodeObj = nodesRef.value.find((n) => n.id === targetNodeId)
+        const validationResult = validateConnection(sourceNode, targetNodeObj, {
+          source: sourceNodeId,
+          target: targetNodeId,
+          sourceHandle: finalSourceHandle,
+          targetHandle: finalTargetHandle
+        })
 
         if (!validationResult.isValid) {
           console.warn('Invalid connection:', validationResult.message)
@@ -656,12 +804,12 @@ const handleMouseUp = (event: MouseEvent) => {
 
         if (updatingEdge.value) {
           // 更新现有连线
-          const { edge, handleType } = updatingEdge.value
+          const { edge } = updatingEdge.value
           const connection: Connection = {
-            source: handleType === 'source' ? targetNode.id : edge.source,
-            target: handleType === 'target' ? targetNode.id : edge.target,
-            sourceHandle: handleType === 'source' ? undefined : edge.sourceHandle,
-            targetHandle: handleType === 'target' ? undefined : edge.targetHandle
+            source: sourceNodeId,
+            target: targetNodeId,
+            sourceHandle: finalSourceHandle,
+            targetHandle: finalTargetHandle
           }
 
           edgesManager.updateEdge(edge.id, connection)
@@ -671,10 +819,10 @@ const handleMouseUp = (event: MouseEvent) => {
           // 创建新连线
           const newEdge: Edge = {
             id: `edge-${Date.now()}`,
-            source: connectionStart.value.nodeId,
-            target: targetNode.id,
-            sourceHandle: connectionStart.value.handleId || undefined,
-            targetHandle: undefined,
+            source: sourceNodeId,
+            target: targetNodeId,
+            sourceHandle: finalSourceHandle,
+            targetHandle: finalTargetHandle,
             type: 'bezier'
           }
           edgesManager.addEdge(newEdge)
@@ -1131,6 +1279,7 @@ watch(
 
 // Lifecycle
 let handleKeyDown: (event: KeyboardEvent) => void
+let resizeObserver: ResizeObserver | null = null
 onMounted(() => {
   // 全局 mousemove/mouseup：使「点击空白并拖动 → 平移画布」与框选生效
   document.addEventListener('mousemove', handleMouseMove)
@@ -1140,7 +1289,7 @@ onMounted(() => {
     containerWidth.value = containerRef.value.clientWidth
     containerHeight.value = containerRef.value.clientHeight
 
-    const resizeObserver = new ResizeObserver((entries) => {
+    resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         containerWidth.value = entry.contentRect.width
         containerHeight.value = entry.contentRect.height
@@ -1299,6 +1448,26 @@ onMounted(() => {
     }
   )
 
+  watch(
+    () => [props.history, props.maxHistory],
+    ([history, maxHistory]) => {
+      removePlugin('history')
+      if (history) {
+        usePlugin(
+          createHistoryPlugin({
+            enabled: true,
+            maxHistory: (maxHistory as number) || 50,
+            enableKeyboard: false,
+            onHistoryChange: (canUndo, canRedo) => {
+              emit('historyChange', { canUndo, canRedo })
+            }
+          })
+        )
+      }
+    },
+    { immediate: true }
+  )
+
   // Setup keyboard shortcuts
   if (props.keyboardShortcuts) {
     const keyboard = useKeyboard({
@@ -1306,10 +1475,13 @@ onMounted(() => {
       onDelete: () => {
         const selectedNodes = nodesRef.value.filter((n) => n.selected)
         const selectedEdges = edgesRef.value.filter((e) => e.selected)
-        selectedNodes.forEach((node) => nodesManager.removeNode(node.id))
-        selectedEdges.forEach((edge) => edgesManager.removeEdge(edge.id))
-        emit('update:nodes', nodesRef.value)
-        emit('update:edges', edgesRef.value)
+        if (selectedNodes.length > 0 || selectedEdges.length > 0) {
+          historyManager.push({ nodes: nodesRef.value, edges: edgesRef.value })
+          selectedNodes.forEach((node) => nodesManager.removeNode(node.id))
+          selectedEdges.forEach((edge) => edgesManager.removeEdge(edge.id))
+          emit('update:nodes', nodesRef.value)
+          emit('update:edges', edgesRef.value)
+        }
       },
       onUndo: () => historyManager.undo(),
       onRedo: () => historyManager.redo(),
@@ -1329,6 +1501,10 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  if (resizeObserver) {
+    resizeObserver.disconnect()
+    resizeObserver = null
+  }
   if (props.keyboardShortcuts && handleKeyDown) {
     document.removeEventListener('keydown', handleKeyDown)
   }

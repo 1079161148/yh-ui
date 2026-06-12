@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from 'vue'
+import { ref, watch, onMounted, computed, onBeforeUnmount } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { skeletonProps } from './skeleton'
@@ -48,10 +48,11 @@ const containerClass = computed(() => [ns.b(), ns.is('animated', props.animated)
 /** 自创高级：视口感应延迟加载 */
 const isIntersecting = ref(false)
 const skeletonRef = ref<HTMLElement | null>(null)
+let observer: IntersectionObserver | null = null
 
 onMounted(() => {
   if (props.lazy && skeletonRef.value) {
-    const observer = new IntersectionObserver(
+    observer = new IntersectionObserver(
       (entries) => {
         isIntersecting.value = entries[0].isIntersecting
       },
@@ -60,6 +61,16 @@ onMounted(() => {
     observer.observe(skeletonRef.value)
   } else {
     isIntersecting.value = true
+  }
+})
+
+onBeforeUnmount(() => {
+  if (observer) {
+    observer.disconnect()
+    observer = null
+  }
+  if (timeout) {
+    clearTimeout(timeout)
   }
 })
 </script>

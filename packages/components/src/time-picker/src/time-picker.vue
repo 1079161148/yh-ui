@@ -279,6 +279,69 @@ const closePanel = () => {
   emit('visible-change', false)
 }
 
+const handleInputChange = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const value = target.value
+  if (!value) {
+    emit('update:modelValue', null)
+    emit('change', null)
+    return
+  }
+  const parsed = parseTimeValue(value, props.format)
+  if (parsed) {
+    const formatted = formatTimeState(parsed, props.valueFormat || props.format)
+    emit('update:modelValue', formatted)
+    emit('change', formatted)
+    internalTimeState.value = parsed
+  } else {
+    target.value = displayValue.value
+  }
+}
+
+const handleStartInputChange = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const value = target.value
+  const rangeValue = (props.modelValue as TimeRangeValue) || [null, null]
+  if (!value) {
+    const newVal: TimeRangeValue = [null, rangeValue[1]]
+    emit('update:modelValue', newVal)
+    emit('change', newVal)
+    return
+  }
+  const parsed = parseTimeValue(value, props.format)
+  if (parsed) {
+    const formatted = formatTimeState(parsed, props.valueFormat || props.format)
+    const newVal: TimeRangeValue = [formatted, rangeValue[1]]
+    emit('update:modelValue', newVal)
+    emit('change', newVal)
+    internalStartTimeState.value = parsed
+  } else {
+    target.value = rangeStartDisplayValue.value
+  }
+}
+
+const handleEndInputChange = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const value = target.value
+  const rangeValue = (props.modelValue as TimeRangeValue) || [null, null]
+  if (!value) {
+    const newVal: TimeRangeValue = [rangeValue[0], null]
+    emit('update:modelValue', newVal)
+    emit('change', newVal)
+    return
+  }
+  const parsed = parseTimeValue(value, props.format)
+  if (parsed) {
+    const formatted = formatTimeState(parsed, props.valueFormat || props.format)
+    const newVal: TimeRangeValue = [rangeValue[0], formatted]
+    emit('update:modelValue', newVal)
+    emit('change', newVal)
+    internalEndTimeState.value = parsed
+  } else {
+    target.value = rangeEndDisplayValue.value
+  }
+}
+
 // 确认选择
 const handleConfirm = () => {
   let valueToEmit: TimeValue | TimeRangeValue
@@ -525,6 +588,7 @@ defineExpose<TimePickerExpose>({
           @focus="handleFocus"
           @blur="handleBlur"
           @keydown="handleKeydown"
+          @change="handleInputChange"
         />
       </template>
 
@@ -542,6 +606,7 @@ defineExpose<TimePickerExpose>({
           @focus="handleFocus"
           @blur="handleBlur"
           @keydown="handleKeydown"
+          @change="handleStartInputChange"
         />
         <span :class="ns.e('range-separator')">
           <slot name="rangeSeparator">{{ rangeSeparator }}</slot>
@@ -558,6 +623,7 @@ defineExpose<TimePickerExpose>({
           @focus="handleFocus"
           @blur="handleBlur"
           @keydown="handleKeydown"
+          @change="handleEndInputChange"
         />
       </template>
 

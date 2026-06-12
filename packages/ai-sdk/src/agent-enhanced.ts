@@ -134,6 +134,8 @@ export interface ReflexionConfig extends Omit<EnhancedAgentConfig, 'mode'> {
   mode: 'reflexion'
   /** 记忆上下文窗口大小 */
   memoryWindow?: number
+  /** 可注入的评估函数 (scorer) */
+  scorer?: (output: string) => number | Promise<number>
 }
 
 /**
@@ -271,8 +273,18 @@ export function createReflexionAgent(config: ReflexionConfig) {
   }
 
   async function evaluateOutput(output: string): Promise<number> {
-    // 简化：实际应调用 LLM 或规则评估
-    return output.length > 10 ? 5 + Math.random() * 5 : Math.random() * 5
+    if (config.scorer) {
+      return await config.scorer(output)
+    }
+    // 默认评估：基于规则，摒弃随机数，保证确定性
+    let score = 0
+    if (output.length > 10) score += 2
+    if (output.length > 50) score += 1
+    if (output.includes('Thought:')) score += 2
+    if (output.includes('Action:')) score += 1
+    if (output.includes('Action Input:')) score += 1
+    if (output.includes('Observation:')) score += 1
+    return score
   }
 
   function checkStop(iterationOutput: string, bestOutput: string): boolean {

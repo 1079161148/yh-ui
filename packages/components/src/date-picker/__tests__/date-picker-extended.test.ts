@@ -239,14 +239,6 @@ describe('YhDatePicker Extended', () => {
       expect(wrapper.emitted('update:modelValue')).toBeTruthy()
     })
 
-    it('should support datetime type', async () => {
-      const wrapper = mount(DatePicker, {
-        props: { type: 'datetime', panelOnly: true }
-      })
-      await nextTick()
-      expect(wrapper.find('.yh-date-picker__footer').exists()).toBe(true)
-    })
-
     it('should handle footer confirm button', async () => {
       const onConfirm = vi.fn()
       const wrapper = mount(DatePicker, {
@@ -535,6 +527,82 @@ describe('YhDatePicker Extended', () => {
       const inputs = wrapper.findAll('.yh-date-picker__range-input')
       expect(inputs[0].element.getAttribute('value')).toBe('2024-01-01')
       expect(inputs[1].element.getAttribute('value')).toBe('2024-01-02')
+    })
+  })
+
+  describe('Datetime and Datetimerange support', () => {
+    it('should support datetime mode', async () => {
+      const value = ref(new Date(2024, 0, 1, 10, 20, 30))
+      const wrapper = mount(DatePicker, {
+        props: {
+          type: 'datetime',
+          modelValue: value.value,
+          'onUpdate:modelValue': (val: any) => (value.value = val),
+          panelOnly: true
+        }
+      })
+      await nextTick()
+
+      // Should render footer time selector selects
+      const footerTime = wrapper.find('.yh-date-picker__footer-time')
+      expect(footerTime.exists()).toBe(true)
+      const selects = footerTime.findAll('select')
+      expect(selects.length).toBe(3) // hour, minute, second
+
+      // Check default values parsed
+      expect(selects[0].element.value).toBe('10')
+      expect(selects[1].element.value).toBe('20')
+      expect(selects[2].element.value).toBe('30')
+
+      // Changing hours should emit updated datetime
+      await selects[0].setValue('15')
+      await nextTick()
+      expect(value.value.getHours()).toBe(15)
+      expect(value.value.getMinutes()).toBe(20)
+      expect(value.value.getSeconds()).toBe(30)
+
+      // Clicking date table should keep panel open (or not close if not panelOnly, here panelOnly is true)
+      const cell = wrapper.find('.yh-date-picker__cell.is-current-month')
+      await cell.trigger('click')
+      await nextTick()
+      expect(value.value.getHours()).toBe(15) // time persists
+    })
+
+    it('should support datetimerange mode', async () => {
+      const start = new Date(2024, 0, 1, 9, 0, 0)
+      const end = new Date(2024, 0, 2, 18, 0, 0)
+      const value = ref<[any, any]>([start, end])
+      const wrapper = mount(DatePicker, {
+        props: {
+          type: 'datetimerange',
+          modelValue: value.value,
+          'onUpdate:modelValue': (val: any) => (value.value = val),
+          panelOnly: true
+        }
+      })
+      await nextTick()
+
+      // Should render two time selector rows in range
+      const rangeWrapper = wrapper.find('.yh-date-picker__footer-time-range')
+      expect(rangeWrapper.exists()).toBe(true)
+      const timeRows = rangeWrapper.findAll('.yh-date-picker__footer-time')
+      expect(timeRows.length).toBe(2)
+
+      const startSelects = timeRows[0].findAll('select')
+      const endSelects = timeRows[1].findAll('select')
+
+      expect(startSelects[0].element.value).toBe('9')
+      expect(endSelects[0].element.value).toBe('18')
+
+      // Change start hour
+      await startSelects[0].setValue('11')
+      await nextTick()
+      expect(value.value[0].getHours()).toBe(11)
+
+      // Change end hour
+      await endSelects[0].setValue('23')
+      await nextTick()
+      expect(value.value[1].getHours()).toBe(23)
     })
   })
 })

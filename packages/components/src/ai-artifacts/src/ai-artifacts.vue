@@ -113,21 +113,42 @@ const selectVersion = (v: ArtifactVersion) => {
   emit('version-change', v)
 }
 
-const sandboxSrc = computed(() => {
-  if (
-    !currentVersionData.value ||
-    (internalMode.value !== 'preview' && internalMode.value !== 'inline')
-  )
-    return ''
+const sandboxSrcUrl = ref('')
 
-  const content = currentVersionData.value.content
-  if (props.data?.type === 'html' && typeof window !== 'undefined') {
-    const blob = new Blob([content], { type: 'text/html' })
-    return URL.createObjectURL(blob)
+const revokeCurrentUrl = () => {
+  if (sandboxSrcUrl.value) {
+    try {
+      URL.revokeObjectURL(sandboxSrcUrl.value)
+    } catch {
+      // ignore
+    }
+    sandboxSrcUrl.value = ''
   }
+}
 
-  return ''
-})
+watch(
+  () =>
+    [
+      props.visible,
+      currentVersionData.value?.content,
+      props.data?.type,
+      internalMode.value
+    ] as const,
+  ([visible, content, type, mode]) => {
+    revokeCurrentUrl()
+    if (
+      visible &&
+      content &&
+      type === 'html' &&
+      (mode === 'preview' || mode === 'inline') &&
+      typeof window !== 'undefined'
+    ) {
+      const blob = new Blob([content], { type: 'text/html' })
+      sandboxSrcUrl.value = URL.createObjectURL(blob)
+    }
+  },
+  { immediate: true }
+)
 
 const highlightedCode = computed(() => {
   let content = currentVersionData.value?.content || ''
@@ -253,6 +274,7 @@ watch(
 
 // 清理
 onBeforeUnmount(() => {
+  revokeCurrentUrl()
   if (echartsInstance.value) {
     echartsInstance.value.dispose()
     echartsInstance.value = null
@@ -337,7 +359,7 @@ const chartContainerStyle = computed(() => ({
         <template v-if="internalMode === 'preview' || internalMode === 'inline'">
           <iframe
             v-if="data?.type === 'html' || data?.type === 'sandbox'"
-            :src="sandboxSrc"
+            :src="sandboxSrcUrl"
             :class="ns.e('sandbox')"
           ></iframe>
 

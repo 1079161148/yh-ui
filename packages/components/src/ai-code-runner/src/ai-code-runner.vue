@@ -24,6 +24,8 @@ const webcontainerInstance = shallowRef<Awaited<ReturnType<typeof getWebContaine
 const isRunning = ref(false)
 const output = ref<string[]>([])
 const terminalRef = ref<HTMLElement>()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const activeProcess = shallowRef<any>(null)
 
 const terminalHeight = computed(() => {
   if (typeof props.height === 'number') {
@@ -70,6 +72,8 @@ const initWebContainer = async () => {
 const runCode = async () => {
   if (!props.code || isRunning.value) return
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let shellProcess: any = null
   try {
     if (!webcontainerInstance.value) {
       await initWebContainer()
@@ -97,12 +101,14 @@ const runCode = async () => {
     })
 
     // 2. 启动进程
-    const shellProcess = await container.spawn('node', ['index.js'])
+    shellProcess = await container.spawn('node', ['index.js'])
+    activeProcess.value = shellProcess
 
     // 监听输出流
     shellProcess.output.pipeTo(
       new WritableStream({
         write(data) {
+          if (activeProcess.value !== shellProcess) return
           // 去除 ANSI 颜色字符
           const cleanData = data.replace(/\x1b\[[0-9;]*m/g, '')
           // 分词并入栈
@@ -110,6 +116,7 @@ const runCode = async () => {
             .split('\n')
             .filter(Boolean)
             .forEach((line: string) => {
+              if (activeProcess.value !== shellProcess) return
               addOutput(line, 'log')
               emit('output', line)
             })
@@ -120,29 +127,46 @@ const runCode = async () => {
     // 3. 等待进程结束
     const exitCode = await shellProcess.exit
 
-    if (exitCode === 0) {
-      addOutput(lang.value.startsWith('zh') ? '执行完成' : 'Execution completed', 'log')
-    } else {
-      addOutput(
-        lang.value.startsWith('zh')
-          ? `执行失败，退出码: ${exitCode ?? 'unknown'}`
-          : `Execution failed, exit code: ${exitCode ?? 'unknown'}`,
-        'error'
-      )
+    if (activeProcess.value === shellProcess) {
+      if (exitCode === 0) {
+        addOutput(lang.value.startsWith('zh') ? '执行完成' : 'Execution completed', 'log')
+      } else {
+        addOutput(
+          lang.value.startsWith('zh')
+            ? `执行失败，退出码: ${exitCode ?? 'unknown'}`
+            : `Execution failed, exit code: ${exitCode ?? 'unknown'}`,
+          'error'
+        )
+      }
     }
   } catch (error) {
-    const errMsg = error instanceof Error ? error.message : String(error)
-    addOutput(
-      lang.value.startsWith('zh') ? `执行出错: ${errMsg}` : `Execution error: ${errMsg}`,
-      'error'
-    )
-    emit('error', errMsg)
+    if (activeProcess.value === shellProcess || (!shellProcess && isRunning.value)) {
+      const errMsg = error instanceof Error ? error.message : String(error)
+      addOutput(
+        lang.value.startsWith('zh') ? `执行出错: ${errMsg}` : `Execution error: ${errMsg}`,
+        'error'
+      )
+      emit('error', errMsg)
+    }
   } finally {
-    isRunning.value = false
+    if (activeProcess.value === shellProcess || (!shellProcess && isRunning.value)) {
+      isRunning.value = false
+      if (activeProcess.value === shellProcess) {
+        activeProcess.value = null
+      }
+    }
   }
 }
 
 const stopCode = () => {
+  if (activeProcess.value) {
+    try {
+      activeProcess.value.kill()
+    } catch {
+      // ignore
+    }
+    activeProcess.value = null
+  }
   isRunning.value = false
   addOutput(lang.value.startsWith('zh') ? '执行已停止' : 'Execution stopped', 'log')
   emit('stop')
@@ -168,6 +192,14 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  if (activeProcess.value) {
+    try {
+      activeProcess.value.kill()
+    } catch {
+      // ignore
+    }
+    activeProcess.value = null
+  }
   if (webcontainerInstance.value) {
     webcontainerInstance.value = null
   }

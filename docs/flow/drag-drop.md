@@ -99,11 +99,17 @@ const onDrop = (event: DragEvent) => {
   if (!rect) return
   const position = flowRef.value.screenToCanvas(event.clientX - rect.left, event.clientY - rect.top)
   
+  const labelMap: Record<string, string> = {
+    input: '输入节点',
+    default: '默认节点',
+    output: '输出节点'
+  }
+
   const newNode: Node = {
     id: getId(),
     type,
     position,
-    data: { label: \`\${type} 节点\` }
+    data: { label: labelMap[type] || \`\${type} 节点\` }
   }
   
   nodes.value.push(newNode)
@@ -197,11 +203,17 @@ const onDrop = (event: DragEvent) => {
   if (!rect) return
   const position = flowRef.value.screenToCanvas(event.clientX - rect.left, event.clientY - rect.top)
   
+  const labelMap: Record<string, string> = {
+    input: '输入节点',
+    default: '默认节点',
+    output: '输出节点'
+  }
+
   nodes.value.push({
     id: getId(),
     type,
     position,
-    data: { label: `${type} 节点` }
+    data: { label: labelMap[type] || `${type} 节点` }
   })
 }
 </script>

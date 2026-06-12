@@ -110,6 +110,31 @@ function createIconStyle(props: {
 }
 
 /**
+ * 净化 SVG 字符串，防止 XSS 注入
+ */
+function sanitizeSvg(svgContent: string): string {
+  if (!svgContent) return ''
+
+  // 1. 移除 script 标签及内容
+  let clean = svgContent.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+
+  // 2. 移除内联事件处理器 (如 onload, onclick, onmouseover 等)
+  clean = clean.replace(/\son[a-z]+\s*=\s*(['"][^'"]*['"]|[^\s>]+)/gi, '')
+
+  // 3. 移除 href 或 xlink:href 中的 javascript: 伪协议
+  clean = clean.replace(/href\s*=\s*(['"]javascript:[^'"]*['"]|javascript:[^\s>]+)/gi, '')
+  clean = clean.replace(/xlink:href\s*=\s*(['"]javascript:[^'"]*['"]|javascript:[^\s>]+)/gi, '')
+
+  // 4. 移除 data: 协议的恶意 html/svg/executables
+  clean = clean.replace(
+    /(?:href|src|xlink:href)\s*=\s*['"]\s*(?:data:(?:text\/html|image\/svg\+xml;utf8|image\/svg\+xml;base64)|javascript|vbscript):[^'"]*['"]/gi,
+    ''
+  )
+
+  return clean
+}
+
+/**
  * YhIcon Vue 组件
  * 保持与 @yh-ui/components 的 YhIcon 组件完全兼容
  */
@@ -230,7 +255,7 @@ export const YhIcon = defineComponent({
           viewBox: '0 0 24 24',
           xmlns: 'http://www.w3.org/2000/svg',
           'aria-hidden': 'true',
-          innerHTML: props.svg,
+          innerHTML: sanitizeSvg(props.svg),
           ...attrs
         })
       }

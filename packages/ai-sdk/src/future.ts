@@ -649,6 +649,60 @@ export function createRAGSystem(config: RAGConfig) {
   // 模拟向量存储
   const vectorStore = new Map<string, DocumentChunk[]>()
 
+  // 辅助函数：计算词频余弦相似度
+  const calculateSimilarity = (q: string, t: string): number => {
+    const tokenize = (str: string): string[] => {
+      const tokens: string[] = []
+      const words = str
+        .toLowerCase()
+        .split(/[\s,.<>?/;:'"[{}]|`~!@#$%^&*()_\-+=，。！？；：‘’“”【】『』]+/g)
+      for (const w of words) {
+        if (!w) continue
+        if (/[\u4e00-\u9fa5]/.test(w)) {
+          for (const char of w) {
+            tokens.push(char)
+          }
+        } else {
+          tokens.push(w)
+        }
+      }
+      return tokens
+    }
+
+    const qTokens = tokenize(q)
+    const tTokens = tokenize(t)
+
+    if (qTokens.length === 0 || tTokens.length === 0) return 0
+
+    const qMap = new Map<string, number>()
+    const tMap = new Map<string, number>()
+    const allTokens = new Set<string>()
+
+    for (const tok of qTokens) {
+      qMap.set(tok, (qMap.get(tok) || 0) + 1)
+      allTokens.add(tok)
+    }
+    for (const tok of tTokens) {
+      tMap.set(tok, (tMap.get(tok) || 0) + 1)
+      allTokens.add(tok)
+    }
+
+    let dotProduct = 0
+    let qNorm = 0
+    let tNorm = 0
+
+    for (const tok of allTokens) {
+      const qVal = qMap.get(tok) || 0
+      const tVal = tMap.get(tok) || 0
+      dotProduct += qVal * tVal
+      qNorm += qVal * qVal
+      tNorm += tVal * tVal
+    }
+
+    if (qNorm === 0 || tNorm === 0) return 0
+    return dotProduct / (Math.sqrt(qNorm) * Math.sqrt(tNorm))
+  }
+
   /**
    * 添加文档
    */
@@ -659,8 +713,7 @@ export function createRAGSystem(config: RAGConfig) {
       id: `chunk-${Date.now()}-${i}`,
       content: doc.content,
       metadata: doc.metadata || {},
-      // 简化：实际应该调用 embedding API
-      score: Math.random()
+      score: 1.0
     }))
 
     if (knowledgeBaseId) {
@@ -679,10 +732,16 @@ export function createRAGSystem(config: RAGConfig) {
 
     const chunks = vectorStore.get(knowledgeBaseId) || []
 
-    // 简化：按 score 排序
-    const sorted = [...chunks].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, k)
+    // 基于 query 计算相似度评分
+    const scoredChunks = chunks.map((chunk) => ({
+      ...chunk,
+      score: calculateSimilarity(query, chunk.content)
+    }))
 
-    return sorted.filter((c) => (c.score || 0) >= similarityThreshold)
+    // 按 score 从大到小排序
+    const sorted = [...scoredChunks].sort((a, b) => b.score - a.score).slice(0, k)
+
+    return sorted.filter((c) => c.score >= similarityThreshold)
   }
 
   /**

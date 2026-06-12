@@ -516,7 +516,15 @@ $date-picker-sizes: (
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
     box-sizing: border-box;
+
+    @include e(footer-time-range) {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
     @include e(footer-time) {
       font-weight: 700;
@@ -525,6 +533,41 @@ $date-picker-sizes: (
       padding: 6px 12px;
       background: var(--yh-date-picker-item-hover);
       border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+
+      select {
+        border: 1px solid var(--yh-date-picker-border);
+        background: var(--yh-bg-color);
+        color: var(--yh-date-picker-text-main);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 2px 6px;
+        border-radius: 6px;
+        outline: none;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+
+        &:focus {
+          border-color: var(--yh-date-picker-primary);
+          box-shadow: 0 0 0 2px var(--yh-date-picker-range-bg);
+        }
+      }
+    }
+
+    @include e(time-separator) {
+      color: var(--yh-date-picker-text-secondary);
+      font-weight: bold;
+    }
+
+    @include e(time-label) {
+      margin-right: 4px;
+      font-size: 12px;
+      color: var(--yh-date-picker-text-secondary);
     }
 
     @include e(footer-btns) {

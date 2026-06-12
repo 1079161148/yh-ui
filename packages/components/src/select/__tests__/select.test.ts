@@ -47,7 +47,7 @@ describe('YhSelect', () => {
 
     expect(created).toEqual([
       { value: 'with-label', label: 'Label', disabled: true },
-      { value: 42, label: ' ', disabled: false },
+      { value: 42, label: 'Slot label', disabled: false },
       { value: false, label: 'false', disabled: false }
     ])
 

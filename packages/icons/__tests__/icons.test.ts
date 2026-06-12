@@ -51,7 +51,7 @@ describe('Icons Package', () => {
       expect(style).toContain('width: 24px')
       expect(style).toContain('color: red')
       expect(style).toContain('transform: rotate(90deg)')
-      expect(style).toContain('animation: spin 1s linear infinite')
+      expect(wrapper.classes()).toContain('yh-icons--spin')
 
       // size as string
       const wrapper2 = mount(Icon as any, {
@@ -226,6 +226,19 @@ describe('Icons Package', () => {
     it('should render placeholder span if nothing provided', () => {
       const wrapper = mount(YhIcon)
       expect(wrapper.find('span').exists()).toBe(true)
+    })
+
+    it('should sanitize dangerous code from svg prop to prevent XSS', () => {
+      const wrapper = mount(YhIcon, {
+        props: {
+          svg: '<path d="M0 0h24v24H0z"/><script>alert("XSS")</script><g onload="alert(1)"></g><a href="javascript:alert(2)"></a>'
+        }
+      })
+      expect(wrapper.find('svg').exists()).toBe(true)
+      const html = wrapper.html()
+      expect(html).not.toContain('script')
+      expect(html).not.toContain('onload')
+      expect(html).not.toContain('javascript:')
     })
   })
 

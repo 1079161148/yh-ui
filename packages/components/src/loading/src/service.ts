@@ -185,6 +185,7 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
 
   parent.appendChild(container)
 
+  const originalOverflow = target.style.overflow
   if (resolvedOptions.lock) {
     target.style.overflow = 'hidden'
   }
@@ -205,7 +206,7 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
         }
 
         if (resolvedOptions.lock) {
-          target.style.overflow = ''
+          target.style.overflow = originalOverflow
         }
 
         window.removeEventListener('resize', syncMaskPosition)

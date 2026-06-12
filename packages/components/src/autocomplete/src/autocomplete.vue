@@ -77,6 +77,7 @@ const dropdownZIndex = ref(nextZIndex())
 const dropdownStyle = ref<Record<string, string>>({})
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
+let currentRequestId = 0
 
 // 计算属性
 const showClear = computed(
@@ -206,7 +207,11 @@ const fetchSuggestions = (query: string) => {
     visible.value = true
   }
 
+  currentRequestId++
+  const requestId = currentRequestId
+
   props.fetchSuggestions(query, (results) => {
+    if (requestId !== currentRequestId) return
     loading.value = false
     suggestions.value = results || []
     if (props.highlightFirstItem && suggestions.value.length > 0) {
@@ -243,6 +248,7 @@ const handleInput = (event: Event) => {
   if (value) {
     debouncedFetch(value)
   } else {
+    currentRequestId++
     suggestions.value = []
     visible.value = false
   }
@@ -285,6 +291,7 @@ const handleMouseLeave = () => {
 }
 
 const handleClear = () => {
+  currentRequestId++
   emit('update:modelValue', '')
   emit('change', '')
   emit('clear')

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { computed, ref, useSlots } from 'vue'
+import { computed, ref, useSlots, watch, onBeforeUnmount, nextTick } from 'vue'
 import {
   aiMentionProps,
   aiMentionEmits,
@@ -97,11 +97,21 @@ const getOptionIcon = (type?: string): string => {
 
 const asAiMentionOption = (option: unknown): AiMentionOption => option as AiMentionOption
 
-// 文件树面板位置（简化版本）
+const mentionWrapperRef = ref<HTMLElement | null>(null)
+const panelLeft = ref(0)
+const panelTop = ref(0)
+
+const updatePanelPosition = () => {
+  if (!mentionWrapperRef.value) return
+  const rect = mentionWrapperRef.value.getBoundingClientRect()
+  panelLeft.value = rect.left
+  panelTop.value = rect.bottom + 4
+}
+
 const fileTreePanelStyle = computed(() => ({
   position: 'fixed' as const,
-  top: '200px',
-  left: '100px',
+  top: `${panelTop.value}px`,
+  left: `${panelLeft.value}px`,
   width: '320px',
   maxHeight: '400px',
   zIndex: 9999
@@ -493,6 +503,25 @@ const showFileTree = computed(() => {
   return props.enableFileTree && currentFileType.value !== null && fileTreeData.value.length > 0
 })
 
+// 监听文件树面板显示状态，动态更新定位坐标，并添加 window 的滚动与大小改变监听事件
+watch(showFileTree, (val) => {
+  if (val) {
+    nextTick(() => {
+      updatePanelPosition()
+    })
+    window.addEventListener('scroll', updatePanelPosition, true)
+    window.addEventListener('resize', updatePanelPosition, true)
+  } else {
+    window.removeEventListener('scroll', updatePanelPosition, true)
+    window.removeEventListener('resize', updatePanelPosition, true)
+  }
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', updatePanelPosition, true)
+  window.removeEventListener('resize', updatePanelPosition, true)
+})
+
 const refreshFileTree = () => {
   if (currentFileType.value) {
     loadFileTree(currentFileType.value)
@@ -512,7 +541,7 @@ defineExpose<AiMentionExpose>({
 </script>
 
 <template>
-  <div :class="ns.b()" :style="themeStyle">
+  <div ref="mentionWrapperRef" :class="ns.b()" :style="themeStyle">
     <YhMention
       ref="mentionRef"
       v-bind="$attrs"

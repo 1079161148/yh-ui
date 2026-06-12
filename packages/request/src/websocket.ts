@@ -80,6 +80,16 @@ export class WebSocketClient {
   private heartbeatTimer: ReturnType<typeof setTimeout> | null = null
   private heartbeatTimeoutTimer: ReturnType<typeof setTimeout> | null = null
   private messageQueue: WebSocketData[] = []
+  private isActivelyClosed = false
+  private messageIdCounter = 0
+  private pendingRequests = new Map<
+    string,
+    {
+      resolve: (value: unknown) => void
+      reject: (reason: unknown) => void
+      timer: ReturnType<typeof setTimeout>
+    }
+  >()
 
   // 回调
   private onOpenCallback: (() => void) | null = null
@@ -158,6 +168,7 @@ export class WebSocketClient {
    * 连接
    */
   connect(): Promise<void> {
+    this.isActivelyClosed = false
     return new Promise((resolve, reject) => {
       if (!isWebSocketSupported()) {
         const error = new Error('WebSocket is not supported in this environment')
@@ -200,6 +211,7 @@ export class WebSocketClient {
    * 断开连接
    */
   disconnect(code: number = 1000, reason: string = 'Client disconnect'): void {
+    this.isActivelyClosed = true
     this.clearTimers()
     this.setState('disconnecting')
 
@@ -209,6 +221,7 @@ export class WebSocketClient {
     }
 
     this.setState('disconnected')
+    this.rejectAllPendingRequests('WebSocket disconnected: ' + reason)
   }
 
   /**
@@ -231,27 +244,22 @@ export class WebSocketClient {
    */
   sendAndWait<T = unknown>(data: unknown, timeout: number = 30000): Promise<T> {
     return new Promise((resolve, reject) => {
-      const messageId = Date.now().toString()
+      const messageId = `msg_${Date.now()}_${++this.messageIdCounter}`
 
       const timer = setTimeout(() => {
+        this.pendingRequests.delete(messageId)
         reject(new Error('WebSocket message timeout'))
       }, timeout)
 
-      // 临时监听消息
-      const originalCallback = this.onMessageCallback
-      this.onMessageCallback = (message) => {
-        const decoded = message.data as { id?: string; result?: T }
-        if (decoded && decoded.id === messageId) {
-          clearTimeout(timer)
-          this.onMessageCallback = originalCallback
-          resolve(decoded.result as T)
-        } else {
-          originalCallback?.(message)
-        }
-      }
+      this.pendingRequests.set(messageId, { resolve, reject, timer })
 
       // 发送消息带上 ID
-      this.send({ id: messageId, ...(data as object) })
+      const payload =
+        typeof data === 'object' && data !== null
+          ? { id: messageId, ...(data as object) }
+          : { id: messageId, data }
+
+      this.send(payload)
     })
   }
 
@@ -311,10 +319,15 @@ export class WebSocketClient {
     this.setState('disconnected')
 
     // 自动重连
-    if (this.options.reconnect && this.reconnectAttempts < this.options.reconnectMaxAttempts) {
+    if (
+      !this.isActivelyClosed &&
+      this.options.reconnect &&
+      this.reconnectAttempts < this.options.reconnectMaxAttempts
+    ) {
       this.reconnect()
     }
 
+    this.rejectAllPendingRequests(`WebSocket disconnected: ${event.reason || 'Closed'}`)
     this.onCloseCallback?.(event.code, event.reason)
   }
 
@@ -347,6 +360,21 @@ export class WebSocketClient {
     }
 
     this.lastMessage.value = message
+
+    // 检查是否是 pending request 的响应
+    if (data && typeof data === 'object') {
+      const decoded = data as { id?: string; result?: unknown }
+      if (decoded.id && this.pendingRequests.has(decoded.id)) {
+        const pending = this.pendingRequests.get(decoded.id)
+        if (pending) {
+          clearTimeout(pending.timer)
+          this.pendingRequests.delete(decoded.id)
+          pending.resolve(decoded.result)
+          return
+        }
+      }
+    }
+
     this.onMessageCallback?.(message)
   }
 
@@ -398,6 +426,14 @@ export class WebSocketClient {
       this.heartbeatTimer = null
     }
     this.clearHeartbeatTimeout()
+  }
+
+  private rejectAllPendingRequests(reason: string = 'WebSocket disconnected'): void {
+    for (const [, pending] of this.pendingRequests.entries()) {
+      clearTimeout(pending.timer)
+      pending.reject(new Error(reason))
+    }
+    this.pendingRequests.clear()
   }
 
   /**

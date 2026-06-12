@@ -33,8 +33,16 @@ export function useKeyboard(options: UseKeyboardOptions = {}): UseKeyboardReturn
     const key = event.key
     const ctrl = event.ctrlKey || event.metaKey
 
+    const target = event.target as HTMLElement | null
+    const isEditable =
+      target &&
+      (target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.tagName === 'SELECT' ||
+        target.isContentEditable === true)
+
     // Delete / Backspace - 删除选中
-    if ((key === 'Delete' || key === 'Backspace') && !event.target?.toString().includes('Input')) {
+    if ((key === 'Delete' || key === 'Backspace') && !isEditable) {
       event.preventDefault()
       onDelete?.()
     }

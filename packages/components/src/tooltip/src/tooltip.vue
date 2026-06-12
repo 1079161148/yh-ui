@@ -299,6 +299,14 @@ onMounted(() => {
 
 onUnmounted(() => {
   stopAutoUpdate()
+  if (showTimer) {
+    clearTimeout(showTimer)
+    showTimer = null
+  }
+  if (hideTimer) {
+    clearTimeout(hideTimer)
+    hideTimer = null
+  }
   if (typeof window !== 'undefined') {
     window.removeEventListener('mousemove', handleMouseMove)
   }

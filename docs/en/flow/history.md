@@ -123,11 +123,40 @@ const saveSnapAct = (desc?: string) => flowRef.value?.saveSnapshot?.(desc)
 
 ## Quick Start
 
+You can enable history management in two ways:
+
+### Method 1: Enable via Component Props (Recommended & Simplest)
+
+You can set the `history` and `max-history` props directly on the `<yh-flow>` component. The component automatically registers and manages the history plugin internally, including keyboard shortcuts.
+
+```vue
+<template>
+  <yh-flow ref="flowRef" :history="true" :max-history="100" @history-change="handleHistoryChange" />
+</template>
+
+<script setup lang="ts">
+const flowRef = ref()
+
+const handleHistoryChange = ({ canUndo, canRedo }) => {
+  console.log('Can Undo:', canUndo, 'Can Redo:', canRedo)
+}
+
+// Methods are still accessible on flowRef
+const undo = () => flowRef.value?.undo?.()
+const redo = () => flowRef.value?.redo?.()
+const saveSnapshot = () => flowRef.value?.saveSnapshot?.('Manual snapshot')
+</script>
+```
+
+### Method 2: Manual Plugin Registration (Highly Customizable)
+
+If you need advanced control or custom options, you can manually create and register the history plugin:
+
 ```typescript
 import { createHistoryPlugin } from '@yh-ui/flow'
 
 onMounted(() => {
-  // 1. Create and install plugin
+  // 1. Create and install the history plugin
   const plugin = createHistoryPlugin({
     maxHistory: 100, // Keep up to 100 steps
     enableKeyboard: true, // Bind Ctrl+Z / Ctrl+Y
@@ -136,21 +165,15 @@ onMounted(() => {
     }
   })
   flowRef.value?.usePlugin(plugin)
-
-  // 2. Once installed, manually save snapshot on user actions
 })
 
-// 3. Call this on drag end, node connect, or delete
-const handleDragEnd = () => flowRef.value?.saveSnapshot?.('Drag node')
-
-// 4. Undo / Redo programmatically
+// 2. Undo / Redo programmatically
 const undo = () => flowRef.value?.undo?.()
 const redo = () => flowRef.value?.redo?.()
 ```
 
 > [!IMPORTANT]
-> `saveSnapshot`, `undo`, `redo` methods are **dynamically mounted** to `flowRef.value` only **after `usePlugin`** is called.
-> Only call these methods within or after the `onMounted` hook.
+> Whichever method you choose, the extended methods `saveSnapshot`, `undo`, `redo`, etc., are **dynamically mounted** to `flowRef.value` only **after the component/plugin is loaded and ready**. Ensure you call them inside `onMounted` or event/action callbacks.
 
 ## Basic Usage Demo
 

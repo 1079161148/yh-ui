@@ -45,7 +45,34 @@ const registerPane = (pane: TabPaneConfig) => {
 const unregisterPane = (name: string) => {
   const index = panes.value.findIndex((p) => p.name === name)
   if (index > -1) {
+    const isCurrentActive = activeTab.value === name
     panes.value.splice(index, 1)
+
+    if (isCurrentActive) {
+      let nextActivePane = panes.value[index]
+      if (!nextActivePane || nextActivePane.disabled) {
+        for (let i = index - 1; i >= 0; i--) {
+          if (!panes.value[i].disabled) {
+            nextActivePane = panes.value[i]
+            break
+          }
+        }
+      }
+      if (!nextActivePane || nextActivePane.disabled) {
+        for (let i = index; i < panes.value.length; i++) {
+          if (!panes.value[i].disabled) {
+            nextActivePane = panes.value[i]
+            break
+          }
+        }
+      }
+
+      const newName = nextActivePane ? nextActivePane.name : ''
+      activeTab.value = newName
+      emit('update:modelValue', newName)
+      emit('tab-change', newName)
+      nextTick(updateIndicator)
+    }
   }
 }
 

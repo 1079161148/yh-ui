@@ -5,6 +5,7 @@ import {
   watch,
   onMounted,
   onUnmounted,
+  getCurrentInstance,
   type Ref,
   type ComputedRef,
   type ShallowRef
@@ -31,7 +32,9 @@ export interface UseRequestOptions<
   /** 请求实例 */
   request?: Request
   /** 请求函数 */
-  service?: (...args: TParams) => Promise<RequestResponse<TData>>
+  service?: (
+    ...args: [...TParams, { signal?: AbortSignal }?] | unknown[]
+  ) => Promise<RequestResponse<TData>>
   /** 格式化返回数据 */
   formatResult?: (response: RequestResponse<TData>) => TData
   /** 成功回调 */
@@ -129,6 +132,17 @@ function setCache<T>(key: string, value: T, cacheTime?: number): void {
   globalCache.set(key, { data: value, expireTime })
 }
 
+function getCache<T>(key: string): T | undefined {
+  const cached = globalCache.get(key)
+  if (cached) {
+    if (Date.now() < cached.expireTime) {
+      return cached.data as T
+    }
+    globalCache.delete(key)
+  }
+  return undefined
+}
+
 // ==================== 核心 Hook ====================
 
 /**
@@ -209,7 +223,8 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
 
     try {
       // 执行请求
-      const response = await service(...runParams)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const response = await service(...runParams, { signal: abortController.signal } as any)
 
       // 检查是否被取消
       if (currentRunCount !== runCount.value) {
@@ -268,10 +283,12 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
 
   // 取消请求
   const cancel = () => {
+    runCount.value++
     if (abortController) {
       abortController.abort()
       abortController = null
     }
+    cancelFn?.()
     loading.value = false
   }
 
@@ -373,12 +390,13 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
  */
 export function useRequestSWR<TData = unknown>(
   cacheKey: string | (() => string),
-  service: (key: string) => Promise<RequestResponse<TData>>,
+  service: (key: string, options?: { signal?: AbortSignal }) => Promise<RequestResponse<TData>>,
   options: UseRequestSWROptions<TData, [string]> = {}
 ): UseRequestReturn<TData, [string]> {
   const {
     cacheTime = 10 * 60 * 1000,
     setCache: customSetCache,
+    getCache: customGetCache,
     refreshOnWindowFocus = false,
     refreshDepsWait = 1000,
     refreshDeps = [],
@@ -389,6 +407,7 @@ export function useRequestSWR<TData = unknown>(
   // 缓存操作函数
   const setCacheFn =
     customSetCache || ((key: string, value: TData) => setCache(key, value, cacheTime))
+  const getCacheFn = customGetCache || getCache
 
   // 获取缓存 key
   const getKey = () => {
@@ -397,14 +416,47 @@ export function useRequestSWR<TData = unknown>(
   }
 
   // 请求
-  const { loading, data, error, params, run, mutate, cancel, refresh, disabled } = useRequest<
-    TData,
-    [string]
-  >((key: string) => service(key), {
-    manual,
-    defaultParams: (manual ? [] : [getKey()]) as unknown as [string],
-    ...requestOptions
-  })
+  const {
+    loading,
+    data,
+    error,
+    params,
+    run: originalRun,
+    mutate,
+    cancel,
+    disabled
+  } = useRequest<TData, [string]>(
+    (key: string, options?: { signal?: AbortSignal }) => service(key, options),
+    {
+      manual,
+      defaultParams: (manual ? [] : [getKey()]) as unknown as [string],
+      ...requestOptions
+    }
+  )
+
+  // SWR: read cache and populate data on initialization
+  const initialKey = getKey()
+  if (initialKey) {
+    const cachedVal = getCacheFn(initialKey)
+    if (cachedVal !== undefined) {
+      data.value = cachedVal as TData
+    }
+  }
+
+  const swrRun = async (key: string): Promise<RequestResponse<TData>> => {
+    const cachedVal = getCacheFn(key)
+    if (cachedVal !== undefined) {
+      data.value = cachedVal as TData
+    }
+    return originalRun(key)
+  }
+
+  const swrRefresh = async (): Promise<void> => {
+    const key = params.value[0] || getKey()
+    if (key) {
+      await swrRun(key).catch(() => {})
+    }
+  }
 
   // 写入缓存
   const updateCache = (newData: TData) => {
@@ -426,22 +478,22 @@ export function useRequestSWR<TData = unknown>(
   )
 
   // 窗口聚焦重新请求
-  if (refreshOnWindowFocus && !manual) {
-    onMounted(() => {
-      const handleFocus = () => {
-        const key = getKey()
-        if (key && !loading.value) {
-          refresh()
-        }
+  if (refreshOnWindowFocus && !manual && getCurrentInstance()) {
+    const handleFocus = () => {
+      const key = getKey()
+      if (key && !loading.value) {
+        swrRefresh()
       }
+    }
 
+    onMounted(() => {
       window.addEventListener('visibilitychange', handleFocus)
       window.addEventListener('focus', handleFocus)
+    })
 
-      onUnmounted(() => {
-        window.removeEventListener('visibilitychange', handleFocus)
-        window.removeEventListener('focus', handleFocus)
-      })
+    onUnmounted(() => {
+      window.removeEventListener('visibilitychange', handleFocus)
+      window.removeEventListener('focus', handleFocus)
     })
   }
 
@@ -452,7 +504,11 @@ export function useRequestSWR<TData = unknown>(
       () => {
         const key = getKey()
         if (key) {
-          setTimeout(() => run(key).catch(() => {}), refreshDepsWait)
+          const cachedVal = getCacheFn(key)
+          if (cachedVal !== undefined) {
+            data.value = cachedVal as TData
+          }
+          setTimeout(() => swrRun(key).catch(() => {}), refreshDepsWait)
         }
       },
       { deep: true }
@@ -466,10 +522,10 @@ export function useRequestSWR<TData = unknown>(
     params,
     loadingMore: ref(false),
     noMore: ref(false),
-    run,
+    run: swrRun,
     mutate,
     cancel,
-    refresh,
+    refresh: swrRefresh,
     loadMore: async () => {
       /* no-op for SWR */ return Promise.resolve()
     },

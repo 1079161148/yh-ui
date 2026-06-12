@@ -106,6 +106,43 @@ const handleScroll = () => {
   update()
 }
 
+// 滚动监听容器与解绑逻辑
+let scrollContainer: HTMLElement | Window | null = null
+
+const removeScrollListener = () => {
+  if (scrollContainer) {
+    scrollContainer.removeEventListener('scroll', handleScroll)
+    scrollContainer = null
+  }
+}
+
+const updateTarget = () => {
+  // 仅在解绑旧 target 的 ResizeObserver
+  if (ro && target.value) {
+    ro.unobserve(target.value)
+  }
+
+  removeScrollListener()
+
+  if (props.target) {
+    const el = document.querySelector(props.target) as HTMLElement
+    target.value = el || undefined
+    if (el) {
+      scrollContainer = el
+      el.addEventListener('scroll', handleScroll, { passive: true })
+      if (ro) {
+        ro.observe(el)
+      }
+    } else {
+      console.warn(`Target not found: ${props.target}`)
+    }
+  } else {
+    target.value = undefined
+    scrollContainer = window
+    window.addEventListener('scroll', handleScroll, { passive: true })
+  }
+}
+
 // 观测系统初始化
 let io: IntersectionObserver | null = null
 let ro: ResizeObserver | null = null
@@ -133,11 +170,7 @@ const initObservers = () => {
 }
 
 onMounted(() => {
-  if (props.target) {
-    target.value = document.querySelector(props.target) as HTMLElement
-  }
-
-  window.addEventListener('scroll', handleScroll, { passive: true })
+  updateTarget()
   window.addEventListener('resize', handleScroll)
 
   initObservers()
@@ -145,7 +178,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll)
+  removeScrollListener()
   window.removeEventListener('resize', handleScroll)
   io?.disconnect()
   ro?.disconnect()
@@ -153,11 +186,19 @@ onBeforeUnmount(() => {
 
 // 监听响应式属性
 watch(
-  () => [props.offset, props.position, props.target, props.disabled],
+  () => [props.offset, props.position, props.disabled],
   () => {
     nextTick(update)
   },
   { deep: true }
+)
+
+watch(
+  () => props.target,
+  () => {
+    updateTarget()
+    nextTick(update)
+  }
 )
 
 // 样式与动画系统的统一合并

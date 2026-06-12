@@ -12,12 +12,13 @@ const demoShape = ref('round')
 const demoValue = ref(null)
 const demoTypes = [
   { value: 'date', label: 'Date' },
-  { value: 'datetime', label: 'DateTime' },
   { value: 'week', label: 'Week' },
   { value: 'month', label: 'Month' },
   { value: 'quarter', label: 'Quarter' },
   { value: 'year', label: 'Year' },
+  { value: 'datetime', label: 'Date Time' },
   { value: 'daterange', label: 'Date Range' },
+  { value: 'datetimerange', label: 'Date Time Range' },
   { value: 'monthrange', label: 'Month Range' }
 ]
 watch(demoType, () => {
@@ -123,7 +124,6 @@ const shape = ref('round')
 const value = ref(null)
 const types = [
   { value: 'date', label: 'Date' },
-  { value: 'datetime', label: 'DateTime' },
   { value: 'week', label: 'Week' },
   { value: 'month', label: 'Month' },
   { value: 'quarter', label: 'Quarter' },
@@ -244,7 +244,6 @@ const customTS = `<${_T}>
         </svg>
       </template>
     </yh-date-picker>
-    <yh-date-picker v-model="dv2" type="datetime" time-format="HH:mm:ss" placeholder="Date and time" />
     <yh-date-picker v-model="dv3" :default-value="defaultDate" placeholder="Default panel anchor" />
   </div>
 </${_T}>
@@ -253,7 +252,6 @@ const customTS = `<${_T}>
 import { ref } from 'vue'
 
 const dv1 = ref(new Date())
-const dv2 = ref(new Date())
 const dv3 = ref(null)
 const defaultDate = new Date(2025, 0, 1)
 </${_S}>`
@@ -380,7 +378,6 @@ Use slots and auxiliary props to customize icons, default panel anchoring, and d
         </svg>
       </template>
     </yh-date-picker>
-    <yh-date-picker v-model="dv2" type="datetime" time-format="HH:mm:ss" placeholder="Date and time" />
     <yh-date-picker v-model="dv3" :default-value="defaultDate" placeholder="Default panel anchor" />
   </div>
 </DemoBlock>
@@ -471,7 +468,7 @@ After installing `@yh-ui/nuxt`, `YhDatePicker` can be used directly in Nuxt 3/4 
 | Prop                      | Description                                                                                       | Type                                                                                                                                                  | Default        |
 | ------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `model-value` / `v-model` | Bound value                                                                                       | `YhDatePickerValue \| YhDatePickerRangeValue`                                                                                                         | `null`         |
-| `type`                    | Picker mode                                                                                       | `'date' \| 'datetime' \| 'year' \| 'month' \| 'week' \| 'quarter' \| 'daterange' \| 'datetimerange' \| 'monthrange' \| 'yearrange' \| 'quarterrange'` | `'date'`       |
+| `type`                    | Picker mode                                                                                       | `'date' \| 'year' \| 'month' \| 'week' \| 'quarter' \| 'datetime' \| 'daterange' \| 'datetimerange' \| 'monthrange' \| 'yearrange' \| 'quarterrange'` | `'date'`       |
 | `disabled`                | Disable the component                                                                             | `boolean`                                                                                                                                             | `false`        |
 | `readonly`                | Keep the input read-only and prevent opening the panel                                            | `boolean`                                                                                                                                             | `false`        |
 | `clearable`               | Show the clear icon when a value exists                                                           | `boolean`                                                                                                                                             | `true`         |

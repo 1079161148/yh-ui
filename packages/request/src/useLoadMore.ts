@@ -144,6 +144,7 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
   const loadData = async (isRefresh = false): Promise<void> => {
     if (loading.value || loadingMore.value) return
 
+    const requestedPage = current.value
     const isLoadMoreOp = !isRefresh
     loading.value = isLoadMoreOp ? false : true
     if (isRefresh) refreshing.value = true
@@ -169,7 +170,7 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
       // 刷新时替换，加载更多时追加
       if (isRefresh) {
         data.value = pageData
-        current.value = initialPage + 1
+        current.value = requestedPage + 1
       } else {
         const oldData = data.value
         if (Array.isArray(oldData) && Array.isArray(pageData)) {
@@ -177,7 +178,7 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
         } else {
           data.value = pageData
         }
-        current.value++
+        current.value = requestedPage + 1
       }
 
       onSuccess?.(pageData, params.value)

@@ -8,11 +8,11 @@ import type { Component, ExtractPropTypes, PropType } from 'vue'
 
 export type DatePickerType =
   | 'date'
-  | 'datetime'
   | 'year'
   | 'month'
   | 'week'
   | 'quarter'
+  | 'datetime'
   | 'daterange'
   | 'datetimerange'
   | 'monthrange'

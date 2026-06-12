@@ -268,7 +268,8 @@ const {
   isRowSelected,
   isRowSelectable
 } = useTableSelection({
-  data: tableData,
+  data: filteredData,
+  currentPageData: tableData,
   rowKey: props.rowKey,
   config: selectionConfig
 })
@@ -531,8 +532,13 @@ const handleRowClick = (row: Record<string, unknown>, column: TableColumn, event
 
   if (props.highlightCurrentRow) {
     const key = getRowKeyFn(row)
+    const oldKey = currentRowKey.value
+    const oldRow =
+      oldKey && Array.isArray(props.data)
+        ? props.data.find((r) => getRowKeyFn(r) === oldKey) || null
+        : null
     currentRowKey.value = key
-    emit('current-change', row, null)
+    emit('current-change', row, oldRow)
     emit('update:currentRowKey', key)
   }
 }
@@ -574,6 +580,20 @@ const handleHeaderClick = (column: TableColumn, event: MouseEvent) => {
   if (column.sortable) {
     handleSort(column)
   }
+}
+
+// 行右键
+const handleRowContextMenu = (
+  row: Record<string, unknown>,
+  column: TableColumn,
+  event: MouseEvent
+) => {
+  emit('row-contextmenu', row, column, event)
+}
+
+// 表头右键
+const handleHeaderContextMenu = (column: TableColumn, event: MouseEvent) => {
+  emit('header-contextmenu', column, event)
 }
 
 // 排序处理
@@ -703,6 +723,46 @@ const getRowStyle = (row: Record<string, unknown>, rowIndex: number): CSSPropert
   return props.rowStyle
 }
 
+const getHeaderRowClass = (rowIndex: number): string => {
+  const classes: string[] = [ns.e('header-row')]
+  if (props.headerRowClassName) {
+    if (typeof props.headerRowClassName === 'function') {
+      classes.push(props.headerRowClassName({ rowIndex }))
+    } else {
+      classes.push(props.headerRowClassName)
+    }
+  }
+  return classes.join(' ')
+}
+
+const getHeaderRowStyle = (rowIndex: number): CSSProperties => {
+  if (!props.headerRowStyle) return {}
+  if (typeof props.headerRowStyle === 'function') {
+    return props.headerRowStyle({ rowIndex })
+  }
+  return props.headerRowStyle
+}
+
+const getHeaderCellClass = (column: TableColumn, columnIndex: number): string => {
+  const classes: string[] = []
+  if (props.headerCellClassName) {
+    if (typeof props.headerCellClassName === 'function') {
+      classes.push(props.headerCellClassName({ column, columnIndex }))
+    } else {
+      classes.push(props.headerCellClassName)
+    }
+  }
+  return classes.join(' ')
+}
+
+const getHeaderCellStyle = (column: TableColumn, columnIndex: number): CSSProperties => {
+  if (!props.headerCellStyle) return {}
+  if (typeof props.headerCellStyle === 'function') {
+    return props.headerCellStyle({ column, columnIndex })
+  }
+  return props.headerCellStyle
+}
+
 const getCellClass = (
   row: Record<string, unknown>,
   column: TableColumn,
@@ -768,11 +828,58 @@ const getFixedStyle = (column: TableColumn, columnIndex: number): CSSProperties 
   if (column.fixed === 'left' || column.fixed === true) {
     offset = selectionWidth.value + expandWidth.value + indexWidth.value
     const prevColumns = visibleColumns.value.slice(0, columnIndex)
-    offset += prevColumns.reduce((acc, col) => acc + (parseInt(String(col.width)) || 0), 0)
+    offset += prevColumns.reduce((acc, col) => acc + getColumnMinWidth(col), 0)
     style.left = `${offset}px`
   } else if (column.fixed === 'right') {
     const nextColumns = visibleColumns.value.slice(columnIndex + 1)
-    offset = nextColumns.reduce((acc, col) => acc + (parseInt(String(col.width)) || 0), 0)
+    offset = nextColumns.reduce((acc, col) => acc + getColumnMinWidth(col), 0)
+    style.right = `${offset}px`
+  }
+
+  return style
+}
+
+const getLeafColumns = (column: TableColumn): TableColumn[] => {
+  if (!column.children || column.children.length === 0) {
+    return [column]
+  }
+  const leafCols: TableColumn[] = []
+  column.children.forEach((child) => {
+    leafCols.push(...getLeafColumns(child))
+  })
+  return leafCols
+}
+
+const getVisibleLeafColumns = (column: TableColumn): TableColumn[] => {
+  const allLeafs = getLeafColumns(column)
+  return allLeafs.filter((col) => visibleColumns.value.includes(col))
+}
+
+const getFixedStyleForHeaderCell = (column: TableColumn): CSSProperties => {
+  if (!column.fixed) return {}
+
+  const style: CSSProperties = {}
+  const visibleLeafs = getVisibleLeafColumns(column)
+  if (visibleLeafs.length === 0) return {}
+
+  const firstLeaf = visibleLeafs[0]
+  const lastLeaf = visibleLeafs[visibleLeafs.length - 1]
+
+  const firstLeafIndex = visibleColumns.value.indexOf(firstLeaf)
+  const lastLeafIndex = visibleColumns.value.indexOf(lastLeaf)
+
+  if (firstLeafIndex === -1 || lastLeafIndex === -1) return {}
+
+  let offset = 0
+
+  if (column.fixed === 'left' || column.fixed === true) {
+    offset = selectionWidth.value + expandWidth.value + indexWidth.value
+    const prevColumns = visibleColumns.value.slice(0, firstLeafIndex)
+    offset += prevColumns.reduce((acc, col) => acc + getColumnMinWidth(col), 0)
+    style.left = `${offset}px`
+  } else if (column.fixed === 'right') {
+    const nextColumns = visibleColumns.value.slice(lastLeafIndex + 1)
+    offset = nextColumns.reduce((acc, col) => acc + getColumnMinWidth(col), 0)
     style.right = `${offset}px`
   }
 
@@ -905,8 +1012,13 @@ const clearSort = () => {
   sortStates.value = []
 }
 
-const filter = (prop: string, values: unknown[]) => {
-  filterStates.value[prop] = values
+const filter = (prop: string, values: unknown) => {
+  const normalizedValues = Array.isArray(values)
+    ? values
+    : values !== undefined && values !== null
+      ? [values]
+      : []
+  filterStates.value[prop] = normalizedValues
   emit('filter-change', filterStates.value)
 }
 
@@ -923,10 +1035,13 @@ const clearFilter = (propOrProps?: string | string[]) => {
 
 const setCurrentRow = (row: Record<string, unknown> | null) => {
   const oldKey = currentRowKey.value
-  const oldRow = oldKey ? tableData.value.find((r) => getRowKeyFn(r) === oldKey) : null
+  const oldRow =
+    oldKey && Array.isArray(props.data)
+      ? props.data.find((r) => getRowKeyFn(r) === oldKey) || null
+      : null
 
   currentRowKey.value = row ? getRowKeyFn(row) : undefined
-  emit('current-change', row, oldRow || null)
+  emit('current-change', row, oldRow)
   emit('update:currentRowKey', currentRowKey.value)
 }
 
@@ -1138,7 +1253,12 @@ watch(selectedRowKeys, () => {
           <thead>
             <!-- 多级表头 -->
             <template v-if="headerRows.length > 0">
-              <tr v-for="(hRow, rowIdx) in headerRows" :key="rowIdx" :class="ns.e('header-row')">
+              <tr
+                v-for="(hRow, rowIdx) in headerRows"
+                :key="rowIdx"
+                :class="getHeaderRowClass(rowIdx)"
+                :style="getHeaderRowStyle(rowIdx)"
+              >
                 <!-- 选择列（仅第一行，跨所有行） -->
                 <th
                   v-if="selectionConfig && rowIdx === 0"
@@ -1206,16 +1326,20 @@ watch(selectedRowKeys, () => {
                       ? `is-fixed-${cell.column.fixed === true ? 'left' : cell.column.fixed}`
                       : '',
                     cell.column.children?.length ? 'is-group' : '',
-                    isColumnDraggable(cell.column) ? 'is-column-draggable' : ''
+                    isColumnDraggable(cell.column) ? 'is-column-draggable' : '',
+                    getHeaderCellClass(cell.column, cellIdx)
                   ]"
                   :style="{
                     ...cell.column.headerStyle,
+                    ...getFixedStyleForHeaderCell(cell.column),
                     textAlign:
                       cell.column.headerAlign ||
                       cell.column.align ||
-                      (cell.column.children?.length ? 'center' : 'left')
+                      (cell.column.children?.length ? 'center' : 'left'),
+                    ...getHeaderCellStyle(cell.column, cellIdx)
                   }"
                   @click="handleHeaderClick(cell.column, $event)"
+                  @contextmenu="handleHeaderContextMenu(cell.column, $event)"
                 >
                   <div :class="ns.e('cell-content')">
                     <!-- 表头前缀图标 -->
@@ -1298,7 +1422,7 @@ watch(selectedRowKeys, () => {
             </template>
 
             <!-- 单层表头（原有逻辑） -->
-            <tr v-else :class="ns.e('header-row')">
+            <tr v-else :class="getHeaderRowClass(0)" :style="getHeaderRowStyle(0)">
               <!-- 选择列 -->
               <th
                 v-if="selectionConfig"
@@ -1359,16 +1483,19 @@ watch(selectedRowKeys, () => {
                   column.sortable ? 'is-sortable' : '',
                   column.fixed ? `is-fixed-${column.fixed === true ? 'left' : column.fixed}` : '',
                   isColumnDragEnabled ? getHeaderDragClass(columnIndex) : '',
-                  isColumnDraggable(column) ? 'is-column-draggable' : ''
+                  isColumnDraggable(column) ? 'is-column-draggable' : '',
+                  getHeaderCellClass(column, columnIndex)
                 ]"
                 :style="{
                   ...column.headerStyle,
                   ...getFixedStyle(column, columnIndex),
                   width: formatSize(column.width),
-                  textAlign: column.headerAlign || column.align || 'left'
+                  textAlign: column.headerAlign || column.align || 'left',
+                  ...getHeaderCellStyle(column, columnIndex)
                 }"
                 v-bind="getHeaderDragAttrs(column, columnIndex)"
                 @click="handleHeaderClick(column, $event)"
+                @contextmenu="handleHeaderContextMenu(column, $event)"
               >
                 <div :class="ns.e('cell-content')">
                   <!-- 表头前缀图标 -->
@@ -1510,6 +1637,7 @@ watch(selectedRowKeys, () => {
                 v-bind="getRowDragAttrs(rowIndex)"
                 @click="handleRowClick(row, visibleColumns[0], $event)"
                 @dblclick="handleRowDblclick(row, visibleColumns[0], $event)"
+                @contextmenu="handleRowContextMenu(row, visibleColumns[0], $event)"
               >
                 <!-- 选择列 -->
                 <td

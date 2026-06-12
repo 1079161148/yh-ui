@@ -45,7 +45,7 @@ const {
 interface QueueTask<T = unknown> {
   id: string
   key?: string // Task deduplication key
-  task: () => Promise<T> // Actual execution function
+  task: (signal: AbortSignal) => Promise<T> // Actual execution function, receives AbortSignal for true cancellation/interruption
   priority?: number // Priority (higher number executes first)
   status: 'pending' | 'running' | 'fulfilled' | 'rejected' | 'canceled'
   result?: T
@@ -63,8 +63,8 @@ interface QueueTask<T = unknown> {
 ```typescript
 // Add a request task
 const taskId = add(
-  async () => {
-    const res = await request.get('/api/report/1')
+  async (signal) => {
+    const res = await request.get('/api/report/1', { signal })
     return res.data
   },
   {
