@@ -4,6 +4,22 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.53] - 2026-06-12
+
+> 修复了 MCPClient 客户端复用、ESM 兼容性导入、SSR 环境下 `localStorage` 判定、`XRequest()` 请求失败判定等多项核心 Bug，并优化了 AI 技能包规则以杜绝 AI 乱写。
+
+### Changed
+
+- **ai-sdk**: MCP 客户端调用机制重构，命中工具后复用已连接的客户端实例，避免重复创建未连接的客户端导致 `not connected` 报错。
+- **ai-sdk**: 对 ESM 兼容导入方案进行重构，将 `child_process` 引用适配 Node 环境分流，避免在 Node ESM 消费端崩溃。
+- **skills**: 升级并进化了 `yh-ui` 的技能系统，融合最佳实践，强制使用 TS/SCSS 编写，严格规范组件参数和事件，防止 AI 瞎编属性。
+
+### Fixed
+
+- **ai-sdk**: 修复 `useConversation` 和 `useConversations` 持久化逻辑在 SSR/SSG 阶段触发 `localStorage is not defined` 的问题。
+- **request**: 修复 `XRequest()` 对非 2xx 响应处理不当的问题，在解析 JSON 前增加 `response.ok` 判断，确保失败响应正确触发错误/重试分支。
+- **flow**: 修复了 Flow 画布恢复功能和基础拖放示例的节点名称映射等细节问题，并修复了 `Flow.vue` 等组件的 `any` 声明和未使用变量警告。
+
 ## [1.0.52] - 2026-06-11
 
 > 修复消费端反馈的多项国际化、组件样式及流程图渲染 Bug，补全了全量组件的灵活自定义 Placeholder 及多语言配置。
