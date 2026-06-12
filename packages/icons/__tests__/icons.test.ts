@@ -69,8 +69,10 @@ describe('Icons Package', () => {
       expect(wrapper.find('svg').attributes('style')).toBeUndefined()
     })
 
-    it('iconExists should return boolean', async () => {
-      expect(await iconExists('mdi:home')).toBe(true)
+    it('iconExists should return boolean indicating existence', async () => {
+      expect(await iconExists('mdi:cached')).toBe(true)
+      expect(await iconExists('mdi:exists')).toBe(true)
+      expect(await iconExists('mdi:nonexistent')).toBe(false)
     })
 
     it('iconExists should return false when parse throws', async () => {

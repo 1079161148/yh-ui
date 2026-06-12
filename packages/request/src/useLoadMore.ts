@@ -141,10 +141,9 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
   const loadService = loadMoreService || service
 
   // 加载数据
-  const loadData = async (isRefresh = false): Promise<void> => {
+  const loadData = async (requestedPage: number, isRefresh = false): Promise<void> => {
     if (loading.value || loadingMore.value) return
 
-    const requestedPage = current.value
     const isLoadMoreOp = !isRefresh
     loading.value = isLoadMoreOp ? false : true
     if (isRefresh) refreshing.value = true
@@ -154,7 +153,7 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
 
     try {
       const extraParams = params.value.slice(2) as TParams
-      const response = await loadService(current.value, pageSize.value, ...extraParams)
+      const response = await loadService(requestedPage, pageSize.value, ...extraParams)
       const pageData = response.data
 
       // 尝试提取总数
@@ -170,7 +169,6 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
       // 刷新时替换，加载更多时追加
       if (isRefresh) {
         data.value = pageData
-        current.value = requestedPage + 1
       } else {
         const oldData = data.value
         if (Array.isArray(oldData) && Array.isArray(pageData)) {
@@ -178,8 +176,8 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
         } else {
           data.value = pageData
         }
-        current.value = requestedPage + 1
       }
+      current.value = requestedPage
 
       onSuccess?.(pageData, params.value)
     } catch (err) {
@@ -196,13 +194,12 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
   // 加载更多
   const loadMore = async (): Promise<void> => {
     if (noMore.value || loadingMore.value) return
-    await loadData(false)
+    await loadData(current.value + 1, false)
   }
 
   // 重新加载
   const reload = async (): Promise<void> => {
-    current.value = initialPage
-    await loadData(true)
+    await loadData(initialPage, true)
   }
 
   // 刷新
@@ -213,8 +210,8 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
   // 分页方法
   const pagination = {
     loadPage: async (page: number): Promise<void> => {
-      current.value = page
-      await loadData(true)
+      if (page < 1 || (totalPages.value > 0 && page > totalPages.value)) return
+      await loadData(page, true)
     },
     nextPage: loadMore,
     prevPage: async (): Promise<void> => {
@@ -238,7 +235,7 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
   // 自动加载
   if (!manual) {
     onMounted(() => {
-      loadData()
+      loadData(current.value, false)
     })
   }
 

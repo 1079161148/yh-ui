@@ -170,8 +170,13 @@ export function parseIconName(name: string): string {
 export async function iconExists(name: string): Promise<boolean> {
   try {
     const parsedName = parseIconName(name)
-    // Iconify 会自动处理加载，这里简单返回 true
-    return !!parsedName
+    // 先检查缓存是否存在
+    if (getIcon(parsedName)) {
+      return true
+    }
+    // 异步加载并判断是否存在
+    const iconData = await loadIcon(parsedName)
+    return !!iconData
   } catch {
     return false
   }

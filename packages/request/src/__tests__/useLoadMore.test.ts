@@ -46,9 +46,9 @@ describe('useLoadMore', () => {
     expect(mockService).toHaveBeenCalledWith(1, 10)
     expect(total.value).toBe(30)
     expect(totalPages.value).toBe(3)
-    // When using reload/refresh, data is replaced and current becomes initial + 1
+    // When using reload/refresh, data is replaced and current becomes the loaded page (initialPage = 1)
     expect(data.value).toEqual({ total: 30, items: [1, 2, 3] })
-    expect(current.value).toBe(2)
+    expect(current.value).toBe(1)
   })
 
   it('should append data correctly when loadMore is called', async () => {
@@ -62,13 +62,13 @@ describe('useLoadMore', () => {
 
     const { reload, loadMore, data, current } = useLoadMore(mockService as any, { manual: true })
 
-    await reload() // Fetches page 1, data is [1], current becomes 2
+    await reload() // Fetches page 1, data is [1], current is 1
     expect(data.value).toEqual([1])
-    expect(current.value).toBe(2)
+    expect(current.value).toBe(1)
 
-    await loadMore() // Fetches page 2, data is [1, 2], current becomes 3
+    await loadMore() // Fetches page 2, data is [1, 2], current becomes 2
     expect(data.value).toEqual([1, 2])
-    expect(current.value).toBe(3)
+    expect(current.value).toBe(2)
   })
 
   it('noMore state works correctly based on totalPages', async () => {
@@ -78,8 +78,12 @@ describe('useLoadMore', () => {
       pageSize: 10
     })
 
-    await reload() // current becomes 2
+    await reload() // Fetches page 1, current is 1
     expect(totalPages.value).toBe(2)
+    expect(noMore.value).toBe(false)
+    expect(canLoadMore.value).toBe(true)
+
+    await loadMore() // Fetches page 2, current becomes 2
     expect(noMore.value).toBe(true) // current (2) >= totalPages (2)
     expect(canLoadMore.value).toBe(false)
 
