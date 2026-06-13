@@ -1,6 +1,6 @@
 {
   "name": "yh-ui-monorepo",
-  "version": "1.0.53",
+  "version": "1.0.54",
   "private": true,
   "description": "YH-UI - A Modern Vue 3 Component Library",
   "type": "module",
@@ -80,7 +80,7 @@
     "verify:prepush": "node scripts/pre-push.mjs",
     "verify:prepush:full": "pnpm format:check && pnpm typecheck && pnpm lint && pnpm test:ci && pnpm build && pnpm verify:package-size && pnpm verify:component-quality && pnpm verify:consumer-smoke && pnpm verify:playgrounds && pnpm verify:docs-i18n && pnpm verify:docs",
     "verify:release": "pnpm build && pnpm verify:package-size && pnpm verify:release-versions && pnpm verify:packed-manifests && pnpm changelog:check && pnpm verify:component-quality && pnpm verify:consumer-smoke && pnpm verify:playgrounds && pnpm docs:build && pnpm verify:docs-i18n && pnpm verify:stackblitz-local && pnpm verify:docs-sandboxes && pnpm verify:codesandbox-local && pnpm verify:docs-playground",
-    "release": "pnpm typecheck && pnpm lint && pnpm test:ci && bumpp package.json packages/*/package.json --execute \"node scripts/sync-yh-ui-skill-assets.mjs && pnpm changelog:prepare && pnpm changelog:check\" --commit \"chore(release): v%s\" --push --tag",
+    "release": "pnpm typecheck && pnpm lint && pnpm test:ci && bumpp package.json packages/*/package.json -a --execute \"node scripts/sync-yh-ui-skill-assets.mjs && pnpm changelog:prepare && pnpm changelog:check\" --commit \"chore(release): v%s\" --push --tag",
     "publish:all": "node scripts/publish-unpublished-packages.mjs",
     "wait:published-packages": "node scripts/wait-for-published-packages.mjs"
   },
