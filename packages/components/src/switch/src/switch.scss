@@ -78,7 +78,7 @@
 
       @include e(inner-text) {
         font-size: 12px;
-        color: #fff;
+        color: var(--yh-color-primary-text, #fff);
         white-space: nowrap;
         user-select: none;
       }

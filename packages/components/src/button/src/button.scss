@@ -19,10 +19,10 @@ $button-sizes: (
 /* 基础类型混入 */
 @mixin button-variant($type-color) {
   --yh-button-bg-color: var(--yh-color-#{$type-color});
-  --yh-button-text-color: var(--yh-color-white, #ffffff);
+  --yh-button-text-color: var(--yh-color-#{$type-color}-text, var(--yh-color-white, #ffffff));
   --yh-button-border-color: var(--yh-color-#{$type-color});
   --yh-button-hover-bg-color: var(--yh-color-#{$type-color}-light-3);
-  --yh-button-hover-text-color: var(--yh-color-white, #ffffff);
+  --yh-button-hover-text-color: var(--yh-color-#{$type-color}-text, var(--yh-color-white, #ffffff));
   --yh-button-hover-border-color: var(--yh-color-#{$type-color}-light-3);
   --yh-button-active-bg-color: var(--yh-color-#{$type-color}-dark-2);
   --yh-button-active-border-color: var(--yh-color-#{$type-color}-dark-2);

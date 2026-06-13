@@ -68,7 +68,8 @@
     "echarts": ">=5.0.0",
     "highlight.js": ">=11.0.0",
     "mermaid": ">=11.0.0",
-    "@langchain/core": ">=0.3.0"
+    "@langchain/core": ">=0.3.0",
+    "html-to-image": ">=1.11.0"
   },
   "peerDependenciesMeta": {
     "monaco-editor": {
@@ -102,6 +103,9 @@
       "optional": true
     },
     "@langchain/core": {
+      "optional": true
+    },
+    "html-to-image": {
       "optional": true
     }
   },

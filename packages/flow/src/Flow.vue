@@ -120,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, useId } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount, shallowRef, useId, toRaw } from 'vue'
 // 添加全局版本属性用于调试
 declare global {
   interface Window {
@@ -1196,20 +1196,22 @@ pluginManager.init(flowInstance)
 // 暴露实例给 ref，使文档中 flowRef.value.fitView / screenToCanvas / $el 等可用
 defineExpose(flowInstance)
 
-// Watch for changes（拖拽中不覆盖 nodesRef，避免父组件未使用 v-model:nodes 时拖拽位置被还原）
 watch(
   () => props.nodes,
-  (newNodes) => {
-    if (draggingNodeId.value) return
-    nodesRef.value = newNodes || []
+  (nodes) => {
+    if (toRaw(nodesRef.value) !== toRaw(nodes)) {
+      nodesRef.value = nodes
+    }
   },
   { deep: true }
 )
 
 watch(
   () => props.edges,
-  (newEdges) => {
-    edgesRef.value = newEdges || []
+  (edges) => {
+    if (toRaw(edgesRef.value) !== toRaw(edges)) {
+      edgesRef.value = edges
+    }
   },
   { deep: true }
 )

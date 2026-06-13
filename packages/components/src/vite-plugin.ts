@@ -103,6 +103,9 @@ export function YhUIVitePlugin(options: YhUIVitePluginOptions = {}): Plugin {
       }
 
       return {
+        resolve: {
+          alias: [{ find: /^dayjs$/, replacement: 'dayjs/dayjs.js' }]
+        },
         optimizeDeps: {
           // 强制 Vite 将 dayjs 及其 CJS 插件预构建为 ESM，解决 pnpm 严格模式下的 404 和
           // "does not provide an export named 'default'" 报错。

@@ -30,8 +30,8 @@ yarn add @yh-ui/yh-ui
 
 :::
 
-::: tip 可选重型依赖提醒
-`monaco-editor`、`xlsx`、`viewerjs`、`markdown-it` 当前已作为可选 `peerDependencies` 提供。仅安装 `@yh-ui/yh-ui` 时，消费端不会被强制额外下载这些重型运行时；只有在你实际使用代码编辑、Excel 导入导出、高级图片预览、Markdown 渲染等能力时，才需要由宿主项目自行安装对应依赖。完整说明见 [包体积分层](/guide/package-size)。
+::: tip 可选第三方依赖提醒
+`monaco-editor`、`xlsx`、`viewerjs`、`markdown-it`、`echarts`、`html-to-image` 以及流程图布局引擎等依赖当前已作为可选的 `peerDependencies` 提供。宿主项目在安装 `@yh-ui/yh-ui` 时不会被强制下载这些额外的重型库，只有当您在应用中启用图表、流程图编辑器、代码编辑器、Excel 导入导出等高级功能时，才需按需安装对应依赖。详细情况与映射见 [包体积分层](/guide/package-size)。
 :::
 
 ## 浏览器项目接入

@@ -450,6 +450,9 @@ importers:
       elkjs:
         specifier: '>=0.9.0'
         version: 0.11.1
+      html-to-image:
+        specifier: '>=1.11.0'
+        version: 1.11.13
     devDependencies:
       vue:
         specifier: ^3.5.27
@@ -593,6 +596,9 @@ importers:
       highlight.js:
         specifier: '>=11.0.0'
         version: 11.11.1
+      html-to-image:
+        specifier: '>=1.11.0'
+        version: 1.11.13
       markdown-it:
         specifier: ^14.1.1
         version: 14.2.0

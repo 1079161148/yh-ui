@@ -14,7 +14,11 @@
   >
     <defs>
       <!-- Dynamic masks to create a true gap in the line behind the label -->
-      <mask v-for="ed in edgeData" :key="`mask-${ed.edge.id}`" :id="getMaskId(ed.edge.id)">
+      <mask
+        v-for="ed in edgeData.filter((e) => e.edge.label)"
+        :key="`mask-${ed.edge.id}`"
+        :id="getMaskId(ed.edge.id)"
+      >
         <rect x="-5000" y="-5000" width="10000" height="10000" fill="white" />
         <rect
           :x="ed.labelX - ed.labelWidth / 2 - 4"
@@ -58,14 +62,30 @@
             style="cursor: pointer; pointer-events: all"
           />
 
-          <!-- Visible Path -->
+          <!-- Visible Path with Mask (when label exists) -->
           <path
+            v-if="ed.edge.label"
             :d="ed.path"
             :stroke="ed.stroke"
             :stroke-width="ed.strokeWidth"
             fill="none"
             :class="{ 'yh-flow-edge-path': true, 'is-animated': ed.edge.animated }"
-            :mask="ed.edge.label ? `url(#${getMaskId(ed.edge.id)})` : undefined"
+            :mask="`url(#${getMaskId(ed.edge.id)})`"
+            :style="{
+              pointerEvents: 'none',
+              transition: 'stroke 0.2s, stroke-width 0.2s',
+              stroke: ed.stroke
+            }"
+          />
+
+          <!-- Visible Path without Mask (when no label exists) -->
+          <path
+            v-else
+            :d="ed.path"
+            :stroke="ed.stroke"
+            :stroke-width="ed.strokeWidth"
+            fill="none"
+            :class="{ 'yh-flow-edge-path': true, 'is-animated': ed.edge.animated }"
             :style="{
               pointerEvents: 'none',
               transition: 'stroke 0.2s, stroke-width 0.2s',
@@ -161,6 +181,12 @@ const getLabelStyle = (edge?: Edge): Record<string, string | number> => {
 }
 
 const edgeData = computed(() => {
+  console.log(
+    'EdgeRenderer computed edgeData running. Nodes count:',
+    props.nodes.length,
+    'Node 1 pos:',
+    props.nodes.find((n) => n.id === '1')?.position
+  )
   const result = []
   for (const edge of props.edges) {
     if (!edge || edge.hidden) continue

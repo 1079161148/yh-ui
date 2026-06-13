@@ -60,6 +60,14 @@ describe('Theme System Comprehensive', () => {
     expect(theme.dark).toBe(false)
   })
 
+  it('应该生成高对比度文本颜色变量', () => {
+    theme.setThemeColor('#ffffff') // pure white, contrast text should be black
+    expect(theme.getCssVar('--yh-color-primary-text')).toBe('#000000')
+
+    theme.setThemeColor('#000000') // pure black, contrast text should be white
+    expect(theme.getCssVar('--yh-color-primary-text')).toBe('#ffffff')
+  })
+
   it('应该覆盖 ThemeManager 的各种别名方法和 Getter', () => {
     theme.setThemePreset('purple')
     expect(theme.theme).toBe('purple')

@@ -94,6 +94,35 @@ context.setModel({ model: 'gpt-4o', temperature: 0.8 })
 console.log(context.sessionId) // 'user-session-123'
 ```
 
+## useAIChat - AI Chat Hook (Enhanced)
+
+Manage AI chat state with support for streaming, tool calling, local fallback on error, and message resend/recovery.
+
+```typescript
+import { useAIChat } from '@yh-ui/ai-sdk'
+
+const {
+  messages,
+  input,
+  isLoading,
+  error,
+  sendMessage,
+  resend // Resend the last user message
+} = useAIChat({
+  api: '/api/chat',
+  enableFallback: true, // Enable local fallback when backend is unavailable
+  fallbackContent: 'Sorry, the system is temporarily unavailable. Please try again later.' // Custom fallback text
+})
+```
+
+### API
+
+| Property/Method   | Type                  | Description                                                                 |
+| ----------------- | --------------------- | --------------------------------------------------------------------------- |
+| `enableFallback`  | `boolean`             | Whether to enable local fallback content (default: `false`)                 |
+| `fallbackContent` | `string`              | Local fallback reply text (default: `'抱歉，服务暂时不可用，请稍后再试。'`) |
+| `resend()`        | `() => Promise<void>` | Discards the last failed reply/messages and resends the last user input     |
+
 ## Integration with YH-UI Components
 
 `@yh-ui/ai-sdk` can work with YH-UI AI components (such as `yh-ai-bubble`):

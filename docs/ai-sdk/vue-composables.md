@@ -94,6 +94,35 @@ context.setModel({ model: 'gpt-4o', temperature: 0.8 })
 console.log(context.sessionId) // 'user-session-123'
 ```
 
+## useAIChat - AI 对话 Hook (增强版)
+
+管理 AI 对话状态，支持流式传输、工具调用、本地错误兜底降级与消息重试恢复。
+
+```typescript
+import { useAIChat } from '@yh-ui/ai-sdk'
+
+const {
+  messages,
+  input,
+  isLoading,
+  error,
+  sendMessage,
+  resend // 重新发送最后一条用户消息
+} = useAIChat({
+  api: '/api/chat',
+  enableFallback: true, // 后端不可用时，启用本地自动兜底
+  fallbackContent: '抱歉，系统暂时无法服务，请稍后再试。' // 自定义兜底文本
+})
+```
+
+### API
+
+| 属性/方法         | 类型                  | 说明                                                            |
+| ----------------- | --------------------- | --------------------------------------------------------------- |
+| `enableFallback`  | `boolean`             | 是否启用本地兜底内容（默认 `false`）                            |
+| `fallbackContent` | `string`              | 本地兜底回复文本（默认 `'抱歉，服务暂时不可用，请稍后再试。'`） |
+| `resend()`        | `() => Promise<void>` | 丢弃上次失败的回复和消息，重新发送最后一条用户输入              |
+
 ## 与 YH-UI 组件配合
 
 `@yh-ui/ai-sdk` 可与 YH-UI 的 AI 组件（如 `yh-ai-bubble`）配合：

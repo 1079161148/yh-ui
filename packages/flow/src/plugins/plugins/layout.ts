@@ -101,8 +101,19 @@ async function applyDagreLayout(
   edges: Edge[],
   options: Required<LayoutOptions>
 ): Promise<{ nodes: Node[]; edges: Edge[] }> {
-  // 动态导入 dagre，直接使用字面量可让 Vite 开发环境正确解析和执行 pre-bundle
-  const dagreLib: unknown = await import('dagre')
+  let dagreLib: unknown
+  try {
+    dagreLib = await import(/* @vite-ignore */ 'dagre')
+  } catch {
+    throw new Error(
+      '[YH-UI Flow] Layout engine "dagre" is not installed. Please install "dagre" to use the dagre layout algorithm.'
+    )
+  }
+  if (!dagreLib) {
+    throw new Error(
+      '[YH-UI Flow] Layout engine "dagre" is not installed. Please install "dagre" to use the dagre layout algorithm.'
+    )
+  }
   const dagre = ((dagreLib as Record<string, unknown>).default || dagreLib) as {
     graphlib: GraphLib
     layout: (g: Graph) => void
@@ -168,9 +179,21 @@ async function applyElkLayout(
 
   let elkLib: unknown
   try {
-    elkLib = await import(/* @vite-ignore */ bundledPath)
+    try {
+      elkLib = await import(/* @vite-ignore */ bundledPath)
+    } catch {
+      elkLib = await import(/* @vite-ignore */ elkPath)
+    }
   } catch {
-    elkLib = await import(/* @vite-ignore */ elkPath)
+    throw new Error(
+      '[YH-UI Flow] Layout engine "elkjs" is not installed. Please install "elkjs" to use the elk layout algorithm.'
+    )
+  }
+
+  if (!elkLib) {
+    throw new Error(
+      '[YH-UI Flow] Layout engine "elkjs" is not installed. Please install "elkjs" to use the elk layout algorithm.'
+    )
   }
 
   const ELK: ElkConstructor = ((elkLib as Record<string, unknown>).default ||
@@ -236,7 +259,20 @@ async function applyForceLayout(
   flowInstance?: FlowInstance
 ): Promise<{ nodes: Node[]; edges: Edge[] }> {
   const d3ForcePath = 'd3-force'
-  const d3ForceLib: unknown = await import(/* @vite-ignore */ d3ForcePath)
+  let d3ForceLib: unknown
+  try {
+    d3ForceLib = await import(/* @vite-ignore */ d3ForcePath)
+  } catch {
+    throw new Error(
+      '[YH-UI Flow] Layout engine "d3-force" is not installed. Please install "d3-force" to use the force layout algorithm.'
+    )
+  }
+
+  if (!d3ForceLib) {
+    throw new Error(
+      '[YH-UI Flow] Layout engine "d3-force" is not installed. Please install "d3-force" to use the force layout algorithm.'
+    )
+  }
 
   interface D3ForceModule {
     forceSimulation: (nodes: unknown[]) => {

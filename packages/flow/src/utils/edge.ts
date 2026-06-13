@@ -9,6 +9,9 @@ export interface EdgePathParams {
   targetPosition: Position
   /** 控制曲率，0~1，默认 0.25 */
   curvature?: number
+  isSelfLoop?: boolean
+  nodeWidth?: number
+  nodeHeight?: number
 }
 
 /** 获取方向向量 */
@@ -234,9 +237,76 @@ export function getSmoothStepPath(params: EdgePathParams): string {
 }
 
 /**
+ * 生成自环曲线路径
+ */
+export function getSelfLoopPath(
+  sourceX: number,
+  sourceY: number,
+  targetX: number,
+  targetY: number,
+  sourcePosition: Position,
+  targetPosition: Position,
+  nodeWidth?: number,
+  nodeHeight?: number
+): string {
+  const w = nodeWidth ?? 150
+  const h = nodeHeight ?? 50
+  const dx = targetX - sourceX
+  const dy = targetY - sourceY
+  const dist = Math.sqrt(dx * dx + dy * dy)
+
+  // 同一位置/手柄自环
+  if (dist < 5) {
+    const loopSize = 40
+    if (sourcePosition === 'right') {
+      return `M${sourceX},${sourceY} C${sourceX + loopSize},${sourceY - loopSize} ${sourceX + loopSize},${sourceY + loopSize} ${sourceX},${sourceY}`
+    } else if (sourcePosition === 'left') {
+      return `M${sourceX},${sourceY} C${sourceX - loopSize},${sourceY - loopSize} ${sourceX - loopSize},${sourceY + loopSize} ${sourceX},${sourceY}`
+    } else if (sourcePosition === 'top') {
+      return `M${sourceX},${sourceY} C${sourceX - loopSize},${sourceY - loopSize} ${sourceX + loopSize},${sourceY - loopSize} ${sourceX},${sourceY}`
+    } else {
+      // bottom
+      return `M${sourceX},${sourceY} C${sourceX - loopSize},${sourceY + loopSize} ${sourceX + loopSize},${sourceY + loopSize} ${sourceX},${sourceY}`
+    }
+  }
+
+  // 不同手柄间自环
+  const offset = Math.max(w, h, 60) * 0.5
+
+  let c1x = sourceX
+  let c1y = sourceY
+  if (sourcePosition === 'right') c1x += offset
+  else if (sourcePosition === 'left') c1x -= offset
+  else if (sourcePosition === 'top') c1y -= offset
+  else if (sourcePosition === 'bottom') c1y += offset
+
+  let c2x = targetX
+  let c2y = targetY
+  if (targetPosition === 'right') c2x += offset
+  else if (targetPosition === 'left') c2x -= offset
+  else if (targetPosition === 'top') c2y -= offset
+  else if (targetPosition === 'bottom') c2y += offset
+
+  return `M${sourceX},${sourceY} C${c1x},${c1y} ${c2x},${c2y} ${targetX},${targetY}`
+}
+
+/**
  * 根据类型获取连线路径
  */
 export function getEdgePath(type: EdgeType | 'default', params: EdgePathParams): string {
+  if (params.isSelfLoop) {
+    return getSelfLoopPath(
+      params.sourceX,
+      params.sourceY,
+      params.targetX,
+      params.targetY,
+      params.sourcePosition,
+      params.targetPosition,
+      params.nodeWidth,
+      params.nodeHeight
+    )
+  }
+
   switch (type) {
     case 'bezier':
     case 'default':
@@ -261,7 +331,73 @@ export function getEdgeCenter(params: EdgePathParams & { type?: string }): {
   ox: number
   oy: number
 } {
-  const { sourceX, sourceY, targetX, targetY, type = 'bezier' } = params
+  const {
+    sourceX,
+    sourceY,
+    targetX,
+    targetY,
+    type = 'bezier',
+    isSelfLoop,
+    nodeWidth,
+    nodeHeight,
+    sourcePosition,
+    targetPosition
+  } = params
+
+  if (isSelfLoop) {
+    const w = nodeWidth ?? 150
+    const h = nodeHeight ?? 50
+    const dx = targetX - sourceX
+    const dy = targetY - sourceY
+    const dist = Math.sqrt(dx * dx + dy * dy)
+
+    let c1x = sourceX,
+      c1y = sourceY,
+      c2x = targetX,
+      c2y = targetY
+    if (dist < 5) {
+      const loopSize = 40
+      if (sourcePosition === 'right') {
+        c1x = sourceX + loopSize
+        c1y = sourceY - loopSize
+        c2x = sourceX + loopSize
+        c2y = sourceY + loopSize
+      } else if (sourcePosition === 'left') {
+        c1x = sourceX - loopSize
+        c1y = sourceY - loopSize
+        c2x = sourceX - loopSize
+        c2y = sourceY + loopSize
+      } else if (sourcePosition === 'top') {
+        c1x = sourceX - loopSize
+        c1y = sourceY - loopSize
+        c2x = sourceX + loopSize
+        c2y = sourceY - loopSize
+      } else {
+        c1x = sourceX - loopSize
+        c1y = sourceY + loopSize
+        c2x = sourceX + loopSize
+        c2y = sourceY + loopSize
+      }
+    } else {
+      const offset = Math.max(w, h, 60) * 0.5
+      if (sourcePosition === 'right') c1x += offset
+      else if (sourcePosition === 'left') c1x -= offset
+      else if (sourcePosition === 'top') c1y -= offset
+      else if (sourcePosition === 'bottom') c1y += offset
+
+      if (targetPosition === 'right') c2x += offset
+      else if (targetPosition === 'left') c2x -= offset
+      else if (targetPosition === 'top') c2y -= offset
+      else if (targetPosition === 'bottom') c2y += offset
+    }
+
+    return {
+      x: 0.125 * sourceX + 0.375 * c1x + 0.375 * c2x + 0.125 * targetX,
+      y: 0.125 * sourceY + 0.375 * c1y + 0.375 * c2y + 0.125 * targetY,
+      ox: 0,
+      oy: 0
+    }
+  }
 
   if (type === 'bezier' || type === 'default') {
     const curvature = params.curvature ?? 0.25

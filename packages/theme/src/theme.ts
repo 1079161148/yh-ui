@@ -1008,6 +1008,10 @@ export class ThemeManager {
           styles[`--yh-color-${cssVar}-${state}`] = value
         })
 
+        // Add high contrast text variable for each type
+        const textContrastColor = getTextColorForBackground(baseColor)
+        styles[`--yh-color-${cssVar}-text`] = textContrastColor
+
         const rgb = hexToRgb(baseColor)
         if (rgb) {
           styles[`--yh-color-${cssVar}-rgb`] = `${rgb.r}, ${rgb.g}, ${rgb.b}`

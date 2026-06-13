@@ -168,15 +168,31 @@ export function parseIconName(name: string): string {
  * @returns 是否存在
  */
 export async function iconExists(name: string): Promise<boolean> {
+  if (typeof name !== 'string' || !name.trim()) {
+    return false
+  }
+
   try {
     const parsedName = parseIconName(name)
-    // 先检查缓存是否存在
-    if (getIcon(parsedName)) {
+    // Strict format check for parsed name (prefix:name)
+    const formatRegex = /^[a-z0-9-]+:[a-z0-9-_]+$/i
+    if (!formatRegex.test(parsedName)) {
+      return false
+    }
+
+    // 先检查缓存是否存在且有效
+    const cached = getIcon(parsedName)
+    if (cached && cached.body && typeof cached.body === 'string' && cached.body.trim().length > 0) {
       return true
     }
-    // 异步加载并判断是否存在
+    // 异步加载并判断是否存在且有效
     const iconData = await loadIcon(parsedName)
-    return !!iconData
+    return !!(
+      iconData &&
+      iconData.body &&
+      typeof iconData.body === 'string' &&
+      iconData.body.trim().length > 0
+    )
   } catch {
     return false
   }

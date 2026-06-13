@@ -60,7 +60,7 @@
     width: 4px;
     height: 4px;
     border-radius: var(--yh-radius-circle);
-    background-color: var(--yh-fill-color-blank, #fff);
+    background-color: var(--yh-color-primary-text, var(--yh-fill-color-blank, #fff));
     content: '';
     transition: transform 0.15s ease-in;
   }

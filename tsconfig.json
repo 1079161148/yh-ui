@@ -33,6 +33,7 @@
     { "path": "./packages/utils" },
     { "path": "./packages/hooks" },
     { "path": "./packages/components" },
+    { "path": "./packages/flow" },
     { "path": "./packages/yh-ui" },
     { "path": "./packages/yh-ui-skill" },
     { "path": "./packages/nuxt" },

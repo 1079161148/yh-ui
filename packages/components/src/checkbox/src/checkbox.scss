@@ -13,7 +13,7 @@
   --yh-checkbox-input-border: 1px solid var(--yh-border-color);
   --yh-checkbox-input-border-color-hover: var(--yh-color-primary);
   --yh-checkbox-checked-bg-color: var(--yh-color-primary);
-  --yh-checkbox-checked-icon-color: var(--yh-color-white, #fff);
+  --yh-checkbox-checked-icon-color: var(--yh-color-primary-text, var(--yh-color-white, #fff));
   --yh-checkbox-checked-text-color: var(--yh-color-primary);
   --yh-checkbox-disabled-input-fill: var(--yh-fill-color-light);
   --yh-checkbox-disabled-border-color: var(--yh-border-color);

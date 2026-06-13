@@ -88,12 +88,9 @@ export function isValidConnection(
     return { isValid: false, message: 'Target node not found' }
   }
 
+  // Self-loops are allowed in YH-Flow
   if (connection.source === connection.target) {
-    return { isValid: false, message: 'Cannot connect to the same node' }
-  }
-
-  if (connection.target === connection.source) {
-    return { isValid: false, message: 'Cannot create self-loop' }
+    return { isValid: true }
   }
 
   return { isValid: true }

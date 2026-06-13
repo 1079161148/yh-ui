@@ -57,7 +57,10 @@ const restoreState = () => {
   }
 };
 
-const clearState = () => { nodes.value = []; edges.value = []; };
+const clearState = () => { 
+  nodes.value = []; 
+  edges.value = []; 
+};
 
 const tsCode = `<${_T}>
   <div class="sr-container">

@@ -194,6 +194,9 @@
     margin-right: 4px;
     user-select: none;
     pointer-events: none;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   @include e(suffix-text) {
@@ -203,6 +206,9 @@
     margin-left: 4px;
     user-select: none;
     pointer-events: none;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   @include e(inner) {

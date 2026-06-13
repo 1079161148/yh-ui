@@ -30,8 +30,8 @@ yarn add @yh-ui/yh-ui
 
 :::
 
-::: tip Optional Heavy Dependency Notice
-`monaco-editor`, `xlsx`, `viewerjs`, and `markdown-it` are now published as optional `peerDependencies`. Installing only `@yh-ui/yh-ui` no longer forces consumers to download these heavyweight runtimes up front; host projects add them only when they actually use code editing, Excel import/export, advanced image preview, or Markdown rendering features. See [Package Size Layering](/en/guide/package-size) for the full policy.
+::: tip Optional Third-Party Dependency Notice
+Libraries such as `monaco-editor`, `xlsx`, `viewerjs`, `markdown-it`, `echarts`, `html-to-image`, and flowchart layout engines are declared as optional `peerDependencies`. Installing `@yh-ui/yh-ui` will not download these heavy dependencies by default. You only need to install them in your project if you explicitly enable advanced features such as code editors, Excel import/export, data charts, or flowchart capabilities. See [Package Size Layering](/en/guide/package-size) for the full policy and mapping.
 :::
 
 ## Browser Usage

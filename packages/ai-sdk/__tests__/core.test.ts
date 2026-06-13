@@ -301,6 +301,55 @@ describe('useAIChat', () => {
     expect(isLoading.value).toBe(false)
   })
 
+  it('should fallback to local content on error when enableFallback is true', async () => {
+    ;(global.fetch as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('Network error'))
+
+    const { sendMessage, messages, isLoading } = useAIChat({
+      api: '/api/chat',
+      enableFallback: true,
+      fallbackContent: 'Local fallback response'
+    })
+
+    await sendMessage('Hello')
+    await nextTick()
+
+    expect(isLoading.value).toBe(false)
+    expect(messages.value).toHaveLength(2)
+    expect(messages.value[1].content).toBe('Local fallback response')
+  })
+
+  it('should resend last user message', async () => {
+    let callCount = 0
+    ;(global.fetch as ReturnType<typeof vi.fn>).mockImplementation(async () => {
+      callCount++
+      if (callCount === 1) {
+        throw new Error('First try network failure')
+      }
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ content: 'Second try success' }),
+        text: async () => JSON.stringify({ content: 'Second try success' }),
+        body: null
+      }
+    })
+
+    const { sendMessage, messages, resend } = useAIChat({
+      api: '/api/chat'
+    })
+
+    await sendMessage('Hello')
+    await nextTick()
+
+    expect(messages.value).toHaveLength(1) // only user message, since assistant threw an error
+
+    await resend()
+    await nextTick()
+
+    expect(messages.value).toHaveLength(2) // user + assistant
+    expect(messages.value[1].content).toBe('Second try success')
+  })
+
   it('should not send empty message', async () => {
     const { sendMessage, isLoading } = useAIChat({
       api: '/api/chat'

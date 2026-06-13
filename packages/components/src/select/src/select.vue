@@ -225,19 +225,29 @@ const offsetY = computed(() => virtualConfig.value.offsetY)
 // 虚拟滚动起始索引
 const startIndex = computed(() => virtualConfig.value.startIndex)
 
+// 规范化的 modelValue（多选模式下强制为数组）
+const normalizedModelValue = computed(() => {
+  if (props.multiple) {
+    return Array.isArray(props.modelValue) ? props.modelValue : []
+  }
+  return props.modelValue
+})
+
 // 选中的标签
 const selectedLabels = computed(() => {
   if (props.multiple) {
-    const values = Array.isArray(props.modelValue) ? props.modelValue : []
+    const values = Array.isArray(normalizedModelValue.value) ? normalizedModelValue.value : []
     return values.map((v) => {
       const opt = allOptions.value.find((o) => o[props.valueKey || 'value'] === v)
       return opt ? (opt[props.labelKey || 'label'] as string) || opt.label : String(v)
     })
   }
-  const opt = allOptions.value.find((o) => o[props.valueKey || 'value'] === props.modelValue)
+  const opt = allOptions.value.find(
+    (o) => o[props.valueKey || 'value'] === normalizedModelValue.value
+  )
   return opt
     ? (opt[props.labelKey || 'label'] as string) || opt.label
-    : String(props.modelValue ?? '')
+    : String(normalizedModelValue.value ?? '')
 })
 
 // 显示的标签（折叠）
@@ -261,17 +271,17 @@ const showClear = computed(
     props.clearable &&
     !props.disabled &&
     (props.multiple
-      ? Array.isArray(props.modelValue) && props.modelValue.length > 0
-      : props.modelValue !== undefined && props.modelValue !== '') &&
+      ? Array.isArray(normalizedModelValue.value) && normalizedModelValue.value.length > 0
+      : normalizedModelValue.value !== undefined && normalizedModelValue.value !== '') &&
     (focused.value || hovering.value)
 )
 
 // 是否有值
 const hasValue = computed(() => {
   if (props.multiple) {
-    return Array.isArray(props.modelValue) && props.modelValue.length > 0
+    return Array.isArray(normalizedModelValue.value) && normalizedModelValue.value.length > 0
   }
-  return props.modelValue !== undefined && props.modelValue !== ''
+  return normalizedModelValue.value !== undefined && normalizedModelValue.value !== ''
 })
 
 // 类名
@@ -286,9 +296,9 @@ const wrapperClasses = computed(() => [
 // 判断是否选中
 const isSelected = (value: SelectValue) => {
   if (props.multiple) {
-    return Array.isArray(props.modelValue) && props.modelValue.includes(value)
+    return Array.isArray(normalizedModelValue.value) && normalizedModelValue.value.includes(value)
   }
-  return props.modelValue === value
+  return normalizedModelValue.value === value
 }
 
 // 选择选项
@@ -303,7 +313,7 @@ const handleOptionSelect = (option: SelectOption, event?: MouseEvent) => {
   const value = option[props.valueKey || 'value'] as SelectValue
 
   if (props.multiple) {
-    const values = Array.isArray(props.modelValue) ? [...props.modelValue] : []
+    const values = Array.isArray(normalizedModelValue.value) ? [...normalizedModelValue.value] : []
     const index = values.indexOf(value)
     if (index > -1) {
       values.splice(index, 1)
@@ -333,7 +343,7 @@ const handleRemoveTag = (value: SelectValue, event: Event) => {
   event.stopPropagation()
   if (props.disabled) return
 
-  const values = Array.isArray(props.modelValue) ? [...props.modelValue] : []
+  const values = Array.isArray(normalizedModelValue.value) ? [...normalizedModelValue.value] : []
   const index = values.indexOf(value)
   if (index > -1) {
     values.splice(index, 1)
@@ -424,10 +434,10 @@ const handleKeydown = (event: KeyboardEvent) => {
       if (
         props.multiple &&
         !query.value &&
-        Array.isArray(props.modelValue) &&
-        props.modelValue.length > 0
+        Array.isArray(normalizedModelValue.value) &&
+        normalizedModelValue.value.length > 0
       ) {
-        const values = [...props.modelValue]
+        const values = [...normalizedModelValue.value]
         const removed = values.pop()
         if (removed !== undefined) {
           emit('update:modelValue', values)
@@ -511,7 +521,7 @@ const blur = () => {
 // 提供上下文
 provide<SelectContext>(SelectContextKey, {
   props,
-  selectValue: computed(() => props.modelValue),
+  selectValue: computed(() => normalizedModelValue.value),
   hoveredIndex,
   handleOptionSelect: (option, event) => handleOptionSelect(option, event),
   isSelected,
@@ -549,7 +559,9 @@ defineExpose<SelectExpose>({
             :class="ns.e('tag-close')"
             @click="
               handleRemoveTag(
-                Array.isArray(modelValue) ? modelValue[index] : (modelValue as SelectValue),
+                Array.isArray(normalizedModelValue)
+                  ? normalizedModelValue[index]
+                  : (normalizedModelValue as SelectValue),
                 $event
               )
             "

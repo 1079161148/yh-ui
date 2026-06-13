@@ -1,10 +1,14 @@
-﻿# Screenshot
+# Screenshot
 
 Often, after designing an elaborate workflow, you may need to export the canvas as a high-fidelity image for documentation, reporting, or peer review. By leveraging external libraries like [html-to-image](https://github.com/bubkoo/html-to-image), you can capture the current state of the `Flow` viewport as a professional-grade PNG without any UI artifacts.
 
 > [!NOTE]
 >
-> This feature requires an external dependency such as `html-to-image` or `html2canvas`. To maintain a lightweight footprint, `yh-flow` does not bundle these weight-heavy libraries by default.
+> This feature depends on the external library `html-to-image`. To keep the component library lightweight and clean, we have declared it as an optional peer dependency (`peerDependencies`). If you need screenshot or image export capabilities, please install it in your project:
+>
+> ```bash
+> pnpm add html-to-image # or npm install html-to-image
+> ```
 
 ## Export Demo
 

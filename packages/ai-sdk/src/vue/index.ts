@@ -837,6 +837,10 @@ export interface UseAIChatOptions {
   onFinish?: (message: ConversationMessage) => void
   /** 回调：出错 */
   onError?: (error: Error) => void
+  /** 是否启用本地兜底内容 */
+  enableFallback?: boolean
+  /** 兜底回复内容 */
+  fallbackContent?: string
 }
 
 export interface UseAIChatReturn {
@@ -864,6 +868,8 @@ export interface UseAIChatReturn {
   updateLastMessage: (updates: Partial<ConversationMessage>) => void
   /** 重置 */
   reload: () => void
+  /** 重新发送最后一条用户消息 */
+  resend: () => Promise<void>
 }
 
 /**
@@ -916,7 +922,9 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
     onToolCall,
     onToolResult,
     onFinish,
-    onError
+    onError,
+    enableFallback = false,
+    fallbackContent = '抱歉，服务暂时不可用，请稍后再试。'
   } = options
 
   const messages = ref<ConversationMessage[]>([...initialMessages])
@@ -1206,6 +1214,12 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
         const errorObj = err instanceof Error ? err : new Error(String(err))
         error.value = errorObj
         onError?.(errorObj)
+        if (enableFallback) {
+          updateLastMessage({ content: fallbackContent })
+          if (currentMessage.value) {
+            currentMessage.value.content = fallbackContent
+          }
+        }
       }
     } finally {
       isLoading.value = false
@@ -1321,8 +1335,30 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
       const errorObj = err instanceof Error ? err : new Error(String(err))
       error.value = errorObj
       onError?.(errorObj)
+      if (enableFallback) {
+        append(fallbackContent, 'assistant')
+      }
     } finally {
       isLoading.value = false
+    }
+  }
+
+  // 重新发送
+  const resend = async () => {
+    // 找到最后一条 user 消息及其索引，或者直接寻找最后一条 user 消息
+    const userMessages = messages.value.filter((m) => m.role === 'user')
+    if (userMessages.length === 0) return
+
+    const lastUserMessage = userMessages[userMessages.length - 1]
+    const lastUserIndex = messages.value.lastIndexOf(lastUserMessage)
+
+    if (lastUserIndex > -1) {
+      // 截断消息列表到那条 user 消息的前面（丢弃所有在此之后的消息，包括出错的 assistant 或 tool 消息以及该条 user 消息本身）
+      const previousMessages = messages.value.slice(0, lastUserIndex)
+      messages.value = previousMessages
+
+      // 重新以 user 消息内容发送
+      await sendMessage(lastUserMessage.content)
     }
   }
 
@@ -1338,7 +1374,8 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
     stop,
     append,
     updateLastMessage,
-    reload
+    reload,
+    resend
   }
 }
 

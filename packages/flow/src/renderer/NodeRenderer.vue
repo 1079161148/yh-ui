@@ -62,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import type { Node, NodeHandle, HandleType, Position, NodeTypes } from '../types'
 import {
   getCustomNodeTemplate,
@@ -489,6 +489,31 @@ onBeforeUnmount(() => {
   }
   nodeElements.clear()
 })
+
+watch(
+  () => props.nodes,
+  (newNodes) => {
+    let hasChanges = false
+    newNodes.forEach((node) => {
+      if (!node.measured) {
+        const el = nodeElements.get(node.id)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          const width = Math.round(rect.width)
+          const height = Math.round(rect.height)
+          if (width > 0 && height > 0) {
+            node.measured = { width, height }
+            hasChanges = true
+          }
+        }
+      }
+    })
+    if (hasChanges) {
+      emit('nodes-measured')
+    }
+  },
+  { flush: 'post' }
+)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const setNodeRef = (el: any, nodeId: string) => {

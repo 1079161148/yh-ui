@@ -11,9 +11,9 @@ describe('flow/utils/validation', () => {
     expect(isValidConnection(nodeA, undefined, { source: 'A', target: 'B' }).isValid).toBe(false)
   })
 
-  it('isValidConnection should reject self connection', () => {
+  it('isValidConnection should allow self connection', () => {
     const r = isValidConnection(nodeA, nodeA, { source: 'A', target: 'A' })
-    expect(r.isValid).toBe(false)
+    expect(r.isValid).toBe(true)
   })
 
   it('createConnectionValidator should allow when no rules', () => {

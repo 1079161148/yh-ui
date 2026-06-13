@@ -129,8 +129,12 @@
   }
 
   @include e(content) {
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
   }
 
   @include e(icon) {

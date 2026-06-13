@@ -28,9 +28,9 @@ const tsCode = `<template>
         v-model:edges="edges"
         background="dots"
       />
-    <\/div>
-  <\/div>
-<\/template>
+    </div>
+  </div>
+</template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -190,7 +190,10 @@ const restoreState = () => {
   }
 }
 
-const clearState = () => { nodes.value = []; edges.value = [] }
+const clearState = () => { 
+  nodes.value = []; 
+  edges.value = []; 
+}
 </script>
 
 <DemoBlock title="State Persist & Load" :ts-code="tsCode" :js-code="jsCode">
