@@ -104,7 +104,10 @@ export function YhUIVitePlugin(options: YhUIVitePluginOptions = {}): Plugin {
 
       return {
         resolve: {
-          alias: [{ find: /^dayjs$/, replacement: 'dayjs/dayjs.js' }]
+          alias: [
+            { find: /^dayjs$/, replacement: 'dayjs/esm/index.js' },
+            { find: /^dayjs\/dayjs\.min\.js$/, replacement: 'dayjs/esm/index.js' }
+          ]
         },
         optimizeDeps: {
           // 强制 Vite 将 dayjs 及其 CJS 插件预构建为 ESM，解决 pnpm 严格模式下的 404 和

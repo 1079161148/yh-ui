@@ -1,4 +1,13 @@
-import { ref, shallowRef, computed, watch, onMounted, type Ref, type ShallowRef } from 'vue'
+import {
+  ref,
+  shallowRef,
+  computed,
+  watch,
+  onMounted,
+  getCurrentInstance,
+  type Ref,
+  type ShallowRef
+} from 'vue'
 import { type RequestResponse } from './types'
 
 // ==================== 类型定义 ====================
@@ -269,9 +278,13 @@ export function usePagination<TData = unknown, TParams extends unknown[] = [numb
 
   // 自动加载
   if (!manual) {
-    onMounted(() => {
+    if (getCurrentInstance()) {
+      onMounted(() => {
+        loadData()
+      })
+    } else {
       loadData()
-    })
+    }
   }
 
   return {

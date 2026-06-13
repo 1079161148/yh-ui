@@ -1179,6 +1179,10 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
           messages.value.push(result)
         }
 
+        if (!abortController) {
+          return
+        }
+
         // 再次调用 API 获取最终回复
         const finalMessages = messages.value.map((m) => ({
           role: m.role,
@@ -1196,18 +1200,22 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
           body: JSON.stringify({
             messages: finalMessages,
             ...body
-          })
+          }),
+          signal: abortController.signal
         })
 
         if (finalResponse.ok) {
           const finalData = await finalResponse.json()
           const finalContent = finalData.content || finalData.message?.content || ''
-          updateLastMessage({ content: finalContent })
+          messages.value = messages.value.map((m) =>
+            m.id === assistantMessage.id ? { ...m, content: finalContent } : m
+          )
           currentMessage.value = { ...assistantMessage, content: finalContent }
         }
       }
 
-      const finalMessage = messages.value[messages.value.length - 1]
+      const finalMessage =
+        messages.value.find((m) => m.id === assistantMessage.id) || assistantMessage
       onFinish?.(finalMessage)
     } catch (err) {
       if ((err as Error).name !== 'AbortError') {

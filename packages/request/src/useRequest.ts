@@ -343,18 +343,26 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
     cancelFn = () => throttled.cancel()
   }
 
-  // 组件卸载时取消防抖/节流
-  onUnmounted(() => {
-    cancelFn?.()
-  })
+  // 组件卸载时取消所有请求和定时器
+  if (getCurrentInstance()) {
+    onUnmounted(() => {
+      cancel()
+    })
+  }
 
   // 自动执行
   if (!manual && defaultParams.length > 0) {
-    onMounted(() => {
+    if (getCurrentInstance()) {
+      onMounted(() => {
+        if (!debounceWait && !throttleWait) {
+          run(...defaultParams).catch(() => {})
+        }
+      })
+    } else {
       if (!debounceWait && !throttleWait) {
         run(...defaultParams).catch(() => {})
       }
-    })
+    }
   }
 
   // 计算属性
@@ -486,15 +494,17 @@ export function useRequestSWR<TData = unknown>(
       }
     }
 
-    onMounted(() => {
-      window.addEventListener('visibilitychange', handleFocus)
-      window.addEventListener('focus', handleFocus)
-    })
+    if (getCurrentInstance()) {
+      onMounted(() => {
+        window.addEventListener('visibilitychange', handleFocus)
+        window.addEventListener('focus', handleFocus)
+      })
 
-    onUnmounted(() => {
-      window.removeEventListener('visibilitychange', handleFocus)
-      window.removeEventListener('focus', handleFocus)
-    })
+      onUnmounted(() => {
+        window.removeEventListener('visibilitychange', handleFocus)
+        window.removeEventListener('focus', handleFocus)
+      })
+    }
   }
 
   // 依赖变化重新请求
@@ -619,16 +629,23 @@ export function useRequestPolling<TData = unknown, TParams extends unknown[] = u
   }
 
   // 清理
-  onUnmounted(() => {
-    pause()
-    cancel()
-  })
-
-  // 自动开始轮询
-  if (polling) {
-    onMounted(() => {
-      startPolling()
+  if (getCurrentInstance()) {
+    onUnmounted(() => {
+      pause()
+      cancel()
     })
+
+    // 自动开始轮询
+    if (polling) {
+      onMounted(() => {
+        startPolling()
+      })
+    }
+  } else {
+    // 自动开始轮询 (非组件环境)
+    if (polling) {
+      startPolling()
+    }
   }
 
   return {

@@ -172,6 +172,29 @@ parseIconName('mdi:home') // 'mdi:home'
 parseIconName('mdi/home') // 'mdi:home'
 ```
 
+### canResolve
+
+同步检查图标格式是否可以被解析。
+
+```typescript
+function canResolve(name: string): boolean
+```
+
+**参数**：
+
+- `name`: 图标名称
+
+**返回值**：是否符合解析格式
+
+**示例**：
+
+```typescript
+import { canResolve } from '@yh-ui/icons'
+
+console.log(canResolve('mdi:home')) // true
+console.log(canResolve('invalid-format')) // false
+```
+
 ### iconExists
 
 检查图标是否存在。

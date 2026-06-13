@@ -1,5 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
-import { parseIconName, iconExists, getIconData, createIconifyComponent } from '../src/iconify'
+import {
+  parseIconName,
+  iconExists,
+  getIconData,
+  createIconifyComponent,
+  canResolve
+} from '../src/iconify'
 import { YhIcon, __test__ as iconInternal } from '../src/vue/icon'
 import { getPreset, PRESETS, PREFIX_ALIAS, COMMON_ICONS } from '../src/presets'
 import { getCollectionPrefixes } from '../src/config'
@@ -93,6 +99,15 @@ describe('Icons Package', () => {
 
       // 修正：原代码中 try 块里的报错会被 catch 捕获并重写为 "Failed to load icon"
       await expect(getIconData('mdi:nonexistent')).rejects.toThrow('Failed to load icon')
+    })
+
+    it('canResolve should check formats synchronously', () => {
+      expect(canResolve('mdi:home')).toBe(true)
+      expect(canResolve('mdi/home')).toBe(true)
+      expect(canResolve('home')).toBe(true)
+      expect(canResolve('')).toBe(false)
+      expect(canResolve(null as any)).toBe(false)
+      expect(canResolve('invalid:format:name')).toBe(false)
     })
   })
 

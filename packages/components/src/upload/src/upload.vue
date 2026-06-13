@@ -220,6 +220,7 @@ const dragOver = ref(false)
 let viewer: Viewer | null = null
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const uploadReqs: Record<string | number, any> = {}
+const localBlobUrls = new Set<string>()
 
 /**
  * 触发选择文件
@@ -323,8 +324,20 @@ const onDrop = async (e: DragEvent) => {
     } else if (entry.isDirectory) {
       const dirEntry = entry as FileSystemDirectoryEntry
       const reader = dirEntry.createReader()
-      const entries = await new Promise<FileSystemEntry[]>((resolve) => reader.readEntries(resolve))
-      for (const subEntry of entries) {
+      const allEntries: FileSystemEntry[] = []
+
+      while (true) {
+        const entries = await new Promise<FileSystemEntry[]>((resolve) => {
+          reader.readEntries(
+            (results) => resolve(results),
+            () => resolve([])
+          )
+        })
+        if (entries.length === 0) break
+        allEntries.push(...entries)
+      }
+
+      for (const subEntry of allEntries) {
         await readEntry(subEntry, `${path}${entry.name}/`)
       }
     }
@@ -435,7 +448,9 @@ const handleFiles = async (files: File[]) => {
       if (props.thumbnailRequest) {
         uploadFile.url = await props.thumbnailRequest(rawFile)
       } else if (rawFile.type && rawFile.type.startsWith('image/')) {
-        uploadFile.url = URL.createObjectURL(rawFile)
+        const url = URL.createObjectURL(rawFile)
+        uploadFile.url = url
+        localBlobUrls.add(url)
       }
     }
 
@@ -580,6 +595,7 @@ const handleRemove = async (file: UploadFile) => {
 
   if (file.url && file.url.startsWith('blob:')) {
     URL.revokeObjectURL(file.url)
+    localBlobUrls.delete(file.url)
   }
 }
 
@@ -715,6 +731,10 @@ onBeforeUnmount(() => {
     }
     delete uploadReqs[uid]
   })
+  localBlobUrls.forEach((url) => {
+    URL.revokeObjectURL(url)
+  })
+  localBlobUrls.clear()
 })
 
 defineExpose({

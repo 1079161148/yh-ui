@@ -444,6 +444,148 @@ describe('useAIChat', () => {
     reload()
     expect(messages.value).toHaveLength(1)
   })
+
+  it('useAIChat should support tool calling in sendMessageStream, updating the correct message, and returning it onFinish', async () => {
+    const mockTool = {
+      name: 'get_weather',
+      description: 'Get weather info',
+      parameters: {},
+      execute: vi.fn().mockResolvedValue('Sunny, 25C')
+    }
+
+    let fetchCount = 0
+    const mockFetch = vi.fn().mockImplementation(async (url, options) => {
+      fetchCount++
+      if (fetchCount === 1) {
+        return {
+          ok: true,
+          status: 200,
+          body: new ReadableStream({
+            start(controller) {
+              controller.enqueue(
+                new TextEncoder().encode(
+                  'data: {"choices":[{"delta":{"tool_calls":[{"index":0,"id":"call-1","function":{"name":"get_weather","arguments":"{\\"city\\":\\"Shanghai\\"}"}}]}}]}\n\n'
+                )
+              )
+              controller.close()
+            }
+          })
+        }
+      }
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ content: 'The weather in Shanghai is Sunny, 25C.' }),
+        text: async () => JSON.stringify({ content: 'The weather in Shanghai is Sunny, 25C.' }),
+        body: null
+      }
+    })
+    global.fetch = mockFetch as typeof fetch
+
+    const onFinish = vi.fn()
+    const { messages, sendMessageStream } = useAIChat({
+      api: '/api/chat',
+      tools: [mockTool],
+      stream: true,
+      streamInterval: 0,
+      onFinish
+    })
+
+    await sendMessageStream('What is the weather in Shanghai?')
+    await nextTick()
+
+    const assistantMsg = messages.value.find((m) => m.role === 'assistant')
+    expect(assistantMsg).toBeDefined()
+    expect(assistantMsg?.content).toBe('The weather in Shanghai is Sunny, 25C.')
+    expect(assistantMsg?.toolCalls).toHaveLength(1)
+    expect(assistantMsg?.toolCalls?.[0].name).toBe('get_weather')
+
+    const toolMsg = messages.value.find((m) => m.role === 'tool')
+    expect(toolMsg).toBeDefined()
+    expect(toolMsg?.content).toBe('Sunny, 25C')
+
+    expect(onFinish).toHaveBeenCalled()
+    expect(onFinish.mock.calls[0][0].role).toBe('assistant')
+    expect(onFinish.mock.calls[0][0].content).toBe('The weather in Shanghai is Sunny, 25C.')
+  })
+
+  it('useAIChat stop() should abort the second fetch during tool calling', async () => {
+    const mockTool = {
+      name: 'get_weather',
+      description: 'Get weather info',
+      parameters: {},
+      execute: vi.fn().mockResolvedValue('Sunny, 25C')
+    }
+
+    let fetchCount = 0
+    let secondFetchAborted = false
+    const mockFetch = vi.fn().mockImplementation(async (url, options) => {
+      fetchCount++
+      if (fetchCount === 1) {
+        return {
+          ok: true,
+          status: 200,
+          body: new ReadableStream({
+            start(controller) {
+              controller.enqueue(
+                new TextEncoder().encode(
+                  'data: {"choices":[{"delta":{"tool_calls":[{"index":0,"id":"call-1","function":{"name":"get_weather","arguments":"{\\"city\\":\\"Shanghai\\"}"}}]}}]}\n\n'
+                )
+              )
+              controller.close()
+            }
+          })
+        }
+      }
+
+      const signal = options?.signal
+      if (signal) {
+        signal.addEventListener('abort', () => {
+          secondFetchAborted = true
+        })
+        if (signal.aborted) {
+          secondFetchAborted = true
+        }
+      }
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (signal?.aborted) {
+            reject(new Error('AbortError'))
+          } else {
+            resolve({
+              ok: true,
+              status: 200,
+              json: async () => ({ content: 'The weather in Shanghai is Sunny, 25C.' }),
+              text: async () =>
+                JSON.stringify({ content: 'The weather in Shanghai is Sunny, 25C.' }),
+              body: null
+            })
+          }
+        }, 100)
+      })
+    })
+    global.fetch = mockFetch as typeof fetch
+
+    const { sendMessageStream, stop, isStreaming } = useAIChat({
+      api: '/api/chat',
+      tools: [mockTool],
+      stream: true,
+      streamInterval: 0
+    })
+
+    const streamPromise = sendMessageStream('What is the weather in Shanghai?')
+
+    await wait(10)
+    expect(isStreaming.value).toBe(true)
+
+    stop()
+
+    await streamPromise
+
+    expect(isStreaming.value).toBe(false)
+    expect(secondFetchAborted).toBe(true)
+  })
 })
 
 describe('useAIStream', () => {

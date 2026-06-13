@@ -3,7 +3,7 @@
  * 提供 WebSocket 连接管理、自动重连、心跳检测等功能
  */
 
-import { ref, type Ref, onUnmounted } from 'vue'
+import { ref, type Ref, onUnmounted, getCurrentInstance } from 'vue'
 
 // ==================== 类型定义 ====================
 
@@ -473,9 +473,11 @@ export function useWebSocket(options: WebSocketOptions) {
   const lastMessage = client.lastMessage
 
   // 清理
-  onUnmounted(() => {
-    client.dispose()
-  })
+  if (getCurrentInstance()) {
+    onUnmounted(() => {
+      client.dispose()
+    })
+  }
 
   return {
     /** 当前状态 */

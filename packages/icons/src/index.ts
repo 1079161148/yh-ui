@@ -13,7 +13,13 @@
 export * from './types'
 
 // 导出 Iconify 集成（使用别名避免与 Vue 组件冲突）
-export { createIconifyComponent, parseIconName, iconExists, getIconData } from './iconify'
+export {
+  createIconifyComponent,
+  parseIconName,
+  iconExists,
+  getIconData,
+  canResolve
+} from './iconify'
 export type { IconifyProps } from './iconify'
 
 // 导出预设图标集

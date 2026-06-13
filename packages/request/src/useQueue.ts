@@ -1,4 +1,12 @@
-import { ref, reactive, computed, onUnmounted, type Ref, type ComputedRef } from 'vue'
+import {
+  ref,
+  reactive,
+  computed,
+  onUnmounted,
+  getCurrentInstance,
+  type Ref,
+  type ComputedRef
+} from 'vue'
 
 // ==================== 类型定义 ====================
 
@@ -237,7 +245,7 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
       // 回调
       onTaskComplete?.(task)
     } catch (error) {
-      if (task.status === 'canceled' || controller.signal.aborted) return
+      if ((task.status as QueueTaskStatus) === 'canceled' || controller.signal.aborted) return
       task.status = 'rejected'
       task.error = error instanceof Error ? error : new Error(String(error))
       task.endTime = Date.now()
@@ -455,9 +463,11 @@ export function useQueue<T = unknown>(options: UseQueueOptions = {}): UseQueueRe
   }
 
   // 清理
-  onUnmounted(() => {
-    cancelAll()
-  })
+  if (getCurrentInstance()) {
+    onUnmounted(() => {
+      cancelAll()
+    })
+  }
 
   return {
     tasks,

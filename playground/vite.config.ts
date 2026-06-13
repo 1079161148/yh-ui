@@ -5,17 +5,22 @@ import { resolve } from 'node:path'
 export default defineConfig({
   plugins: [vue()],
   resolve: {
-    alias: {
-      '@yh-ui/components': resolve(__dirname, '../packages/components/src'),
-      '@yh-ui/hooks': resolve(__dirname, '../packages/hooks/src'),
-      '@yh-ui/utils': resolve(__dirname, '../packages/utils/src'),
-      '@yh-ui/theme': resolve(__dirname, '../packages/theme/src'),
-      '@yh-ui/flow': resolve(__dirname, '../packages/flow/src'),
-      '@yh-ui/locale': resolve(__dirname, '../packages/locale/src'),
-      '@yh-ui/request': resolve(__dirname, '../packages/request/src'),
-      '@yh-ui/ai-sdk': resolve(__dirname, '../packages/ai-sdk/src'),
-      '@yh-ui/icons': resolve(__dirname, '../packages/icons/src')
-    }
+    alias: [
+      { find: '@yh-ui/components', replacement: resolve(__dirname, '../packages/components/src') },
+      { find: '@yh-ui/hooks', replacement: resolve(__dirname, '../packages/hooks/src') },
+      { find: '@yh-ui/utils', replacement: resolve(__dirname, '../packages/utils/src') },
+      { find: '@yh-ui/theme', replacement: resolve(__dirname, '../packages/theme/src') },
+      { find: '@yh-ui/flow', replacement: resolve(__dirname, '../packages/flow/src') },
+      { find: '@yh-ui/locale', replacement: resolve(__dirname, '../packages/locale/src') },
+      { find: '@yh-ui/request', replacement: resolve(__dirname, '../packages/request/src') },
+      { find: '@yh-ui/ai-sdk', replacement: resolve(__dirname, '../packages/ai-sdk/src') },
+      { find: '@yh-ui/icons', replacement: resolve(__dirname, '../packages/icons/src') },
+      { find: /^dayjs$/, replacement: resolve(__dirname, '../node_modules/dayjs/esm/index.js') },
+      {
+        find: /^dayjs\/dayjs\.min\.js$/,
+        replacement: resolve(__dirname, '../node_modules/dayjs/esm/index.js')
+      }
+    ]
   },
   // 优化依赖预构建：dayjs 和所有插件都是 CJS 格式，必须预构建为 ESM
   // 否则在源码模式下（alias 指向 src/）Vite 冷启动时可能直接投递 CJS 文件

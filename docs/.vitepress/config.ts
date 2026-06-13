@@ -755,22 +755,48 @@ export default defineConfig({
   buildConcurrency: 4,
   vite: {
     resolve: {
-      alias: {
-        '@yh-ui/components': resolve(__dirname, '../../packages/components/src'),
-        '@yh-ui/hooks': resolve(__dirname, '../../packages/hooks/src'),
-        '@yh-ui/utils': resolve(__dirname, '../../packages/utils/src'),
-        '@yh-ui/theme/styles': resolve(__dirname, '../../packages/theme/src/styles'),
-        '@yh-ui/theme': resolve(__dirname, '../../packages/theme/src'),
-        '@yh-ui/locale': resolve(__dirname, '../../packages/locale/src'),
-        '@yh-ui/icons': resolve(__dirname, '../../packages/icons/src'),
-        '@yh-ui/request': resolve(__dirname, '../../packages/request/src'),
-        '@yh-ui/flow': resolve(__dirname, '../../packages/flow/src'),
-        '@yh-ui/yh-ui': resolve(__dirname, '../../packages/yh-ui/src')
-      }
+      alias: [
+        {
+          find: '@yh-ui/components',
+          replacement: resolve(__dirname, '../../packages/components/src')
+        },
+        { find: '@yh-ui/hooks', replacement: resolve(__dirname, '../../packages/hooks/src') },
+        { find: '@yh-ui/utils', replacement: resolve(__dirname, '../../packages/utils/src') },
+        {
+          find: '@yh-ui/theme/styles',
+          replacement: resolve(__dirname, '../../packages/theme/src/styles')
+        },
+        { find: '@yh-ui/theme', replacement: resolve(__dirname, '../../packages/theme/src') },
+        { find: '@yh-ui/locale', replacement: resolve(__dirname, '../../packages/locale/src') },
+        { find: '@yh-ui/icons', replacement: resolve(__dirname, '../../packages/icons/src') },
+        { find: '@yh-ui/request', replacement: resolve(__dirname, '../../packages/request/src') },
+        { find: '@yh-ui/flow', replacement: resolve(__dirname, '../../packages/flow/src') },
+        { find: '@yh-ui/yh-ui', replacement: resolve(__dirname, '../../packages/yh-ui/src') },
+        {
+          find: /^dayjs$/,
+          replacement: resolve(__dirname, '../../node_modules/dayjs/esm/index.js')
+        },
+        {
+          find: /^dayjs\/dayjs\.min\.js$/,
+          replacement: resolve(__dirname, '../../node_modules/dayjs/esm/index.js')
+        }
+      ]
     },
     optimizeDeps: {
       exclude: ['@vue/repl'],
-      include: ['monaco-editor', 'dayjs', 'mermaid'],
+      include: [
+        'monaco-editor',
+        'dayjs',
+        'mermaid',
+        'dayjs/plugin/advancedFormat',
+        'dayjs/plugin/customParseFormat',
+        'dayjs/plugin/isBetween',
+        'dayjs/plugin/isoWeek',
+        'dayjs/plugin/quarterOfYear',
+        'dayjs/plugin/weekOfYear',
+        'mermaid > dayjs'
+      ],
+      needsInterop: ['dayjs'],
       esbuildOptions: { sourcemap: false }
     },
     build: {

@@ -147,4 +147,24 @@ describe('useLoadMore', () => {
     await pagination.prevPage()
     expect(mockService.mock.calls.length).toBeGreaterThan(3)
   })
+
+  it('pagination.nextPage should replace data instead of appending', async () => {
+    let callCount = 0
+    const mockService = vi.fn().mockImplementation(async () => {
+      callCount++
+      if (callCount === 1) return { data: [1] }
+      if (callCount === 2) return { data: [2] }
+      return { data: [] }
+    })
+
+    const { reload, pagination, data, current } = useLoadMore(mockService as any, { manual: true })
+
+    await reload() // Fetch page 1
+    expect(data.value).toEqual([1])
+    expect(current.value).toBe(1)
+
+    await pagination.nextPage() // Fetch page 2 using pagination.nextPage
+    expect(data.value).toEqual([2]) // Should replace data, not be [1, 2]
+    expect(current.value).toBe(2)
+  })
 })

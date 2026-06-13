@@ -163,23 +163,35 @@ export function parseIconName(name: string): string {
 }
 
 /**
- * 检查图标是否存在
+ * 同步检查图标格式是否可以被解析
+ * @param name - 图标名称
+ * @returns 是否符合解析格式
+ */
+export function canResolve(name: string): boolean {
+  if (typeof name !== 'string' || !name.trim()) {
+    return false
+  }
+  try {
+    const parsedName = parseIconName(name)
+    const formatRegex = /^[a-z0-9-]+:[a-z0-9-_]+$/i
+    return formatRegex.test(parsedName)
+  } catch {
+    return false
+  }
+}
+
+/**
+ * 检查图标是否存在（异步严格检查网络与缓存）
  * @param name - 图标名称
  * @returns 是否存在
  */
 export async function iconExists(name: string): Promise<boolean> {
-  if (typeof name !== 'string' || !name.trim()) {
+  if (!canResolve(name)) {
     return false
   }
 
   try {
     const parsedName = parseIconName(name)
-    // Strict format check for parsed name (prefix:name)
-    const formatRegex = /^[a-z0-9-]+:[a-z0-9-_]+$/i
-    if (!formatRegex.test(parsedName)) {
-      return false
-    }
-
     // 先检查缓存是否存在且有效
     const cached = getIcon(parsedName)
     if (cached && cached.body && typeof cached.body === 'string' && cached.body.trim().length > 0) {

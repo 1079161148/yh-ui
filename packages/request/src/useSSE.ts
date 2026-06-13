@@ -1,4 +1,4 @@
-import { ref, shallowRef, onUnmounted, type Ref, type ShallowRef } from 'vue'
+import { ref, shallowRef, onUnmounted, getCurrentInstance, type Ref, type ShallowRef } from 'vue'
 import { type RequestOptions } from './types'
 
 // ==================== 类型定义 ====================
@@ -382,9 +382,11 @@ export function useSSE(options: UseSSEOptions = {}): UseSSEReturn {
   }
 
   // 清理
-  onUnmounted(() => {
-    stop()
-  })
+  if (getCurrentInstance()) {
+    onUnmounted(() => {
+      stop()
+    })
+  }
 
   return {
     loading,

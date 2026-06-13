@@ -172,6 +172,29 @@ parseIconName('mdi:home') // 'mdi:home'
 parseIconName('mdi/home') // 'mdi:home'
 ```
 
+### canResolve
+
+Synchronously checks whether the icon format can be resolved.
+
+```typescript
+function canResolve(name: string): boolean
+```
+
+**Parameters**:
+
+- `name`: Icon name
+
+**Return Value**: Whether it matches the resolvable format.
+
+**Example**:
+
+```typescript
+import { canResolve } from '@yh-ui/icons'
+
+console.log(canResolve('mdi:home')) // true
+console.log(canResolve('invalid-format')) // false
+```
+
 ### iconExists
 
 Checks if an icon exists.

@@ -4,7 +4,8 @@ vi.mock('vue', async (importOriginal) => {
   return {
     ...actual,
     onMounted: (fn: any) => fn(),
-    onUnmounted: vi.fn()
+    onUnmounted: vi.fn(),
+    getCurrentInstance: () => ({})
   }
 })
 import { nextTick } from 'vue'
@@ -164,6 +165,29 @@ describe('useRequest', () => {
     cancel()
     expect(capturedSignal?.aborted).toBe(true)
 
+    vi.advanceTimersByTime(100)
+    await promise
+  })
+
+  it('should cancel ongoing requests on unmount', async () => {
+    const mockService = vi.fn().mockImplementation((options) => {
+      return new Promise((resolve) => setTimeout(() => resolve({ data: 'done' }), 100))
+    })
+    const { onUnmounted: mockOnUnmounted } = await import('vue')
+
+    vi.mocked(mockOnUnmounted).mockClear()
+
+    const { run, loading } = useRequest(mockService, { manual: true })
+    const promise = run().catch(() => {})
+
+    expect(loading.value).toBe(true)
+    expect(mockOnUnmounted).toHaveBeenCalled()
+    const unmountHandler = vi.mocked(mockOnUnmounted).mock.calls[0][0] as () => void
+    expect(typeof unmountHandler).toBe('function')
+
+    unmountHandler()
+
+    expect(loading.value).toBe(false)
     vi.advanceTimersByTime(100)
     await promise
   })

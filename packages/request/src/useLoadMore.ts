@@ -1,4 +1,12 @@
-import { ref, shallowRef, computed, onMounted, type Ref, type ShallowRef } from 'vue'
+import {
+  ref,
+  shallowRef,
+  computed,
+  onMounted,
+  getCurrentInstance,
+  type Ref,
+  type ShallowRef
+} from 'vue'
 import { type RequestResponse } from './types'
 
 // ==================== 类型定义 ====================
@@ -213,7 +221,9 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
       if (page < 1 || (totalPages.value > 0 && page > totalPages.value)) return
       await loadData(page, true)
     },
-    nextPage: loadMore,
+    nextPage: async (): Promise<void> => {
+      await pagination.loadPage(current.value + 1)
+    },
     prevPage: async (): Promise<void> => {
       await pagination.loadPage(current.value - 1)
     },
@@ -234,9 +244,13 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
 
   // 自动加载
   if (!manual) {
-    onMounted(() => {
+    if (getCurrentInstance()) {
+      onMounted(() => {
+        loadData(current.value, false)
+      })
+    } else {
       loadData(current.value, false)
-    })
+    }
   }
 
   return {
