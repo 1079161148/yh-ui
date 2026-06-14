@@ -119,6 +119,28 @@ export default defineBuildConfig({
           target: 'es2018',
           allowOverwrite: true,
           legalComments: 'eof'
+        }),
+        esbuild({
+          entryPoints: [resolve(__dirname, 'src/mermaid.ts')],
+          bundle: true,
+          format: 'esm',
+          outfile: resolve(__dirname, 'dist/mermaid.mjs'),
+          platform: 'browser',
+          mainFields: ['module', 'main'],
+          target: 'es2020',
+          allowOverwrite: true,
+          minify: true
+        }),
+        esbuild({
+          entryPoints: [resolve(__dirname, 'src/mermaid.ts')],
+          bundle: true,
+          format: 'cjs',
+          outfile: resolve(__dirname, 'dist/mermaid.cjs'),
+          platform: 'browser',
+          mainFields: ['module', 'main'],
+          target: 'es2020',
+          allowOverwrite: true,
+          minify: true
         })
       ])
     },

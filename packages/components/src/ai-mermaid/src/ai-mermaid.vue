@@ -200,7 +200,7 @@ const loadMermaid = async (): Promise<Mermaid | null> => {
   if (mermaidModule.value) return mermaidModule.value
 
   try {
-    const module = (await import('mermaid')) as unknown as Mermaid
+    const module = (await import('../../mermaid')) as unknown as Mermaid
     // 兼容不同的 ESM 导出方式
     const mermaid = (module.default || module) as Mermaid
     mermaidModule.value = mermaid

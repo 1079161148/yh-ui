@@ -4,6 +4,15 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.57] - 2026-06-14
+
+> 彻底解决 Mermaid 图表渲染组件在消费端冷启动与运行时可能产生的 `dayjs` 缺少默认导出错误，使其真正做到对消费端开发者完全免配置、开箱即用。
+
+### Fixed
+
+- **components**: 重构了 `YhAiMermaid` 组件的 Mermaid 依赖加载方案，在构建阶段使用 `esbuild` 自动编译生成完全自包含的 ESM/CJS 独立文件 `dist/mermaid.mjs` / `dist/mermaid.cjs`（将 `mermaid` 及其对 `dayjs` 等所有第三方依赖完全打包并内联），彻底避免了由于 pnpm 的严格依赖结构及 Vite ESM 翻译对 `dayjs.min.js`（CommonJS 格式）所引发的 `does not provide an export named 'default'` 浏览器报错，消费端无需进行任何 `optimizeDeps` 的手动配置。
+- **release**: 修复了 Windows 命令行在执行 release 时，由于 Shell 对 `&&` 命令链提前解析所导致的 CHANGELOG 模板文件未能被正常打包提交与推送的问题。
+
 ## [1.0.56] - 2026-06-14
 
 > 优化 AI 聊天气泡打字光标样式，补全并在中英文文档中同步 Request 系列组件交互示例，修复 Vite 插件在 pnpm 环境下解析 peerDependencies 依赖的兼容性问题。
