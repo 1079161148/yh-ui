@@ -209,6 +209,9 @@ async function iconExists(name: string): Promise<boolean>
 
 **Return Value**: Whether the icon exists.
 
+> [!WARNING]
+> Since `iconExists` depends on asynchronous loading from the remote Iconify API or local cache retrieval, it may be limited by unstable network conditions, timeouts, or instances where the icon has not yet loaded. Therefore, in business code, **it is recommended to use `iconExists` only as a pre-check/heuristic validator, rather than the sole absolute proof of an icon's existence**. Pair it with the format validation function `canResolve` and provide a reasonable fallback (such as a default icon or text warning) if the icon fails to load.
+
 **Example**:
 
 ```typescript

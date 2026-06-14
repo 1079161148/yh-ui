@@ -313,6 +313,155 @@ const securityInterceptor = createSecurityInterceptor({
 request.interceptors.request.use(securityInterceptor.onRequest)
 ```
 
+## Interactive Security Features Demo
+
+In the testing sandbox below, you can simulate sending API requests and configure **CSRF protection** and **Request signing (HMAC-SHA256)**. The console will automatically display the actual secured HTTP headers packaged when the request is sent.
+
+<DemoBlock title="API Request Security Sandbox (CSRF & Request Signing)" :ts-code="tsSecurityDemo" :js-code="toJs(tsSecurityDemo)">
+  <div class="interactive-demo-container">
+    <div class="control-panel">
+      <div class="panel-item">
+        <label>Security Policy Config (Security Policies):</label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:normal">
+          <input type="checkbox" v-model="enableCSRF" />
+          <span>Enable CSRF Protection (Inject X-XSRF-TOKEN)</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:normal">
+          <input type="checkbox" v-model="enableSign" />
+          <span>Enable Request Signing Protection (HMAC-SHA256)</span>
+        </label>
+      </div>
+      <div class="panel-item" v-if="enableSign">
+        <label>Signing Secret Key:</label>
+        <yh-input :model-value="secretKey" @update:model-value="(v) => { secretKey = String(v) }" size="small" />
+      </div>
+      <div class="panel-item">
+        <label>Request Payload Data (JSON):</label>
+        <yh-input :model-value="payloadJson" @update:model-value="(v) => { payloadJson = String(v) }" size="small" />
+      </div>
+      <div class="action-buttons">
+        <yh-button type="primary" :loading="securityLoading" @click="runSecurityDemo">Send Secure Request</yh-button>
+        <yh-button @click="clearSecurityLogs" :disabled="secLogs.length === 0">Clear</yh-button>
+      </div>
+    </div>
+    <div class="terminal-panel">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">Network Packet Monitor (HTTP Request Headers)</span>
+      </div>
+      <div class="terminal-body">
+        <div v-if="secLogs.length === 0" class="empty-log">Click "Send Secure Request" to test...</div>
+        <div v-for="(log, i) in secLogs" :key="i" class="log-line" :class="{ 'log-success': log.includes('passed') || log.includes('✅') || log.includes('Header'), 'log-error': log.includes('Clear') || log.includes('🚨'), 'log-info': log.includes('-->') || log.includes('⚙️') || log.includes('<--') }">
+          {{ log }}
+        </div>
+      </div>
+    </div>
+  </div>
+</DemoBlock>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+
+const enableCSRF = ref(true)
+const enableSign = ref(true)
+const secretKey = ref('yh-security-secret-key-999')
+const payloadJson = ref('{"amount": 100, "to": "user_id_456"}')
+
+const securityLoading = ref(false)
+const secLogs = ref<string[]>([])
+
+const addSecLog = (msg: string) => {
+  const time = new Date().toLocaleTimeString()
+  secLogs.value.push(`[${time}] ${msg}`)
+}
+
+const computeSimpleHash = (payload: string, key: string, timestamp: string) => {
+  const message = `${payload}:${key}:${timestamp}`
+  let hash = 0
+  for (let i = 0; i < message.length; i++) {
+    const char = message.charCodeAt(i)
+    hash = ((hash << 5) - hash) + char
+    hash |= 0
+  }
+  return 'sha256_' + Math.abs(hash).toString(16).padStart(8, '0') + Math.random().toString(36).substring(2, 6)
+}
+
+const runSecurityDemo = async () => {
+  if (securityLoading.value) return
+  securityLoading.value = true
+
+  addSecLog('--> Sending secure request: POST /api/transaction/transfer')
+  addSecLog(`📦 Payload: ${payloadJson.value}`)
+
+  await new Promise(r => setTimeout(r, 600))
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json'
+  }
+
+  if (enableCSRF.value) {
+    // Simulate auto injection of CSRF token
+    headers['X-XSRF-TOKEN'] = 'csrf_token_hash_8f9c0e2b'
+    addSecLog(`🛡️ [CSRF Interceptor] Extracted XSRF-TOKEN from Cookie and auto-injected into Header`)
+  }
+
+  if (enableSign.value) {
+    const timestamp = String(Date.now())
+    const signature = computeSimpleHash(payloadJson.value, secretKey.value, timestamp)
+    
+    headers['X-Timestamp'] = timestamp
+    headers['X-Signature'] = signature
+    addSecLog(`🔒 [Signature Interceptor] Generated request signature and timestamp headers`)
+  }
+
+  addSecLog('📡 Actual HTTP headers sent (Request Headers):')
+  Object.entries(headers).forEach(([k, v]) => {
+    addSecLog(`    ${k}: ${v}`)
+  })
+
+  addSecLog('<-- Response: HTTP/1.1 200 OK')
+  addSecLog('✅ Security verification passed! The request has been securely received by the server.')
+
+  securityLoading.value = false
+}
+
+const clearSecurityLogs = () => {
+  secLogs.value = []
+}
+
+const tsSecurityDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:8px">
+    <yh-button type="primary" @click="sendTransaction">Send Secure Transaction</yh-button>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { createRequest, createSecurityInterceptor } from '@yh-ui/request'
+
+const request = createRequest()
+const securityInterceptor = createSecurityInterceptor({
+  csrf: { cookieName: 'XSRF-TOKEN' }
+})
+
+request.interceptors.request.use(securityInterceptor.onRequest)
+
+// Mock request signature interceptor
+request.interceptors.request.use((config) => {
+  config.headers['X-Signature'] = 'hmac-sha-256-signature'
+  config.headers['X-Timestamp'] = String(Date.now())
+  return config
+})
+
+const sendTransaction = async () => {
+  const res = await request.post('/api/transaction', { amount: 100 })
+  console.log('Transaction sent successfully:', res)
+}
+</${_S}>`
+</script>
+
 ## Next Steps
 
 - [useRequest](./use-request) - Vue request Hook

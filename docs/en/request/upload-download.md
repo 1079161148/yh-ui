@@ -444,6 +444,459 @@ const handleDownload = async () => {
 </style>
 ```
 
+## Interactive Transfer Progress Demo
+
+In the testing sandbox below, you can simulate the **file upload** or **file download** process. It supports configuring the **file size** and **simulated speed limit**, and allows real-time operations like **Pause**, **Resume**, and **Cancel/Abort** (implemented under the hood using AbortController) during transmission. The console and progress panel will display the current transmission metrics and status changes in real-time.
+
+<DemoBlock title="API Request Transfer Progress Sandbox (Upload and Download Progress and Abort)" :ts-code="tsUploadDownloadDemo" :js-code="toJs(tsUploadDownloadDemo)">
+  <div class="interactive-demo-container">
+    <div class="control-panel">
+      <!-- Mode Selection -->
+      <div class="panel-item">
+        <label>Transfer Mode (Mode):</label>
+        <div class="mode-tabs">
+          <button class="mode-tab" :class="{ active: mode === 'upload' }" @click="setMode('upload')" :disabled="status === 'running' || status === 'paused'">File Upload</button>
+          <button class="mode-tab" :class="{ active: mode === 'download' }" @click="setMode('download')" :disabled="status === 'running' || status === 'paused'">File Download</button>
+        </div>
+      </div>
+      <!-- File Size -->
+      <div class="panel-item">
+        <label>Virtual File Size (File Size): <span class="highlight-val">{{ fileSize }} MB</span></label>
+        <div class="button-group">
+          <yh-button v-for="size in [10, 50, 200]" :key="size" :type="fileSize === size ? 'primary' : 'default'" size="small" :disabled="status === 'running' || status === 'paused'" @click="fileSize = size">
+            {{ size }} MB
+          </yh-button>
+        </div>
+      </div>
+      <!-- Speed Limit -->
+      <div class="panel-item">
+        <label>Simulated Speed Limit (Speed Limit): <span class="highlight-val">{{ formatSpeedLimit(speedLimit) }}</span></label>
+        <div class="button-group">
+          <yh-button v-for="spd in [512, 2048, 10240, -1]" :key="spd" :type="speedLimit === spd ? 'primary' : 'default'" size="small" @click="speedLimit = spd">
+            {{ formatSpeedLimit(spd) }}
+          </yh-button>
+        </div>
+      </div>
+      <!-- Control Buttons -->
+      <div class="action-buttons">
+        <yh-button v-if="status === 'idle' || status === 'success' || status === 'aborted'" type="primary" @click="startTransfer">
+          Start {{ mode === 'upload' ? 'Upload' : 'Download' }}
+        </yh-button>
+        <template v-else>
+          <yh-button v-if="status === 'running'" type="warning" @click="pauseTransfer">Pause</yh-button>
+          <yh-button v-if="status === 'paused'" type="success" @click="resumeTransfer">Resume</yh-button>
+          <yh-button type="danger" @click="cancelTransfer">Cancel / Abort</yh-button>
+        </template>
+        <yh-button @click="clearLogs" :disabled="logs.length === 0">Clear Console</yh-button>
+      </div>
+    </div>
+    <!-- Progress & Metrics Visualization -->
+    <div class="visual-panel">
+      <div class="visual-header">
+        <span class="status-indicator" :class="statusClass"></span>
+        <span style="font-weight:600; font-size:13px">{{ mode === 'upload' ? 'Upload Task Monitor' : 'Download Task Monitor' }}</span>
+      </div>
+      <div class="visual-body">
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" :class="status" :style="{ width: progress + '%' }"></div>
+        </div>
+        <!-- Metrics Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">Status</span>
+            <span class="stat-value" :class="statusClass">{{ statusText }}</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Progress</span>
+            <span class="stat-value">{{ progress }}% ({{ formatSize(loadedBytes) }} / {{ formatSize(totalBytes) }})</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Speed</span>
+            <span class="stat-value">{{ formatSpeed(transferRate) }}</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">ETA</span>
+            <span class="stat-value">{{ formatTime(etaSeconds) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Terminal Stream Logs -->
+  <div class="terminal-panel" style="margin-top: 16px;">
+    <div class="terminal-header">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+      <span class="title">Transfer Stream Logs (Progress Event Streams)</span>
+    </div>
+    <div class="terminal-body">
+      <div v-if="logs.length === 0" class="empty-log">Click "Start Upload/Download" to observe progress callbacks...</div>
+      <div v-for="(log, i) in logs" :key="i" class="log-line" :class="{ 'log-success': log.includes('✅') || log.includes('completed'), 'log-error': log.includes('❌') || log.includes('aborted'), 'log-info': log.includes('-->') || log.includes('⏳') || log.includes('⏸️') || log.includes('▶️') }">
+        {{ log }}
+      </div>
+    </div>
+  </div>
+</DemoBlock>
+
+<script setup lang="ts">
+import { ref, computed, onBeforeUnmount } from 'vue'
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+
+const mode = ref<'upload' | 'download'>('upload')
+const fileSize = ref(50) // MB
+const speedLimit = ref(2048) // KB/s
+const progress = ref(0)
+const loadedBytes = ref(0)
+const transferRate = ref(0)
+const etaSeconds = ref(0)
+const status = ref<'idle' | 'running' | 'paused' | 'aborted' | 'success'>('idle')
+const logs = ref<string[]>([])
+
+const totalBytes = computed(() => fileSize.value * 1024 * 1024)
+
+let timer: any = null
+let lastTime = 0
+let lastLoaded = 0
+
+const statusClass = computed(() => {
+  return {
+    'status-idle': status.value === 'idle',
+    'status-running': status.value === 'running',
+    'status-paused': status.value === 'paused',
+    'status-aborted': status.value === 'aborted',
+    'status-success': status.value === 'success'
+  }
+})
+
+const statusText = computed(() => {
+  switch (status.value) {
+    case 'idle': return 'Idle'
+    case 'running': return mode.value === 'upload' ? 'Uploading' : 'Downloading'
+    case 'paused': return 'Paused'
+    case 'aborted': return 'Aborted'
+    case 'success': return 'Completed'
+    default: return ''
+  }
+})
+
+const formatSize = (bytes: number) => {
+  if (bytes === 0) return '0 B'
+  const k = 1024
+  const sizes = ['B', 'KB', 'MB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+}
+
+const formatSpeedLimit = (limit: number) => {
+  if (limit === -1) return 'Unlimited'
+  if (limit >= 1024) return (limit / 1024).toFixed(1) + ' MB/s'
+  return limit + ' KB/s'
+}
+
+const formatSpeed = (bytesPerSec: number) => {
+  if (status.value !== 'running') return '0 B/s'
+  if (!(bytesPerSec >= 1024)) return `${bytesPerSec.toFixed(0)} B/s`
+  if (!(bytesPerSec >= 1024 * 1024)) return `${(bytesPerSec / 1024).toFixed(1)} KB/s`
+  return `${(bytesPerSec / 1024 / 1024).toFixed(1)} MB/s`
+}
+
+const formatTime = (seconds: number) => {
+  if (status.value !== 'running' || seconds === Infinity || !(seconds >= 0)) return '--'
+  if (!(seconds >= 1)) return 'instant'
+  return seconds.toFixed(1) + ' s'
+}
+
+const addLog = (msg: string) => {
+  const time = new Date().toLocaleTimeString()
+  logs.value.push(`[${time}] ${msg}`)
+}
+
+const setMode = (m: 'upload' | 'download') => {
+  mode.value = m
+  resetSimulation()
+}
+
+const resetSimulation = () => {
+  clearInterval(timer)
+  progress.value = 0
+  loadedBytes.value = 0
+  transferRate.value = 0
+  etaSeconds.value = 0
+  status.value = 'idle'
+}
+
+const startTransfer = () => {
+  resetSimulation()
+  status.value = 'running'
+  
+  const endpoint = mode.value === 'upload' ? '/api/upload' : '/api/download/file'
+  addLog(`--> Initiating file ${mode.value === 'upload' ? 'upload' : 'download'}: POST ${endpoint} (Size: ${fileSize.value} MB)`)
+  addLog(`⚙️ Configured speed limit: ${formatSpeedLimit(speedLimit.value)}`)
+
+  lastTime = Date.now()
+  lastLoaded = 0
+  runTick()
+}
+
+const runTick = () => {
+  timer = setInterval(() => {
+    if (status.value !== 'running') return
+
+    const now = Date.now()
+    const duration = (now - lastTime) / 1000 // sec
+    lastTime = now
+
+    if (!(duration >= 0)) return
+
+    let bytesToTransfer = 0
+    if (speedLimit.value === -1) {
+      bytesToTransfer = totalBytes.value - loadedBytes.value
+    } else {
+      bytesToTransfer = speedLimit.value * 1024 * duration
+    }
+
+    if (speedLimit.value !== -1) {
+      bytesToTransfer *= (0.93 + Math.random() * 0.14)
+    }
+
+    loadedBytes.value = Math.min(totalBytes.value, loadedBytes.value + bytesToTransfer)
+    progress.value = Math.round((loadedBytes.value / totalBytes.value) * 100)
+
+    const actualDiff = loadedBytes.value - lastLoaded
+    lastLoaded = loadedBytes.value
+
+    transferRate.value = duration > 0 ? (actualDiff / duration) : 0
+    etaSeconds.value = transferRate.value > 0 ? (totalBytes.value - loadedBytes.value) / transferRate.value : 0
+
+    const prevPercent = Math.round(((loadedBytes.value - actualDiff) / totalBytes.value) * 100)
+    const currentPercent = progress.value
+    
+    if (currentPercent >= 100) {
+      progress.value = 100
+      loadedBytes.value = totalBytes.value
+      transferRate.value = 0
+      etaSeconds.value = 0
+      status.value = 'success'
+      addLog(`⏳ Progress: 100% | Transferred: ${formatSize(totalBytes.value)} / ${formatSize(totalBytes.value)}`)
+      addLog(`✅ Transmission completed! HTTP/1.1 200 OK (File transfer stream closed)`)
+      clearInterval(timer)
+    } else if (Math.floor(currentPercent / 10) > Math.floor(prevPercent / 10)) {
+      addLog(`⏳ Progress: ${currentPercent}% | Transferred: ${formatSize(loadedBytes.value)} | Rate: ${formatSpeed(transferRate.value)} | ETA: ${formatTime(etaSeconds.value)}`)
+    }
+  }, 100)
+}
+
+const pauseTransfer = () => {
+  if (status.value !== 'running') return
+  status.value = 'paused'
+  clearInterval(timer)
+  addLog(`⏸️ Transmission paused (Connection paused)`)
+}
+
+const resumeTransfer = () => {
+  if (status.value !== 'paused') return
+  status.value = 'running'
+  addLog(`▶️ Transmission resumed (Connection resumed)`)
+  lastTime = Date.now()
+  lastLoaded = loadedBytes.value
+  runTick()
+}
+
+const cancelTransfer = () => {
+  clearInterval(timer)
+  status.value = 'aborted'
+  transferRate.value = 0
+  etaSeconds.value = 0
+  addLog(`❌ [AbortController] Transmission aborted by user (Request aborted)`)
+}
+
+const clearLogs = () => {
+  logs.value = []
+}
+
+onBeforeUnmount(() => {
+  clearInterval(timer)
+})
+
+const tsUploadDownloadDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:12px">
+    <div style="display:flex; gap:8px">
+      <yh-button type="primary" @click="startUpload">Start Upload (Upload)</yh-button>
+      <yh-button type="success" @click="startDownload">Start Download (Download)</yh-button>
+      <yh-button type="danger" @click="cancelTransfer">Cancel Transmission (Cancel)</yh-button>
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+import { createRequest } from '@yh-ui/request'
+
+const request = createRequest()
+let abortController: AbortController | null = null
+
+const startUpload = async () => {
+  abortController = new AbortController()
+  const file = new File(['hello'], 'demo.txt')
+  const formData = new FormData()
+  formData.append('file', file)
+
+  try {
+    await request.post('/api/upload', formData, {
+      signal: abortController.signal,
+      onUploadProgress: (e) => {
+        console.log(\`Upload progress: \${e.percent}%\`)
+      }
+    })
+  } catch (err) {
+    console.log('Transmission cancelled or failed', err)
+  }
+}
+
+const startDownload = async () => {
+  abortController = new AbortController()
+  try {
+    await request.get('/api/download/file', {
+      signal: abortController.signal,
+      responseType: 'blob',
+      onDownloadProgress: (e) => {
+        console.log(\`Download progress: \${e.percent}%\`)
+      }
+    })
+  } catch (err) {
+    console.log('Transmission cancelled or failed', err)
+  }
+}
+
+const cancelTransfer = () => {
+  if (abortController) {
+    abortController.abort()
+  }
+}
+</${_S}>`
+</script>
+
+<style>
+.mode-tabs {
+  display: flex;
+  background: var(--vp-c-bg-mute, #eaeaea);
+  border-radius: 6px;
+  padding: 2px;
+  width: fit-content;
+}
+.mode-tab {
+  border: none;
+  background: transparent;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  color: var(--vp-c-text-2);
+  transition: all 0.2s ease;
+}
+.mode-tab:hover:not(:disabled) {
+  color: var(--vp-c-text-1);
+}
+.mode-tab.active {
+  background: var(--vp-c-bg);
+  color: var(--yh-color-primary, #409eff);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.mode-tab:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.visual-panel {
+  flex: 1;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--yh-border-color-light, #ebeef5);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+.visual-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--yh-border-color-light, #ebeef5);
+  padding-bottom: 8px;
+}
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.status-idle { background: #909399; }
+.status-running { background: #409eff; animation: blink-indicator 1.2s infinite alternate; }
+.status-paused { background: #e6a23c; }
+.status-aborted { background: #f56c6c; }
+.status-success { background: #67c23a; }
+
+@keyframes blink-indicator {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+.visual-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.progress-bar-container {
+  width: 100%;
+  height: 10px;
+  background: var(--vp-c-bg-mute, #eaeaea);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  transition: width 0.1s linear;
+}
+.progress-bar-fill.idle { background: #909399; }
+.progress-bar-fill.running { background: linear-gradient(90deg, #409eff, #3a8ee6); }
+.progress-bar-fill.paused { background: #e6a23c; }
+.progress-bar-fill.aborted { background: #f56c6c; }
+.progress-bar-fill.success { background: #67c23a; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.stat-box {
+  background: var(--vp-c-bg);
+  border: 1px solid var(--yh-border-color-light, #ebeef5);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--vp-c-text-3);
+  text-transform: uppercase;
+}
+.stat-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+.stat-value.status-idle { color: #909399; }
+.stat-value.status-running { color: #409eff; }
+.stat-value.status-paused { color: #e6a23c; }
+.stat-value.status-aborted { color: #f56c6c; }
+.stat-value.status-success { color: #67c23a; }
+</style>
+
 ## Notes
 
 ### 1. Progress Event Compatibility

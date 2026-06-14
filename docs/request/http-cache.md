@@ -340,3 +340,155 @@ function createHttpCacheInterceptor(options?: HttpCacheOptions): {
   getCache: () => HttpCache
 }
 ```
+
+## 交互式 HTTP 缓存演示
+
+通过下方交互，您可以模拟浏览器端与服务端之间的 **ETag / 304** 条件缓存交互流。
+
+1. 点击 **“发起 HTTP 请求”** 发送请求，如果本地无缓存或服务器已更新，将返回 `200 OK`。
+2. 再次点击，请求头将自动携带上一次的 ETag 值 `If-None-Match`，服务器比对一致时返回 `304 Not Modified`，直接复用本地缓存，极大地节省了传输带宽。
+3. 点击 **“更新服务器数据”** 后再次请求，由于 ETag 变更，将重新从服务器获取数据并返回 `200 OK`。
+
+<DemoBlock title="HTTP ETag / 304 缓存协商沙盒" :ts-code="tsHttpCacheDemo" :js-code="toJs(tsHttpCacheDemo)">
+  <div class="interactive-demo-container">
+    <div class="control-panel">
+      <div class="panel-item">
+        <label>🖥️ 服务端数据状态 (Server State):</label>
+        <div style="padding:12px; border-radius:6px; background:var(--vp-c-bg-soft); border:1px solid var(--yh-border-color-light)">
+          <div style="font-size:12px; line-height:1.6">数据版本: <span class="highlight-val">v{{ serverVersion }}</span></div>
+          <div style="font-size:12px; line-height:1.6">服务器 ETag: <code style="color:var(--yh-color-primary)">{{ serverETag }}</code></div>
+          <div style="font-size:12px; line-height:1.6; color:var(--yh-text-color-secondary)">数据内容: {{ JSON.stringify(serverData) }}</div>
+        </div>
+      </div>
+      <div class="panel-item">
+        <label>💾 浏览器本地缓存 (Local Browser Cache):</label>
+        <div style="padding:12px; border-radius:6px; background:var(--vp-c-bg-soft); border:1px solid var(--yh-border-color-light)">
+          <div style="font-size:12px; line-height:1.6">缓存数据: <span v-if="!localCacheData" style="color:var(--yh-text-color-placeholder)">无缓存 (Empty)</span><span v-else style="color:var(--yh-text-color-secondary)">{{ JSON.stringify(localCacheData) }}</span></div>
+          <div style="font-size:12px; line-height:1.6">保存的 ETag: <code v-if="localCacheETag" style="color:var(--yh-color-primary)">{{ localCacheETag }}</code><span v-else style="color:var(--yh-text-color-placeholder)">无</span></div>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <yh-button type="primary" :loading="requestLoading" @click="runHttpCacheDemo">发起 HTTP 请求</yh-button>
+        <yh-button @click="updateServerData">更新服务器数据</yh-button>
+        <yh-button @click="clearLocalCache" :disabled="!localCacheData">清空本地缓存</yh-button>
+      </div>
+    </div>
+    <div class="terminal-panel">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">网络请求及响应头监控 (HTTP Headers)</span>
+      </div>
+      <div class="terminal-body">
+        <div v-if="logs.length === 0" class="empty-log">点击“发起 HTTP 请求”进行测试...</div>
+        <div v-for="(log, i) in logs" :key="i" class="log-line" :class="{
+          'log-success': log.includes('304 Not Modified') || log.includes('✅'),
+          'log-error': log.includes('清空') || log.includes('🚨'),
+          'log-info': log.includes('-->') || log.includes('⚙️') || log.includes('<--')
+        }">
+          {{ log }}
+        </div>
+      </div>
+    </div>
+  </div>
+</DemoBlock>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
+
+const serverVersion = ref(1)
+const serverData = computed(() => ({
+  id: 1,
+  title: '关于 YH-UI 的介绍',
+  version: `v${serverVersion.value}`,
+  lastUpdated: new Date().toLocaleTimeString()
+}))
+const serverETag = computed(() => `W/"etag-yh-ui-v${serverVersion.value}"`)
+
+const localCacheData = ref<any>(null)
+const localCacheETag = ref<string>('')
+const requestLoading = ref(false)
+const logs = ref<string[]>([])
+
+const addLog = (msg: string) => {
+  const time = new Date().toLocaleTimeString()
+  logs.value.push(`[${time}] ${msg}`)
+}
+
+const runHttpCacheDemo = async () => {
+  if (requestLoading.value) return
+  requestLoading.value = true
+
+  addLog('--> 发起请求: GET /api/document/intro')
+  if (localCacheETag.value) {
+    addLog(`    If-None-Match: ${localCacheETag.value}`)
+  } else {
+    addLog('    If-None-Match: (无)')
+  }
+
+  // 模拟请求耗时
+  await new Promise(r => setTimeout(r, 800))
+
+  // 模拟服务器对比 ETag
+  if (localCacheETag.value && localCacheETag.value === serverETag.value) {
+    addLog(`<-- 响应结果: HTTP/1.1 304 Not Modified`)
+    addLog(`    ETag: ${serverETag.value}`)
+    addLog(`    Cache-Control: public, max-age=300`)
+    addLog(`✅ 304 命成功! 本地浏览器直接读取缓存，传输数据量为 0 字节`)
+  } else {
+    addLog(`<-- 响应结果: HTTP/1.1 200 OK`)
+    addLog(`    ETag: ${serverETag.value}`)
+    addLog(`    Cache-Control: public, max-age=300`)
+    
+    // 保存本地缓存
+    localCacheData.value = JSON.parse(JSON.stringify(serverData.value))
+    localCacheETag.value = serverETag.value
+    addLog(`✅ 请求成功并存入本地缓存，保存 ETag: ${serverETag.value}`)
+  }
+
+  requestLoading.value = false
+}
+
+const updateServerData = () => {
+  serverVersion.value++
+  addLog(`⚙️ [Server] 服务端资源已更新，版本递增至 v${serverVersion.value}，ETag 已改变`)
+}
+
+const clearLocalCache = () => {
+  localCacheData.value = null
+  localCacheETag.value = ''
+  addLog('🚨 本地缓存已清空')
+}
+
+const tsHttpCacheDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:12px">
+    <yh-button type="primary" @click="fetchDoc">获取文档内容</yh-button>
+    <div v-if="result" style="padding:12px; border-radius:6px; background:var(--vp-c-bg-soft)">
+      {{ result }}
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+import { createRequest, createHttpCacheInterceptor } from '@yh-ui/request'
+
+const request = createRequest()
+const { onRequest, onResponse } = createHttpCacheInterceptor({
+  enabled: true,
+  maxAge: 5 * 60 * 1000 // 5分钟
+})
+
+request.interceptors.request.use(onRequest)
+request.interceptors.response.use(onResponse)
+
+const result = ref('')
+
+const fetchDoc = async () => {
+  const res = await request.get('/api/document/intro')
+  result.value = \`状态码: \${res.response.status}, 数据: \${JSON.stringify(res.data)}\`
+}
+</${_S}>`
+</script>

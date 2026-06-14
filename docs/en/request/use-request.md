@@ -2,25 +2,334 @@
 
 `useRequest` is a general-purpose request Hook provided by `@yh-ui/request` for elegantly managing the entire lifecycle of async requests in Vue components: loading state, errors, retry, debounce/throttle, etc.
 
-## Basic Usage
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import { useRequest, useRequestPolling } from '@yh-ui/request'
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
-```typescript
-import { useRequest } from '@yh-ui/request'
+// 1. Basic Usage Demo
+const { data: userData, loading: userLoading, run: fetchUsers } = useRequest(async () => {
+  await new Promise(resolve => setTimeout(resolve, 800))
+  return fetch('https://jsonplaceholder.typicode.com/users?_limit=3').then(r => r.json())
+}, { manual: true })
 
-// Basic usage - auto execute
-const { data, loading, error } = useRequest(() => request.get('/api/users'))
-```
+const userList = computed(() => userData.value || [])
 
-```typescript
-// Manual trigger
-const { data, loading, error, run } = useRequest((id: number) => request.get(`/api/users/${id}`), {
-  manual: true, // Manual mode
-  defaultParams: [1] // Default params
+onMounted(() => fetchUsers())
+
+const searchId = ref(1)
+const { data: detailData, loading: detailLoading, run: fetchDetail } = useRequest(async (id: number) => {
+  await new Promise(resolve => setTimeout(resolve, 600))
+  return fetch(`https://jsonplaceholder.typicode.com/users/${id}`).then(r => r.json())
+}, {
+  manual: true,
+  defaultParams: [1]
 })
 
-// Call when needed
-run(2)
-```
+const detailUser = computed(() => detailData.value)
+
+const tsBasicDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:24px">
+    <!-- Auto Loading -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Auto Load User List</h5>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px">
+        <yh-button type="primary" :loading="loading" @click="() => run()">Refresh List</yh-button>
+      </div>
+      <yh-spin :show="loading">
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <div v-for="user in userList" :key="user.id" style="padding:8px 12px; border:1px solid var(--yh-border-color); border-radius:6px; font-size:14px">
+            {{ user.name }} ({{ user.email }})
+          </div>
+        </div>
+      </yh-spin>
+    </div>
+
+    <!-- Manual Trigger -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Manual Query by ID</h5>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px">
+        <yh-input v-model="searchId" type="number" style="width:120px" />
+        <yh-button type="primary" :loading="detailLoading" @click="() => fetchDetail(Number(searchId))">Query</yh-button>
+      </div>
+      <yh-spin :show="detailLoading">
+        <div v-if="detailUser" style="padding:12px; border:1px solid var(--yh-border-color); border-radius:8px; background:var(--yh-bg-color-page)">
+          <div style="font-weight:bold; margin-bottom:4px">{{ detailUser.name }}</div>
+          <div style="font-size:12px; color:var(--yh-text-color-secondary)">Email: {{ detailUser.email }} | City: {{ detailUser.address?.city }}</div>
+        </div>
+      </yh-spin>
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref, computed } from 'vue'
+import { useRequest } from '@yh-ui/request'
+
+// Auto load list
+const { data, loading, run } = useRequest(() => 
+  fetch('https://jsonplaceholder.typicode.com/users?_limit=3').then(r => r.json())
+)
+
+const userList = computed(() => data.value || [])
+
+// Manual query
+const searchId = ref(1)
+const { data: detailData, loading: detailLoading, run: fetchDetail } = useRequest(
+  (id: number) => fetch(\`https://jsonplaceholder.typicode.com/users/\${id}\`).then(r => r.json()),
+  { manual: true, defaultParams: [1] }
+)
+
+const detailUser = computed(() => detailData.value)
+</${_S}>`
+
+// 2. Debounce & Throttle Demo
+const clickCount = ref(0)
+const submitTriggered = ref(0)
+const searchTerm = ref('')
+const searchResult = ref('Please enter a search term')
+
+const { run: runSearch } = useRequest(async (val: string) => {
+  searchResult.value = val ? `Searching: "${val}"` : 'Please enter a search term'
+}, {
+  manual: true,
+  debounceWait: 400
+})
+
+const handleSearchInput = (val: string | number) => {
+  const strVal = String(val)
+  searchTerm.value = strVal
+  runSearch(strVal)
+}
+
+const { run: runSubmit } = useRequest(async () => {
+  submitTriggered.value++
+}, {
+  manual: true,
+  throttleWait: 1000
+})
+
+const handleSubmitClick = () => {
+  clickCount.value++
+  runSubmit()
+}
+
+const tsDebounceThrottleDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:24px">
+    <!-- Debounce Search -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Search Input (Debounce 400ms)</h5>
+      <yh-input :model-value="searchTerm" placeholder="Try typing fast..." @update:model-value="handleSearch" style="width:240px; margin-bottom:12px" />
+      <div style="font-size:14px; color:var(--yh-text-color-secondary)">{{ searchResult }}</div>
+    </div>
+
+    <!-- Throttle Submit -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Quick Click Button (Throttle 1000ms)</h5>
+      <yh-button type="primary" @click="submit">Click Me Repeatedly</yh-button>
+      <div style="margin-top:12px; font-size:14px; display:flex; gap:24px">
+        <span>Button clicked: <b>{{ clicks }}</b></span>
+        <span>Actual requests sent: <b style="color:var(--yh-color-success)">{{ triggers }}</b></span>
+      </div>
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+import { useRequest } from '@yh-ui/request'
+
+const searchTerm = ref('')
+const searchResult = ref('Please enter a search term')
+const { run: runSearch } = useRequest(
+  async (val: string) => { searchResult.value = val ? \`Searching: "\${val}"\` : 'Please enter a search term' },
+  { manual: true, debounceWait: 400 }
+)
+const handleSearch = (val: string) => {
+  searchTerm.value = val
+  runSearch(val)
+}
+
+const clicks = ref(0)
+const triggers = ref(0)
+const { run: runSubmit } = useRequest(async () => { triggers.value++ }, {
+  manual: true,
+  throttleWait: 1000
+})
+const submit = () => {
+  clicks.value++
+  runSubmit()
+}
+</${_S}>`
+
+// 3. mutate & cancel Demo
+const localUsers = ref<{ id: number; name: string }[]>([
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bob' }
+])
+const { run: runSlowRequest, cancel: cancelSlowRequest, loading: slowLoading } = useRequest(async () => {
+  await new Promise(resolve => setTimeout(resolve, 5000))
+}, { manual: true })
+
+const addLocalUser = () => {
+  const newId = localUsers.value.length + 1
+  localUsers.value = [...localUsers.value, { id: newId, name: `New User ${newId}` }]
+}
+
+const tsMutateCancelDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:24px">
+    <!-- mutate -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Local Optimistic Update (mutate)</h5>
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px">
+        <yh-button type="primary" @click="addUser">Add New User</yh-button>
+        <yh-button @click="resetUsers">Reset List</yh-button>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap">
+        <yh-tag v-for="user in users" :key="user.id" type="success">{{ user.name }}</yh-tag>
+      </div>
+    </div>
+
+    <!-- cancel -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Cancel Delayed Request (cancel)</h5>
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px">
+        <yh-button type="primary" :loading="loading" @click="start">Start Slow Request (5s)</yh-button>
+        <yh-button type="danger" :disabled="!loading" @click="stop">Cancel Request</yh-button>
+      </div>
+      <div style="font-size:14px; color:var(--yh-text-color-secondary)">
+        Current State: <b :style="{ color: loading ? 'var(--yh-color-primary)' : 'var(--yh-text-color-secondary)' }">{{ loading ? 'Requesting (can cancel)...' : 'Idle / Cancelled' }}</b>
+      </div>
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+import { useRequest } from '@yh-ui/request'
+
+// mutate demo
+const users = ref([{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }])
+const addUser = () => {
+  const nextId = users.value.length + 1
+  users.value = [...users.value, { id: nextId, name: 'New User ' + nextId }]
+}
+const resetUsers = () => {
+  users.value = [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }]
+}
+
+// cancel demo
+const { run, cancel, loading } = useRequest(
+  () => new Promise(resolve => setTimeout(resolve, 5000)),
+  { manual: true }
+)
+const start = () => run()
+const stop = () => cancel()
+</${_S}>`
+
+// 4. Polling Demo
+const pollingProgress = ref(0)
+const isPollingActive = ref(true)
+
+const { pause: stopPolling, resume: startPolling } = useRequestPolling(async () => {
+  if (pollingProgress.value >= 100) {
+    pollingProgress.value = 0
+  }
+  pollingProgress.value = Math.min(100, pollingProgress.value + 15)
+}, {
+  polling: true,
+  pollingInterval: 2000,
+  manual: false
+})
+
+const handleTogglePolling = () => {
+  if (isPollingActive.value) {
+    stopPolling()
+    isPollingActive.value = false
+  } else {
+    startPolling()
+    isPollingActive.value = true
+  }
+}
+
+const tsPollingDemo = `<${_T}>
+  <div>
+    <h5 style="margin:0 0 12px 0">Data Polling Progress (Increments every 2s)</h5>
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px">
+      <yh-button :type="active ? 'danger' : 'primary'" @click="toggle">
+        {{ active ? 'Pause Polling' : 'Resume Polling' }}
+      </yh-button>
+      <yh-tag :type="active ? 'success' : 'info'">{{ active ? 'Polling Active' : 'Paused' }}</yh-tag>
+    </div>
+    
+    <div style="max-width:400px">
+      <div style="margin-bottom:8px; font-size:14px">Simulated Progress: {{ progress }}%</div>
+      <yh-progress :percentage="progress" />
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+import { useRequestPolling } from '@yh-ui/request'
+
+const progress = ref(0)
+const active = ref(true)
+
+const { pause, resume } = useRequestPolling(
+  async () => {
+    if (progress.value >= 100) progress.value = 0
+    progress.value = Math.min(100, progress.value + 15)
+  },
+  { polling: true, pollingInterval: 2000 }
+)
+
+const toggle = () => {
+  if (active.value) {
+    pause()
+    active.value = false
+  } else {
+    resume()
+    active.value = true
+  }
+}
+</${_S}>`
+</script>
+
+## Basic Usage
+
+<DemoBlock title="useRequest Basic Usage" :ts-code="tsBasicDemo" :js-code="toJs(tsBasicDemo)">
+  <div style="display:flex; flex-direction:column; gap:24px">
+    <!-- Auto Loading -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Auto Load User List</h5>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px">
+        <yh-button type="primary" :loading="userLoading" @click="() => fetchUsers()">Refresh List</yh-button>
+      </div>
+      <yh-spin :show="userLoading">
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <div v-for="user in userList" :key="user.id" style="padding:8px 12px; border:1px solid var(--yh-border-color); border-radius:6px; font-size:14px">
+            {{ user.name }} ({{ user.email }})
+          </div>
+        </div>
+      </yh-spin>
+    </div>
+    <!-- Manual Trigger -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Manual Query by ID</h5>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px">
+        <yh-input v-model="searchId" type="number" style="width:120px" />
+        <yh-button type="primary" :loading="detailLoading" @click="() => fetchDetail(Number(searchId))">Query</yh-button>
+      </div>
+      <yh-spin :show="detailLoading">
+        <div v-if="detailUser" style="padding:12px; border:1px solid var(--yh-border-color); border-radius:8px; background:var(--yh-bg-color-page)">
+          <div style="font-weight:bold; margin-bottom:4px">{{ detailUser.name }}</div>
+          <div style="font-size:12px; color:var(--yh-text-color-secondary)">Email: {{ detailUser.email }} | City: {{ detailUser.address?.city }}</div>
+        </div>
+      </yh-spin>
+    </div>
+  </div>
+</DemoBlock>
 
 ## Return Values
 
@@ -43,7 +352,7 @@ const {
 
 ## Full Options
 
-The `options` of `useRequest(service, options)` extend the request library's `RequestOptions` (e.g. `baseURL`, `timeout`, `headers`) and include these Hook-specific options:
+The `options` of `useRequest(service, options)` extend the request library's `RequestOptions` (e.g. `baseURL`, `timeout`..) and include these Hook-specific options:
 
 | Option          | Type                      | Default | Description                                                        |
 | --------------- | ------------------------- | ------- | ------------------------------------------------------------------ |
@@ -57,124 +366,74 @@ The `options` of `useRequest(service, options)` extend the request library's `Re
 | `onError`       | `(error, params) => void` | -       | Error callback                                                     |
 | `onFinally`     | `(params) => void`        | -       | Finally callback (runs on success or failure)                      |
 
-## Common Options
+## Debounce & Throttle
 
-```typescript
-const { data, loading, error, run } = useRequest(
-  (keyword: string) =>
-    request.get('/api/search', {
-      params: { q: keyword }
-    }),
-  {
-    manual: true, // Manual trigger
-    defaultParams: ['yh-ui'], // First params
-    debounceWait: 300, // Debounce (search input scenario)
-    // throttleWait: 1000, // Or use throttle
+<DemoBlock title="Debounce & Throttle Demo" :ts-code="tsDebounceThrottleDemo" :js-code="toJs(tsDebounceThrottleDemo)">
+  <div style="display:flex; flex-direction:column; gap:24px">
+    <!-- Debounce Search -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Search Input (Debounce 400ms)</h5>
+      <yh-input :model-value="searchTerm" placeholder="Try typing fast..." @update:model-value="handleSearchInput" style="width:240px; margin-bottom:12px" />
+      <div style="font-size:14px; color:var(--yh-text-color-secondary)">{{ searchResult }}</div>
+    </div>
+    <!-- Throttle Submit -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Quick Click Button (Throttle 1000ms)</h5>
+      <yh-button type="primary" @click="handleSubmitClick">Click Me Repeatedly</yh-button>
+      <div style="margin-top:12px; font-size:14px; display:flex; gap:24px">
+        <span>Button clicked: <b>{{ clickCount }}</b></span>
+        <span>Actual requests sent: <b style="color:var(--yh-color-success)">{{ submitTriggered }}</b></span>
+      </div>
+    </div>
+  </div>
+</DemoBlock>
 
-    // Success callback
-    onSuccess: (data, params) => {
-      console.log('Success:', data, params)
-    },
+## mutate: Local Data Update & cancel: Cancel Request
 
-    // Error callback
-    onError: (error, params) => {
-      console.error('Error:', error, params)
-    },
-
-    // Finally callback (always called regardless of success/failure)
-    onFinally: (params) => {
-      console.log('Done:', params)
-    }
-  }
-)
-```
-
-### Debounce & Throttle
-
-```typescript
-// Debounced search
-const { run: search } = useRequest(
-  (keyword: string) => request.get('/api/search', { params: { q: keyword } }),
-  {
-    manual: true,
-    debounceWait: 300
-  }
-)
-
-// Throttled submit
-const { run: submit } = useRequest((form: FormData) => request.post('/api/form', form), {
-  manual: true,
-  throttleWait: 1000
-})
-```
-
-## mutate: Local Data Update
-
-Update local data without making a new request, suitable for optimistic updates.
-
-```typescript
-const { data, mutate } = useRequest(() => request.get<User[]>('/api/users'))
-
-// Add a record
-const addUser = (user: User) => {
-  mutate((old) => {
-    return old ? [...old, user] : [user]
-  })
-}
-```
-
-## cancel: Cancel Request
-
-```typescript
-const { run, cancel, loading } = useRequest(() => request.get('/api/long-task'), { manual: true })
-
-const start = () => run()
-const stop = () => cancel()
-```
-
-## Use with Forms
-
-```typescript
-const form = reactive({
-  username: '',
-  password: ''
-})
-
-const { run, loading } = useRequest((payload: typeof form) => request.post('/api/login', payload), {
-  manual: true,
-  onSuccess: () => {
-    YhMessage.success('Login successful')
-  },
-  onError: (error) => {
-    YhMessage.error(error.message)
-  }
-})
-
-const handleSubmit = () => {
-  run({ ...form })
-}
-```
+<DemoBlock title="Optimistic Update & Request Cancellation" :ts-code="tsMutateCancelDemo" :js-code="toJs(tsMutateCancelDemo)">
+  <div style="display:flex; flex-direction:column; gap:24px">
+    <!-- mutate -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Local Optimistic Update (mutate)</h5>
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px">
+        <yh-button type="primary" @click="addLocalUser">Add New User</yh-button>
+        <yh-button @click="() => { localUsers = [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }] }">Reset List</yh-button>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap">
+        <yh-tag v-for="user in localUsers" :key="user.id" type="success">{{ user.name }}</yh-tag>
+      </div>
+    </div>
+    <!-- cancel -->
+    <div>
+      <h5 style="margin:0 0 12px 0">Cancel Delayed Request (cancel)</h5>
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px">
+        <yh-button type="primary" :loading="slowLoading" @click="() => runSlowRequest()">Start Slow Request (5s)</yh-button>
+        <yh-button type="danger" :disabled="!slowLoading" @click="() => cancelSlowRequest()">Cancel Request</yh-button>
+      </div>
+      <div style="font-size:14px; color:var(--yh-text-color-secondary)">
+        Current State: <b :style="{ color: loading ? 'var(--yh-color-primary)' : 'var(--yh-text-color-secondary)' }">{{ loading ? 'Requesting (can cancel)...' : 'Idle / Cancelled' }}</b>
+      </div>
+    </div>
+  </div>
+</DemoBlock>
 
 ## Polling (useRequestPolling)
 
-`useRequestPolling` wraps `useRequest` to **poll** the same endpoint at an interval (e.g. order status, task progress).
-
-```typescript
-import { useRequestPolling } from '@yh-ui/request'
-
-const { data, loading, pause, resume } = useRequestPolling(() => request.get('/api/task/status'), {
-  polling: true, // Enable polling (default false)
-  pollingInterval: 3000, // Interval in ms (default 3000)
-  pollingWhenHidden: false, // Pause when page is hidden (default false)
-  defaultParams: [] // Request params (same as useRequest)
-})
-
-// Pause polling
-pause()
-
-// Resume polling
-resume()
-```
+<DemoBlock title="Polling Demo" :ts-code="tsPollingDemo" :js-code="toJs(tsPollingDemo)">
+  <div>
+    <h5 style="margin:0 0 12px 0">Data Polling Progress (Increments every 2s)</h5>
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px">
+      <yh-button :type="isPollingActive ? 'danger' : 'primary'" @click="handleTogglePolling">
+        {{ isPollingActive ? 'Pause Polling' : 'Resume Polling' }}
+      </yh-button>
+      <yh-tag :type="isPollingActive ? 'success' : 'info'">{{ isPollingActive ? 'Polling Active' : 'Paused' }}</yh-tag>
+    </div>
+    <div style="max-width:400px">
+      <div style="margin-bottom:8px; font-size:14px">Simulated Progress: {{ pollingProgress }}%</div>
+      <yh-progress :percentage="pollingProgress" />
+    </div>
+  </div>
+</DemoBlock>
 
 ### Polling options
 
@@ -184,7 +443,7 @@ resume()
 | `pollingInterval`   | `number`  | `3000`  | Polling interval (ms)                  |
 | `pollingWhenHidden` | `boolean` | `false` | Pause polling when page is not visible |
 
-Other options are the same as `useRequest` (e.g. `onSuccess`, `onError`, `manual`, `defaultParams`). Return value is the same as `useRequest` plus `pause` and `resume`.
+Other options are the same as `useRequest`. Return value is the same as `useRequest` plus `pause` and `resume`.
 
 ## Combine with SWR / Pagination
 

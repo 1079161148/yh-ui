@@ -292,6 +292,250 @@ request.interceptors.response.use(progressInterceptor.onResponse)
 request.interceptors.response.use(debugInterceptor.onResponse)
 ```
 
+## 交互式拦截器演示
+
+通过下方的交互面板，您可以启用或禁用不同的请求/响应拦截器，模拟发送请求，并实时查看请求配置（Headers、Params）与响应数据在拦截器链条中传递和转换的过程。
+
+<DemoBlock title="拦截器生命周期可视化" :ts-code="tsInterceptorDemo" :js-code="toJs(tsInterceptorDemo)">
+  <div class="interactive-demo-container">
+    <div class="control-panel">
+      <div class="panel-item">
+        <label>请求拦截器 (Request Interceptors):</label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:normal">
+          <input type="checkbox" v-model="reqAuth" />
+          <span>注入 Token (Authorization)</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:normal">
+          <input type="checkbox" v-model="reqTime" />
+          <span>注入时间戳参数 (_t=Date.now())</span>
+        </label>
+      </div>
+      <div class="panel-item" v-if="reqAuth">
+        <label>Token 值:</label>
+        <yh-input :model-value="tokenVal" @update:model-value="(v) => { tokenVal = String(v) }" size="small" />
+      </div>
+      <div class="panel-item">
+        <label>响应拦截器 (Response Interceptors):</label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:normal">
+          <input type="checkbox" v-model="resUnwrap" />
+          <span>返回数据拆包 (Unwrap Envelope)</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:normal">
+          <input type="checkbox" v-model="resError" />
+          <span>统一拦截并弹出 401 报错</span>
+        </label>
+      </div>
+      <div class="panel-item">
+        <label>模拟服务端响应:</label>
+        <div class="button-group">
+          <yh-button :type="mockResponseStatus === 200 ? 'primary' : 'default'" size="small" @click="mockResponseStatus = 200">200 OK (外层嵌套)</yh-button>
+          <yh-button :type="mockResponseStatus === 401 ? 'danger' : 'default'" size="small" @click="mockResponseStatus = 401">401 Unauthorized</yh-button>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <yh-button type="primary" :loading="pipelineLoading" @click="runPipelineDemo">触发请求流程</yh-button>
+        <yh-button @click="clearPipeline" :disabled="pipelineLogs.length === 0">复位</yh-button>
+      </div>
+    </div>
+    <div class="terminal-panel">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">数据流动管道 (Data Pipeline)</span>
+      </div>
+      <div class="terminal-body" style="display:flex; flex-direction:column; gap:12px">
+        <div v-if="pipelineLogs.length === 0" class="empty-log">点击“触发请求流程”观察数据流向...</div>
+        <div v-else v-for="(log, i) in pipelineLogs" :key="i" class="pipeline-card" :class="log.type">
+          <div class="card-title">{{ log.title }}</div>
+          <pre class="card-content">{{ log.content }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</DemoBlock>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
+
+const reqAuth = ref(true)
+const reqTime = ref(true)
+const tokenVal = ref('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
+const resUnwrap = ref(true)
+const resError = ref(true)
+const mockResponseStatus = ref(200)
+
+const pipelineLoading = ref(false)
+const pipelineLogs = ref<Array<{ title: string; type: string; content: string }>>([])
+
+const runPipelineDemo = async () => {
+  if (pipelineLoading.value) return
+  pipelineLoading.value = true
+  pipelineLogs.value = []
+
+  // Step 1: Initial config
+  const initialConfig = {
+    url: '/api/user/profile',
+    method: 'GET',
+    headers: {},
+    params: {}
+  }
+  pipelineLogs.value.push({
+    title: '1. 初始请求配置 (Raw Request Config)',
+    type: 'log-info',
+    content: JSON.stringify(initialConfig, null, 2)
+  })
+
+  await new Promise(r => setTimeout(r, 400))
+
+  // Step 2: Request Interceptors
+  const modifiedConfig = JSON.parse(JSON.stringify(initialConfig))
+  if (reqAuth.value) {
+    modifiedConfig.headers['Authorization'] = `Bearer ${tokenVal.value}`
+  }
+  if (reqTime.value) {
+    modifiedConfig.params['_t'] = Date.now()
+  }
+  pipelineLogs.value.push({
+    title: '2. 请求拦截器处理后 (After Request Interceptors)',
+    type: 'log-info',
+    content: JSON.stringify(modifiedConfig, null, 2)
+  })
+
+  await new Promise(r => setTimeout(r, 400))
+
+  // Step 3: Raw server response
+  let rawServerResponse = {}
+  if (mockResponseStatus.value === 200) {
+    rawServerResponse = {
+      status: 200,
+      data: {
+        code: 200,
+        message: 'success',
+        result: { id: 99, username: 'Antigravity', role: 'admin' }
+      }
+    }
+  } else {
+    rawServerResponse = {
+      status: 401,
+      data: {
+        code: 401,
+        message: 'Unauthorized token or token expired'
+      }
+    }
+  }
+  pipelineLogs.value.push({
+    title: '3. 服务端返回原始响应 (Raw Server Response)',
+    type: 'log-warning',
+    content: JSON.stringify(rawServerResponse, null, 2)
+  })
+
+  await new Promise(r => setTimeout(r, 400))
+
+  // Step 4: Response interceptors and output
+  let finalResult = {}
+  let isError = false
+  
+  if (mockResponseStatus.value === 200) {
+    if (resUnwrap.value) {
+      finalResult = (rawServerResponse as any).data.result
+    } else {
+      finalResult = (rawServerResponse as any).data
+    }
+  } else {
+    isError = true
+    if (resError.value) {
+      finalResult = {
+        error: 'RequestError [Unauthorized]',
+        message: 'Token 失效，系统已自动拦截并跳转至登录页 /login',
+        status: 401
+      }
+    } else {
+      finalResult = {
+        error: 'RequestError [Unauthorized]',
+        message: 'Unauthorized token or token expired',
+        status: 401
+      }
+    }
+  }
+
+  pipelineLogs.value.push({
+    title: isError ? '4. UI 捕获到错误 (UI Error Caught)' : '4. UI 接收到最终数据 (Final UI Result)',
+    type: isError ? 'log-error' : 'log-success',
+    content: JSON.stringify(finalResult, null, 2)
+  })
+
+  pipelineLoading.value = false
+}
+
+const clearPipeline = () => {
+  pipelineLogs.value = []
+}
+
+const tsInterceptorDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:8px">
+    <yh-button type="primary" @click="send">发送拦截器请求</yh-button>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { request } from '@yh-ui/request'
+
+// 1. 请求拦截器
+request.interceptors.request.use((config) => {
+  config.headers['Authorization'] = 'Bearer TOKEN'
+  return config
+})
+
+// 2. 响应拦截器
+request.interceptors.response.use((response) => {
+  // 数据解包
+  return response.data
+})
+
+const send = async () => {
+  const data = await request.get('/api/profile')
+  console.log('解包数据:', data)
+}
+</${_S}>`
+</script>
+
+<style>
+.pipeline-card {
+  border-radius: 6px;
+  border-left: 4px solid;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.pipeline-card.log-info {
+  border-left-color: #61afef;
+}
+.pipeline-card.log-warning {
+  border-left-color: #e5c07b;
+}
+.pipeline-card.log-success {
+  border-left-color: #98c379;
+}
+.pipeline-card.log-error {
+  border-left-color: #e06c75;
+}
+.pipeline-card .card-title {
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #abb2bf;
+}
+.pipeline-card .card-content {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #abb2bf;
+}
+</style>
+
 ## 下一步
 
 - [缓存策略](./cache) - 数据缓存

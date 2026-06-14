@@ -209,6 +209,9 @@ async function iconExists(name: string): Promise<boolean>
 
 **返回值**：图标是否存在
 
+> [!WARNING]
+> 由于 `iconExists` 依赖远程 Iconify API 异步加载或本地缓存检索，在网络环境不稳定、请求超时或尚未成功加载时，该方法可能会受到限制。因此，在业务代码中**仅建议将 `iconExists` 作为预检查/启发式判定，不要将其作为判定图标存在与否的唯一绝对依据**。请结合格式验证方法 `canResolve` 并在图标加载失败时提供合理的 fallback（如兜底图标或文字提示）。
+
 **示例**：
 
 ```typescript

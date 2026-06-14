@@ -128,11 +128,39 @@ import { ref } from 'vue'
 const code = ref('graph LR\\nX --> Y')
 </${_S}>`
 
+const longFlowchartCode = ref(`graph LR
+  Start[Start Process] --> Step1[Step 1: Collect User Requirements and Market Research]
+  Step1 --> Step2[Step 2: Solution Design and Technical Feasibility Review]
+  Step2 --> Step3[Step 3: Architectural Design and Core Component Module Division]
+  Step3 --> Step4[Step 4: Frontend and Backend Coding and Automated Test Writing]
+  Step4 --> Step5[Step 5: Integration Testing, Gray Release and Production Deployment]
+  Step5 --> End[End Process]`)
+
+const tsLongFlowchart = `<${_T}>
+  <yh-ai-mermaid
+    header="Long Flowchart Scroll Example"
+    :code="code"
+  />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+
+const code = ref(\`graph LR
+  Start[Start Process] --> Step1[Step 1: Collect User Requirements and Market Research]
+  Step1 --> Step2[Step 2: Solution Design and Technical Feasibility Review]
+  Step2 --> Step3[Step 3: Architectural Design and Core Component Module Division]
+  Step3 --> Step4[Step 4: Frontend and Backend Coding and Automated Test Writing]
+  Step4 --> Step5[Step 5: Integration Testing, Gray Release and Production Deployment]
+  Step5 --> End[End Process]\`)
+</${_S}>`
+
 const jsBasic = toJs(tsBasic)
 const jsSequence = toJs(tsSequence)
 const jsGantt = toJs(tsGantt)
 const jsTheme = toJs(tsTheme)
 const jsActions = toJs(tsActions)
+const jsLongFlowchart = toJs(tsLongFlowchart)
 </script>
 
 ## Basic Usage
@@ -194,6 +222,19 @@ Zoom, download, and copy are enabled by default; configure via `actions`.
       header="Custom Actions"
       :code="flowchartCode"
       :actions="{ enableZoom: true, enableDownload: true, enableCopy: true }"
+    />
+  </div>
+</DemoBlock>
+
+## Scrolling and Container Overflow
+
+When a flowchart is too long or wide, you can scroll horizontally or vertically to view it. The nodes, edge paths, and labels inside are forced to have `overflow: visible` styling to ensure text is not clipped or truncated at the boundaries.
+
+<DemoBlock title="Long Flowchart Scrolling & Overflow" :ts-code="tsLongFlowchart" :js-code="jsLongFlowchart">
+  <div style="background: var(--yh-bg-color-page); padding: 16px;">
+    <yh-ai-mermaid
+      header="Long Flowchart Scroll Example"
+      :code="longFlowchartCode"
     />
   </div>
 </DemoBlock>

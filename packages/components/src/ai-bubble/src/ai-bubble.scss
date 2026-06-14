@@ -65,24 +65,59 @@
 
     @include when(typing) {
       @include e(text) {
-        position: relative;
-        display: inline-block;
-        &::after {
-          content: '▋';
-          margin-left: 2px;
-          color: var(--yh-color-primary);
-          animation: yh-cursor-blink 1s infinite;
+        &:not(.yh-ai-bubble__markdown) {
+          position: relative;
+          display: inline-block;
+          &::after {
+            content: '';
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: var(--yh-color-primary);
+            margin-left: 4px;
+            vertical-align: -2px;
+            animation: yh-cursor-blink 1s infinite;
+          }
         }
       }
 
-      .yh-ai-bubble__markdown > p:last-child {
-        position: relative;
-        display: inline-block;
-        &::after {
-          content: '▋';
-          margin-left: 2px;
-          color: var(--yh-color-primary);
-          animation: yh-cursor-blink 1s infinite;
+      .yh-ai-bubble__markdown {
+        & > p:last-child,
+        & > li:last-child,
+        & > h1:last-child,
+        & > h2:last-child,
+        & > h3:last-child,
+        & > h4:last-child,
+        & > h5:last-child,
+        & > h6:last-child {
+          position: relative;
+          display: inline-block;
+          &::after {
+            content: '';
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: var(--yh-color-primary);
+            margin-left: 4px;
+            vertical-align: -2px;
+            animation: yh-cursor-blink 1s infinite;
+          }
+        }
+
+        & ul:last-child > li:last-child,
+        & ol:last-child > li:last-child {
+          position: relative;
+          display: inline-block;
+          &::after {
+            content: '';
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: var(--yh-color-primary);
+            margin-left: 4px;
+            vertical-align: -2px;
+            animation: yh-cursor-blink 1s infinite;
+          }
         }
       }
 

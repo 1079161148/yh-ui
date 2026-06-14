@@ -64,6 +64,10 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
       : resolvedOptions.target
   if (!target) target = document.body
 
+  if (resolvedOptions.fullscreen) {
+    target = defaultTarget
+  }
+
   const parent =
     !resolvedOptions.fullscreen && resolvedOptions.body && target !== document.body
       ? document.body
@@ -185,9 +189,10 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
 
   parent.appendChild(container)
 
-  const originalOverflow = target.style.overflow
+  const lockTarget = resolvedOptions.fullscreen ? document.body : target
+  const originalOverflow = lockTarget.style.overflow
   if (resolvedOptions.lock) {
-    target.style.overflow = 'hidden'
+    lockTarget.style.overflow = 'hidden'
   }
 
   const instance: LoadingInstance = {
@@ -206,7 +211,7 @@ const createLoading = (options: LoadingOptions = {}, appContext?: AppContext): L
         }
 
         if (resolvedOptions.lock) {
-          target.style.overflow = originalOverflow
+          lockTarget.style.overflow = originalOverflow
         }
 
         window.removeEventListener('resize', syncMaskPosition)

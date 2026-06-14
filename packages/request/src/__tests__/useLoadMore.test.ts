@@ -60,12 +60,16 @@ describe('useLoadMore', () => {
       return { data: [] }
     })
 
-    const { reload, loadMore, data, current } = useLoadMore(mockService as any, { manual: true })
+    const { reload, loadMore, data, current } = useLoadMore(mockService as any, {
+      manual: true,
+      pageSize: 1
+    })
 
     await reload() // Fetches page 1, data is [1], current is 1
     expect(data.value).toEqual([1])
     expect(current.value).toBe(1)
 
+    vi.advanceTimersByTime(100)
     await loadMore() // Fetches page 2, data is [1, 2], current becomes 2
     expect(data.value).toEqual([1, 2])
     expect(current.value).toBe(2)
@@ -83,6 +87,7 @@ describe('useLoadMore', () => {
     expect(noMore.value).toBe(false)
     expect(canLoadMore.value).toBe(true)
 
+    vi.advanceTimersByTime(100)
     await loadMore() // Fetches page 2, current becomes 2
     expect(noMore.value).toBe(true) // current (2) >= totalPages (2)
     expect(canLoadMore.value).toBe(false)
@@ -134,6 +139,16 @@ describe('useLoadMore', () => {
     expect(more).toHaveBeenCalled()
   })
 
+  it('should pass defaultParams to the service', async () => {
+    const mockService = vi.fn().mockResolvedValue({ data: [] })
+    const { reload } = useLoadMore(mockService as any, {
+      manual: true,
+      defaultParams: ['param1', 'param2'] as any
+    })
+    await reload()
+    expect(mockService).toHaveBeenCalledWith(1, 10, 'param1', 'param2')
+  })
+
   it('pagination helpers invoke service', async () => {
     const mockService = vi.fn().mockResolvedValue({ data: { total: 100, items: [1] } })
     const { pagination, pageSize } = useLoadMore(mockService as any, { manual: true })
@@ -166,5 +181,75 @@ describe('useLoadMore', () => {
     await pagination.nextPage() // Fetch page 2 using pagination.nextPage
     expect(data.value).toEqual([2]) // Should replace data, not be [1, 2]
     expect(current.value).toBe(2)
+  })
+
+  it('should prevent page drift by ignoring loadMore triggered within 100ms of a refresh', async () => {
+    let callCount = 0
+    const mockService = vi.fn().mockImplementation(async () => {
+      callCount++
+      return { data: { total: 30, items: [callCount] } }
+    })
+
+    const { reload, loadMore, current } = useLoadMore(mockService as any, { manual: true })
+
+    await reload() // Fetch page 1 (refresh)
+    expect(current.value).toBe(1)
+
+    // Call loadMore immediately (within 100ms cooldown)
+    await loadMore()
+    expect(current.value).toBe(1) // Should remain 1 because it is ignored
+
+    // Advance fake timers by 100ms (cooling down complete)
+    vi.advanceTimersByTime(100)
+
+    // Call loadMore again
+    await loadMore()
+    expect(current.value).toBe(2) // Should now succeed and increment to 2
+  })
+
+  it('should extract total from response itself when not present in pageData', async () => {
+    const mockService = vi.fn().mockResolvedValue({ data: [1, 2, 3], total: 15 })
+    const { reload, total } = useLoadMore(mockService as any, { manual: true })
+    await reload()
+    expect(total.value).toBe(15)
+  })
+
+  it('noMore state fallback to lastLoadedPageSize when total is not present', async () => {
+    let pageNum = 0
+    const mockService = vi.fn().mockImplementation(async () => {
+      pageNum++
+      if (pageNum === 1) return { data: [1, 2, 3, 4, 5] }
+      return { data: [6, 7, 8] }
+    })
+    const { reload, loadMore, noMore, canLoadMore } = useLoadMore(mockService as any, {
+      manual: true,
+      pageSize: 5
+    })
+
+    await reload()
+    expect(noMore.value).toBe(false)
+    expect(canLoadMore.value).toBe(true)
+
+    vi.advanceTimersByTime(100)
+    await loadMore()
+    expect(noMore.value).toBe(true)
+    expect(canLoadMore.value).toBe(false)
+  })
+
+  it('should merge array fields inside object payloads during loadMore', async () => {
+    let pageNum = 0
+    const mockService = vi.fn().mockImplementation(async () => {
+      pageNum++
+      if (pageNum === 1) return { data: { list: [1, 2], total: 30 } }
+      return { data: { list: [3, 4], total: 30 } }
+    })
+    const { reload, loadMore, data } = useLoadMore(mockService as any, { manual: true })
+
+    await reload()
+    expect(data.value).toEqual({ list: [1, 2], total: 30 })
+
+    vi.advanceTimersByTime(100)
+    await loadMore()
+    expect(data.value).toEqual({ list: [1, 2, 3, 4], total: 30 })
   })
 })

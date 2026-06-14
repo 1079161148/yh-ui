@@ -117,6 +117,31 @@ describe('Loading Service', () => {
     loading.close()
     vi.advanceTimersByTime(500)
   })
+
+  it('should lock body scroll when fullscreen and lock option is true', async () => {
+    const loading = YhLoading.service({
+      fullscreen: true,
+      lock: true
+    })
+    expect(document.body.style.overflow).toBe('hidden')
+    loading.close()
+    vi.advanceTimersByTime(500)
+    expect(document.body.style.overflow).toBe('')
+  })
+
+  it('should override target to config provider or body when fullscreen is true', async () => {
+    const customTarget = document.createElement('div')
+    document.body.appendChild(customTarget)
+    const loading = YhLoading.service({
+      fullscreen: true,
+      target: customTarget
+    })
+    expect(document.body.querySelector('.yh-loading-mask')).toBeTruthy()
+    expect(customTarget.querySelector('.yh-loading-mask')).toBeFalsy()
+    loading.close()
+    vi.advanceTimersByTime(500)
+    customTarget.remove()
+  })
 })
 
 describe('v-yh-loading Directive', () => {

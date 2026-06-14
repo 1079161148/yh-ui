@@ -1,10 +1,19 @@
 import type { Plugin } from 'vite'
 import { createRequire } from 'node:module'
+import { join } from 'node:path'
 
 /**
  * 检查可选依赖是否已在消费端安装
  */
 function isDependencyInstalled(name: string): boolean {
+  // 1. 优先从当前工作目录 (消费端项目根目录) 解析，解决 pnpm 符号链接布局下无法找到消费端 peerDependencies 的问题
+  try {
+    const req = createRequire(join(process.cwd(), 'package.json'))
+    req.resolve(name)
+    return true
+  } catch {}
+
+  // 2. 传统 CJS 环境解析 fallback
   try {
     if (typeof require !== 'undefined' && typeof require.resolve === 'function') {
       require.resolve(name)
@@ -12,6 +21,7 @@ function isDependencyInstalled(name: string): boolean {
     }
   } catch {}
 
+  // 3. ESM 环境解析 fallback
   try {
     const req = createRequire(import.meta.url)
     req.resolve(name)

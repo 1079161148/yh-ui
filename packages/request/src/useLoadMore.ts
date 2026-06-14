@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ref,
   shallowRef,
@@ -137,8 +138,18 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
   const error = shallowRef<unknown>(undefined)
   const params = ref<TParams>(defaultParams) as Ref<TParams>
 
+  // 记录上一次刷新（包括重新加载和切换页码）完成的时间戳，用于防止滚动页码漂移
+  let lastRefreshTime = 0
+  const lastLoadedPageSize = ref<number | null>(null)
+
   const noMore = computed(() => {
-    return current.value >= totalPages.value && total.value > 0
+    if (total.value > 0) {
+      return current.value >= totalPages.value
+    }
+    if (lastLoadedPageSize.value !== null && lastLoadedPageSize.value < pageSize.value) {
+      return true
+    }
+    return false
   })
 
   const canLoadMore = computed(() => {
@@ -154,33 +165,85 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
 
     const isLoadMoreOp = !isRefresh
     loading.value = isLoadMoreOp ? false : true
-    if (isRefresh) refreshing.value = true
+    if (isRefresh) {
+      refreshing.value = true
+      total.value = 0
+      lastLoadedPageSize.value = null
+    }
     if (isLoadMoreOp) loadingMore.value = true
 
     error.value = undefined
 
     try {
-      const extraParams = params.value.slice(2) as TParams
+      const extraParams = params.value
       const response = await loadService(requestedPage, pageSize.value, ...extraParams)
       const pageData = response.data
 
-      // 尝试提取总数
+      // 尝试提取总数（优先从 pageData 中提取，其次从 response 本身提取）
+      let totalNum: number | undefined
+
       if (pageData && typeof pageData === 'object') {
         const paginatedData = pageData as PaginatedData
-        if (typeof paginatedData.total !== 'undefined') total.value = paginatedData.total
+        if (typeof paginatedData.total !== 'undefined') totalNum = paginatedData.total
         else if (typeof paginatedData.totalCount !== 'undefined')
-          total.value = paginatedData.totalCount
+          totalNum = paginatedData.totalCount
         else if (typeof paginatedData.totalElements !== 'undefined')
-          total.value = paginatedData.totalElements
+          totalNum = paginatedData.totalElements
       }
+
+      if (typeof totalNum === 'undefined' && response && typeof response === 'object') {
+        const resp = response as Record<string, any>
+        if (typeof resp.total !== 'undefined') totalNum = resp.total
+        else if (typeof resp.totalCount !== 'undefined') totalNum = resp.totalCount
+        else if (typeof resp.totalElements !== 'undefined') totalNum = resp.totalElements
+      }
+
+      if (typeof totalNum !== 'undefined') {
+        total.value = totalNum
+      }
+
+      // 计算本次加载的数据条数，辅助 noMore 判定
+      let loadedSize = 0
+      if (Array.isArray(pageData)) {
+        loadedSize = pageData.length
+      } else if (pageData && typeof pageData === 'object') {
+        const arrayKeys = Object.keys(pageData).filter((k) =>
+          Array.isArray((pageData as Record<string, any>)[k])
+        )
+        if (arrayKeys.length > 0) {
+          const preferredKey = arrayKeys.find((k) => ['list', 'data', 'items'].includes(k))
+          if (preferredKey) {
+            loadedSize = (pageData as Record<string, any>)[preferredKey].length
+          } else {
+            loadedSize = (pageData as Record<string, any>)[arrayKeys[0]].length
+          }
+        }
+      }
+      lastLoadedPageSize.value = loadedSize
 
       // 刷新时替换，加载更多时追加
       if (isRefresh) {
         data.value = pageData
+        lastRefreshTime = Date.now()
       } else {
         const oldData = data.value
         if (Array.isArray(oldData) && Array.isArray(pageData)) {
           data.value = [...oldData, ...pageData] as TData
+        } else if (
+          oldData &&
+          typeof oldData === 'object' &&
+          pageData &&
+          typeof pageData === 'object'
+        ) {
+          const merged: Record<string, any> = { ...pageData }
+          for (const key of Object.keys(pageData)) {
+            const oldValue = (oldData as Record<string, any>)[key]
+            const newValue = (pageData as Record<string, any>)[key]
+            if (Array.isArray(oldValue) && Array.isArray(newValue)) {
+              merged[key] = [...oldValue, ...newValue]
+            }
+          }
+          data.value = merged as TData
         } else {
           data.value = pageData
         }
@@ -202,6 +265,9 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
   // 加载更多
   const loadMore = async (): Promise<void> => {
     if (noMore.value || loadingMore.value) return
+    // 防止滚动容器在 loadPage/reload 等刷新操作后，由于 DOM 尺寸变化或滚动位置改变，
+    // 立即自动触发滚动事件导致意外加载下一页（页码漂移问题）
+    if (Date.now() - lastRefreshTime < 100) return
     await loadData(current.value + 1, false)
   }
 
@@ -246,10 +312,10 @@ export function useLoadMore<TData = unknown, TParams extends unknown[] = unknown
   if (!manual) {
     if (getCurrentInstance()) {
       onMounted(() => {
-        loadData(current.value, false)
+        loadData(current.value, true)
       })
     } else {
-      loadData(current.value, false)
+      loadData(current.value, true)
     }
   }
 

@@ -268,6 +268,209 @@ const handleLogin = async () => {
 }
 ```
 
+## Interactive Cache Demo
+
+Test the performance improvement of in-memory caching in the example below. You can adjust the Cache TTL, send requests multiple times, and observe the duration difference between cache hit (instant) vs cache miss (network delay), as well as the active cache TTL countdown.
+
+<DemoBlock title="API Request Cache Simulator" :ts-code="tsCacheDemo" :js-code="toJs(tsCacheDemo)">
+  <div class="interactive-demo-container">
+    <div class="control-panel">
+      <div class="panel-item">
+        <label>Cache TTL (Time-To-Live):</label>
+        <div class="button-group">
+          <yh-button v-for="t in [5, 10, 20]" :key="t" :type="cacheTTL === t ? 'primary' : 'default'" size="small" @click="changeTTL(t)">{{ t }} seconds</yh-button>
+        </div>
+      </div>
+      <div class="panel-item">
+        <label>Cache Status (Key: <code style="color:var(--yh-color-primary)">users-data</code>):</label>
+        <div class="cache-status-box" :class="cacheState">
+          <span v-if="cacheState === 'empty'">⚠️ No Cache (Empty)</span>
+          <span v-else-if="cacheState === 'fresh'">
+            🟢 Cache Valid (Fresh) - Remaining: <span class="highlight-val">{{ timeLeft }}</span>s
+          </span>
+          <span v-else-if="cacheState === 'stale'">
+            🔴 Cache Expired
+          </span>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <yh-button type="primary" :loading="cacheLoading" @click="runCacheDemo">Trigger API Request</yh-button>
+        <yh-button @click="clearDemoCache" :disabled="cacheState === 'empty'">Clear Cache</yh-button>
+      </div>
+    </div>
+    <div class="terminal-panel">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">Network Monitor</span>
+      </div>
+      <div class="terminal-body">
+        <div v-if="cacheLogs.length === 0" class="empty-log">Click "Trigger API Request" to start testing...</div>
+        <div v-for="(log, i) in cacheLogs" :key="i" class="log-line" :class="{
+          'log-success': log.includes('HIT') || log.includes('✅'),
+          'log-error': log.includes('Clear') || log.includes('Expired') || log.includes('🚨'),
+          'log-info': log.includes('📡') || log.includes('⏳') || log.includes('📥')
+        }">
+          {{ log }}
+        </div>
+      </div>
+    </div>
+  </div>
+</DemoBlock>
+
+<script setup lang="ts">
+import { ref, onBeforeUnmount } from 'vue'
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+
+const cacheTTL = ref(10) // seconds
+const cacheState = ref<'empty' | 'fresh' | 'stale'>('empty')
+const timeLeft = ref(0)
+const cacheLoading = ref(false)
+const cacheLogs = ref<string[]>([])
+
+let cacheData: any = null
+let cacheExpiresAt = 0
+let timerId: any = null
+
+const addCacheLog = (msg: string) => {
+  const time = new Date().toLocaleTimeString()
+  cacheLogs.value.push(`[${time}] ${msg}`)
+}
+
+const changeTTL = (sec: number) => {
+  cacheTTL.value = sec
+  addCacheLog(`⚙️ Changed cache TTL to ${sec} seconds`)
+}
+
+const updateTimer = () => {
+  if (cacheExpiresAt > 0) {
+    const diff = Math.ceil((cacheExpiresAt - Date.now()) / 1000)
+    if (diff > 0) {
+      timeLeft.value = diff
+      cacheState.value = 'fresh'
+    } else {
+      timeLeft.value = 0
+      cacheState.value = 'stale'
+      cacheData = null
+      cacheExpiresAt = 0
+      if (timerId) {
+        clearInterval(timerId)
+        timerId = null
+      }
+      addCacheLog(`🚨 Cache expired automatically!`)
+    }
+  }
+}
+
+const runCacheDemo = async () => {
+  if (cacheLoading.value) return
+  cacheLoading.value = true
+
+  addCacheLog(`📡 Preparing to request data...`)
+
+  // Check cache
+  if (cacheData && cacheExpiresAt > Date.now()) {
+    // Cache HIT
+    addCacheLog(`✅ Cache HIT! Read data successfully from memory (Duration: 0ms)`)
+    addCacheLog(`📥 Data payload: ${JSON.stringify(cacheData)}`)
+    cacheLoading.value = false
+    return
+  }
+
+  // Cache MISS
+  addCacheLog(`⏳ Cache MISS! Initiating actual network request (simulating delay of 1.5 seconds)...`)
+  await new Promise(r => setTimeout(r, 1500))
+
+  cacheData = { id: 123, list: ['User A', 'User B', 'User C'] }
+  cacheExpiresAt = Date.now() + cacheTTL.value * 1000
+  cacheState.value = 'fresh'
+  timeLeft.value = cacheTTL.value
+
+  addCacheLog(`✅ Request Succeeded! Cached data, expires in ${cacheTTL.value} seconds`)
+  addCacheLog(`📥 Data payload: ${JSON.stringify(cacheData)}`)
+
+  if (timerId) clearInterval(timerId)
+  timerId = setInterval(updateTimer, 1000)
+
+  cacheLoading.value = false
+}
+
+const clearDemoCache = () => {
+  cacheData = null
+  cacheExpiresAt = 0
+  cacheState.value = 'empty'
+  timeLeft.value = 0
+  if (timerId) {
+    clearInterval(timerId)
+    timerId = null
+  }
+  addCacheLog(`🚨 Cache cleared manually!`)
+}
+
+onBeforeUnmount(() => {
+  if (timerId) clearInterval(timerId)
+})
+
+const tsCacheDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:12px">
+    <div style="display:flex; gap:8px">
+      <yh-button type="primary" @click="fetchData">Get User List</yh-button>
+      <yh-button @click="clearCache">Clear Cache</yh-button>
+    </div>
+    <div v-if="result" style="padding:12px; border-radius:6px; background:var(--vp-c-bg-soft)">
+      {{ result }}
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+import { request } from '@yh-ui/request'
+
+const result = ref('')
+
+const fetchData = async () => {
+  const start = Date.now()
+  const res = await request.get('/api/users', {
+    cache: true,
+    cacheTime: 10 * 1000, // cache 10s
+    cacheKey: 'users-data'
+  })
+  const duration = Date.now() - start
+  result.value = \`Loaded successfully (took \${duration}ms): \${JSON.stringify(res.data)}\`
+}
+
+const clearCache = () => {
+  // Clear cache instance
+}
+</${_S}>`
+</script>
+
+<style>
+.cache-status-box {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.cache-status-box.empty {
+  background: rgba(230, 162, 60, 0.1);
+  color: #e6a23c;
+  border: 1px solid rgba(230, 162, 60, 0.2);
+}
+.cache-status-box.fresh {
+  background: rgba(103, 194, 58, 0.1);
+  color: #67c23a;
+  border: 1px solid rgba(103, 194, 58, 0.2);
+}
+.cache-status-box.stale {
+  background: rgba(245, 108, 108, 0.1);
+  color: #f56c6c;
+  border: 1px solid rgba(245, 108, 108, 0.2);
+}
+</style>
+
 ## Next Steps
 
 - [Security](./security) - CSRF protection and Token refresh

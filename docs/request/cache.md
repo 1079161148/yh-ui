@@ -269,6 +269,209 @@ const handleLogin = async () => {
 }
 ```
 
+## 交互式缓存演示
+
+通过下方示例，测试内存缓存策略对请求速度的提升。您可以设置缓存有效期 (TTL)，多次发送请求，观察缓存命中 (Cache Hit) 与未命中 (Cache Miss) 时的耗时差异与缓存有效期倒计时。
+
+<DemoBlock title="API 请求缓存模拟器" :ts-code="tsCacheDemo" :js-code="toJs(tsCacheDemo)">
+  <div class="interactive-demo-container">
+    <div class="control-panel">
+      <div class="panel-item">
+        <label>缓存有效期 (TTL):</label>
+        <div class="button-group">
+          <yh-button v-for="t in [5, 10, 20]" :key="t" :type="cacheTTL === t ? 'primary' : 'default'" size="small" @click="changeTTL(t)">{{ t }} 秒</yh-button>
+        </div>
+      </div>
+      <div class="panel-item">
+        <label>缓存状态 (Key: <code style="color:var(--yh-color-primary)">users-data</code>):</label>
+        <div class="cache-status-box" :class="cacheState">
+          <span v-if="cacheState === 'empty'">⚠️ 暂无缓存 (Empty)</span>
+          <span v-else-if="cacheState === 'fresh'">
+            🟢 缓存有效 (Fresh) - 剩余时间: <span class="highlight-val">{{ timeLeft }}</span> 秒
+          </span>
+          <span v-else-if="cacheState === 'stale'">
+            🔴 缓存已失效 (Expired)
+          </span>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <yh-button type="primary" :loading="cacheLoading" @click="runCacheDemo">发起 API 请求</yh-button>
+        <yh-button @click="clearDemoCache" :disabled="cacheState === 'empty'">清除缓存</yh-button>
+      </div>
+    </div>
+    <div class="terminal-panel">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">网络请求监视器 (Network Monitor)</span>
+      </div>
+      <div class="terminal-body">
+        <div v-if="cacheLogs.length === 0" class="empty-log">点击“发起 API 请求”开始测试...</div>
+        <div v-for="(log, i) in cacheLogs" :key="i" class="log-line" :class="{
+          'log-success': log.includes('缓存命中') || log.includes('✅'),
+          'log-error': log.includes('清除') || log.includes('🚨'),
+          'log-info': log.includes('📡') || log.includes('⏳') || log.includes('📥')
+        }">
+          {{ log }}
+        </div>
+      </div>
+    </div>
+  </div>
+</DemoBlock>
+
+<script setup lang="ts">
+import { ref, onBeforeUnmount } from 'vue'
+import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
+
+const cacheTTL = ref(10) // seconds
+const cacheState = ref<'empty' | 'fresh' | 'stale'>('empty')
+const timeLeft = ref(0)
+const cacheLoading = ref(false)
+const cacheLogs = ref<string[]>([])
+
+let cacheData: any = null
+let cacheExpiresAt = 0
+let timerId: any = null
+
+const addCacheLog = (msg: string) => {
+  const time = new Date().toLocaleTimeString()
+  cacheLogs.value.push(`[${time}] ${msg}`)
+}
+
+const changeTTL = (sec: number) => {
+  cacheTTL.value = sec
+  addCacheLog(`⚙️ 将缓存有效时间 (TTL) 修改为 ${sec} 秒`)
+}
+
+const updateTimer = () => {
+  if (cacheExpiresAt > 0) {
+    const diff = Math.ceil((cacheExpiresAt - Date.now()) / 1000)
+    if (diff > 0) {
+      timeLeft.value = diff
+      cacheState.value = 'fresh'
+    } else {
+      timeLeft.value = 0
+      cacheState.value = 'stale'
+      cacheData = null
+      cacheExpiresAt = 0
+      if (timerId) {
+        clearInterval(timerId)
+        timerId = null
+      }
+      addCacheLog(`🚨 缓存到期已自动失效!`)
+    }
+  }
+}
+
+const runCacheDemo = async () => {
+  if (cacheLoading.value) return
+  cacheLoading.value = true
+
+  addCacheLog(`📡 准备请求数据...`)
+
+  // Check cache
+  if (cacheData && cacheExpiresAt > Date.now()) {
+    // Cache HIT
+    addCacheLog(`✅ 缓存命中 (Cache HIT)! 从内存缓存中读取数据成功 (耗时: 0ms)`)
+    addCacheLog(`📥 数据内容: ${JSON.stringify(cacheData)}`)
+    cacheLoading.value = false
+    return
+  }
+
+  // Cache MISS
+  addCacheLog(`⏳ 缓存未命中 (Cache MISS)! 正在发起真实网络请求 (模拟延迟 1.5 秒)...`)
+  await new Promise(r => setTimeout(r, 1500))
+
+  cacheData = { id: 123, list: ['用户 A', '用户 B', '用户 C'] }
+  cacheExpiresAt = Date.now() + cacheTTL.value * 1000
+  cacheState.value = 'fresh'
+  timeLeft.value = cacheTTL.value
+
+  addCacheLog(`✅ 请求成功! 已将数据存入缓存，过期时间为 ${cacheTTL.value} 秒后`)
+  addCacheLog(`📥 数据内容: ${JSON.stringify(cacheData)}`)
+
+  if (timerId) clearInterval(timerId)
+  timerId = setInterval(updateTimer, 1000)
+
+  cacheLoading.value = false
+}
+
+const clearDemoCache = () => {
+  cacheData = null
+  cacheExpiresAt = 0
+  cacheState.value = 'empty'
+  timeLeft.value = 0
+  if (timerId) {
+    clearInterval(timerId)
+    timerId = null
+  }
+  addCacheLog(`🚨 缓存已手动清除!`)
+}
+
+onBeforeUnmount(() => {
+  if (timerId) clearInterval(timerId)
+})
+
+const tsCacheDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:12px">
+    <div style="display:flex; gap:8px">
+      <yh-button type="primary" @click="fetchData">获取用户列表</yh-button>
+      <yh-button @click="clearCache">清除缓存</yh-button>
+    </div>
+    <div v-if="result" style="padding:12px; border-radius:6px; background:var(--vp-c-bg-soft)">
+      {{ result }}
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+import { request } from '@yh-ui/request'
+
+const result = ref('')
+
+const fetchData = async () => {
+  const start = Date.now()
+  const res = await request.get('/api/users', {
+    cache: true,
+    cacheTime: 10 * 1000, // 缓存10秒
+    cacheKey: 'users-data'
+  })
+  const duration = Date.now() - start
+  result.value = \`加载成功 (耗时 \${duration}ms): \${JSON.stringify(res.data)}\`
+}
+
+const clearCache = () => {
+  // 可以引入 createCache 实例并清除
+}
+</${_S}>`
+</script>
+
+<style>
+.cache-status-box {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.cache-status-box.empty {
+  background: rgba(230, 162, 60, 0.1);
+  color: #e6a23c;
+  border: 1px solid rgba(230, 162, 60, 0.2);
+}
+.cache-status-box.fresh {
+  background: rgba(103, 194, 58, 0.1);
+  color: #67c23a;
+  border: 1px solid rgba(103, 194, 58, 0.2);
+}
+.cache-status-box.stale {
+  background: rgba(245, 108, 108, 0.1);
+  color: #f56c6c;
+  border: 1px solid rgba(245, 108, 108, 0.2);
+}
+</style>
+
 ## 下一步
 
 - [安全特性](./security) - CSRF 防护与 Token 刷新

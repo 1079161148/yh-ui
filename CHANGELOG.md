@@ -4,6 +4,23 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.56] - 2026-06-14
+
+> 优化 AI 聊天气泡打字光标样式，补全并在中英文文档中同步 Request 系列组件交互示例，修复 Vite 插件在 pnpm 环境下解析 peerDependencies 依赖的兼容性问题。
+
+### Added
+
+- **docs**: 在中英文请求系列组件文档（`cache`, `config`, `interceptors`, `http-cache`, `security`, `upload-download`, `use-ai-stream`, `use-load-more`, `use-pagination`, `use-queue`, `use-request`, `use-sse`, `use-swr` 等）中补充了完整的交互式 Sandboxes 示例和场景配置。
+
+### Changed
+
+- **ai-bubble**: 优化了流式消息生成的打字机光标（cursor）样式，使其尺寸与粗细符合常见 AI 消息流的视觉规范，提升交互视觉精致感。
+
+### Fixed
+
+- **vite-plugin**: 修复了 Vite 插件在 pnpm 严格依赖布局下因 `import.meta.url` 解析定位错误而无法解析消费端 `node_modules` 中 `mermaid` / `dayjs` 等 peerDependencies 依赖的问题，改用 `process.cwd()` 从消费端根目录解析。
+- **useLoadMore**: 修复了加载更多 Hook 在 ESLint 严格模式下对 `any` 类型的警告，保证 Lint 校验通过。
+
 ## [1.0.55] - 2026-06-13
 
 > 优化组件生命周期安全绑定机制以消除单元测试与 SSR 警告，修复 AI SDK 交互流式工具调用和请求控制，同时彻底解决大目录拖拽递归及 Blob 预览的内存泄漏。

@@ -220,7 +220,13 @@ export const useTableSelection = <T extends Record<string, unknown>>(
     () => config.value?.selectedRowKeys,
     (newKeys) => {
       if (newKeys && Array.isArray(newKeys)) {
-        selectedRowKeys.value = [...newKeys]
+        const currentKeys = selectedRowKeys.value
+        const hasChanged =
+          currentKeys.length !== newKeys.length ||
+          currentKeys.some((val, index) => val !== newKeys[index])
+        if (hasChanged) {
+          selectedRowKeys.value = [...newKeys]
+        }
       }
     },
     { immediate: true }

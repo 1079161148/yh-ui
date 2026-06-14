@@ -204,7 +204,7 @@ const yhNuxtModule = defineNuxtModule<ModuleOptions>({
       'Countdown',
       'Table',
       'TableColumn',
-      // 鏂板缁勪欢
+      // 新增组件
       'Space',
       'Avatar',
       'Empty',

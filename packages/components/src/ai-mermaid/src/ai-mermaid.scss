@@ -2,7 +2,7 @@
 @use '@yh-ui/theme/styles/variables' as *;
 @use 'sass:math';
 
-// 涓婚鍙橀噺
+// 主题变量
 $theme-vars: (
   bg-color: var(--yh-bg-color, #fff),
   border-color: var(--yh-border-color, #dcdfe6),
@@ -26,7 +26,7 @@ $theme-vars: (
 
   display: flex;
 
-  // 浠呭湪鏄惧紡鑷畾涔夎妭鐐规枃瀛楅鑹叉椂锛屾墠杩涜楂樻潈閲嶈鐩?
+  // 仅在显式自定义节点文字颜色时，才进行高权重覆盖
   &.has-custom-text-color {
     .nodeLabel,
     .edgeLabel,
@@ -53,7 +53,7 @@ $theme-vars: (
   box-sizing: border-box;
   @include container(ai-mermaid);
 
-  // 澶撮儴
+  // 头部
   &__header {
     display: flex;
     align-items: center;
@@ -69,7 +69,7 @@ $theme-vars: (
     color: var(--yh-ai-mermaid-text-title);
   }
 
-  // 鎿嶄綔鏍?
+  // 操作栏
   &__actions {
     display: flex;
     align-items: center;
@@ -78,7 +78,7 @@ $theme-vars: (
     border-bottom: 1px solid var(--yh-ai-mermaid-border-color);
   }
 
-  // 娓叉煋绫诲瀷鏍囩
+  // 渲染类型标签
   &__render-tabs {
     display: flex;
     gap: 4px;
@@ -109,7 +109,7 @@ $theme-vars: (
     }
   }
 
-  // 鎿嶄綔鎸夐挳
+  // 操作按钮
   &__action-buttons {
     display: flex;
     gap: 8px;
@@ -122,7 +122,7 @@ $theme-vars: (
     width: 30px;
     height: 30px;
     padding: 0;
-    color: #595959; // 鏇存槑纭笖绋嶅井娣变竴鐐圭殑鐏拌壊锛屾彁鍗囧姣斿害
+    color: #595959; // 更明确且稍微深一点的灰色，提升对比度
     background: transparent;
     border: none;
     border-radius: 50%;
@@ -139,7 +139,7 @@ $theme-vars: (
     }
   }
 
-  // 鍐呭鍖哄煙
+  // 内容区域
   &__content {
     position: relative;
     padding: 16px;
@@ -147,20 +147,24 @@ $theme-vars: (
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: auto;
+    width: 100%;
   }
 
-  // 鍥捐〃瀹瑰櫒
+  // 图表容器
   &__graph {
     width: 100%;
     overflow: auto;
     text-align: center;
+    display: block;
 
     svg {
-      max-width: 100%;
+      max-width: none;
       height: auto;
+      display: inline-block;
     }
 
-    // HTML 鏂囨湰鏍囩榛樿瀛楄壊鍥為€€
+    // HTML 文本标签默认字色回退
     .nodeLabel,
     .edgeLabel,
     .label,
@@ -172,7 +176,18 @@ $theme-vars: (
     }
   }
 
-  // 浠ｇ爜鍧?
+  // 强行设定内部元素 overflow，防止节点或标签文字溢出边界时被裁剪
+  .node,
+  .edgePath,
+  .edgeLabel,
+  .label,
+  .nodeLabel,
+  .label-container,
+  .arrowheadPath {
+    overflow: visible !important;
+  }
+
+  // 代码块
   &__code {
     width: 100%;
     padding: 16px;
@@ -190,7 +205,7 @@ $theme-vars: (
     }
   }
 
-  // 鍔犺浇鐘舵€?
+  // 加载状态
   &__loading {
     display: flex;
     align-items: center;
@@ -203,7 +218,7 @@ $theme-vars: (
     }
   }
 
-  // 閿欒鐘舵€?
+  // 错误状态
   &__error {
     display: flex;
     align-items: center;
@@ -274,7 +289,7 @@ html.dark .#{$prefix}ai-mermaid,
   --yh-ai-mermaid-text-title: var(--yh-text-color, #e2e8f0);
   --yh-ai-mermaid-border-color: rgba(255, 255, 255, 0.15);
 
-  // 杩炵嚎涓庣澶存殫鑹蹭笅浜害璋冭妭锛屽鎶楁殫鑹茶儗鏅紙楂樻潈閲嶇壒寮傛€ч€夋嫨鍣紝瑕嗙洊鍐呰仈鏍峰紡锛?
+  // 连线与箭头暗色下亮度调节，对抗暗色背景（高权重特异性选择器，覆盖内联样式）
   g.edgePath path.path,
   g.edgePath path,
   .edgePaths .edgePath path,
@@ -286,7 +301,7 @@ html.dark .#{$prefix}ai-mermaid,
     stroke: #e2e8f0 !important;
   }
 
-  // 杩炵嚎鏂囨湰鑳屾櫙
+  // 连线文本背景
   .edgeLabel rect,
   .edgeLabel .label-container {
     fill: var(--yh-ai-mermaid-bg-color, #1a1a1a) !important;
@@ -299,7 +314,7 @@ html.dark .#{$prefix}ai-mermaid,
     color: var(--yh-text-color, #e2e8f0) !important;
   }
 
-  // 绠ご鏍峰紡
+  // 箭头样式
   g.edgePath path.arrowheadPath,
   .arrowheadPath,
   svg [id^='arrowhead'] path,

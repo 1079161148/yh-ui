@@ -235,10 +235,14 @@ const renderGraph = async () => {
       return
     }
 
-    // 合并主题配置：优先使用用户传入的主题，若无则自适应 isDark
     // 默认关闭 htmlLabels，使用原生 SVG text 渲染以抗宿主 CSS 污染，并自适应各种主题背景色
     const userConfig = props.config ?? {}
     const htmlLabels = userConfig.htmlLabels ?? false
+    const useDefaultThemeVariables =
+      !userConfig.theme ||
+      userConfig.theme === 'default' ||
+      userConfig.theme === 'dark' ||
+      userConfig.theme === 'base'
     const mergedConfig = {
       ...userConfig,
       theme: userConfig.theme ?? (isDark.value ? 'dark' : 'default'),
@@ -252,7 +256,7 @@ const renderGraph = async () => {
         ...userConfig.sequence
       },
       themeVariables: {
-        ...mermaidThemeVariables.value,
+        ...(useDefaultThemeVariables ? mermaidThemeVariables.value : {}),
         ...userConfig.themeVariables
       }
     }
@@ -403,10 +407,14 @@ const handleDownload = () => {
 }
 
 // 缩放样式
-const transformStyle = computed(() => ({
-  transform: `scale(${zoomLevel.value})`,
-  transformOrigin: 'top left'
-}))
+const transformStyle = computed(() => {
+  const scale = zoomLevel.value
+  return {
+    transform: `scale(${scale})`,
+    transformOrigin: 'top left',
+    width: scale > 1 ? `${100 * scale}%` : '100%'
+  }
+})
 
 // 操作栏按钮
 const actionButtons = computed(() => {

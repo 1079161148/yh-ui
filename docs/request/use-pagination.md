@@ -2,53 +2,104 @@
 
 `usePagination` 是为传统分页列表场景设计的 Hook，负责处理 **页码、总数、加载状态** 等逻辑，让你专注于渲染表格或列表。
 
-## 基础用法
-
-```typescript
+<script setup lang="ts">
+import { computed } from 'vue'
 import { usePagination } from '@yh-ui/request'
+import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
 
-interface UserListResult {
-  list: User[]
-  total: number
-}
+interface User { id: number; name: string; email: string }
+interface UserList { list: User[]; total: number }
 
-const {
-  current, // 当前页码
-  pageSize, // 每页条数
-  total, // 总数
-  totalPages, // 总页数
-  data, // ShallowRef<UserListResult | undefined>
-  loading,
-  pagination // 分页方法集合
-} = usePagination<UserListResult>(
-  // service: (page, pageSize) => Promise<RequestResponse<T>>
-  (page, size) =>
-    request.get('/api/users', {
-      params: { page, pageSize: size }
-    }),
+const { data: pageResult, loading: isTableLoading, current: pageCurrent, total: pageTotal, pageSize: pagePageSize, pagination: pageMethods } = usePagination<UserList>(
+  async (page, size) => {
+    await new Promise(resolve => setTimeout(resolve, 600))
+    const res = await fetch(`https://jsonplaceholder.typicode.com/users?_page=${page}&_limit=${size}`)
+    const list = await res.json()
+    const totalCount = Number(res.headers.get('x-total-count') || 10)
+    return { data: { list, total: totalCount } }
+  },
   {
-    defaultPagination: {
-      current: 1,
-      pageSize: 10
-    }
+    defaultPagination: { current: 1, pageSize: 3 }
   }
 )
-```
 
-模板示例（以 YH-UI Pagination 为例）：
+const tableDataList = computed(() => pageResult.value?.list || [])
 
-```vue
-<template>
-  <yh-table :data="data?.list || []" />
+const tsPaginationDemo = `<${_T}>
+  <div>
+    <!-- 操作区 -->
+    <div style="display:flex; gap:12px; margin-bottom:16px; align-items:center; flex-wrap:wrap">
+      <yh-button size="small" @click="methods.firstPage">首页</yh-button>
+      <yh-button size="small" @click="methods.prevPage">上一页</yh-button>
+      <yh-button size="small" @click="methods.nextPage">下一页</yh-button>
+      <yh-button size="small" @click="methods.lastPage">末页</yh-button>
+      <yh-button size="small" type="primary" @click="methods.refresh">刷新当前页</yh-button>
+    </div>
 
-  <yh-pagination
-    v-model:current="current"
-    v-model:page-size="pageSize"
-    :total="total"
-    @change="pagination.loadPage"
-  />
-</template>
-```
+    <!-- 数据表格 -->
+    <yh-table :data="list" :loading="loading" row-key="id" border>
+      <yh-table-column prop="id" label="ID" width="60" align="center" />
+      <yh-table-column prop="name" label="姓名" />
+      <yh-table-column prop="email" label="邮箱" />
+    </yh-table>
+
+    <!-- 分页控件 -->
+    <div style="margin-top:20px; display:flex; justify-content:flex-end">
+      <yh-pagination 
+        v-model:current-page="current" 
+        :page-size="pageSize" 
+        :total="total" 
+        layout="prev, pager, next, total" 
+      />
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { computed } from 'vue'
+import { usePagination } from '@yh-ui/request'
+
+interface User { id: number; name: string; email: string }
+interface UserList { list: User[]; total: number }
+
+const { data, loading, current, total, pageSize, pagination: methods } = usePagination<UserList>(
+  async (page, size) => {
+    const res = await fetch(\`https://jsonplaceholder.typicode.com/users?_page=\${page}&_limit=\${size}\`)
+    const list = await res.json()
+    const totalCount = Number(res.headers.get('x-total-count') || 10)
+    return { data: { list, total: totalCount } }
+  },
+  { defaultPagination: { current: 1, pageSize: 3 } }
+)
+
+const list = computed(() => data.value?.list || [])
+</${_S}>`
+</script>
+
+## 基础用法
+
+<DemoBlock title="usePagination 传统列表分页" :ts-code="tsPaginationDemo" :js-code="toJs(tsPaginationDemo)">
+  <div>
+    <!-- 操作区 -->
+    <div style="display:flex; gap:12px; margin-bottom:16px; align-items:center; flex-wrap:wrap">
+      <yh-button size="small" @click="() => pageMethods.firstPage()">首页</yh-button>
+      <yh-button size="small" @click="() => pageMethods.prevPage()">上一页</yh-button>
+      <yh-button size="small" @click="() => pageMethods.nextPage()">下一页</yh-button>
+      <yh-button size="small" @click="() => pageMethods.lastPage()">末页</yh-button>
+      <yh-button size="small" type="primary" @click="() => pageMethods.refresh()">刷新当前页</yh-button>
+    </div>
+    <!-- 数据表格 -->
+    <yh-table :data="tableDataList" :loading="isTableLoading" row-key="id" border>
+      <yh-table-column prop="id" label="ID" width="60" align="center" />
+      <yh-table-column prop="name" label="姓名" />
+      <yh-table-column prop="email" label="邮箱" />
+    </yh-table>
+    <!-- 分页控件 -->
+    <div style="margin-top:20px; display:flex; justify-content:flex-end">
+      <yh-pagination v-model:current-page="pageCurrent" :page-size="pagePageSize" :total="pageTotal" layout="prev, pager, next, total" />
+    </div>
+  </div>
+</DemoBlock>
 
 ## 返回值
 
@@ -94,49 +145,7 @@ interface UsePaginationOptions<TData, TParams extends unknown[]> {
 }
 ```
 
-常见用法：
-
-```typescript
-const { current, pageSize, total, data, loading, pagination } = usePagination(
-  (page, size, keyword: string) =>
-    request.get('/api/users', { params: { page, pageSize: size, keyword } }),
-  {
-    defaultPagination: { current: 1, pageSize: 20 },
-    defaultParams: [''], // 第三个参数 keyword
-    onSuccess: (res) => {
-      console.log('列表加载成功', res)
-    }
-  }
-)
-```
-
 > `service` 的前两个参数固定为 `(current, pageSize)`，后续参数可通过 `defaultParams` / 手动修改 `params` 传入。
-
-## 手动模式（manual）
-
-```typescript
-const state = reactive({
-  keyword: ''
-})
-
-const { current, pageSize, total, data, loading, pagination, params } = usePagination<
-  UserListResult,
-  [number, number, string]
->(
-  (page, size, keyword) => request.get('/api/users', { params: { page, pageSize: size, keyword } }),
-  {
-    manual: true,
-    defaultPagination: { current: 1, pageSize: 10 },
-    defaultParams: [1, 10, ''] // [page, size, keyword]
-  }
-)
-
-// 主动加载
-const load = () => {
-  params.value = [current.value, pageSize.value, state.keyword]
-  pagination.refresh()
-}
-```
 
 ## 与 useRequest 的区别
 

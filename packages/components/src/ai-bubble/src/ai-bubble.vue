@@ -628,10 +628,14 @@ const injectCodeStreamStyles = () => {
     }
     /* 光标闪烁效果 */
     .code-block-wrapper.streaming .code-block-body code .line:last-child::after {
-      content: '▋';
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background-color: var(--yh-color-primary, #409eff);
+      margin-left: 4px;
+      vertical-align: -2px;
       animation: cursor-blink 0.8s infinite;
-      margin-left: 2px;
-      color: var(--yh-color-primary, #409eff);
     }
     @keyframes cursor-blink {
       0%, 50% { opacity: 1; }

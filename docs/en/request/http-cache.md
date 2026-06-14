@@ -340,3 +340,155 @@ function createHttpCacheInterceptor(options?: HttpCacheOptions): {
   getCache: () => HttpCache
 }
 ```
+
+## Interactive HTTP Cache Demo
+
+Use the sandbox below to simulate the ETag / 304 conditional request flow between browser and server.
+
+1. Click **"Send HTTP Request"** to trigger a GET request. If no cache is present locally, a `200 OK` response will be returned.
+2. Click again. The browser automatically appends the previous ETag value to the request header as `If-None-Match`. The server matches them and returns `304 Not Modified`, telling the client to load from cache directly and saving bandwidth.
+3. Click **"Modify Server Data"** and request again. The server ETag changes and a fresh `200 OK` is returned.
+
+<DemoBlock title="HTTP ETag / 304 Negotiation Sandbox" :ts-code="tsHttpCacheDemo" :js-code="toJs(tsHttpCacheDemo)">
+  <div class="interactive-demo-container">
+    <div class="control-panel">
+      <div class="panel-item">
+        <label>🖥️ Server State:</label>
+        <div style="padding:12px; border-radius:6px; background:var(--vp-c-bg-soft); border:1px solid var(--yh-border-color-light)">
+          <div style="font-size:12px; line-height:1.6">Data Version: <span class="highlight-val">v{{ serverVersion }}</span></div>
+          <div style="font-size:12px; line-height:1.6">Server ETag: <code style="color:var(--yh-color-primary)">{{ serverETag }}</code></div>
+          <div style="font-size:12px; line-height:1.6; color:var(--yh-text-color-secondary)">Data Payload: {{ JSON.stringify(serverData) }}</div>
+        </div>
+      </div>
+      <div class="panel-item">
+        <label>💾 Local Browser Cache:</label>
+        <div style="padding:12px; border-radius:6px; background:var(--vp-c-bg-soft); border:1px solid var(--yh-border-color-light)">
+          <div style="font-size:12px; line-height:1.6">Cached Data: <span v-if="!localCacheData" style="color:var(--yh-text-color-placeholder)">Empty</span><span v-else style="color:var(--yh-text-color-secondary)">{{ JSON.stringify(localCacheData) }}</span></div>
+          <div style="font-size:12px; line-height:1.6">Saved ETag: <code v-if="localCacheETag" style="color:var(--yh-color-primary)">{{ localCacheETag }}</code><span v-else style="color:var(--yh-text-color-placeholder)">None</span></div>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <yh-button type="primary" :loading="requestLoading" @click="runHttpCacheDemo">Send HTTP Request</yh-button>
+        <yh-button @click="updateServerData">Modify Server Data</yh-button>
+        <yh-button @click="clearLocalCache" :disabled="!localCacheData">Clear Local Cache</yh-button>
+      </div>
+    </div>
+    <div class="terminal-panel">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">HTTP Headers Monitor</span>
+      </div>
+      <div class="terminal-body">
+        <div v-if="logs.length === 0" class="empty-log">Click "Send HTTP Request" to test...</div>
+        <div v-for="(log, i) in logs" :key="i" class="log-line" :class="{
+          'log-success': log.includes('304 Not Modified') || log.includes('✅'),
+          'log-error': log.includes('Cleared') || log.includes('🚨'),
+          'log-info': log.includes('-->') || log.includes('⚙️') || log.includes('<--')
+        }">
+          {{ log }}
+        </div>
+      </div>
+    </div>
+  </div>
+</DemoBlock>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
+
+const serverVersion = ref(1)
+const serverData = computed(() => ({
+  id: 1,
+  title: 'Introduction to YH-UI',
+  version: `v${serverVersion.value}`,
+  lastUpdated: new Date().toLocaleTimeString()
+}))
+const serverETag = computed(() => `W/"etag-yh-ui-v${serverVersion.value}"`)
+
+const localCacheData = ref<any>(null)
+const localCacheETag = ref<string>('')
+const requestLoading = ref(false)
+const logs = ref<string[]>([])
+
+const addLog = (msg: string) => {
+  const time = new Date().toLocaleTimeString()
+  logs.value.push(`[${time}] ${msg}`)
+}
+
+const runHttpCacheDemo = async () => {
+  if (requestLoading.value) return
+  requestLoading.value = true
+
+  addLog('--> Sending Request: GET /api/document/intro')
+  if (localCacheETag.value) {
+    addLog(`    If-None-Match: ${localCacheETag.value}`)
+  } else {
+    addLog('    If-None-Match: (none)')
+  }
+
+  // Simulate network delay
+  await new Promise(r => setTimeout(r, 800))
+
+  // Simulate server side matching
+  if (localCacheETag.value && localCacheETag.value === serverETag.value) {
+    addLog(`<-- Response Headers: HTTP/1.1 304 Not Modified`)
+    addLog(`    ETag: ${serverETag.value}`)
+    addLog(`    Cache-Control: public, max-age=300`)
+    addLog(`✅ 304 Negotiated successfully! Loaded directly from browser cache (0 bytes transferred)`)
+  } else {
+    addLog(`<-- Response Headers: HTTP/1.1 200 OK`)
+    addLog(`    ETag: ${serverETag.value}`)
+    addLog(`    Cache-Control: public, max-age=300`)
+    
+    // Save to local cache
+    localCacheData.value = JSON.parse(JSON.stringify(serverData.value))
+    localCacheETag.value = serverETag.value
+    addLog(`✅ Succeeded! Saved to local cache, stored ETag: ${serverETag.value}`)
+  }
+
+  requestLoading.value = false
+}
+
+const updateServerData = () => {
+  serverVersion.value++
+  addLog(`⚙️ [Server] Server data updated to version v${serverVersion.value}, ETag changed`)
+}
+
+const clearLocalCache = () => {
+  localCacheData.value = null
+  localCacheETag.value = ''
+  addLog('🚨 Local cache cleared')
+}
+
+const tsHttpCacheDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:12px">
+    <yh-button type="primary" @click="fetchDoc">Get Document Info</yh-button>
+    <div v-if="result" style="padding:12px; border-radius:6px; background:var(--vp-c-bg-soft)">
+      {{ result }}
+    </div>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref } from 'vue'
+import { createRequest, createHttpCacheInterceptor } from '@yh-ui/request'
+
+const request = createRequest()
+const { onRequest, onResponse } = createHttpCacheInterceptor({
+  enabled: true,
+  maxAge: 5 * 60 * 1000 // 5 mins
+})
+
+request.interceptors.request.use(onRequest)
+request.interceptors.response.use(onResponse)
+
+const result = ref('')
+
+const fetchDoc = async () => {
+  const res = await request.get('/api/document/intro')
+  result.value = \`Status: \${res.response.status}, Data: \${JSON.stringify(res.data)}\`
+}
+</${_S}>`
+</script>

@@ -313,6 +313,155 @@ const securityInterceptor = createSecurityInterceptor({
 request.interceptors.request.use(securityInterceptor.onRequest)
 ```
 
+## 交互式安全特性演示
+
+在下方的测试沙盒中，您可以模拟发送接口请求，并配置开启 **CSRF 防御** 和 **请求签名（HMAC-SHA256）** 安全防护。控制台将自动展示请求发出时实际包装过的安全 HTTP 头部信息。
+
+<DemoBlock title="API 请求安全沙盒（CSRF 与请求签名）" :ts-code="tsSecurityDemo" :js-code="toJs(tsSecurityDemo)">
+  <div class="interactive-demo-container">
+    <div class="control-panel">
+      <div class="panel-item">
+        <label>安全策略配置 (Security Policies):</label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:normal">
+          <input type="checkbox" v-model="enableCSRF" />
+          <span>启用 CSRF 防护 (注入 X-XSRF-TOKEN)</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:normal">
+          <input type="checkbox" v-model="enableSign" />
+          <span>启用请求签名防护 (HMAC-SHA256)</span>
+        </label>
+      </div>
+      <div class="panel-item" v-if="enableSign">
+        <label>签名密钥 (Secret Key):</label>
+        <yh-input :model-value="secretKey" @update:model-value="(v) => { secretKey = String(v) }" size="small" />
+      </div>
+      <div class="panel-item">
+        <label>请求 Payload 数据 (JSON):</label>
+        <yh-input :model-value="payloadJson" @update:model-value="(v) => { payloadJson = String(v) }" size="small" />
+      </div>
+      <div class="action-buttons">
+        <yh-button type="primary" :loading="securityLoading" @click="runSecurityDemo">发送安全请求</yh-button>
+        <yh-button @click="clearSecurityLogs" :disabled="secLogs.length === 0">清空</yh-button>
+      </div>
+    </div>
+    <div class="terminal-panel">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">网络报文监视 (HTTP Request Headers)</span>
+      </div>
+      <div class="terminal-body">
+        <div v-if="secLogs.length === 0" class="empty-log">点击“发送安全请求”进行测试...</div>
+        <div v-for="(log, i) in secLogs" :key="i" class="log-line" :class="{ 'log-success': log.includes('校验成功') || log.includes('✅') || log.includes('Header'), 'log-error': log.includes('清空') || log.includes('🚨'), 'log-info': log.includes('-->') || log.includes('⚙️') || log.includes('<--') }">
+          {{ log }}
+        </div>
+      </div>
+    </div>
+  </div>
+</DemoBlock>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
+
+const enableCSRF = ref(true)
+const enableSign = ref(true)
+const secretKey = ref('yh-security-secret-key-999')
+const payloadJson = ref('{"amount": 100, "to": "user_id_456"}')
+
+const securityLoading = ref(false)
+const secLogs = ref<string[]>([])
+
+const addSecLog = (msg: string) => {
+  const time = new Date().toLocaleTimeString()
+  secLogs.value.push(`[${time}] ${msg}`)
+}
+
+const computeSimpleHash = (payload: string, key: string, timestamp: string) => {
+  const message = `${payload}:${key}:${timestamp}`
+  let hash = 0
+  for (let i = 0; i < message.length; i++) {
+    const char = message.charCodeAt(i)
+    hash = ((hash << 5) - hash) + char
+    hash |= 0
+  }
+  return 'sha256_' + Math.abs(hash).toString(16).padStart(8, '0') + Math.random().toString(36).substring(2, 6)
+}
+
+const runSecurityDemo = async () => {
+  if (securityLoading.value) return
+  securityLoading.value = true
+
+  addSecLog('--> 发送安全请求: POST /api/transaction/transfer')
+  addSecLog(`📦 Payload: ${payloadJson.value}`)
+
+  await new Promise(r => setTimeout(r, 600))
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json'
+  }
+
+  if (enableCSRF.value) {
+    // 模拟自动注入 CSRF token
+    headers['X-XSRF-TOKEN'] = 'csrf_token_hash_8f9c0e2b'
+    addSecLog(`🛡️ [CSRF 拦截器] 从 Cookie 提取 XSRF-TOKEN 并自动注入 Header`)
+  }
+
+  if (enableSign.value) {
+    const timestamp = String(Date.now())
+    const signature = computeSimpleHash(payloadJson.value, secretKey.value, timestamp)
+    
+    headers['X-Timestamp'] = timestamp
+    headers['X-Signature'] = signature
+    addSecLog(`🔒 [签名拦截器] 已生成请求签名和时间戳 Header`)
+  }
+
+  addSecLog('📡 实际发送的 HTTP 请求头 (Request Headers):')
+  Object.entries(headers).forEach(([k, v]) => {
+    addSecLog(`    ${k}: ${v}`)
+  })
+
+  addSecLog('<-- 响应结果: HTTP/1.1 200 OK')
+  addSecLog('✅ 安全校验通过! 请求已被服务端安全接收。')
+
+  securityLoading.value = false
+}
+
+const clearSecurityLogs = () => {
+  secLogs.value = []
+}
+
+const tsSecurityDemo = `<${_T}>
+  <div style="display:flex; flex-direction:column; gap:8px">
+    <yh-button type="primary" @click="sendTransaction">发送安全交易</yh-button>
+  </div>
+</${_T}>
+
+<${_S} setup lang="ts">
+import { createRequest, createSecurityInterceptor } from '@yh-ui/request'
+
+const request = createRequest()
+const securityInterceptor = createSecurityInterceptor({
+  csrf: { cookieName: 'XSRF-TOKEN' }
+})
+
+request.interceptors.request.use(securityInterceptor.onRequest)
+
+// 模拟请求签名拦截器
+request.interceptors.request.use((config) => {
+  config.headers['X-Signature'] = 'hmac-sha-256-signature'
+  config.headers['X-Timestamp'] = String(Date.now())
+  return config
+})
+
+const sendTransaction = async () => {
+  const res = await request.post('/api/transaction', { amount: 100 })
+  console.log('交易发送成功:', res)
+}
+</${_S}>`
+</script>
+
 ## 下一步
 
 - [useRequest](./use-request) - Vue 请求 Hook
