@@ -270,4 +270,40 @@ describe('YhAiMermaid', () => {
     expect(themeVariables.textColor).toBe('#ff4d4f')
     expect(themeVariables.nodeBkg).toBe('#1f2937')
   })
+
+  it('should support prefixCls, className, classNames, style and styles props', () => {
+    const wrapper = mount(AiMermaid, {
+      props: {
+        header: 'Test Header',
+        prefixCls: 'my-custom-prefix',
+        className: 'my-custom-root-class',
+        classNames: {
+          root: 'root-class',
+          header: 'header-class',
+          content: 'content-class'
+        },
+        style: { border: '1px solid red' },
+        styles: {
+          root: { padding: '20px' },
+          header: { color: 'blue' },
+          content: { background: 'gray' }
+        }
+      }
+    })
+
+    const root = wrapper.find('.yh-ai-mermaid')
+    expect(root.classes()).toContain('my-custom-prefix')
+    expect(root.classes()).toContain('my-custom-root-class')
+    expect(root.classes()).toContain('root-class')
+    expect(root.attributes('style')).toContain('border: 1px solid red')
+    expect(root.attributes('style')).toContain('padding: 20px')
+
+    const header = wrapper.find('.yh-ai-mermaid__header')
+    expect(header.classes()).toContain('header-class')
+    expect(header.attributes('style')).toContain('color: blue')
+
+    const content = wrapper.find('.yh-ai-mermaid__content')
+    expect(content.classes()).toContain('content-class')
+    expect(content.attributes('style')).toContain('background: gray')
+  })
 })

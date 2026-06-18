@@ -310,11 +310,11 @@ By combining the `AiVoiceTrigger` and `AiBubble` components, we can easily build
 
 ### Props
 
-| Attribute                     | Description                                      | Type                 | Default       |
-| ----------------------------- | ------------------------------------------------ | -------------------- | ------------- |
-| recording / v-model:recording | Whether the voice trigger is active.             | `boolean`            | `false`       |
-| amplitudes                    | Real-time array determining the visualizer bars. | `number[]`           | `[5,5,5,...]` |
-| theme-overrides               | Fine-grained theme overrides                     | `ComponentThemeVars` | —             |
+| Attribute                     | Description                                                                                                                                                                                          | Type                 | Default       |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------------- |
+| recording / v-model:recording | Recording state. **Without binding** the component manages its own state (uncontrolled). **With `v-model:recording`** it enters controlled mode and the visualizer auto-syncs with external changes. | `boolean`            | `undefined`   |
+| amplitudes                    | Real-time array determining the visualizer bars.                                                                                                                                                     | `number[]`           | `[5,5,5,...]` |
+| theme-overrides               | Fine-grained theme overrides                                                                                                                                                                         | `ComponentThemeVars` | —             |
 
 ### Events
 

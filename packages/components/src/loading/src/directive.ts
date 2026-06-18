@@ -18,14 +18,9 @@ export const vLoading: Directive = {
       background: el.getAttribute('yh-loading-background') || undefined,
       customClass: el.getAttribute('yh-loading-custom-class') || undefined,
       glass:
-        el.hasAttribute('yh-loading-glass') ||
-        (el.getAttribute('yh-loading-glass') !== 'false' &&
-          el.getAttribute('yh-loading-glass') !== null) ||
+        (el.hasAttribute('yh-loading-glass') && el.getAttribute('yh-loading-glass') !== 'false') ||
         binding.modifiers.glass,
-      dot:
-        el.hasAttribute('yh-loading-dot') ||
-        (el.getAttribute('yh-loading-dot') !== 'false' &&
-          el.getAttribute('yh-loading-dot') !== null),
+      dot: el.hasAttribute('yh-loading-dot') && el.getAttribute('yh-loading-dot') !== 'false',
       color: el.getAttribute('yh-loading-color') || undefined,
       spinnerType: (el.getAttribute('yh-loading-type') as LoadingSpinnerType) || undefined
     })
@@ -48,14 +43,10 @@ export const vLoading: Directive = {
           background: el.getAttribute('yh-loading-background') || undefined,
           customClass: el.getAttribute('yh-loading-custom-class') || undefined,
           glass:
-            el.hasAttribute('yh-loading-glass') ||
-            (el.getAttribute('yh-loading-glass') !== 'false' &&
-              el.getAttribute('yh-loading-glass') !== null) ||
+            (el.hasAttribute('yh-loading-glass') &&
+              el.getAttribute('yh-loading-glass') !== 'false') ||
             binding.modifiers.glass,
-          dot:
-            el.hasAttribute('yh-loading-dot') ||
-            (el.getAttribute('yh-loading-dot') !== 'false' &&
-              el.getAttribute('yh-loading-dot') !== null),
+          dot: el.hasAttribute('yh-loading-dot') && el.getAttribute('yh-loading-dot') !== 'false',
           color: el.getAttribute('yh-loading-color') || undefined,
           spinnerType: (el.getAttribute('yh-loading-type') as LoadingSpinnerType) || undefined
         }

@@ -33,9 +33,21 @@ const error = ref(false)
 const showViewer = ref(false)
 const container = ref<HTMLElement>()
 const isLazy = ref(false)
+const useNativeLazy = ref(false)
 let viewer: Viewer | null = null
 let viewerList: HTMLElement | null = null
 const isSupportNativeLazy = isClient && 'loading' in HTMLImageElement.prototype
+
+const onImgLoad = (e: Event) => {
+  isLoading.value = false
+  emit('load', e)
+}
+
+const onImgError = (e: Event) => {
+  isLoading.value = false
+  error.value = true
+  emit('error', e)
+}
 
 const imageStyle = computed(() => {
   const { fit } = props
@@ -77,11 +89,10 @@ const handleLazyLoad = () => {
   if (!isClient) return
 
   if (props.lazy) {
-    // 如果支持原生懒加载且没有指定容器，或者指定的就是浏览器默认行为，则可以利用原生能力
-    // 但为了插槽和事件的统一性，通常 UI 库即便浏览器支持也会用 Observer
-    // 除非用户显式用了 loading="lazy"
     if (isSupportNativeLazy && props.loading === 'lazy') {
-      loadImage()
+      useNativeLazy.value = true
+      isLoading.value = true
+      error.value = false
     } else {
       isLazy.value = true
       initLazyLoad()
@@ -183,7 +194,10 @@ const initViewerJS = async () => {
 watch(
   () => props.src,
   () => {
-    if (isLazy.value) {
+    if (useNativeLazy.value) {
+      isLoading.value = true
+      error.value = false
+    } else if (isLazy.value) {
       stopLazyLoad()
       initLazyLoad()
     } else {
@@ -231,22 +245,46 @@ const handleSwitch = (index: number) => {
 
 <template>
   <div ref="container" :class="ns.b()" :style="themeStyle">
-    <slot v-if="isLoading" name="placeholder">
+    <slot v-if="isLoading && !useNativeLazy" name="placeholder">
       <div :class="ns.e('placeholder')">{{ t('image.loading') }}</div>
     </slot>
     <slot v-else-if="error" name="error">
       <div :class="ns.e('error')">{{ t('image.error') }}</div>
     </slot>
-    <img
-      v-else
-      :src="src"
-      :alt="alt"
-      :class="[ns.e('inner'), preview && ns.is('preview')]"
-      :style="imageStyle"
-      :crossorigin="crossorigin"
-      :loading="props.loading"
-      @click="clickHandler"
-    />
+    <template v-else-if="!useNativeLazy">
+      <img
+        :src="src"
+        :alt="alt"
+        :class="[ns.e('inner'), preview && ns.is('preview')]"
+        :style="imageStyle"
+        :crossorigin="crossorigin"
+        :loading="props.loading"
+        @click="clickHandler"
+      />
+    </template>
+
+    <!-- Native lazy loading branch -->
+    <template v-if="useNativeLazy">
+      <slot v-if="isLoading" name="placeholder">
+        <div :class="ns.e('placeholder')">{{ t('image.loading') }}</div>
+      </slot>
+      <img
+        :src="src"
+        :alt="alt"
+        :class="[ns.e('inner'), preview && ns.is('preview')]"
+        :style="[
+          imageStyle,
+          isLoading || error
+            ? { width: '0px', height: '0px', opacity: 0, position: 'absolute' }
+            : {}
+        ]"
+        :crossorigin="crossorigin"
+        loading="lazy"
+        @load="onImgLoad"
+        @error="onImgError"
+        @click="clickHandler"
+      />
+    </template>
 
     <!-- Viewer -->
     <yh-image-viewer

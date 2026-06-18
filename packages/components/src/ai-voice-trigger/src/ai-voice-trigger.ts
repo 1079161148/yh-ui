@@ -5,8 +5,8 @@ export const aiVoiceTriggerProps = {
    * 是否正在录音
    */
   recording: {
-    type: Boolean,
-    default: false
+    type: Boolean as PropType<boolean | undefined>,
+    default: undefined
   },
   /**
    * 录音脉冲音频大小/音量数组，用于渲染动画

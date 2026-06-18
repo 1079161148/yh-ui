@@ -62,13 +62,13 @@ Set `autorun` to `true` to automatically re-execute whenever the `code` changes.
 
 ### Props
 
-| Property       | Description                                                     | Type                 | Default        |
-| -------------- | --------------------------------------------------------------- | -------------------- | -------------- |
-| code           | Code string to execute                                          | `string`             | `''`           |
-| language       | Programming language (primarily supports javascript/typescript) | `string`             | `'javascript'` |
-| height         | Height of the terminal display area                             | `string \| number`   | `200`          |
-| autorun        | Whether to execute automatically when code changes              | `boolean`            | `false`        |
-| themeOverrides | Theme override variables                                        | `ComponentThemeVars` | `undefined`    |
+| Property       | Description                                                                                                                                                           | Type                 | Default        |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | -------------- |
+| code           | Code string to execute                                                                                                                                                | `string`             | `''`           |
+| language       | Programming language, determines the runtime command. Supports: `javascript`/`js` (node), `typescript`/`ts` (npx tsx), `python`/`py` (python3), `ruby`, `php`, `deno` | `string`             | `'javascript'` |
+| height         | Height of the terminal display area                                                                                                                                   | `string \| number`   | `200`          |
+| autorun        | Whether to execute automatically when code changes                                                                                                                    | `boolean`            | `false`        |
+| themeOverrides | Theme override variables                                                                                                                                              | `ComponentThemeVars` | `undefined`    |
 
 ### Events
 

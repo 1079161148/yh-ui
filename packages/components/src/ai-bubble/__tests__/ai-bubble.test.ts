@@ -1319,4 +1319,25 @@ describe('YhAiBubble', () => {
     expect(elementsInBubble1[0].innerHTML).toContain('bubble 1')
     expect(elementsInBubble1[0].innerHTML).not.toContain('bubble 2')
   })
+
+  it('should post-render mermaid code blocks into SVG diagrams asynchronously', async () => {
+    mockMermaidRender.mockResolvedValueOnce({
+      svg: '<svg class="mermaid-svg">mocked-diagram</svg>'
+    })
+
+    const wrapper = mount(AiBubble, {
+      props: {
+        content: '```mermaid\ngraph TD\nA-->B\n```',
+        markdown: true
+      }
+    })
+
+    await flushPromises()
+    await wrapper.vm.$nextTick()
+    await new Promise((resolve) => setTimeout(resolve, 50)) // allow post-render microtasks/nextTick to run
+
+    const rendered = wrapper.find('.mermaid-rendered')
+    expect(rendered.exists()).toBe(true)
+    expect(rendered.html()).toContain('mocked-diagram')
+  })
 })

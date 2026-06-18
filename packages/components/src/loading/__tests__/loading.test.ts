@@ -193,6 +193,26 @@ describe('v-yh-loading Directive', () => {
     wrapper.unmount()
   })
 
+  it('should parse false string correctly for glass and dot attributes', async () => {
+    const wrapper = mount(
+      {
+        template: '<div v-yh-loading="true" yh-loading-glass="false" yh-loading-dot="false"></div>',
+        directives: { YhLoading: vYhLoading }
+      },
+      {
+        attachTo: '#app'
+      }
+    )
+
+    await nextTick()
+    const mask = document.querySelector('.yh-loading-mask')
+    expect(mask).toBeTruthy()
+    // It should not contain is-glass and is-dot classes
+    expect(mask?.classList.contains('is-glass')).toBe(false)
+    expect(mask?.classList.contains('is-dot')).toBe(false)
+    wrapper.unmount()
+  })
+
   it('should expose directive alias on plugin export', () => {
     expect(YhLoading.directive).toBe(vYhLoading)
   })

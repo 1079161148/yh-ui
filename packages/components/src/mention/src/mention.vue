@@ -85,6 +85,18 @@ const filteredOptions = computed(() => {
   })
 })
 
+watch(
+  () => filteredOptions.value,
+  (newVal) => {
+    if (!newVal || newVal.length === 0) {
+      highlightedIndex.value = -1
+    } else if (highlightedIndex.value >= newVal.length) {
+      highlightedIndex.value = 0
+    }
+  },
+  { immediate: true }
+)
+
 /** 按分组整理 */
 const groupedOptions = computed(() => {
   const map = new Map<string, MentionOption[]>()
@@ -263,7 +275,10 @@ const handleKeydown = (event: KeyboardEvent) => {
   if (!dropdownVisible.value) return
 
   const total = filteredOptions.value.length
-  if (total === 0) return
+  if (total <= 0) {
+    highlightedIndex.value = -1
+    return
+  }
 
   switch (event.key) {
     case 'ArrowDown':

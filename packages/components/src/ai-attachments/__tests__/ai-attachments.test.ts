@@ -436,4 +436,48 @@ describe('YhAiAttachments', () => {
     const icon = wrapper.find('.yh-ai-attachments__upload').findComponent({ name: 'YhIcon' })
     expect(icon.props('size')).toBe('32px')
   })
+
+  it('should support custom dragTarget string and bind/unbind drop listeners', async () => {
+    const externalDiv = document.createElement('div')
+    externalDiv.id = 'my-drag-target'
+    document.body.appendChild(externalDiv)
+
+    const wrapper = mount(AiAttachments, {
+      props: {
+        dragTarget: '#my-drag-target'
+      },
+      attachTo: document.body
+    })
+
+    externalDiv.dispatchEvent(new DragEvent('dragenter', { bubbles: true }))
+    await nextTick()
+
+    expect((wrapper.vm as any).isDragging).toBe(true)
+
+    wrapper.unmount()
+    externalDiv.remove()
+  })
+
+  it('should teleport drop-mask to target container returned by getDropContainer', async () => {
+    const teleportContainer = document.createElement('div')
+    teleportContainer.id = 'teleport-target'
+    document.body.appendChild(teleportContainer)
+
+    const wrapper = mount(AiAttachments, {
+      props: {
+        getDropContainer: () => teleportContainer
+      },
+      attachTo: document.body
+    })
+
+    const root = wrapper.find('.yh-ai-attachments')
+    await root.trigger('dragenter')
+    await nextTick()
+
+    expect(teleportContainer.querySelector('.yh-ai-attachments__drop-mask')).toBeTruthy()
+    expect(wrapper.find('.yh-ai-attachments > .yh-ai-attachments__drop-mask').exists()).toBe(false)
+
+    wrapper.unmount()
+    teleportContainer.remove()
+  })
 })

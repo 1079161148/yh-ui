@@ -295,4 +295,18 @@ describe('Drawer', () => {
     expect(exposed?.drawerRef?.value).toBeInstanceOf(HTMLElement)
     expect(typeof exposed?.handleClose).toBe('function')
   })
+
+  it('updates size dynamically when props.size changes', async () => {
+    const wrapper = mount(YhDrawer, {
+      props: { modelValue: true, size: '200px', placement: 'right' }
+    })
+    await nextTick()
+    let drawer = document.querySelector('.yh-drawer') as HTMLElement
+    expect(drawer.style.width).toBe('200px')
+
+    await wrapper.setProps({ size: '500px' })
+    await nextTick()
+    drawer = document.querySelector('.yh-drawer') as HTMLElement
+    expect(drawer.style.width).toBe('500px')
+  })
 })

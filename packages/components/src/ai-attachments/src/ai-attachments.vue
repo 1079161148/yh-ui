@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import {
@@ -140,6 +140,75 @@ const fileInputRef = ref<HTMLInputElement | null>(null)
 const isDragging = ref(false)
 // 记录 dragenter / dragleave 深度，避免在子元素之间移动时反复触发抖动
 const dragCounter = ref(0)
+
+// 解析 dragTarget 属性为 HTMLElement（支持选择器字符串或直接传 HTMLElement）
+const resolveDragTarget = (): HTMLElement | null => {
+  if (!props.dragTarget) return null
+  if (typeof props.dragTarget === 'string') {
+    return document.querySelector<HTMLElement>(props.dragTarget)
+  }
+  return props.dragTarget as HTMLElement
+}
+
+// 自定义 dragTarget 上的拖拽监听器引用（用于卸载时清理）
+let externalDragTarget: HTMLElement | null = null
+
+const onExternalDragEnter = (e: Event) => handleDragEnter(e as DragEvent)
+const onExternalDragLeave = (e: Event) => handleDragLeave(e as DragEvent)
+const onExternalDragOver = (e: Event) => handleDragOver(e as DragEvent)
+const onExternalDrop = (e: Event) => handleDrop(e as DragEvent)
+
+const bindExternalDragTarget = () => {
+  const target = resolveDragTarget()
+  if (!target) return
+  externalDragTarget = target
+  target.addEventListener('dragenter', onExternalDragEnter)
+  target.addEventListener('dragleave', onExternalDragLeave)
+  target.addEventListener('dragover', onExternalDragOver)
+  target.addEventListener('drop', onExternalDrop)
+}
+
+const unbindExternalDragTarget = () => {
+  if (!externalDragTarget) return
+  externalDragTarget.removeEventListener('dragenter', onExternalDragEnter)
+  externalDragTarget.removeEventListener('dragleave', onExternalDragLeave)
+  externalDragTarget.removeEventListener('dragover', onExternalDragOver)
+  externalDragTarget.removeEventListener('drop', onExternalDrop)
+  externalDragTarget = null
+}
+
+onMounted(() => {
+  if (props.dragTarget) {
+    bindExternalDragTarget()
+  }
+})
+
+onBeforeUnmount(() => {
+  unbindExternalDragTarget()
+})
+
+// 当 dragTarget 属性发生变化时，重新绑定
+watch(
+  () => props.dragTarget,
+  () => {
+    unbindExternalDragTarget()
+    if (props.dragTarget) {
+      bindExternalDragTarget()
+    }
+  }
+)
+
+// 计算拖拽遮罩的宿主容器（用于 Teleport）
+const dropContainerTarget = computed(() => {
+  if (props.getDropContainer) {
+    try {
+      return props.getDropContainer()
+    } catch {
+      return null
+    }
+  }
+  return null
+})
 
 // 处理文件选择
 const handleFileSelect = async (event: Event) => {
@@ -339,10 +408,16 @@ const showScrollButtons = computed(() => {
         ? { maxHeight: props.scrollMaxHeight }
         : {}
     ]"
-    @dragenter="handleDragEnter"
-    @dragleave="handleDragLeave"
-    @dragover="handleDragOver"
-    @drop="handleDrop"
+    v-bind="
+      !props.dragTarget
+        ? {
+            onDragenter: handleDragEnter,
+            onDragleave: handleDragLeave,
+            onDragover: handleDragOver,
+            onDrop: handleDrop
+          }
+        : {}
+    "
   >
     <!-- 文件列表 -->
     <div
@@ -414,16 +489,18 @@ const showScrollButtons = computed(() => {
     </div>
 
     <!-- 拖拽遮罩 -->
-    <div v-if="isDragging" :class="ns.e('drop-mask')">
-      <slot name="drop-area">
-        <div :class="ns.e('drop-content')">
-          <YhIcon :name="computedDropPlaceholder.icon || 'upload'" :size="props.uploadIconSize" />
-          <div :class="ns.e('drop-text')">
-            {{ computedDropPlaceholder.title || t('ai.attachments.dropTip') }}
+    <Teleport :to="dropContainerTarget" :disabled="!dropContainerTarget">
+      <div v-if="isDragging" :class="ns.e('drop-mask')">
+        <slot name="drop-area">
+          <div :class="ns.e('drop-content')">
+            <YhIcon :name="computedDropPlaceholder.icon || 'upload'" :size="props.uploadIconSize" />
+            <div :class="ns.e('drop-text')">
+              {{ computedDropPlaceholder.title || t('ai.attachments.dropTip') }}
+            </div>
           </div>
-        </div>
-      </slot>
-    </div>
+        </slot>
+      </div>
+    </Teleport>
 
     <!-- 滚动按钮 -->
     <button

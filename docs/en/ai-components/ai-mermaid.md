@@ -243,13 +243,16 @@ When a flowchart is too long or wide, you can scroll horizontally or vertically 
 
 ### Props
 
-| Property       | Description                     | Type                      | Default     |
-| -------------- | ------------------------------- | ------------------------- | ----------- |
-| code           | Mermaid code                    | `string`                  | `''`        |
-| header         | Header (string or slot)         | `string \| object`        | -           |
-| config         | Mermaid config                  | `MermaidConfig`           | `{}`        |
-| actions        | Action bar (zoom/download/copy) | `MermaidActions`          | all enabled |
-| themeOverrides | Theme overrides                 | `Record<string, unknown>` | -           |
+| Property       | Description                                                                                                   | Type                      | Default     |
+| -------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------- | ----------- |
+| code           | Mermaid code                                                                                                  | `string`                  | `''`        |
+| header         | Header (string or slot)                                                                                       | `string \| object`        | -           |
+| config         | Mermaid config                                                                                                | `MermaidConfig`           | `{}`        |
+| actions        | Action bar (zoom/download/copy)                                                                               | `MermaidActions`          | all enabled |
+| classNames     | Extra CSS class names per region. Keys: `root` / `header` / `headerContent` / `extra` / `actions` / `content` | `Record<string, string>`  | -           |
+| styles         | Inline styles per region. Same keys as `classNames`                                                           | `Record<string, string>`  | -           |
+| prefixCls      | Custom BEM root class prefix                                                                                  | `string`                  | -           |
+| themeOverrides | Theme overrides                                                                                               | `Record<string, unknown>` | -           |
 
 ### Events
 

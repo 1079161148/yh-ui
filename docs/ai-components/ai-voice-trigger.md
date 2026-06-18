@@ -339,14 +339,14 @@ const jsChat = toJs(tsChat);
 
 ### Props
 
-| 属性名                        | 说明                                       | 类型                 | 默认值           |
-| ----------------------------- | ------------------------------------------ | -------------------- | ---------------- |
-| recording / v-model:recording | 是否处于展开录音状态                       | `boolean`            | `false`          |
-| variant                       | 展示模式：`inline` / `floating` / `sphere` | `string`             | `'inline'`       |
-| position                      | 悬浮位置：`top-left` / `top-right` / ...   | `string`             | `'bottom-right'` |
-| offset                        | 偏移距离 `[x, y]`                          | `[number, number]`   | `[24, 24]`       |
-| amplitudes                    | 音轨高度波分布数组(需内部响应式轮询传入)   | `number[]`           | `[5,5,5,...]`    |
-| theme-overrides               | 组件级别的局部主题定制覆盖变量             | `ComponentThemeVars` | —                |
+| 属性名                        | 说明                                                                                                                  | 类型                 | 默认值           |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------- | ---------------- |
+| recording / v-model:recording | 录音状态。**不传时**为非受控模式（组件自管状态）；**绑定 v-model:recording** 后为受控模式，外部变更会自动同步可视化器 | `boolean`            | `undefined`      |
+| variant                       | 展示模式：`inline` / `floating` / `sphere`                                                                            | `string`             | `'inline'`       |
+| position                      | 悬浮位置：`top-left` / `top-right` / ...                                                                              | `string`             | `'bottom-right'` |
+| offset                        | 偏移距离 `[x, y]`                                                                                                     | `[number, number]`   | `[24, 24]`       |
+| amplitudes                    | 音轨高度波分布数组(需内部响应式轮询传入)                                                                              | `number[]`           | `[5,5,5,...]`    |
+| theme-overrides               | 组件级别的局部主题定制覆盖变量                                                                                        | `ComponentThemeVars` | —                |
 
 ### Events
 

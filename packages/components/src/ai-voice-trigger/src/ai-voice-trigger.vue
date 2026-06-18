@@ -86,13 +86,27 @@ const startVisualizer = () => {
 }
 
 const stopVisualizer = () => {
-  if (visualizerTimer) clearInterval(visualizerTimer)
+  if (visualizerTimer) {
+    clearInterval(visualizerTimer)
+    visualizerTimer = null
+  }
   simulatedAmplitudes.value = Array(20).fill(5)
 }
 
 // Ensure cleanup
 onBeforeUnmount(() => {
   if (visualizerTimer) clearInterval(visualizerTimer)
+})
+
+// Unified resolved recording state for watcher
+const isCurrentlyRecording = computed(() =>
+  props.recording !== undefined ? props.recording : localRecording.value
+)
+
+// Sync visualizer when recording state changes (handles externally-controlled mode)
+watch(isCurrentlyRecording, (active) => {
+  if (active) startVisualizer()
+  else stopVisualizer()
 })
 </script>
 

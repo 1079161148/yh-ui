@@ -343,19 +343,14 @@ const runCodeInBrowser = (code: string, id: string) => {
   codeOutput.value[id]!.push('> Running...\n')
 
   try {
-    const logs: string[] = []
-    const _customConsole = {
-      log: (...args: unknown[]) => logs.push(args.map(String).join(' ')),
-      error: (...args: unknown[]) => logs.push('Error: ' + args.map(String).join(' ')),
-      warn: (...args: unknown[]) => logs.push('Warn: ' + args.map(String).join(' '))
-    }
+    let hasOutput = false
 
     // 劫持 console 方法实现流式输出
-    const _originalConsole = { ...console }
     const streamLog = (type: 'log' | 'error' | 'warn', ...args: unknown[]) => {
       const line = args.map(String).join(' ')
       const prefix = type === 'error' ? 'Error: ' : type === 'warn' ? 'Warn: ' : ''
       codeOutput.value[id]!.push(prefix + line)
+      hasOutput = true
     }
 
     // 创建可流式输出的 console
@@ -382,19 +377,11 @@ const runCodeInBrowser = (code: string, id: string) => {
     // 如果有返回值，也输出
     if (result !== undefined) {
       codeOutput.value[id]!.push(`← ${String(result)}`)
+      hasOutput = true
     }
 
-    if (logs.length === 0) {
+    if (!hasOutput) {
       codeOutput.value[id]!.push('\n✓ Executed successfully (no output)')
-    } else {
-      // 逐行添加日志，实现流式效果
-      logs.forEach((log, index) => {
-        setTimeout(() => {
-          if (codeOutput.value[id]) {
-            codeOutput.value[id]!.push(log)
-          }
-        }, index * 50)
-      })
     }
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : String(e)
@@ -472,106 +459,6 @@ const runCode = async (code: string, lang: string, id: string): Promise<void> =>
   // 初始化流式输出数组
   codeOutput.value[id] = []
 
-  if (props.onRunCode) {
-    // 支持流式输出的自定义运行函数
-    try {
-      codeOutput.value[id]!.push('> Running...\n')
-      const result = await props.onRunCode(code, lang)
-
-      // 如果返回的是可迭代对象（流式），逐个处理
-      if (result && Symbol.asyncIterator in (result as object)) {
-        const asyncResult = result as unknown as AsyncIterable<{ output?: string; error?: string }>
-        for await (const chunk of asyncResult) {
-          codeOutput.value[id]!.push(chunk.output || chunk.error || '')
-        }
-      } else {
-        // 一次性结果
-        const finalResult = result as { output: string; error?: string }
-        codeOutput.value[id] = finalResult.output
-          ? finalResult.output.split('\n')
-          : finalResult.error
-            ? [`Error: ${finalResult.error}`]
-            : []
-      }
-    } catch (e: unknown) {
-      const message = e instanceof Error ? e.message : String(e)
-      codeOutput.value[id]!.push(`Error: ${message}`)
-    }
-  } else if (lang === 'javascript' || lang === 'js') {
-    // 优先使用 WebContainer 沙箱运行
-    const mdOptions = getMarkdownOptions()
-    const runtime = (mdOptions.codeBlock as AiCodeBlockOptions | undefined)?.runtime || 'browser'
-
-    if (runtime === 'webcontainer') {
-      try {
-        const wc = await initWebContainer()
-
-        // 如果当前环境不支持 WebContainer，则自动降级为浏览器运行
-        if (!wc) {
-          runCodeInBrowser(code, id)
-        } else {
-          codeOutput.value[id]!.push('> Running in WebContainer...\n')
-
-          await wc.mount({
-            'index.js': {
-              file: {
-                contents: code
-              }
-            }
-          })
-
-          const process = await wc.spawn('node', ['index.js'])
-          const reader = process.output.getReader()
-          const decoder = new TextDecoder()
-
-          // 真正的流式输出：逐块读取并实时更新 UI
-          while (true) {
-            const { done, value } = await reader.read()
-            if (done) break
-            const chunk = decoder.decode(value as unknown as Uint8Array, { stream: true })
-            if (chunk) {
-              // 按行分割，实现逐行流式输出
-              const lines = chunk.split('\n')
-              lines.forEach((line, index) => {
-                if (line || index < lines.length - 1) {
-                  setTimeout(() => {
-                    if (codeOutput.value[id]) {
-                      codeOutput.value[id]!.push(line)
-                    }
-                  }, index * 30)
-                }
-              })
-            }
-          }
-
-          codeOutput.value[id]!.push('\n✓ WebContainer execution complete')
-        }
-      } catch (e: unknown) {
-        // WebContainer 环境异常时，降级为浏览器内联执行，而不是直接报错
-        console.warn('WebContainer execution failed, fallback to browser runtime:', e)
-        codeOutput.value[id]!.push('\n⚠ WebContainer not supported, falling back to browser...')
-        runCodeInBrowser(code, id)
-      }
-    } else {
-      // 浏览器内联执行（原有逻辑）
-      runCodeInBrowser(code, id)
-    }
-  } else if (lang === 'python' || lang === 'py') {
-    if (props.enablePythonRuntime) {
-      if (props.pythonRuntime === 'remote' && props.pythonApiUrl) {
-        runPythonRemote(code, id)
-      } else {
-        runPythonInBrowser(code, id)
-      }
-    } else {
-      codeOutput.value[id]!.push(
-        'Python runtime is disabled. Please enable "enable-python-runtime" prop.'
-      )
-    }
-  } else {
-    codeOutput.value[id]!.push(`Language "${lang}" execution not supported in browser`)
-  }
-
   // 运行完成后，强制重新渲染一次 Markdown，这样代码输出区域会立即更新
   // 对于流式输出，需要持续触发渲染
   const triggerRender = () => {
@@ -585,12 +472,108 @@ const runCode = async (code: string, lang: string, id: string): Promise<void> =>
   // 定期触发渲染以支持流式输出显示
   const renderInterval = setInterval(triggerRender, 100)
 
-  // 等待一段时间后停止定期渲染
-  setTimeout(() => {
+  try {
+    if (props.onRunCode) {
+      // 支持流式输出的自定义运行函数
+      try {
+        codeOutput.value[id]!.push('> Running...\n')
+        const result = await props.onRunCode(code, lang)
+
+        // 如果返回的是可迭代对象（流式），逐个处理
+        if (result && Symbol.asyncIterator in (result as object)) {
+          const asyncResult = result as unknown as AsyncIterable<{
+            output?: string
+            error?: string
+          }>
+          for await (const chunk of asyncResult) {
+            codeOutput.value[id]!.push(chunk.output || chunk.error || '')
+          }
+        } else {
+          // 一次性结果
+          const finalResult = result as { output: string; error?: string }
+          codeOutput.value[id] = finalResult.output
+            ? finalResult.output.split('\n')
+            : finalResult.error
+              ? [`Error: ${finalResult.error}`]
+              : []
+        }
+      } catch (e: unknown) {
+        const message = e instanceof Error ? e.message : String(e)
+        codeOutput.value[id]!.push(`Error: ${message}`)
+      }
+    } else if (lang === 'javascript' || lang === 'js') {
+      // 优先使用 WebContainer 沙箱运行
+      const mdOptions = getMarkdownOptions()
+      const runtime = (mdOptions.codeBlock as AiCodeBlockOptions | undefined)?.runtime || 'browser'
+
+      if (runtime === 'webcontainer') {
+        try {
+          const wc = await initWebContainer()
+
+          // 如果当前环境不支持 WebContainer，则自动降级为浏览器运行
+          if (!wc) {
+            runCodeInBrowser(code, id)
+          } else {
+            codeOutput.value[id]!.push('> Running in WebContainer...\n')
+
+            await wc.mount({
+              'index.js': {
+                file: {
+                  contents: code
+                }
+              }
+            })
+
+            const process = await wc.spawn('node', ['index.js'])
+            const reader = process.output.getReader()
+            const decoder = new TextDecoder()
+
+            // 真正的流式输出：逐块读取并实时更新 UI
+            while (true) {
+              const { done, value } = await reader.read()
+              if (done) break
+              const chunk = decoder.decode(value as unknown as Uint8Array, { stream: true })
+              if (chunk) {
+                // 按行分割，实现逐行流式输出
+                const lines = chunk.split('\n')
+                lines.forEach((line) => {
+                  codeOutput.value[id]!.push(line)
+                })
+              }
+            }
+
+            codeOutput.value[id]!.push('\n✓ WebContainer execution complete')
+          }
+        } catch (e: unknown) {
+          // WebContainer 环境异常时，降级为浏览器内联执行，而不是直接报错
+          console.warn('WebContainer execution failed, fallback to browser runtime:', e)
+          codeOutput.value[id]!.push('\n⚠ WebContainer not supported, falling back to browser...')
+          runCodeInBrowser(code, id)
+        }
+      } else {
+        // 浏览器内联执行（原有逻辑）
+        runCodeInBrowser(code, id)
+      }
+    } else if (lang === 'python' || lang === 'py') {
+      if (props.enablePythonRuntime) {
+        if (props.pythonRuntime === 'remote' && props.pythonApiUrl) {
+          await runPythonRemote(code, id)
+        } else {
+          await runPythonInBrowser(code, id)
+        }
+      } else {
+        codeOutput.value[id]!.push(
+          'Python runtime is disabled. Please enable "enable-python-runtime" prop.'
+        )
+      }
+    } else {
+      codeOutput.value[id]!.push(`Language "${lang}" execution not supported in browser`)
+    }
+  } finally {
     clearInterval(renderInterval)
     triggerRender()
     runningCodeBlock.value = null
-  }, 5000) // 5秒后确保渲染完成
+  }
 }
 
 const explainCode = async (code: string, lang: string): Promise<string> => {
@@ -693,6 +676,45 @@ watch(
         })
       }, 100)
     }
+  }
+)
+
+const renderMermaidBlocks = async () => {
+  await nextTick()
+  if (!bubbleRef.value) return
+  const elements = bubbleRef.value.querySelectorAll('pre.mermaid')
+  for (const el of Array.from(elements)) {
+    if (el.getAttribute('data-processed')) continue
+    el.setAttribute('data-processed', 'true')
+    const code = el.textContent || ''
+    if (!code.trim()) continue
+
+    const parent = el.parentElement
+    if (!parent) continue
+
+    const container = document.createElement('div')
+    container.className = 'mermaid-rendered'
+    container.innerHTML = '<span class="mermaid-loading">Rendering...</span>'
+    el.style.display = 'none'
+    parent.appendChild(container)
+
+    try {
+      const svg = await _renderMermaid(code)
+      if (parent.contains(container)) {
+        container.innerHTML = svg
+      }
+    } catch {
+      if (parent.contains(container)) {
+        container.innerHTML = `<span class="mermaid-error">Failed to render</span>`
+      }
+    }
+  }
+}
+
+watch(
+  () => parsedContent.value,
+  () => {
+    renderMermaidBlocks()
   }
 )
 
@@ -1246,6 +1268,7 @@ const handleCodeBlockAction = async (e: Event) => {
 onMounted(() => {
   hasMounted.value = true
   loadHighlightStyle()
+  renderMermaidBlocks()
 })
 </script>
 

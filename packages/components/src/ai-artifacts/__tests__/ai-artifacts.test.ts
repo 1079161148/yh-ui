@@ -257,4 +257,26 @@ describe('YhAiArtifacts', () => {
     await nextTick()
     expect(iframe.attributes('sandbox')).toBe('')
   })
+
+  it('should render ECharts container for type chart when slot is not provided but echartsOption is present', async () => {
+    const wrapper = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: {
+          ...mockData,
+          type: 'chart',
+          echartsOption: {
+            option: {
+              xAxis: {},
+              yAxis: {},
+              series: []
+            }
+          }
+        },
+        mode: 'preview'
+      }
+    })
+    await nextTick()
+    expect(wrapper.find('.yh-ai-artifacts__echarts-wrapper').isVisible()).toBe(true)
+  })
 })

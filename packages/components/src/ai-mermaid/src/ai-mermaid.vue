@@ -460,22 +460,31 @@ const actionButtons = computed(() => {
     :class="[
       ns.b(),
       { 'is-dark': isDark, 'has-custom-text-color': hasCustomNodeTextColor },
-      className
+      className,
+      prefixCls || '',
+      classNames?.root || ''
     ]"
-    :style="[themeStyle, style]"
+    :style="[themeStyle, style, styles?.root || {}]"
   >
     <!-- 头部区域 -->
-    <div v-if="header || $slots.header" :class="ns.e('header')">
-      <div :class="ns.e('header-content')">
+    <div
+      v-if="header || $slots.header"
+      :class="[ns.e('header'), classNames?.header || '']"
+      :style="styles?.header || {}"
+    >
+      <div
+        :class="[ns.e('header-content'), classNames?.headerContent || '']"
+        :style="styles?.headerContent || {}"
+      >
         <slot name="header">{{ header }}</slot>
       </div>
-      <div :class="ns.e('extra')">
+      <div :class="[ns.e('extra'), classNames?.extra || '']" :style="styles?.extra || {}">
         <slot name="extra" />
       </div>
     </div>
 
     <!-- 操作栏 -->
-    <div :class="ns.e('actions')">
+    <div :class="[ns.e('actions'), classNames?.actions || '']" :style="styles?.actions || {}">
       <div :class="ns.e('render-tabs')">
         <button
           :class="[ns.e('render-tab'), renderType === 'image' && ns.is('active')]"
@@ -506,7 +515,7 @@ const actionButtons = computed(() => {
     </div>
 
     <!-- 内容区域 -->
-    <div :class="ns.e('content')">
+    <div :class="[ns.e('content'), classNames?.content || '']" :style="styles?.content || {}">
       <!-- 加载状态 -->
       <div v-if="isLoading" :class="ns.e('loading')">
         <YhSpin />

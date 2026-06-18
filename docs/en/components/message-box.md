@@ -3,7 +3,7 @@ import { h } from 'vue'
 import { YhMessageBox } from '@yh-ui/components'
 
 const openAlert = () => {
-  YhMessageBox.alert('This is a basic message alert content.', 'System Tip')
+  YhMessageBox.alert('This is a basic message alert content.', 'System Tip').catch(() => {})
 }
 
 const openConfirm = () => {
@@ -15,7 +15,7 @@ const openConfirm = () => {
       cancelButtonText: 'Cancel',
       type: 'warning',
     }
-  )
+  ).catch(() => {})
 }
 
 const openPrompt = () => {
@@ -24,7 +24,7 @@ const openPrompt = () => {
     cancelButtonText: 'Cancel',
     inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
     inputErrorMessage: 'Invalid email format',
-  })
+  }).catch(() => {})
 }
 
 const openVNode = () => {
@@ -34,7 +34,7 @@ const openVNode = () => {
       h('span', null, 'Content can be '),
       h('i', { style: 'color: teal' }, 'VNode'),
     ]),
-  })
+  }).catch(() => {})
 }
 
 const openHTML = () => {
@@ -44,7 +44,7 @@ const openHTML = () => {
     {
       dangerouslyUseHTMLString: true,
     }
-  )
+  ).catch(() => {})
 }
 
 const openCenter = () => {
@@ -57,13 +57,13 @@ const openCenter = () => {
       type: 'warning',
       center: true,
     }
-  )
+  ).catch(() => {})
 }
 
 const openDraggable = () => {
   YhMessageBox.alert('The content can be dragged freely', 'Tip', {
     draggable: true,
-  })
+  }).catch(() => {})
 }
 
 const openBeforeClose = () => {
@@ -79,18 +79,18 @@ const openBeforeClose = () => {
         done()
       }
     },
-  })
+  }).catch(() => {})
 }
 
 const openNuxt = () => {
-  YhMessageBox.alert('Nuxt 3 auto-import successful!', 'SSR Compatibility')
+  YhMessageBox.alert('Nuxt 3 auto-import successful!', 'SSR Compatibility').catch(() => {})
 }
 
 const openSuccess = () => {
   YhMessageBox.confirm('Order has been successfully submitted.', 'Success', {
     confirmButtonText: 'View Details',
     iconType: 'success',
-  })
+  }).catch(() => {})
 }
 
 const openWarning = () => {
@@ -98,20 +98,20 @@ const openWarning = () => {
     confirmButtonText: 'Yes',
     cancelButtonText: 'No',
     iconType: 'warning',
-  })
+  }).catch(() => {})
 }
 
 const openError = () => {
   YhMessageBox.alert('An unexpected system error occurred. Please refresh.', 'System Error', {
     confirmButtonText: 'Contact Support',
     iconType: 'error',
-  })
+  }).catch(() => {})
 }
 
 const openInfo = () => {
   YhMessageBox.alert('The server is currently under maintenance.', 'Tip', {
     iconType: 'info',
-  })
+  }).catch(() => {})
 }
 
 const openLoading = () => {
@@ -129,7 +129,7 @@ const openLoading = () => {
         done()
       }
     }
-  })
+  }).catch(() => {})
 }
 
 const openSetDefaults = () => {

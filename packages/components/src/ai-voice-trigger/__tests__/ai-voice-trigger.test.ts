@@ -143,4 +143,18 @@ describe('YhAiVoiceTrigger', () => {
     })
     expect(wrapperNoTeleport.props('teleport')).toBe(false)
   })
+
+  it('should start and stop visualizer when props.recording changes directly (controlled mode)', async () => {
+    const wrapper = mount(AiVoiceTrigger, {
+      props: { recording: false }
+    })
+
+    await wrapper.setProps({ recording: true })
+    await wrapper.vm.$nextTick()
+    expect((wrapper.vm as any).visualizerTimer).not.toBeNull()
+
+    await wrapper.setProps({ recording: false })
+    await wrapper.vm.$nextTick()
+    expect((wrapper.vm as any).visualizerTimer).toBeNull()
+  })
 })

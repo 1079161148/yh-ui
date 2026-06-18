@@ -312,4 +312,34 @@ describe('YhDatePicker', () => {
     const lastEmit = wrapper.emitted('panel-change')?.slice(-1)[0]
     expect(lastEmit?.[1]).toBe('month')
   })
+
+  it('rolls back draft selection on cancel or outside click', async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        modelValue: new Date(2024, 0, 1),
+        type: 'datetime',
+        teleported: false
+      }
+    })
+
+    // Open panel
+    await wrapper.trigger('click')
+    await nextTick()
+
+    // Select a new date in the panel
+    wrapper.findComponent(DateTable).vm.$emit('select', new Date(2024, 0, 15))
+    await nextTick()
+
+    // Value should temporarily update in modelValue (or through emit update)
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([new Date(2024, 0, 15)])
+
+    // Simulate clicking outside (or cancelling)
+    document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    await nextTick()
+
+    // Value should be rolled back to the original Date(2024, 0, 1)
+    const emits = wrapper.emitted('update:modelValue') || []
+    const lastEmit = emits[emits.length - 1]
+    expect(lastEmit).toEqual([new Date(2024, 0, 1)])
+  })
 })

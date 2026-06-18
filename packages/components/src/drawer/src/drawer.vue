@@ -165,6 +165,13 @@ watch(
   { immediate: true }
 )
 
+watch(
+  () => props.size,
+  (val) => {
+    currentSize.value = val
+  }
+)
+
 const handleClose = (isClickModal = false) => {
   if (isClickModal && !props.closeOnClickModal) return
 

@@ -490,4 +490,69 @@ describe('YhAiCodeRunner', () => {
     resolveExit?.(0)
     await runPromise
   })
+
+  it('should resolve correct spawn configurations for Python and TypeScript languages', async () => {
+    mockWebContainer.spawn.mockImplementation((command, args) => {
+      return {
+        exit: Promise.resolve(0),
+        kill: vi.fn(),
+        output: {
+          pipeTo: vi.fn(async () => {})
+        }
+      } as any
+    })
+
+    // TypeScript
+    const wrapperTs = mount(AiCodeRunner, {
+      props: { code: 'let a: number = 1;', language: 'typescript' }
+    })
+    await wrapperTs.vm.run()
+    await flushAsync()
+    expect(mockWebContainer.mount).toHaveBeenCalledWith(
+      expect.objectContaining({
+        'index.ts': expect.any(Object)
+      })
+    )
+    expect(mockWebContainer.spawn).toHaveBeenCalledWith('npx', ['tsx', 'index.ts'])
+
+    // Python
+    const wrapperPy = mount(AiCodeRunner, {
+      props: { code: 'print("hello")', language: 'python' }
+    })
+    await wrapperPy.vm.run()
+    await flushAsync()
+    expect(mockWebContainer.mount).toHaveBeenCalledWith(
+      expect.objectContaining({
+        'index.py': expect.any(Object)
+      })
+    )
+    expect(mockWebContainer.spawn).toHaveBeenCalledWith('python3', ['index.py'])
+  })
+
+  it('should reset active process before autorun starts new process on code changes', async () => {
+    let mockProcessInstance = {
+      exit: new Promise(() => {}), // keeps running
+      kill: vi.fn(),
+      output: {
+        pipeTo: vi.fn(async () => {})
+      }
+    }
+    mockWebContainer.spawn.mockReturnValue(mockProcessInstance as any)
+
+    const wrapper = mount(AiCodeRunner, {
+      props: {
+        code: 'initial code',
+        autorun: true
+      }
+    })
+    await flushAsync()
+
+    // Trigger code change to run again with autorun
+    expect(mockProcessInstance.kill).not.toHaveBeenCalled()
+    await wrapper.setProps({ code: 'new code' })
+    await flushAsync()
+
+    // It should have stopped the previous run
+    expect(mockProcessInstance.kill).toHaveBeenCalled()
+  })
 })

@@ -629,4 +629,31 @@ describe('YhSelect', () => {
     // Check if the hovered item has hovering class
     expect(optionItemsAfterScroll[0].classes()).toContain('is-hovering')
   })
+
+  it('should adjust scrollTop to keep hoveredIndex in view under virtual scroll', async () => {
+    const manyOptions = Array.from({ length: 20 }, (_, i) => ({
+      value: `option${i}`,
+      label: `选项 ${i}`
+    }))
+    const wrapper = mount(Select, {
+      props: {
+        options: manyOptions,
+        virtualScroll: true,
+        height: 100,
+        itemHeight: 20,
+        teleported: false
+      }
+    })
+
+    await wrapper.trigger('click')
+    await nextTick()
+
+    const vm = wrapper.vm as any
+    // hover on index 8 (out of visible viewport height 100px / 20px = 5 items)
+    vm.hoveredIndex = 8
+    await nextTick()
+
+    // 8 * 20 + 20 = 180px, container viewport is 100px. Target scrollTop should be 180 - 100 = 80px.
+    expect(vm.scrollTop).toBe(80)
+  })
 })

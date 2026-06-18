@@ -216,4 +216,44 @@ describe('YhImage', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-image-border-radius: 18px')
   })
+
+  it('native lazy loading uses loading="lazy" attribute and binds load/error', async () => {
+    // Stub loading property in HTMLImageElement prototype to force native lazy loading support
+    const originalPrototype = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'loading')
+    Object.defineProperty(HTMLImageElement.prototype, 'loading', {
+      get() {
+        return this.getAttribute('loading')
+      },
+      set(newVal) {
+        if (newVal) {
+          this.setAttribute('loading', newVal)
+        } else {
+          this.removeAttribute('loading')
+        }
+      },
+      configurable: true
+    })
+
+    const wrapper = mount(YhImage, {
+      props: {
+        src: 'https://example.com/test.jpg',
+        lazy: true,
+        loading: 'lazy'
+      }
+    })
+
+    await nextTick()
+
+    // It should render native lazy loading img wrapper branch
+    const img = wrapper.find('img')
+    expect(img.exists()).toBe(true)
+    expect(img.attributes('loading')).toBe('lazy')
+
+    // Clean prototype stub
+    if (originalPrototype) {
+      Object.defineProperty(HTMLImageElement.prototype, 'loading', originalPrototype)
+    } else {
+      delete (HTMLImageElement.prototype as any).loading
+    }
+  })
 })

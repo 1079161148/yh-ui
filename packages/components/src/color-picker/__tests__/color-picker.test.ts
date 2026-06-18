@@ -130,6 +130,33 @@ describe('YhColorPicker', () => {
 
     vi.unstubAllGlobals()
   })
+
+  it('supports HSL and HSV colorFormat parsing and formatting', async () => {
+    // 1. Parsing HSL and formatting as HSL
+    const wrapperHsl = mount(YhColorPicker, {
+      props: {
+        modelValue: 'hsl(120, 100%, 50%)',
+        colorFormat: 'hsl',
+        showAlpha: false
+      },
+      global: globalOptions
+    })
+    await nextTick()
+    // It should parse hsl(120, 100%, 50%) into correct internal hsv and output HSL format
+    expect((wrapperHsl.vm as any).currentColor).toBe('hsl(120, 100%, 50%)')
+
+    // 2. Parsing HSV and formatting as HSV
+    const wrapperHsv = mount(YhColorPicker, {
+      props: {
+        modelValue: 'hsv(240, 100%, 100%)',
+        colorFormat: 'hsv',
+        showAlpha: false
+      },
+      global: globalOptions
+    })
+    await nextTick()
+    expect((wrapperHsv.vm as any).currentColor).toBe('hsv(240, 100%, 100%)')
+  })
 })
 
 describe('SVPanel', () => {

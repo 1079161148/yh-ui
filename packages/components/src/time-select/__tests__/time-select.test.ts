@@ -370,4 +370,27 @@ describe('YhTimeSelect', () => {
     await wrapper.find('.yh-time-select__clear').trigger('click')
     expect(wrapper.emitted('clear')).toBeTruthy()
   })
+
+  it('supports prefixIcon and clearIcon components or strings', async () => {
+    wrapper = mount(YhTimeSelect, {
+      props: {
+        prefixIcon: 'span',
+        clearIcon: 'div',
+        modelValue: '09:00',
+        clearable: true
+      }
+    })
+    // Check prefix icon element tag name is 'span' (since we pass prefixIcon: 'span')
+    const prefix = wrapper.find('.yh-time-select__prefix span')
+    expect(prefix.exists()).toBe(true)
+
+    // Trigger hover and focus to show clear icon
+    await wrapper.trigger('mouseenter')
+    await wrapper.find('input').trigger('focus')
+    await nextTick()
+
+    // Check clear icon element tag name is 'div' (since we pass clearIcon: 'div')
+    const clear = wrapper.find('.yh-time-select__clear div')
+    expect(clear.exists()).toBe(true)
+  })
 })

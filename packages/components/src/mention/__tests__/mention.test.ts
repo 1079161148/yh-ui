@@ -692,4 +692,35 @@ describe('YhMention 事件', () => {
 
     wrapper.unmount()
   })
+
+  it('ArrowUp/ArrowDown under empty list does not set highlightedIndex to NaN', async () => {
+    const wrapper = mount(Mention, {
+      props: {
+        modelValue: '',
+        options: [],
+        debounce: 0,
+        teleported: false
+      },
+      attachTo: document.body
+    })
+    const input = wrapper.find('input')
+    await input.setValue('@')
+    await input.trigger('input')
+    await new Promise((r) => setTimeout(r, 50))
+    await nextTick()
+
+    // Suggestions list is empty, press ArrowDown
+    await input.trigger('keydown', { key: 'ArrowDown' })
+    await nextTick()
+    expect(Number.isNaN((wrapper.vm as any).highlightedIndex)).toBe(false)
+    expect((wrapper.vm as any).highlightedIndex).toBe(-1)
+
+    // Press ArrowUp
+    await input.trigger('keydown', { key: 'ArrowUp' })
+    await nextTick()
+    expect(Number.isNaN((wrapper.vm as any).highlightedIndex)).toBe(false)
+    expect((wrapper.vm as any).highlightedIndex).toBe(-1)
+
+    wrapper.unmount()
+  })
 })

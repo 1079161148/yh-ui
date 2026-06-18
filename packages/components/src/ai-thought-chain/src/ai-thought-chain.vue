@@ -278,7 +278,7 @@ const handleDragEnd = () => {
         :key="item.id || index"
         :class="[
           ns.e('item'),
-          ns.is('last', index === items.length - 1),
+          ns.is('last', index === itemsToUse.length - 1),
           ns.is('active', item.status === 'thinking' || item.status === 'loading'),
           ns.is('drag-over', dragOverIndex === index),
           ns.is('dragging', draggedIndex === index)
@@ -298,7 +298,7 @@ const handleDragEnd = () => {
             />
           </div>
           <div
-            v-if="index < items.length - 1"
+            v-if="index < itemsToUse.length - 1"
             :class="[ns.e('item-line'), { 'is-gradient': lineGradient }]"
           ></div>
         </div>
@@ -355,7 +355,7 @@ const handleDragEnd = () => {
       </div>
 
       <!-- 添加节点按钮 -->
-      <div v-if="editable" :class="ns.e('add-node')" @click="handleAddNode(items.length)">
+      <div v-if="editable" :class="ns.e('add-node')" @click="handleAddNode(itemsToUse.length)">
         <YhIcon name="plus" />
         <span>{{ t('ai.thoughtChain.addNode') }}</span>
       </div>

@@ -27,6 +27,32 @@ const terminalRef = ref<HTMLElement>()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const activeProcess = shallowRef<any>(null)
 
+/** Map language prop to { filename, command, args } */
+const getLanguageRunConfig = (
+  lang: string
+): { filename: string; command: string; args: string[] } => {
+  switch (lang.toLowerCase()) {
+    case 'typescript':
+    case 'ts':
+      return { filename: 'index.ts', command: 'npx', args: ['tsx', 'index.ts'] }
+    case 'python':
+    case 'py':
+    case 'python3':
+      return { filename: 'index.py', command: 'python3', args: ['index.py'] }
+    case 'ruby':
+    case 'rb':
+      return { filename: 'index.rb', command: 'ruby', args: ['index.rb'] }
+    case 'php':
+      return { filename: 'index.php', command: 'php', args: ['index.php'] }
+    case 'deno':
+      return { filename: 'index.ts', command: 'deno', args: ['run', 'index.ts'] }
+    case 'javascript':
+    case 'js':
+    default:
+      return { filename: 'index.js', command: 'node', args: ['index.js'] }
+  }
+}
+
 const terminalHeight = computed(() => {
   if (typeof props.height === 'number') {
     return `${props.height}px`
@@ -92,8 +118,9 @@ const runCode = async () => {
     emit('run', props.code)
 
     // 1. 挂载文件系统
+    const runConfig = getLanguageRunConfig(props.language)
     await container.mount({
-      'index.js': {
+      [runConfig.filename]: {
         file: {
           contents: props.code
         }
@@ -101,7 +128,7 @@ const runCode = async () => {
     })
 
     // 2. 启动进程
-    shellProcess = await container.spawn('node', ['index.js'])
+    shellProcess = await container.spawn(runConfig.command, runConfig.args)
     activeProcess.value = shellProcess
 
     // 监听输出流
@@ -209,6 +236,8 @@ watch(
   () => props.code,
   () => {
     if (props.autorun) {
+      // Stop any running process before starting a new autorun
+      if (isRunning.value) stopCode()
       runCode()
     }
   }

@@ -51,6 +51,19 @@ const { themeStyle } = useComponentTheme(
 // --- 状态控制 ---
 const visible = ref(props.panelOnly)
 const hovering = ref(false)
+const originalValue = ref<unknown>(null)
+const confirmed = ref(false)
+
+const handlePresetClick = (p: {
+  value: DateValue | DateRangeValue | (() => DateValue | DateRangeValue)
+}) => {
+  const val = typeof p.value === 'function' ? p.value() : p.value
+  handleSelect(val as Date | number | Date[])
+  confirmed.value = true
+  if (!props.panelOnly) {
+    visible.value = false
+  }
+}
 
 // 初始化视图
 const getInitialView = (type: DatePickerType): PanelView => {
@@ -379,7 +392,10 @@ const performFinalSelect = (date: Date) => {
         : null
 
       emitChange([mergedStart, mergedEnd] as DateRangeValue)
-      if (end && !props.panelOnly && !props.type.includes('datetime')) visible.value = false
+      if (end && !props.panelOnly && !props.type.includes('datetime')) {
+        confirmed.value = true
+        visible.value = false
+      }
     }
   } else {
     const mergedDate = props.type.includes('datetime')
@@ -392,6 +408,7 @@ const performFinalSelect = (date: Date) => {
     emitChange(mergedDate)
     // 只有非 datetime 类型才在选中后自动关闭
     if (!props.panelOnly && !props.type.includes('datetime')) {
+      confirmed.value = true
       visible.value = false
     }
   }
@@ -478,6 +495,8 @@ watch(visible, (val: boolean) => {
   }
   emit('visible-change', val)
   if (val) {
+    confirmed.value = false
+    originalValue.value = Array.isArray(props.modelValue) ? [...props.modelValue] : props.modelValue
     currentView.value = getInitialView(props.type)
     void updatePosition()
     syncInnerDate() // 每次打开时重新校准视图锚点
@@ -489,6 +508,9 @@ watch(visible, (val: boolean) => {
       }
     }
   } else {
+    if (!confirmed.value) {
+      emitChange(originalValue.value)
+    }
     if (!props.panelOnly) {
       window.removeEventListener('click', handleOutsideClick, true)
       window.removeEventListener('scroll', updatePosition, true)
@@ -521,6 +543,7 @@ watch([currentView, innerDate], ([view, date]) => {
 
 const handleClear = (e: Event) => {
   e.stopPropagation()
+  confirmed.value = true
   emitChange(null)
   emit('clear')
 }
@@ -551,6 +574,7 @@ const shouldShowFooter = computed(() => {
 })
 
 const handleConfirmClick = () => {
+  confirmed.value = true
   emit('confirm', props.modelValue as DateValue | DateRangeValue)
   if (!props.panelOnly) {
     visible.value = false
@@ -755,7 +779,7 @@ onBeforeUnmount(() => {
               v-for="p in presets"
               :key="p.label"
               :class="ns.e('preset-item')"
-              @click="handleSelect(typeof p.value === 'function' ? p.value() : p.value)"
+              @click="handlePresetClick(p)"
             >
               {{ p.label }}
             </button>

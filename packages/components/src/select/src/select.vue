@@ -533,6 +533,52 @@ const handleMouseLeave = () => {
   hovering.value = false
 }
 
+// 自动滚动到高亮项
+watch(hoveredIndex, (val) => {
+  if (val < 0) return
+  if (props.virtualScroll) {
+    const itemHeight = props.itemHeight || 34
+    const containerHeight = props.height || 274
+    const currentScrollTop = scrollTop.value
+    const itemTop = val * itemHeight
+    const itemBottom = itemTop + itemHeight
+
+    if (itemTop < currentScrollTop) {
+      scrollTop.value = itemTop
+      nextTick(() => {
+        const listEl = dropdownRef.value?.querySelector(`.${ns.e('options')}`)
+        if (listEl) listEl.scrollTop = itemTop
+      })
+    } else if (itemBottom > currentScrollTop + containerHeight) {
+      const targetScrollTop = itemBottom - containerHeight
+      scrollTop.value = targetScrollTop
+      nextTick(() => {
+        const listEl = dropdownRef.value?.querySelector(`.${ns.e('options')}`)
+        if (listEl) listEl.scrollTop = targetScrollTop
+      })
+    }
+  } else {
+    nextTick(() => {
+      const listEl = dropdownRef.value?.querySelector(`.${ns.e('options')}`)
+      if (!listEl) return
+      const items = listEl.querySelectorAll(`.${ns.e('option')}`)
+      const targetEl = items[val] as HTMLElement
+      if (targetEl) {
+        const containerTop = listEl.scrollTop
+        const containerBottom = containerTop + listEl.clientHeight
+        const elemTop = targetEl.offsetTop
+        const elemBottom = elemTop + targetEl.offsetHeight
+
+        if (elemTop < containerTop) {
+          listEl.scrollTop = elemTop
+        } else if (elemBottom > containerBottom) {
+          listEl.scrollTop = elemBottom - listEl.clientHeight
+        }
+      }
+    })
+  }
+})
+
 // 暴露方法
 const focus = () => {
   inputRef.value?.focus()

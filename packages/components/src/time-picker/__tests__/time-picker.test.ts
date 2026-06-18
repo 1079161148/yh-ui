@@ -114,4 +114,26 @@ describe('YhTimePicker', () => {
     await nextTick()
     expect(wrapper.find('.yh-time-picker__panel').exists()).toBe(false)
   })
+
+  it('supports prefixIcon and clearIcon components or strings', async () => {
+    const wrapper = mount(TimePicker, {
+      props: {
+        prefixIcon: 'span',
+        clearIcon: 'div',
+        modelValue: '12:00:00',
+        clearable: true
+      }
+    })
+    // Check prefix icon element tag name is 'span' (since we pass prefixIcon: 'span')
+    const prefix = wrapper.find('.yh-time-picker__prefix span')
+    expect(prefix.exists()).toBe(true)
+
+    // Trigger hover to show clear icon
+    await wrapper.find('.yh-time-picker').trigger('mouseenter')
+    await nextTick()
+
+    // Check clear icon element tag name is 'div' (since we pass clearIcon: 'div')
+    const clear = wrapper.find('.yh-time-picker__clear div')
+    expect(clear.exists()).toBe(true)
+  })
 })

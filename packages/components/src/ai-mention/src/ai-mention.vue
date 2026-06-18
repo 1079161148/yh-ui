@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { computed, ref, useSlots, watch, onBeforeUnmount, nextTick } from 'vue'
+import { computed, ref, useSlots, watch, onBeforeUnmount, nextTick, provide } from 'vue'
 import {
   aiMentionProps,
   aiMentionEmits,
@@ -11,6 +11,7 @@ import {
 import { YhMention } from '../../mention'
 import { YhIcon } from '../../icon'
 import { useComponentTheme } from '@yh-ui/theme'
+import AiMentionNode from './ai-mention-node.vue'
 
 defineOptions({
   name: 'YhAiMention'
@@ -428,8 +429,6 @@ const toggleFolder = (key: string) => {
   }
 }
 
-const isFolderExpanded = (key: string) => expandedFolders.value.has(key)
-
 // 选中文件节点
 const handleFileSelect = (node: AiMentionFileNode) => {
   if (node.isFolder) {
@@ -528,6 +527,17 @@ const refreshFileTree = () => {
   }
 }
 
+provide('isFolderExpanded', (key: string) => expandedFolders.value.has(key))
+provide('toggleFolder', (key: string) => toggleFolder(key))
+provide('handleFileSelect', (node: AiMentionFileNode) => handleFileSelect(node))
+provide('getFileIcon', (node: AiMentionFileNode) => getFileIcon(node))
+provide('formatFileSizeFn', (size?: number) => formatFileSizeFn(size))
+provide('formatTimeFn', (timestamp?: number) => formatTimeFn(timestamp))
+provide('showFileIcon', props.showFileIcon)
+provide('showFileSize', props.showFileSize)
+provide('showModifiedTime', props.showModifiedTime)
+provide('ns', ns)
+
 defineExpose<AiMentionExpose>({
   focus: () => mentionRef.value?.focus(),
   blur: () => mentionRef.value?.blur(),
@@ -615,76 +625,7 @@ defineExpose<AiMentionExpose>({
           </div>
           <div :class="ns.e('file-tree-content')">
             <div :class="ns.e('file-tree-list')">
-              <template v-for="node in fileTreeData" :key="node.key">
-                <div
-                  :class="[
-                    ns.e('file-tree-node'),
-                    ns.is('folder', node.isFolder),
-                    ns.is('expanded', isFolderExpanded(node.key))
-                  ]"
-                  @click="handleFileSelect(node)"
-                >
-                  <span
-                    v-if="node.isFolder"
-                    :class="ns.e('folder-toggle')"
-                    @click.stop="toggleFolder(node.key)"
-                  >
-                    <YhIcon :name="isFolderExpanded(node.key) ? 'chevron-down' : 'chevron-right'" />
-                  </span>
-                  <span v-else :class="ns.e('file-tree-indent')"></span>
-
-                  <YhIcon
-                    v-if="showFileIcon"
-                    :name="getFileIcon(node)"
-                    :class="ns.e('file-tree-icon')"
-                  />
-
-                  <span :class="ns.e('file-tree-label')">{{ node.label }}</span>
-
-                  <span v-if="showFileSize && !node.isFolder" :class="ns.e('file-tree-size')">
-                    {{ formatFileSizeFn(node.size) }}
-                  </span>
-
-                  <span v-if="showModifiedTime && !node.isFolder" :class="ns.e('file-tree-time')">
-                    {{ formatTimeFn(node.modifiedAt) }}
-                  </span>
-                </div>
-
-                <template v-if="node.isFolder && node.children && isFolderExpanded(node.key)">
-                  <div
-                    v-for="child in node.children"
-                    :key="child.key"
-                    :class="[
-                      ns.e('file-tree-node'),
-                      ns.e('file-tree-child'),
-                      ns.is('folder', child.isFolder)
-                    ]"
-                    @click="handleFileSelect(child)"
-                  >
-                    <span :class="ns.e('file-tree-indent')"></span>
-                    <span :class="ns.e('file-tree-indent')"></span>
-
-                    <YhIcon
-                      v-if="showFileIcon"
-                      :name="getFileIcon(child)"
-                      :class="ns.e('file-tree-icon')"
-                    />
-
-                    <span :class="ns.e('file-tree-label')">{{ child.label }}</span>
-
-                    <span v-if="showFileSize && !child.isFolder" :class="ns.e('file-tree-size')">
-                      {{ formatFileSizeFn(child.size) }}
-                    </span>
-
-                    <span
-                      v-if="showModifiedTime && !child.isFolder"
-                      :class="ns.e('file-tree-time')"
-                    >
-                      {{ formatTimeFn(child.modifiedAt) }}
-                    </span>
-                  </div>
-                </template>
-              </template>
+              <AiMentionNode v-for="node in fileTreeData" :key="node.key" :node="node" :depth="0" />
 
               <div
                 v-if="fileTreeData.length === 0 && !fileTreeLoading"

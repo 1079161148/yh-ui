@@ -837,4 +837,63 @@ describe('YhAiEditorSender', () => {
       expect(cascadePosition.left).toBeDefined()
     })
   })
+
+  describe('命令面板定位', () => {
+    it('should compute commandPanelCoords based on editorRef bounding rect and align props', async () => {
+      const rectSpy = vi
+        .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+        .mockImplementation(function (this: HTMLElement) {
+          if (this.classList.contains('yh-ai-editor-sender')) {
+            return {
+              top: 200,
+              bottom: 250,
+              left: 100,
+              right: 420,
+              width: 320,
+              height: 50
+            } as DOMRect
+          }
+          if (this.classList.contains('yh-ai-editor-sender__command-panel')) {
+            return {
+              width: 320,
+              height: 280,
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0
+            } as DOMRect
+          }
+          return {
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            width: 0,
+            height: 0
+          } as DOMRect
+        })
+
+      const wrapper = createWrapper({
+        props: {
+          commands: mockCommands,
+          enableCommands: true,
+          commandPanelPosition: 'top',
+          commandPanelAlign: 'center'
+        }
+      })
+
+      await wrapper.find('textarea').setValue('/')
+      await nextTick()
+
+      // Allow positioning to compute
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      await nextTick()
+
+      const coords = (wrapper.vm as any).commandPanelCoords
+      expect(coords.top).toBe(-84) // 200 - 280 - 4
+      expect(coords.left).toBe(100) // 100 + (320 - 320) / 2
+
+      rectSpy.mockRestore()
+    })
+  })
 })

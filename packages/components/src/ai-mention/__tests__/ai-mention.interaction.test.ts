@@ -280,4 +280,87 @@ describe('YhAiMention 交互', () => {
     rectSpy.mockRestore()
     wrap.unmount()
   })
+
+  it('应支持深度嵌套的多级文件夹展开与文件选择', async () => {
+    const onFileSelect = vi.fn()
+    const wrap = mountAi({
+      enableFileTree: true,
+      fileTreeExpandedLevel: 0,
+      onFileSelect,
+      fileLoader: async () => [
+        {
+          key: 'level-1',
+          label: 'Folder 1',
+          isFolder: true,
+          path: '/lvl1',
+          children: [
+            {
+              key: 'level-2',
+              label: 'Folder 2',
+              isFolder: true,
+              path: '/lvl1/lvl2',
+              children: [
+                {
+                  key: 'deep-file',
+                  label: 'deep.txt',
+                  isFolder: false,
+                  path: '/lvl1/lvl2/deep.txt',
+                  size: 42,
+                  modifiedAt: Date.now()
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    })
+    const inner = wrap.findComponent(AiMention)
+    const ta = inner.find('textarea')
+    await ta.setValue('@文档')
+    await ta.trigger('input')
+    await vi.advanceTimersByTimeAsync(120)
+    await flushPromises()
+    await nextTick()
+
+    // Initially we should see Folder 1
+    let nodes = document.body.querySelectorAll('.yh-ai-mention__file-tree-node')
+    expect(nodes).toHaveLength(1)
+    expect(nodes[0].textContent).toContain('Folder 1')
+
+    // Click to expand Folder 1
+    const folderToggle1 = document.body.querySelector(
+      '.yh-ai-mention__folder-toggle'
+    ) as HTMLElement
+    expect(folderToggle1).toBeTruthy()
+    folderToggle1.click()
+    await nextTick()
+
+    // Now we should see Folder 1 and Folder 2
+    nodes = document.body.querySelectorAll('.yh-ai-mention__file-tree-node')
+    expect(nodes).toHaveLength(2)
+    expect(nodes[1].textContent).toContain('Folder 2')
+
+    // Click to expand Folder 2
+    const folderToggle2 = document.body.querySelectorAll(
+      '.yh-ai-mention__folder-toggle'
+    )[1] as HTMLElement
+    expect(folderToggle2).toBeTruthy()
+    folderToggle2.click()
+    await nextTick()
+
+    // Now we should see Folder 1, Folder 2, and deep.txt
+    nodes = document.body.querySelectorAll('.yh-ai-mention__file-tree-node')
+    expect(nodes).toHaveLength(3)
+    expect(nodes[2].textContent).toContain('deep.txt')
+
+    // Click deep.txt
+    const deepFileNode = nodes[2] as HTMLElement
+    deepFileNode.click()
+    await nextTick()
+
+    expect(onFileSelect).toHaveBeenCalled()
+    expect(onFileSelect.mock.calls[0][0].key).toBe('deep-file')
+
+    wrap.unmount()
+  })
 })

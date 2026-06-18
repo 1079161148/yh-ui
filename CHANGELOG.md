@@ -4,6 +4,38 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.59] - 2026-06-18
+
+> 修复了 YhDatePicker、YhSelect、YhImage、v-loading、YhTimePicker、YhTimeSelect、YhMention、YhDrawer、YhColorPicker、YhAiBubble、YhAiMention、YhAiEditorSender、YhAiVoiceTrigger、YhAiThoughtChain、YhAiAttachments、YhAiCodeRunner、YhAiArtifacts、YhAiMermaid 等组件的系列 Bug，增加并同步了完整的单元测试用例，所有单元测试与文档构建通过。
+
+### Added
+
+- **ai-mention**: 引入 `AiMentionNode` 子组件进行多级文件夹目录树的递归展示，支持深度嵌套的文件/文件夹展示与文件选择。
+- **ai-attachments**: 支持自定义 `dragTarget` 绑定拖拽事件及配置 `getDropContainer` 以使用 Teleport 动态挂载拖拽蒙层。
+
+### Changed
+
+- **ai-code-runner**: 支持根据 `language` 切换运行时执行命令与挂载文件类型，并支持在代码变化触发 `autorun` 时重置已运行的旧进程。
+- **ai-voice-trigger**: 统一了受控与非受控录音模式，支持通过组件 `recording` 的 `v-model` 进行外部状态的双向受控响应。
+
+### Fixed
+
+- **date-picker**: 修复了日期选择器在外部点击关闭或取消时，未正确回滚草稿选择态（`draft selection`）的 Bug。
+- **select**: 优化了虚拟滚动模式下的高亮项自动滚动逻辑（`scrollToHovered`），确保高亮项随时可见。
+- **image**: 修复懒加载模式下的预加载行为，完美消费浏览器原生 `loading="lazy"` 以避免提前手动预加载。
+- **loading**: 修复了 `v-loading` 符号指令下 boolean 属性的解析缺陷，例如 `yh-loading-glass="false"` 能被正确转换为 `false`。
+- **time-picker**: 实现了自定义 `prefixIcon` 和 `clearIcon` 属性渲染自定义图标。
+- **time-select**: 实现了自定义 `prefixIcon` 和 `clearIcon` 属性渲染自定义图标。
+- **mention**: 修复了键盘方向键在过滤列表为空时取模计算导致高亮索引为 `NaN` 的边界 Bug。
+- **drawer**: 修复了动态更新抽屉 `size` 时不同步到展示尺寸的 watch 逻辑。
+- **color-picker**: 补全了 HSL、HSV、HSLA、HSVA 等色彩格式的解析与格式化支持。
+- **ai-bubble**: 优化 Mermaid 渲染为 SVG，`runCode` 代码执行在 `finally` 块中重置运行状态并清除渲染定时器。
+- **ai-editor-sender**: 绑定 `editorRef` 与 `commandWrapperStyle` 到模板元素上以实现动态命令面板位置的精确渲染计算。
+- **ai-thought-chain**: 修复了时间线与连线在展示时没有基于 `itemsToUse.length` 正确折叠或渲染的问题。
+- **ai-artifacts**: 增加了 IFrame 预览 HTML 的 `charset=utf-8` 以避免中文字符出现乱码（Mojibake），并修复了 ECharts 在 data.type 为 `chart` 且无外部 slot 时的自动识别与渲染。
+- **ai-mermaid**: 补齐了 `classNames`、`styles` 及 `prefixCls` 等微调样式 API 在模板中的属性消费绑定。
+- **docs**: 修正了 MessageBox 组件文档中的异步 `.catch(() => {})` 以规避未捕获的 promise cancellation rejections。
+
 ## [1.0.58] - 2026-06-18
 
 > 彻底修复并复核 YhUpload、YhSelect、YhPopover、YhMention、YhCarousel、YhAutocomplete、YhSmartAddress、YhImageMagnifier、YhGanttChart、YhLuckyDraw、YhNotification、YhMarquee、YhTransfer、YhTreeSelect、YhCascader、YhMenu 和 YhCouponCard 等核心组件的 20 余项 Bug，包含受控状态同步、空壳 API 落地、边界 NaN 保护、定时器与滚动锁内存泄露清理，所有单元测试与文档构建全量通过。

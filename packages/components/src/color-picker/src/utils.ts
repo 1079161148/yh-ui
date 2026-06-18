@@ -112,6 +112,33 @@ export const rgbToHsv = (r: number, g: number, b: number) => {
   }
 }
 
+export const hsvToHsl = (h: number, s: number, v: number) => {
+  s /= 100
+  v /= 100
+  const l = v * (1 - s / 2)
+  let hslS = 0
+  if (l > 0 && l < 1) {
+    hslS = (v - l) / Math.min(l, 1 - l)
+  }
+  return {
+    h: Math.round(h),
+    s: Math.round(hslS * 100),
+    l: Math.round(l * 100)
+  }
+}
+
+export const hslToHsv = (h: number, s: number, l: number) => {
+  s /= 100
+  l /= 100
+  const v = l + s * Math.min(l, 1 - l)
+  const hsvS = v === 0 ? 0 : 2 * (1 - l / v)
+  return {
+    h,
+    s: Math.round(hsvS * 100),
+    v: Math.round(v * 100)
+  }
+}
+
 export const parseColor = (color: string) => {
   if (!color) return { h: 0, s: 100, v: 100, a: 1 }
   if (color.startsWith('#')) {
@@ -125,6 +152,23 @@ export const parseColor = (color: string) => {
     const hsv = rgbToHsv(parseInt(matchRgba[1]), parseInt(matchRgba[2]), parseInt(matchRgba[3]))
     return { ...hsv, a: matchRgba[4] ? parseFloat(matchRgba[4]) : 1 }
   }
+  const matchHsla = color.match(/hsla?\((\d+),\s*(\d+)%?,\s*(\d+)%?(?:,\s*([\d.]+))?\)/)
+  if (matchHsla) {
+    const h = parseInt(matchHsla[1])
+    const s = parseInt(matchHsla[2])
+    const l = parseInt(matchHsla[3])
+    const a = matchHsla[4] ? parseFloat(matchHsla[4]) : 1
+    const hsv = hslToHsv(h, s, l)
+    return { ...hsv, a }
+  }
+  const matchHsva = color.match(/hsva?\((\d+),\s*(\d+)%?,\s*(\d+)%?(?:,\s*([\d.]+))?\)/)
+  if (matchHsva) {
+    const h = parseInt(matchHsva[1])
+    const s = parseInt(matchHsva[2])
+    const v = parseInt(matchHsva[3])
+    const a = matchHsva[4] ? parseFloat(matchHsva[4]) : 1
+    return { h, s, v, a }
+  }
   return { h: 0, s: 100, v: 100, a: 1 }
 }
 
@@ -135,6 +179,17 @@ export const formatColor = (hsv: HSV, format: string) => {
     return hsv.a < 1
       ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${hsv.a})`
       : `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
+  }
+  if (format === 'hsl') {
+    const hsl = hsvToHsl(hsv.h, hsv.s, hsv.v)
+    return hsv.a < 1
+      ? `hsla(${hsl.h}, ${hsl.s}%, ${hsl.l}%, ${hsv.a})`
+      : `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`
+  }
+  if (format === 'hsv') {
+    return hsv.a < 1
+      ? `hsva(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%, ${hsv.a})`
+      : `hsv(${Math.round(hsv.h)}, ${Math.round(hsv.s)}%, ${Math.round(hsv.v)}%)`
   }
   return rgbToHex(rgb.r, rgb.g, rgb.b) // fallback
 }

@@ -49,7 +49,7 @@ const popperRef = ref<HTMLElement>()
 
 const rgb = computed(() => hsvToRgb(color.value.h, color.value.s, color.value.v))
 const baseColor = computed(() => `hsl(${color.value.h}, 100%, 50%)`)
-const currentColor = computed(() => formatColor(color.value, props.showAlpha ? 'rgb' : 'hex'))
+const currentColor = computed(() => formatColor(color.value, props.colorFormat))
 
 const contrastInfo = computed(() => {
   const l = getLuminance(rgb.value.r, rgb.value.g, rgb.value.b)

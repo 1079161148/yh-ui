@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { ref, computed, watch, onBeforeUnmount, nextTick, shallowRef, onMounted } from 'vue'
+import {
+  ref,
+  computed,
+  watch,
+  onBeforeUnmount,
+  nextTick,
+  shallowRef,
+  onMounted,
+  useSlots
+} from 'vue'
 import {
   aiArtifactsProps,
   aiArtifactsEmits,
@@ -23,6 +32,7 @@ const emit = defineEmits(aiArtifactsEmits)
 
 const ns = useNamespace('ai-artifacts')
 const { t } = useLocale()
+const slots = useSlots()
 
 // 主题覆盖
 const { themeStyle } = useComponentTheme(
@@ -99,6 +109,14 @@ const getEchartsOption = computed((): ArtifactEChartsOption | undefined => {
   return props.echartsOption
 })
 
+const isEChartsContainer = computed(() => {
+  if (props.data?.type === 'echarts') return true
+  if (props.data?.type === 'chart') {
+    return !slots.chart && !!getEchartsOption.value
+  }
+  return false
+})
+
 const handleClose = () => {
   emit('update:visible', false)
   emit('close')
@@ -144,7 +162,7 @@ watch(
       (mode === 'preview' || mode === 'inline') &&
       typeof window !== 'undefined'
     ) {
-      const blob = new Blob([content], { type: 'text/html' })
+      const blob = new Blob([content], { type: 'text/html;charset=utf-8' })
       sandboxSrcUrl.value = URL.createObjectURL(blob)
     }
   },
@@ -267,9 +285,9 @@ const initECharts = async () => {
 
 // 监听面板显示状态、数据类型、配置以及模式变化，重新渲染图表
 watch(
-  () => [props.visible, props.data?.type, getEchartsOption.value, internalMode.value] as const,
-  ([newVisible, , , mode]) => {
-    const isChart = props.data?.type === 'chart' || props.data?.type === 'echarts'
+  () =>
+    [props.visible, isEChartsContainer.value, getEchartsOption.value, internalMode.value] as const,
+  ([newVisible, isChart, , mode]) => {
     if (newVisible && isChart && (mode === 'preview' || mode === 'inline')) {
       nextTick(() => {
         initECharts()
@@ -377,7 +395,7 @@ const chartContainerStyle = computed(() => ({
 
           <!-- ECharts 图表 (使用 v-show 保持 DOM) -->
           <div
-            v-show="data?.type === 'echarts'"
+            v-show="isEChartsContainer"
             :class="ns.e('echarts-wrapper')"
             :style="chartContainerStyle"
             style="position: relative"
@@ -421,9 +439,7 @@ const chartContainerStyle = computed(() => ({
           </div>
 
           <!-- 其他类型 -->
-          <template
-            v-if="data?.type !== 'html' && data?.type !== 'sandbox' && data?.type !== 'echarts'"
-          >
+          <template v-if="data?.type !== 'html' && data?.type !== 'sandbox' && !isEChartsContainer">
             <!-- 通用图表 -->
             <div
               v-if="data?.type === 'chart'"

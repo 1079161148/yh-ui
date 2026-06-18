@@ -64,13 +64,13 @@ const code = ref("console.log('Auto running...')")
 
 ### Props
 
-| 属性名         | 说明                                           | 类型                 | 默认值         |
-| -------------- | ---------------------------------------------- | -------------------- | -------------- |
-| code           | 要执行的代码字符串                             | `string`             | `''`           |
-| language       | 代码语言（目前主要支持 javascript/typescript） | `string`             | `'javascript'` |
-| height         | 终端显示区域高度                               | `string \| number`   | `200`          |
-| autorun        | 代码变化时是否自动执行                         | `boolean`            | `false`        |
-| themeOverrides | 主题覆盖变量                                   | `ComponentThemeVars` | `undefined`    |
+| 属性名         | 说明                                                                                                                                     | 类型                 | 默认值         |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | -------------- |
+| code           | 要执行的代码字符串                                                                                                                       | `string`             | `''`           |
+| language       | 代码语言，决定执行器命令。支持：`javascript`/`js`（node）、`typescript`/`ts`（npx tsx）、`python`/`py`（python3）、`ruby`、`php`、`deno` | `string`             | `'javascript'` |
+| height         | 终端显示区域高度                                                                                                                         | `string \| number`   | `200`          |
+| autorun        | 代码变化时是否自动执行                                                                                                                   | `boolean`            | `false`        |
+| themeOverrides | 主题覆盖变量                                                                                                                             | `ComponentThemeVars` | `undefined`    |
 
 ### Events
 

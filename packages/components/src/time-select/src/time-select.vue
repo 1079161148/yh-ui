@@ -406,7 +406,8 @@ defineExpose<TimeSelectExpose>({
       <!-- 前缀图标 -->
       <span :class="ns.e('prefix')">
         <slot name="prefix">
-          <svg viewBox="0 0 1024 1024" width="1em" height="1em" :class="ns.e('icon')">
+          <component :is="prefixIcon" v-if="prefixIcon" :class="ns.e('icon')" />
+          <svg v-else viewBox="0 0 1024 1024" width="1em" height="1em" :class="ns.e('icon')">
             <path
               fill="currentColor"
               d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 128a32 32 0 0 1 32 32v192l128 64a32 32 0 0 1-28.864 57.088l-144-72A32 32 0 0 1 480 512V288a32 32 0 0 1 32-32z"
@@ -444,7 +445,8 @@ defineExpose<TimeSelectExpose>({
       <span :class="ns.e('suffix')">
         <!-- 清空按钮 -->
         <span v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]" @click.stop="handleClear">
-          <svg viewBox="0 0 1024 1024" width="1em" height="1em">
+          <component :is="clearIcon" v-if="clearIcon" />
+          <svg v-else viewBox="0 0 1024 1024" width="1em" height="1em">
             <path
               fill="currentColor"
               d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"

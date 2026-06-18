@@ -17,7 +17,7 @@ const openConfirm = () => {
       cancelButtonText: '取消',
       type: 'warning',
     }
-  )
+  ).catch(() => {})
 }
 
 const openPrompt = () => {
@@ -26,7 +26,7 @@ const openPrompt = () => {
     cancelButtonText: '取消',
     inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
     inputErrorMessage: '邮箱格式不正确',
-  })
+  }).catch(() => {})
 }
 
 const openVNode = () => {
@@ -36,7 +36,7 @@ const openVNode = () => {
       h('span', null, '内容可以是 '),
       h('i', { style: 'color: teal' }, 'VNode'),
     ]),
-  })
+  }).catch(() => {})
 }
 
 const openHTML = () => {
@@ -46,7 +46,7 @@ const openHTML = () => {
     {
       dangerouslyUseHTMLString: true,
     }
-  )
+  ).catch(() => {})
 }
 
 const openCenter = () => {
@@ -59,13 +59,13 @@ const openCenter = () => {
       type: 'warning',
       center: true,
     }
-  )
+  ).catch(() => {})
 }
 
 const openDraggable = () => {
   YhMessageBox.alert('内容可以自由拖拽', '提示', {
     draggable: true,
-  })
+  }).catch(() => {})
 }
 
 const openBeforeClose = () => {
@@ -81,18 +81,18 @@ const openBeforeClose = () => {
         done()
       }
     },
-  })
+  }).catch(() => {})
 }
 
 const openNuxt = () => {
-  YhMessageBox.alert('Nuxt 3 自动导入成功！', 'SSR 兼容')
+  YhMessageBox.alert('Nuxt 3 自动导入成功！', 'SSR 兼容').catch(() => {})
 }
 
 const openSuccess = () => {
   YhMessageBox.confirm('订单已成功提交。', '成功', {
     confirmButtonText: '查看详情',
     iconType: 'success',
-  })
+  }).catch(() => {})
 }
 
 const openWarning = () => {
@@ -100,20 +100,20 @@ const openWarning = () => {
     confirmButtonText: '是',
     cancelButtonText: '不是',
     iconType: 'warning',
-  })
+  }).catch(() => {})
 }
 
 const openError = () => {
   YhMessageBox.alert('系统发生预期外的运行错误，请刷新重试。', '系统错误', {
     confirmButtonText: '联系客服',
     iconType: 'error',
-  })
+  }).catch(() => {})
 }
 
 const openInfo = () => {
   YhMessageBox.alert('当前服务器正在进行例行维护。', '提示', {
     iconType: 'info',
-  })
+  }).catch(() => {})
 }
 
 const openLoading = () => {
@@ -132,7 +132,7 @@ const openLoading = () => {
         done()
       }
     }
-  })
+  }).catch(() => {})
 }
 
 const openSetDefaults = () => {

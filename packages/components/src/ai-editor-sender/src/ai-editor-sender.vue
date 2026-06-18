@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick, onBeforeUnmount } from 'vue'
 import {
   aiEditorSenderProps,
   aiEditorSenderEmits,
@@ -24,10 +24,49 @@ const { themeStyle } = useComponentTheme('ai-editor-sender', props.themeOverride
 
 const textareaRef = ref<HTMLTextAreaElement>()
 const panelRef = ref<HTMLElement | null>(null)
+const editorRef = ref<HTMLElement | null>(null)
 const localValue = ref(props.modelValue)
 const isFocused = ref(false)
+const commandPanelCoords = ref({ top: 0, left: 0 })
 
-// 命令菜单相关状态
+const updateCommandPanelPosition = () => {
+  if (!editorRef.value) return
+  const rect = editorRef.value.getBoundingClientRect()
+
+  nextTick(() => {
+    const panel = panelRef.value
+    const panelHeight = panel ? panel.getBoundingClientRect().height : 280
+    const panelWidth = panel ? panel.getBoundingClientRect().width : 320
+
+    let top = 0
+    let left = 0
+
+    if (props.commandPanelPosition === 'top') {
+      top = rect.top - panelHeight - 4
+    } else {
+      top = rect.bottom + 4
+    }
+
+    if (props.commandPanelAlign === 'start') {
+      left = rect.left
+    } else if (props.commandPanelAlign === 'center') {
+      left = rect.left + (rect.width - panelWidth) / 2
+    } else if (props.commandPanelAlign === 'end') {
+      left = rect.right - panelWidth
+    }
+
+    commandPanelCoords.value = { top, left }
+  })
+}
+
+const commandWrapperStyle = computed(() => ({
+  position: 'fixed' as const,
+  zIndex: 9999,
+  top: `${commandPanelCoords.value.top}px`,
+  left: `${commandPanelCoords.value.left}px`
+}))
+
+// 命令菜单相关状态（必须在 watch 之前声明）
 const showCommandPanel = ref(false)
 const commandSearchText = ref('')
 const filteredCommands = ref<AiCommandItem[]>([])
@@ -36,6 +75,24 @@ const cascadeCommands = ref<AiCommandItem[]>([])
 const currentCascadeParent = ref<AiCommandItem | null>(null)
 const showCascadePanel = ref(false)
 const cascadePosition = ref({ top: 0, left: 0 })
+
+watch(showCommandPanel, (val) => {
+  if (val) {
+    nextTick(() => {
+      updateCommandPanelPosition()
+    })
+    window.addEventListener('scroll', updateCommandPanelPosition, true)
+    window.addEventListener('resize', updateCommandPanelPosition, true)
+  } else {
+    window.removeEventListener('scroll', updateCommandPanelPosition, true)
+    window.removeEventListener('resize', updateCommandPanelPosition, true)
+  }
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', updateCommandPanelPosition, true)
+  window.removeEventListener('resize', updateCommandPanelPosition, true)
+})
 
 // 监听 modelValue 变化
 watch(
@@ -67,7 +124,10 @@ const autoResize = () => {
 
 const handleInput = (e: Event) => {
   innerValue.value = (e.target as HTMLTextAreaElement).value
-  nextTick(autoResize)
+  nextTick(() => {
+    autoResize()
+    updateCommandPanelPosition()
+  })
 }
 
 const handleKeyDown = (e: KeyboardEvent) => {
@@ -267,6 +327,7 @@ defineExpose({
 
 <template>
   <div
+    ref="editorRef"
     :class="[
       ns.b(),
       ns.is('disabled', disabled),
@@ -350,7 +411,11 @@ defineExpose({
     <!-- Command Panel -->
     <Teleport to="body">
       <Transition name="yh-fade-in-scale-up">
-        <div v-if="showCommandPanel && enableCommands" :class="ns.e('command-panel-wrapper')">
+        <div
+          v-if="showCommandPanel && enableCommands"
+          :class="ns.e('command-panel-wrapper')"
+          :style="commandWrapperStyle"
+        >
           <div ref="panelRef" :class="ns.e('command-panel')" :style="commandPanelStyle">
             <div v-if="commandSearchText" :class="ns.e('command-search')">
               <YhIcon name="search" />
