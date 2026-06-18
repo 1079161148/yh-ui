@@ -808,7 +808,13 @@ export default defineConfig({
             const normalizedId = id.replace(/\\/g, '/')
             if (normalizedId.includes('node_modules/monaco-editor/')) return 'monaco-editor'
             if (normalizedId.includes('node_modules/@vue/repl/')) return 'vue-repl'
-            if (normalizedId.includes('node_modules/mermaid/')) return 'mermaid'
+            if (
+              normalizedId.includes('node_modules/mermaid/') ||
+              normalizedId.endsWith('/packages/components/src/mermaid.ts')
+            ) {
+              return 'mermaid'
+            }
+            if (normalizedId.includes('dayjs')) return 'dayjs'
             if (normalizedId.includes('node_modules/echarts/')) return 'echarts'
             if (normalizedId.includes('node_modules/xlsx/')) return 'xlsx'
             if (normalizedId.includes('/packages/components/')) return 'yh-ui-components'
