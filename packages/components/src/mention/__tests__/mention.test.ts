@@ -527,7 +527,7 @@ describe('YhMention expose API', () => {
   })
 
   it('insertMention 方法应插入文本', async () => {
-    const wrapper = mount(Mention, { props: { modelValue: '你好 ' } })
+    const wrapper = mount(Mention, { props: { modelValue: '你好 ', wholeWord: true } })
     const vm = wrapper.vm as unknown as {
       insertMention: (opt: { value: string; label: string }, trigger?: string) => void
     }
@@ -535,6 +535,17 @@ describe('YhMention expose API', () => {
     await nextTick()
     const updatedVal = wrapper.emitted('update:modelValue')?.[0]?.[0] as string
     expect(updatedVal).toContain('@Alice')
+  })
+
+  it('insertMention 方法在 wholeWord 为 false 时应插入 value', async () => {
+    const wrapper = mount(Mention, { props: { modelValue: '你好 ', wholeWord: false } })
+    const vm = wrapper.vm as unknown as {
+      insertMention: (opt: { value: string; label: string }, trigger?: string) => void
+    }
+    vm.insertMention({ value: 'alice', label: 'Alice' }, '@')
+    await nextTick()
+    const updatedVal = wrapper.emitted('update:modelValue')?.[0]?.[0] as string
+    expect(updatedVal).toContain('@alice')
   })
 })
 

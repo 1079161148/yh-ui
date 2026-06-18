@@ -4,6 +4,38 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.58] - 2026-06-18
+
+> 彻底修复并复核 YhUpload、YhSelect、YhPopover、YhMention、YhCarousel、YhAutocomplete、YhSmartAddress、YhImageMagnifier、YhGanttChart、YhLuckyDraw、YhNotification、YhMarquee、YhTransfer、YhTreeSelect、YhCascader、YhMenu 和 YhCouponCard 等核心组件的 20 余项 Bug，包含受控状态同步、空壳 API 落地、边界 NaN 保护、定时器与滚动锁内存泄露清理，所有单元测试与文档构建全量通过。
+
+### Added
+
+- **tree-select**: 实现了已声明的 `collapse-tags-tooltip` 属性，多选折叠标签时支持悬浮展示已折叠的所有标签汇总 Tooltip。
+- **cascader**: 实现了已声明的 `collapse-tags-tooltip` 属性，多选折叠时使用 Tooltip 展示折叠项。
+- **select**: 实现了已声明的 `collapse-tags-tooltip` 属性，支持多选时折叠标签悬浮汇总展示。
+
+### Changed
+
+- **mention**: 重构并实现 `wholeWord` 属性逻辑，在开启时插入触发词与标签全名并支持 Backspace 整词退格删除，在关闭时直接插入 value。
+
+### Fixed
+
+- **upload**: 修复图片预览时将外部 URL 直接拼入 `innerHTML` 的安全注入漏洞，重构为使用 `document.createElement('img')` 后赋值 `img.src` 方式，彻底避开 HTML 注入风险。
+- **select**: 补充统一的 click-away 外部点击关闭下拉面板逻辑；修复开启虚拟滚动后 hover 高亮相对索引比较导致滚动后高亮视觉脱节的 Bug，高亮项 hover index 纠正为绝对索引 `hoveredIndex === startIndex + index`。
+- **popover**: 修复每次显示与隐藏时会触发两次 `update:visible` 事件的 Bug，移除 handleShow/handleHide 内部重复的 emit，保留受控 `v-model` 的单条事件链。
+- **mention**: 修复无候选匹配项（`total === 0`）时，对 ArrowUp/ArrowDown 键盘事件做取模操作导致 `highlightedIndex` 变为 `NaN` 进而阻碍后续选中操作的 Bug，增加空数据拦截。
+- **autocomplete**: 修复空 suggestions 结果集下键盘上下箭头事件做取模导致 `highlightedIndex` 变为 `NaN` 的 Bug，增加空数据 early return。
+- **carousel**: 修复自动播放时直接修改 `internalIndex` 绕过 `currentIndex` 状态更新 setter，导致 autoplay 切页时不触发 `update:currentIndex` 和 `change` 事件的 Bug；修复注入给 item 子项的 `itemCount` 用 `shallowRef(itemCount.value)` 冻结了总数，使得后续 fade/card/coverflow 等依赖总数计算偏移的动效出现位置错位的 Bug。
+- **smart-address**: 修复受控状态不同步问题，添加对 `props.modelValue` 的深度 `watch` 以在外部回写、异步回填、表单重置时正确响应并同步 `innerVal`。
+- **image-magnifier**: 修复全屏状态下 unmount 销毁组件时，只解绑了键盘事件却未还原 html/body 上的 `overflow: hidden` 导致页面被永久锁死滚动的 Bug。
+- **gantt-chart**: 开启虚拟滚动后引入 `ResizeObserver` 动态监听并自适应更新可视区 `viewportHeight`，消除可视区容器高度硬编码为 600 导致的渲染条数不正确、底部空窗或留白异常；同时支持已声明的 `teleported` 属性消费链路，正确传递至 Tooltip 实例。
+- **lucky-draw**: 修复轮盘模式下卸载组件时未清理 `setTimeout` 定时器的 Bug，防止销毁后仍可能触发 `finish`。
+- **notification**: 在组件卸载和关闭时统一清理自动关闭定时器，防范重复触发 onClose 的多重销毁风险。
+- **marquee**: 修复 loopDelay 每轮产生的 `setTimeout` 定时器在组件卸载销毁时未进行清理的漏洞。
+- **transfer**: 修复 `showAllCheckbox` 为假 API 传 false 不生效的问题，在 transfer-panel 头部渲染中正确绑定并消费该属性。
+- **menu**: 修复 `closeOnClickOutside` 为空壳 API 的问题，引入外部点击时自动关闭弹出子菜单的全局事件关闭链路。
+- **coupon-card**: 修复规则折叠展开箭头未绑定 `is-expanded` 样式类导致点击展开后指示图标无法旋转的 UI 问题。
+
 ## [1.0.57] - 2026-06-14
 
 > 彻底解决 Mermaid 图表渲染组件在消费端冷启动与运行时可能产生的 `dayjs` 缺少默认导出错误，使其真正做到对消费端开发者完全免配置、开箱即用。

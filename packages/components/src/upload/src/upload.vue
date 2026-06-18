@@ -633,8 +633,12 @@ const handlePreview = async (file: UploadFile) => {
     }
 
     const container = document.createElement('div')
-    const imgList = images.map((src) => `<img src="${src}" style="display:none">`).join('')
-    container.innerHTML = imgList
+    images.forEach((src) => {
+      const img = document.createElement('img')
+      img.src = src
+      img.style.display = 'none'
+      container.appendChild(img)
+    })
 
     const initialIndex = images.indexOf(file.url!)
 

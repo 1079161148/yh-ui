@@ -811,4 +811,30 @@ describe('YhAiEditorSender', () => {
       expect(typeof aiEditorSenderEmits['update:modelValue']).toBe('function')
     })
   })
+
+  describe('级联面板定位', () => {
+    it('should query the local panelRef instead of global querySelector when opening cascade panel', async () => {
+      const wrapper = createWrapper({
+        props: {
+          commands: mockCommands,
+          enableCommands: true
+        }
+      })
+
+      await wrapper.find('textarea').setValue('/')
+      await nextTick()
+
+      const panelRef = (wrapper.vm as any).panelRef
+      expect(panelRef).not.toBeNull()
+      expect(panelRef.classList.contains('yh-ai-editor-sender__command-panel')).toBe(true)
+
+      const parentCommand = mockCommands.find((c) => c.children) as AiCommandItem
+      ;(wrapper.vm as any).openCascadePanel(parentCommand)
+      await nextTick()
+
+      const cascadePosition = (wrapper.vm as any).cascadePosition
+      expect(cascadePosition.top).toBeDefined()
+      expect(cascadePosition.left).toBeDefined()
+    })
+  })
 })

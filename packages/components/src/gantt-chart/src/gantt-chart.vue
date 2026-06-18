@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import dayjs from '../../dayjs'
 import type { PluginFunc } from '../../dayjs'
 import { isBetweenPlugin, isoWeekPlugin, quarterOfYearPlugin } from '../../dayjs-plugins'
@@ -42,7 +42,8 @@ const props = withDefaults(defineProps<GanttChartProps>(), {
   rowHeight: 40,
   headerHeight: 60,
   bordered: true,
-  loading: false
+  loading: false,
+  teleported: true
 })
 
 const emit = defineEmits<GanttChartEmits>()
@@ -533,6 +534,29 @@ const handleMouseEnter = (e: MouseEvent, task: GanttTask) => {
   ) as HTMLElement
   if (label) truncatedTasks.value[task.id] = label.scrollWidth > label.clientWidth
 }
+
+let resizeObserver: ResizeObserver | null = null
+
+onMounted(() => {
+  if (typeof window !== 'undefined' && window.ResizeObserver && timelineBodyRef.value) {
+    viewportHeight.value = timelineBodyRef.value.clientHeight || 600
+    resizeObserver = new window.ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === timelineBodyRef.value) {
+          viewportHeight.value = timelineBodyRef.value.clientHeight || 600
+        }
+      }
+    })
+    resizeObserver.observe(timelineBodyRef.value)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (resizeObserver) {
+    resizeObserver.disconnect()
+    resizeObserver = null
+  }
+})
 </script>
 
 <template>
@@ -637,7 +661,11 @@ const handleMouseEnter = (e: MouseEvent, task: GanttTask) => {
                     </span>
                   </span>
                 </template>
-                <YhTooltip :content="String(task[col.prop])" placement="top">
+                <YhTooltip
+                  :content="String(task[col.prop])"
+                  placement="top"
+                  :teleported="teleported"
+                >
                   <span :class="ns.e('cell-text')">{{ task[col.prop] }}</span>
                 </YhTooltip>
               </slot>
@@ -730,6 +758,7 @@ const handleMouseEnter = (e: MouseEvent, task: GanttTask) => {
               :key="ts.task.id"
               :content="ts.isMilestone ? `${ts.task.name} (${ganttMilestoneText})` : ts.task.name"
               placement="top"
+              :teleported="teleported"
               :class="[
                 ns.e('task-wrapper'),
                 ns.is('milestone', ts.isMilestone),

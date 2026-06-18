@@ -88,7 +88,8 @@ const computedDropPlaceholder = computed((): PlaceholderType => {
 // 是否可以继续上传
 const canUpload = computed(() => {
   if (props.disabled) return false
-  if (props.maxCount !== undefined && internalItems.value.length >= props.maxCount) {
+  const limitValue = props.maxCount ?? props.limit
+  if (limitValue !== undefined && internalItems.value.length >= limitValue) {
     return false
   }
   return true
@@ -189,24 +190,70 @@ const handleDrop = async (e: DragEvent) => {
 
 // 处理文件上传
 const processFiles = async (files: File[]) => {
-  // 过滤文件夹
-  const validFiles = files.filter((f) => f.type !== '')
+  // 过滤文件夹：Windows 下有些无 MIME 类型的常见文档类型 f.type 为空，但如果是文件则通常有扩展名后缀 "."
+  const validFiles = files.filter((f) => f.type !== '' || f.name.includes('.'))
 
   if (validFiles.length === 0) return
 
+  let filesToUpload = validFiles
+  const limitValue = props.maxCount ?? props.limit
+  if (limitValue !== undefined) {
+    const totalCount = internalItems.value.length + validFiles.length
+    if (totalCount > limitValue) {
+      emit('exceed', { files, maxCount: limitValue })
+      const remaining = Math.max(0, limitValue - internalItems.value.length)
+      filesToUpload = validFiles.slice(0, remaining)
+    }
+  }
+
+  if (filesToUpload.length === 0) return
+
   // 检查 beforeUpload
-  for (const file of validFiles) {
+  for (const file of filesToUpload) {
     if (props.beforeUpload) {
       const result = await props.beforeUpload(file)
       if (!result) continue
     }
+
+    const ext = (file.name || '').split('.').pop()?.toLowerCase()
+    let guessedType = file.type.split('/')[0] || ''
+    if (!guessedType && ext) {
+      if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(ext)) {
+        guessedType = 'image'
+      } else if (['mp4', 'webm', 'ogg'].includes(ext)) {
+        guessedType = 'video'
+      } else if (['mp3', 'wav', 'aac'].includes(ext)) {
+        guessedType = 'audio'
+      } else if (
+        [
+          'pdf',
+          'doc',
+          'docx',
+          'xls',
+          'xlsx',
+          'ppt',
+          'pptx',
+          'txt',
+          'md',
+          'csv',
+          'log',
+          'json',
+          'xml',
+          'yaml',
+          'yml'
+        ].includes(ext)
+      ) {
+        guessedType = 'document'
+      }
+    }
+    if (!guessedType) guessedType = 'file'
 
     // 创建文件项
     const fileItem: AttachmentItem = {
       uid: Date.now() + Math.random(),
       name: file.name,
       byte: file.size,
-      type: file.type.split('/')[0] || 'file',
+      type: guessedType,
       status: 'uploading',
       percent: 0
     }

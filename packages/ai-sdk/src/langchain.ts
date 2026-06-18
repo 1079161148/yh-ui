@@ -641,7 +641,10 @@ export function createLangChainChain(
       const toolCalls = (response as AIMessage)?.additional_kwargs?.tool_calls
 
       if (toolCalls && toolCalls.length > 0 && toolHandler) {
-        // 执行工具调用
+        // 添加助手包含工具调用的消息
+        messages.push(response)
+
+        // 执行所有工具调用
         for (const tc of toolCalls) {
           const toolName = tc.function?.name || ''
           let args = {}
@@ -653,21 +656,19 @@ export function createLangChainChain(
 
           const toolResult = await toolHandler(toolName, args)
 
-          // 添加工具结果到消息
-          messages.push(response)
           messages.push(
             new ToolMessage({
               content: toolResult,
               tool_call_id: tc.id || ''
             })
           )
+        }
 
-          // 再次调用模型获取最终回复
-          const finalResponse = await model.invoke(messages)
-          return {
-            message: (finalResponse as AIMessage).content,
-            toolCalls
-          }
+        // 再次调用模型获取最终回复
+        const finalResponse = await model.invoke(messages)
+        return {
+          message: (finalResponse as AIMessage).content,
+          toolCalls
         }
       }
 

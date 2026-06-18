@@ -6,6 +6,7 @@
 import { computed, ref, nextTick, provide, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useFormItem, useId, useLocale, useConfig } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
+import YhTooltip from '../../tooltip'
 import type {
   SelectProps,
   SelectEmits,
@@ -140,11 +141,28 @@ watch(visible, (val: boolean) => {
 })
 
 // 监听窗口滚动和调整大小
+const dropdownRef = ref<HTMLElement>()
+
+const handleOutsideClick = (e: MouseEvent) => {
+  const target = e.target as HTMLElement
+  if (
+    visible.value &&
+    wrapperRef.value &&
+    !wrapperRef.value.contains(target) &&
+    (!dropdownRef.value || !dropdownRef.value.contains(target))
+  ) {
+    visible.value = false
+    emit('visible-change', false)
+  }
+}
+
+// 监听窗口滚动和调整大小
 onMounted(() => {
   if (props.teleported) {
     window.addEventListener('scroll', updateDropdownPosition, true)
     window.addEventListener('resize', updateDropdownPosition)
   }
+  window.addEventListener('click', handleOutsideClick)
 })
 
 onBeforeUnmount(() => {
@@ -152,6 +170,7 @@ onBeforeUnmount(() => {
     window.removeEventListener('scroll', updateDropdownPosition, true)
     window.removeEventListener('resize', updateDropdownPosition)
   }
+  window.removeEventListener('click', handleOutsideClick)
 })
 
 // 合并选项
@@ -263,6 +282,11 @@ const displayTags = computed(() => {
 const collapsedCount = computed(() => {
   if (!props.multiple || !props.collapseTags || !Array.isArray(selectedLabels.value)) return 0
   return Math.max(0, selectedLabels.value.length - (props.maxCollapseTags || 1))
+})
+
+const collapsedTags = computed(() => {
+  if (!props.multiple || !props.collapseTags || !Array.isArray(selectedLabels.value)) return []
+  return selectedLabels.value.slice(props.maxCollapseTags || 1)
 })
 
 // 是否显示清空按钮
@@ -574,7 +598,29 @@ defineExpose<SelectExpose>({
             </svg>
           </span>
         </span>
-        <span v-if="collapsedCount > 0" :class="ns.e('tag')"> +{{ collapsedCount }} </span>
+        <YhTooltip
+          v-if="collapsedCount > 0 && collapseTagsTooltip"
+          placement="top"
+          :class="ns.e('tag')"
+        >
+          <span>+{{ collapsedCount }}</span>
+          <template #content>
+            <div
+              :class="ns.e('tooltip-content')"
+              style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px"
+            >
+              <span
+                v-for="(tag, idx) in collapsedTags"
+                :key="idx"
+                :class="ns.e('tooltip-tag')"
+                style="white-space: nowrap"
+              >
+                {{ tag }}
+              </span>
+            </div>
+          </template>
+        </YhTooltip>
+        <span v-else-if="collapsedCount > 0" :class="ns.e('tag')"> +{{ collapsedCount }} </span>
       </template>
 
       <!-- 输入框 -->
@@ -630,6 +676,7 @@ defineExpose<SelectExpose>({
     <Teleport to="body" :disabled="!teleported">
       <Transition :name="ns.b('dropdown')">
         <div
+          ref="dropdownRef"
           v-show="visible"
           :class="[ns.e('dropdown'), popperClass]"
           :style="
@@ -679,7 +726,7 @@ defineExpose<SelectExpose>({
                     ns.e('option'),
                     ns.is('selected', isSelected(option[valueKey || 'value'] as SelectValue)),
                     ns.is('disabled', option.disabled),
-                    ns.is('hovering', hoveredIndex === index)
+                    ns.is('hovering', hoveredIndex === startIndex + index)
                   ]"
                   role="option"
                   :aria-selected="isSelected(option[valueKey || 'value'] as SelectValue)"

@@ -28,9 +28,30 @@
               </svg>
             </span>
           </div>
-          <!-- 折叠占位符 -->
+          <YhTooltip
+            v-if="collapseTags && selectedLabels.length > maxCollapseTags && collapseTagsTooltip"
+            placement="top"
+            :class="[ns.e('tag'), ns.m('info')]"
+          >
+            <span>+ {{ selectedLabels.length - maxCollapseTags }}</span>
+            <template #content>
+              <div
+                :class="ns.e('tooltip-content')"
+                style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px"
+              >
+                <span
+                  v-for="(item, idx) in selectedLabels.slice(maxCollapseTags)"
+                  :key="idx"
+                  :class="ns.e('tooltip-tag')"
+                  style="white-space: nowrap"
+                >
+                  {{ item.label }}
+                </span>
+              </div>
+            </template>
+          </YhTooltip>
           <div
-            v-if="collapseTags && selectedLabels.length > maxCollapseTags"
+            v-else-if="collapseTags && selectedLabels.length > maxCollapseTags"
             :class="[ns.e('tag'), ns.m('info')]"
           >
             <span>+ {{ selectedLabels.length - maxCollapseTags }}</span>
@@ -202,6 +223,7 @@
 import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
+import YhTooltip from '../../tooltip'
 import { treeSelectProps, treeSelectEmits, type TreeSelectNode, type TreeKey } from './tree-select'
 import { useTree } from './use-tree'
 

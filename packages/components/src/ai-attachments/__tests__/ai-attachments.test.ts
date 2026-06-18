@@ -305,7 +305,7 @@ describe('YhAiAttachments', () => {
       }
     })
 
-    const invalidFile = new File(['x'], 'mystery.bin', { type: '' })
+    const invalidFile = new File(['x'], 'mystery', { type: '' })
     const input = wrapper.find('input[type="file"]')
     Object.defineProperty(input.element, 'files', {
       value: [invalidFile],

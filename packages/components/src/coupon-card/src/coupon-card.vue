@@ -174,7 +174,12 @@ const handleCheckChange = (val: CheckboxValueType) => {
     <div v-if="rules || $slots.rules" :class="[ns.e('rules'), ns.is('expanded', rulesExpanded)]">
       <div :class="ns.e('rules-trigger')" @click.stop="rulesExpanded = !rulesExpanded">
         <span>{{ finalRuleTitle }}</span>
-        <svg :class="ns.e('rules-icon')" viewBox="0 0 1024 1024" width="12" height="12">
+        <svg
+          :class="[ns.e('rules-icon'), ns.is('expanded', rulesExpanded)]"
+          viewBox="0 0 1024 1024"
+          width="12"
+          height="12"
+        >
           <path
             d="M512 704c-12.8 0-25.6-5.12-35.84-15.36L155.52 368c-19.84-19.84-19.84-51.84 0-71.68s51.84-19.84 71.68 0L512 600.96l284.8-284.8c19.84-19.84 51.84-19.84 71.68 0s19.84 51.84 0 71.68L547.84 688.64C537.6 698.88 524.8 704 512 704z"
             fill="currentColor"

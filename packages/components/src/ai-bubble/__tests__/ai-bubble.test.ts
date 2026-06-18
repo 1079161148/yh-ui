@@ -1289,4 +1289,34 @@ describe('YhAiBubble', () => {
 
     expect(wrapper.find('.code-action-btn.copy-btn').exists()).toBe(true)
   })
+
+  it('should restrict DOM queries and event delegation to the bubble instance scope to prevent crosstalk', async () => {
+    const wrapper1 = mount(AiBubble, {
+      props: {
+        content: '```js\nconsole.log("bubble 1")\n```',
+        markdown: true
+      }
+    })
+    const wrapper2 = mount(AiBubble, {
+      props: {
+        content: '```js\nconsole.log("bubble 2")\n```',
+        markdown: true
+      }
+    })
+    await flushPromises()
+
+    const copySpy = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined)
+
+    const copyBtn1 = wrapper1.find('.copy-btn')
+    expect(copyBtn1.exists()).toBe(true)
+    await copyBtn1.trigger('click')
+    expect(copySpy).toHaveBeenCalledWith('console.log("bubble 1")\n')
+
+    const bubbleRef1 = (wrapper1.vm as any).bubbleRef
+    expect(bubbleRef1).toBeDefined()
+    const elementsInBubble1 = bubbleRef1.querySelectorAll('.code-block-wrapper')
+    expect(elementsInBubble1.length).toBe(1)
+    expect(elementsInBubble1[0].innerHTML).toContain('bubble 1')
+    expect(elementsInBubble1[0].innerHTML).not.toContain('bubble 2')
+  })
 })

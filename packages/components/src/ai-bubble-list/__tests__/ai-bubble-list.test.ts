@@ -145,4 +145,41 @@ describe('YhAiBubbleList', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-ai-bubble-list-item-gap: 20px')
   })
+
+  it('should correctly measure container height using ResizeObserver when height is dynamic (e.g. 100%)', async () => {
+    const observeSpy = vi.fn()
+    const disconnectSpy = vi.fn()
+
+    const OriginalResizeObserver = global.ResizeObserver
+    global.ResizeObserver = class {
+      constructor(public callback: any) {}
+      observe = observeSpy
+      disconnect = disconnectSpy
+      unobserve = vi.fn()
+    } as any
+
+    const wrapper = mount(AiBubbleList, {
+      props: {
+        items: mockItems,
+        height: '100%'
+      }
+    })
+
+    expect(observeSpy).toHaveBeenCalled()
+
+    const instance = wrapper.vm as any
+    const resizeObserverInstance = (wrapper.vm as any).containerResizeObserver
+    expect(resizeObserverInstance).toBeDefined()
+
+    const entry = { contentRect: { height: 600 } }
+    resizeObserverInstance.callback([entry])
+    await wrapper.vm.$nextTick()
+
+    expect(instance.resolvedContainerHeight).toBe(600)
+
+    wrapper.unmount()
+    expect(disconnectSpy).toHaveBeenCalled()
+
+    global.ResizeObserver = OriginalResizeObserver
+  })
 })

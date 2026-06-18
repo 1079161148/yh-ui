@@ -275,7 +275,7 @@ const tsNuxt = [
 | `height`                  | 面板高度                                                                   | `number`                                              | `280`        |
 | `left-title`              | 左侧面板标题                                                               | `string`                                              | `undefined`  |
 | `right-title`             | 右侧面板标题                                                               | `string`                                              | `undefined`  |
-| `show-all-checkbox`       | 已声明的全选入口显示属性。当前面板头部仍会渲染全选入口，不受该值控制       | `boolean`                                             | `true`       |
+| `show-all-checkbox`       | 是否在面板头部显示全选复选框                                               | `boolean`                                             | `true`       |
 | `empty-text`              | 两侧统一空状态文案                                                         | `string`                                              | `undefined`  |
 | `left-empty-text`         | 左侧面板空状态文案                                                         | `string`                                              | `undefined`  |
 | `right-empty-text`        | 右侧面板空状态文案                                                         | `string`                                              | `undefined`  |

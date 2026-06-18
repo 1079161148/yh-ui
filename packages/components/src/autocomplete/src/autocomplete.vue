@@ -326,6 +326,7 @@ const handleKeydown = (event: KeyboardEvent) => {
           fetchSuggestions(props.modelValue || '')
         }
       } else {
+        if (suggestions.value.length === 0) return
         highlightedIndex.value = (highlightedIndex.value + 1) % suggestions.value.length
         scrollToHighlighted()
       }
@@ -333,6 +334,7 @@ const handleKeydown = (event: KeyboardEvent) => {
     case 'ArrowUp':
       event.preventDefault()
       if (visible.value) {
+        if (suggestions.value.length === 0) return
         highlightedIndex.value =
           (highlightedIndex.value - 1 + suggestions.value.length) % suggestions.value.length
         scrollToHighlighted()

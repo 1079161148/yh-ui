@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, watch } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { useLocale } from '@yh-ui/hooks'
@@ -107,6 +107,19 @@ function handleParse() {
 
 // ─── 表单字段 ─────────────────────────────────────────────────────────────────
 const innerVal = reactive<AddressValue>({ ...props.modelValue })
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val) {
+      Object.keys(innerVal).forEach((key) => {
+        const k = key as keyof AddressValue
+        innerVal[k] = val[k] ?? ''
+      })
+    }
+  },
+  { deep: true }
+)
 
 function updateField(field: keyof AddressValue, value: string) {
   innerVal[field] = value

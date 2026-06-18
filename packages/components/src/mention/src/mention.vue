@@ -228,9 +228,43 @@ const handleBlur = (event: FocusEvent) => {
 
 const handleKeydown = (event: KeyboardEvent) => {
   emit('keydown', event)
+
+  if (event.key === 'Backspace' && props.wholeWord) {
+    const el = inputRef.value
+    if (el) {
+      const cursor = el.selectionStart ?? 0
+      const value = props.modelValue ?? ''
+      const segment = value.substring(0, cursor)
+      for (const trigger of props.triggers) {
+        const lastIdx = segment.lastIndexOf(trigger)
+        if (lastIdx !== -1) {
+          const mentionText = segment.substring(lastIdx + trigger.length)
+          const hasSplit = props.split && mentionText.endsWith(props.split)
+          const labelText =
+            hasSplit && props.split ? mentionText.slice(0, -props.split.length) : mentionText
+          const matched = props.options.some((opt) => {
+            const optText = opt.label ?? opt.value
+            return optText === labelText || opt.value === labelText
+          })
+          if (matched) {
+            event.preventDefault()
+            const newValue = value.substring(0, lastIdx) + value.substring(cursor)
+            emit('update:modelValue', newValue)
+            nextTick(() => {
+              el.setSelectionRange(lastIdx, lastIdx)
+            })
+            return
+          }
+        }
+      }
+    }
+  }
+
   if (!dropdownVisible.value) return
 
   const total = filteredOptions.value.length
+  if (total === 0) return
+
   switch (event.key) {
     case 'ArrowDown':
       event.preventDefault()
@@ -276,7 +310,7 @@ const selectOption = (option: MentionOption) => {
   const label = option.label ?? option.value
   const insertText = props.wholeWord
     ? `${trigger}${label}${props.split}`
-    : `${trigger}${label}${props.split}`
+    : `${trigger}${option.value}${props.split}`
 
   const newValue = before + insertText + after
   emit('update:modelValue', newValue)
@@ -353,7 +387,9 @@ onBeforeUnmount(() => {
 const insertMention = (option: MentionOption, trigger?: string) => {
   const t = trigger ?? props.triggers[0] ?? '@'
   const label = option.label ?? option.value
-  const insertText = `${t}${label}${props.split}`
+  const insertText = props.wholeWord
+    ? `${t}${label}${props.split}`
+    : `${t}${option.value}${props.split}`
   const current = props.modelValue ?? ''
   const cursor = inputRef.value?.selectionStart ?? current.length
   const newValue = current.substring(0, cursor) + insertText + current.substring(cursor)

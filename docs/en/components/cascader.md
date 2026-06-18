@@ -524,7 +524,7 @@ After installing `@yh-ui/nuxt`, you can use `YhCascader` directly in Nuxt 3/4. T
 | `separator`               | Path separator text                                       | `string`                                                             | `' / '`     |
 | `show-all-levels`         | Show the full label path in single-select mode and tags   | `boolean`                                                            | `true`      |
 | `collapse-tags`           | Collapse tags in multiple mode                            | `boolean`                                                            | `false`     |
-| `collapse-tags-tooltip`   | Reserved collapse tooltip flag                            | `boolean`                                                            | `false`     |
+| `collapse-tags-tooltip`   | Whether to show a tooltip summary when tags are collapsed | `boolean`                                                            | `false`     |
 | `max-collapse-tags`       | Maximum visible tags before collapsing                    | `number`                                                             | `1`         |
 | `multiple`                | Enable multiple selection                                 | `boolean`                                                            | `false`     |
 | `check-strictly`          | Allow parent and child nodes to be selected independently | `boolean`                                                            | `false`     |

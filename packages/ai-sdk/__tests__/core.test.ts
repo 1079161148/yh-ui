@@ -21,6 +21,7 @@ import {
   PROVIDER_PRESETS,
   getProviderPreset
 } from '../src/vue'
+import { createStreamingChatCompletion } from '../src/index'
 import { createMockFetch, createMockStorage, wait } from './mocks'
 
 // Mock global fetch and localStorage
@@ -995,5 +996,92 @@ describe('clearCache', () => {
   it('should clear global cache', async () => {
     // This test depends on internal cache implementation
     expect(typeof clearCache).toBe('function')
+  })
+})
+
+describe('useAIChat error propagation on second-round fetch failure', () => {
+  it('useAIChat should propagate error and invoke onError when second round fetch fails after tool call', async () => {
+    const mockTool = {
+      name: 'get_weather',
+      description: 'Get weather info',
+      parameters: {},
+      execute: vi.fn().mockResolvedValue('Sunny, 25C')
+    }
+
+    let fetchCount = 0
+    const mockFetch = vi.fn().mockImplementation(async (url, options) => {
+      fetchCount++
+      if (fetchCount === 1) {
+        return {
+          ok: true,
+          status: 200,
+          body: new ReadableStream({
+            start(controller) {
+              controller.enqueue(
+                new TextEncoder().encode(
+                  'data: {"choices":[{"delta":{"tool_calls":[{"index":0,"id":"call-1","function":{"name":"get_weather","arguments":"{\\"city\\":\\"Shanghai\\"}"}}]}}]}\n\n'
+                )
+              )
+              controller.close()
+            }
+          })
+        }
+      }
+      return {
+        ok: false,
+        status: 500,
+        statusText: 'Internal Server Error',
+        body: null
+      }
+    })
+    global.fetch = mockFetch as typeof fetch
+
+    const onError = vi.fn()
+    const onFinish = vi.fn()
+    const { sendMessageStream, error } = useAIChat({
+      api: '/api/chat',
+      tools: [mockTool],
+      stream: true,
+      streamInterval: 0,
+      onError,
+      onFinish
+    })
+
+    await sendMessageStream('What is the weather in Shanghai?')
+    await nextTick()
+
+    expect(onError).toHaveBeenCalled()
+    expect(error.value).not.toBeNull()
+    expect(error.value?.message).toContain('API Error (second round)')
+    expect(onFinish).not.toHaveBeenCalled()
+  })
+})
+
+describe('createStreamingChatCompletion buffering', () => {
+  it('createStreamingChatCompletion should correctly buffer and parse SSE lines split across chunks', async () => {
+    const mockFetch = vi.fn().mockResolvedValue({
+      ok: true,
+      body: new ReadableStream({
+        start(controller) {
+          const encoder = new TextEncoder()
+          controller.enqueue(encoder.encode('data: {"choices":[{"delta":{"content":"Hel'))
+          controller.enqueue(encoder.encode('lo"}}]}\n\ndata: [DONE]\n\n'))
+          controller.close()
+        }
+      })
+    })
+    global.fetch = mockFetch as typeof fetch
+
+    const generator = createStreamingChatCompletion(
+      { name: 'test-provider', baseUrl: '/api' },
+      { model: 'test-model', messages: [{ role: 'user', content: 'test' }] }
+    )
+
+    const yielded: string[] = []
+    for await (const chunk of generator) {
+      yielded.push(chunk)
+    }
+
+    expect(yielded).toEqual(['Hello'])
   })
 })

@@ -67,12 +67,10 @@ const updateTriggerWidth = () => {
 const handleShow = () => {
   updateTriggerWidth()
   emit('show')
-  emit('update:visible', true)
 }
 
 const handleHide = () => {
   emit('hide')
-  emit('update:visible', false)
 }
 
 // 监听 matchTriggerWidth 变化

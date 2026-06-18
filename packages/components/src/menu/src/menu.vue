@@ -2,7 +2,7 @@
 /**
  * YhMenu - 菜单组件
  */
-import { ref, computed, provide, toRef, watch } from 'vue'
+import { ref, provide, computed, watch, toRef, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { menuProps, menuEmits, MENU_INJECTION_KEY } from './menu'
@@ -27,6 +27,31 @@ const { themeStyle } = useComponentTheme(
 // 状态
 const activeIndex = ref(props.value ?? props.defaultActive)
 const openedMenus = ref<string[]>([...(props.defaultOpeneds || [])])
+
+const menuRef = ref<HTMLElement | null>(null)
+
+const handleOutsideClick = (e: MouseEvent) => {
+  if (!props.closeOnClickOutside || openedMenus.value.length === 0) return
+
+  const target = e.target as HTMLElement
+  if (menuRef.value?.contains(target)) return
+
+  if (target.closest('.yh-sub-menu__popper')) return
+
+  openedMenus.value = []
+}
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    window.addEventListener('click', handleOutsideClick, true)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('click', handleOutsideClick, true)
+  }
+})
 
 // 计算容器样式
 const menuStyle = computed(() => {
@@ -167,7 +192,7 @@ defineExpose({
 </script>
 
 <template>
-  <ul :class="menuClass" :style="menuStyle" role="menu">
+  <ul ref="menuRef" :class="menuClass" :style="menuStyle" role="menu">
     <slot>
       <yh-menu-recursive-item v-for="item in options" :key="getMenuItemKey(item)" :item="item" />
     </slot>

@@ -543,4 +543,90 @@ describe('YhSelect', () => {
 
     expect(filterMethod).toHaveBeenCalledWith('option')
   })
+
+  // click-away test
+  it('should close dropdown on click outside', async () => {
+    const wrapper = mount(Select, {
+      props: { options, teleported: false },
+      attachTo: document.body
+    })
+    await wrapper.trigger('click')
+    await nextTick()
+    expect(wrapper.find('.yh-select__dropdown').isVisible()).toBe(true)
+
+    // Simulate clicking outside using a dummy element
+    const div = document.createElement('div')
+    document.body.appendChild(div)
+    const clickEvent = new MouseEvent('click', { bubbles: true })
+    div.dispatchEvent(clickEvent)
+    await nextTick()
+    expect(wrapper.find('.yh-select__dropdown').isVisible()).toBe(false)
+
+    document.body.removeChild(div)
+    wrapper.unmount()
+  })
+
+  // collapseTagsTooltip test
+  it('should render collapseTagsTooltip when collapseTagsTooltip is true', async () => {
+    const wrapper = mount(Select, {
+      props: {
+        options,
+        multiple: true,
+        modelValue: ['option1', 'option2', 'option3'],
+        collapseTags: true,
+        collapseTagsTooltip: true,
+        maxCollapseTags: 1
+      }
+    })
+    await nextTick()
+    const tooltip = wrapper.findComponent({ name: 'YhTooltip' })
+    expect(tooltip.exists()).toBe(true)
+    expect(tooltip.text()).toContain('+2')
+  })
+
+  // virtual scroll hover index compared to absolute index
+  it('should use absolute index for hovering index under virtual scroll', async () => {
+    const manyOptions = Array.from({ length: 20 }, (_, i) => ({
+      value: `option${i}`,
+      label: `选项 ${i}`
+    }))
+    const wrapper = mount(Select, {
+      props: {
+        options: manyOptions,
+        virtualScroll: true,
+        height: 100,
+        itemHeight: 20,
+        teleported: false
+      }
+    })
+
+    await wrapper.trigger('click')
+    await nextTick()
+
+    // Simulate scroll down by setting scrollTop of options element
+    const optionsEl = wrapper.find('.yh-select__options')
+    expect(optionsEl.exists()).toBe(true)
+
+    // trigger a hover on the second visible option (which is relative index 1, but absolute index 1)
+    const optionItems = wrapper.findAll('.yh-select__option')
+    expect(optionItems.length).toBeGreaterThan(1)
+
+    await optionItems[1].trigger('mouseenter')
+    await nextTick()
+
+    // Hovered index should be absolute index (startIndex + index)
+    // At scrollTop = 0, startIndex is 0, so relative index 1 is absolute index 1
+    // Let's scroll optionsEl to 40px, so option index 2 becomes start index 2.
+    optionsEl.element.scrollTop = 40
+    await optionsEl.trigger('scroll')
+    await nextTick()
+
+    const optionItemsAfterScroll = wrapper.findAll('.yh-select__option')
+    // Hover the first option in the new list (relative index 0, absolute index is startIndex + 0)
+    await optionItemsAfterScroll[0].trigger('mouseenter')
+    await nextTick()
+
+    // Check if the hovered item has hovering class
+    expect(optionItemsAfterScroll[0].classes()).toContain('is-hovering')
+  })
 })

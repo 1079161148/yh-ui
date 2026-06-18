@@ -23,6 +23,7 @@ const { t } = useLocale()
 const { themeStyle } = useComponentTheme('ai-editor-sender', props.themeOverrides)
 
 const textareaRef = ref<HTMLTextAreaElement>()
+const panelRef = ref<HTMLElement | null>(null)
 const localValue = ref(props.modelValue)
 const isFocused = ref(false)
 
@@ -187,7 +188,7 @@ const openCascadePanel = (parent: AiCommandItem) => {
 
   // 计算级联面板位置
   nextTick(() => {
-    const panel = document.querySelector(`.${ns.b()}-command-panel`)
+    const panel = panelRef.value
     if (panel) {
       const rect = panel.getBoundingClientRect()
       cascadePosition.value = {
@@ -350,7 +351,7 @@ defineExpose({
     <Teleport to="body">
       <Transition name="yh-fade-in-scale-up">
         <div v-if="showCommandPanel && enableCommands" :class="ns.e('command-panel-wrapper')">
-          <div :class="ns.e('command-panel')" :style="commandPanelStyle">
+          <div ref="panelRef" :class="ns.e('command-panel')" :style="commandPanelStyle">
             <div v-if="commandSearchText" :class="ns.e('command-search')">
               <YhIcon name="search" />
               <span>{{ commandSearchText }}</span>

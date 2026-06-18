@@ -1222,14 +1222,18 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
           signal: abortController.signal
         })
 
-        if (finalResponse.ok) {
-          const finalData = await finalResponse.json()
-          const finalContent = finalData.content || finalData.message?.content || ''
-          messages.value = messages.value.map((m) =>
-            m.id === assistantMessage.id ? { ...m, content: finalContent } : m
+        if (!finalResponse.ok) {
+          throw new Error(
+            `API Error (second round): ${finalResponse.status} ${finalResponse.statusText}`
           )
-          currentMessage.value = { ...assistantMessage, content: finalContent }
         }
+
+        const finalData = await finalResponse.json()
+        const finalContent = finalData.content || finalData.message?.content || ''
+        messages.value = messages.value.map((m) =>
+          m.id === assistantMessage.id ? { ...m, content: finalContent } : m
+        )
+        currentMessage.value = { ...assistantMessage, content: finalContent }
       }
 
       const finalMessage =
@@ -1344,10 +1348,14 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
           })
         })
 
-        if (finalResponse.ok) {
-          const finalData = await finalResponse.json()
-          finalContent = finalData.content || finalData.message?.content || ''
+        if (!finalResponse.ok) {
+          throw new Error(
+            `API Error (second round): ${finalResponse.status} ${finalResponse.statusText}`
+          )
         }
+
+        const finalData = await finalResponse.json()
+        finalContent = finalData.content || finalData.message?.content || ''
       }
 
       // 添加助手消息

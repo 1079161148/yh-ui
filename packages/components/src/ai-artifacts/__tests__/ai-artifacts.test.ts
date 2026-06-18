@@ -238,4 +238,23 @@ describe('YhAiArtifacts', () => {
     wrapper.unmount()
     expect(revokeSpy).toHaveBeenCalledTimes(2)
   })
+
+  it('should restrict preview iframe with sandbox attribute', async () => {
+    const wrapper = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: { ...mockData, type: 'sandbox' },
+        mode: 'preview'
+      }
+    })
+    await nextTick()
+    const iframe = wrapper.find('.yh-ai-artifacts__sandbox')
+    expect(iframe.attributes('sandbox')).toBe('allow-scripts')
+
+    await wrapper.setProps({
+      data: { ...mockData, type: 'html' }
+    })
+    await nextTick()
+    expect(iframe.attributes('sandbox')).toBe('')
+  })
 })

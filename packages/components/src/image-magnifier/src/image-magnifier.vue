@@ -307,6 +307,8 @@ watch(fullscreenVisible, (val) => {
 onUnmounted(() => {
   removeWheelListener()
   document.removeEventListener('keydown', handleFullscreenKeydown)
+  document.documentElement.style.overflow = ''
+  document.body.style.overflow = ''
 })
 
 defineExpose({ visible, currentScale, currentIndex, switchImage })

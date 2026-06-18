@@ -58,6 +58,7 @@ const echartsRef = ref<HTMLElement | null>(null)
 const echartsInstance = shallowRef<EChartsInstance | null>(null)
 const echartsLoading = ref(false)
 const echartsError = ref<Error | null>(null)
+let chartResizeObserver: ResizeObserver | null = null
 
 watch(
   () => props.mode,
@@ -139,7 +140,7 @@ watch(
     if (
       visible &&
       content &&
-      type === 'html' &&
+      (type === 'html' || type === 'sandbox') &&
       (mode === 'preview' || mode === 'inline') &&
       typeof window !== 'undefined'
     ) {
@@ -193,6 +194,12 @@ const initECharts = async () => {
   echartsError.value = null
 
   try {
+    // 清理已有的 ResizeObserver
+    if (chartResizeObserver) {
+      chartResizeObserver.disconnect()
+      chartResizeObserver = null
+    }
+
     // 先销毁旧实例，防止在同一 DOM 上重复 init 报错
     if (echartsInstance.value) {
       echartsInstance.value.dispose()
@@ -245,10 +252,10 @@ const initECharts = async () => {
 
     // 响应式调整
     if (props.responsiveWidth) {
-      const resizeObserver = new ResizeObserver(() => {
+      chartResizeObserver = new ResizeObserver(() => {
         echartsInstance.value?.resize()
       })
-      resizeObserver.observe(echartsRef.value)
+      chartResizeObserver.observe(echartsRef.value)
     }
   } catch (error) {
     echartsError.value = error as Error
@@ -275,6 +282,10 @@ watch(
 // 清理
 onBeforeUnmount(() => {
   revokeCurrentUrl()
+  if (chartResizeObserver) {
+    chartResizeObserver.disconnect()
+    chartResizeObserver = null
+  }
   if (echartsInstance.value) {
     echartsInstance.value.dispose()
     echartsInstance.value = null
@@ -361,6 +372,7 @@ const chartContainerStyle = computed(() => ({
             v-if="data?.type === 'html' || data?.type === 'sandbox'"
             :src="sandboxSrcUrl"
             :class="ns.e('sandbox')"
+            :sandbox="data?.type === 'sandbox' ? 'allow-scripts' : ''"
           ></iframe>
 
           <!-- ECharts 图表 (使用 v-show 保持 DOM) -->

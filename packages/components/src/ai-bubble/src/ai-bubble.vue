@@ -661,6 +661,8 @@ const _markCodeLinesForStreaming = (codeBlockId: string) => {
   injectCodeStreamStyles()
 }
 
+const bubbleRef = ref<HTMLElement | null>(null)
+
 // 监听流式渲染，当检测到代码块时添加动画
 watch(
   () => parsedContent.value,
@@ -668,7 +670,8 @@ watch(
     if (props.streaming && props.typing) {
       // 延迟查找并标记代码块
       setTimeout(() => {
-        const codeBlocks = document.querySelectorAll('.code-block-wrapper')
+        if (!bubbleRef.value) return
+        const codeBlocks = bubbleRef.value.querySelectorAll('.code-block-wrapper')
         codeBlocks.forEach((block) => {
           const id = block.getAttribute('data-id')
           if (id && !streamingCodeBlocks.value.has(id)) {
@@ -1243,16 +1246,11 @@ const handleCodeBlockAction = async (e: Event) => {
 onMounted(() => {
   hasMounted.value = true
   loadHighlightStyle()
-  document.addEventListener('click', handleCodeBlockAction)
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener('click', handleCodeBlockAction)
 })
 </script>
 
 <template>
-  <div :class="classes" :style="themeStyle">
+  <div ref="bubbleRef" :class="classes" :style="themeStyle" @click="handleCodeBlockAction">
     <!-- Avatar -->
     <div :class="ns.e('avatar')" v-if="role !== 'system'">
       <slot name="avatar">

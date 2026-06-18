@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, nextTick, onMounted } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { useNamespace, useVirtualScroll } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import YhAiBubble from '../../ai-bubble/src/ai-bubble.vue'
@@ -16,16 +16,27 @@ const { themeStyle } = useComponentTheme(
   computed(() => props.themeOverrides)
 )
 
-const scrollRef = ref<HTMLElement | null>(null)
+const measuredHeight = ref(0)
+let containerResizeObserver: ResizeObserver | null = null
+
+const resolvedContainerHeight = computed(() => {
+  if (typeof props.height === 'number') return props.height
+  if (typeof props.height === 'string' && props.height.endsWith('px')) {
+    return parseInt(props.height, 10)
+  }
+  return measuredHeight.value || 400
+})
 
 // 虚拟滚动逻辑
-const { visibleItems, totalHeight, offsetY, startIndex, onScroll, scrollToIndex } =
+const { visibleItems, totalHeight, offsetY, startIndex, onScroll, scrollToIndex, containerRef } =
   useVirtualScroll({
     items: computed(() => props.items),
     itemHeight: props.itemHeight,
-    containerHeight: typeof props.height === 'number' ? props.height : parseInt(props.height),
+    containerHeight: resolvedContainerHeight,
     overscan: 5
   })
+
+const scrollRef = containerRef
 
 // 自动滚动到底部
 const scrollToBottom = () => {
@@ -49,8 +60,26 @@ watch(
 )
 
 onMounted(() => {
+  if (scrollRef.value) {
+    measuredHeight.value = scrollRef.value.clientHeight
+    if (typeof window !== 'undefined' && 'ResizeObserver' in window) {
+      containerResizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          measuredHeight.value = entry.contentRect.height
+        }
+      })
+      containerResizeObserver.observe(scrollRef.value)
+    }
+  }
   if (props.items.length > 0) {
     scrollToBottom()
+  }
+})
+
+onBeforeUnmount(() => {
+  if (containerResizeObserver) {
+    containerResizeObserver.disconnect()
+    containerResizeObserver = null
   }
 })
 

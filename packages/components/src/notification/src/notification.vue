@@ -3,7 +3,7 @@
  * YhNotification - 通知组件
  * @description 悬浮出现在页面角落，显示全局的通知提醒消息
  */
-import { computed, onMounted, ref, watch, isVNode, type VNode } from 'vue'
+import { computed, onMounted, ref, watch, isVNode, onBeforeUnmount, type VNode } from 'vue'
 import { useNamespace, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import type { NotificationProps, NotificationEmits, NotificationExpose } from './notification'
@@ -123,9 +123,14 @@ const clearTimer = () => {
 
 // 关闭通知
 const close = () => {
+  clearTimer()
   visible.value = false
   props.onClose?.()
 }
+
+onBeforeUnmount(() => {
+  clearTimer()
+})
 
 // 点击通知
 const handleClick = () => {

@@ -28,6 +28,7 @@ const cloneCount = ref(1)
 const isReady = ref(false)
 const isHidden = ref(false)
 const isLoopPaused = ref(false)
+let delayTimer: ReturnType<typeof setTimeout> | null = null
 
 // 计算距离和持续时间
 const computedDuration = computed(() => {
@@ -98,8 +99,10 @@ const handleAnimationIteration = () => {
 
   if (props.loopDelay > 0) {
     isLoopPaused.value = true
-    setTimeout(() => {
+    if (delayTimer) clearTimeout(delayTimer)
+    delayTimer = setTimeout(() => {
       isLoopPaused.value = false
+      delayTimer = null
     }, props.loopDelay * 1000)
   }
 }
@@ -121,6 +124,13 @@ onMounted(() => {
     )
     observer.observe(containerRef.value)
     onUnmounted(() => observer.disconnect())
+  }
+})
+
+onUnmounted(() => {
+  if (delayTimer) {
+    clearTimeout(delayTimer)
+    delayTimer = null
   }
 })
 

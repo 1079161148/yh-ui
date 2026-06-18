@@ -7,6 +7,7 @@ import { computed, ref, watch, nextTick, provide, onMounted, onBeforeUnmount } f
 import { useNamespace, useFormItem, useId, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { useConfig } from '@yh-ui/hooks'
+import YhTooltip from '../../tooltip'
 import type {
   CascaderProps,
   CascaderEmits,
@@ -235,6 +236,11 @@ const displayTags = computed(() => {
 const collapsedCount = computed(() => {
   if (!isMultiple.value || !props.collapseTags) return 0
   return Math.max(0, presentTags.value.length - props.maxCollapseTags)
+})
+
+const collapsedTags = computed(() => {
+  if (!isMultiple.value || !props.collapseTags) return []
+  return presentTags.value.slice(props.maxCollapseTags)
 })
 
 // 是否显示清空按钮
@@ -603,7 +609,29 @@ defineExpose<CascaderExpose>({
             </svg>
           </span>
         </span>
-        <span v-if="collapsedCount > 0" :class="ns.e('tag')"> +{{ collapsedCount }} </span>
+        <YhTooltip
+          v-if="collapsedCount > 0 && collapseTagsTooltip"
+          placement="top"
+          :class="ns.e('tag')"
+        >
+          <span>+{{ collapsedCount }}</span>
+          <template #content>
+            <div
+              :class="ns.e('tooltip-content')"
+              style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px"
+            >
+              <span
+                v-for="(tag, idx) in collapsedTags"
+                :key="idx"
+                :class="ns.e('tooltip-tag')"
+                style="white-space: nowrap"
+              >
+                {{ tag.text }}
+              </span>
+            </div>
+          </template>
+        </YhTooltip>
+        <span v-else-if="collapsedCount > 0" :class="ns.e('tag')"> +{{ collapsedCount }} </span>
       </template>
 
       <!-- 输入框 -->

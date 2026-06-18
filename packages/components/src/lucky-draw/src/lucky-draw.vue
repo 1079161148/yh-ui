@@ -20,6 +20,7 @@ const isRotating = ref(false)
 const wheelRotate = ref(0)
 const gridActiveIndex = ref(-1)
 let animationFrameId: number | null = null
+let wheelTimer: ReturnType<typeof setTimeout> | null = null
 
 const finalActionText = computed(() => {
   if (isRotating.value || props.loading) return t('luckydraw.drawing')
@@ -82,9 +83,11 @@ const startWheel = (id: string | number) => {
 
   wheelRotate.value = currentRotation + baseRotation + extra
 
-  setTimeout(() => {
+  if (wheelTimer) clearTimeout(wheelTimer)
+  wheelTimer = setTimeout(() => {
     isRotating.value = false
     emit('finish', props.prizes[index])
+    wheelTimer = null
   }, props.duration || 4000)
 }
 
@@ -129,6 +132,10 @@ watch(
 
 onUnmounted(() => {
   if (animationFrameId) cancelAnimationFrame(animationFrameId)
+  if (wheelTimer) {
+    clearTimeout(wheelTimer)
+    wheelTimer = null
+  }
 })
 
 const gridAreas = ['1/1', '1/2', '1/3', '2/3', '3/3', '3/2', '3/1', '2/1']

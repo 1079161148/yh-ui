@@ -141,14 +141,10 @@ const startAutoplay = () => {
   if (isTest) {
     timer.value = setInterval(() => {
       if (props.pauseOnHover && isHovering.value) return
-      internalIndex.value++
-      // 手动触发边界计算
-      const total = itemCount.value
-      if (internalIndex.value >= total) {
-        internalIndex.value = props.loop ? 0 : total - 1
-      }
+      currentIndex.value++
     }, props.interval) as unknown as number
   } else {
+    timer.value = 1
     let lastTime = performance.now()
 
     const tick = (currentTime: number) => {
@@ -156,11 +152,7 @@ const startAutoplay = () => {
 
       if (currentTime - lastTime >= props.interval) {
         if (!(props.pauseOnHover && isHovering.value)) {
-          internalIndex.value++
-          const total = itemCount.value
-          if (internalIndex.value >= total) {
-            internalIndex.value = props.loop ? 0 : total - 1
-          }
+          currentIndex.value++
         }
         lastTime = currentTime
       }
@@ -250,7 +242,7 @@ provide(
   CAROUSEL_INJECTION_KEY,
   markRaw({
     props,
-    itemCount: shallowRef(itemCount.value), // 保持响应但浅层
+    itemCount,
     currentIndex: internalIndex,
     prevIndex,
     direction: computed(() => props.direction),

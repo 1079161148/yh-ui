@@ -409,21 +409,42 @@ describe('createLangChainChain', () => {
     expect(result.message).toBeDefined()
   })
 
-  it('should invokeWithTools without tool calls', async () => {
+  it('should invokeWithTools and execute all tool calls when multiple tool calls are returned', async () => {
     const mockModel = {
-      invoke: vi.fn().mockResolvedValue({
-        content: 'No tool call',
-        additional_kwargs: {}
+      invoke: vi.fn().mockImplementation(async (messages) => {
+        // First invoke returns multiple tool calls
+        if (messages.length === 1) {
+          return {
+            content: 'Running multiple tools',
+            additional_kwargs: {
+              tool_calls: [
+                { id: 'call-1', function: { name: 'tool_1', arguments: '{}' } },
+                { id: 'call-2', function: { name: 'tool_2', arguments: '{}' } }
+              ]
+            }
+          }
+        }
+        // Second invoke returns final response
+        return { content: 'Final response after tools' }
       }),
       bind: vi.fn().mockReturnThis()
     } as any
 
     const chain = createLangChainChain(mockModel)
+    const executedTools: string[] = []
 
-    const result = await chain.invokeWithTools('Simple message', [])
+    const result = await chain.invokeWithTools(
+      'Run tool 1 and tool 2',
+      [{ name: 'tool_1' }, { name: 'tool_2' }],
+      async (name, args) => {
+        executedTools.push(name)
+        return `Result of ${name}`
+      }
+    )
 
-    expect(result.message).toBe('No tool call')
-    expect(result.toolCalls).toBeUndefined()
+    expect(executedTools).toEqual(['tool_1', 'tool_2'])
+    expect(result.message).toBe('Final response after tools')
+    expect(result.toolCalls).toHaveLength(2)
   })
 })
 

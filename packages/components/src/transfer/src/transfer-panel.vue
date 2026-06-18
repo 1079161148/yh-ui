@@ -235,6 +235,7 @@ watch(query, () => {
     <div :class="ns.e('header')">
       <slot name="header">
         <div
+          v-if="showAllCheckbox"
           :class="[ns.e('check-all'), { 'is-disabled': disabled || checkableData.length === 0 }]"
           @click="handleCheckAll"
         >

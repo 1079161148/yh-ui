@@ -80,7 +80,7 @@ const diagram = ref(\`graph TD
         docPath: 'ai-components/ai-mermaid.md'
       }
     },
-    selector: '.yh-ai-mermaid__graph',
+    selector: '.yh-ai-mermaid__graph svg',
     evaluate: async (frame: Frame) => {
       const result = await frame.locator('.yh-ai-mermaid__graph').evaluate((el) => {
         const html = el.innerHTML
