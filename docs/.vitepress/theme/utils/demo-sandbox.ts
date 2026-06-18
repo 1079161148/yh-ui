@@ -575,6 +575,15 @@ function rewriteRuntimeRelativeImports(
         return `${prefix}${source}${suffix}`
       }
 
+      // Check if it's importing mermaid relatively from components
+      const resolvedPath = new URL(source, `https://runtime.local/${fromFile}`).pathname.replace(
+        /^\/+/,
+        ''
+      )
+      if (resolvedPath === 'components/mermaid' || resolvedPath === 'components/mermaid.js') {
+        return `${prefix}mermaid${suffix}`
+      }
+
       const resolvedTarget = resolveRuntimeRelativePath(fromFile, source, availableFiles)
       const rewrittenSource = resolvedTarget.startsWith('.')
         ? normalizeRuntimeImportSource(resolvedTarget)
@@ -1580,9 +1589,12 @@ export async function createCodeSandboxProjectFiles(
         continue
       }
 
-      await collectRuntimeFile(
-        resolveRuntimeRelativePath(relativePath, source, availableRuntimeFiles)
-      )
+      const resolved = resolveRuntimeRelativePath(relativePath, source, availableRuntimeFiles)
+      if (!availableRuntimeFiles.has(resolved)) {
+        continue
+      }
+
+      await collectRuntimeFile(resolved)
     }
 
     for (const source of extractDynamicRelativeRuntimeImports(assetText)) {
