@@ -251,16 +251,30 @@ export function useAiChat(options: UseAiChatOptions = {}) {
       else if (response instanceof Response && response.body) {
         const reader = response.body.getReader()
         const decoder = new TextDecoder('utf-8')
+        let buffer = ''
         while (true) {
           if (abortController.signal.aborted) {
             reader.cancel()
             break
           }
           const { done, value } = await reader.read()
-          if (done) break
+          if (done) {
+            if (buffer.trim()) {
+              const parsed = parser(buffer)
+              if (parsed) pushChunk(parsed)
+            }
+            break
+          }
           const chunkStr = decoder.decode(value, { stream: true })
-          const parsed = parser(chunkStr)
-          if (parsed) pushChunk(parsed)
+          const combined = buffer + chunkStr
+          const lines = combined.split('\n')
+          buffer = lines.pop() || ''
+
+          const completeChunk = lines.join('\n')
+          if (completeChunk) {
+            const parsed = parser(completeChunk)
+            if (parsed) pushChunk(parsed)
+          }
         }
       }
       // 模式 C: 直接字符串回复

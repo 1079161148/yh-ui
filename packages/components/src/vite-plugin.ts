@@ -133,6 +133,16 @@ export function YhUIVitePlugin(options: YhUIVitePluginOptions = {}): Plugin {
           noExternal: ['dayjs']
         }
       }
+    },
+    configResolved(config) {
+      const originalWarn = config.logger.warn
+      config.logger.warn = (msg, options) => {
+        // 忽略依赖包中 sourcemap 指向包外的警告（例如 entities 库中因打包 sourcemap 路径不安全导致的报错）
+        if (msg.includes('points to a source file outside its package')) {
+          return
+        }
+        originalWarn(msg, options)
+      }
     }
   }
 }

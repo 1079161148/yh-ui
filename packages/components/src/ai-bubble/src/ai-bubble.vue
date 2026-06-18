@@ -132,14 +132,24 @@ const getFileIcon = (url: string = '') => {
 const _mermaidContainer = ref<HTMLElement | null>(null)
 const mermaidLoading = ref(false)
 const mermaidError = ref<string | null>(null)
-type MermaidModule = typeof import('mermaid')
-let mermaidModule: MermaidModule | null = null
+// Mermaid 模块类型（与 ai-mermaid.vue 保持一致）
+interface MermaidApi {
+  initialize(config: Record<string, unknown>): void
+  render(id: string, text: string, container?: Element): Promise<{ svg: string }>
+  default?: MermaidApi
+}
+let mermaidModule: MermaidApi | null = null
 
-const initMermaid = async (): Promise<MermaidModule | null> => {
+const initMermaid = async (): Promise<MermaidApi | null> => {
   if (mermaidModule) return mermaidModule
   try {
-    mermaidModule = await import('mermaid')
-    mermaidModule.default.initialize({
+    // 使用内部 wrapper 而非裸 'mermaid' 导入：
+    // 构建后解析到 dist/mermaid.mjs（esbuild 已将 mermaid + dayjs 内联打包），
+    // 消费端无需配置 optimizeDeps 即可正常工作。
+    const module = (await import('../../mermaid')) as unknown as MermaidApi
+    // 兼容不同的 ESM 导出方式
+    mermaidModule = (module.default || module) as MermaidApi
+    mermaidModule.initialize({
       startOnLoad: false,
       theme: 'default',
       securityLevel: 'strict',
@@ -164,7 +174,7 @@ const _renderMermaid = async (code: string): Promise<string> => {
 
   try {
     const id = `mermaid-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-    const { svg } = await mermaidModule.default.render(id, code)
+    const { svg } = await mermaidModule.render(id, code)
     mermaidLoading.value = false
     return sanitizeSvgMarkup(svg)
   } catch (e: unknown) {

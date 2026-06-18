@@ -1076,76 +1076,94 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
       let currentToolCalls: ToolCall[] = []
       const toolCallArguments: Record<number, string> = {}
 
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
+      let buffer = ''
+      const processLine = (line: string) => {
+        if (line.startsWith('data: ')) {
+          const data = line.slice(6)
 
-        const chunk = decoder.decode(value, { stream: true })
-        const lines = chunk.split('\n').filter((line) => line.trim() !== '')
+          // 处理 SSE 数据
+          if (data === '[DONE]') {
+            return
+          }
 
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = line.slice(6)
+          try {
+            const parsed = JSON.parse(data)
 
-            // 处理 SSE 数据
-            if (data === '[DONE]') {
-              continue
+            // 处理文本增量
+            if (parsed.choices?.[0]?.delta?.content) {
+              const delta = parsed.choices[0].delta.content
+              fullContent += delta
+              currentMessage.value = { ...assistantMessage, content: fullContent }
+              updateLastMessage({ content: fullContent })
+              onChunk?.(delta, currentMessage.value)
             }
 
-            try {
-              const parsed = JSON.parse(data)
-
-              // 处理文本增量
-              if (parsed.choices?.[0]?.delta?.content) {
-                const delta = parsed.choices[0].delta.content
-                fullContent += delta
-                currentMessage.value = { ...assistantMessage, content: fullContent }
-                updateLastMessage({ content: fullContent })
-                onChunk?.(delta, currentMessage.value)
-              }
-
-              // 处理工具调用
-              if (parsed.choices?.[0]?.delta?.tool_calls) {
-                const toolCalls = parsed.choices[0].delta.tool_calls
-                for (const tc of toolCalls) {
-                  const idx = tc.index ?? 0
-                  if (tc.id) {
+            // 处理工具调用
+            if (parsed.choices?.[0]?.delta?.tool_calls) {
+              const toolCalls = parsed.choices[0].delta.tool_calls
+              for (const tc of toolCalls) {
+                const idx = tc.index ?? 0
+                if (tc.id) {
+                  currentToolCalls[idx] = {
+                    id: tc.id,
+                    type: 'function',
+                    name: tc.function?.name || '',
+                    arguments: {}
+                  }
+                  toolCallArguments[idx] = tc.function?.arguments || ''
+                } else {
+                  if (!currentToolCalls[idx]) {
                     currentToolCalls[idx] = {
-                      id: tc.id,
+                      id: '',
                       type: 'function',
-                      name: tc.function?.name || '',
+                      name: '',
                       arguments: {}
                     }
-                    toolCallArguments[idx] = tc.function?.arguments || ''
-                  } else {
-                    if (!currentToolCalls[idx]) {
-                      currentToolCalls[idx] = {
-                        id: '',
-                        type: 'function',
-                        name: '',
-                        arguments: {}
-                      }
-                    }
-                    if (tc.function?.arguments) {
-                      toolCallArguments[idx] =
-                        (toolCallArguments[idx] || '') + tc.function.arguments
-                    }
+                  }
+                  if (tc.function?.arguments) {
+                    toolCallArguments[idx] = (toolCallArguments[idx] || '') + tc.function.arguments
                   }
                 }
-                for (let i = 0; i < currentToolCalls.length; i++) {
-                  if (!currentToolCalls[i]) continue
-                  const rawArgs = toolCallArguments[i] || ''
-                  try {
-                    currentToolCalls[i].arguments = rawArgs ? JSON.parse(rawArgs) : {}
-                  } catch {
-                    // 渐进解析失败，保持已有数据
-                  }
-                }
-                updateLastMessage({ toolCalls: [...currentToolCalls].filter(Boolean) })
               }
-            } catch {
-              // 忽略解析错误
+              for (let i = 0; i < currentToolCalls.length; i++) {
+                if (!currentToolCalls[i]) continue
+                const rawArgs = toolCallArguments[i] || ''
+                try {
+                  currentToolCalls[i].arguments = rawArgs ? JSON.parse(rawArgs) : {}
+                } catch {
+                  // 渐进解析失败，保持已有数据
+                }
+              }
+              updateLastMessage({ toolCalls: [...currentToolCalls].filter(Boolean) })
             }
+          } catch {
+            // 忽略解析错误
+          }
+        }
+      }
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) {
+          if (buffer.trim()) {
+            const lines = buffer.split('\n')
+            for (const line of lines) {
+              if (line.trim() !== '') {
+                processLine(line)
+              }
+            }
+          }
+          break
+        }
+
+        const chunk = decoder.decode(value, { stream: true })
+        const combined = buffer + chunk
+        const lines = combined.split('\n')
+        buffer = lines.pop() || ''
+
+        for (const line of lines) {
+          if (line.trim() !== '') {
+            processLine(line)
           }
         }
 

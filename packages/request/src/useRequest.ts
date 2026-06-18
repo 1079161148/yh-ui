@@ -351,7 +351,7 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
   }
 
   // 自动执行
-  if (!manual && defaultParams.length > 0) {
+  if (!manual) {
     if (getCurrentInstance()) {
       onMounted(() => {
         if (!debounceWait && !throttleWait) {

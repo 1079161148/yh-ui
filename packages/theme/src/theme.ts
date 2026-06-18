@@ -884,6 +884,9 @@ export class ThemeManager {
   enableSystemFollow(): void {
     if (typeof window === 'undefined') return
 
+    // 先清除已有系统跟随监听器
+    this.disableSystemFollow()
+
     this.followSystem = true
     this.systemDarkQuery = window.matchMedia('(prefers-color-scheme: dark)')
 
@@ -909,6 +912,11 @@ export class ThemeManager {
 
   /** 设置响应式主题 */
   setResponsiveTheme(config: ResponsiveTheme): void {
+    // 先清理已有 resize 监听器
+    if (this.resizeHandler && typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.resizeHandler)
+    }
+
     this.responsiveConfig = config
 
     if (typeof window === 'undefined') return

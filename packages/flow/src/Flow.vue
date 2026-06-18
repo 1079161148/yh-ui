@@ -802,6 +802,9 @@ const handleMouseUp = (event: MouseEvent) => {
           return
         }
 
+        // 保存历史快照以供撤销/重做
+        historyManager.push({ nodes: nodesRef.value, edges: edgesRef.value })
+
         if (updatingEdge.value) {
           // 更新现有连线
           const { edge } = updatingEdge.value
