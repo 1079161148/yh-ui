@@ -282,17 +282,17 @@ Adjust parameters and click **Run Benchmark** to measure rendering performance m
   </div>
 </template>
 
+<!-- prettier-ignore -->
 <yh-table
-:data="benchData"
-:columns="benchColumns"
-:virtual-config="{ enabled: true, rowHeight: benchRowHeight, buffer: benchBuffer }"
-height="460px"
-border
-stripe
-row-key="id"
-ref="tableRef"
-
-> <template #empty>
+  :data="benchData"
+  :columns="benchColumns"
+  :virtual-config="{ enabled: true, rowHeight: benchRowHeight, buffer: benchBuffer }"
+  height="460px"
+  border
+  stripe
+  row-key="id"
+  ref="tableRef">
+  <template #empty>
 
     <div style="padding: 40px; text-align: center; color: var(--vp-c-text-3);">
       Click "Run Benchmark" to load data
