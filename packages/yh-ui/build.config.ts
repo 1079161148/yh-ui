@@ -1,5 +1,6 @@
 import { defineBuildConfig } from 'unbuild'
 import { resolve } from 'path'
+import vue from '@vitejs/plugin-vue'
 
 export default defineBuildConfig([
   // ── 主入口：保持现有行为，用于正常 npm 使用 ───────────────────────
@@ -87,6 +88,19 @@ export default defineBuildConfig([
       '@yh-ui/utils': resolve(__dirname, '../utils/dist/index.mjs'),
       '@yh-ui/theme': resolve(__dirname, '../theme/dist/index.mjs'),
       '@yh-ui/locale': resolve(__dirname, '../locale/dist/runtime.mjs')
+    },
+    hooks: {
+      'build:before'(ctx) {
+        // Filter out @yh-ui/* workspace packages from externals list to force them to be bundled
+        ctx.options.externals = ctx.options.externals.filter(
+          (ext) => !(typeof ext === 'string' && ext.startsWith('@yh-ui/'))
+        )
+      },
+      'rollup:options'(ctx, options) {
+        // Inject vue compiler plugin for processing vue SFC components into pure JS
+        options.plugins = options.plugins || []
+        options.plugins.unshift(vue())
+      }
     }
   }
 ])

@@ -1,479 +1,478 @@
-﻿import type { Language } from '../index'
+import type { Language } from '../index'
 
 export const ko: Language = {
   name: 'ko',
   yh: {
     common: {
-      yes: '\uC608',
-      no: '\uC544\uB2C8\uC624',
-      confirm: '\uD655\uC778',
-      cancel: '\uCDE8\uC18C',
-      loading: '\uB85C\uB529 \uC911',
-      close: '\uB2EB\uAE30',
-      clear: '\uC9C0\uC6B0\uAE30',
-      reset: '\uCD08\uAE30\uD654',
-      save: '\uC800\uC7A5',
-      delete: '\uC0AD\uC81C',
-      edit: '\uD3B8\uC9D1',
-      add: '\uCD94\uAC00',
-      search: '\uAC80\uC0C9',
-      refresh: '\uC0C8\uB85C\uACE0\uCE68',
-      expand: '\uD3BC\uCE58\uAE30',
-      collapse: '\uC811\uAE30',
-      more: '\uB354 \uBCF4\uAE30',
-      noData: '\uB370\uC774\uD130 \uC5C6\uC74C',
-      noMatch: '\uC77C\uCE58\uD558\uB294 \uB370\uC774\uD130 \uC5C6\uC74C',
-      selectAll: '\uC804\uCCB4 \uC120\uD0DD',
-      unselectAll: '\uC120\uD0DD \uD574\uC81C'
+      yes: '예',
+      no: '아니오',
+      confirm: '확인',
+      cancel: '취소',
+      loading: '로딩 중',
+      close: '닫기',
+      clear: '지우기',
+      reset: '초기화',
+      save: '저장',
+      delete: '삭제',
+      edit: '편집',
+      add: '추가',
+      search: '검색',
+      refresh: '새로고침',
+      expand: '펼치기',
+      collapse: '접기',
+      more: '더 보기',
+      noData: '데이터 없음',
+      noMatch: '일치하는 데이터 없음',
+      selectAll: '전체 선택',
+      unselectAll: '선택 해제'
     },
     colorpicker: {
-      confirm: '\uD655\uC778',
-      clear: '\uC9C0\uC6B0\uAE30',
-      eyeDropper: '\uC2A4\uD3EC\uC774\uB4DC',
-      suggestionDark: '\uD770\uC0C9 \uD14D\uC2A4\uD2B8 \uAD8C\uC7A5',
-      suggestionLight: '\uAC80\uC740\uC0C9 \uD14D\uC2A4\uD2B8 \uAD8C\uC7A5',
-      recentColors: '\uCD5C\uADFC \uC0AC\uC6A9 \uC0C9\uC0C1',
-      presetColors: '\uAE30\uBCF8 \uC0C9\uC0C1'
+      confirm: '확인',
+      clear: '지우기',
+      eyeDropper: '스포이드',
+      suggestionDark: '흰색 텍스트 권장',
+      suggestionLight: '검은색 텍스트 권장',
+      recentColors: '최근 사용 색상',
+      presetColors: '기본 색상'
     },
     datepicker: {
-      now: '\uD604\uC7AC',
-      today: '\uC624\uB298',
-      cancel: '\uCDE8\uC18C',
-      clear: '\uC9C0\uC6B0\uAE30',
-      confirm: '\uD655\uC778',
-      selectDate: '\uB0A0\uC9DC \uC120\uD0DD',
-      selectTime: '\uC2DC\uAC04 \uC120\uD0DD',
-      startDate: '\uC2DC\uC791 \uB0A0\uC9DC',
-      startTime: '\uC2DC\uC791 \uC2DC\uAC04',
-      endDate: '\uC885\uB8CC \uB0A0\uC9DC',
-      endTime: '\uC885\uB8CC \uC2DC\uAC04',
-      year: '\uB144',
-      month: '\uC6D4',
-      day: '\uC77C',
-      week: '\uC8FC',
+      now: '현재',
+      today: '오늘',
+      cancel: '취소',
+      clear: '지우기',
+      confirm: '확인',
+      selectDate: '날짜 선택',
+      selectTime: '시간 선택',
+      startDate: '시작 날짜',
+      startTime: '시작 시간',
+      endDate: '종료 날짜',
+      endTime: '종료 시간',
+      year: '년',
+      month: '월',
+      day: '일',
+      week: '주',
       monthBeforeYear: false,
-      prevYear: '\uC774\uC804 \uD574',
-      nextYear: '\uB2E4\uC74C \uD574',
-      prevMonth: '\uC774\uC804 \uB2EC',
-      nextMonth: '\uB2E4\uC74C \uB2EC',
+      prevYear: '이전 해',
+      nextYear: '다음 해',
+      prevMonth: '이전 달',
+      nextMonth: '다음 달',
       weeks: {
-        sun: '\uC77C',
-        mon: '\uC6D4',
-        tue: '\uD654',
-        wed: '\uC218',
-        thu: '\uBAA9',
-        fri: '\uAE08',
-        sat: '\uD1A0'
+        sun: '일',
+        mon: '월',
+        tue: '화',
+        wed: '수',
+        thu: '목',
+        fri: '금',
+        sat: '토'
       },
       months: {
-        jan: '1\uC6D4',
-        feb: '2\uC6D4',
-        mar: '3\uC6D4',
-        apr: '4\uC6D4',
-        may: '5\uC6D4',
-        jun: '6\uC6D4',
-        jul: '7\uC6D4',
-        aug: '8\uC6D4',
-        sep: '9\uC6D4',
-        oct: '10\uC6D4',
-        nov: '11\uC6D4',
-        dec: '12\uC6D4'
+        jan: '1월',
+        feb: '2월',
+        mar: '3월',
+        apr: '4월',
+        may: '5월',
+        jun: '6월',
+        jul: '7월',
+        aug: '8월',
+        sep: '9월',
+        oct: '10월',
+        nov: '11월',
+        dec: '12월'
       },
       quarters: {
-        q1: '1\uBD84\uAE30',
-        q2: '2\uBD84\uAE30',
-        q3: '3\uBD84\uAE30',
-        q4: '4\uBD84\uAE30'
+        q1: '1분기',
+        q2: '2분기',
+        q3: '3분기',
+        q4: '4분기'
       }
     },
     timepicker: {
-      confirm: '\uD655\uC778',
-      cancel: '\uCDE8\uC18C',
-      now: '\uD604\uC7AC',
-      placeholder: '\uC2DC\uAC04 \uC120\uD0DD',
-      startPlaceholder: '\uC2DC\uC791 \uC2DC\uAC04',
-      endPlaceholder: '\uC885\uB8CC \uC2DC\uAC04',
-      selectTime: '\uC2DC\uAC04 \uC120\uD0DD'
+      confirm: '확인',
+      cancel: '취소',
+      now: '현재',
+      placeholder: '시간 선택',
+      startPlaceholder: '시작 시간',
+      endPlaceholder: '종료 시간',
+      selectTime: '시간 선택'
     },
     timeselect: {
-      placeholder: '\uC2DC\uAC04 \uC120\uD0DD'
+      placeholder: '시간 선택'
     },
     tree: {
-      emptyText: '\uB370\uC774\uD130 \uC5C6\uC74C',
-      loading: '\uB85C\uB529 \uC911...',
-      checkAll: '\uC804\uCCB4 \uC120\uD0DD',
-      uncheckAll: '\uC804\uCCB4 \uD574\uC81C',
-      expandAll: '\uBAA8\uB450 \uD3BC\uCE58\uAE30',
-      collapseAll: '\uBAA8\uB450 \uC811\uAE30'
+      emptyText: '데이터 없음',
+      loading: '로딩 중...',
+      checkAll: '전체 선택',
+      uncheckAll: '전체 해제',
+      expandAll: '모두 펼치기',
+      collapseAll: '모두 접기'
     },
     treeselect: {
-      placeholder: '\uC120\uD0DD\uD558\uC138\uC694',
-      emptyText: '\uB370\uC774\uD130 \uC5C6\uC74C',
-      loading: '\uB85C\uB529 \uC911...',
-      noMatch: '\uC77C\uCE58\uD558\uB294 \uB370\uC774\uD130 \uC5C6\uC74C'
+      placeholder: '선택하세요',
+      emptyText: '데이터 없음',
+      loading: '로딩 중...',
+      noMatch: '일치하는 데이터 없음'
     },
     calendar: {
-      prevMonth: '\uC774\uC804 \uB2EC',
-      nextMonth: '\uB2E4\uC74C \uB2EC',
-      prevYear: '\uC774\uC804 \uD574',
-      nextYear: '\uB2E4\uC74C \uD574',
-      today: '\uC624\uB298',
-      week: '\uC8FC',
-      holiday: '\uD734',
-      workday: '\uCD9C',
-      monthHeaderFormat: 'YYYY\uB144 M\uC6D4',
+      prevMonth: '이전 달',
+      nextMonth: '다음 달',
+      prevYear: '이전 해',
+      nextYear: '다음 해',
+      today: '오늘',
+      week: '주',
+      holiday: '휴',
+      workday: '출',
+      monthHeaderFormat: 'YYYY년 M월',
       weeks: {
-        sun: '\uC77C',
-        mon: '\uC6D4',
-        tue: '\uD654',
-        wed: '\uC218',
-        thu: '\uBAA9',
-        fri: '\uAE08',
-        sat: '\uD1A0'
+        sun: '일',
+        mon: '월',
+        tue: '화',
+        wed: '수',
+        thu: '목',
+        fri: '금',
+        sat: '토'
       }
     },
     autocomplete: {
-      loading: '\uB85C\uB529 \uC911...',
-      placeholder: '\uC785\uB825\uD558\uC138\uC694',
-      noData: '\uB370\uC774\uD130 \uC5C6\uC74C',
-      noMatch: '\uC77C\uCE58\uD558\uB294 \uB370\uC774\uD130 \uC5C6\uC74C'
+      loading: '로딩 중...',
+      placeholder: '입력하세요',
+      noData: '데이터 없음',
+      noMatch: '일치하는 데이터 없음'
     },
     countdown: {
-      days: '\uC77C',
-      hours: '\uC2DC\uAC04',
-      minutes: '\uBD84',
-      seconds: '\uCD08',
-      milliseconds: '\uBC00\uB9AC\uCD08',
-      finished: '\uC885\uB8CC'
+      days: '일',
+      hours: '시간',
+      minutes: '분',
+      seconds: '초',
+      milliseconds: '밀리초',
+      finished: '종료'
     },
     cascader: {
-      noMatch: '\uC77C\uCE58\uD558\uB294 \uB370\uC774\uD130 \uC5C6\uC74C',
-      placeholder: '\uC120\uD0DD\uD558\uC138\uC694',
-      loading: '\uB85C\uB529 \uC911...',
-      noData: '\uB370\uC774\uD130 \uC5C6\uC74C'
+      noMatch: '일치하는 데이터 없음',
+      placeholder: '선택하세요',
+      loading: '로딩 중...',
+      noData: '데이터 없음'
     },
     transfer: {
-      noMatch: '\uC77C\uCE58\uD558\uB294 \uB370\uC774\uD130 \uC5C6\uC74C',
-      noData: '\uB370\uC774\uD130 \uC5C6\uC74C',
-      titles: ['\uBAA9\uB85D 1', '\uBAA9\uB85D 2'],
-      filterPlaceholder: '\uAC80\uC0C9\uC5B4 \uC785\uB825',
-      noCheckedFormat: '\uCD1D {total} \uD56D\uBAA9',
-      hasCheckedFormat: '{checked}/{total} \uC120\uD0DD\uB428',
-      searchPlaceholder: '\uAC80\uC0C9\uC5B4 \uC785\uB825'
+      noMatch: '일치하는 데이터 없음',
+      noData: '데이터 없음',
+      titles: ['목록 1', '목록 2'],
+      filterPlaceholder: '검색어 입력',
+      noCheckedFormat: '총 {total} 항목',
+      hasCheckedFormat: '{checked}/{total} 선택됨',
+      searchPlaceholder: '검색어 입력'
     },
     table: {
-      emptyText: '\uB370\uC774\uD130 \uC5C6\uC74C',
-      confirmFilter: '\uD544\uD130',
-      resetFilter: '\uCD08\uAE30\uD654',
-      clearFilter: '\uC804\uCCB4',
-      sumText: '\uD569\uACC4',
-      loading: '\uB85C\uB529 \uC911...',
-      index: '\uBC88\uD638',
-      print: '\uC778\uC1C4',
-      cancel: '\uCDE8\uC18C',
-      preview: '\uC778\uC1C4 \uBBF8\uB9AC\uBCF4\uAE30',
-      printTime: '\uC778\uC1C4 \uC2DC\uAC04',
-      total: '\uCD1D {total} \uAC74',
-      page: '{page} \uD398\uC774\uC9C0',
-      yes: '\uC608',
-      no: '\uC544\uB2C8\uC624',
+      emptyText: '데이터 없음',
+      confirmFilter: '필터',
+      resetFilter: '초기화',
+      clearFilter: '전체',
+      sumText: '합계',
+      loading: '로딩 중...',
+      index: '번호',
+      print: '인쇄',
+      cancel: '취소',
+      preview: '인쇄 미리보기',
+      printTime: '인쇄 시간',
+      total: '총 {total} 건',
+      page: '{page} 페이지',
+      yes: '예',
+      no: '아니오',
       toolbar: {
-        refresh: '\uC0C8\uB85C\uACE0\uCE68',
-        density: '\uBC00\uB3C4',
-        densityDefault: '\uAE30\uBCF8',
-        densityLarge: '\uB113\uAC8C',
-        densitySmall: '\uC881\uAC8C',
-        columnSetting: '\uC5F4 \uC124\uC815',
-        fullscreen: '\uC804\uCCB4 \uD654\uBA74',
-        exitFullscreen: '\uC804\uCCB4 \uD654\uBA74 \uC885\uB8CC',
-        export: '\uB0B4\uBCF4\uB0B4\uAE30',
-        import: '\uAC00\uC838\uC624\uAE30',
-        search: '\uAC80\uC0C9',
-        searchPlaceholder: '\uAC80\uC0C9\uC5B4\uB85C \uAC80\uC0C9'
+        refresh: '새로고침',
+        density: '밀도',
+        densityDefault: '기본',
+        densityLarge: '넓게',
+        densitySmall: '좁게',
+        columnSetting: '열 설정',
+        fullscreen: '전체 화면',
+        exitFullscreen: '전체 화면 종료',
+        export: '내보내기',
+        import: '가져오기',
+        search: '검색',
+        searchPlaceholder: '검색어로 검색'
       },
       filter: {
-        selectAll: '\uC804\uCCB4 \uC120\uD0DD',
-        selectInvert: '\uC120\uD0DD \uBC18\uC804',
-        empty: '\uBE44\uC5B4\uC788\uC74C',
-        notEmpty: '\uBE44\uC5B4\uC788\uC9C0 \uC54A\uC74C',
-        contains: '\uD3EC\uD568',
-        notContains: '\uD3EC\uD568\uD558\uC9C0 \uC54A\uC74C',
-        equals: '\uAC19\uC74C',
-        notEquals: '\uAC19\uC9C0 \uC54A\uC74C',
-        startsWith: '\uC2DC\uC791',
-        endsWith: '\uB05D',
-        greaterThan: '\uBCF4\uB2E4 \uD07C',
-        lessThan: '\uBCF4\uB2E4 \uC791\uC74C',
-        between: '\uC0AC\uC774'
+        selectAll: '전체 선택',
+        selectInvert: '선택 반전',
+        empty: '비어있음',
+        notEmpty: '비어있지 않음',
+        contains: '포함',
+        notContains: '포함하지 않음',
+        equals: '같음',
+        notEquals: '같지 않음',
+        startsWith: '시작',
+        endsWith: '끝',
+        greaterThan: '보다 큼',
+        lessThan: '보다 작음',
+        between: '사이'
       },
       sort: {
-        asc: '\uC624\uB984\uCC28\uC21C',
-        desc: '\uB0B4\uB9BC\uCC28\uC21C',
-        clear: '\uC815\uB82C \uD574\uC81C'
+        asc: '오름차순',
+        desc: '내림차순',
+        clear: '정렬 해제'
       },
       export: {
-        title: '\uB370\uC774\uD130 \uB0B4\uBCF4\uB0B4\uAE30',
-        filename: '\uD30C\uC77C\uBA85',
-        type: '\uD30C\uC77C \uD615\uC2DD',
-        scope: '\uB0B4\uBCF4\uB0B4\uAE30 \uBC94\uC704',
-        scopeAll: '\uBAA8\uB4E0 \uB370\uC774\uD130',
-        scopeSelected: '\uC120\uD0DD\uB41C \uB370\uC774\uD130',
-        scopeCurrentPage: '\uD604\uC7AC \uD398\uC774\uC9C0',
-        includeHeader: '\uD5E4\uB354 \uD3EC\uD568',
-        exporting: '\uB0B4\uBCF4\uB0B4\uB294 \uC911...',
-        success: '\uB0B4\uBCF4\uB0B4\uAE30 \uC131\uACF5',
-        error: '\uB0B4\uBCF4\uB0B4\uAE30 \uC2E4\uD328'
+        title: '데이터 내보내기',
+        filename: '파일명',
+        type: '파일 형식',
+        scope: '내보내기 범위',
+        scopeAll: '모든 데이터',
+        scopeSelected: '선택된 데이터',
+        scopeCurrentPage: '현재 페이지',
+        includeHeader: '헤더 포함',
+        exporting: '내보내는 중...',
+        success: '내보내기 성공',
+        error: '내보내기 실패'
       },
       import: {
-        title: '\uB370\uC774\uD130 \uAC00\uC838\uC624\uAE30',
-        selectFile: '\uD30C\uC77C \uC120\uD0DD',
-        dragTip:
-          '\uD074\uB9AD \uB610\uB294 \uD30C\uC77C\uC744 \uB4DC\uB798\uADF8\uD558\uC5EC \uC5C5\uB85C\uB4DC',
-        importing: '\uAC00\uC838\uC624\uB294 \uC911...',
-        success: '\uAC00\uC838\uC624\uAE30 \uC131\uACF5',
-        error: '\uAC00\uC838\uC624\uAE30 \uC2E4\uD328',
-        preview: '\uB370\uC774\uD130 \uBBF8\uB9AC\uBCF4\uAE30',
-        confirm: '\uAC00\uC838\uC624\uAE30 \uD655\uC778'
+        title: '데이터 가져오기',
+        selectFile: '파일 선택',
+        dragTip: '클릭 또는 파일을 드래그하여 업로드',
+        importing: '가져오는 중...',
+        success: '가져오기 성공',
+        error: '가져오기 실패',
+        preview: '데이터 미리보기',
+        confirm: '가져오기 확인'
       },
       printConfig: {
-        title: '\uC778\uC1C4 \uC124\uC815',
-        pageTitle: '\uD398\uC774\uC9C0 \uC81C\uBAA9',
-        pageHeader: '\uBA38\uB9AC\uAE00',
-        pageFooter: '\uBC14\uB2E5\uAE00',
-        printAll: '\uC804\uCCB4 \uC778\uC1C4',
-        printSelected: '\uC120\uD0DD \uC778\uC1C4',
-        printCurrentPage: '\uD604\uC7AC \uD398\uC774\uC9C0 \uC778\uC1C4',
-        landscape: '\uAC00\uB85C',
-        portrait: '\uC138\uB85C',
-        printing: '\uC778\uC1C4 \uC911...'
+        title: '인쇄 설정',
+        pageTitle: '페이지 제목',
+        pageHeader: '머리글',
+        pageFooter: '바닥글',
+        printAll: '전체 인쇄',
+        printSelected: '선택 인쇄',
+        printCurrentPage: '현재 페이지 인쇄',
+        landscape: '가로',
+        portrait: '세로',
+        printing: '인쇄 중...'
       },
       columnSetting: {
-        title: '\uC5F4 \uC124\uC815',
-        showAll: '\uBAA8\uB450 \uD45C\uC2DC',
-        hideAll: '\uBAA8\uB450 \uC228\uAE30\uAE30',
-        reset: '\uCD08\uAE30\uD654',
-        fixedLeft: '\uC67C\uCABD \uACE0\uC815',
-        fixedRight: '\uC624\uB978\uCABD \uACE0\uC815',
-        unfixed: '\uACE0\uC815 \uD574\uC81C'
+        title: '열 설정',
+        showAll: '모두 표시',
+        hideAll: '모두 숨기기',
+        reset: '초기화',
+        fixedLeft: '왼쪽 고정',
+        fixedRight: '오른쪽 고정',
+        unfixed: '고정 해제'
       },
       contextMenu: {
-        copy: '\uBCF5\uC0AC',
-        copyRow: '\uD589 \uBCF5\uC0AC',
-        copyCell: '\uC140 \uBCF5\uC0AC',
-        paste: '\uBD99\uC5EC\uB123\uAE30',
-        insertRowAbove: '\uC704\uC5D0 \uD589 \uC0BD\uC785',
-        insertRowBelow: '\uC544\uB798\uC5D0 \uD589 \uC0BD\uC785',
-        deleteRow: '\uD589 \uC0AD\uC81C',
-        deleteSelectedRows: '\uC120\uD0DD\uB41C \uD589 \uC0AD\uC81C',
-        exportSelected: '\uC120\uD0DD \uB0B4\uBCF4\uB0B4\uAE30'
+        copy: '복사',
+        copyRow: '행 복사',
+        copyCell: '셀 복사',
+        paste: '붙여넣기',
+        insertRowAbove: '위에 행 삽입',
+        insertRowBelow: '아래에 행 삽입',
+        deleteRow: '행 삭제',
+        deleteSelectedRows: '선택된 행 삭제',
+        exportSelected: '선택 내보내기'
       },
       selection: {
-        selectAll: '\uC804\uCCB4 \uC120\uD0DD',
-        selectInvert: '\uC120\uD0DD \uBC18\uC804',
-        selectNone: '\uC120\uD0DD \uD574\uC81C',
-        selected: '{count} \uD56D\uBAA9 \uC120\uD0DD\uB428'
+        selectAll: '전체 선택',
+        selectInvert: '선택 반전',
+        selectNone: '선택 해제',
+        selected: '{count} 항목 선택됨'
       },
       expand: {
-        expandAll: '\uBAA8\uB450 \uD3BC\uCE58\uAE30',
-        collapseAll: '\uBAA8\uB450 \uC811\uAE30'
+        expandAll: '모두 펼치기',
+        collapseAll: '모두 접기'
       },
       tree: {
-        expandAll: '\uBAA8\uB450 \uD3BC\uCE58\uAE30',
-        collapseAll: '\uBAA8\uB450 \uC811\uAE30',
-        expandLevel: '\uB808\uBCA8 {level} \uAE4C\uC9C0 \uD3BC\uCE58\uAE30'
+        expandAll: '모두 펼치기',
+        collapseAll: '모두 접기',
+        expandLevel: '레벨 {level} 까지 펼치기'
       },
       drag: {
-        dragTip: '\uB4DC\uB798\uADF8\uD558\uC5EC \uC21C\uC11C \uBCC0\uACBD',
-        dropTip: '\uB193\uC544\uC11C \uBC30\uCE58'
+        dragTip: '드래그하여 순서 변경',
+        dropTip: '놓아서 배치'
       }
     },
     messagebox: {
-      title: '\uBA54\uC2DC\uC9C0',
-      confirm: '\uD655\uC778',
-      cancel: '\uCDE8\uC18C',
-      close: '\uB2EB\uAE30',
-      error: '\uC785\uB825\uC774 \uC62C\uBC14\uB974\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4',
-      alert: '\uC54C\uB9BC',
-      prompt: '\uD504\uB86C\uD504\uD2B8',
-      inputPlaceholder: '\uC785\uB825\uD558\uC138\uC694'
+      title: '메시지',
+      confirm: '확인',
+      cancel: '취소',
+      close: '닫기',
+      error: '입력이 올바르지 않습니다',
+      alert: '알림',
+      prompt: '프롬프트',
+      inputPlaceholder: '입력하세요'
     },
     upload: {
-      deleteTip: 'Delete \uD0A4\uB85C \uC0AD\uC81C',
-      delete: '\uC0AD\uC81C',
-      preview: '\uBBF8\uB9AC\uBCF4\uAE30',
-      continue: '\uACC4\uC18D',
-      upload: '\uD074\uB9AD\uD558\uC5EC \uC5C5\uB85C\uB4DC',
-      tip: '\uD30C\uC77C\uC744 \uC5EC\uAE30\uB85C \uB4DC\uB798\uADF8\uD558\uAC70\uB098 <em>\uD074\uB9AD\uD558\uC5EC \uC5C5\uB85C\uB4DC</em>',
-      dragTip: '\uD30C\uC77C\uC744 \uB4DC\uB798\uADF8\uD558\uC5EC \uC5C5\uB85C\uB4DC',
-      uploading: '\uC5C5\uB85C\uB4DC \uC911...',
-      success: '\uC5C5\uB85C\uB4DC \uC131\uACF5',
-      error: '\uC5C5\uB85C\uB4DC \uC2E4\uD328',
-      retry: '\uB2E4\uC2DC \uC2DC\uB3C4',
-      cancel: '\uC5C5\uB85C\uB4DC \uCDE8\uC18C',
-      fileTypeError: '\uC9C0\uC6D0\uD558\uC9C0 \uC54A\uB294 \uD30C\uC77C \uD615\uC2DD',
-      fileSizeError: '\uD30C\uC77C \uD06C\uAE30 \uCD08\uACFC',
-      fileCountError: '\uD30C\uC77C \uAC1C\uC218 \uCD08\uACFC'
+      deleteTip: 'Delete 키로 삭제',
+      delete: '삭제',
+      preview: '미리보기',
+      continue: '계속',
+      upload: '클릭하여 업로드',
+      tip: '파일을 여기로 드래그하거나 <em>클릭하여 업로드</em>',
+      dragTip: '파일을 드래그하여 업로드',
+      uploading: '업로드 중...',
+      success: '업로드 성공',
+      error: '업로드 실패',
+      retry: '다시 시도',
+      cancel: '업로드 취소',
+      fileTypeError: '지원하지 않는 파일 형식',
+      fileSizeError: '파일 크기 초과',
+      fileCountError: '파일 개수 초과'
     },
     form: {
-      validationFailed: '\uC720\uD6A8\uC131 \uAC80\uC0AC \uC2E4\uD328',
-      required: '\uD544\uC218',
-      pleaseInput: '\uC785\uB825\uD558\uC138\uC694',
-      pleaseSelect: '\uC120\uD0DD\uD558\uC138\uC694'
+      validationFailed: '유효성 검사 실패',
+      required: '필수',
+      pleaseInput: '입력하세요',
+      pleaseSelect: '선택하세요'
     },
     button: {
-      loading: '\uB85C\uB529 \uC911...'
+      loading: '로딩 중...'
     },
     input: {
-      placeholder: '\uC785\uB825\uD558\uC138\uC694',
-      clear: '\uC9C0\uC6B0\uAE30',
-      showPassword: '\uBE44\uBC00\uBC88\uD638 \uD45C\uC2DC',
-      hidePassword: '\uBE44\uBC00\uBC88\uD638 \uC228\uAE30\uAE30',
-      copy: '\uBCF5\uC0AC',
-      copied: '\uBCF5\uC0AC\uB428'
+      placeholder: '입력하세요',
+      clear: '지우기',
+      showPassword: '비밀번호 표시',
+      hidePassword: '비밀번호 숨기기',
+      copy: '복사',
+      copied: '복사됨'
     },
     inputnumber: {
-      placeholder: '\uC22B\uC790 \uC785\uB825',
-      increase: '\uC99D\uAC00',
-      decrease: '\uAC10\uC18C'
+      placeholder: '숫자 입력',
+      increase: '증가',
+      decrease: '감소'
     },
     inputtag: {
-      placeholder: '\uC785\uB825\uD558\uC138\uC694',
-      add: '\uCD94\uAC00',
-      remove: '\uC81C\uAC70'
+      placeholder: '입력하세요',
+      add: '추가',
+      remove: '제거'
     },
     breadcrumb: {
-      label: '\uC774\uB3D9 \uACBD\uB85C',
-      more: '\uB354 \uBCF4\uAE30'
+      label: '이동 경로',
+      more: '더 보기'
     },
     backtop: {
-      text: '\uB9E8 \uC704\uB85C'
+      text: '맨 위로'
     },
     select: {
-      placeholder: '\uC120\uD0DD\uD558\uC138\uC694',
-      noData: '\uB370\uC774\uD130 \uC5C6\uC74C',
-      loading: '\uB85C\uB529 \uC911...',
-      noMatch: '\uC77C\uCE58\uD558\uB294 \uB370\uC774\uD130 \uC5C6\uC74C',
-      selectAll: '\uC804\uCCB4 \uC120\uD0DD',
-      clearAll: '\uC804\uCCB4 \uC9C0\uC6B0\uAE30'
+      placeholder: '선택하세요',
+      noData: '데이터 없음',
+      loading: '로딩 중...',
+      noMatch: '일치하는 데이터 없음',
+      selectAll: '전체 선택',
+      clearAll: '전체 지우기'
     },
     pagination: {
       goto: '',
-      page: '\uD398\uC774\uC9C0\uB85C',
-      total: '\uCD1D {total} \uAC74',
-      pageSize: '\uAC74/\uD398\uC774\uC9C0',
-      prev: '\uC774\uC804',
-      next: '\uB2E4\uC74C',
-      first: '\uCC98\uC74C',
-      last: '\uB9C8\uC9C0\uB9C9',
-      pageClassifier: '\uD398\uC774\uC9C0'
+      page: '페이지로',
+      total: '총 {total} 건',
+      pageSize: '건/페이지',
+      prev: '이전',
+      next: '다음',
+      first: '처음',
+      last: '마지막',
+      pageClassifier: '페이지'
     },
     popconfirm: {
-      confirm: '\uD655\uC778',
-      cancel: '\uCDE8\uC18C',
-      dontAskAgain: '\uB2E4\uC2DC \uBB3B\uC9C0 \uC54A\uAE30'
+      confirm: '확인',
+      cancel: '취소',
+      dontAskAgain: '다시 묻지 않기'
     },
     dialog: {
-      confirm: '\uD655\uC778',
-      cancel: '\uCDE8\uC18C',
-      close: '\uB2EB\uAE30',
-      maximize: '\uCD5C\uB300\uD654',
-      restore: '\uBCF5\uC6D0'
+      confirm: '확인',
+      cancel: '취소',
+      close: '닫기',
+      maximize: '최대화',
+      restore: '복원'
     },
     drawer: {
-      close: '\uB2EB\uAE30',
-      confirm: '\uD655\uC778',
-      cancel: '\uCDE8\uC18C'
+      close: '닫기',
+      confirm: '확인',
+      cancel: '취소'
     },
     dropdown: {
-      loading: '\uB85C\uB529 \uC911...'
+      loading: '로딩 중...'
     },
     image: {
-      error: '\uB85C\uB4DC \uC2E4\uD328',
-      loading: '\uB85C\uB529 \uC911...',
-      preview: '\uBBF8\uB9AC\uBCF4\uAE30',
-      zoomIn: '\uD655\uB300',
-      zoomOut: '\uCD95\uC18C',
-      rotateLeft: '\uC67C\uCABD\uC73C\uB85C \uD68C\uC804',
-      rotateRight: '\uC624\uB978\uCABD\uC73C\uB85C \uD68C\uC804',
-      originalSize: '\uC6D0\uBCF8 \uD06C\uAE30',
-      fullscreen: '\uC804\uCCB4 \uD654\uBA74'
+      error: '로드 실패',
+      loading: '로딩 중...',
+      preview: '미리보기',
+      zoomIn: '확대',
+      zoomOut: '축소',
+      rotateLeft: '왼쪽으로 회전',
+      rotateRight: '오른쪽으로 회전',
+      originalSize: '원본 크기',
+      fullscreen: '전체 화면'
     },
     imageviewer: {
-      close: '\uB2EB\uAE30',
-      prev: '\uC774\uC804',
-      next: '\uB2E4\uC74C',
-      zoomIn: '\uD655\uB300',
-      zoomOut: '\uCD95\uC18C',
-      rotateLeft: '\uC67C\uCABD\uC73C\uB85C \uD68C\uC804',
-      rotateRight: '\uC624\uB978\uCABD\uC73C\uB85C \uD68C\uC804',
-      reset: '\uCD08\uAE30\uD654',
-      fullscreen: '\uC804\uCCB4 \uD654\uBA74',
-      exitFullscreen: '\uC804\uCCB4 \uD654\uBA74 \uC885\uB8CC'
+      close: '닫기',
+      prev: '이전',
+      next: '다음',
+      zoomIn: '확대',
+      zoomOut: '축소',
+      rotateLeft: '왼쪽으로 회전',
+      rotateRight: '오른쪽으로 회전',
+      reset: '초기화',
+      fullscreen: '전체 화면',
+      exitFullscreen: '전체 화면 종료'
     },
     infinitescroll: {
-      loading: '\uB85C\uB529 \uC911...',
-      finished: '\uB354 \uC774\uC0C1 \uB370\uC774\uD130\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4',
-      error: '\uB85C\uB4DC \uC2E4\uD328, \uD074\uB9AD\uD558\uC5EC \uB2E4\uC2DC \uC2DC\uB3C4',
-      retry: '\uD074\uB9AD\uD558\uC5EC \uB2E4\uC2DC \uC2DC\uB3C4'
+      loading: '로딩 중...',
+      finished: '더 이상 데이터가 없습니다',
+      error: '로드 실패, 클릭하여 다시 시도',
+      retry: '클릭하여 다시 시도'
     },
     message: {
-      close: '\uB2EB\uAE30'
+      close: '닫기'
     },
     notification: {
-      close: '\uB2EB\uAE30'
+      close: '닫기'
     },
     loading: {
-      text: '\uB85C\uB529 \uC911...'
+      text: '로딩 중...'
     },
     spin: {
-      text: '\uB85C\uB529 \uC911...'
+      text: '로딩 중...'
     },
     rate: {
-      texts: ['\uCD5C\uC545', '\uB098\uC068', '\uBCF4\uD1B5', '\uC88B\uC74C', '\uD6CC\uB96D\uD568']
+      texts: ['최악', '나쁨', '보통', '좋음', '훌륭함']
     },
     alert: {
-      close: '\uB2EB\uAE30'
+      close: '닫기'
     },
     tag: {
-      close: '\uB2EB\uAE30'
+      close: '닫기'
     },
     tabs: {
-      close: '\uB2EB\uAE30',
-      add: '\uCD94\uAC00',
-      more: '\uB354 \uBCF4\uAE30'
+      close: '닫기',
+      add: '추가',
+      more: '더 보기'
     },
     steps: {
-      finish: '\uC644\uB8CC',
-      process: '\uC9C4\uD589 \uC911',
-      wait: '\uB300\uAE30 \uC911',
-      error: '\uC624\uB958'
+      finish: '완료',
+      process: '진행 중',
+      wait: '대기 중',
+      error: '오류'
     },
     progress: {
-      success: '\uC131\uACF5',
-      exception: '\uC608\uC678',
-      warning: '\uACBD\uACE0'
+      success: '성공',
+      exception: '예외',
+      warning: '경고'
     },
     skeleton: {
-      loading: '\uB85C\uB529 \uC911...'
+      loading: '로딩 중...'
     },
     empty: {
-      description: '\uB370\uC774\uD130 \uC5C6\uC74C',
-      noData: '\uB370\uC774\uD130 \uC5C6\uC74C',
-      noResult: '\uACB0\uACFC \uC5C6\uC74C',
-      networkError: '\uB124\uD2B8\uC6CC\uD06C \uC624\uB958',
-      serverError: '\uC11C\uBC84 \uC624\uB958'
+      description: '데이터 없음',
+      noData: '데이터 없음',
+      noResult: '결과 없음',
+      networkError: '네트워크 오류',
+      serverError: '서버 오류'
     },
     result: {
-      success: '\uC131\uACF5',
-      error: '\uC624\uB958',
-      warning: '\uACBD\uACE0',
-      info: '\uC815\uBCF4',
-      backHome: '\uD648\uC73C\uB85C \uB3CC\uC544\uAC00\uAE30'
+      success: '성공',
+      error: '오류',
+      warning: '경고',
+      info: '정보',
+      backHome: '홈으로 돌아가기'
     },
     waterfall: {
-      loading: '\uB85C\uB529 \uC911...',
-      noMore: '\uB354 \uC774\uC0C1 \uB370\uC774\uD130\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4',
-      empty: '\uB370\uC774\uD130 \uC5C6\uC74C'
+      loading: '로딩 중...',
+      noMore: '더 이상 데이터가 없습니다',
+      empty: '데이터 없음'
     },
     descriptions: {
       colon: ':'
@@ -482,197 +481,281 @@ export const ko: Language = {
       tipFormatter: '{value}'
     },
     switch: {
-      on: '\uCF1C\uAE30',
-      off: '\uB044\uAE30'
+      on: '켜기',
+      off: '끄기'
     },
     checkbox: {
-      selectAll: '\uC804\uCCB4 \uC120\uD0DD'
+      selectAll: '전체 선택'
     },
     radio: {},
     menu: {
-      collapse: '\uBA54\uB274 \uC811\uAE30',
-      expand: '\uBA54\uB274 \uD3BC\uCE58\uAE30'
+      collapse: '메뉴 접기',
+      expand: '메뉴 펼치기'
     },
     card: {
-      collapse: '\uC811\uAE30',
-      expand: '\uD3BC\uCE58\uAE30'
+      collapse: '접기',
+      expand: '펼치기'
     },
     collapse: {
-      expand: '\uD3BC\uCE58\uAE30',
-      collapse: '\uC811\uAE30'
+      expand: '펼치기',
+      collapse: '접기'
     },
     tooltip: {},
     popover: {},
     badge: {},
     avatar: {
-      error: '\uB85C\uB4DC \uC2E4\uD328'
+      error: '로드 실패'
     },
     watermark: {},
     divider: {},
     carousel: {
-      prev: '\uC774\uC804',
-      next: '\uB2E4\uC74C'
+      prev: '이전',
+      next: '다음'
     },
     marquee: {},
     affix: {},
-    anchor: {},
-    // 鎻愬強
-    mention: {
-      placeholder: '\uC785\uB825\uD558\uC138\uC694',
-      loading: '\uB85C\uB529 \uC911...',
-      noData: '\uB370\uC774\uD130 \uC5C6\uC74C'
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
     },
-    // AI 旎错彫雱岉姼
+    anchor: {},
+    mention: {
+      placeholder: '입력하세요',
+      loading: '로딩 중...',
+      noData: '데이터 없음'
+    },
+    skuselector: {
+      placeholder: 'Select specifications',
+      emptyText: 'No specifications',
+      stock: 'Stock',
+      price: 'Price',
+      selected: 'Selected',
+      outOfStock: 'Out of Stock'
+    },
+    productcard: {
+      viewDetails: 'View Details',
+      buyNow: 'Buy Now',
+      addToCart: 'Add to Cart',
+      sold: 'Sold',
+      soldOut: 'Sold Out',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Original'
+    },
+    couponcard: {
+      available: 'Claim Now',
+      used: 'Used',
+      expired: 'Expired',
+      received: 'Received',
+      limit: 'Orders over {threshold}',
+      noThreshold: 'No threshold',
+      validPeriod: 'Validity',
+      ruleTitle: 'Usage Rules'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Drawing...',
+      end: 'Winner!',
+      retry: 'Retry'
+    },
+    filterbar: {
+      all: 'All',
+      sort: 'Sort',
+      filter: 'Filter',
+      cancel: 'Cancel',
+      reset: 'Reset',
+      confirm: 'Confirm',
+      noOptions: 'No options',
+      asc: 'Ascending',
+      desc: 'Descending',
+      selected: 'Selected'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selected',
+      submit: 'Checkout',
+      allSelect: 'Select All'
+    },
+    categorynav: {
+      all: 'All',
+      noData: 'No Data',
+      loading: 'Loading...'
+    },
+    smartaddress: {
+      placeholder: 'Paste address here, auto-detect name, phone, location',
+      parse: 'Smart Parse',
+      province: 'Province/City/District',
+      city: 'City',
+      district: 'District/County',
+      street: 'Street/Town',
+      detail: 'Detailed Address',
+      phone: 'Phone',
+      name: 'Recipient',
+      parseSuccess: 'Address parsed successfully',
+      parseFailed: 'Parse failed, please fill manually',
+      required: 'Please fill complete address',
+      provinceKeywords: ['Province', 'State'],
+      cityKeywords: ['City', 'Prefecture'],
+      districtKeywords: ['District', 'County', 'Township'],
+      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+    },
+    ganttchart: {
+      taskName: 'Task Name',
+      searchPlaceholder: 'Search tasks...',
+      zoom: 'Zoom',
+      day: 'Day',
+      week: 'Week',
+      month: 'Month',
+      year: 'Year',
+      milestone: 'Milestone'
+    },
+    imagemagnifier: {
+      switchToImage: 'Switch to image {index}',
+      galleryItem: 'Gallery {index}',
+      close: 'Close'
+    },
     ai: {
       bubble: {
-        citations: '\uC778\uC6A9'
+        citations: '인용'
       },
       mention: {
-        placeholder:
-          '@ \uC5D0\uC774\uC804\uD2B8, \uBB38\uC11C \uB610\uB294 \uD14C\uC774\uBE14 \uBA58\uC158...',
-        agent: '\uC5D0\uC774\uC804\uD2B8',
-        document: '\uBB38\uC11C',
-        table: '\uD14C\uC774\uBE14',
-        knowledge: '\uC9C0\uC2DD'
+        placeholder: '@ 에이전트, 문서 또는 테이블 멘션...',
+        agent: '에이전트',
+        document: '문서',
+        table: '테이블',
+        knowledge: '지식',
+        file: 'File'
       },
       codeBlock: {
-        copyCode: '\uCF54\uB4DC \uBCF5\uC0AC',
-        copied: '\uBCF5\uC0AC\uB428!',
-        run: '\uCF54\uB4DC \uC2E4\uD589',
-        edit: '\uD3B8\uC9D1',
-        save: '\uC800\uC7A5',
-        cancel: '\uCDE8\uC18C'
+        copyCode: '코드 복사',
+        copied: '복사됨!',
+        run: '코드 실행',
+        edit: '편집',
+        save: '저장',
+        cancel: '취소'
       },
       codeRunner: {
-        run: '\uC2E4\uD589',
-        stop: '\uC911\uC9C0',
-        clear: '\uC9C0\uC6B0\uAE30',
-        reset: '\uCD08\uAE30\uD654',
-        placeholder:
-          '\uC2E4\uD589 \uBC84\uD2BC\uC744 \uD074\uB9AD\uD558\uC5EC \uCF54\uB4DC \uC2E4\uD589...'
+        run: '실행',
+        stop: '중지',
+        clear: '지우기',
+        reset: '초기화',
+        placeholder: '실행 버튼을 클릭하여 코드 실행...'
       },
       sender: {
-        placeholder: '\uBA54\uC2DC\uC9C0 \uC804\uC1A1...',
-        dragTip: '\uD30C\uC77C\uC744 \uC5C5\uB85C\uB4DC\uD558\uB824\uBA74 \uB193\uC73C\uC138\uC694'
+        placeholder: '메시지 전송...',
+        dragTip: '파일을 업로드하려면 놓으세요',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
-        thoughtProcess: '\uC0AC\uACE0 \uACFC\uC815',
-        thinking: '\uC0DD\uAC01 \uC911...',
-        defaultTitle: '\uC0C8 \uB2E8\uACC4',
-        addNode: '\uB2E8\uACC4 \uCD94\uAC00'
+        thoughtProcess: '사고 과정',
+        thinking: '생각 중...',
+        defaultTitle: '새 단계',
+        addNode: '단계 추가'
       },
       thinking: {
-        start: '\uC0DD\uAC01 \uC2DC\uC791',
-        thinking: '\uC0DD\uAC01 \uC911...',
-        complete: '\uC0DD\uAC01 \uC644\uB8CC',
-        error: '\uC0DD\uAC01 \uC624\uB958'
+        start: '생각 시작',
+        thinking: '생각 중...',
+        complete: '생각 완료',
+        error: '생각 오류'
       },
       welcome: {
-        title: '\uC548\uB155\uD558\uC138\uC694, YH AI\uC785\uB2C8\uB2E4',
+        title: '안녕하세요, YH AI입니다',
         description:
-          '\uCF54\uB529, \uBB38\uC11C \uBC88\uC5ED, \uCC3D\uC791 \uC791\uBB38 \uB4F1\uC744 \uB3C4\uC640\uB4DC\uB9B4 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uC624\uB298 \uBB34\uC5C7\uC744 \uB3C4\uC640\uB4DC\uB9B4\uAE4C\uC694?'
+          '코딩, 문서 번역, 창작 작문 등을 도와드릴 수 있습니다. 오늘 무엇을 도와드릴까요?'
       },
       action: {
-        copy: '\uBCF5\uC0AC',
-        regenerate: '\uB2E4\uC2DC \uC0DD\uC131',
-        share: '\uACF5\uC720',
-        like: '\uC88B\uC544\uC694',
-        dislike: '\uC2EB\uC5B4\uC694',
-        edit: '\uD3B8\uC9D1',
-        delete: '\uC0AD\uC81C'
+        copy: '복사',
+        regenerate: '다시 생성',
+        share: '공유',
+        like: '좋아요',
+        dislike: '싫어요',
+        edit: '편집',
+        delete: '삭제'
       },
       artifacts: {
-        preview: '\uBBF8\uB9AC\uBCF4\uAE30',
-        inline: '\uC778\uB77C\uC778',
-        code: '\uC18C\uC2A4',
-        versions: '\uBC84\uC804',
-        rendering: '\uCEF4\uD3EC\uB10C\uD2B8 \uB80C\uB354\uB9C1 \uC911...',
-        renderingChart: '\uCC28\uD2B8 \uB80C\uB354\uB9C1 \uC911...',
-        renderingCanvas: '\uCE94\uBC84\uC2A4 \uC900\uBE44 \uC911...'
+        preview: '미리보기',
+        inline: '인라인',
+        code: '소스',
+        versions: '버전',
+        rendering: '컴포넌트 렌더링 중...',
+        renderingChart: '차트 렌더링 중...',
+        renderingCanvas: '캔버스 준비 중...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
-        trigger: '\uD074\uB9AD\uD558\uC5EC \uB9D0\uD558\uAE30',
-        listening: '\uB4E3\uB294 \uC911...'
+        trigger: '클릭하여 말하기',
+        listening: '듣는 중...'
       },
       agent: {
-        uses: '\uD68C \uC0AC\uC6A9',
-        use: '\uC9C0\uAE08 \uC0AC\uC6A9',
-        favorite: '\uC990\uACA8\uCC3E\uAE30',
-        unfavorite: '\uC990\uACA8\uCC3E\uAE30 \uD574\uC81C',
-        share: '\uACF5\uC720',
-        online: '\uC628\uB77C\uC778',
-        offline: '\uC624\uD504\uB77C\uC778',
-        busy: '\uBC14\uC068',
-        verified: '\uC778\uC99D\uB428',
-        rating: '\uD3C9\uC810',
-        reviews: '\uD6C4\uAE30',
-        responseTime: '\uD3C9\uADE0 \uC751\uB2F5\uC2DC\uAC04',
-        ms: '\uBC00\uB9AC\uCD08'
+        uses: '회 사용',
+        use: '지금 사용',
+        favorite: '즐겨찾기',
+        unfavorite: '즐겨찾기 해제',
+        share: '공유',
+        online: '온라인',
+        offline: '오프라인',
+        busy: '바쁨',
+        verified: '인증됨',
+        rating: '평점',
+        reviews: '후기',
+        responseTime: '평균 응답시간',
+        ms: '밀리초'
       },
       sources: {
-        references: '\uCC38\uACE0\uBB38\uD5CC',
-        referencedSources: '\uCC38\uC870\uB41C \uC18C\uC2A4',
-        relevant: '\uAD00\uB828\uC131',
-        viewOriginal: '\uC6D0\uBB38 \uBCF4\uAE30',
-        showAll: '\uBAA8\uB450 \uBCF4\uAE30',
-        more: '\uB354 \uB9CE\uC740 \uC18C\uC2A4',
-        drawerTitle: '\uCC38\uACE0\uBB38\uD5CC',
-        expandMore: '\uB354\uBCF4\uAE30',
-        collapseMore: '\uC811\uAE30',
-        noSources: '\uC18C\uC2A4 \uC5C6\uC74C',
-        today: '\uC624\uB298',
-        last7Days: '\uCD5C\uADFC 7\uC77C',
-        last30Days: '\uCD5C\uADFC 30\uC77C',
-        earlier: '\uC774\uC804',
-        pinned: '\uACE0\uC815\uB428'
+        references: '참고문헌',
+        referencedSources: '참조된 소스',
+        relevant: '관련성',
+        viewOriginal: '원문 보기',
+        showAll: '모두 보기',
+        more: '더 많은 소스',
+        drawerTitle: '참고문헌',
+        expandMore: '더보기',
+        collapseMore: '접기',
+        noSources: '소스 없음',
+        today: '오늘',
+        last7Days: '최근 7일',
+        last30Days: '최근 30일',
+        earlier: '이전',
+        pinned: '고정됨'
       },
       conversations: {
-        today: '\uC624\uB298',
-        last7Days: '\uCD5C\uADFC 7\uC77C',
-        last30Days: '\uCD5C\uADFC 30\uC77C',
-        earlier: '\uC774\uC804',
-        pinned: '\uACE0\uC815\uB428',
-        pin: '\uACE0\uC815',
-        unpin: '\uACE0\uC815 \uD574\uC81C',
-        newConversation: '\uC0C8 \uB300\uD654',
-        rename: '\uC774\uB984 \uBCC0\uACBD',
-        delete: '\uC0AD\uC81C',
-        deleteConfirm: '\uC774 \uB300\uD654\uB97C \uC0AD\uC81C\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?'
+        today: '오늘',
+        last7Days: '최근 7일',
+        last30Days: '최근 30일',
+        earlier: '이전',
+        pinned: '고정됨',
+        pin: '고정',
+        unpin: '고정 해제',
+        newConversation: '새 대화',
+        noData: 'No conversations yet',
+        rename: '이름 변경',
+        delete: '삭제',
+        deleteConfirm: '이 대화를 삭제하시겠습니까?'
       },
-      // AiAttachments
       attachments: {
-        dropTip: '\uD30C\uC77C\uC744 \uC5C5\uB85C\uB4DC\uD558\uB824\uBA74 \uB193\uC73C\uC138\uC694',
-        clickToUpload:
-          '\uD074\uB9AD\uD558\uAC70\uB098 \uB4DC\uB798\uADF8\uD558\uC5EC \uC5C5\uB85C\uB4DC',
-        uploadSuccess: '\uC5C5\uB85C\uB4DC \uC131\uACF5',
-        uploadError: '\uC5C5\uB85C\uB4DC \uC2E4\uD328',
-        deleteConfirm:
-          '\uC774 \uD30C\uC77C\uC744 \uC0AD\uC81C\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?',
-        fileTooLarge:
-          '\uD30C\uC77C \uD06C\uAE30\uB294 {size}\uB97C \uCD08\uACFC\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4',
-        invalidFileType: '\uC720\uD6A8\uD558\uC9C0 \uC54A\uC740 \uD30C\uC77C \uD615\uC2DD'
+        dropTip: '파일을 업로드하려면 놓으세요',
+        clickToUpload: '클릭하거나 드래그하여 업로드',
+        uploadSuccess: '업로드 성공',
+        uploadError: '업로드 실패',
+        deleteConfirm: '이 파일을 삭제하시겠습니까?',
+        fileTooLarge: '파일 크기는 {size}를 초과할 수 없습니다',
+        invalidFileType: '유효하지 않은 파일 형식'
       },
-      // AiMermaid
       mermaid: {
-        image: '\uC774\uBBF8\uC9C0',
-        code: '\uCF54\uB4DC',
-        zoomIn: '\uD655\uB300',
-        zoomOut: '\uCD95\uC18C',
-        reset: '\uCD08\uAE30\uD654',
-        download: '\uB2E4\uC6B4\uB85C\uB4DC',
-        copyCode: '\uCF54\uB4DC \uBCF5\uC0AC',
-        rendering: '\uB80C\uB354\uB9C1 \uC911...',
-        renderError: '\uB80C\uB354\uB9C1 \uC2E4\uD328',
-        renderSuccess: '\uB80C\uB354\uB9C1 \uC131\uACF5'
-      },
-      // AiCanvas
-      canvas: {
-        reset: '\uCD08\uAE30\uD654',
-        zoom: '\uD655\uB300/\uCD95\uC18C',
-        zoomIn: '\uD655\uB300',
-        zoomOut: '\uCD95\uC18C',
-        toggleGrid: '\uADF8\uB9AC\uB4DC \uC804\uD658',
-        resetView: '\uBDF0 \uC911\uC559 \uC815\uB82C'
+        image: '이미지',
+        code: '코드',
+        zoomIn: '확대',
+        zoomOut: '축소',
+        reset: '초기화',
+        download: '다운로드',
+        copyCode: '코드 복사',
+        rendering: '렌더링 중...',
+        renderError: '렌더링 실패',
+        renderSuccess: '렌더링 성공',
+        retry: 'Retry'
       }
     }
   }

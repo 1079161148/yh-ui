@@ -84,6 +84,12 @@ describe('utils/types', () => {
     expect(isEmpty({ a: 1 })).toBe(false)
     expect(isEmpty(123)).toBe(false)
     expect(isEmpty(true)).toBe(false)
+    expect(isEmpty(new Map())).toBe(true)
+    expect(isEmpty(new Map([['a', 1]]))).toBe(false)
+    expect(isEmpty(new Set())).toBe(true)
+    expect(isEmpty(new Set([1]))).toBe(false)
+    expect(isEmpty(new Date())).toBe(false)
+    expect(isEmpty(/abc/)).toBe(false)
   })
 
   it('isNumeric', () => {

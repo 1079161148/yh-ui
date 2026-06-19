@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const nl: Language = {
   name: 'nl',
   yh: {
-    // Algemeen
     common: {
       yes: 'Ja',
       no: 'Nee',
@@ -27,7 +26,6 @@ export const nl: Language = {
       selectAll: 'Alles selecteren',
       unselectAll: 'Alles deselecteren'
     },
-    // Kleurkiezer
     colorpicker: {
       confirm: 'OK',
       clear: 'Wissen',
@@ -37,7 +35,6 @@ export const nl: Language = {
       recentColors: 'Recente kleuren',
       presetColors: 'Vooraf ingestelde kleuren'
     },
-    // Datumkiezer
     datepicker: {
       now: 'Nu',
       today: 'Vandaag',
@@ -89,7 +86,6 @@ export const nl: Language = {
         q4: 'Q4'
       }
     },
-    // Tijdkiezer
     timepicker: {
       confirm: 'OK',
       cancel: 'Annuleren',
@@ -99,11 +95,9 @@ export const nl: Language = {
       endPlaceholder: 'Eindtijd',
       selectTime: 'Selecteer tijd'
     },
-    // Tijdselectie
     timeselect: {
       placeholder: 'Selecteer tijd'
     },
-    // Boom
     tree: {
       emptyText: 'Geen gegevens',
       loading: 'Laden...',
@@ -112,14 +106,12 @@ export const nl: Language = {
       expandAll: 'Alles uitklappen',
       collapseAll: 'Alles inklappen'
     },
-    // Boomselectie
     treeselect: {
       placeholder: 'Selecteer',
       emptyText: 'Geen gegevens',
       loading: 'Laden...',
       noMatch: 'Geen overeenkomende gegevens'
     },
-    // Kalender
     calendar: {
       prevMonth: 'Vorige maand',
       nextMonth: 'Volgende maand',
@@ -140,14 +132,12 @@ export const nl: Language = {
         sat: 'Za'
       }
     },
-    // Automatisch aanvullen
     autocomplete: {
       loading: 'Laden...',
       placeholder: 'Voer in',
       noData: 'Geen gegevens',
       noMatch: 'Geen overeenkomende gegevens'
     },
-    // Aftellen
     countdown: {
       days: 'dagen',
       hours: 'uren',
@@ -156,14 +146,12 @@ export const nl: Language = {
       milliseconds: 'milliseconden',
       finished: 'Voltooid'
     },
-    // Cascadeselectie
     cascader: {
       noMatch: 'Geen overeenkomende gegevens',
       placeholder: 'Selecteer',
       loading: 'Laden...',
       noData: 'Geen gegevens'
     },
-    // Overdracht
     transfer: {
       noMatch: 'Geen overeenkomende gegevens',
       noData: 'Geen gegevens',
@@ -173,7 +161,6 @@ export const nl: Language = {
       hasCheckedFormat: '{checked}/{total} geselecteerd',
       searchPlaceholder: 'Voer trefwoord in'
     },
-    // Tabel
     table: {
       emptyText: 'Geen gegevens',
       confirmFilter: 'Bevestigen',
@@ -190,7 +177,6 @@ export const nl: Language = {
       page: 'Pagina {page}',
       yes: 'Ja',
       no: 'Nee',
-      // Werkbalk
       toolbar: {
         refresh: 'Vernieuwen',
         density: 'Dichtheid',
@@ -205,7 +191,6 @@ export const nl: Language = {
         search: 'Zoeken',
         searchPlaceholder: 'Voer trefwoorden in om te zoeken'
       },
-      // Filter
       filter: {
         selectAll: 'Alles selecteren',
         selectInvert: 'Selectie omkeren',
@@ -221,13 +206,11 @@ export const nl: Language = {
         lessThan: 'Kleiner dan',
         between: 'Tussen'
       },
-      // Sorteren
       sort: {
         asc: 'Oplopend',
         desc: 'Aflopend',
         clear: 'Sortering wissen'
       },
-      // Exporteren
       export: {
         title: 'Gegevens exporteren',
         filename: 'Bestandsnaam',
@@ -241,7 +224,6 @@ export const nl: Language = {
         success: 'Export succesvol',
         error: 'Export mislukt'
       },
-      // Importeren
       import: {
         title: 'Gegevens importeren',
         selectFile: 'Selecteer bestand',
@@ -252,7 +234,6 @@ export const nl: Language = {
         preview: 'Gegevensvoorbeeld',
         confirm: 'Import bevestigen'
       },
-      // Afdrukken
       printConfig: {
         title: 'Afdrukinstellingen',
         pageTitle: 'Paginatitel',
@@ -265,7 +246,6 @@ export const nl: Language = {
         portrait: 'Staand',
         printing: 'Afdrukken...'
       },
-      // Kolominstellingen
       columnSetting: {
         title: 'Kolominstellingen',
         showAll: 'Alles tonen',
@@ -275,7 +255,6 @@ export const nl: Language = {
         fixedRight: 'Rechts vastzetten',
         unfixed: 'Vastzetten opheffen'
       },
-      // Contextmenu
       contextMenu: {
         copy: 'Kopiëren',
         copyRow: 'Rij kopiëren',
@@ -287,31 +266,26 @@ export const nl: Language = {
         deleteSelectedRows: 'Geselecteerde rijen verwijderen',
         exportSelected: 'Geselecteerde exporteren'
       },
-      // Selectie
       selection: {
         selectAll: 'Alles selecteren',
         selectInvert: 'Selectie omkeren',
         selectNone: 'Selectie wissen',
         selected: '{count} items geselecteerd'
       },
-      // Uitklappen
       expand: {
         expandAll: 'Alles uitklappen',
         collapseAll: 'Alles inklappen'
       },
-      // Boom
       tree: {
         expandAll: 'Alles uitklappen',
         collapseAll: 'Alles inklappen',
         expandLevel: 'Uitklappen tot niveau {level}'
       },
-      // Slepen
       drag: {
         dragTip: 'Sleep om te herordenen',
         dropTip: 'Laat los om te plaatsen'
       }
     },
-    // Berichtvenster
     messagebox: {
       title: 'Bericht',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const nl: Language = {
       prompt: 'Prompt',
       inputPlaceholder: 'Voer in'
     },
-    // Uploaden
     upload: {
       deleteTip: 'druk op delete om te verwijderen',
       delete: 'Verwijderen',
@@ -340,18 +313,15 @@ export const nl: Language = {
       fileSizeError: 'Bestandsgrootte overschrijdt limiet',
       fileCountError: 'Aantal bestanden overschrijdt limiet'
     },
-    // Formulier
     form: {
       validationFailed: 'Validatie mislukt',
       required: 'Verplicht',
       pleaseInput: 'Voer in',
       pleaseSelect: 'Selecteer'
     },
-    // Knop
     button: {
       loading: 'Laden...'
     },
-    // Invoer
     input: {
       placeholder: 'Voer in',
       clear: 'Wissen',
@@ -360,28 +330,23 @@ export const nl: Language = {
       copy: 'Kopiëren',
       copied: 'Gekopieerd'
     },
-    // Nummerinvoer
     inputnumber: {
       placeholder: 'Voer nummer in',
       increase: 'Verhogen',
       decrease: 'Verlagen'
     },
-    // Taginvoer
     inputtag: {
       placeholder: 'Voer in',
       add: 'Toevoegen',
       remove: 'Verwijderen'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Meer'
     },
-    // Terug naar boven
     backtop: {
       text: 'Terug naar boven'
     },
-    // Selectie
     select: {
       placeholder: 'Selecteer',
       noData: 'Geen gegevens',
@@ -390,7 +355,6 @@ export const nl: Language = {
       selectAll: 'Alles selecteren',
       clearAll: 'Alles wissen'
     },
-    // Paginering
     pagination: {
       goto: 'Ga naar',
       page: '',
@@ -402,13 +366,11 @@ export const nl: Language = {
       last: 'Laatste',
       pageClassifier: ''
     },
-    // Popconfirm
     popconfirm: {
       confirm: 'OK',
       cancel: 'Annuleren',
       dontAskAgain: 'Niet meer vragen'
     },
-    // Dialoog
     dialog: {
       confirm: 'OK',
       cancel: 'Annuleren',
@@ -416,17 +378,14 @@ export const nl: Language = {
       maximize: 'Maximaliseren',
       restore: 'Herstellen'
     },
-    // Lade
     drawer: {
       close: 'Sluiten',
       confirm: 'OK',
       cancel: 'Annuleren'
     },
-    // Dropdownmenu
     dropdown: {
       loading: 'Laden...'
     },
-    // Afbeelding
     image: {
       error: 'MISLUKT',
       loading: 'Laden...',
@@ -438,7 +397,6 @@ export const nl: Language = {
       originalSize: 'Originele grootte',
       fullscreen: 'Volledig scherm'
     },
-    // Afbeeldingviewer
     imageviewer: {
       close: 'Sluiten',
       prev: 'Vorige',
@@ -451,65 +409,52 @@ export const nl: Language = {
       fullscreen: 'Volledig scherm',
       exitFullscreen: 'Volledig scherm afsluiten'
     },
-    // Oneindig scrollen
     infinitescroll: {
       loading: 'Laden...',
       finished: 'Geen gegevens meer',
       error: 'Laden mislukt, klik om opnieuw te proberen',
       retry: 'Klik om opnieuw te proberen'
     },
-    // Bericht
     message: {
       close: 'Sluiten'
     },
-    // Melding
     notification: {
       close: 'Sluiten'
     },
-    // Laden
     loading: {
       text: 'Laden...'
     },
-    // Spinner
     spin: {
       text: 'Laden...'
     },
-    // Beoordeling
     rate: {
       texts: ['Zeer slecht', 'Teleurgesteld', 'Redelijk', 'Tevreden', 'Verrast']
     },
-    // Waarschuwing
     alert: {
       close: 'Sluiten'
     },
-    // Tag
     tag: {
       close: 'Sluiten'
     },
-    // Tabs
     tabs: {
       close: 'Sluiten',
       add: 'Toevoegen',
       more: 'Meer'
     },
-    // Stappen
     steps: {
       finish: 'Voltooid',
       process: 'In uitvoering',
       wait: 'Wachten',
       error: 'Fout'
     },
-    // Voortgang
     progress: {
       success: 'Succes',
       exception: 'Uitzondering',
       warning: 'Waarschuwing'
     },
-    // Skelet
     skeleton: {
       loading: 'Laden...'
     },
-    // Leeg
     empty: {
       description: 'Geen gegevens',
       noData: 'Geen gegevens',
@@ -517,7 +462,6 @@ export const nl: Language = {
       networkError: 'Netwerkfout',
       serverError: 'Serverfout'
     },
-    // Resultaat
     result: {
       success: 'Succes',
       error: 'Fout',
@@ -525,78 +469,63 @@ export const nl: Language = {
       info: 'Informatie',
       backHome: 'Terug naar start'
     },
-    // Waterval
     waterfall: {
       loading: 'Laden...',
       noMore: 'Geen gegevens meer',
       empty: 'Geen gegevens'
     },
-    // Beschrijvingen
     descriptions: {
       colon: ':'
     },
-    // Schuifregelaar
     slider: {
       tipFormatter: '{value}'
     },
-    // Schakelaar
     switch: {
       on: 'AAN',
       off: 'UIT'
     },
-    // Selectievakje
     checkbox: {
       selectAll: 'Alles selecteren'
     },
-    // Radio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Menu inklappen',
       expand: 'Menu uitklappen'
     },
-    // Kaart
     card: {
       collapse: 'Inklappen',
       expand: 'Uitklappen'
     },
-    // Inklappen
     collapse: {
       expand: 'Uitklappen',
       collapse: 'Inklappen'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Badge
     badge: {},
-    // Avatar
     avatar: {
       error: 'Laden mislukt'
     },
-    // Watermerk
     watermark: {},
-    // Scheidingslijn
     divider: {},
-    // Carrousel
     carousel: {
       prev: 'Vorige',
       next: 'Volgende'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Anker
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Voer in',
       loading: 'Laden...',
       noData: 'Geen gegevens'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Specificaties selecteren',
       emptyText: 'Geen specificaties',
@@ -697,7 +626,8 @@ export const nl: Language = {
         agent: 'Agent',
         document: 'Document',
         table: 'Tabel',
-        knowledge: 'Kennis'
+        knowledge: 'Kennis',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Code kopiëren',
@@ -716,7 +646,8 @@ export const nl: Language = {
       },
       sender: {
         placeholder: 'Bericht verzenden...',
-        dragTip: 'Loslaten om bestanden te uploaden'
+        dragTip: 'Loslaten om bestanden te uploaden',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Denkproces',
@@ -751,7 +682,8 @@ export const nl: Language = {
         versions: 'Versies',
         rendering: 'Component renderen...',
         renderingChart: 'Grafiek renderen...',
-        renderingCanvas: 'Canvas voorbereiden...'
+        renderingCanvas: 'Canvas voorbereiden...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Klik om te Spreken',

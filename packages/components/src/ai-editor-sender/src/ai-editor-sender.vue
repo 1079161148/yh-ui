@@ -75,6 +75,7 @@ const cascadeCommands = ref<AiCommandItem[]>([])
 const currentCascadeParent = ref<AiCommandItem | null>(null)
 const showCascadePanel = ref(false)
 const cascadePosition = ref({ top: 0, left: 0 })
+let searchDebounceTimer: ReturnType<typeof setTimeout> | null = null
 
 watch(showCommandPanel, (val) => {
   if (val) {
@@ -92,6 +93,9 @@ watch(showCommandPanel, (val) => {
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', updateCommandPanelPosition, true)
   window.removeEventListener('resize', updateCommandPanelPosition, true)
+  if (searchDebounceTimer) {
+    clearTimeout(searchDebounceTimer)
+  }
 })
 
 // 监听 modelValue 变化
@@ -169,7 +173,7 @@ const checkCommandTrigger = (value: string) => {
   const lastSlashIndex = value.lastIndexOf(props.commandTrigger)
 
   if (lastSlashIndex !== -1) {
-    const afterTrigger = value.slice(lastSlashIndex + 1)
+    const afterTrigger = value.slice(lastSlashIndex + props.commandTrigger.length)
     // 检查触发符后是否有空格（如果有空格则不显示命令面板）
     if (afterTrigger.includes(' ')) {
       hideCommandPanel()
@@ -182,6 +186,13 @@ const checkCommandTrigger = (value: string) => {
     showCommandPanel.value = true
     emit('command-panel-show')
     selectedCommandIndex.value = 0
+
+    if (searchDebounceTimer) {
+      clearTimeout(searchDebounceTimer)
+    }
+    searchDebounceTimer = setTimeout(() => {
+      emit('command-search', afterTrigger)
+    }, props.commandSearchDelay)
   } else {
     hideCommandPanel()
   }
@@ -275,6 +286,10 @@ const insertCommandToText = (command: AiCommandItem) => {
 
 // 隐藏命令面板
 const hideCommandPanel = () => {
+  if (searchDebounceTimer) {
+    clearTimeout(searchDebounceTimer)
+    searchDebounceTimer = null
+  }
   showCommandPanel.value = false
   showCascadePanel.value = false
   commandSearchText.value = ''

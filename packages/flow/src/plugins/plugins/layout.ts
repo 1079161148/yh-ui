@@ -256,7 +256,8 @@ async function applyForceLayout(
   nodes: Node[],
   edges: Edge[],
   options: Required<LayoutOptions>,
-  flowInstance?: FlowInstance
+  flowInstance?: FlowInstance,
+  cancelToken?: { cancelled: boolean }
 ): Promise<{ nodes: Node[]; edges: Edge[] }> {
   const d3ForcePath = 'd3-force'
   let d3ForceLib: unknown
@@ -344,6 +345,12 @@ async function applyForceLayout(
     let currentIteration = 0
 
     const step = () => {
+      if (cancelToken?.cancelled) {
+        force.stop()
+        resolve({ nodes, edges })
+        return
+      }
+
       // 每次执行一小批量的 tick
       const toRun = Math.min(ticksPerFrame, iterations - currentIteration)
       for (let i = 0; i < toRun; i++) {
@@ -364,10 +371,17 @@ async function applyForceLayout(
       // 动态推送到界面流式渲染 (仅开启 animate 时)
       if (options.animate && flowInstance) {
         forceNodes.forEach((fn) => {
+          if (cancelToken?.cancelled) return
           flowInstance.updateNode(fn.id, {
             position: { x: fn.x + offsetX, y: fn.y + offsetY }
           })
         })
+      }
+
+      if (cancelToken?.cancelled) {
+        force.stop()
+        resolve({ nodes, edges })
+        return
       }
 
       // 如果提供了流式渲染选项，可以尝试动态写回每个节点
@@ -429,41 +443,250 @@ function applyGridLayout(
   return { nodes: layoutedNodes, edges }
 }
 
+async function runMainThreadLayout(
+  nodes: Node[],
+  edges: Edge[],
+  opts: Required<LayoutOptions>,
+  flowInstance?: FlowInstance,
+  cancelToken?: { cancelled: boolean }
+): Promise<{ nodes: Node[]; edges: Edge[] }> {
+  if (opts.type === 'dagre') {
+    return applyDagreLayout(nodes, edges, opts)
+  } else if (opts.type === 'elk') {
+    return applyElkLayout(nodes, edges, opts)
+  } else if (opts.type === 'force') {
+    return applyForceLayout(nodes, edges, opts, flowInstance, cancelToken)
+  } else if (opts.type === 'grid') {
+    return applyGridLayout(nodes, edges, opts)
+  } else {
+    throw new Error(`Unknown layout type '${opts.type}'`)
+  }
+}
+
+async function runLayoutInWorker(
+  nodes: Node[],
+  edges: Edge[],
+  options: Required<LayoutOptions>
+): Promise<{ nodes: Node[]; edges: Edge[] }> {
+  return new Promise((resolve, reject) => {
+    let worker: Worker
+    if (options.workerUrl) {
+      worker = new Worker(options.workerUrl)
+    } else {
+      const code = `
+        self.onmessage = function(e) {
+          const data = e.data;
+          const nodes = data.nodes;
+          const edges = data.edges;
+          const options = data.options;
+          const type = options.type;
+          
+          try {
+            let resultNodes = [];
+            if (type === 'grid') {
+              const gridOpts = options.gridOptions || {};
+              const columns = gridOpts.columns || 4;
+              const startX = gridOpts.startX || 50;
+              const startY = gridOpts.startY || 50;
+              const nodeWidth = options.nodeSpacing + (nodes[0]?.measured?.width || nodes[0]?.width || 150);
+              const nodeHeight = options.rankSpacing + (nodes[0]?.measured?.height || nodes[0]?.height || 50);
+              
+              resultNodes = nodes.map(function(node, index) {
+                const col = index % columns;
+                const row = Math.floor(index / columns);
+                return Object.assign({}, node, {
+                  position: {
+                    x: startX + col * nodeWidth,
+                    y: startY + row * nodeHeight
+                  }
+                });
+              });
+              self.postMessage({ success: true, nodes: resultNodes });
+            } else if (type === 'dagre') {
+              importScripts('https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js');
+              if (typeof dagre === 'undefined') {
+                throw new Error('Dagre not loaded');
+              }
+              const g = new dagre.graphlib.Graph();
+              g.setGraph({
+                rankdir: options.direction,
+                nodesep: options.nodeSpacing,
+                ranksep: options.rankSpacing,
+                marginx: 0,
+                marginy: 0
+              });
+              g.setDefaultEdgeLabel(function() { return {}; });
+              nodes.forEach(function(node) {
+                g.setNode(node.id, {
+                  width: node.measured?.width ?? node.width ?? 150,
+                  height: node.measured?.height ?? node.height ?? 50
+                });
+              });
+              edges.forEach(function(edge) {
+                g.setEdge(edge.source, edge.target);
+              });
+              dagre.layout(g);
+              resultNodes = nodes.map(function(node) {
+                const layoutNode = g.node(node.id);
+                if (!layoutNode) return node;
+                return Object.assign({}, node, {
+                  position: {
+                    x: layoutNode.x - (node.measured?.width ?? node.width ?? 150) / 2,
+                    y: layoutNode.y - (node.measured?.height ?? node.height ?? 50) / 2
+                  }
+                });
+              });
+              self.postMessage({ success: true, nodes: resultNodes });
+            } else if (type === 'force') {
+              importScripts(
+                'https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js'
+              );
+              if (typeof d3 === 'undefined') {
+                throw new Error('D3 not loaded');
+              }
+              const forceNodes = nodes.map(function(n) {
+                return { id: n.id, x: n.position.x, y: n.position.y };
+              });
+              const forceOpts = options.forceOptions || {};
+              const linkData = edges.map(function(e) {
+                return { source: e.source, target: e.target };
+              });
+              const sim = d3.forceSimulation(forceNodes)
+                .force('charge', d3.forceManyBody().strength(forceOpts.strength || -300))
+                .force('link', d3.forceLink(linkData).id(function(d) { return d.id; }).distance(forceOpts.distance || 100))
+                .force('collision', d3.forceCollide().radius(50))
+                .force('center', d3.forceCenter(400, 300));
+              
+              const iterations = forceOpts.iterations || 300;
+              for (let i = 0; i < iterations; i++) {
+                sim.tick();
+              }
+              sim.stop();
+              
+              let minX = Infinity, minY = Infinity;
+              forceNodes.forEach(function(n) {
+                if (n.x < minX) minX = n.x;
+                if (n.y < minY) minY = n.y;
+              });
+              const offsetX = minX < 0 ? -minX + 50 : 50;
+              const offsetY = minY < 0 ? -minY + 50 : 50;
+              
+              resultNodes = nodes.map(function(node) {
+                const fn = forceNodes.find(function(n) { return n.id === node.id; });
+                if (!fn) return node;
+                return Object.assign({}, node, {
+                  position: { x: fn.x + offsetX, y: fn.y + offsetY }
+                });
+              });
+              self.postMessage({ success: true, nodes: resultNodes });
+            } else {
+              self.postMessage({ success: false, error: 'Unsupported layout type in worker: ' + type });
+            }
+          } catch(err) {
+            self.postMessage({ success: false, error: err.toString() });
+          }
+        };
+      `
+      const blob = new Blob([code], { type: 'application/javascript' })
+      worker = new Worker(URL.createObjectURL(blob))
+    }
+
+    worker.onmessage = (e) => {
+      const data = e.data
+      if (data.success) {
+        resolve({ nodes: data.nodes, edges })
+      } else {
+        reject(new Error('[Layout Worker Error] ' + data.error))
+      }
+      worker.terminate()
+    }
+
+    worker.onerror = (err) => {
+      reject(err)
+      worker.terminate()
+    }
+
+    worker.postMessage({ nodes, edges, options })
+  })
+}
+
 export function createLayoutPlugin(options: LayoutOptions = {}): FlowPlugin {
   const mergedOptions = { ...defaultOptions, ...options }
+  let currentCancelToken: { cancelled: boolean } | null = null
 
   return {
     id: 'layout',
     name: 'Layout',
     version: '1.0.0',
     description: 'Provides automatic layout algorithms for flow charts (dagre, elk, force)',
+    destroy() {
+      if (currentCancelToken) {
+        currentCancelToken.cancelled = true
+        currentCancelToken = null
+      }
+    },
     install(flow: FlowInstance) {
       if (!mergedOptions.enabled) return
 
       // 实现 applyLayout 方法
       flow.applyLayout = async (layoutOptions?: unknown) => {
+        if (currentCancelToken) {
+          currentCancelToken.cancelled = true
+        }
+        const cancelToken = { cancelled: false }
+        currentCancelToken = cancelToken
+
         const opts = { ...mergedOptions, ...(layoutOptions as Partial<LayoutOptions>) }
         const nodes = [...flow.nodes.value]
         const edges = [...flow.edges.value]
 
+        const knownTypes = ['dagre', 'elk', 'force', 'grid']
+        if (!knownTypes.includes(opts.type)) {
+          console.warn(`[Layout Plugin] Unknown layout type '${opts.type}'`)
+          return
+        }
+
         try {
           let layouted: { nodes: Node[]; edges: Edge[] }
 
+          if (opts.useWebWorker && typeof Worker !== 'undefined') {
+            try {
+              layouted = await runLayoutInWorker(nodes, edges, opts as Required<LayoutOptions>)
+              console.log('[Layout Plugin] Layout applied successfully using Web Worker')
+            } catch (err) {
+              console.warn(
+                '[Layout Plugin] Web Worker layout failed, falling back to main thread:',
+                err
+              )
+              if (cancelToken.cancelled) return
+              layouted = await runMainThreadLayout(
+                nodes,
+                edges,
+                opts as Required<LayoutOptions>,
+                flow,
+                cancelToken
+              )
+            }
+          } else {
+            layouted = await runMainThreadLayout(
+              nodes,
+              edges,
+              opts as Required<LayoutOptions>,
+              flow,
+              cancelToken
+            )
+          }
+
+          if (cancelToken.cancelled) return
+
           if (opts.type === 'dagre') {
-            layouted = await applyDagreLayout(nodes, edges, opts as Required<LayoutOptions>)
             console.log('[Layout Plugin] Dagre layout applied successfully')
           } else if (opts.type === 'elk') {
-            layouted = await applyElkLayout(nodes, edges, opts as Required<LayoutOptions>)
             console.log('[Layout Plugin] ELK layout applied successfully')
           } else if (opts.type === 'force') {
-            layouted = await applyForceLayout(nodes, edges, opts as Required<LayoutOptions>, flow)
             console.log('[Layout Plugin] Force layout applied asynchronously')
           } else if (opts.type === 'grid') {
-            layouted = applyGridLayout(nodes, edges, opts as Required<LayoutOptions>)
             console.log('[Layout Plugin] Grid layout applied successfully')
-          } else {
-            console.warn(`[Layout Plugin] Unknown layout type '${opts.type}'`)
-            return
           }
 
           // 更新所有节点位置
@@ -479,6 +702,7 @@ export function createLayoutPlugin(options: LayoutOptions = {}): FlowPlugin {
           // 可选：自动 fitView
           if (opts.animate) {
             setTimeout(() => {
+              if (cancelToken.cancelled) return
               flow.fitView?.({ padding: 50 })
             }, 100)
           }

@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const arEg: Language = {
   name: 'ar-eg',
   yh: {
-    // عام
     common: {
       yes: 'نعم',
       no: 'لا',
@@ -27,7 +26,6 @@ export const arEg: Language = {
       selectAll: 'تحديد الكل',
       unselectAll: 'إلغاء تحديد الكل'
     },
-    // منتقي الألوان
     colorpicker: {
       confirm: 'موافق',
       clear: 'مسح',
@@ -37,7 +35,6 @@ export const arEg: Language = {
       recentColors: 'الألوان الأخيرة',
       presetColors: 'الألوان المحددة مسبقاً'
     },
-    // منتقي التاريخ
     datepicker: {
       now: 'الآن',
       today: 'اليوم',
@@ -89,7 +86,6 @@ export const arEg: Language = {
         q4: 'Q4'
       }
     },
-    // منتقي الوقت
     timepicker: {
       confirm: 'موافق',
       cancel: 'إلغاء',
@@ -99,11 +95,9 @@ export const arEg: Language = {
       endPlaceholder: 'وقت النهاية',
       selectTime: 'اختر الوقت'
     },
-    // اختيار الوقت
     timeselect: {
       placeholder: 'اختر الوقت'
     },
-    // الشجرة
     tree: {
       emptyText: 'لا توجد بيانات',
       loading: 'جاري التحميل...',
@@ -112,14 +106,12 @@ export const arEg: Language = {
       expandAll: 'توسيع الكل',
       collapseAll: 'طي الكل'
     },
-    // اختيار الشجرة
     treeselect: {
       placeholder: 'اختر',
       emptyText: 'لا توجد بيانات',
       loading: 'جاري التحميل...',
       noMatch: 'لا توجد بيانات مطابقة'
     },
-    // التقويم
     calendar: {
       prevMonth: 'الشهر السابق',
       nextMonth: 'الشهر التالي',
@@ -140,14 +132,12 @@ export const arEg: Language = {
         sat: 'سبت'
       }
     },
-    // الإكمال التلقائي
     autocomplete: {
       loading: 'جاري التحميل...',
       placeholder: 'الرجاء الإدخال',
       noData: 'لا توجد بيانات',
       noMatch: 'لا توجد بيانات مطابقة'
     },
-    // العد التنازلي
     countdown: {
       days: 'أيام',
       hours: 'ساعات',
@@ -156,14 +146,12 @@ export const arEg: Language = {
       milliseconds: 'ميلي ثانية',
       finished: 'انتهى'
     },
-    // الاختيار المتتالي
     cascader: {
       noMatch: 'لا توجد بيانات مطابقة',
       placeholder: 'اختر',
       loading: 'جاري التحميل...',
       noData: 'لا توجد بيانات'
     },
-    // النقل
     transfer: {
       noMatch: 'لا توجد بيانات مطابقة',
       noData: 'لا توجد بيانات',
@@ -173,7 +161,6 @@ export const arEg: Language = {
       hasCheckedFormat: '{checked}/{total} محدد',
       searchPlaceholder: 'أدخل الكلمة المفتاحية'
     },
-    // الجدول
     table: {
       emptyText: 'لا توجد بيانات',
       confirmFilter: 'تأكيد',
@@ -190,7 +177,6 @@ export const arEg: Language = {
       page: 'الصفحة {page}',
       yes: 'نعم',
       no: 'لا',
-      // شريط الأدوات
       toolbar: {
         refresh: 'تحديث',
         density: 'الكثافة',
@@ -205,7 +191,6 @@ export const arEg: Language = {
         search: 'بحث',
         searchPlaceholder: 'أدخل الكلمات المفتاحية للبحث'
       },
-      // المرشح
       filter: {
         selectAll: 'تحديد الكل',
         selectInvert: 'عكس التحديد',
@@ -221,13 +206,11 @@ export const arEg: Language = {
         lessThan: 'أصغر من',
         between: 'بين'
       },
-      // الترتيب
       sort: {
         asc: 'تصاعدي',
         desc: 'تنازلي',
         clear: 'مسح الترتيب'
       },
-      // التصدير
       export: {
         title: 'تصدير البيانات',
         filename: 'اسم الملف',
@@ -241,7 +224,6 @@ export const arEg: Language = {
         success: 'نجح التصدير',
         error: 'فشل التصدير'
       },
-      // الاستيراد
       import: {
         title: 'استيراد البيانات',
         selectFile: 'اختر الملف',
@@ -252,7 +234,6 @@ export const arEg: Language = {
         preview: 'معاينة البيانات',
         confirm: 'تأكيد الاستيراد'
       },
-      // الطباعة
       printConfig: {
         title: 'إعدادات الطباعة',
         pageTitle: 'عنوان الصفحة',
@@ -265,7 +246,6 @@ export const arEg: Language = {
         portrait: 'عمودي',
         printing: 'جاري الطباعة...'
       },
-      // إعدادات الأعمدة
       columnSetting: {
         title: 'إعدادات الأعمدة',
         showAll: 'إظهار الكل',
@@ -275,7 +255,6 @@ export const arEg: Language = {
         fixedRight: 'تثبيت على اليمين',
         unfixed: 'إلغاء التثبيت'
       },
-      // القائمة السياقية
       contextMenu: {
         copy: 'نسخ',
         copyRow: 'نسخ الصف',
@@ -287,31 +266,26 @@ export const arEg: Language = {
         deleteSelectedRows: 'حذف الصفوف المحددة',
         exportSelected: 'تصدير المحدد'
       },
-      // التحديد
       selection: {
         selectAll: 'تحديد الكل',
         selectInvert: 'عكس التحديد',
         selectNone: 'مسح التحديد',
         selected: 'تم تحديد {count} عنصر'
       },
-      // التوسيع
       expand: {
         expandAll: 'توسيع الكل',
         collapseAll: 'طي الكل'
       },
-      // الشجرة
       tree: {
         expandAll: 'توسيع الكل',
         collapseAll: 'طي الكل',
         expandLevel: 'توسيع إلى المستوى {level}'
       },
-      // السحب
       drag: {
         dragTip: 'اسحب لإعادة الترتيب',
         dropTip: 'اترك لوضع'
       }
     },
-    // صندوق الرسائل
     messagebox: {
       title: 'رسالة',
       confirm: 'موافق',
@@ -322,7 +296,6 @@ export const arEg: Language = {
       prompt: 'مطالبة',
       inputPlaceholder: 'الرجاء الإدخال'
     },
-    // الرفع
     upload: {
       deleteTip: 'اضغط delete للحذف',
       delete: 'حذف',
@@ -340,18 +313,15 @@ export const arEg: Language = {
       fileSizeError: 'حجم الملف يتجاوز الحد',
       fileCountError: 'عدد الملفات يتجاوز الحد'
     },
-    // النموذج
     form: {
       validationFailed: 'فشل التحقق',
       required: 'مطلوب',
       pleaseInput: 'الرجاء الإدخال',
       pleaseSelect: 'الرجاء الاختيار'
     },
-    // الزر
     button: {
       loading: 'جاري التحميل...'
     },
-    // الإدخال
     input: {
       placeholder: 'الرجاء الإدخال',
       clear: 'مسح',
@@ -360,28 +330,23 @@ export const arEg: Language = {
       copy: 'نسخ',
       copied: 'تم النسخ'
     },
-    // إدخال الرقم
     inputnumber: {
       placeholder: 'الرجاء إدخال رقم',
       increase: 'زيادة',
       decrease: 'تقليل'
     },
-    // إدخال العلامة
     inputtag: {
       placeholder: 'الرجاء الإدخال',
       add: 'إضافة',
       remove: 'إزالة'
     },
-    // مسار التنقل
     breadcrumb: {
       label: 'مسار التنقل',
       more: 'المزيد'
     },
-    // العودة للأعلى
     backtop: {
       text: 'العودة للأعلى'
     },
-    // الاختيار
     select: {
       placeholder: 'الرجاء الاختيار',
       noData: 'لا توجد بيانات',
@@ -390,7 +355,6 @@ export const arEg: Language = {
       selectAll: 'تحديد الكل',
       clearAll: 'مسح الكل'
     },
-    // الترقيم
     pagination: {
       goto: 'انتقل إلى',
       page: '',
@@ -402,13 +366,11 @@ export const arEg: Language = {
       last: 'الأخير',
       pageClassifier: ''
     },
-    // تأكيد منبثق
     popconfirm: {
       confirm: 'موافق',
       cancel: 'إلغاء',
       dontAskAgain: 'لا تسأل مرة أخرى'
     },
-    // الحوار
     dialog: {
       confirm: 'موافق',
       cancel: 'إلغاء',
@@ -416,17 +378,14 @@ export const arEg: Language = {
       maximize: 'تكبير',
       restore: 'استعادة'
     },
-    // الدرج
     drawer: {
       close: 'إغلاق',
       confirm: 'موافق',
       cancel: 'إلغاء'
     },
-    // القائمة المنسدلة
     dropdown: {
       loading: 'جاري التحميل...'
     },
-    // الصورة
     image: {
       error: 'فشل',
       loading: 'جاري التحميل...',
@@ -438,7 +397,6 @@ export const arEg: Language = {
       originalSize: 'الحجم الأصلي',
       fullscreen: 'ملء الشاشة'
     },
-    // عارض الصور
     imageviewer: {
       close: 'إغلاق',
       prev: 'السابق',
@@ -451,65 +409,52 @@ export const arEg: Language = {
       fullscreen: 'ملء الشاشة',
       exitFullscreen: 'الخروج من ملء الشاشة'
     },
-    // التمرير اللانهائي
     infinitescroll: {
       loading: 'جاري التحميل...',
       finished: 'لا مزيد من البيانات',
       error: 'فشل التحميل، انقر لإعادة المحاولة',
       retry: 'انقر لإعادة المحاولة'
     },
-    // الرسالة
     message: {
       close: 'إغلاق'
     },
-    // الإشعار
     notification: {
       close: 'إغلاق'
     },
-    // التحميل
     loading: {
       text: 'جاري التحميل...'
     },
-    // الدوران
     spin: {
       text: 'جاري التحميل...'
     },
-    // التقييم
     rate: {
       texts: ['سيء جداً', 'مخيب للآمال', 'عادل', 'راضٍ', 'مفاجئ']
     },
-    // التنبيه
     alert: {
       close: 'إغلاق'
     },
-    // العلامة
     tag: {
       close: 'إغلاق'
     },
-    // علامات التبويب
     tabs: {
       close: 'إغلاق',
       add: 'إضافة',
       more: 'المزيد'
     },
-    // الخطوات
     steps: {
       finish: 'انتهى',
       process: 'قيد التنفيذ',
       wait: 'في الانتظار',
       error: 'خطأ'
     },
-    // التقدم
     progress: {
       success: 'نجاح',
       exception: 'استثناء',
       warning: 'تحذير'
     },
-    // الهيكل العظمي
     skeleton: {
       loading: 'جاري التحميل...'
     },
-    // فارغ
     empty: {
       description: 'لا توجد بيانات',
       noData: 'لا توجد بيانات',
@@ -517,7 +462,6 @@ export const arEg: Language = {
       networkError: 'خطأ في الشبكة',
       serverError: 'خطأ في الخادم'
     },
-    // النتيجة
     result: {
       success: 'نجاح',
       error: 'خطأ',
@@ -525,78 +469,63 @@ export const arEg: Language = {
       info: 'معلومات',
       backHome: 'العودة للصفحة الرئيسية'
     },
-    // الشلال
     waterfall: {
       loading: 'جاري التحميل...',
       noMore: 'لا مزيد من البيانات',
       empty: 'لا توجد بيانات'
     },
-    // الأوصاف
     descriptions: {
       colon: ':'
     },
-    // المنزلق
     slider: {
       tipFormatter: '{value}'
     },
-    // المفتاح
     switch: {
       on: 'تشغيل',
       off: 'إيقاف'
     },
-    // مربع الاختيار
     checkbox: {
       selectAll: 'تحديد الكل'
     },
-    // الراديو
     radio: {},
-    // القائمة
     menu: {
       collapse: 'طي القائمة',
       expand: 'توسيع القائمة'
     },
-    // البطاقة
     card: {
       collapse: 'طي',
       expand: 'توسيع'
     },
-    // الطي
     collapse: {
       expand: 'توسيع',
       collapse: 'طي'
     },
-    // تلميح
     tooltip: {},
-    // النافذة المنبثقة
     popover: {},
-    // الشارة
     badge: {},
-    // الصورة الرمزية
     avatar: {
       error: 'فشل التحميل'
     },
-    // العلامة المائية
     watermark: {},
-    // الفاصل
     divider: {},
-    // الدوارة
     carousel: {
       prev: 'السابق',
       next: 'التالي'
     },
-    // الشريط المتحرك
     marquee: {},
-    // التثبيت
     affix: {},
-    // المرساة
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'الرجاء الإدخال',
       loading: 'جاري التحميل...',
       noData: 'لا توجد بيانات'
     },
-    // AI Components
     skuselector: {
       placeholder: 'اختر المواصفات',
       emptyText: 'لا توجد مواصفات',
@@ -697,7 +626,8 @@ export const arEg: Language = {
         agent: 'وكيل',
         document: 'مستند',
         table: 'جدول',
-        knowledge: 'معرفة'
+        knowledge: 'معرفة',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'نسخ الكود',
@@ -716,7 +646,8 @@ export const arEg: Language = {
       },
       sender: {
         placeholder: 'إرسال رسالة...',
-        dragTip: 'أفلت لتحميل الملفات'
+        dragTip: 'أفلت لتحميل الملفات',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'عملية التفكير',
@@ -751,7 +682,8 @@ export const arEg: Language = {
         versions: 'الإصدارات',
         rendering: 'جاري تقديم المكون...',
         renderingChart: 'جاري تقديم الرسم البياني...',
-        renderingCanvas: 'جاري إعداد اللوحة...'
+        renderingCanvas: 'جاري إعداد اللوحة...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'انقر للتحدث',

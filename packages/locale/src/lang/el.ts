@@ -1,9 +1,8 @@
-﻿import type { Language } from '../index'
+import type { Language } from '../index'
 
 export const el: Language = {
   name: 'el',
   yh: {
-    // 螝慰喂谓维
     common: {
       yes: '螡伪喂',
       no: '螌蠂喂',
@@ -27,7 +26,6 @@ export const el: Language = {
       selectAll: '螘蟺喂位慰纬萎 蠈位蠅谓',
       unselectAll: '螒蟺慰蔚蟺喂位慰纬萎 蠈位蠅谓'
     },
-    // 螘蟺喂位慰纬苇伪蟼 蠂蟻蠋渭伪蟿慰蟼
     colorpicker: {
       confirm: '螘谓蟿维尉蔚喂',
       clear: '螝伪胃伪蟻喂蟽渭蠈蟼',
@@ -37,7 +35,6 @@ export const el: Language = {
       recentColors: '螤蟻蠈蟽蠁伪蟿伪 蠂蟻蠋渭伪蟿伪',
       presetColors: '螤蟻慰魏伪胃慰蟻喂蟽渭苇谓伪 蠂蟻蠋渭伪蟿伪'
     },
-    // 螘蟺喂位慰纬苇伪蟼 畏渭蔚蟻慰渭畏谓委伪蟼
     datepicker: {
       now: '韦蠋蟻伪',
       today: '危萎渭蔚蟻伪',
@@ -89,7 +86,6 @@ export const el: Language = {
         q4: 'Q4'
       }
     },
-    // 螘蟺喂位慰纬苇伪蟼 蠋蟻伪蟼
     timepicker: {
       confirm: '螘谓蟿维尉蔚喂',
       cancel: '螒魏蠉蟻蠅蟽畏',
@@ -99,11 +95,9 @@ export const el: Language = {
       endPlaceholder: '螐蟻伪 位萎尉畏蟼',
       selectTime: '螘蟺喂位苇尉蟿蔚 蠋蟻伪'
     },
-    // 螘蟺喂位慰纬萎 蠋蟻伪蟼
     timeselect: {
       placeholder: '螘蟺喂位苇尉蟿蔚 蠋蟻伪'
     },
-    // 螖苇谓蟿蟻慰
     tree: {
       emptyText: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪',
       loading: '桅蠈蟻蟿蠅蟽畏...',
@@ -112,14 +106,12 @@ export const el: Language = {
       expandAll: '螒谓维蟺蟿蠀尉畏 蠈位蠅谓',
       collapseAll: '危蠉渭蟺蟿蠀尉畏 蠈位蠅谓'
     },
-    // 螘蟺喂位慰纬苇伪蟼 未苇谓蟿蟻慰蠀
     treeselect: {
       placeholder: '螘蟺喂位苇尉蟿蔚',
       emptyText: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪',
       loading: '桅蠈蟻蟿蠅蟽畏...',
       noMatch: '螖蔚谓 尾蟻苇胃畏魏伪谓 伪蟺慰蟿蔚位苇蟽渭伪蟿伪'
     },
-    // 螚渭蔚蟻慰位蠈纬喂慰
     calendar: {
       prevMonth: '螤蟻慰畏纬慰蠉渭蔚谓慰蟼 渭萎谓伪蟼',
       nextMonth: '螘蟺蠈渭蔚谓慰蟼 渭萎谓伪蟼',
@@ -140,14 +132,12 @@ export const el: Language = {
         sat: '危伪尾'
       }
     },
-    // 螒蠀蟿蠈渭伪蟿畏 蟽蠀渭蟺位萎蟻蠅蟽畏
     autocomplete: {
       loading: '桅蠈蟻蟿蠅蟽畏...',
       placeholder: '螤伪蟻伪魏伪位蠋 蔚喂蟽维纬蔚蟿蔚',
       noData: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪',
       noMatch: '螖蔚谓 尾蟻苇胃畏魏伪谓 伪蟺慰蟿蔚位苇蟽渭伪蟿伪'
     },
-    // 螒谓蟿委蟽蟿蟻慰蠁畏 渭苇蟿蟻畏蟽畏
     countdown: {
       days: '畏渭苇蟻蔚蟼',
       hours: '蠋蟻蔚蟼',
@@ -156,14 +146,12 @@ export const el: Language = {
       milliseconds: '蠂喂位喂慰蟽蟿维 蟿慰蠀 未蔚蠀蟿蔚蟻慰位苇蟺蟿慰蠀',
       finished: '螣位慰魏位畏蟻蠋胃畏魏蔚'
     },
-    // 螝伪蟽魏伪谓蟿苇蟻
     cascader: {
       noMatch: '螖蔚谓 尾蟻苇胃畏魏伪谓 伪蟺慰蟿蔚位苇蟽渭伪蟿伪',
       placeholder: '螘蟺喂位苇尉蟿蔚',
       loading: '桅蠈蟻蟿蠅蟽畏...',
       noData: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪'
     },
-    // 螠蔚蟿伪蠁慰蟻维
     transfer: {
       noMatch: '螖蔚谓 尾蟻苇胃畏魏伪谓 伪蟺慰蟿蔚位苇蟽渭伪蟿伪',
       noData: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪',
@@ -173,7 +161,6 @@ export const el: Language = {
       hasCheckedFormat: '{checked}/{total} 蔚蟺喂位蔚纬渭苇谓伪',
       searchPlaceholder: '螘喂蟽维纬蔚蟿蔚 位苇尉畏-魏位蔚喂未委'
     },
-    // 螤委谓伪魏伪蟼
     table: {
       emptyText: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪',
       confirmFilter: '螘蟺喂尾蔚尾伪委蠅蟽畏',
@@ -190,7 +177,6 @@ export const el: Language = {
       page: '危蔚位委未伪 {page}',
       yes: '螡伪喂',
       no: '螌蠂喂',
-      // 螕蟻伪渭渭萎 蔚蟻纬伪位蔚委蠅谓
       toolbar: {
         refresh: '螒谓伪谓苇蠅蟽畏',
         density: '螤蠀魏谓蠈蟿畏蟿伪',
@@ -205,7 +191,6 @@ export const el: Language = {
         search: '螒谓伪味萎蟿畏蟽畏',
         searchPlaceholder: '螘喂蟽维纬蔚蟿蔚 位苇尉蔚喂蟼-魏位蔚喂未喂维 纬喂伪 伪谓伪味萎蟿畏蟽畏'
       },
-      // 桅委位蟿蟻慰
       filter: {
         selectAll: '螘蟺喂位慰纬萎 蠈位蠅谓',
         selectInvert: '螒谓蟿喂蟽蟿蟻慰蠁萎 蔚蟺喂位慰纬萎蟼',
@@ -221,13 +206,11 @@ export const el: Language = {
         lessThan: '螠喂魏蟻蠈蟿蔚蟻慰 伪蟺蠈',
         between: '螠蔚蟿伪尉蠉'
       },
-      // 韦伪尉喂谓蠈渭畏蟽畏
       sort: {
         asc: '螒蠉尉慰蠀蟽伪',
         desc: '桅胃委谓慰蠀蟽伪',
         clear: '螝伪胃伪蟻喂蟽渭蠈蟼 蟿伪尉喂谓蠈渭畏蟽畏蟼'
       },
-      // 螘尉伪纬蠅纬萎
       export: {
         title: '螘尉伪纬蠅纬萎 未蔚未慰渭苇谓蠅谓',
         filename: '螌谓慰渭伪 伪蟻蠂蔚委慰蠀',
@@ -241,7 +224,6 @@ export const el: Language = {
         success: '螘尉伪纬蠅纬萎 蔚蟺喂蟿蠀蠂萎蟼',
         error: '螒蟺慰蟿蠀蠂委伪 蔚尉伪纬蠅纬萎蟼'
       },
-      // 螘喂蟽伪纬蠅纬萎
       import: {
         title: '螘喂蟽伪纬蠅纬萎 未蔚未慰渭苇谓蠅谓',
         selectFile: '螘蟺喂位苇尉蟿蔚 伪蟻蠂蔚委慰',
@@ -253,7 +235,6 @@ export const el: Language = {
         preview: '螤蟻慰蔚蟺喂蟽魏蠈蟺畏蟽畏 未蔚未慰渭苇谓蠅谓',
         confirm: '螘蟺喂尾蔚尾伪委蠅蟽畏 蔚喂蟽伪纬蠅纬萎蟼'
       },
-      // 螘魏蟿蠉蟺蠅蟽畏
       printConfig: {
         title: '巍蠀胃渭委蟽蔚喂蟼 蔚魏蟿蠉蟺蠅蟽畏蟼',
         pageTitle: '韦委蟿位慰蟼 蟽蔚位委未伪蟼',
@@ -266,7 +247,6 @@ export const el: Language = {
         portrait: '螝伪蟿伪魏蠈蟻蠀蠁畏',
         printing: '螘魏蟿蠉蟺蠅蟽畏...'
       },
-      // 巍蠀胃渭委蟽蔚喂蟼 蟽蟿萎位畏蟼
       columnSetting: {
         title: '巍蠀胃渭委蟽蔚喂蟼 蟽蟿萎位畏蟼',
         showAll: '螘渭蠁维谓喂蟽畏 蠈位蠅谓',
@@ -276,7 +256,6 @@ export const el: Language = {
         fixedRight: '危蟿蔚蟻苇蠅蟽畏 未蔚尉喂维',
         unfixed: '螒蟺慰未苇蟽渭蔚蠀蟽畏'
       },
-      // 螠蔚谓慰蠉 蟺蔚蟻喂尾维位位慰谓蟿慰蟼
       contextMenu: {
         copy: '螒谓蟿喂纬蟻伪蠁萎',
         copyRow: '螒谓蟿喂纬蟻伪蠁萎 纬蟻伪渭渭萎蟼',
@@ -288,31 +267,26 @@ export const el: Language = {
         deleteSelectedRows: '螖喂伪纬蟻伪蠁萎 蔚蟺喂位蔚纬渭苇谓蠅谓 纬蟻伪渭渭蠋谓',
         exportSelected: '螘尉伪纬蠅纬萎 蔚蟺喂位蔚纬渭苇谓蠅谓'
       },
-      // 螘蟺喂位慰纬萎
       selection: {
         selectAll: '螘蟺喂位慰纬萎 蠈位蠅谓',
         selectInvert: '螒谓蟿喂蟽蟿蟻慰蠁萎 蔚蟺喂位慰纬萎蟼',
         selectNone: '螝伪胃伪蟻喂蟽渭蠈蟼 蔚蟺喂位慰纬萎蟼',
         selected: '{count} 蔚蟺喂位蔚纬渭苇谓伪 蟽蟿慰喂蠂蔚委伪'
       },
-      // 螒谓维蟺蟿蠀尉畏
       expand: {
         expandAll: '螒谓维蟺蟿蠀尉畏 蠈位蠅谓',
         collapseAll: '危蠉渭蟺蟿蠀尉畏 蠈位蠅谓'
       },
-      // 螖苇谓蟿蟻慰
       tree: {
         expandAll: '螒谓维蟺蟿蠀尉畏 蠈位蠅谓',
         collapseAll: '危蠉渭蟺蟿蠀尉畏 蠈位蠅谓',
         expandLevel: '螒谓维蟺蟿蠀尉畏 蟽蟿慰 蔚蟺委蟺蔚未慰 {level}'
       },
-      // 危蠉蟻蟽喂渭慰
       drag: {
         dragTip: '危蠉蟻蔚蟿蔚 纬喂伪 伪谓伪未喂维蟿伪尉畏',
         dropTip: '螒蠁萎蟽蟿蔚 纬喂伪 蟿慰蟺慰胃苇蟿畏蟽畏'
       }
     },
-    // 螝慰蠀蟿委 渭畏谓蠉渭伪蟿慰蟼
     messagebox: {
       title: '螠萎谓蠀渭伪',
       confirm: '螘谓蟿维尉蔚喂',
@@ -323,7 +297,6 @@ export const el: Language = {
       prompt: '螤蟻慰蟿蟻慰蟺萎',
       inputPlaceholder: '螤伪蟻伪魏伪位蠋 蔚喂蟽维纬蔚蟿蔚'
     },
-    // 螠蔚蟿伪蠁蠈蟻蟿蠅蟽畏
     upload: {
       deleteTip: '蟺伪蟿萎蟽蟿蔚 delete 纬喂伪 未喂伪纬蟻伪蠁萎',
       delete: '螖喂伪纬蟻伪蠁萎',
@@ -342,18 +315,15 @@ export const el: Language = {
       fileSizeError: '韦慰 渭苇纬蔚胃慰蟼 伪蟻蠂蔚委慰蠀 蠀蟺蔚蟻尾伪委谓蔚喂 蟿慰 蠈蟻喂慰',
       fileCountError: '螣 伪蟻喂胃渭蠈蟼 伪蟻蠂蔚委蠅谓 蠀蟺蔚蟻尾伪委谓蔚喂 蟿慰 蠈蟻喂慰'
     },
-    // 桅蠈蟻渭伪
     form: {
       validationFailed: '螚 蔚蟺喂魏蠉蟻蠅蟽畏 伪蟺苇蟿蠀蠂蔚',
       required: '螒蟺伪喂蟿蔚委蟿伪喂',
       pleaseInput: '螤伪蟻伪魏伪位蠋 蔚喂蟽维纬蔚蟿蔚',
       pleaseSelect: '螤伪蟻伪魏伪位蠋 蔚蟺喂位苇尉蟿蔚'
     },
-    // 螝慰蠀渭蟺委
     button: {
       loading: '桅蠈蟻蟿蠅蟽畏...'
     },
-    // 螘喂蟽伪纬蠅纬萎
     input: {
       placeholder: '螤伪蟻伪魏伪位蠋 蔚喂蟽维纬蔚蟿蔚',
       clear: '螝伪胃伪蟻喂蟽渭蠈蟼',
@@ -362,28 +332,23 @@ export const el: Language = {
       copy: '螒谓蟿喂纬蟻伪蠁萎',
       copied: '螒谓蟿喂纬蟻维蠁畏魏蔚'
     },
-    // 螘喂蟽伪纬蠅纬萎 伪蟻喂胃渭慰蠉
     inputnumber: {
       placeholder: '螤伪蟻伪魏伪位蠋 蔚喂蟽维纬蔚蟿蔚 伪蟻喂胃渭蠈',
       increase: '螒蠉尉畏蟽畏',
       decrease: '螠蔚委蠅蟽畏'
     },
-    // 螘喂蟽伪纬蠅纬萎 蔚蟿喂魏苇蟿伪蟼
     inputtag: {
       placeholder: '螤伪蟻伪魏伪位蠋 蔚喂蟽维纬蔚蟿蔚',
       add: '螤蟻慰蟽胃萎魏畏',
       remove: '螒蠁伪委蟻蔚蟽畏'
     },
-    // 螤位慰畏纬蠈蟼
     breadcrumb: {
       label: '螤位慰畏纬蠈蟼',
       more: '螤蔚蟻喂蟽蟽蠈蟿蔚蟻伪'
     },
-    // 螘蟺喂蟽蟿蟻慰蠁萎 蟽蟿畏谓 魏慰蟻蠀蠁萎
     backtop: {
       text: '螘蟺喂蟽蟿蟻慰蠁萎 蟽蟿畏谓 魏慰蟻蠀蠁萎'
     },
-    // 螘蟺喂位慰纬萎
     select: {
       placeholder: '螤伪蟻伪魏伪位蠋 蔚蟺喂位苇尉蟿蔚',
       noData: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪',
@@ -392,7 +357,6 @@ export const el: Language = {
       selectAll: '螘蟺喂位慰纬萎 蠈位蠅谓',
       clearAll: '螝伪胃伪蟻喂蟽渭蠈蟼 蠈位蠅谓'
     },
-    // 危蔚位喂未慰蟺慰委畏蟽畏
     pagination: {
       goto: '螠蔚蟿维尾伪蟽畏 蟽蔚',
       page: '',
@@ -404,13 +368,11 @@ export const el: Language = {
       last: '韦蔚位蔚蠀蟿伪委伪',
       pageClassifier: ''
     },
-    // 螘蟺喂尾蔚尾伪委蠅蟽畏 伪谓伪未蠀蠈渭蔚谓慰蠀
     popconfirm: {
       confirm: '螘谓蟿维尉蔚喂',
       cancel: '螒魏蠉蟻蠅蟽畏',
       dontAskAgain: '螠畏谓 蟻蠅蟿萎蟽蔚蟿蔚 尉伪谓维'
     },
-    // 螖喂维位慰纬慰蟼
     dialog: {
       confirm: '螘谓蟿维尉蔚喂',
       cancel: '螒魏蠉蟻蠅蟽畏',
@@ -418,17 +380,14 @@ export const el: Language = {
       maximize: '螠蔚纬喂蟽蟿慰蟺慰委畏蟽畏',
       restore: '螘蟺伪谓伪蠁慰蟻维'
     },
-    // 危蠀蟻蟿维蟻喂
     drawer: {
       close: '螝位蔚委蟽喂渭慰',
       confirm: '螘谓蟿维尉蔚喂',
       cancel: '螒魏蠉蟻蠅蟽畏'
     },
-    // 螒谓伪蟺蟿蠀蟽蟽蠈渭蔚谓畏 位委蟽蟿伪
     dropdown: {
       loading: '桅蠈蟻蟿蠅蟽畏...'
     },
-    // 螘喂魏蠈谓伪
     image: {
       error: '螒螤螣韦违围螜螒',
       loading: '桅蠈蟻蟿蠅蟽畏...',
@@ -440,7 +399,6 @@ export const el: Language = {
       originalSize: '螒蟻蠂喂魏蠈 渭苇纬蔚胃慰蟼',
       fullscreen: '螤位萎蟻畏蟼 慰胃蠈谓畏'
     },
-    // 螤蟻慰尾慰位萎 蔚喂魏蠈谓伪蟼
     imageviewer: {
       close: '螝位蔚委蟽喂渭慰',
       prev: '螤蟻慰畏纬慰蠉渭蔚谓畏',
@@ -453,30 +411,24 @@ export const el: Language = {
       fullscreen: '螤位萎蟻畏蟼 慰胃蠈谓畏',
       exitFullscreen: '螆尉慰未慰蟼 伪蟺蠈 蟺位萎蟻畏 慰胃蠈谓畏'
     },
-    // 螁蟺蔚喂蟻畏 魏蠉位喂蟽畏
     infinitescroll: {
       loading: '桅蠈蟻蟿蠅蟽畏...',
       finished: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 维位位伪 未蔚未慰渭苇谓伪',
       error: '螒蟺慰蟿蠀蠂委伪 蠁蠈蟻蟿蠅蟽畏蟼, 魏维谓蟿蔚 魏位喂魏 纬喂伪 蔚蟺伪谓维位畏蠄畏',
       retry: '螝维谓蟿蔚 魏位喂魏 纬喂伪 蔚蟺伪谓维位畏蠄畏'
     },
-    // 螠萎谓蠀渭伪
     message: {
       close: '螝位蔚委蟽喂渭慰'
     },
-    // 螘喂未慰蟺慰委畏蟽畏
     notification: {
       close: '螝位蔚委蟽喂渭慰'
     },
-    // 桅蠈蟻蟿蠅蟽畏
     loading: {
       text: '桅蠈蟻蟿蠅蟽畏...'
     },
-    // 螤蔚蟻喂蟽蟿蟻慰蠁萎
     spin: {
       text: '桅蠈蟻蟿蠅蟽畏...'
     },
-    // 螒尉喂慰位蠈纬畏蟽畏
     rate: {
       texts: [
         '螘尉伪喂蟻蔚蟿喂魏维 魏伪魏萎',
@@ -486,38 +438,31 @@ export const el: Language = {
         '螘魏蟺位畏魏蟿喂魏蠈蟼'
       ]
     },
-    // 螘喂未慰蟺慰委畏蟽畏
     alert: {
       close: '螝位蔚委蟽喂渭慰'
     },
-    // 螘蟿喂魏苇蟿伪
     tag: {
       close: '螝位蔚委蟽喂渭慰'
     },
-    // 螝伪蟻蟿苇位蔚蟼
     tabs: {
       close: '螝位蔚委蟽喂渭慰',
       add: '螤蟻慰蟽胃萎魏畏',
       more: '螤蔚蟻喂蟽蟽蠈蟿蔚蟻伪'
     },
-    // 螔萎渭伪蟿伪
     steps: {
       finish: '螣位慰魏位畏蟻蠋胃畏魏蔚',
       process: '危蔚 蔚尉苇位喂尉畏',
       wait: '螒谓伪渭慰谓萎',
       error: '危蠁维位渭伪'
     },
-    // 螤蟻蠈慰未慰蟼
     progress: {
       success: '螘蟺喂蟿蠀蠂委伪',
       exception: '螘尉伪委蟻蔚蟽畏',
       warning: '螤蟻慰蔚喂未慰蟺慰委畏蟽畏'
     },
-    // 危魏蔚位蔚蟿蠈蟼
     skeleton: {
       loading: '桅蠈蟻蟿蠅蟽畏...'
     },
-    // 螁未蔚喂慰
     empty: {
       description: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪',
       noData: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪',
@@ -525,7 +470,6 @@ export const el: Language = {
       networkError: '危蠁维位渭伪 未喂魏蟿蠉慰蠀',
       serverError: '危蠁维位渭伪 未喂伪魏慰渭喂蟽蟿萎'
     },
-    // 螒蟺慰蟿苇位蔚蟽渭伪
     result: {
       success: '螘蟺喂蟿蠀蠂委伪',
       error: '危蠁维位渭伪',
@@ -533,78 +477,63 @@ export const el: Language = {
       info: '螤位畏蟻慰蠁慰蟻委伪',
       backHome: '螘蟺喂蟽蟿蟻慰蠁萎 蟽蟿畏谓 伪蟻蠂喂魏萎 蟽蔚位委未伪'
     },
-    // 螝伪蟿伪蟻蟻维魏蟿畏蟼
     waterfall: {
       loading: '桅蠈蟻蟿蠅蟽畏...',
       noMore: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 维位位伪 未蔚未慰渭苇谓伪',
       empty: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪'
     },
-    // 螤蔚蟻喂纬蟻伪蠁苇蟼
     descriptions: {
       colon: ':'
     },
-    // 螣位喂蟽胃畏蟿萎蟻伪蟼
     slider: {
       tipFormatter: '{value}'
     },
-    // 螖喂伪魏蠈蟺蟿畏蟼
     switch: {
       on: 'ON',
       off: 'OFF'
     },
-    // 螝慰蠀蟿委 蔚蟺喂位慰纬萎蟼
     checkbox: {
       selectAll: '螘蟺喂位慰纬萎 蠈位蠅谓'
     },
-    // 巍伪未喂蠈蠁蠅谓慰
     radio: {},
-    // 螠蔚谓慰蠉
     menu: {
       collapse: '危蠉渭蟺蟿蠀尉畏 渭蔚谓慰蠉',
       expand: '螒谓维蟺蟿蠀尉畏 渭蔚谓慰蠉'
     },
-    // 螝维蟻蟿伪
     card: {
       collapse: '危蠉渭蟺蟿蠀尉畏',
       expand: '螒谓维蟺蟿蠀尉畏'
     },
-    // 危蠉渭蟺蟿蠀尉畏
     collapse: {
       expand: '螒谓维蟺蟿蠀尉畏',
       collapse: '危蠉渭蟺蟿蠀尉畏'
     },
-    // 危蠀渭尾慰蠀位萎
     tooltip: {},
-    // 螒谓伪未蠀蠈渭蔚谓慰
     popover: {},
-    // 危萎渭伪
     badge: {},
-    // 螒尾伪蟿维蟻
     avatar: {
       error: '螒蟺慰蟿蠀蠂委伪 蠁蠈蟻蟿蠅蟽畏蟼'
     },
-    // 违未伪蟿蠈蟽畏渭慰
     watermark: {},
-    // 螖喂伪蠂蠅蟻喂蟽蟿喂魏蠈
     divider: {},
-    // 螝伪蟻慰蠉味蔚位
     carousel: {
       prev: '螤蟻慰畏纬慰蠉渭蔚谓畏',
       next: '螘蟺蠈渭蔚谓畏'
     },
-    // 螝喂谓慰蠉渭蔚谓畏 纬蟻伪渭渭萎
     marquee: {},
-    // 危蟿蔚蟻苇蠅蟽畏
     affix: {},
-    // 螁纬魏蠀蟻伪
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: '螤伪蟻伪魏伪位蠋 蔚喂蟽维纬蔚蟿蔚',
       loading: '桅蠈蟻蟿蠅蟽畏...',
       noData: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 未蔚未慰渭苇谓伪'
     },
-    // AI Components
     skuselector: {
       placeholder: '螘蟺喂位苇尉蟿蔚 蟺蟻慰未喂伪纬蟻伪蠁苇蟼',
       emptyText: '螖蔚谓 蠀蟺维蟻蠂慰蠀谓 蟺蟻慰未喂伪纬蟻伪蠁苇蟼',
@@ -707,7 +636,8 @@ export const el: Language = {
         agent: 'Agent',
         document: '螆纬纬蟻伪蠁慰',
         table: '螤委谓伪魏伪蟼',
-        knowledge: '螕谓蠋蟽畏'
+        knowledge: '螕谓蠋蟽畏',
+        file: 'File'
       },
       codeBlock: {
         copyCode: '螒谓蟿喂纬蟻伪蠁萎 魏蠋未喂魏伪',
@@ -727,7 +657,8 @@ export const el: Language = {
       },
       sender: {
         placeholder: '危蟿蔚委位蟿蔚 渭萎谓蠀渭伪...',
-        dragTip: '螒蠁萎蟽蟿蔚 纬喂伪 谓伪 伪谓蔚尾维蟽蔚蟿蔚 伪蟻蠂蔚委伪'
+        dragTip: '螒蠁萎蟽蟿蔚 纬喂伪 谓伪 伪谓蔚尾维蟽蔚蟿蔚 伪蟻蠂蔚委伪',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: '螖喂伪未喂魏伪蟽委伪 危魏苇蠄畏蟼',
@@ -762,7 +693,8 @@ export const el: Language = {
         versions: '螘魏未蠈蟽蔚喂蟼',
         rendering: '螒蟺蠈未慰蟽畏 蟽蟿慰喂蠂蔚委慰蠀...',
         renderingChart: '螒蟺蠈未慰蟽畏 纬蟻伪蠁萎渭伪蟿慰蟼...',
-        renderingCanvas: '螤蟻慰蔚蟿慰喂渭伪蟽委伪 魏伪渭尾维...'
+        renderingCanvas: '螤蟻慰蔚蟿慰喂渭伪蟽委伪 魏伪渭尾维...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: '螝位喂魏 纬喂伪 螣渭喂位委伪',

@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const mg: Language = {
   name: 'mg',
   yh: {
-    // Fitsipika
     common: {
       yes: 'Eny',
       no: 'Tsia',
@@ -27,7 +26,6 @@ export const mg: Language = {
       selectAll: 'Misafidy ny rehetra',
       unselectAll: 'Manafoana ny safidy rehetra'
     },
-    // Mpanoratra loko
     colorpicker: {
       confirm: 'OK',
       clear: 'Fafana',
@@ -37,7 +35,6 @@ export const mg: Language = {
       recentColors: 'Loko vao haingana',
       presetColors: 'Loko voafaritra mialoha'
     },
-    // Mpanoratra daty
     datepicker: {
       now: "Amin'izao fotoana izao",
       today: 'Androany',
@@ -89,7 +86,6 @@ export const mg: Language = {
         q4: 'Q4'
       }
     },
-    // Mpanoratra fotoana
     timepicker: {
       confirm: 'OK',
       cancel: 'Atsahatra',
@@ -99,11 +95,9 @@ export const mg: Language = {
       endPlaceholder: 'Fotoana fiafarana',
       selectTime: 'Misafidy fotoana'
     },
-    // Fidirana fotoana
     timeselect: {
       placeholder: 'Misafidy fotoana'
     },
-    // Hazo
     tree: {
       emptyText: 'Tsy misy angona',
       loading: 'Ampidirina...',
@@ -112,14 +106,12 @@ export const mg: Language = {
       expandAll: 'Ampitomboina ny rehetra',
       collapseAll: 'Ahena ny rehetra'
     },
-    // Fidirana hazo
     treeselect: {
       placeholder: 'Misafidy',
       emptyText: 'Tsy misy angona',
       loading: 'Ampidirina...',
       noMatch: 'Tsy misy angona mifanaraka'
     },
-    // Kalandrie
     calendar: {
       prevMonth: 'Volana teo aloha',
       nextMonth: 'Volana manaraka',
@@ -140,14 +132,12 @@ export const mg: Language = {
         sat: 'Sabotsy'
       }
     },
-    // Fenoana ho azy
     autocomplete: {
       loading: 'Ampidirina...',
       placeholder: 'Ampidiro azafady',
       noData: 'Tsy misy angona',
       noMatch: 'Tsy misy angona mifanaraka'
     },
-    // Fampidirana miverina
     countdown: {
       days: 'andro',
       hours: 'ora',
@@ -156,14 +146,12 @@ export const mg: Language = {
       milliseconds: 'milisegondra',
       finished: 'Vita'
     },
-    // Mpanoratra cascade
     cascader: {
       noMatch: 'Tsy misy angona mifanaraka',
       placeholder: 'Misafidy',
       loading: 'Ampidirina...',
       noData: 'Tsy misy angona'
     },
-    // Fampitana
     transfer: {
       noMatch: 'Tsy misy angona mifanaraka',
       noData: 'Tsy misy angona',
@@ -173,7 +161,6 @@ export const mg: Language = {
       hasCheckedFormat: '{checked}/{total} voafantina',
       searchPlaceholder: 'Ampidiro teny fanalahidy'
     },
-    // Tabilao
     table: {
       emptyText: 'Tsy misy angona',
       confirmFilter: 'Manamarina',
@@ -190,7 +177,6 @@ export const mg: Language = {
       page: 'Pejy {page}',
       yes: 'Eny',
       no: 'Tsia',
-      // Toolbar
       toolbar: {
         refresh: 'Averina',
         density: 'Habe',
@@ -205,7 +191,6 @@ export const mg: Language = {
         search: 'Karohina',
         searchPlaceholder: 'Ampidiro teny fanalahidy karohina'
       },
-      // Filter
       filter: {
         selectAll: 'Misafidy ny rehetra',
         selectInvert: 'Averina ny safidy',
@@ -221,13 +206,11 @@ export const mg: Language = {
         lessThan: 'Kely kokoa noho',
         between: "Eo anelanelan'ny"
       },
-      // Sort
       sort: {
         asc: 'Miakatra',
         desc: 'Midina',
         clear: 'Fafana ny sort'
       },
-      // Export
       export: {
         title: 'Export angona',
         filename: "Anaran'ny rakitra",
@@ -241,7 +224,6 @@ export const mg: Language = {
         success: 'Export nahomby',
         error: 'Export tsy nahomby'
       },
-      // Import
       import: {
         title: 'Import angona',
         selectFile: 'Misafidy rakitra',
@@ -252,7 +234,6 @@ export const mg: Language = {
         preview: 'Fijerena mialoha ny angona',
         confirm: 'Manamarina ny import'
       },
-      // Print
       printConfig: {
         title: 'Fikiraketana fampirinty',
         pageTitle: "Lohatenin'ny pejy",
@@ -265,7 +246,6 @@ export const mg: Language = {
         portrait: 'Mitsangana',
         printing: 'Fampirinty...'
       },
-      // Column Settings
       columnSetting: {
         title: 'Fikiraketana tsanganana',
         showAll: 'Asehoy ny rehetra',
@@ -275,7 +255,6 @@ export const mg: Language = {
         fixedRight: "Mametraka amin'ny ankavanana",
         unfixed: 'Manafoana ny fametrahana'
       },
-      // Context Menu
       contextMenu: {
         copy: 'Nakopy',
         copyRow: 'Nakopy ny tsanganana',
@@ -287,31 +266,26 @@ export const mg: Language = {
         deleteSelectedRows: 'Fafana ny tsanganana voafantina',
         exportSelected: 'Export voafantina'
       },
-      // Selection
       selection: {
         selectAll: 'Misafidy ny rehetra',
         selectInvert: 'Averina ny safidy',
         selectNone: 'Fafana ny safidy',
         selected: '{count} zavatra voafantina'
       },
-      // Expand
       expand: {
         expandAll: 'Ampitomboina ny rehetra',
         collapseAll: 'Ahena ny rehetra'
       },
-      // Tree
       tree: {
         expandAll: 'Ampitomboina ny rehetra',
         collapseAll: 'Ahena ny rehetra',
         expandLevel: "Ampitomboina amin'ny ambaratonga {level}"
       },
-      // Drag
       drag: {
         dragTip: 'Sinty mba hanova ny filaharana',
         dropTip: 'Avelao mba hametraka'
       }
     },
-    // Message Box
     messagebox: {
       title: 'Hafatra',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const mg: Language = {
       prompt: 'Fampitandremana',
       inputPlaceholder: 'Ampidiro azafady'
     },
-    // Upload
     upload: {
       deleteTip: 'tsindrio delete mba hanafoana',
       delete: 'Fafana',
@@ -340,18 +313,15 @@ export const mg: Language = {
       fileSizeError: 'Habe rakitra mihoatra ny fetra',
       fileCountError: "Isan'ny rakitra mihoatra ny fetra"
     },
-    // Form
     form: {
       validationFailed: 'Fanamarinana tsy nahomby',
       required: 'Ilaina',
       pleaseInput: 'Ampidiro azafady',
       pleaseSelect: 'Safidio azafady'
     },
-    // Button
     button: {
       loading: 'Ampidirina...'
     },
-    // Input
     input: {
       placeholder: 'Ampidiro azafady',
       clear: 'Fafana',
@@ -360,28 +330,23 @@ export const mg: Language = {
       copy: 'Nakopy',
       copied: 'Nakopy'
     },
-    // Input Number
     inputnumber: {
       placeholder: 'Ampidiro isa azafady',
       increase: 'Ampitomboina',
       decrease: 'Ahena'
     },
-    // Input Tag
     inputtag: {
       placeholder: 'Ampidiro azafady',
       add: 'Ampidirina',
       remove: 'Esorina'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Lalana',
       more: 'Bebe kokoa'
     },
-    // Back Top
     backtop: {
       text: 'Miverina any ambony'
     },
-    // Select
     select: {
       placeholder: 'Safidio azafady',
       noData: 'Tsy misy angona',
@@ -390,7 +355,6 @@ export const mg: Language = {
       selectAll: 'Misafidy ny rehetra',
       clearAll: 'Fafana ny rehetra'
     },
-    // Pagination
     pagination: {
       goto: 'Mandeha',
       page: '',
@@ -402,13 +366,11 @@ export const mg: Language = {
       last: 'Farany',
       pageClassifier: ''
     },
-    // Popconfirm
     popconfirm: {
       confirm: 'OK',
       cancel: 'Atsahatra',
       dontAskAgain: 'Aza manontany indray'
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Atsahatra',
@@ -416,17 +378,14 @@ export const mg: Language = {
       maximize: 'Ampitomboina',
       restore: 'Averina'
     },
-    // Drawer
     drawer: {
       close: 'Akatona',
       confirm: 'OK',
       cancel: 'Atsahatra'
     },
-    // Dropdown
     dropdown: {
       loading: 'Ampidirina...'
     },
-    // Image
     image: {
       error: 'TSY NAHOMBY',
       loading: 'Ampidirina...',
@@ -438,7 +397,6 @@ export const mg: Language = {
       originalSize: 'Habe tany am-boalohany',
       fullscreen: 'Efijery feno'
     },
-    // Image Viewer
     imageviewer: {
       close: 'Akatona',
       prev: 'Teo aloha',
@@ -451,65 +409,52 @@ export const mg: Language = {
       fullscreen: 'Efijery feno',
       exitFullscreen: "Mivoaka amin'ny efijery feno"
     },
-    // Infinite Scroll
     infinitescroll: {
       loading: 'Ampidirina...',
       finished: 'Tsy misy angona intsony',
       error: 'Fampidirana tsy nahomby, tsindrio mba handramana indray',
       retry: 'Tsindrio mba handramana indray'
     },
-    // Message
     message: {
       close: 'Akatona'
     },
-    // Notification
     notification: {
       close: 'Akatona'
     },
-    // Loading
     loading: {
       text: 'Ampidirina...'
     },
-    // Spin
     spin: {
       text: 'Ampidirina...'
     },
-    // Rate
     rate: {
       texts: ['Ratsy be', 'Diso fanantenana', 'Mahitsy', 'Afaka', 'Gaga']
     },
-    // Alert
     alert: {
       close: 'Akatona'
     },
-    // Tag
     tag: {
       close: 'Akatona'
     },
-    // Tabs
     tabs: {
       close: 'Akatona',
       add: 'Ampidirina',
       more: 'Bebe kokoa'
     },
-    // Steps
     steps: {
       finish: 'Vita',
       process: 'Mandeha',
       wait: 'Miandry',
       error: 'Fahadisoana'
     },
-    // Progress
     progress: {
       success: 'Nahomby',
       exception: 'Tsy ara-dalàna',
       warning: 'Fampitandremana'
     },
-    // Skeleton
     skeleton: {
       loading: 'Ampidirina...'
     },
-    // Empty
     empty: {
       description: 'Tsy misy angona',
       noData: 'Tsy misy angona',
@@ -517,7 +462,6 @@ export const mg: Language = {
       networkError: 'Fahadisoana tambajotra',
       serverError: 'Fahadisoana server'
     },
-    // Result
     result: {
       success: 'Nahomby',
       error: 'Fahadisoana',
@@ -525,72 +469,58 @@ export const mg: Language = {
       info: 'Fampahalalana',
       backHome: 'Miverina any an-tranony'
     },
-    // Waterfall
     waterfall: {
       loading: 'Ampidirina...',
       noMore: 'Tsy misy angona intsony',
       empty: 'Tsy misy angona'
     },
-    // Descriptions
     descriptions: {
       colon: ':'
     },
-    // Slider
     slider: {
       tipFormatter: '{value}'
     },
-    // Switch
     switch: {
       on: 'ON',
       off: 'OFF'
     },
-    // Checkbox
     checkbox: {
       selectAll: 'Misafidy ny rehetra'
     },
-    // Radio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Ahena ny menu',
       expand: 'Ampitomboina ny menu'
     },
-    // Card
     card: {
       collapse: 'Ahena',
       expand: 'Ampitomboina'
     },
-    // Collapse
     collapse: {
       expand: 'Ampitomboina',
       collapse: 'Ahena'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Badge
     badge: {},
-    // Avatar
     avatar: {
       error: 'Fampidirana tsy nahomby'
     },
-    // Watermark
     watermark: {},
-    // Divider
     divider: {},
-    // Carousel
     carousel: {
       prev: 'Teo aloha',
       next: 'Manaraka'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Anchor
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Azafady ampidiro',
       loading: 'Miantso...',
@@ -687,7 +617,6 @@ export const mg: Language = {
       galleryItem: 'Galeria {index}',
       close: 'Akatona'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Loharano'
@@ -697,7 +626,8 @@ export const mg: Language = {
         agent: 'Agent',
         document: 'Tahirin-kevitra',
         table: 'Latabatra',
-        knowledge: 'Fahalalana'
+        knowledge: 'Fahalalana',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Adikao ny kaody',
@@ -716,7 +646,8 @@ export const mg: Language = {
       },
       sender: {
         placeholder: 'Alefaso hafatra...',
-        dragTip: 'Avelano hampiditra rakitra'
+        dragTip: 'Avelano hampiditra rakitra',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Rafitravin-tanteraka',
@@ -751,7 +682,8 @@ export const mg: Language = {
         versions: 'Dikan-teny',
         rendering: 'Manome endrika singa...',
         renderingChart: 'Manome endrika sary...',
-        renderingCanvas: 'Manome endrika canvas...'
+        renderingCanvas: 'Manome endrika canvas...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Kitiho hilaza',

@@ -76,7 +76,39 @@ async function emitBaseStyleBundle() {
   await fs.writeFile(styleOutput, `${css}\n`, 'utf8')
 }
 
+async function inlineYhUiVersion() {
+  if (packageName !== 'yh-ui') return
+
+  const pkgJsonPath = path.join(packageRoot, 'package.json')
+  const pkgJsonContent = await fs.readFile(pkgJsonPath, 'utf8')
+  const { version } = JSON.parse(pkgJsonContent)
+
+  const mjsPath = path.join(distDir, 'index.mjs')
+  if (await exists(mjsPath)) {
+    let content = await fs.readFile(mjsPath, 'utf8')
+    content = content.replace(/import\s+packageJson\s+from\s+["']\.\.\/package\.json["']\s+with\s+\{\s*type:\s*["']json["']\s*\};?/g, '')
+    content = content.replace(/export\s+const\s+version\s+=\s+packageJson\.version;?/g, `export const version = "${version}";`)
+    await fs.writeFile(mjsPath, content, 'utf8')
+  }
+
+  const cjsPath = path.join(distDir, 'index.cjs')
+  if (await exists(cjsPath)) {
+    let content = await fs.readFile(cjsPath, 'utf8')
+    content = content.replace(/var\s+_package\s+=\s+_interopRequireDefault\(require\(["']\.\.\/package\.json["']\)\);?/g, `var _package = { default: { version: "${version}" } };`)
+    content = content.replace(/const\s+version\s+=\s+exports\.version\s+=\s+_package\.default\.version;?/g, `const version = exports.version = "${version}";`)
+    await fs.writeFile(cjsPath, content, 'utf8')
+  }
+
+  const dtsPath = path.join(distDir, 'index.d.ts')
+  if (await exists(dtsPath)) {
+    let content = await fs.readFile(dtsPath, 'utf8')
+    content = content.replace(/export\s+declare\s+const\s+version:\s+any;?/g, 'export declare const version: string;')
+    await fs.writeFile(dtsPath, content, 'utf8')
+  }
+}
+
 await rewriteDistImports()
 await emitBaseStyleBundle()
+await inlineYhUiVersion()
 
 console.log(`[post-build-styles] Processed ${packageName}`)

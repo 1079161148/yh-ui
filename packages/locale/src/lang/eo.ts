@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const eo: Language = {
   name: 'eo',
   yh: {
-    // Komuna
     common: {
       yes: 'Jes',
       no: 'Ne',
@@ -27,7 +26,6 @@ export const eo: Language = {
       selectAll: 'Elekti ĉion',
       unselectAll: 'Malplenigi elekton'
     },
-    // Kolorselektilo
     colorpicker: {
       confirm: 'Bone',
       clear: 'Malplenigi',
@@ -37,7 +35,6 @@ export const eo: Language = {
       recentColors: 'Lastaj koloroj',
       presetColors: 'Antaŭdifinitaj koloroj'
     },
-    // Datoselektilo
     datepicker: {
       now: 'Nun',
       today: 'Hodiaŭ',
@@ -89,7 +86,6 @@ export const eo: Language = {
         q4: 'Q4'
       }
     },
-    // Temposelektilo
     timepicker: {
       confirm: 'Bone',
       cancel: 'Nuligi',
@@ -99,11 +95,9 @@ export const eo: Language = {
       endPlaceholder: 'Fina tempo',
       selectTime: 'Elekti tempon'
     },
-    // Tempoelekto
     timeselect: {
       placeholder: 'Elekti tempon'
     },
-    // Arbo
     tree: {
       emptyText: 'Neniu datumaro',
       loading: 'Ŝarĝado...',
@@ -112,14 +106,12 @@ export const eo: Language = {
       expandAll: 'Etendi ĉion',
       collapseAll: 'Faldi ĉion'
     },
-    // Arboselekto
     treeselect: {
       placeholder: 'Elekti',
       emptyText: 'Neniu datumaro',
       loading: 'Ŝarĝado...',
       noMatch: 'Neniu kongruo'
     },
-    // Kalendaro
     calendar: {
       prevMonth: 'Antaŭa monato',
       nextMonth: 'Sekva monato',
@@ -140,14 +132,12 @@ export const eo: Language = {
         sat: 'Sab'
       }
     },
-    // Aŭtomata kompletigo
     autocomplete: {
       loading: 'Ŝarĝado...',
       placeholder: 'Bonvolu enigi',
       noData: 'Neniu datumaro',
       noMatch: 'Neniu kongruo'
     },
-    // Malantaŭen kalkulo
     countdown: {
       days: 'tagoj',
       hours: 'horoj',
@@ -156,14 +146,12 @@ export const eo: Language = {
       milliseconds: 'milisekundoj',
       finished: 'Finita'
     },
-    // Kaskada selektilo
     cascader: {
       noMatch: 'Neniu kongruo',
       placeholder: 'Elekti',
       loading: 'Ŝarĝado...',
       noData: 'Neniu datumaro'
     },
-    // Transigo
     transfer: {
       noMatch: 'Neniu kongruo',
       noData: 'Neniu datumaro',
@@ -173,7 +161,6 @@ export const eo: Language = {
       hasCheckedFormat: '{checked}/{total} elektitaj',
       searchPlaceholder: 'Enigi ŝlosilvorton'
     },
-    // Tabelo
     table: {
       emptyText: 'Neniu datumaro',
       confirmFilter: 'Konfirmi',
@@ -190,7 +177,6 @@ export const eo: Language = {
       page: 'Paĝo {page}',
       yes: 'Jes',
       no: 'Ne',
-      // Ilobreto
       toolbar: {
         refresh: 'Refreŝigi',
         density: 'Denseco',
@@ -205,7 +191,6 @@ export const eo: Language = {
         search: 'Serĉi',
         searchPlaceholder: 'Enigi ŝlosilvortojn por serĉi'
       },
-      // Filtrilo
       filter: {
         selectAll: 'Elekti ĉion',
         selectInvert: 'Inversigi elekton',
@@ -221,13 +206,11 @@ export const eo: Language = {
         lessThan: 'Pli malgranda ol',
         between: 'Inter'
       },
-      // Ordigi
       sort: {
         asc: 'Kreskanta',
         desc: 'Malkreskanta',
         clear: 'Malplenigi ordigon'
       },
-      // Eksporti
       export: {
         title: 'Eksporti datumaron',
         filename: 'Dosiernomo',
@@ -241,7 +224,6 @@ export const eo: Language = {
         success: 'Eksporto sukcesis',
         error: 'Eksporto malsukcesis'
       },
-      // Importi
       import: {
         title: 'Importi datumaron',
         selectFile: 'Elekti dosieron',
@@ -252,7 +234,6 @@ export const eo: Language = {
         preview: 'Datumara antaŭrigardo',
         confirm: 'Konfirmi importon'
       },
-      // Presi
       printConfig: {
         title: 'Presaj agordoj',
         pageTitle: 'Paĝa titolo',
@@ -265,7 +246,6 @@ export const eo: Language = {
         portrait: 'Vertikala',
         printing: 'Presado...'
       },
-      // Kolumno agordoj
       columnSetting: {
         title: 'Kolumno agordoj',
         showAll: 'Montri ĉion',
@@ -275,7 +255,6 @@ export const eo: Language = {
         fixedRight: 'Fiksi dekstren',
         unfixed: 'Malplenigi fikson'
       },
-      // Kunteksta menuo
       contextMenu: {
         copy: 'Kopii',
         copyRow: 'Kopii vicon',
@@ -287,31 +266,26 @@ export const eo: Language = {
         deleteSelectedRows: 'Forigi elektitajn vicojn',
         exportSelected: 'Eksporti elektitan'
       },
-      // Elekto
       selection: {
         selectAll: 'Elekti ĉion',
         selectInvert: 'Inversigi elekton',
         selectNone: 'Malplenigi elekton',
         selected: '{count} eroj elektitaj'
       },
-      // Etendi
       expand: {
         expandAll: 'Etendi ĉion',
         collapseAll: 'Faldi ĉion'
       },
-      // Arbo
       tree: {
         expandAll: 'Etendi ĉion',
         collapseAll: 'Faldi ĉion',
         expandLevel: 'Etendi al nivelo {level}'
       },
-      // Treni
       drag: {
         dragTip: 'Treni por reordigi',
         dropTip: 'Demeti por meti'
       }
     },
-    // Mesaĝa skatolo
     messagebox: {
       title: 'Mesaĝo',
       confirm: 'Bone',
@@ -322,7 +296,6 @@ export const eo: Language = {
       prompt: 'Peti',
       inputPlaceholder: 'Bonvolu enigi'
     },
-    // Alŝuti
     upload: {
       deleteTip: 'premu delete por forigi',
       delete: 'Forigi',
@@ -340,18 +313,15 @@ export const eo: Language = {
       fileSizeError: 'Dosiergrando superas limon',
       fileCountError: 'Dosiernombro superas limon'
     },
-    // Formularo
     form: {
       validationFailed: 'Validado malsukcesis',
       required: 'Postulata',
       pleaseInput: 'Bonvolu enigi',
       pleaseSelect: 'Bonvolu elekti'
     },
-    // Butono
     button: {
       loading: 'Ŝarĝado...'
     },
-    // Enigo
     input: {
       placeholder: 'Bonvolu enigi',
       clear: 'Malplenigi',
@@ -360,28 +330,23 @@ export const eo: Language = {
       copy: 'Kopii',
       copied: 'Kopiita'
     },
-    // Nombra enigo
     inputnumber: {
       placeholder: 'Bonvolu enigi nombron',
       increase: 'Pliigi',
       decrease: 'Malpliigi'
     },
-    // Etikeda enigo
     inputtag: {
       placeholder: 'Bonvolu enigi',
       add: 'Aldoni',
       remove: 'Forigi'
     },
-    // Panero
     breadcrumb: {
       label: 'Panero',
       more: 'Pli'
     },
-    // Reen supre
     backtop: {
       text: 'Reen supre'
     },
-    // Selektilo
     select: {
       placeholder: 'Bonvolu elekti',
       noData: 'Neniu datumaro',
@@ -390,7 +355,6 @@ export const eo: Language = {
       selectAll: 'Elekti ĉion',
       clearAll: 'Malplenigi ĉion'
     },
-    // Paĝigo
     pagination: {
       goto: 'Iri al',
       page: '',
@@ -402,13 +366,11 @@ export const eo: Language = {
       last: 'Lasta',
       pageClassifier: ''
     },
-    // Popkonfirmo
     popconfirm: {
       confirm: 'Bone',
       cancel: 'Nuligi',
       dontAskAgain: 'Ne demandi denove'
     },
-    // Dialogo
     dialog: {
       confirm: 'Bone',
       cancel: 'Nuligi',
@@ -416,17 +378,14 @@ export const eo: Language = {
       maximize: 'Maksimumigi',
       restore: 'Restaŭri'
     },
-    // Tirkesto
     drawer: {
       close: 'Fermi',
       confirm: 'Bone',
       cancel: 'Nuligi'
     },
-    // Falmenuo
     dropdown: {
       loading: 'Ŝarĝado...'
     },
-    // Bildo
     image: {
       error: 'MALSUKCESIS',
       loading: 'Ŝarĝado...',
@@ -438,7 +397,6 @@ export const eo: Language = {
       originalSize: 'Originala grandeco',
       fullscreen: 'Plena ekrano'
     },
-    // Bilda spektanto
     imageviewer: {
       close: 'Fermi',
       prev: 'Antaŭa',
@@ -451,65 +409,52 @@ export const eo: Language = {
       fullscreen: 'Plena ekrano',
       exitFullscreen: 'Eliri plenan ekranon'
     },
-    // Senfina rulumado
     infinitescroll: {
       loading: 'Ŝarĝado...',
       finished: 'Neniu plia datumaro',
       error: 'Ŝarĝado malsukcesis, klaku por reprovi',
       retry: 'Klaku por reprovi'
     },
-    // Mesaĝo
     message: {
       close: 'Fermi'
     },
-    // Sciigo
     notification: {
       close: 'Fermi'
     },
-    // Ŝarĝado
     loading: {
       text: 'Ŝarĝado...'
     },
-    // Spino
     spin: {
       text: 'Ŝarĝado...'
     },
-    // Takso
     rate: {
       texts: ['Ekstreme malbona', 'Seniluziiĝinta', 'Justa', 'Kontenta', 'Surprizita']
     },
-    // Averto
     alert: {
       close: 'Fermi'
     },
-    // Etikedo
     tag: {
       close: 'Fermi'
     },
-    // Langetoj
     tabs: {
       close: 'Fermi',
       add: 'Aldoni',
       more: 'Pli'
     },
-    // Paŝoj
     steps: {
       finish: 'Finita',
       process: 'En progreso',
       wait: 'Atendante',
       error: 'Eraro'
     },
-    // Progreso
     progress: {
       success: 'Sukceso',
       exception: 'Escepto',
       warning: 'Averto'
     },
-    // Skeletono
     skeleton: {
       loading: 'Ŝarĝado...'
     },
-    // Malplena
     empty: {
       description: 'Neniu datumaro',
       noData: 'Neniu datumaro',
@@ -517,7 +462,6 @@ export const eo: Language = {
       networkError: 'Reta eraro',
       serverError: 'Servila eraro'
     },
-    // Rezulto
     result: {
       success: 'Sukceso',
       error: 'Eraro',
@@ -525,78 +469,63 @@ export const eo: Language = {
       info: 'Informo',
       backHome: 'Reen al hejmo'
     },
-    // Akvofalo
     waterfall: {
       loading: 'Ŝarĝado...',
       noMore: 'Neniu plia datumaro',
       empty: 'Neniu datumaro'
     },
-    // Priskriboj
     descriptions: {
       colon: ':'
     },
-    // Glitilo
     slider: {
       tipFormatter: '{value}'
     },
-    // Ŝaltilo
     switch: {
       on: 'ŜALTITA',
       off: 'MALŜALTITA'
     },
-    // Markobutono
     checkbox: {
       selectAll: 'Elekti ĉion'
     },
-    // Radio
     radio: {},
-    // Menuo
     menu: {
       collapse: 'Faldi menuon',
       expand: 'Etendi menuon'
     },
-    // Karto
     card: {
       collapse: 'Faldi',
       expand: 'Etendi'
     },
-    // Faldi
     collapse: {
       expand: 'Etendi',
       collapse: 'Faldi'
     },
-    // Konsilo
     tooltip: {},
-    // Popover
     popover: {},
-    // Emblemo
     badge: {},
-    // Avataro
     avatar: {
       error: 'Ŝarĝado malsukcesis'
     },
-    // Akvomarko
     watermark: {},
-    // Dividilo
     divider: {},
-    // Karuselo
     carousel: {
       prev: 'Antaŭa',
       next: 'Sekva'
     },
-    // Marqueo
     marquee: {},
-    // Afikso
     affix: {},
-    // Ankro
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Bonvolu enigi',
       loading: 'Ŝarĝante...',
       noData: 'Neniuj datumoj'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Elektu specifojn',
       emptyText: 'Neniuj specifoj',
@@ -697,7 +626,8 @@ export const eo: Language = {
         agent: 'Agento',
         document: 'Dokumento',
         table: 'Tabelo',
-        knowledge: 'Scio'
+        knowledge: 'Scio',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopii kodon',
@@ -716,7 +646,8 @@ export const eo: Language = {
       },
       sender: {
         placeholder: 'Sendi mesaĝon...',
-        dragTip: 'Lasu por alŝuti dosierojn'
+        dragTip: 'Lasu por alŝuti dosierojn',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Pensa procezo',
@@ -751,7 +682,8 @@ export const eo: Language = {
         versions: 'Versioj',
         rendering: 'Renderante komponenton...',
         renderingChart: 'Renderante diagramon...',
-        renderingCanvas: 'Preparante kanvason...'
+        renderingCanvas: 'Preparante kanvason...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Alklaku por paroli',

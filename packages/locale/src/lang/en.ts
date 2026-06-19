@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const en: Language = {
   name: 'en',
   yh: {
-    // Common
     common: {
       yes: 'Yes',
       no: 'No',
@@ -27,7 +26,6 @@ export const en: Language = {
       selectAll: 'Select All',
       unselectAll: 'Unselect All'
     },
-    // Color Picker
     colorpicker: {
       confirm: 'OK',
       clear: 'Clear',
@@ -37,7 +35,6 @@ export const en: Language = {
       recentColors: 'Recent Colors',
       presetColors: 'Preset Colors'
     },
-    // Date Picker
     datepicker: {
       now: 'Now',
       today: 'Today',
@@ -89,7 +86,6 @@ export const en: Language = {
         q4: 'Q4'
       }
     },
-    // Time Picker
     timepicker: {
       confirm: 'OK',
       cancel: 'Cancel',
@@ -99,11 +95,9 @@ export const en: Language = {
       endPlaceholder: 'End time',
       selectTime: 'Select time'
     },
-    // Time Select
     timeselect: {
       placeholder: 'Select time'
     },
-    // Tree
     tree: {
       emptyText: 'No Data',
       loading: 'Loading...',
@@ -112,14 +106,12 @@ export const en: Language = {
       expandAll: 'Expand All',
       collapseAll: 'Collapse All'
     },
-    // Tree Select
     treeselect: {
       placeholder: 'Select',
       emptyText: 'No Data',
       loading: 'Loading...',
       noMatch: 'No matching data'
     },
-    // Calendar
     calendar: {
       prevMonth: 'Previous Month',
       nextMonth: 'Next Month',
@@ -140,14 +132,12 @@ export const en: Language = {
         sat: 'Sat'
       }
     },
-    // Autocomplete
     autocomplete: {
       loading: 'Loading...',
       placeholder: 'Please input',
       noData: 'No Data',
       noMatch: 'No matching data'
     },
-    // Countdown
     countdown: {
       days: 'days',
       hours: 'hours',
@@ -156,14 +146,12 @@ export const en: Language = {
       milliseconds: 'milliseconds',
       finished: 'Finished'
     },
-    // Cascader
     cascader: {
       noMatch: 'No matching data',
       placeholder: 'Select',
       loading: 'Loading...',
       noData: 'No Data'
     },
-    // Transfer
     transfer: {
       noMatch: 'No matching data',
       noData: 'No data',
@@ -173,7 +161,6 @@ export const en: Language = {
       hasCheckedFormat: '{checked}/{total} checked',
       searchPlaceholder: 'Enter keyword'
     },
-    // Table
     table: {
       emptyText: 'No Data',
       confirmFilter: 'Confirm',
@@ -190,7 +177,6 @@ export const en: Language = {
       page: 'Page {page}',
       yes: 'Yes',
       no: 'No',
-      // Toolbar
       toolbar: {
         refresh: 'Refresh',
         density: 'Density',
@@ -205,7 +191,6 @@ export const en: Language = {
         search: 'Search',
         searchPlaceholder: 'Enter keywords to search'
       },
-      // Filter
       filter: {
         selectAll: 'Select All',
         selectInvert: 'Invert Selection',
@@ -221,13 +206,11 @@ export const en: Language = {
         lessThan: 'Less Than',
         between: 'Between'
       },
-      // Sort
       sort: {
         asc: 'Ascending',
         desc: 'Descending',
         clear: 'Clear Sort'
       },
-      // Export
       export: {
         title: 'Export Data',
         filename: 'Filename',
@@ -241,7 +224,6 @@ export const en: Language = {
         success: 'Export Successful',
         error: 'Export Failed'
       },
-      // Import
       import: {
         title: 'Import Data',
         selectFile: 'Select File',
@@ -252,7 +234,6 @@ export const en: Language = {
         preview: 'Data Preview',
         confirm: 'Confirm Import'
       },
-      // Print
       printConfig: {
         title: 'Print Settings',
         pageTitle: 'Page Title',
@@ -265,7 +246,6 @@ export const en: Language = {
         portrait: 'Portrait',
         printing: 'Printing...'
       },
-      // Column Settings
       columnSetting: {
         title: 'Column Settings',
         showAll: 'Show All',
@@ -275,7 +255,6 @@ export const en: Language = {
         fixedRight: 'Fix to Right',
         unfixed: 'Unfix'
       },
-      // Context Menu
       contextMenu: {
         copy: 'Copy',
         copyRow: 'Copy Row',
@@ -287,31 +266,26 @@ export const en: Language = {
         deleteSelectedRows: 'Delete Selected Rows',
         exportSelected: 'Export Selected'
       },
-      // Selection
       selection: {
         selectAll: 'Select All',
         selectInvert: 'Invert Selection',
         selectNone: 'Clear Selection',
         selected: '{count} items selected'
       },
-      // Expand
       expand: {
         expandAll: 'Expand All',
         collapseAll: 'Collapse All'
       },
-      // Tree
       tree: {
         expandAll: 'Expand All',
         collapseAll: 'Collapse All',
         expandLevel: 'Expand to Level {level}'
       },
-      // Drag
       drag: {
         dragTip: 'Drag to reorder',
         dropTip: 'Drop to place'
       }
     },
-    // Message Box
     messagebox: {
       title: 'Message',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const en: Language = {
       prompt: 'Prompt',
       inputPlaceholder: 'Please input'
     },
-    // Upload
     upload: {
       deleteTip: 'press delete to remove',
       delete: 'Delete',
@@ -340,18 +313,15 @@ export const en: Language = {
       fileSizeError: 'File size exceeds limit',
       fileCountError: 'File count exceeds limit'
     },
-    // Form
     form: {
       validationFailed: 'Validation failed',
       required: 'Required',
       pleaseInput: 'Please input',
       pleaseSelect: 'Please select'
     },
-    // Button
     button: {
       loading: 'Loading...'
     },
-    // Input
     input: {
       placeholder: 'Please input',
       clear: 'Clear',
@@ -360,28 +330,23 @@ export const en: Language = {
       copy: 'Copy',
       copied: 'Copied'
     },
-    // Input Number
     inputnumber: {
       placeholder: 'Please input number',
       increase: 'Increase',
       decrease: 'Decrease'
     },
-    // Input Tag
     inputtag: {
       placeholder: 'Please input',
       add: 'Add',
       remove: 'Remove'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'More'
     },
-    // Back Top
     backtop: {
       text: 'Back to Top'
     },
-    // Select
     select: {
       placeholder: 'Please select',
       noData: 'No Data',
@@ -390,7 +355,6 @@ export const en: Language = {
       selectAll: 'Select All',
       clearAll: 'Clear All'
     },
-    // Pagination
     pagination: {
       goto: 'Go to',
       page: '',
@@ -402,13 +366,11 @@ export const en: Language = {
       last: 'Last',
       pageClassifier: ''
     },
-    // Popconfirm
     popconfirm: {
       confirm: 'OK',
       cancel: 'Cancel',
       dontAskAgain: "Don't ask again"
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Cancel',
@@ -416,17 +378,14 @@ export const en: Language = {
       maximize: 'Maximize',
       restore: 'Restore'
     },
-    // Drawer
     drawer: {
       close: 'Close',
       confirm: 'OK',
       cancel: 'Cancel'
     },
-    // Dropdown
     dropdown: {
       loading: 'Loading...'
     },
-    // Image
     image: {
       error: 'FAILED',
       loading: 'Loading...',
@@ -438,7 +397,6 @@ export const en: Language = {
       originalSize: 'Original Size',
       fullscreen: 'Fullscreen'
     },
-    // Image Viewer
     imageviewer: {
       close: 'Close',
       prev: 'Previous',
@@ -451,65 +409,52 @@ export const en: Language = {
       fullscreen: 'Fullscreen',
       exitFullscreen: 'Exit Fullscreen'
     },
-    // Infinite Scroll
     infinitescroll: {
       loading: 'Loading...',
       finished: 'No more data',
       error: 'Load failed, click to retry',
       retry: 'Click to retry'
     },
-    // Message
     message: {
       close: 'Close'
     },
-    // Notification
     notification: {
       close: 'Close'
     },
-    // Loading
     loading: {
       text: 'Loading...'
     },
-    // Spin
     spin: {
       text: 'Loading...'
     },
-    // Rate
     rate: {
       texts: ['Extremely poor', 'Disappointed', 'Fair', 'Satisfied', 'Surprised']
     },
-    // Alert
     alert: {
       close: 'Close'
     },
-    // Tag
     tag: {
       close: 'Close'
     },
-    // Tabs
     tabs: {
       close: 'Close',
       add: 'Add',
       more: 'More'
     },
-    // Steps
     steps: {
       finish: 'Finished',
       process: 'In Progress',
       wait: 'Waiting',
       error: 'Error'
     },
-    // Progress
     progress: {
       success: 'Success',
       exception: 'Exception',
       warning: 'Warning'
     },
-    // Skeleton
     skeleton: {
       loading: 'Loading...'
     },
-    // Empty
     empty: {
       description: 'No Data',
       noData: 'No Data',
@@ -517,7 +462,6 @@ export const en: Language = {
       networkError: 'Network Error',
       serverError: 'Server Error'
     },
-    // Result
     result: {
       success: 'Success',
       error: 'Error',
@@ -525,85 +469,63 @@ export const en: Language = {
       info: 'Info',
       backHome: 'Back to Home'
     },
-    // Waterfall
     waterfall: {
       loading: 'Loading...',
       noMore: 'No more data',
       empty: 'No Data'
     },
-    // Descriptions
     descriptions: {
       colon: ':'
     },
-    // Slider
     slider: {
       tipFormatter: '{value}'
     },
-    // Switch
     switch: {
       on: 'ON',
       off: 'OFF'
     },
-    // Checkbox
     checkbox: {
       selectAll: 'Select All'
     },
-    // Radio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Collapse Menu',
       expand: 'Expand Menu'
     },
-    // Card
     card: {
       collapse: 'Collapse',
       expand: 'Expand'
     },
-    // Collapse
     collapse: {
       expand: 'Expand',
       collapse: 'Collapse'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Badge
     badge: {},
-    // Avatar
     avatar: {
       error: 'Load failed'
     },
-    // Watermark
     watermark: {},
-    // Divider
     divider: {},
-    // Carousel
     carousel: {
       prev: 'Previous',
       next: 'Next'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Flow
     flow: {
       zoomIn: 'Zoom In',
       zoomOut: 'Zoom Out',
       fitView: 'Fit View',
       lock: 'Toggle Interactivity'
     },
-    // Anchor
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Please input',
       loading: 'Loading...',
       noData: 'No Data'
     },
-    // SKU Selector
     skuselector: {
       placeholder: 'Select specifications',
       emptyText: 'No specifications',
@@ -612,7 +534,6 @@ export const en: Language = {
       selected: 'Selected',
       outOfStock: 'Out of Stock'
     },
-    // Product Card
     productcard: {
       viewDetails: 'View Details',
       buyNow: 'Buy Now',
@@ -621,11 +542,9 @@ export const en: Language = {
       soldOut: 'Sold Out',
       vip: 'VIP'
     },
-    // Price
     price: {
       original: 'Original'
     },
-    // Coupon Card
     couponcard: {
       available: 'Claim Now',
       used: 'Used',
@@ -636,14 +555,12 @@ export const en: Language = {
       validPeriod: 'Validity',
       ruleTitle: 'Usage Rules'
     },
-    // Lucky Draw
     luckydraw: {
       start: 'Start',
       drawing: 'Drawing...',
       end: 'Winner!',
       retry: 'Retry'
     },
-    // Filter Bar
     filterbar: {
       all: 'All',
       sort: 'Sort',
@@ -656,20 +573,17 @@ export const en: Language = {
       desc: 'Descending',
       selected: 'Selected'
     },
-    // Submit Bar
     submitbar: {
       total: 'Total: ',
       selected: '{count} selected',
       submit: 'Checkout',
       allSelect: 'Select All'
     },
-    // Category Nav
     categorynav: {
       all: 'All',
       noData: 'No Data',
       loading: 'Loading...'
     },
-    // Smart Address
     smartaddress: {
       placeholder: 'Paste address here, auto-detect name, phone, location',
       parse: 'Smart Parse',
@@ -703,7 +617,6 @@ export const en: Language = {
       galleryItem: 'Gallery {index}',
       close: 'Close'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Citations'
@@ -776,7 +689,6 @@ export const en: Language = {
         trigger: 'Click to Speak',
         listening: 'Listening...'
       },
-      // AiAgentCard
       agent: {
         uses: 'uses',
         use: 'Use Now',
@@ -792,7 +704,6 @@ export const en: Language = {
         responseTime: 'Avg. Response',
         ms: 'ms'
       },
-      // AiSources
       sources: {
         references: 'References',
         referencedSources: 'Referenced Sources',
@@ -810,7 +721,6 @@ export const en: Language = {
         earlier: 'Earlier',
         pinned: 'Pinned'
       },
-      // AiConversations groups
       conversations: {
         today: 'Today',
         last7Days: 'Last 7 Days',
@@ -825,7 +735,6 @@ export const en: Language = {
         delete: 'Delete',
         deleteConfirm: 'Confirm delete this conversation?'
       },
-      // AiAttachments
       attachments: {
         dropTip: 'Drop files here to upload',
         clickToUpload: 'Click or drag files to upload',
@@ -835,7 +744,6 @@ export const en: Language = {
         fileTooLarge: 'File size cannot exceed {size}',
         invalidFileType: 'Invalid file type'
       },
-      // AiMermaid
       mermaid: {
         image: 'Image',
         code: 'Code',

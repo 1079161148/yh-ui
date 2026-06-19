@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const sw: Language = {
   name: 'sw',
   yh: {
-    // Jumla
     common: {
       yes: 'Ndiyo',
       no: 'Hapana',
@@ -27,7 +26,6 @@ export const sw: Language = {
       selectAll: 'Chagua zote',
       unselectAll: 'Ondoa uteuzi wote'
     },
-    // Kichagua rangi
     colorpicker: {
       confirm: 'Sawa',
       clear: 'Futa',
@@ -37,7 +35,6 @@ export const sw: Language = {
       recentColors: 'Rangi za hivi karibuni',
       presetColors: 'Rangi zilizowekwa awali'
     },
-    // Kichagua tarehe
     datepicker: {
       now: 'Sasa',
       today: 'Leo',
@@ -89,7 +86,6 @@ export const sw: Language = {
         q4: 'Q4'
       }
     },
-    // Kichagua muda
     timepicker: {
       confirm: 'Sawa',
       cancel: 'Ghairi',
@@ -99,11 +95,9 @@ export const sw: Language = {
       endPlaceholder: 'Muda wa mwisho',
       selectTime: 'Chagua muda'
     },
-    // Uchaguzi wa muda
     timeselect: {
       placeholder: 'Chagua muda'
     },
-    // Mti
     tree: {
       emptyText: 'Hakuna data',
       loading: 'Inapakia...',
@@ -112,14 +106,12 @@ export const sw: Language = {
       expandAll: 'Panua zote',
       collapseAll: 'Funga zote'
     },
-    // Uchaguzi wa mti
     treeselect: {
       placeholder: 'Chagua',
       emptyText: 'Hakuna data',
       loading: 'Inapakia...',
       noMatch: 'Hakuna data inayofanana'
     },
-    // Kalenda
     calendar: {
       prevMonth: 'Mwezi uliopita',
       nextMonth: 'Mwezi ujao',
@@ -140,14 +132,12 @@ export const sw: Language = {
         sat: 'Jumamosi'
       }
     },
-    // Kukamilisha kiotomatiki
     autocomplete: {
       loading: 'Inapakia...',
       placeholder: 'Tafadhali ingiza',
       noData: 'Hakuna data',
       noMatch: 'Hakuna data inayofanana'
     },
-    // Kuhesabu nyuma
     countdown: {
       days: 'siku',
       hours: 'masaa',
@@ -156,14 +146,12 @@ export const sw: Language = {
       milliseconds: 'milisekunde',
       finished: 'Imekamilika'
     },
-    // Kichagua kikandamizi
     cascader: {
       noMatch: 'Hakuna data inayofanana',
       placeholder: 'Chagua',
       loading: 'Inapakia...',
       noData: 'Hakuna data'
     },
-    // Uhamishaji
     transfer: {
       noMatch: 'Hakuna data inayofanana',
       noData: 'Hakuna data',
@@ -173,7 +161,6 @@ export const sw: Language = {
       hasCheckedFormat: '{checked}/{total} zimechaguliwa',
       searchPlaceholder: 'Ingiza neno kuu'
     },
-    // Jedwali
     table: {
       emptyText: 'Hakuna data',
       confirmFilter: 'Thibitisha',
@@ -190,7 +177,6 @@ export const sw: Language = {
       page: 'Ukurasa {page}',
       yes: 'Ndiyo',
       no: 'Hapana',
-      // Toolbar
       toolbar: {
         refresh: 'Onyesha upya',
         density: 'Uzito',
@@ -205,7 +191,6 @@ export const sw: Language = {
         search: 'Tafuta',
         searchPlaceholder: 'Ingiza maneno makuu ya kutafuta'
       },
-      // Kichujio
       filter: {
         selectAll: 'Chagua zote',
         selectInvert: 'Geuza uteuzi',
@@ -221,13 +206,11 @@ export const sw: Language = {
         lessThan: 'Ndogo kuliko',
         between: 'Kati ya'
       },
-      // Panga
       sort: {
         asc: 'Kupanda',
         desc: 'Kushuka',
         clear: 'Futa upangaji'
       },
-      // Hamisha nje
       export: {
         title: 'Hamisha data nje',
         filename: 'Jina la faili',
@@ -241,7 +224,6 @@ export const sw: Language = {
         success: 'Kuhamisha nje kumefanikiwa',
         error: 'Kuhamisha nje kumeshindwa'
       },
-      // Hamisha ndani
       import: {
         title: 'Hamisha data ndani',
         selectFile: 'Chagua faili',
@@ -252,7 +234,6 @@ export const sw: Language = {
         preview: 'Onyesho la data',
         confirm: 'Thibitisha kuhamisha ndani'
       },
-      // Chapisha
       printConfig: {
         title: 'Mipangilio ya kuchapisha',
         pageTitle: 'Kichwa cha ukurasa',
@@ -265,7 +246,6 @@ export const sw: Language = {
         portrait: 'Urefu',
         printing: 'Inachapishwa...'
       },
-      // Mipangilio ya safu
       columnSetting: {
         title: 'Mipangilio ya safu',
         showAll: 'Onyesha zote',
@@ -275,7 +255,6 @@ export const sw: Language = {
         fixedRight: 'Weka kulia',
         unfixed: 'Ondoa uwekaji'
       },
-      // Menyu ya muktadha
       contextMenu: {
         copy: 'Nakili',
         copyRow: 'Nakili safu',
@@ -287,31 +266,26 @@ export const sw: Language = {
         deleteSelectedRows: 'Futa safu zilizochaguliwa',
         exportSelected: 'Hamisha nje zilizochaguliwa'
       },
-      // Uteuzi
       selection: {
         selectAll: 'Chagua zote',
         selectInvert: 'Geuza uteuzi',
         selectNone: 'Futa uteuzi',
         selected: '{count} vitu vimechaguliwa'
       },
-      // Panua
       expand: {
         expandAll: 'Panua zote',
         collapseAll: 'Funga zote'
       },
-      // Mti
       tree: {
         expandAll: 'Panua zote',
         collapseAll: 'Funga zote',
         expandLevel: 'Panua hadi kiwango {level}'
       },
-      // Buruta
       drag: {
         dragTip: 'Buruta kupanga upya',
         dropTip: 'Acha kuweka'
       }
     },
-    // Sanduku la ujumbe
     messagebox: {
       title: 'Ujumbe',
       confirm: 'Sawa',
@@ -322,7 +296,6 @@ export const sw: Language = {
       prompt: 'Haraka',
       inputPlaceholder: 'Tafadhali ingiza'
     },
-    // Pakia
     upload: {
       deleteTip: 'bofya delete kuondoa',
       delete: 'Futa',
@@ -340,18 +313,15 @@ export const sw: Language = {
       fileSizeError: 'Ukubwa wa faili unazidi kikomo',
       fileCountError: 'Idadi ya faili inazidi kikomo'
     },
-    // Fomu
     form: {
       validationFailed: 'Uthibitishaji umeshindwa',
       required: 'Inahitajika',
       pleaseInput: 'Tafadhali ingiza',
       pleaseSelect: 'Tafadhali chagua'
     },
-    // Kitufe
     button: {
       loading: 'Inapakia...'
     },
-    // Ingizo
     input: {
       placeholder: 'Tafadhali ingiza',
       clear: 'Futa',
@@ -360,28 +330,23 @@ export const sw: Language = {
       copy: 'Nakili',
       copied: 'Imenakiliwa'
     },
-    // Ingizo la nambari
     inputnumber: {
       placeholder: 'Tafadhali ingiza nambari',
       increase: 'Ongeza',
       decrease: 'Punguza'
     },
-    // Ingizo la lebo
     inputtag: {
       placeholder: 'Tafadhali ingiza',
       add: 'Ongeza',
       remove: 'Ondoa'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Njia',
       more: 'Zaidi'
     },
-    // Rudi juu
     backtop: {
       text: 'Rudi juu'
     },
-    // Chagua
     select: {
       placeholder: 'Tafadhali chagua',
       noData: 'Hakuna data',
@@ -390,7 +355,6 @@ export const sw: Language = {
       selectAll: 'Chagua zote',
       clearAll: 'Futa zote'
     },
-    // Ukuaji wa kurasa
     pagination: {
       goto: 'Nenda',
       page: '',
@@ -402,13 +366,11 @@ export const sw: Language = {
       last: 'Ya mwisho',
       pageClassifier: ''
     },
-    // Popconfirm
     popconfirm: {
       confirm: 'Sawa',
       cancel: 'Ghairi',
       dontAskAgain: 'Usiulize tena'
     },
-    // Mazungumzo
     dialog: {
       confirm: 'Sawa',
       cancel: 'Ghairi',
@@ -416,17 +378,14 @@ export const sw: Language = {
       maximize: 'Kuongeza kwa upeo',
       restore: 'Rudisha'
     },
-    // Drawer
     drawer: {
       close: 'Funga',
       confirm: 'Sawa',
       cancel: 'Ghairi'
     },
-    // Menyu ya kushuka
     dropdown: {
       loading: 'Inapakia...'
     },
-    // Picha
     image: {
       error: 'IMESHINDWA',
       loading: 'Inapakia...',
@@ -438,7 +397,6 @@ export const sw: Language = {
       originalSize: 'Ukubwa wa asili',
       fullscreen: 'Skrini kamili'
     },
-    // Mwangalizi wa picha
     imageviewer: {
       close: 'Funga',
       prev: 'Iliyotangulia',
@@ -451,65 +409,52 @@ export const sw: Language = {
       fullscreen: 'Skrini kamili',
       exitFullscreen: 'Toka skrini kamili'
     },
-    // Kusogeza usio na mwisho
     infinitescroll: {
       loading: 'Inapakia...',
       finished: 'Hakuna data zaidi',
       error: 'Kupakia kumeshindwa, bofya kujaribu tena',
       retry: 'Bofya kujaribu tena'
     },
-    // Ujumbe
     message: {
       close: 'Funga'
     },
-    // Arifa
     notification: {
       close: 'Funga'
     },
-    // Kupakia
     loading: {
       text: 'Inapakia...'
     },
-    // Spin
     spin: {
       text: 'Inapakia...'
     },
-    // Kiwango
     rate: {
       texts: ['Duni sana', 'Kukatishwa tamaa', 'Haki', 'Radhi', 'Kushangaa']
     },
-    // Onyo
     alert: {
       close: 'Funga'
     },
-    // Lebo
     tag: {
       close: 'Funga'
     },
-    // Tabo
     tabs: {
       close: 'Funga',
       add: 'Ongeza',
       more: 'Zaidi'
     },
-    // Hatua
     steps: {
       finish: 'Imekamilika',
       process: 'Inaendelea',
       wait: 'Inasubiri',
       error: 'Hitilafu'
     },
-    // Maendeleo
     progress: {
       success: 'Mafanikio',
       exception: 'Ubaguzi',
       warning: 'Onyo'
     },
-    // Skeleton
     skeleton: {
       loading: 'Inapakia...'
     },
-    // Tupu
     empty: {
       description: 'Hakuna data',
       noData: 'Hakuna data',
@@ -517,7 +462,6 @@ export const sw: Language = {
       networkError: 'Hitilafu ya mtandao',
       serverError: 'Hitilafu ya seva'
     },
-    // Matokeo
     result: {
       success: 'Mafanikio',
       error: 'Hitilafu',
@@ -525,72 +469,58 @@ export const sw: Language = {
       info: 'Maelezo',
       backHome: 'Rudi nyumbani'
     },
-    // Waterfall
     waterfall: {
       loading: 'Inapakia...',
       noMore: 'Hakuna data zaidi',
       empty: 'Hakuna data'
     },
-    // Maelezo
     descriptions: {
       colon: ':'
     },
-    // Slider
     slider: {
       tipFormatter: '{value}'
     },
-    // Swichi
     switch: {
       on: 'WASHA',
       off: 'ZIMA'
     },
-    // Checkbox
     checkbox: {
       selectAll: 'Chagua zote'
     },
-    // Radio
     radio: {},
-    // Menyu
     menu: {
       collapse: 'Funga menyu',
       expand: 'Panua menyu'
     },
-    // Kadi
     card: {
       collapse: 'Funga',
       expand: 'Panua'
     },
-    // Kufunga
     collapse: {
       expand: 'Panua',
       collapse: 'Funga'
     },
-    // Kidokezo
     tooltip: {},
-    // Popover
     popover: {},
-    // Beji
     badge: {},
-    // Avatar
     avatar: {
       error: 'Kupakia kumeshindwa'
     },
-    // Watermark
     watermark: {},
-    // Kigawanyiko
     divider: {},
-    // Carousel
     carousel: {
       prev: 'Iliyotangulia',
       next: 'Inayofuata'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Nanga
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Tafadhali ingiza',
       loading: 'Inapakia...',
@@ -687,7 +617,6 @@ export const sw: Language = {
       galleryItem: 'Galeri {index}',
       close: 'Funga'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Vitambulisho'
@@ -697,7 +626,8 @@ export const sw: Language = {
         agent: 'Agenti',
         document: 'Hati',
         table: 'Jedwali',
-        knowledge: 'Umakini'
+        knowledge: 'Umakini',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Nakili msimbo',
@@ -716,7 +646,8 @@ export const sw: Language = {
       },
       sender: {
         placeholder: 'Tuma ujumbe...',
-        dragTip: 'Awa ili kupakia faili'
+        dragTip: 'Awa ili kupakia faili',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Mchakato wa kufikiri',
@@ -751,7 +682,8 @@ export const sw: Language = {
         versions: 'Toleo',
         rendering: 'Inaonyesha kipengee...',
         renderingChart: 'Inaonyesha chati...',
-        renderingCanvas: 'Inaandaa turubai...'
+        renderingCanvas: 'Inaandaa turubai...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Bofya kuzungumza',

@@ -89,4 +89,38 @@ describe('useScrollLock', () => {
     wrapper.unmount()
     expect(html.style.overflow).toBe('')
   })
+
+  it('should lock immediately on initialization if trigger is true', async () => {
+    const trigger = ref(true)
+    useScrollLock(trigger)
+    expect(html.style.overflow).toBe('hidden')
+    expect(body.style.overflow).toBe('hidden')
+    expect(html.classList.contains('yh-popup-parent--hidden')).toBe(true)
+  })
+
+  it('should support nested scroll locks without premature unlocking', async () => {
+    const trigger1 = ref(false)
+    const trigger2 = ref(false)
+
+    useScrollLock(trigger1)
+    useScrollLock(trigger2)
+
+    trigger1.value = true
+    await nextTick()
+    expect(html.style.overflow).toBe('hidden')
+
+    trigger2.value = true
+    await nextTick()
+    expect(html.style.overflow).toBe('hidden')
+
+    // Close one, should still remain locked
+    trigger1.value = false
+    await nextTick()
+    expect(html.style.overflow).toBe('hidden')
+
+    // Close the second, should unlock
+    trigger2.value = false
+    await nextTick()
+    expect(html.style.overflow).toBe('')
+  })
 })

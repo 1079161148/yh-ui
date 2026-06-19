@@ -42,7 +42,8 @@ export const setStyle = (
       setStyle(element, key, val)
     })
   } else {
-    ;(element.style as unknown as Record<string, string>)[styleName] = value ?? ''
+    const propertyName = styleName.replace(/([A-Z])/g, '-$1').toLowerCase()
+    element.style.setProperty(propertyName, value ?? '')
   }
 }
 
@@ -76,7 +77,12 @@ export const removeClass = (el: HTMLElement, cls: string): void => {
  */
 export const toggleClass = (el: HTMLElement, cls: string, force?: boolean): void => {
   if (!el || !cls.trim()) return
-  el.classList.toggle(cls, force)
+  cls
+    .split(' ')
+    .filter(Boolean)
+    .forEach((c) => {
+      el.classList.toggle(c, force)
+    })
 }
 
 /**
@@ -124,12 +130,15 @@ export const getScrollbarWidth = (): number => {
   if (!isClient) return 0
   if (scrollBarWidth !== undefined) return scrollBarWidth
 
+  const doc = document.body || document.documentElement
+  if (!doc) return 0
+
   const outer = document.createElement('div')
   outer.style.visibility = 'hidden'
   outer.style.width = '100px'
   outer.style.position = 'absolute'
   outer.style.top = '-9999px'
-  document.body.appendChild(outer)
+  doc.appendChild(outer)
 
   const widthNoScroll = outer.offsetWidth
   outer.style.overflow = 'scroll'

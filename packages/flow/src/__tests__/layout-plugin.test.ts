@@ -238,4 +238,40 @@ describe('flow/plugins/plugins/layout', () => {
       expect(flow.updateNode).toHaveBeenCalled()
     })
   })
+
+  describe('applyLayout with Worker and cancellation', () => {
+    it('should fallback to main thread if Worker is undefined', async () => {
+      const flow = createMockFlowInstance()
+      flow.nodes.value = [createMockNode('n1')]
+      flow.edges.value = []
+
+      const plugin = createLayoutPlugin({ type: 'grid', useWebWorker: true })
+      plugin.install(flow)
+
+      const origWorker = global.Worker
+      // @ts-ignore
+      global.Worker = undefined
+
+      await flow.applyLayout!()
+      expect(flow.updateNode).toHaveBeenCalled()
+
+      global.Worker = origWorker
+    })
+
+    it('should cancel running layout loop when new layout is triggered or destroyed', async () => {
+      const flow = createMockFlowInstance()
+      flow.nodes.value = [createMockNode('n1'), createMockNode('n2')]
+      flow.edges.value = []
+
+      const plugin = createLayoutPlugin({ type: 'force', animate: true })
+      plugin.install(flow)
+
+      const p1 = flow.applyLayout!()
+      const p2 = flow.applyLayout!()
+
+      await Promise.all([p1, p2])
+
+      plugin.destroy?.()
+    })
+  })
 })

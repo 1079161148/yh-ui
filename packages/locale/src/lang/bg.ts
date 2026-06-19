@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const bg: Language = {
   name: 'bg',
   yh: {
-    // Общи
     common: {
       yes: 'Да',
       no: 'Не',
@@ -27,7 +26,6 @@ export const bg: Language = {
       selectAll: 'Избери всички',
       unselectAll: 'Премахни избора'
     },
-    // Избор на цвят
     colorpicker: {
       confirm: 'OK',
       clear: 'Изчисти',
@@ -37,7 +35,6 @@ export const bg: Language = {
       recentColors: 'Последни цветове',
       presetColors: 'Предварително зададени цветове'
     },
-    // Избор на дата
     datepicker: {
       now: 'Сега',
       today: 'Днес',
@@ -89,7 +86,6 @@ export const bg: Language = {
         q4: 'Т4'
       }
     },
-    // Избор на час
     timepicker: {
       confirm: 'OK',
       cancel: 'Отказ',
@@ -99,11 +95,9 @@ export const bg: Language = {
       endPlaceholder: 'Краен час',
       selectTime: 'Изберете час'
     },
-    // Избор на време
     timeselect: {
       placeholder: 'Изберете час'
     },
-    // Дърво
     tree: {
       emptyText: 'Няма данни',
       loading: 'Зареждане...',
@@ -112,14 +106,12 @@ export const bg: Language = {
       expandAll: 'Разгъни всички',
       collapseAll: 'Свий всички'
     },
-    // Избор на дърво
     treeselect: {
       placeholder: 'Изберете',
       emptyText: 'Няма данни',
       loading: 'Зареждане...',
       noMatch: 'Няма съвпадение'
     },
-    // Календар
     calendar: {
       prevMonth: 'Предходен месец',
       nextMonth: 'Следващ месец',
@@ -140,14 +132,12 @@ export const bg: Language = {
         sat: 'Сб'
       }
     },
-    // Автоматично довършване
     autocomplete: {
       loading: 'Зареждане...',
       placeholder: 'Моля, въведете',
       noData: 'Няма данни',
       noMatch: 'Няма съвпадение'
     },
-    // Обратно броене
     countdown: {
       days: 'дни',
       hours: 'часа',
@@ -156,14 +146,12 @@ export const bg: Language = {
       milliseconds: 'милисекунди',
       finished: 'Завършено'
     },
-    // Каскаден избор
     cascader: {
       noMatch: 'Няма съвпадение',
       placeholder: 'Изберете',
       loading: 'Зареждане...',
       noData: 'Няма данни'
     },
-    // Трансфер
     transfer: {
       noMatch: 'Няма съвпадение',
       noData: 'Няма данни',
@@ -173,7 +161,6 @@ export const bg: Language = {
       hasCheckedFormat: '{checked}/{total} избрани',
       searchPlaceholder: 'Въведете ключова дума'
     },
-    // Таблица
     table: {
       emptyText: 'Няма данни',
       confirmFilter: 'Потвърди',
@@ -190,7 +177,6 @@ export const bg: Language = {
       page: 'Страница {page}',
       yes: 'Да',
       no: 'Не',
-      // Лента с инструменти
       toolbar: {
         refresh: 'Обнови',
         density: 'Плътност',
@@ -205,7 +191,6 @@ export const bg: Language = {
         search: 'Търсене',
         searchPlaceholder: 'Въведете ключови думи за търсене'
       },
-      // Филтър
       filter: {
         selectAll: 'Избери всички',
         selectInvert: 'Обърни избора',
@@ -221,13 +206,11 @@ export const bg: Language = {
         lessThan: 'По-малко от',
         between: 'Между'
       },
-      // Сортиране
       sort: {
         asc: 'Възходящо',
         desc: 'Низходящо',
         clear: 'Изчисти сортирането'
       },
-      // Експорт
       export: {
         title: 'Експорт на данни',
         filename: 'Име на файл',
@@ -241,7 +224,6 @@ export const bg: Language = {
         success: 'Експортът е успешен',
         error: 'Грешка при експорт'
       },
-      // Импорт
       import: {
         title: 'Импорт на данни',
         selectFile: 'Изберете файл',
@@ -252,7 +234,6 @@ export const bg: Language = {
         preview: 'Преглед на данни',
         confirm: 'Потвърдете импорта'
       },
-      // Печат
       printConfig: {
         title: 'Настройки за печат',
         pageTitle: 'Заглавие на страница',
@@ -265,7 +246,6 @@ export const bg: Language = {
         portrait: 'Портрет',
         printing: 'Печатане...'
       },
-      // Настройки на колони
       columnSetting: {
         title: 'Настройки на колони',
         showAll: 'Покажи всички',
@@ -275,7 +255,6 @@ export const bg: Language = {
         fixedRight: 'Фиксирай вдясно',
         unfixed: 'Премахни фиксиране'
       },
-      // Контекстно меню
       contextMenu: {
         copy: 'Копирай',
         copyRow: 'Копирай ред',
@@ -287,31 +266,26 @@ export const bg: Language = {
         deleteSelectedRows: 'Изтрий избрани редове',
         exportSelected: 'Експортирай избраното'
       },
-      // Избор
       selection: {
         selectAll: 'Избери всички',
         selectInvert: 'Обърни избора',
         selectNone: 'Изчисти избора',
         selected: '{count} елемента избрани'
       },
-      // Разгъване
       expand: {
         expandAll: 'Разгъни всички',
         collapseAll: 'Свий всички'
       },
-      // Дърво
       tree: {
         expandAll: 'Разгъни всички',
         collapseAll: 'Свий всички',
         expandLevel: 'Разгъни до ниво {level}'
       },
-      // Плъзгане
       drag: {
         dragTip: 'Плъзнете за пренареждане',
         dropTip: 'Пуснете за поставяне'
       }
     },
-    // Прозорец за съобщение
     messagebox: {
       title: 'Съобщение',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const bg: Language = {
       prompt: 'Подсказка',
       inputPlaceholder: 'Моля, въведете'
     },
-    // Качване
     upload: {
       deleteTip: 'натиснете delete за изтриване',
       delete: 'Изтрий',
@@ -340,18 +313,15 @@ export const bg: Language = {
       fileSizeError: 'Размерът на файла надвишава лимита',
       fileCountError: 'Броят файлове надвишава лимита'
     },
-    // Формуляр
     form: {
       validationFailed: 'Валидацията е неуспешна',
       required: 'Задължително',
       pleaseInput: 'Моля, въведете',
       pleaseSelect: 'Моля, изберете'
     },
-    // Бутон
     button: {
       loading: 'Зареждане...'
     },
-    // Вход
     input: {
       placeholder: 'Моля, въведете',
       clear: 'Изчисти',
@@ -360,28 +330,23 @@ export const bg: Language = {
       copy: 'Копирай',
       copied: 'Копирано'
     },
-    // Числов вход
     inputnumber: {
       placeholder: 'Моля, въведете число',
       increase: 'Увеличи',
       decrease: 'Намали'
     },
-    // Вход за тагове
     inputtag: {
       placeholder: 'Моля, въведете',
       add: 'Добави',
       remove: 'Премахни'
     },
-    // Навигационна пътека
     breadcrumb: {
       label: 'Навигационна пътека',
       more: 'Още'
     },
-    // Обратно нагоре
     backtop: {
       text: 'Обратно нагоре'
     },
-    // Избор
     select: {
       placeholder: 'Моля, изберете',
       noData: 'Няма данни',
@@ -390,7 +355,6 @@ export const bg: Language = {
       selectAll: 'Избери всички',
       clearAll: 'Изчисти всички'
     },
-    // Пагинация
     pagination: {
       goto: 'Отиди на',
       page: '',
@@ -402,13 +366,11 @@ export const bg: Language = {
       last: 'Последна',
       pageClassifier: ''
     },
-    // Потвърждение
     popconfirm: {
       confirm: 'OK',
       cancel: 'Отказ',
       dontAskAgain: 'Не питай отново'
     },
-    // Диалог
     dialog: {
       confirm: 'OK',
       cancel: 'Отказ',
@@ -416,17 +378,14 @@ export const bg: Language = {
       maximize: 'Увеличи',
       restore: 'Възстанови'
     },
-    // Чекмедже
     drawer: {
       close: 'Затвори',
       confirm: 'OK',
       cancel: 'Отказ'
     },
-    // Падащо меню
     dropdown: {
       loading: 'Зареждане...'
     },
-    // Изображение
     image: {
       error: 'ГРЕШКА',
       loading: 'Зареждане...',
@@ -438,7 +397,6 @@ export const bg: Language = {
       originalSize: 'Оригинален размер',
       fullscreen: 'Цял екран'
     },
-    // Преглед на изображения
     imageviewer: {
       close: 'Затвори',
       prev: 'Предишно',
@@ -451,65 +409,52 @@ export const bg: Language = {
       fullscreen: 'Цял екран',
       exitFullscreen: 'Изход от цял екран'
     },
-    // Безкрайно превъртане
     infinitescroll: {
       loading: 'Зареждане...',
       finished: 'Няма повече данни',
       error: 'Грешка при зареждане, щракнете за повторен опит',
       retry: 'Щракнете за повторен опит'
     },
-    // Съобщение
     message: {
       close: 'Затвори'
     },
-    // Известие
     notification: {
       close: 'Затвори'
     },
-    // Зареждане
     loading: {
       text: 'Зареждане...'
     },
-    // Въртящо се
     spin: {
       text: 'Зареждане...'
     },
-    // Оценка
     rate: {
       texts: ['Много лошо', 'Разочарован', 'Добре', 'Доволен', 'Изненадан']
     },
-    // Предупреждение
     alert: {
       close: 'Затвори'
     },
-    // Таг
     tag: {
       close: 'Затвори'
     },
-    // Табове
     tabs: {
       close: 'Затвори',
       add: 'Добави',
       more: 'Още'
     },
-    // Стъпки
     steps: {
       finish: 'Завършено',
       process: 'В процес',
       wait: 'Изчакване',
       error: 'Грешка'
     },
-    // Прогрес
     progress: {
       success: 'Успех',
       exception: 'Изключение',
       warning: 'Предупреждение'
     },
-    // Скелет
     skeleton: {
       loading: 'Зареждане...'
     },
-    // Празно
     empty: {
       description: 'Няма данни',
       noData: 'Няма данни',
@@ -517,7 +462,6 @@ export const bg: Language = {
       networkError: 'Мрежова грешка',
       serverError: 'Сървърна грешка'
     },
-    // Резултат
     result: {
       success: 'Успех',
       error: 'Грешка',
@@ -525,78 +469,63 @@ export const bg: Language = {
       info: 'Информация',
       backHome: 'Обратно към началото'
     },
-    // Водопад
     waterfall: {
       loading: 'Зареждане...',
       noMore: 'Няма повече данни',
       empty: 'Няма данни'
     },
-    // Описания
     descriptions: {
       colon: ':'
     },
-    // Плъзгач
     slider: {
       tipFormatter: '{value}'
     },
-    // Превключвател
     switch: {
       on: 'ВКЛ',
       off: 'ИЗКЛ'
     },
-    // Чекбокс
     checkbox: {
       selectAll: 'Избери всички'
     },
-    // Радио
     radio: {},
-    // Меню
     menu: {
       collapse: 'Свий менюто',
       expand: 'Разгъни менюто'
     },
-    // Карта
     card: {
       collapse: 'Свий',
       expand: 'Разгъни'
     },
-    // Свиване
     collapse: {
       expand: 'Разгъни',
       collapse: 'Свий'
     },
-    // Подсказка
     tooltip: {},
-    // Изскачащ прозорец
     popover: {},
-    // Значка
     badge: {},
-    // Аватар
     avatar: {
       error: 'Грешка при зареждане'
     },
-    // Воден знак
     watermark: {},
-    // Разделител
     divider: {},
-    // Въртележка
     carousel: {
       prev: 'Предишно',
       next: 'Следващо'
     },
-    // Бягащ текст
     marquee: {},
-    // Фиксиране
     affix: {},
-    // Котва
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Моля, въведете',
       loading: 'Зареждане...',
       noData: 'Няма данни'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Изберете спецификации',
       emptyText: 'Няма спецификации',
@@ -698,7 +627,8 @@ export const bg: Language = {
         agent: 'Агент',
         document: 'Документ',
         table: 'Таблица',
-        knowledge: 'Знание'
+        knowledge: 'Знание',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Копирай кода',
@@ -717,7 +647,8 @@ export const bg: Language = {
       },
       sender: {
         placeholder: 'Изпратете съобщение...',
-        dragTip: 'Пуснете, за да качите файлове'
+        dragTip: 'Пуснете, за да качите файлове',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Процес на мислене',
@@ -752,7 +683,8 @@ export const bg: Language = {
         versions: 'Версии',
         rendering: 'Рендериране на компонента...',
         renderingChart: 'Рендериране на диаграмата...',
-        renderingCanvas: 'Подготовка на платното...'
+        renderingCanvas: 'Подготовка на платното...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Кликнете, за да говорите',

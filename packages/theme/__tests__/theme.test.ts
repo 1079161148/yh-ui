@@ -393,4 +393,84 @@ describe('Theme System Comprehensive', () => {
     scopedTheme.reset()
     document.body.removeChild(scopeEl)
   })
+
+  it('should map radius to CSS variables and state, and save/load it correctly', () => {
+    theme.setRadius('lg')
+    expect(theme.radius).toBe('lg')
+    expect(theme.state.radius).toBe('lg')
+    expect(theme.getCssVar('--yh-radius-base')).toBe('12px')
+
+    theme.setRadius('none')
+    expect(theme.getCssVar('--yh-radius-base')).toBe('0')
+
+    const snapshot = JSON.parse(theme.exportTheme())
+    expect(snapshot.radius).toBe('none')
+
+    theme.importTheme(JSON.stringify({ ...snapshot, radius: 'full' }))
+    expect(theme.radius).toBe('full')
+    expect(theme.getCssVar('--yh-radius-base')).toBe('20px')
+
+    theme.reset()
+    expect(theme.radius).toBe('md')
+  })
+
+  it('ThemeManager.destroy() should be SSR safe', () => {
+    const origDoc = global.document
+    vi.stubGlobal('document', undefined)
+    expect(() => theme.destroy()).not.toThrow()
+    vi.stubGlobal('document', origDoc)
+  })
+
+  it('should prevent defaults from overwriting restored settings during initialization', () => {
+    const savedSnapshot = {
+      preset: 'purple',
+      colors: { primary: '#112233' },
+      dark: true,
+      radius: 'lg',
+      algorithm: 'vibrant',
+      density: 'compact',
+      timestamp: Date.now(),
+      version: '1.0.0'
+    }
+
+    localStorage.setItem('yh-ui-theme-test-persist', JSON.stringify(savedSnapshot))
+
+    const persistTheme = new ThemeManager({
+      persist: true,
+      persistKey: 'yh-ui-theme-test-persist'
+    })
+
+    expect(persistTheme.theme).toBe('purple')
+    expect(persistTheme.dark).toBe(true)
+    expect(persistTheme.radius).toBe('lg')
+    expect(persistTheme.state.density).toBe('compact')
+
+    persistTheme.destroy()
+    localStorage.removeItem('yh-ui-theme-test-persist')
+  })
+
+  it('scoped apply() should not leak theme target to global root if scope is omitted', () => {
+    const scopeEl = document.createElement('div')
+    scopeEl.id = 'scoped-leak-container'
+    document.body.appendChild(scopeEl)
+
+    const scopedTheme = new ThemeManager({ scope: scopeEl, persist: false })
+    scopedTheme.apply({ colors: { primary: '#ff0000' } })
+
+    expect(scopeEl.style.getPropertyValue('--yh-color-primary')).toBeTruthy()
+    expect(document.documentElement.style.getPropertyValue('--yh-color-primary')).not.toBe(
+      '#ff0000'
+    )
+
+    const otherScopeEl = document.createElement('div')
+    otherScopeEl.id = 'other-scoped-container'
+    document.body.appendChild(otherScopeEl)
+
+    scopedTheme.apply({ scope: otherScopeEl, colors: { primary: '#00ff00' } })
+    expect(otherScopeEl.style.getPropertyValue('--yh-color-primary')).toBeTruthy()
+
+    scopedTheme.destroy()
+    document.body.removeChild(scopeEl)
+    document.body.removeChild(otherScopeEl)
+  })
 })

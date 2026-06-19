@@ -328,6 +328,83 @@ describe('useAiConversations', () => {
     stopSync()
   })
 
+  it('should support real-time sync with syncInterval: 0', async () => {
+    const mockSync = {
+      fetchConversations: vi.fn().mockResolvedValue([]),
+      createConversation: vi.fn(),
+      updateConversation: vi.fn(),
+      deleteConversation: vi.fn(),
+      batchUpdate: vi.fn().mockResolvedValue([])
+    }
+
+    const { createConversation, removeConversation, updateConversation, pinConversation, clear } =
+      useAiConversations({
+        storage: false,
+        remoteSync: mockSync,
+        autoSync: true,
+        syncInterval: 0
+      })
+
+    mockSync.batchUpdate.mockClear()
+
+    const conv = await createConversation('Test Realtime')
+    expect(mockSync.batchUpdate).toHaveBeenCalledTimes(1)
+
+    mockSync.batchUpdate.mockClear()
+    await updateConversation(conv.id, { title: 'Updated Realtime' })
+    expect(mockSync.batchUpdate).toHaveBeenCalledTimes(1)
+
+    mockSync.batchUpdate.mockClear()
+    await pinConversation(conv.id, true)
+    expect(mockSync.batchUpdate).toHaveBeenCalledTimes(1)
+
+    mockSync.batchUpdate.mockClear()
+    await removeConversation(conv.id)
+    expect(mockSync.batchUpdate).toHaveBeenCalledTimes(1)
+
+    // Re-create to test clear
+    const conv2 = await createConversation('Test Clear')
+    mockSync.batchUpdate.mockClear()
+    await clear()
+    expect(mockSync.batchUpdate).toHaveBeenCalledTimes(1)
+  })
+
+  it('should clean up syncTimer on unmount', () => {
+    const mockSync = {
+      fetchConversations: vi.fn(),
+      createConversation: vi.fn(),
+      updateConversation: vi.fn(),
+      deleteConversation: vi.fn(),
+      batchUpdate: vi.fn()
+    }
+
+    let unmountCallback: (() => void) | null = null
+    const mockOnUnmounted = vi
+      .spyOn(require('vue'), 'onUnmounted')
+      .mockImplementation((cb: any) => {
+        unmountCallback = cb
+      })
+    const mockGetCurr = vi.spyOn(require('vue'), 'getCurrentInstance').mockReturnValue({} as any)
+
+    const hook = useAiConversations({
+      storage: false,
+      remoteSync: mockSync,
+      autoSync: true,
+      syncInterval: 1000
+    })
+
+    expect(mockOnUnmounted).toHaveBeenCalled()
+    expect(unmountCallback).toBeDefined()
+
+    // Unmount
+    if (unmountCallback) {
+      unmountCallback()
+    }
+
+    mockOnUnmounted.mockRestore()
+    mockGetCurr.mockRestore()
+  })
+
   it('should handle remote sync errors', async () => {
     const mockSync = {
       batchUpdate: vi.fn(() => Promise.reject(new Error('batch err'))),

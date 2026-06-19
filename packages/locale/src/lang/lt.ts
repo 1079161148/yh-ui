@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const lt: Language = {
   name: 'lt',
   yh: {
-    // Bendras
     common: {
       yes: 'Taip',
       no: 'Ne',
@@ -27,7 +26,6 @@ export const lt: Language = {
       selectAll: 'Pasirinkti viską',
       unselectAll: 'Atšaukti visą pasirinkimą'
     },
-    // Spalvų pasirinkimas
     colorpicker: {
       confirm: 'Gerai',
       clear: 'Išvalyti',
@@ -37,7 +35,6 @@ export const lt: Language = {
       recentColors: 'Paskutinės spalvos',
       presetColors: 'Iš anksto nustatytos spalvos'
     },
-    // Data pasirinkimas
     datepicker: {
       now: 'Dabar',
       today: 'Šiandien',
@@ -89,7 +86,6 @@ export const lt: Language = {
         q4: 'Q4'
       }
     },
-    // Laiko pasirinkimas
     timepicker: {
       confirm: 'Gerai',
       cancel: 'Atšaukti',
@@ -99,11 +95,9 @@ export const lt: Language = {
       endPlaceholder: 'Pabaigos laikas',
       selectTime: 'Pasirinkite laiką'
     },
-    // Laiko pasirinkimas
     timeselect: {
       placeholder: 'Pasirinkite laiką'
     },
-    // Medis
     tree: {
       emptyText: 'Nėra duomenų',
       loading: 'Įkeliama...',
@@ -112,14 +106,12 @@ export const lt: Language = {
       expandAll: 'Išplėsti viską',
       collapseAll: 'Suskleisti viską'
     },
-    // Medžio pasirinkimas
     treeselect: {
       placeholder: 'Pasirinkite',
       emptyText: 'Nėra duomenų',
       loading: 'Įkeliama...',
       noMatch: 'Nėra atitinkančių duomenų'
     },
-    // Kalendorius
     calendar: {
       prevMonth: 'Ankstesnis mėnuo',
       nextMonth: 'Kitas mėnuo',
@@ -140,14 +132,12 @@ export const lt: Language = {
         sat: 'Št'
       }
     },
-    // Automatinis užpildymas
     autocomplete: {
       loading: 'Įkeliama...',
       placeholder: 'Prašome įvesti',
       noData: 'Nėra duomenų',
       noMatch: 'Nėra atitinkančių duomenų'
     },
-    // Atgalinis skaičiavimas
     countdown: {
       days: 'dienos',
       hours: 'valandos',
@@ -156,14 +146,12 @@ export const lt: Language = {
       milliseconds: 'milisekundės',
       finished: 'Baigta'
     },
-    // Kaskada
     cascader: {
       noMatch: 'Nėra atitinkančių duomenų',
       placeholder: 'Pasirinkite',
       loading: 'Įkeliama...',
       noData: 'Nėra duomenų'
     },
-    // Perkėlimas
     transfer: {
       noMatch: 'Nėra atitinkančių duomenų',
       noData: 'Nėra duomenų',
@@ -173,7 +161,6 @@ export const lt: Language = {
       hasCheckedFormat: '{checked}/{total} pasirinkta',
       searchPlaceholder: 'Įveskite raktažodį'
     },
-    // Lentelė
     table: {
       emptyText: 'Nėra duomenų',
       confirmFilter: 'Patvirtinti',
@@ -190,7 +177,6 @@ export const lt: Language = {
       page: 'Puslapis {page}',
       yes: 'Taip',
       no: 'Ne',
-      // Įrankių juosta
       toolbar: {
         refresh: 'Atnaujinti',
         density: 'Tankis',
@@ -205,7 +191,6 @@ export const lt: Language = {
         search: 'Ieškoti',
         searchPlaceholder: 'Įveskite raktažodžius paieškai'
       },
-      // Filtras
       filter: {
         selectAll: 'Pasirinkti viską',
         selectInvert: 'Apversti pasirinkimą',
@@ -221,13 +206,11 @@ export const lt: Language = {
         lessThan: 'Mažesnis nei',
         between: 'Tarp'
       },
-      // Rūšiavimas
       sort: {
         asc: 'Didėjančia tvarka',
         desc: 'Mažėjančia tvarka',
         clear: 'Išvalyti rūšiavimą'
       },
-      // Eksportavimas
       export: {
         title: 'Eksportuoti duomenis',
         filename: 'Failo pavadinimas',
@@ -241,7 +224,6 @@ export const lt: Language = {
         success: 'Eksportavimas sėkmingas',
         error: 'Eksportavimas nepavyko'
       },
-      // Importavimas
       import: {
         title: 'Importuoti duomenis',
         selectFile: 'Pasirinkite failą',
@@ -252,7 +234,6 @@ export const lt: Language = {
         preview: 'Duomenų peržiūra',
         confirm: 'Patvirtinti importavimą'
       },
-      // Spausdinimas
       printConfig: {
         title: 'Spausdinimo nustatymai',
         pageTitle: 'Puslapio antraštė',
@@ -265,7 +246,6 @@ export const lt: Language = {
         portrait: 'Stačias',
         printing: 'Spausdinama...'
       },
-      // Stulpelių nustatymai
       columnSetting: {
         title: 'Stulpelių nustatymai',
         showAll: 'Rodyti viską',
@@ -275,7 +255,6 @@ export const lt: Language = {
         fixedRight: 'Pritvirtinti dešinėje',
         unfixed: 'Atlaisvinti'
       },
-      // Kontekstinis meniu
       contextMenu: {
         copy: 'Kopijuoti',
         copyRow: 'Kopijuoti eilutę',
@@ -287,31 +266,26 @@ export const lt: Language = {
         deleteSelectedRows: 'Ištrinti pasirinktas eilutes',
         exportSelected: 'Eksportuoti pasirinktą'
       },
-      // Pasirinkimas
       selection: {
         selectAll: 'Pasirinkti viską',
         selectInvert: 'Apversti pasirinkimą',
         selectNone: 'Išvalyti pasirinkimą',
         selected: '{count} elementai pasirinkti'
       },
-      // Išplėtimas
       expand: {
         expandAll: 'Išplėsti viską',
         collapseAll: 'Suskleisti viską'
       },
-      // Medis
       tree: {
         expandAll: 'Išplėsti viską',
         collapseAll: 'Suskleisti viską',
         expandLevel: 'Išplėsti iki lygio {level}'
       },
-      // Vilkimas
       drag: {
         dragTip: 'Vilkite, kad pertvarkytumėte',
         dropTip: 'Paleiskite, kad pastatytumėte'
       }
     },
-    // Pranešimo langas
     messagebox: {
       title: 'Pranešimas',
       confirm: 'Gerai',
@@ -322,7 +296,6 @@ export const lt: Language = {
       prompt: 'Užklausimas',
       inputPlaceholder: 'Prašome įvesti'
     },
-    // Įkėlimas
     upload: {
       deleteTip: 'paspauskite delete, kad pašalintumėte',
       delete: 'Ištrinti',
@@ -340,18 +313,15 @@ export const lt: Language = {
       fileSizeError: 'Failo dydis viršija limitą',
       fileCountError: 'Failų skaičius viršija limitą'
     },
-    // Forma
     form: {
       validationFailed: 'Tikrinimas nepavyko',
       required: 'Privaloma',
       pleaseInput: 'Prašome įvesti',
       pleaseSelect: 'Prašome pasirinkti'
     },
-    // Mygtukas
     button: {
       loading: 'Įkeliama...'
     },
-    // Įvedimas
     input: {
       placeholder: 'Prašome įvesti',
       clear: 'Išvalyti',
@@ -360,28 +330,23 @@ export const lt: Language = {
       copy: 'Kopijuoti',
       copied: 'Nukopijuota'
     },
-    // Skaičiaus įvedimas
     inputnumber: {
       placeholder: 'Prašome įvesti skaičių',
       increase: 'Padidinti',
       decrease: 'Sumažinti'
     },
-    // Žymės įvedimas
     inputtag: {
       placeholder: 'Prašome įvesti',
       add: 'Pridėti',
       remove: 'Pašalinti'
     },
-    // Navigacijos kelias
     breadcrumb: {
       label: 'Navigacijos kelias',
       more: 'Daugiau'
     },
-    // Grįžti į viršų
     backtop: {
       text: 'Grįžti į viršų'
     },
-    // Pasirinkimas
     select: {
       placeholder: 'Prašome pasirinkti',
       noData: 'Nėra duomenų',
@@ -390,7 +355,6 @@ export const lt: Language = {
       selectAll: 'Pasirinkti viską',
       clearAll: 'Išvalyti viską'
     },
-    // Puslapiavimas
     pagination: {
       goto: 'Eiti į',
       page: '',
@@ -402,13 +366,11 @@ export const lt: Language = {
       last: 'Paskutinis',
       pageClassifier: ''
     },
-    // Patvirtinimo iššokantis langas
     popconfirm: {
       confirm: 'Gerai',
       cancel: 'Atšaukti',
       dontAskAgain: 'Neklausti dar kartą'
     },
-    // Dialogas
     dialog: {
       confirm: 'Gerai',
       cancel: 'Atšaukti',
@@ -416,17 +378,14 @@ export const lt: Language = {
       maximize: 'Maksimizuoti',
       restore: 'Atkurti'
     },
-    // Šalutinė juosta
     drawer: {
       close: 'Uždaryti',
       confirm: 'Gerai',
       cancel: 'Atšaukti'
     },
-    // Išskleidžiamasis meniu
     dropdown: {
       loading: 'Įkeliama...'
     },
-    // Paveikslėlis
     image: {
       error: 'NEPAVYKO',
       loading: 'Įkeliama...',
@@ -438,7 +397,6 @@ export const lt: Language = {
       originalSize: 'Originalus dydis',
       fullscreen: 'Visas ekranas'
     },
-    // Paveikslėlių peržiūros programa
     imageviewer: {
       close: 'Uždaryti',
       prev: 'Ankstesnis',
@@ -451,65 +409,52 @@ export const lt: Language = {
       fullscreen: 'Visas ekranas',
       exitFullscreen: 'Išeiti iš viso ekrano'
     },
-    // Begalinis slinkimas
     infinitescroll: {
       loading: 'Įkeliama...',
       finished: 'Daugiau duomenų nėra',
       error: 'Įkėlimas nepavyko, spustelėkite, kad bandytumėte dar kartą',
       retry: 'Spustelėkite, kad bandytumėte dar kartą'
     },
-    // Pranešimas
     message: {
       close: 'Uždaryti'
     },
-    // Pranešimas
     notification: {
       close: 'Uždaryti'
     },
-    // Įkėlimas
     loading: {
       text: 'Įkeliama...'
     },
-    // Sukimas
     spin: {
       text: 'Įkeliama...'
     },
-    // Įvertinimas
     rate: {
       texts: ['Labai blogai', 'Nusivylęs', 'Vidutiniškai', 'Patenkintas', 'Nustebęs']
     },
-    // Perspėjimas
     alert: {
       close: 'Uždaryti'
     },
-    // Žymė
     tag: {
       close: 'Uždaryti'
     },
-    // Skirtukai
     tabs: {
       close: 'Uždaryti',
       add: 'Pridėti',
       more: 'Daugiau'
     },
-    // Žingsniai
     steps: {
       finish: 'Baigta',
       process: 'Vykdoma',
       wait: 'Laukiama',
       error: 'Klaida'
     },
-    // Pažanga
     progress: {
       success: 'Sėkmė',
       exception: 'Išimtis',
       warning: 'Perspėjimas'
     },
-    // Skeletas
     skeleton: {
       loading: 'Įkeliama...'
     },
-    // Tuščia
     empty: {
       description: 'Nėra duomenų',
       noData: 'Nėra duomenų',
@@ -517,7 +462,6 @@ export const lt: Language = {
       networkError: 'Tinklo klaida',
       serverError: 'Serverio klaida'
     },
-    // Rezultatas
     result: {
       success: 'Sėkmė',
       error: 'Klaida',
@@ -525,72 +469,58 @@ export const lt: Language = {
       info: 'Informacija',
       backHome: 'Grįžti į pagrindinį puslapį'
     },
-    // Krioklys
     waterfall: {
       loading: 'Įkeliama...',
       noMore: 'Daugiau duomenų nėra',
       empty: 'Nėra duomenų'
     },
-    // Aprašymai
     descriptions: {
       colon: ':'
     },
-    // Slankiklis
     slider: {
       tipFormatter: '{value}'
     },
-    // Perjungiklis
     switch: {
       on: 'ĮJUNGTAS',
       off: 'IŠJUNGTAS'
     },
-    // Pažymėjimo langelis
     checkbox: {
       selectAll: 'Pasirinkti viską'
     },
-    // Radijas
     radio: {},
-    // Meniu
     menu: {
       collapse: 'Suskleisti meniu',
       expand: 'Išplėsti meniu'
     },
-    // Kortelė
     card: {
       collapse: 'Suskleisti',
       expand: 'Išplėsti'
     },
-    // Suskleidimas
     collapse: {
       expand: 'Išplėsti',
       collapse: 'Suskleisti'
     },
-    // Patarimas
     tooltip: {},
-    // Iššokantis langas
     popover: {},
-    // Ženklelis
     badge: {},
-    // Avataras
     avatar: {
       error: 'Įkėlimas nepavyko'
     },
-    // Vandens ženklas
     watermark: {},
-    // Skirtukas
     divider: {},
-    // Karuselė
     carousel: {
       prev: 'Ankstesnis',
       next: 'Kitas'
     },
-    // Marquee
     marquee: {},
-    // Pritvirtinimas
     affix: {},
-    // Inkaras
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Prašome įvesti',
       loading: 'Kraunama...',
@@ -687,7 +617,6 @@ export const lt: Language = {
       galleryItem: 'Galerija {index}',
       close: 'Uždaryti'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Citatos'
@@ -697,7 +626,8 @@ export const lt: Language = {
         agent: 'Agentas',
         document: 'Dokumentas',
         table: 'Lentelė',
-        knowledge: 'Žinios'
+        knowledge: 'Žinios',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopijuoti kodą',
@@ -716,7 +646,8 @@ export const lt: Language = {
       },
       sender: {
         placeholder: 'Siųsti žinutę...',
-        dragTip: 'Atleiskite, norėdami įkelti failus'
+        dragTip: 'Atleiskite, norėdami įkelti failus',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Mąstymo procesas',
@@ -751,7 +682,8 @@ export const lt: Language = {
         versions: 'Versijos',
         rendering: 'Atvaizduojamas komponentas...',
         renderingChart: 'Atvaizduojamas grafikas...',
-        renderingCanvas: 'Ruošiamas drobė...'
+        renderingCanvas: 'Ruošiamas drobė...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Spustelėkite kalbėti',

@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const sk: Language = {
   name: 'sk',
   yh: {
-    // Všeobecné
     common: {
       yes: 'Áno',
       no: 'Nie',
@@ -27,7 +26,6 @@ export const sk: Language = {
       selectAll: 'Vybrať všetko',
       unselectAll: 'Zrušiť výber'
     },
-    // Výber farby
     colorpicker: {
       confirm: 'OK',
       clear: 'Vymazať',
@@ -37,7 +35,6 @@ export const sk: Language = {
       recentColors: 'Posledné farby',
       presetColors: 'Prednastavené farby'
     },
-    // Výber dátumu
     datepicker: {
       now: 'Teraz',
       today: 'Dnes',
@@ -89,7 +86,6 @@ export const sk: Language = {
         q4: 'Q4'
       }
     },
-    // Výber času
     timepicker: {
       confirm: 'OK',
       cancel: 'Zrušiť',
@@ -99,11 +95,9 @@ export const sk: Language = {
       endPlaceholder: 'Čas konca',
       selectTime: 'Vyberte čas'
     },
-    // Výber času
     timeselect: {
       placeholder: 'Vyberte čas'
     },
-    // Strom
     tree: {
       emptyText: 'Žiadne údaje',
       loading: 'Načítava sa...',
@@ -112,14 +106,12 @@ export const sk: Language = {
       expandAll: 'Rozbaliť všetko',
       collapseAll: 'Zbaliť všetko'
     },
-    // Výber stromu
     treeselect: {
       placeholder: 'Vyberte',
       emptyText: 'Žiadne údaje',
       loading: 'Načítava sa...',
       noMatch: 'Žiadna zhoda'
     },
-    // Kalendár
     calendar: {
       prevMonth: 'Predchádzajúci mesiac',
       nextMonth: 'Nasledujúci mesiac',
@@ -140,14 +132,12 @@ export const sk: Language = {
         sat: 'So'
       }
     },
-    // Automatické dopĺňanie
     autocomplete: {
       loading: 'Načítava sa...',
       placeholder: 'Prosím, zadajte',
       noData: 'Žiadne údaje',
       noMatch: 'Žiadna zhoda'
     },
-    // Odpočítavanie
     countdown: {
       days: 'dní',
       hours: 'hodín',
@@ -156,14 +146,12 @@ export const sk: Language = {
       milliseconds: 'milisekúnd',
       finished: 'Dokončené'
     },
-    // Kaskádový výber
     cascader: {
       noMatch: 'Žiadna zhoda',
       placeholder: 'Vyberte',
       loading: 'Načítava sa...',
       noData: 'Žiadne údaje'
     },
-    // Prenos
     transfer: {
       noMatch: 'Žiadna zhoda',
       noData: 'Žiadne údaje',
@@ -173,7 +161,6 @@ export const sk: Language = {
       hasCheckedFormat: '{checked}/{total} vybraných',
       searchPlaceholder: 'Zadajte kľúčové slovo'
     },
-    // Tabuľka
     table: {
       emptyText: 'Žiadne údaje',
       confirmFilter: 'Potvrdiť',
@@ -190,7 +177,6 @@ export const sk: Language = {
       page: 'Strana {page}',
       yes: 'Áno',
       no: 'Nie',
-      // Panel nástrojov
       toolbar: {
         refresh: 'Obnoviť',
         density: 'Hustota',
@@ -205,7 +191,6 @@ export const sk: Language = {
         search: 'Hľadať',
         searchPlaceholder: 'Zadajte kľúčové slová na vyhľadávanie'
       },
-      // Filter
       filter: {
         selectAll: 'Vybrať všetko',
         selectInvert: 'Invertovať výber',
@@ -221,13 +206,11 @@ export const sk: Language = {
         lessThan: 'Menší ako',
         between: 'Medzi'
       },
-      // Triedenie
       sort: {
         asc: 'Vzostupne',
         desc: 'Zostupne',
         clear: 'Zrušiť triedenie'
       },
-      // Export
       export: {
         title: 'Export údajov',
         filename: 'Názov súboru',
@@ -241,7 +224,6 @@ export const sk: Language = {
         success: 'Export úspešný',
         error: 'Chyba exportu'
       },
-      // Import
       import: {
         title: 'Import údajov',
         selectFile: 'Vyberte súbor',
@@ -252,7 +234,6 @@ export const sk: Language = {
         preview: 'Náhľad údajov',
         confirm: 'Potvrdiť import'
       },
-      // Tlač
       printConfig: {
         title: 'Nastavenia tlače',
         pageTitle: 'Názov strany',
@@ -265,7 +246,6 @@ export const sk: Language = {
         portrait: 'Na výšku',
         printing: 'Tlačí sa...'
       },
-      // Nastavenia stĺpcov
       columnSetting: {
         title: 'Nastavenia stĺpcov',
         showAll: 'Zobraziť všetko',
@@ -275,7 +255,6 @@ export const sk: Language = {
         fixedRight: 'Fixovať vpravo',
         unfixed: 'Zrušiť fixáciu'
       },
-      // Kontextové menu
       contextMenu: {
         copy: 'Kopírovať',
         copyRow: 'Kopírovať riadok',
@@ -287,31 +266,26 @@ export const sk: Language = {
         deleteSelectedRows: 'Odstrániť vybrané riadky',
         exportSelected: 'Exportovať vybrané'
       },
-      // Výber
       selection: {
         selectAll: 'Vybrať všetko',
         selectInvert: 'Invertovať výber',
         selectNone: 'Zrušiť výber',
         selected: '{count} položiek vybraných'
       },
-      // Rozbalenie
       expand: {
         expandAll: 'Rozbaliť všetko',
         collapseAll: 'Zbaliť všetko'
       },
-      // Strom
       tree: {
         expandAll: 'Rozbaliť všetko',
         collapseAll: 'Zbaliť všetko',
         expandLevel: 'Rozbaliť do úrovne {level}'
       },
-      // Presúvanie
       drag: {
         dragTip: 'Presuňte na zmenu poradia',
         dropTip: 'Pustite na umiestnenie'
       }
     },
-    // Okno správy
     messagebox: {
       title: 'Správa',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const sk: Language = {
       prompt: 'Tip',
       inputPlaceholder: 'Prosím, zadajte'
     },
-    // Nahrávanie
     upload: {
       deleteTip: 'stlačte delete na odstránenie',
       delete: 'Odstrániť',
@@ -340,18 +313,15 @@ export const sk: Language = {
       fileSizeError: 'Veľkosť súboru prekračuje limit',
       fileCountError: 'Počet súborov prekračuje limit'
     },
-    // Formulár
     form: {
       validationFailed: 'Overenie zlyhalo',
       required: 'Povinné',
       pleaseInput: 'Prosím, zadajte',
       pleaseSelect: 'Prosím, vyberte'
     },
-    // Tlačidlo
     button: {
       loading: 'Načítava sa...'
     },
-    // Vstup
     input: {
       placeholder: 'Prosím, zadajte',
       clear: 'Vymazať',
@@ -360,28 +330,23 @@ export const sk: Language = {
       copy: 'Kopírovať',
       copied: 'Skopírované'
     },
-    // Číselný vstup
     inputnumber: {
       placeholder: 'Prosím, zadajte číslo',
       increase: 'Zvýšiť',
       decrease: 'Znížiť'
     },
-    // Vstup tagov
     inputtag: {
       placeholder: 'Prosím, zadajte',
       add: 'Pridať',
       remove: 'Odstrániť'
     },
-    // Drobková navigácia
     breadcrumb: {
       label: 'Drobková navigácia',
       more: 'Viac'
     },
-    // Späť nahor
     backtop: {
       text: 'Späť nahor'
     },
-    // Výber
     select: {
       placeholder: 'Prosím, vyberte',
       noData: 'Žiadne údaje',
@@ -390,7 +355,6 @@ export const sk: Language = {
       selectAll: 'Vybrať všetko',
       clearAll: 'Vymazať všetko'
     },
-    // Stránkovanie
     pagination: {
       goto: 'Prejsť na',
       page: '',
@@ -402,13 +366,11 @@ export const sk: Language = {
       last: 'Posledná',
       pageClassifier: ''
     },
-    // Potvrdenie
     popconfirm: {
       confirm: 'OK',
       cancel: 'Zrušiť',
       dontAskAgain: 'Nepýtať sa znova'
     },
-    // Dialóg
     dialog: {
       confirm: 'OK',
       cancel: 'Zrušiť',
@@ -416,17 +378,14 @@ export const sk: Language = {
       maximize: 'Maximalizovať',
       restore: 'Obnoviť'
     },
-    // Zásuvka
     drawer: {
       close: 'Zavrieť',
       confirm: 'OK',
       cancel: 'Zrušiť'
     },
-    // Rozbaľovacie menu
     dropdown: {
       loading: 'Načítava sa...'
     },
-    // Obrázok
     image: {
       error: 'CHYBA',
       loading: 'Načítava sa...',
@@ -438,7 +397,6 @@ export const sk: Language = {
       originalSize: 'Pôvodná veľkosť',
       fullscreen: 'Celá obrazovka'
     },
-    // Prehliadač obrázkov
     imageviewer: {
       close: 'Zavrieť',
       prev: 'Predchádzajúci',
@@ -451,65 +409,52 @@ export const sk: Language = {
       fullscreen: 'Celá obrazovka',
       exitFullscreen: 'Ukončiť celú obrazovku'
     },
-    // Nekonečné posúvanie
     infinitescroll: {
       loading: 'Načítava sa...',
       finished: 'Žiadne ďalšie údaje',
       error: 'Chyba načítavania, kliknite na opakovanie',
       retry: 'Kliknite na opakovanie'
     },
-    // Správa
     message: {
       close: 'Zavrieť'
     },
-    // Oznámenie
     notification: {
       close: 'Zavrieť'
     },
-    // Načítavanie
     loading: {
       text: 'Načítava sa...'
     },
-    // Spinner
     spin: {
       text: 'Načítava sa...'
     },
-    // Hodnotenie
     rate: {
       texts: ['Veľmi zlé', 'Sklamaný', 'OK', 'Spokojný', 'Prekvapený']
     },
-    // Upozornenie
     alert: {
       close: 'Zavrieť'
     },
-    // Tag
     tag: {
       close: 'Zavrieť'
     },
-    // Karty
     tabs: {
       close: 'Zavrieť',
       add: 'Pridať',
       more: 'Viac'
     },
-    // Kroky
     steps: {
       finish: 'Dokončené',
       process: 'Prebieha',
       wait: 'Čaká',
       error: 'Chyba'
     },
-    // Priebeh
     progress: {
       success: 'Úspech',
       exception: 'Výnimka',
       warning: 'Varovanie'
     },
-    // Kostra
     skeleton: {
       loading: 'Načítava sa...'
     },
-    // Prázdne
     empty: {
       description: 'Žiadne údaje',
       noData: 'Žiadne údaje',
@@ -517,7 +462,6 @@ export const sk: Language = {
       networkError: 'Chyba siete',
       serverError: 'Chyba servera'
     },
-    // Výsledok
     result: {
       success: 'Úspech',
       error: 'Chyba',
@@ -525,78 +469,63 @@ export const sk: Language = {
       info: 'Informácia',
       backHome: 'Späť domov'
     },
-    // Vodopád
     waterfall: {
       loading: 'Načítava sa...',
       noMore: 'Žiadne ďalšie údaje',
       empty: 'Žiadne údaje'
     },
-    // Popisy
     descriptions: {
       colon: ':'
     },
-    // Posuvník
     slider: {
       tipFormatter: '{value}'
     },
-    // Prepínač
     switch: {
       on: 'ZAP',
       off: 'VYP'
     },
-    // Zaškrtávacie políčko
     checkbox: {
       selectAll: 'Vybrať všetko'
     },
-    // Rádio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Zbaliť menu',
       expand: 'Rozbaliť menu'
     },
-    // Karta
     card: {
       collapse: 'Zbaliť',
       expand: 'Rozbaliť'
     },
-    // Zbalenie
     collapse: {
       expand: 'Rozbaliť',
       collapse: 'Zbaliť'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Odznak
     badge: {},
-    // Avatar
     avatar: {
       error: 'Chyba načítavania'
     },
-    // Vodoznak
     watermark: {},
-    // Oddeľovač
     divider: {},
-    // Kolotoč
     carousel: {
       prev: 'Predchádzajúci',
       next: 'Nasledujúci'
     },
-    // Bežiaci text
     marquee: {},
-    // Pripnutie
     affix: {},
-    // Kotva
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Prosím, zadajte',
       loading: 'Načítavanie...',
       noData: 'Žiadne dáta'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Vyberte špecifikácie',
       emptyText: 'Žiadne špecifikácie',
@@ -697,7 +626,8 @@ export const sk: Language = {
         agent: 'Agent',
         document: 'Dokument',
         table: 'Tabuľka',
-        knowledge: 'Znalosť'
+        knowledge: 'Znalosť',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopírovať kód',
@@ -716,7 +646,8 @@ export const sk: Language = {
       },
       sender: {
         placeholder: 'Poslať správu...',
-        dragTip: 'Uvoľnite na nahranie súborov'
+        dragTip: 'Uvoľnite na nahranie súborov',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Proces myslenia',
@@ -751,7 +682,8 @@ export const sk: Language = {
         versions: 'Verzie',
         rendering: 'Vykresľovanie komponentu...',
         renderingChart: 'Vykresľovanie grafu...',
-        renderingCanvas: 'Príprava plátna...'
+        renderingCanvas: 'Príprava plátna...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Kliknite na hovorenie',

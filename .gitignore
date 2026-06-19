@@ -88,3 +88,5 @@ apps/*/*.png
 .yh-ui/
 node_modules/.vite/
 package-lock.json
+scratch/
+

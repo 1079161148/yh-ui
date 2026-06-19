@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const fi: Language = {
   name: 'fi',
   yh: {
-    // Yleinen
     common: {
       yes: 'Kyllä',
       no: 'Ei',
@@ -27,7 +26,6 @@ export const fi: Language = {
       selectAll: 'Valitse kaikki',
       unselectAll: 'Poista valinta kaikista'
     },
-    // Väripicker
     colorpicker: {
       confirm: 'OK',
       clear: 'Tyhjennä',
@@ -37,7 +35,6 @@ export const fi: Language = {
       recentColors: 'Viimeisimmät värit',
       presetColors: 'Ennalta määritellyt värit'
     },
-    // Päivämäärävalitsin
     datepicker: {
       now: 'Nyt',
       today: 'Tänään',
@@ -89,7 +86,6 @@ export const fi: Language = {
         q4: 'Q4'
       }
     },
-    // Aikavalitsin
     timepicker: {
       confirm: 'OK',
       cancel: 'Peruuta',
@@ -99,11 +95,9 @@ export const fi: Language = {
       endPlaceholder: 'Lopetusaika',
       selectTime: 'Valitse aika'
     },
-    // Aikavalinta
     timeselect: {
       placeholder: 'Valitse aika'
     },
-    // Puu
     tree: {
       emptyText: 'Ei tietoja',
       loading: 'Ladataan...',
@@ -112,14 +106,12 @@ export const fi: Language = {
       expandAll: 'Laajenna kaikki',
       collapseAll: 'Tiivistä kaikki'
     },
-    // Puuvalinta
     treeselect: {
       placeholder: 'Valitse',
       emptyText: 'Ei tietoja',
       loading: 'Ladataan...',
       noMatch: 'Ei vastaavia tietoja'
     },
-    // Kalenteri
     calendar: {
       prevMonth: 'Edellinen kuukausi',
       nextMonth: 'Seuraava kuukausi',
@@ -140,14 +132,12 @@ export const fi: Language = {
         sat: 'La'
       }
     },
-    // Automaattinen täydennys
     autocomplete: {
       loading: 'Ladataan...',
       placeholder: 'Ole hyvä ja syötä',
       noData: 'Ei tietoja',
       noMatch: 'Ei vastaavia tietoja'
     },
-    // Lähtölaskenta
     countdown: {
       days: 'päivää',
       hours: 'tuntia',
@@ -156,14 +146,12 @@ export const fi: Language = {
       milliseconds: 'millisekuntia',
       finished: 'Valmis'
     },
-    // Kaskadivalitsin
     cascader: {
       noMatch: 'Ei vastaavia tietoja',
       placeholder: 'Valitse',
       loading: 'Ladataan...',
       noData: 'Ei tietoja'
     },
-    // Siirto
     transfer: {
       noMatch: 'Ei vastaavia tietoja',
       noData: 'Ei tietoja',
@@ -173,7 +161,6 @@ export const fi: Language = {
       hasCheckedFormat: '{checked}/{total} valittu',
       searchPlaceholder: 'Syötä avainsana'
     },
-    // Taulukko
     table: {
       emptyText: 'Ei tietoja',
       confirmFilter: 'Vahvista',
@@ -190,7 +177,6 @@ export const fi: Language = {
       page: 'Sivu {page}',
       yes: 'Kyllä',
       no: 'Ei',
-      // Työkalurivi
       toolbar: {
         refresh: 'Päivitä',
         density: 'Tiheys',
@@ -205,7 +191,6 @@ export const fi: Language = {
         search: 'Etsi',
         searchPlaceholder: 'Syötä avainsanoja etsiäksesi'
       },
-      // Suodatin
       filter: {
         selectAll: 'Valitse kaikki',
         selectInvert: 'Käännä valinta',
@@ -221,13 +206,11 @@ export const fi: Language = {
         lessThan: 'Pienempi kuin',
         between: 'Välillä'
       },
-      // Lajittelu
       sort: {
         asc: 'Nouseva',
         desc: 'Laskeva',
         clear: 'Tyhjennä lajittelu'
       },
-      // Vienti
       export: {
         title: 'Vie tiedot',
         filename: 'Tiedostonimi',
@@ -241,7 +224,6 @@ export const fi: Language = {
         success: 'Vienti onnistui',
         error: 'Vienti epäonnistui'
       },
-      // Tuonti
       import: {
         title: 'Tuo tiedot',
         selectFile: 'Valitse tiedosto',
@@ -252,7 +234,6 @@ export const fi: Language = {
         preview: 'Tietojen esikatselu',
         confirm: 'Vahvista tuonti'
       },
-      // Tulostus
       printConfig: {
         title: 'Tulostusasetukset',
         pageTitle: 'Sivun otsikko',
@@ -265,7 +246,6 @@ export const fi: Language = {
         portrait: 'Pystysuunta',
         printing: 'Tulostetaan...'
       },
-      // Sarakkeen asetukset
       columnSetting: {
         title: 'Sarakkeen asetukset',
         showAll: 'Näytä kaikki',
@@ -275,7 +255,6 @@ export const fi: Language = {
         fixedRight: 'Kiinnitä oikealle',
         unfixed: 'Vapauta'
       },
-      // Kontekstivalikko
       contextMenu: {
         copy: 'Kopioi',
         copyRow: 'Kopioi rivi',
@@ -287,31 +266,26 @@ export const fi: Language = {
         deleteSelectedRows: 'Poista valitut rivit',
         exportSelected: 'Vie valitut'
       },
-      // Valinta
       selection: {
         selectAll: 'Valitse kaikki',
         selectInvert: 'Käännä valinta',
         selectNone: 'Tyhjennä valinta',
         selected: '{count} kohdetta valittu'
       },
-      // Laajenna
       expand: {
         expandAll: 'Laajenna kaikki',
         collapseAll: 'Tiivistä kaikki'
       },
-      // Puu
       tree: {
         expandAll: 'Laajenna kaikki',
         collapseAll: 'Tiivistä kaikki',
         expandLevel: 'Laajenna tasolle {level}'
       },
-      // Vedä
       drag: {
         dragTip: 'Vedä järjestääksesi uudelleen',
         dropTip: 'Pudota sijoittaaksesi'
       }
     },
-    // Viestiruutu
     messagebox: {
       title: 'Viesti',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const fi: Language = {
       prompt: 'Kehote',
       inputPlaceholder: 'Ole hyvä ja syötä'
     },
-    // Lähetys
     upload: {
       deleteTip: 'paina delete poistaaksesi',
       delete: 'Poista',
@@ -340,18 +313,15 @@ export const fi: Language = {
       fileSizeError: 'Tiedostokoko ylittää rajan',
       fileCountError: 'Tiedostomäärä ylittää rajan'
     },
-    // Lomake
     form: {
       validationFailed: 'Validointi epäonnistui',
       required: 'Pakollinen',
       pleaseInput: 'Ole hyvä ja syötä',
       pleaseSelect: 'Ole hyvä ja valitse'
     },
-    // Painike
     button: {
       loading: 'Ladataan...'
     },
-    // Syöte
     input: {
       placeholder: 'Ole hyvä ja syötä',
       clear: 'Tyhjennä',
@@ -360,28 +330,23 @@ export const fi: Language = {
       copy: 'Kopioi',
       copied: 'Kopioitu'
     },
-    // Numerosyöte
     inputnumber: {
       placeholder: 'Ole hyvä ja syötä numero',
       increase: 'Kasvata',
       decrease: 'Vähennä'
     },
-    // Tägisyyöte
     inputtag: {
       placeholder: 'Ole hyvä ja syötä',
       add: 'Lisää',
       remove: 'Poista'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Lisää'
     },
-    // Takaisin ylös
     backtop: {
       text: 'Takaisin ylös'
     },
-    // Valinta
     select: {
       placeholder: 'Ole hyvä ja valitse',
       noData: 'Ei tietoja',
@@ -390,7 +355,6 @@ export const fi: Language = {
       selectAll: 'Valitse kaikki',
       clearAll: 'Tyhjennä kaikki'
     },
-    // Sivutus
     pagination: {
       goto: 'Siirry',
       page: '',
@@ -402,13 +366,11 @@ export const fi: Language = {
       last: 'Viimeinen',
       pageClassifier: ''
     },
-    // Popup-vahvistus
     popconfirm: {
       confirm: 'OK',
       cancel: 'Peruuta',
       dontAskAgain: 'Älä kysy uudelleen'
     },
-    // Dialogi
     dialog: {
       confirm: 'OK',
       cancel: 'Peruuta',
@@ -416,17 +378,14 @@ export const fi: Language = {
       maximize: 'Suurenna',
       restore: 'Palauta'
     },
-    // Laatikko
     drawer: {
       close: 'Sulje',
       confirm: 'OK',
       cancel: 'Peruuta'
     },
-    // Pudotusvalikko
     dropdown: {
       loading: 'Ladataan...'
     },
-    // Kuva
     image: {
       error: 'EPÄONNISTUI',
       loading: 'Ladataan...',
@@ -438,7 +397,6 @@ export const fi: Language = {
       originalSize: 'Alkuperäinen koko',
       fullscreen: 'Koko näyttö'
     },
-    // Kuvankatselin
     imageviewer: {
       close: 'Sulje',
       prev: 'Edellinen',
@@ -451,65 +409,52 @@ export const fi: Language = {
       fullscreen: 'Koko näyttö',
       exitFullscreen: 'Poistu koko näytöstä'
     },
-    // Ääretön vieritys
     infinitescroll: {
       loading: 'Ladataan...',
       finished: 'Ei enää tietoja',
       error: 'Lataus epäonnistui, klikkaa yrittääksesi uudelleen',
       retry: 'Klikkaa yrittääksesi uudelleen'
     },
-    // Viesti
     message: {
       close: 'Sulje'
     },
-    // Ilmoitus
     notification: {
       close: 'Sulje'
     },
-    // Lataus
     loading: {
       text: 'Ladataan...'
     },
-    // Pyöriminen
     spin: {
       text: 'Ladataan...'
     },
-    // Arviointi
     rate: {
       texts: ['Erittäin huono', 'Pettynyt', 'Kohtalainen', 'Tyytyväinen', 'Yllättynyt']
     },
-    // Varoitus
     alert: {
       close: 'Sulje'
     },
-    // Tägi
     tag: {
       close: 'Sulje'
     },
-    // Välilehdet
     tabs: {
       close: 'Sulje',
       add: 'Lisää',
       more: 'Lisää'
     },
-    // Askeleet
     steps: {
       finish: 'Valmis',
       process: 'Käynnissä',
       wait: 'Odottaa',
       error: 'Virhe'
     },
-    // Edistyminen
     progress: {
       success: 'Onnistui',
       exception: 'Poikkeus',
       warning: 'Varoitus'
     },
-    // Luuranko
     skeleton: {
       loading: 'Ladataan...'
     },
-    // Tyhjä
     empty: {
       description: 'Ei tietoja',
       noData: 'Ei tietoja',
@@ -517,7 +462,6 @@ export const fi: Language = {
       networkError: 'Verkkovirhe',
       serverError: 'Palvelinvirhe'
     },
-    // Tulos
     result: {
       success: 'Onnistui',
       error: 'Virhe',
@@ -525,78 +469,63 @@ export const fi: Language = {
       info: 'Tiedot',
       backHome: 'Takaisin kotiin'
     },
-    // Vesiputous
     waterfall: {
       loading: 'Ladataan...',
       noMore: 'Ei enää tietoja',
       empty: 'Ei tietoja'
     },
-    // Kuvaukset
     descriptions: {
       colon: ':'
     },
-    // Liukusäädin
     slider: {
       tipFormatter: '{value}'
     },
-    // Kytkin
     switch: {
       on: 'PÄÄLLÄ',
       off: 'POIS PÄÄLTÄ'
     },
-    // Valintaruutu
     checkbox: {
       selectAll: 'Valitse kaikki'
     },
-    // Radio
     radio: {},
-    // Valikko
     menu: {
       collapse: 'Tiivistä valikko',
       expand: 'Laajenna valikko'
     },
-    // Kortti
     card: {
       collapse: 'Tiivistä',
       expand: 'Laajenna'
     },
-    // Tiivistä
     collapse: {
       expand: 'Laajenna',
       collapse: 'Tiivistä'
     },
-    // Työkaluvihje
     tooltip: {},
-    // Popover
     popover: {},
-    // Merkki
     badge: {},
-    // Avatar
     avatar: {
       error: 'Lataus epäonnistui'
     },
-    // Vesileima
     watermark: {},
-    // Erotin
     divider: {},
-    // Karuselli
     carousel: {
       prev: 'Edellinen',
       next: 'Seuraava'
     },
-    // Marquee
     marquee: {},
-    // Kiinnitys
     affix: {},
-    // Ankkuri
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Syötä',
       loading: 'Ladataan...',
       noData: 'Ei tietoja'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Valitse tiedot',
       emptyText: 'Ei tietoja',
@@ -698,7 +627,8 @@ export const fi: Language = {
         agent: 'Agentti',
         document: 'Dokumentti',
         table: 'Taulukko',
-        knowledge: 'Tieto'
+        knowledge: 'Tieto',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopioi koodi',
@@ -717,7 +647,8 @@ export const fi: Language = {
       },
       sender: {
         placeholder: 'Lähetä viesti...',
-        dragTip: 'Vapauta ladataksesi tiedostoja'
+        dragTip: 'Vapauta ladataksesi tiedostoja',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Ajatteluprosessi',
@@ -752,7 +683,8 @@ export const fi: Language = {
         versions: 'Versiot',
         rendering: 'Renderoidaan komponenttia...',
         renderingChart: 'Renderoidaan kaaviota...',
-        renderingCanvas: 'Valmistellaan canvasta...'
+        renderingCanvas: 'Valmistellaan canvasta...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Klikkaa puhuaksesi',

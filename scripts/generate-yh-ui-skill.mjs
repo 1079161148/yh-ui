@@ -9,8 +9,29 @@ const componentsDir = resolve(root, 'packages/components/src')
 const flowDir = resolve(root, 'packages/flow/src')
 
 const priorityComponents = new Set([
-  'YhTable',
+  'YhButton',
+  'YhInput',
+  'YhSelect',
+  'YhOption',
+  'YhDatePicker',
+  'YhUpload',
+  'YhForm',
   'YhFormSchema',
+  'YhConfigProvider',
+  'YhDialog',
+  'YhDrawer',
+  'YhPagination',
+  'YhTable',
+  'YhGanttChart',
+  'YhSkuSelector',
+  'YhPrice',
+  'YhProductCard',
+  'YhCouponCard',
+  'YhLuckyDraw',
+  'YhFilterBar',
+  'YhSubmitBar',
+  'YhCategoryNav',
+  'YhSmartAddress',
   'YhAiChat',
   'YhAiBubble',
   'YhAiBubbleList',
@@ -24,6 +45,7 @@ const priorityComponents = new Set([
   'YhAiCodeRunner',
   'YhAiMermaid'
 ])
+
 
 const componentGroups = [
   {
@@ -390,9 +412,13 @@ function defineExposeKeys(sourceFile) {
 function sourceApi(source, file) {
   const sourceFile = createSourceFile(source, file)
   return {
-    props: exportedConstInitializers(sourceFile, /Props$/).flatMap(objectLiteralKeys),
+    props: [
+      ...exportedConstInitializers(sourceFile, /Props$/).flatMap(objectLiteralKeys),
+      ...interfaceMemberKeys(sourceFile, /Props$/)
+    ],
     emits: [
       ...exportedConstInitializers(sourceFile, /Emits$/).flatMap(objectLiteralKeys),
+      ...interfaceMemberKeys(sourceFile, /Emits$/),
       ...defineEmitsKeys(sourceFile)
     ],
     slots: [...interfaceMemberKeys(sourceFile, /Slots$/), ...extractTemplateSlots(source)],

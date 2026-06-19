@@ -476,12 +476,24 @@ export async function XRequest(
     try {
       attempt++
 
+      const requestHeaders: Record<string, string> = {
+        'Content-Type': 'application/json',
+        ...finalConfig.headers
+      }
+
+      if (finalConfig.requestId) {
+        requestHeaders['X-Request-Id'] = finalConfig.requestId
+      }
+
+      if (finalConfig.extra) {
+        Object.entries(finalConfig.extra).forEach(([key, value]) => {
+          requestHeaders[`X-Extra-${key}`] = String(value)
+        })
+      }
+
       const response = await fetch(url, {
         method: finalConfig.method || 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...finalConfig.headers
-        },
+        headers: requestHeaders,
         body: finalConfig.body ? JSON.stringify(finalConfig.body) : undefined,
         signal: finalConfig.timeout ? AbortSignal.timeout(finalConfig.timeout) : undefined
       })
@@ -618,12 +630,13 @@ export function useConversation(config: ConversationConfig = {}) {
       if (stored) {
         try {
           const parsed = JSON.parse(stored)
-          messages.value = (parsed || []).map(
+          const restored = (parsed || []).map(
             (m: { createdAt?: string | Date; [key: string]: unknown }) => ({
               ...m,
               createdAt: m.createdAt ? new Date(m.createdAt) : undefined
             })
           ) as ConversationMessage[]
+          messages.value = restored.slice(-maxHistory)
         } catch {
           messages.value = []
         }
@@ -744,7 +757,7 @@ export function useConversations(options: UseConversationsOptions = {}) {
         const stored = localStorage.getItem(storageKey)
         if (stored) {
           const parsed = JSON.parse(stored)
-          conversations.value = (parsed.conversations || []).map(
+          const restored = (parsed.conversations || []).map(
             (c: {
               id: string
               messages?: Array<{ createdAt?: string | Date; [key: string]: unknown }>
@@ -761,6 +774,7 @@ export function useConversations(options: UseConversationsOptions = {}) {
               }))
             })
           ) as Conversation[]
+          conversations.value = restored.slice(-maxConversations)
           currentId.value = parsed.currentId || null
 
           // 确保当前会话存在

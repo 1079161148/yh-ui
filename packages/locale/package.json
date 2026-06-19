@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/locale",
-  "version": "1.0.60",
+  "version": "1.0.61",
   "description": "YH-UI internationalization locale files",
   "type": "module",
   "sideEffects": false,
@@ -29,7 +29,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
+    "build": "unbuild && node ../../scripts/verify-locales.mjs",
     "dev": "unbuild --stub",
     "prepack": "node ../../scripts/prepare-package-manifest.mjs prepare",
     "postpack": "node ../../scripts/prepare-package-manifest.mjs restore",

@@ -3,89 +3,81 @@ import type { Language } from '../index'
 export const pa: Language = {
   name: 'pa',
   yh: {
-    // عمومي
     common: {
-      yes: '\u0647\u0648',
-      no: '\u0646\u0647',
-      confirm: '\u062A\u0627\u06CC\u06CC\u062F',
-      cancel: '\u0644\u063A\u0648\u0647',
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644',
-      close: '\u062A\u0693\u0644',
-      clear: '\u067E\u0627\u06A9\u0648\u0644',
-      reset: '\u0628\u06CC\u0627 \u062A\u0646\u0638\u06CC\u0645\u0648\u0644',
-      save: '\u062E\u0648\u0646\u062F\u064A \u06A9\u0648\u0644',
-      delete: '\u0693\u0646\u06AB\u0648\u0644',
-      edit: '\u0633\u0645\u0648\u0644',
-      add: '\u0632\u06CC\u0627\u062A\u0648\u0644',
-      search: '\u0644\u067C\u0648\u0646',
-      refresh: '\u062A\u0627\u0632\u0647 \u06A9\u0648\u0644',
-      expand: '\u067E\u0631\u0627\u062E\u0648\u0644',
-      collapse: '\u06A9\u0645\u0648\u0644',
-      more: '\u0646\u0648\u0631',
-      noData:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      noMatch: '\u0647\u06CC\u0685 \u0645\u0637\u0627\u0628\u0642\u062A \u0646\u0634\u062A\u0647',
-      selectAll: '\u067C\u0648\u0644 \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-      unselectAll:
-        '\u067C\u0648\u0644 \u063A\u0648\u0631\u0647 \u06A9\u0648\u0644 \u0644\u063A\u0648\u0647 \u06A9\u0693\u0626'
+      yes: 'هو',
+      no: 'نه',
+      confirm: 'تایید',
+      cancel: 'لغوه',
+      loading: 'برسېرېدل',
+      close: 'تړل',
+      clear: 'پاکول',
+      reset: 'بیا تنظیمول',
+      save: 'خوندي کول',
+      delete: 'ړنګول',
+      edit: 'سمول',
+      add: 'زیاتول',
+      search: 'لټون',
+      refresh: 'تازه کول',
+      expand: 'پراخول',
+      collapse: 'کمول',
+      more: 'نور',
+      noData: 'هیڅ معلومات نشته',
+      noMatch: 'هیڅ مطابقت نشته',
+      selectAll: 'ټول غوره کړئ',
+      unselectAll: 'ټول غوره کول لغوه کړئ'
     },
-    // رنګ غوره کونکی
     colorpicker: {
-      confirm: '\u0633\u0645\u0647 \u062F\u0647',
-      clear: '\u067E\u0627\u06A9\u0648\u0644',
-      eyeDropper: '\u0633\u062A\u0631\u06AB\u0647 \u0642\u0637\u0631\u0647',
-      suggestionDark:
-        '\u0633\u067E\u06CC\u0646 \u0645\u062A\u0646 \u063A\u0648\u0631\u0647 \u062F\u06CC',
-      suggestionLight:
-        '\u062A\u0648\u0631 \u0645\u062A\u0646 \u063A\u0648\u0631\u0647 \u062F\u06CC',
-      recentColors: '\u0648\u0631\u0648\u0633\u062A\u064A \u0631\u0646\u06AB\u0648\u0646\u0647',
-      presetColors:
-        '\u067E\u06CC\u0634 \u062A\u0646\u0638\u06CC\u0645 \u0634\u0648\u064A \u0631\u0646\u06AB\u0648\u0646\u0647'
+      confirm: 'سمه ده',
+      clear: 'پاکول',
+      eyeDropper: 'سترګه قطره',
+      suggestionDark: 'سپین متن غوره دی',
+      suggestionLight: 'تور متن غوره دی',
+      recentColors: 'وروستي رنګونه',
+      presetColors: 'پیش تنظیم شوي رنګونه'
     },
-    // نیټه غوره کونکی
     datepicker: {
-      now: '\u0627\u0648\u0633',
-      today: '\u0646\u0646',
-      cancel: '\u0644\u063A\u0648\u0647',
-      clear: '\u067E\u0627\u06A9\u0648\u0644',
-      confirm: '\u0633\u0645\u0647 \u062F\u0647',
-      selectDate: '\u0646\u06CC\u067C\u0647 \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-      selectTime: '\u0648\u062E\u062A \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-      startDate: '\u062F \u067E\u06CC\u0644 \u0646\u06CC\u067C\u0647',
-      startTime: '\u062F \u067E\u06CC\u0644 \u0648\u062E\u062A',
-      endDate: '\u062F \u067E\u0627\u06CC \u0646\u06CC\u067C\u0647',
-      endTime: '\u062F \u067E\u0627\u06CC \u0648\u062E\u062A',
+      now: 'اوس',
+      today: 'نن',
+      cancel: 'لغوه',
+      clear: 'پاکول',
+      confirm: 'سمه ده',
+      selectDate: 'نیټه غوره کړئ',
+      selectTime: 'وخت غوره کړئ',
+      startDate: 'د پیل نیټه',
+      startTime: 'د پیل وخت',
+      endDate: 'د پای نیټه',
+      endTime: 'د پای وخت',
       year: '',
       month: '',
       day: '',
-      week: '\u0627\u0648\u0646\u06CD',
+      week: 'اونۍ',
       monthBeforeYear: true,
-      prevYear: '\u062A\u06CC\u0631 \u06A9\u0627\u0644',
-      nextYear: '\u0631\u0627\u062A\u0644\u0648\u0646\u06A9\u06CC \u06A9\u0627\u0644',
-      prevMonth: '\u062A\u06CC\u0631 \u0645\u06CC\u0627\u0634\u062A',
-      nextMonth: '\u0631\u0627\u062A\u0644\u0648\u0646\u06A9\u06D0 \u0645\u06CC\u0627\u0634\u062A',
+      prevYear: 'تیر کال',
+      nextYear: 'راتلونکی کال',
+      prevMonth: 'تیر میاشت',
+      nextMonth: 'راتلونکې میاشت',
       weeks: {
-        sun: '\u06CC\u06A9\u0634\u0646\u0628\u0647',
-        mon: '\u062F\u0648\u0634\u0646\u0628\u0647',
-        tue: '\u0633\u0647\u200C\u0634\u0646\u0628\u0647',
-        wed: '\u0686\u0647\u0627\u0631\u0634\u0646\u0628\u0647',
-        thu: '\u067E\u0646\u062C\u0634\u0646\u0628\u0647',
-        fri: '\u062C\u0645\u0639\u0647',
-        sat: '\u0634\u0646\u0628\u0647'
+        sun: 'یکشنبه',
+        mon: 'دوشنبه',
+        tue: 'سه‌شنبه',
+        wed: 'چهارشنبه',
+        thu: 'پنجشنبه',
+        fri: 'جمعه',
+        sat: 'شنبه'
       },
       months: {
-        jan: '\u062C\u0646\u0648\u0631\u064A',
-        feb: '\u0641\u0628\u0631\u0648\u0631\u064A',
-        mar: '\u0645\u0627\u0631\u0686',
-        apr: '\u0627\u067E\u0631\u06CC\u0644',
-        may: '\u0645\u06CC',
-        jun: '\u062C\u0648\u0646',
-        jul: '\u062C\u0648\u0644\u0627\u06CC',
-        aug: '\u0627\u06AB\u0633\u062A',
-        sep: '\u0633\u067E\u062A\u0645\u0628\u0631',
-        oct: '\u0627\u06A9\u062A\u0648\u0628\u0631',
-        nov: '\u0646\u0648\u0645\u0628\u0631',
-        dec: '\u062F\u0633\u0645\u0628\u0631'
+        jan: 'جنوري',
+        feb: 'فبروري',
+        mar: 'مارچ',
+        apr: 'اپریل',
+        may: 'می',
+        jun: 'جون',
+        jul: 'جولای',
+        aug: 'اګست',
+        sep: 'سپتمبر',
+        oct: 'اکتوبر',
+        nov: 'نومبر',
+        dec: 'دسمبر'
       },
       quarters: {
         q1: 'Q1',
@@ -94,711 +86,679 @@ export const pa: Language = {
         q4: 'Q4'
       }
     },
-    // وخت غوره کونکی
     timepicker: {
-      confirm: '\u0633\u0645\u0647 \u062F\u0647',
-      cancel: '\u0644\u063A\u0648\u0647',
-      now: '\u0627\u0648\u0633',
-      placeholder: '\u0648\u062E\u062A \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-      startPlaceholder: '\u062F \u067E\u06CC\u0644 \u0648\u062E\u062A',
-      endPlaceholder: '\u062F \u067E\u0627\u06CC \u0648\u062E\u062A',
-      selectTime: '\u0648\u062E\u062A \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626'
+      confirm: 'سمه ده',
+      cancel: 'لغوه',
+      now: 'اوس',
+      placeholder: 'وخت غوره کړئ',
+      startPlaceholder: 'د پیل وخت',
+      endPlaceholder: 'د پای وخت',
+      selectTime: 'وخت غوره کړئ'
     },
-    // وخت غوره کول
     timeselect: {
-      placeholder: '\u0648\u062E\u062A \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626'
+      placeholder: 'وخت غوره کړئ'
     },
-    // ونه
     tree: {
-      emptyText:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...',
-      checkAll: '\u067C\u0648\u0644 \u0648\u06AB\u0648\u0631\u0626',
-      uncheckAll: '\u067C\u0648\u0644 \u0646\u0627\u06AB\u0648\u0631\u0644',
-      expandAll: '\u067C\u0648\u0644 \u067E\u0631\u0627\u062E\u0648\u0644',
-      collapseAll: '\u067C\u0648\u0644 \u06A9\u0645\u0648\u0644'
+      emptyText: 'هیڅ معلومات نشته',
+      loading: 'برسېرېدل...',
+      checkAll: 'ټول وګورئ',
+      uncheckAll: 'ټول ناګورل',
+      expandAll: 'ټول پراخول',
+      collapseAll: 'ټول کمول'
     },
-    // ونه غوره کول
     treeselect: {
-      placeholder: '\u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-      emptyText:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...',
-      noMatch: '\u0647\u06CC\u0685 \u0645\u0637\u0627\u0628\u0642\u062A \u0646\u0634\u062A\u0647'
+      placeholder: 'غوره کړئ',
+      emptyText: 'هیڅ معلومات نشته',
+      loading: 'برسېرېدل...',
+      noMatch: 'هیڅ مطابقت نشته'
     },
-    // کیلنډر
     calendar: {
-      prevMonth: '\u062A\u06CC\u0631 \u0645\u06CC\u0627\u0634\u062A',
-      nextMonth: '\u0631\u0627\u062A\u0644\u0648\u0646\u06A9\u06D0 \u0645\u06CC\u0627\u0634\u062A',
-      prevYear: '\u062A\u06CC\u0631 \u06A9\u0627\u0644',
-      nextYear: '\u0631\u0627\u062A\u0644\u0648\u0646\u06A9\u06CC \u06A9\u0627\u0644',
-      today: '\u0646\u0646',
-      week: '\u0627\u0648\u0646\u06CD',
-      holiday: '\u0631\u062E\u0635\u062A\u064A',
-      workday: '\u06A9\u0627\u0631',
+      prevMonth: 'تیر میاشت',
+      nextMonth: 'راتلونکې میاشت',
+      prevYear: 'تیر کال',
+      nextYear: 'راتلونکی کال',
+      today: 'نن',
+      week: 'اونۍ',
+      holiday: 'رخصتي',
+      workday: 'کار',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: '\u06CC\u06A9\u0634\u0646\u0628\u0647',
-        mon: '\u062F\u0648\u0634\u0646\u0628\u0647',
-        tue: '\u0633\u0647\u200C\u0634\u0646\u0628\u0647',
-        wed: '\u0686\u0647\u0627\u0631\u0634\u0646\u0628\u0647',
-        thu: '\u067E\u0646\u062C\u0634\u0646\u0628\u0647',
-        fri: '\u062C\u0645\u0639\u0647',
-        sat: '\u0634\u0646\u0628\u0647'
+        sun: 'یکشنبه',
+        mon: 'دوشنبه',
+        tue: 'سه‌شنبه',
+        wed: 'چهارشنبه',
+        thu: 'پنجشنبه',
+        fri: 'جمعه',
+        sat: 'شنبه'
       }
     },
-    // خپلکاره بشپړول
     autocomplete: {
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...',
-      placeholder:
-        '\u0645\u0647\u0631\u0628\u0627\u0646\u064A \u0648\u06A9\u0693\u0626 \u062F\u0627\u062E\u0644 \u06A9\u0693\u0626',
-      noData:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      noMatch: '\u0647\u06CC\u0685 \u0645\u0637\u0627\u0628\u0642\u062A \u0646\u0634\u062A\u0647'
+      loading: 'برسېرېدل...',
+      placeholder: 'مهرباني وکړئ داخل کړئ',
+      noData: 'هیڅ معلومات نشته',
+      noMatch: 'هیڅ مطابقت نشته'
     },
-    // شمېرنې وروسته
     countdown: {
-      days: '\u0648\u0631\u0681\u06D0',
-      hours: '\u0633\u0627\u0639\u062A\u0648\u0646\u0647',
-      minutes: '\u062F\u0642\u06CC\u0642\u06D0',
-      seconds: '\u062B\u0627\u0646\u06CC\u06D0',
-      milliseconds: '\u0645\u0644\u06CC \u062B\u0627\u0646\u06CC\u06D0',
-      finished: '\u0628\u0634\u067E\u0693 \u0634\u0648'
+      days: 'ورځې',
+      hours: 'ساعتونه',
+      minutes: 'دقیقې',
+      seconds: 'ثانیې',
+      milliseconds: 'ملی ثانیې',
+      finished: 'بشپړ شو'
     },
-    // کاسکاډ غوره کول
     cascader: {
-      noMatch: '\u0647\u06CC\u0685 \u0645\u0637\u0627\u0628\u0642\u062A \u0646\u0634\u062A\u0647',
-      placeholder: '\u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...',
-      noData:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647'
+      noMatch: 'هیڅ مطابقت نشته',
+      placeholder: 'غوره کړئ',
+      loading: 'برسېرېدل...',
+      noData: 'هیڅ معلومات نشته'
     },
-    // لیږد
     transfer: {
-      noMatch: '\u0647\u06CC\u0685 \u0645\u0637\u0627\u0628\u0642\u062A \u0646\u0634\u062A\u0647',
-      noData:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      titles: ['\u0644\u06CC\u0633\u062A 1', '\u0644\u06CC\u0633\u062A 2'],
-      filterPlaceholder:
-        '\u06A9\u0644\u06CC\u062F\u064A \u06A9\u0644\u0645\u0647 \u062F\u0627\u062E\u0644 \u06A9\u0693\u0626',
-      noCheckedFormat: '{total} \u062A\u0648\u06A9\u064A',
-      hasCheckedFormat: '{checked}/{total} \u063A\u0648\u0631\u0647 \u0634\u0648\u064A',
-      searchPlaceholder:
-        '\u06A9\u0644\u06CC\u062F\u064A \u06A9\u0644\u0645\u0647 \u062F\u0627\u062E\u0644 \u06A9\u0693\u0626'
+      noMatch: 'هیڅ مطابقت نشته',
+      noData: 'هیڅ معلومات نشته',
+      titles: ['لیست 1', 'لیست 2'],
+      filterPlaceholder: 'کلیدي کلمه داخل کړئ',
+      noCheckedFormat: '{total} توکي',
+      hasCheckedFormat: '{checked}/{total} غوره شوي',
+      searchPlaceholder: 'کلیدي کلمه داخل کړئ'
     },
-    // جدول
     table: {
-      emptyText:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      confirmFilter: '\u062A\u0627\u06CC\u06CC\u062F',
-      resetFilter: '\u0628\u06CC\u0627 \u062A\u0646\u0638\u06CC\u0645\u0648\u0644',
-      clearFilter: '\u067C\u0648\u0644',
-      sumText: '\u0645\u062C\u0645\u0648\u0639\u0647',
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...',
-      index: '\u0634\u0627\u062E\u0635',
-      print: '\u0686\u0627\u067E',
-      cancel: '\u0644\u063A\u0648\u0647',
-      preview: '\u062F \u0686\u0627\u067E \u0645\u062E\u06A9\u062A\u0646\u0647',
-      printTime: '\u062F \u0686\u0627\u067E \u0648\u062E\u062A',
-      total: '\u0645\u062C\u0645\u0648\u0639\u064A {total} \u062A\u0648\u06A9\u064A',
-      page: '\u067E\u0627\u06BC\u0647 {page}',
-      yes: '\u0647\u0648',
-      no: '\u0646\u0647',
-      // د اوزارونو پینل
+      emptyText: 'هیڅ معلومات نشته',
+      confirmFilter: 'تایید',
+      resetFilter: 'بیا تنظیمول',
+      clearFilter: 'ټول',
+      sumText: 'مجموعه',
+      loading: 'برسېرېدل...',
+      index: 'شاخص',
+      print: 'چاپ',
+      cancel: 'لغوه',
+      preview: 'د چاپ مخکتنه',
+      printTime: 'د چاپ وخت',
+      total: 'مجموعي {total} توکي',
+      page: 'پاڼه {page}',
+      yes: 'هو',
+      no: 'نه',
       toolbar: {
-        refresh: '\u062A\u0627\u0632\u0647 \u06A9\u0648\u0644',
-        density: '\u06A9\u062B\u0627\u0641\u062A',
-        densityDefault: '\u062A\u0644\u0648\u0627\u0644\u06CC\u0632',
-        densityLarge: '\u0644\u0648\u06CC',
-        densitySmall: '\u0648\u0693\u0648\u06A9\u06CC',
-        columnSetting:
-          '\u062F \u06A9\u0627\u0644\u0645\u0648\u0646\u0648 \u062A\u0646\u0638\u06CC\u0645\u0627\u062A',
-        fullscreen: '\u0628\u0634\u067E\u0693\u0647 \u067E\u0631\u062F\u0647',
-        exitFullscreen:
-          '\u062F \u0628\u0634\u067E\u0693\u06D0 \u067E\u0631\u062F\u06D0 \u0685\u062E\u0647 \u0648\u0648\u062A\u0644',
-        export: '\u0635\u0627\u062F\u0631\u0648\u0644',
-        import: '\u0648\u0627\u0631\u062F\u0648\u0644',
-        search: '\u0644\u067C\u0648\u0646',
-        searchPlaceholder:
-          '\u062F \u0644\u067C\u0648\u0646 \u0644\u067E\u0627\u0631\u0647 \u06A9\u0644\u06CC\u062F\u064A \u06A9\u0644\u0645\u06D0 \u062F\u0627\u062E\u0644 \u06A9\u0693\u0626'
+        refresh: 'تازه کول',
+        density: 'کثافت',
+        densityDefault: 'تلوالیز',
+        densityLarge: 'لوی',
+        densitySmall: 'وړوکی',
+        columnSetting: 'د کالمونو تنظیمات',
+        fullscreen: 'بشپړه پرده',
+        exitFullscreen: 'د بشپړې پردې څخه ووتل',
+        export: 'صادرول',
+        import: 'واردول',
+        search: 'لټون',
+        searchPlaceholder: 'د لټون لپاره کلیدي کلمې داخل کړئ'
       },
-      // فلټر
       filter: {
-        selectAll: '\u067C\u0648\u0644 \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-        selectInvert:
-          '\u062F \u063A\u0648\u0631\u0647 \u06A9\u0648\u0644\u0648 \u0645\u0639\u06A9\u0648\u0633',
-        empty: '\u062E\u0627\u0644\u064A \u062F\u06CC',
-        notEmpty: '\u062E\u0627\u0644\u064A \u0646\u0647 \u062F\u06CC',
-        contains: '\u0634\u0627\u0645\u0644 \u062F\u06CC',
-        notContains: '\u0634\u0627\u0645\u0644 \u0646\u0647 \u062F\u06CC',
-        equals: '\u0628\u0631\u0627\u0628\u0631 \u062F\u06CC',
-        notEquals: '\u0628\u0631\u0627\u0628\u0631 \u0646\u0647 \u062F\u06CC',
-        startsWith: '\u067E\u06CC\u0644 \u06A9\u06CC\u0696\u064A',
-        endsWith: '\u067E\u0627\u06CC \u06A9\u06CC\u0696\u064A',
-        greaterThan: '\u0644\u0648\u06CC \u062F\u06CC',
-        lessThan: '\u0648\u0693\u0648\u06A9\u06CC \u062F\u06CC',
-        between: '\u062A\u0631 \u0645\u0646\u0681'
+        selectAll: 'ټول غوره کړئ',
+        selectInvert: 'د غوره کولو معکوس',
+        empty: 'خالي دی',
+        notEmpty: 'خالي نه دی',
+        contains: 'شامل دی',
+        notContains: 'شامل نه دی',
+        equals: 'برابر دی',
+        notEquals: 'برابر نه دی',
+        startsWith: 'پیل کیږي',
+        endsWith: 'پای کیږي',
+        greaterThan: 'لوی دی',
+        lessThan: 'وړوکی دی',
+        between: 'تر منځ'
       },
-      // ترتیب
       sort: {
-        asc: '\u062F \u067E\u0648\u0631\u062A\u0647 \u06A9\u0648\u0644\u0648',
-        desc: '\u062F \u069A\u06A9\u062A\u0647 \u06A9\u0648\u0644\u0648',
-        clear: '\u062F \u062A\u0631\u062A\u06CC\u0628 \u067E\u0627\u06A9\u0648\u0644'
+        asc: 'د پورته کولو',
+        desc: 'د ښکته کولو',
+        clear: 'د ترتیب پاکول'
       },
-      // صادرول
       export: {
-        title: '\u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0635\u0627\u062F\u0631\u0648\u0644',
-        filename: '\u062F \u0641\u0627\u06CC\u0644 \u0646\u0648\u0645',
-        type: '\u062F \u0641\u0627\u06CC\u0644 \u0689\u0648\u0644',
-        scope: '\u062F \u0635\u0627\u062F\u0631\u0648\u0644\u0648 \u0633\u0627\u062D\u0647',
-        scopeAll: '\u067C\u0648\u0644 \u0645\u0639\u0644\u0648\u0645\u0627\u062A',
-        scopeSelected:
-          '\u063A\u0648\u0631\u0647 \u0634\u0648\u064A \u0645\u0639\u0644\u0648\u0645\u0627\u062A',
-        scopeCurrentPage: '\u0627\u0648\u0633\u0646\u06CD \u067E\u0627\u06BC\u0647',
-        includeHeader: '\u0633\u0631\u0644\u06CC\u06A9 \u0634\u0627\u0645\u0644 \u06A9\u0693\u0626',
-        exporting: '\u0635\u0627\u062F\u0631\u06D0\u062F\u0644...',
-        success:
-          '\u0635\u0627\u062F\u0631\u0648\u0644 \u0628\u0631\u06CC\u0627\u0644\u06CC \u0634\u0648',
-        error:
-          '\u062F \u0635\u0627\u062F\u0631\u0648\u0644\u0648 \u062A\u06D0\u0631\u0648\u062A\u0646\u0647'
+        title: 'معلومات صادرول',
+        filename: 'د فایل نوم',
+        type: 'د فایل ډول',
+        scope: 'د صادرولو ساحه',
+        scopeAll: 'ټول معلومات',
+        scopeSelected: 'غوره شوي معلومات',
+        scopeCurrentPage: 'اوسنۍ پاڼه',
+        includeHeader: 'سرلیک شامل کړئ',
+        exporting: 'صادرېدل...',
+        success: 'صادرول بریالی شو',
+        error: 'د صادرولو تېروتنه'
       },
-      // واردول
       import: {
-        title: '\u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0648\u0627\u0631\u062F\u0648\u0644',
-        selectFile: '\u0641\u0627\u06CC\u0644 \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-        dragTip:
-          '\u062F \u067E\u0648\u0631\u062A\u0647 \u06A9\u0648\u0644\u0648 \u0644\u067E\u0627\u0631\u0647 \u0641\u0627\u06CC\u0644 \u062F\u0644\u062A\u0647 \u06A9\u0644\u06CC\u06A9 \u06CC\u0627 \u0631\u0627\u06A9\u069A\u0644',
-        importing: '\u0648\u0627\u0631\u062F\u06D0\u062F\u0644...',
-        success:
-          '\u0648\u0627\u0631\u062F\u0648\u0644 \u0628\u0631\u06CC\u0627\u0644\u06CC \u0634\u0648',
-        error:
-          '\u062F \u0648\u0627\u0631\u062F\u0648\u0644\u0648 \u062A\u06D0\u0631\u0648\u062A\u0646\u0647',
-        preview:
-          '\u062F \u0645\u0639\u0644\u0648\u0645\u0627\u062A\u0648 \u0645\u062E\u06A9\u062A\u0646\u0647',
-        confirm: '\u062F \u0648\u0627\u0631\u062F\u0648\u0644\u0648 \u062A\u0627\u06CC\u06CC\u062F'
+        title: 'معلومات واردول',
+        selectFile: 'فایل غوره کړئ',
+        dragTip: 'د پورته کولو لپاره فایل دلته کلیک یا راکښل',
+        importing: 'واردېدل...',
+        success: 'واردول بریالی شو',
+        error: 'د واردولو تېروتنه',
+        preview: 'د معلوماتو مخکتنه',
+        confirm: 'د واردولو تایید'
       },
-      // چاپ
       printConfig: {
-        title: '\u062F \u0686\u0627\u067E \u062A\u0646\u0638\u06CC\u0645\u0627\u062A',
-        pageTitle: '\u062F \u067E\u0627\u06BC\u06D0 \u0633\u0631\u0644\u06CC\u06A9',
-        pageHeader: '\u0633\u0631\u0644\u06CC\u06A9',
-        pageFooter: '\u0641\u0648\u067C\u0631',
-        printAll: '\u067C\u0648\u0644 \u0686\u0627\u067E \u06A9\u0693\u0626',
-        printSelected:
-          '\u063A\u0648\u0631\u0647 \u0634\u0648\u064A \u0686\u0627\u067E \u06A9\u0693\u0626',
-        printCurrentPage:
-          '\u0627\u0648\u0633\u0646\u06CD \u067E\u0627\u06BC\u0647 \u0686\u0627\u067E \u06A9\u0693\u0626',
-        landscape: '\u0627\u0641\u0642\u06CC',
-        portrait: '\u0639\u0645\u0648\u062F\u064A',
-        printing: '\u0686\u0627\u067E\u06D0\u062F\u0644...'
+        title: 'د چاپ تنظیمات',
+        pageTitle: 'د پاڼې سرلیک',
+        pageHeader: 'سرلیک',
+        pageFooter: 'فوټر',
+        printAll: 'ټول چاپ کړئ',
+        printSelected: 'غوره شوي چاپ کړئ',
+        printCurrentPage: 'اوسنۍ پاڼه چاپ کړئ',
+        landscape: 'افقی',
+        portrait: 'عمودي',
+        printing: 'چاپېدل...'
       },
-      // د کالمونو تنظیمات
       columnSetting: {
-        title:
-          '\u062F \u06A9\u0627\u0644\u0645\u0648\u0646\u0648 \u062A\u0646\u0638\u06CC\u0645\u0627\u062A',
-        showAll: '\u067C\u0648\u0644 \u0648\u069A\u0627\u06CC\u0627\u0633\u062A',
-        hideAll: '\u067C\u0648\u0644 \u067E\u067C\u0648\u0644',
-        reset: '\u0628\u06CC\u0627 \u062A\u0646\u0638\u06CC\u0645\u0648\u0644',
-        fixedLeft: '\u06A9\u06CC\u06BC \u062A\u0647 \u062B\u0627\u0628\u062A \u06A9\u0693\u0626',
-        fixedRight: '\u069A\u064A \u062A\u0647 \u062B\u0627\u0628\u062A \u06A9\u0693\u0626',
-        unfixed:
-          '\u062B\u0627\u0628\u062A \u06A9\u0648\u0644 \u0644\u063A\u0648\u0647 \u06A9\u0693\u0626'
+        title: 'د کالمونو تنظیمات',
+        showAll: 'ټول وښایاست',
+        hideAll: 'ټول پټول',
+        reset: 'بیا تنظیمول',
+        fixedLeft: 'کیڼ ته ثابت کړئ',
+        fixedRight: 'ښي ته ثابت کړئ',
+        unfixed: 'ثابت کول لغوه کړئ'
       },
-      // د سیاق مینو
       contextMenu: {
-        copy: '\u06A9\u0627\u067E\u064A',
-        copyRow: '\u0642\u0637\u0627\u0631 \u06A9\u0627\u067E\u064A \u06A9\u0693\u0626',
-        copyCell: '\u062D\u062C\u0631\u0647 \u06A9\u0627\u067E\u064A \u06A9\u0693\u0626',
-        paste: '\u067E\u06CC\u0633\u067C',
-        insertRowAbove:
-          '\u067E\u0648\u0631\u062A\u0647 \u0642\u0637\u0627\u0631 \u0627\u0636\u0627\u0641\u0647 \u06A9\u0693\u0626',
-        insertRowBelow:
-          '\u0644\u0627\u0646\u062F\u06D0 \u0642\u0637\u0627\u0631 \u0627\u0636\u0627\u0641\u0647 \u06A9\u0693\u0626',
-        deleteRow: '\u0642\u0637\u0627\u0631 \u0693\u0646\u06AB\u0648\u0644',
-        deleteSelectedRows:
-          '\u063A\u0648\u0631\u0647 \u0634\u0648\u064A \u0642\u0637\u0627\u0631\u0648\u0646\u0647 \u0693\u0646\u06AB\u0648\u0644',
-        exportSelected:
-          '\u063A\u0648\u0631\u0647 \u0634\u0648\u064A \u0635\u0627\u062F\u0631\u0648\u0644'
+        copy: 'کاپي',
+        copyRow: 'قطار کاپي کړئ',
+        copyCell: 'حجره کاپي کړئ',
+        paste: 'پیسټ',
+        insertRowAbove: 'پورته قطار اضافه کړئ',
+        insertRowBelow: 'لاندې قطار اضافه کړئ',
+        deleteRow: 'قطار ړنګول',
+        deleteSelectedRows: 'غوره شوي قطارونه ړنګول',
+        exportSelected: 'غوره شوي صادرول'
       },
-      // غوره کول
       selection: {
-        selectAll: '\u067C\u0648\u0644 \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-        selectInvert:
-          '\u062F \u063A\u0648\u0631\u0647 \u06A9\u0648\u0644\u0648 \u0645\u0639\u06A9\u0648\u0633',
-        selectNone:
-          '\u062F \u063A\u0648\u0631\u0647 \u06A9\u0648\u0644\u0648 \u067E\u0627\u06A9\u0648\u0644',
-        selected: '{count} \u062A\u0648\u06A9\u064A \u063A\u0648\u0631\u0647 \u0634\u0648\u064A'
+        selectAll: 'ټول غوره کړئ',
+        selectInvert: 'د غوره کولو معکوس',
+        selectNone: 'د غوره کولو پاکول',
+        selected: '{count} توکي غوره شوي'
       },
-      // پراخول
       expand: {
-        expandAll: '\u067C\u0648\u0644 \u067E\u0631\u0627\u062E\u0648\u0644',
-        collapseAll: '\u067C\u0648\u0644 \u06A9\u0645\u0648\u0644'
+        expandAll: 'ټول پراخول',
+        collapseAll: 'ټول کمول'
       },
-      // ونه
       tree: {
-        expandAll: '\u067C\u0648\u0644 \u067E\u0631\u0627\u062E\u0648\u0644',
-        collapseAll: '\u067C\u0648\u0644 \u06A9\u0645\u0648\u0644',
-        expandLevel:
-          '\u062F {level} \u06A9\u0686\u06D0 \u062A\u0647 \u067E\u0631\u0627\u062E\u0648\u0644'
+        expandAll: 'ټول پراخول',
+        collapseAll: 'ټول کمول',
+        expandLevel: 'د {level} کچې ته پراخول'
       },
-      // راکښل
       drag: {
-        dragTip:
-          '\u062F \u0628\u06CC\u0627 \u062A\u0631\u062A\u06CC\u0628 \u0644\u067E\u0627\u0631\u0647 \u0631\u0627\u06A9\u069A\u0644',
-        dropTip:
-          '\u062F \u0681\u0627\u06CC \u0644\u067E\u0627\u0631\u0647 \u067E\u0631\u06D0\u0696\u062F\u0626'
+        dragTip: 'د بیا ترتیب لپاره راکښل',
+        dropTip: 'د ځای لپاره پرېږدئ'
       }
     },
-    // د پیغام بکس
     messagebox: {
-      title: '\u067E\u06CC\u063A\u0627\u0645',
-      confirm: '\u0633\u0645\u0647 \u062F\u0647',
-      cancel: '\u0644\u063A\u0648\u0647',
-      close: '\u062A\u0693\u0644',
-      error: '\u0646\u0627\u0633\u0645 \u062F\u0627\u062E\u0644',
-      alert: '\u062E\u0628\u0631\u062F\u0627\u0631\u06CC',
-      prompt: '\u0644\u0627\u0631\u069A\u0648\u062F',
-      inputPlaceholder:
-        '\u0645\u0647\u0631\u0628\u0627\u0646\u064A \u0648\u06A9\u0693\u0626 \u062F\u0627\u062E\u0644 \u06A9\u0693\u0626'
+      title: 'پیغام',
+      confirm: 'سمه ده',
+      cancel: 'لغوه',
+      close: 'تړل',
+      error: 'ناسم داخل',
+      alert: 'خبرداری',
+      prompt: 'لارښود',
+      inputPlaceholder: 'مهرباني وکړئ داخل کړئ'
     },
-    // پورته کول
     upload: {
-      deleteTip:
-        '\u062F \u0693\u0646\u06AB\u0648\u0644\u0648 \u0644\u067E\u0627\u0631\u0647 delete \u0641\u0634\u0627\u0631 \u0648\u0631\u06A9\u0693\u0626',
-      delete: '\u0693\u0646\u06AB\u0648\u0644',
-      preview: '\u0645\u062E\u06A9\u062A\u0646\u0647',
-      continue: '\u062F\u0648\u0627\u0645',
-      upload:
-        '\u062F \u067E\u0648\u0631\u062A\u0647 \u06A9\u0648\u0644\u0648 \u0644\u067E\u0627\u0631\u0647 \u06A9\u0644\u06CC\u06A9 \u0648\u06A9\u0693\u0626',
-      tip: '\u062F <em>\u067E\u0648\u0631\u062A\u0647 \u06A9\u0648\u0644\u0648</em> \u0644\u067E\u0627\u0631\u0647 \u0641\u0627\u06CC\u0644 \u062F\u0644\u062A\u0647 \u06A9\u0644\u06CC\u06A9 \u06CC\u0627 \u0631\u0627\u06A9\u069A\u0644',
-      dragTip:
-        '\u0641\u0627\u06CC\u0644 \u062F\u0644\u062A\u0647 \u0631\u0627\u06A9\u069A\u0644 \u06CC\u0627 \u062F \u067E\u0648\u0631\u062A\u0647 \u06A9\u0648\u0644\u0648 \u0644\u067E\u0627\u0631\u0647 \u06A9\u0644\u06CC\u06A9 \u0648\u06A9\u0693\u0626',
-      uploading: '\u067E\u0648\u0631\u062A\u0647 \u06A9\u06D0\u062F\u0644...',
-      success:
-        '\u067E\u0648\u0631\u062A\u0647 \u06A9\u0648\u0644 \u0628\u0631\u06CC\u0627\u0644\u06CC \u0634\u0648',
-      error:
-        '\u062F \u067E\u0648\u0631\u062A\u0647 \u06A9\u0648\u0644\u0648 \u062A\u06D0\u0631\u0648\u062A\u0646\u0647',
-      retry: '\u0628\u06CC\u0627 \u0647\u0685\u0647',
-      cancel:
-        '\u062F \u067E\u0648\u0631\u062A\u0647 \u06A9\u0648\u0644\u0648 \u0644\u063A\u0648\u0647 \u06A9\u0648\u0644',
-      fileTypeError:
-        '\u062F \u0641\u0627\u06CC\u0644 \u0689\u0648\u0644 \u0645\u0644\u0627\u062A\u0693 \u0646\u0647 \u06A9\u06CC\u0696\u064A',
-      fileSizeError:
-        '\u062F \u0641\u0627\u06CC\u0644 \u0627\u0646\u062F\u0627\u0632\u0647 \u062D\u062F \u0685\u062E\u0647 \u0632\u06CC\u0627\u062A\u0647 \u062F\u0647',
-      fileCountError:
-        '\u062F \u0641\u0627\u06CC\u0644\u0648\u0646\u0648 \u0634\u0645\u06CC\u0631 \u062D\u062F \u0685\u062E\u0647 \u0632\u06CC\u0627\u062A \u062F\u06CC'
+      deleteTip: 'د ړنګولو لپاره delete فشار ورکړئ',
+      delete: 'ړنګول',
+      preview: 'مخکتنه',
+      continue: 'دوام',
+      upload: 'د پورته کولو لپاره کلیک وکړئ',
+      tip: 'د <em>پورته کولو</em> لپاره فایل دلته کلیک یا راکښل',
+      dragTip: 'فایل دلته راکښل یا د پورته کولو لپاره کلیک وکړئ',
+      uploading: 'پورته کېدل...',
+      success: 'پورته کول بریالی شو',
+      error: 'د پورته کولو تېروتنه',
+      retry: 'بیا هڅه',
+      cancel: 'د پورته کولو لغوه کول',
+      fileTypeError: 'د فایل ډول ملاتړ نه کیږي',
+      fileSizeError: 'د فایل اندازه حد څخه زیاته ده',
+      fileCountError: 'د فایلونو شمیر حد څخه زیات دی'
     },
-    // فورمه
     form: {
-      validationFailed:
-        '\u062F \u0627\u0639\u062A\u0628\u0627\u0631 \u0686\u06A9 \u0646\u0627\u06A9\u0627\u0645 \u0634\u0648',
-      required: '\u0627\u0693\u06CC\u0646',
-      pleaseInput:
-        '\u0645\u0647\u0631\u0628\u0627\u0646\u064A \u0648\u06A9\u0693\u0626 \u062F\u0627\u062E\u0644 \u06A9\u0693\u0626',
-      pleaseSelect:
-        '\u0645\u0647\u0631\u0628\u0627\u0646\u064A \u0648\u06A9\u0693\u0626 \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626'
+      validationFailed: 'د اعتبار چک ناکام شو',
+      required: 'اړین',
+      pleaseInput: 'مهرباني وکړئ داخل کړئ',
+      pleaseSelect: 'مهرباني وکړئ غوره کړئ'
     },
-    // تڼۍ
     button: {
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...'
+      loading: 'برسېرېدل...'
     },
-    // داخلول
     input: {
-      placeholder:
-        '\u0645\u0647\u0631\u0628\u0627\u0646\u064A \u0648\u06A9\u0693\u0626 \u062F\u0627\u062E\u0644 \u06A9\u0693\u0626',
-      clear: '\u067E\u0627\u06A9\u0648\u0644',
-      showPassword:
-        '\u067E\u0627\u0633\u0648\u0631\u0689 \u0648\u069A\u0627\u06CC\u0627\u0633\u062A',
-      hidePassword: '\u067E\u0627\u0633\u0648\u0631\u0689 \u067E\u067C\u0648\u0644',
-      copy: '\u06A9\u0627\u067E\u064A',
-      copied: '\u06A9\u0627\u067E\u064A \u0634\u0648'
+      placeholder: 'مهرباني وکړئ داخل کړئ',
+      clear: 'پاکول',
+      showPassword: 'پاسورډ وښایاست',
+      hidePassword: 'پاسورډ پټول',
+      copy: 'کاپي',
+      copied: 'کاپي شو'
     },
-    // شمیره داخلول
     inputnumber: {
-      placeholder:
-        '\u0645\u0647\u0631\u0628\u0627\u0646\u064A \u0648\u06A9\u0693\u0626 \u0634\u0645\u06CC\u0631\u0647 \u062F\u0627\u062E\u0644 \u06A9\u0693\u0626',
-      increase: '\u0632\u06CC\u0627\u062A\u0648\u0644',
-      decrease: '\u06A9\u0645\u0648\u0644'
+      placeholder: 'مهرباني وکړئ شمیره داخل کړئ',
+      increase: 'زیاتول',
+      decrease: 'کمول'
     },
-    // نښه داخلول
     inputtag: {
-      placeholder:
-        '\u0645\u0647\u0631\u0628\u0627\u0646\u064A \u0648\u06A9\u0693\u0626 \u062F\u0627\u062E\u0644 \u06A9\u0693\u0626',
-      add: '\u0632\u06CC\u0627\u062A\u0648\u0644',
-      remove: '\u0693\u0646\u06AB\u0648\u0644'
+      placeholder: 'مهرباني وکړئ داخل کړئ',
+      add: 'زیاتول',
+      remove: 'ړنګول'
     },
-    // د ډبرو کړۍ
     breadcrumb: {
-      label: '\u062F \u0689\u0628\u0631\u0648 \u06A9\u0693\u06CD',
-      more: '\u0646\u0648\u0631'
+      label: 'د ډبرو کړۍ',
+      more: 'نور'
     },
-    // پورته ته بیرته
     backtop: {
-      text: '\u067E\u0648\u0631\u062A\u0647 \u062A\u0647 \u0628\u06CC\u0631\u062A\u0647'
+      text: 'پورته ته بیرته'
     },
-    // غوره کول
     select: {
-      placeholder:
-        '\u0645\u0647\u0631\u0628\u0627\u0646\u064A \u0648\u06A9\u0693\u0626 \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-      noData:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...',
-      noMatch: '\u0647\u06CC\u0685 \u0645\u0637\u0627\u0628\u0642\u062A \u0646\u0634\u062A\u0647',
-      selectAll: '\u067C\u0648\u0644 \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626',
-      clearAll: '\u067C\u0648\u0644 \u067E\u0627\u06A9\u0648\u0644'
+      placeholder: 'مهرباني وکړئ غوره کړئ',
+      noData: 'هیڅ معلومات نشته',
+      loading: 'برسېرېدل...',
+      noMatch: 'هیڅ مطابقت نشته',
+      selectAll: 'ټول غوره کړئ',
+      clearAll: 'ټول پاکول'
     },
-    // پاڼه کول
     pagination: {
-      goto: '\u062A\u0647 \u0644\u0627\u0693 \u0634\u0626',
+      goto: 'ته لاړ شئ',
       page: '',
-      total: '\u0645\u062C\u0645\u0648\u0639\u064A {total}',
-      pageSize: '/\u067E\u0627\u06BC\u0647',
-      prev: '\u062A\u06CC\u0631',
-      next: '\u0631\u0627\u062A\u0644\u0648\u0646\u06A9\u06CC',
-      first: '\u0644\u0648\u0645\u0693\u06CC',
-      last: '\u0648\u0631\u0648\u0633\u062A\u06CC',
+      total: 'مجموعي {total}',
+      pageSize: '/پاڼه',
+      prev: 'تیر',
+      next: 'راتلونکی',
+      first: 'لومړی',
+      last: 'وروستی',
       pageClassifier: ''
     },
-    // د تایید پاپ اپ
     popconfirm: {
-      confirm: '\u0633\u0645\u0647 \u062F\u0647',
-      cancel: '\u0644\u063A\u0648\u0647',
-      dontAskAgain:
-        '\u0628\u06CC\u0627 \u0645\u0647 \u067E\u0648\u069A\u062A\u0646\u0647 \u0648\u06A9\u0693\u0626'
+      confirm: 'سمه ده',
+      cancel: 'لغوه',
+      dontAskAgain: 'بیا مه پوښتنه وکړئ'
     },
-    // دیالوګ
     dialog: {
-      confirm: '\u0633\u0645\u0647 \u062F\u0647',
-      cancel: '\u0644\u063A\u0648\u0647',
-      close: '\u062A\u0693\u0644',
-      maximize: '\u0632\u06CC\u0627\u062A\u0648\u0644',
-      restore: '\u0628\u06CC\u0627 \u0631\u0627\u06AB\u0631\u0681\u0648\u0644'
+      confirm: 'سمه ده',
+      cancel: 'لغوه',
+      close: 'تړل',
+      maximize: 'زیاتول',
+      restore: 'بیا راګرځول'
     },
-    // کشو
     drawer: {
-      close: '\u062A\u0693\u0644',
-      confirm: '\u0633\u0645\u0647 \u062F\u0647',
-      cancel: '\u0644\u063A\u0648\u0647'
+      close: 'تړل',
+      confirm: 'سمه ده',
+      cancel: 'لغوه'
     },
-    // ښکته مینو
     dropdown: {
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...'
+      loading: 'برسېرېدل...'
     },
-    // انځور
     image: {
-      error: '\u0646\u0627\u06A9\u0627\u0645',
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...',
-      preview: '\u0645\u062E\u06A9\u062A\u0646\u0647',
-      zoomIn: '\u0632\u06CC\u0627\u062A\u0648\u0644',
-      zoomOut: '\u06A9\u0645\u0648\u0644',
-      rotateLeft: '\u06A9\u06CC\u06BC \u062A\u0647 \u0686\u0648\u0631\u0644\u0648\u0644',
-      rotateRight: '\u069A\u064A \u062A\u0647 \u0686\u0648\u0631\u0644\u0648\u0644',
-      originalSize: '\u0627\u0635\u0644\u064A \u0627\u0646\u062F\u0627\u0632\u0647',
-      fullscreen: '\u0628\u0634\u067E\u0693\u0647 \u067E\u0631\u062F\u0647'
+      error: 'ناکام',
+      loading: 'برسېرېدل...',
+      preview: 'مخکتنه',
+      zoomIn: 'زیاتول',
+      zoomOut: 'کمول',
+      rotateLeft: 'کیڼ ته چورلول',
+      rotateRight: 'ښي ته چورلول',
+      originalSize: 'اصلي اندازه',
+      fullscreen: 'بشپړه پرده'
     },
-    // د انځور لیدونکی
     imageviewer: {
-      close: '\u062A\u0693\u0644',
-      prev: '\u062A\u06CC\u0631',
-      next: '\u0631\u0627\u062A\u0644\u0648\u0646\u06A9\u06CC',
-      zoomIn: '\u0632\u06CC\u0627\u062A\u0648\u0644',
-      zoomOut: '\u06A9\u0645\u0648\u0644',
-      rotateLeft: '\u06A9\u06CC\u06BC \u062A\u0647 \u0686\u0648\u0631\u0644\u0648\u0644',
-      rotateRight: '\u069A\u064A \u062A\u0647 \u0686\u0648\u0631\u0644\u0648\u0644',
-      reset: '\u0628\u06CC\u0627 \u062A\u0646\u0638\u06CC\u0645\u0648\u0644',
-      fullscreen: '\u0628\u0634\u067E\u0693\u0647 \u067E\u0631\u062F\u0647',
-      exitFullscreen:
-        '\u062F \u0628\u0634\u067E\u0693\u06D0 \u067E\u0631\u062F\u06D0 \u0685\u062E\u0647 \u0648\u0648\u062A\u0644'
+      close: 'تړل',
+      prev: 'تیر',
+      next: 'راتلونکی',
+      zoomIn: 'زیاتول',
+      zoomOut: 'کمول',
+      rotateLeft: 'کیڼ ته چورلول',
+      rotateRight: 'ښي ته چورلول',
+      reset: 'بیا تنظیمول',
+      fullscreen: 'بشپړه پرده',
+      exitFullscreen: 'د بشپړې پردې څخه ووتل'
     },
-    // بې پایه سکرول
     infinitescroll: {
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...',
-      finished:
-        '\u0646\u0648\u0631 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      error:
-        '\u062F \u0628\u0631\u0633\u06D0\u0631\u0648\u0644\u0648 \u062A\u06D0\u0631\u0648\u062A\u0646\u0647\u060C \u062F \u0628\u06CC\u0627 \u0647\u0685\u06D0 \u0644\u067E\u0627\u0631\u0647 \u06A9\u0644\u06CC\u06A9 \u0648\u06A9\u0693\u0626',
-      retry:
-        '\u062F \u0628\u06CC\u0627 \u0647\u0685\u06D0 \u0644\u067E\u0627\u0631\u0647 \u06A9\u0644\u06CC\u06A9 \u0648\u06A9\u0693\u0626'
+      loading: 'برسېرېدل...',
+      finished: 'نور معلومات نشته',
+      error: 'د برسېرولو تېروتنه، د بیا هڅې لپاره کلیک وکړئ',
+      retry: 'د بیا هڅې لپاره کلیک وکړئ'
     },
-    // پیغام
     message: {
-      close: '\u062A\u0693\u0644'
+      close: 'تړل'
     },
-    // خبرتیا
     notification: {
-      close: '\u062A\u0693\u0644'
+      close: 'تړل'
     },
-    // برسېرېدل
     loading: {
-      text: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...'
+      text: 'برسېرېدل...'
     },
-    // سپینر
     spin: {
-      text: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...'
+      text: 'برسېرېدل...'
     },
-    // درجه بندي
     rate: {
-      texts: [
-        '\u0689\u06CC\u0631 \u062E\u0631\u0627\u0628',
-        '\u0646\u0627\u0627\u0645\u06CC\u062F',
-        '\u0645\u0646\u0627\u0633\u0628',
-        '\u062E\u0648\u069A',
-        '\u062D\u06CC\u0631\u0627\u0646'
-      ]
+      texts: ['ډیر خراب', 'ناامید', 'مناسب', 'خوښ', 'حیران']
     },
-    // خبرداری
     alert: {
-      close: '\u062A\u0693\u0644'
+      close: 'تړل'
     },
-    // نښه
     tag: {
-      close: '\u062A\u0693\u0644'
+      close: 'تړل'
     },
-    // ټیبونه
     tabs: {
-      close: '\u062A\u0693\u0644',
-      add: '\u0632\u06CC\u0627\u062A\u0648\u0644',
-      more: '\u0646\u0648\u0631'
+      close: 'تړل',
+      add: 'زیاتول',
+      more: 'نور'
     },
-    // ګامونه
     steps: {
-      finish: '\u0628\u0634\u067E\u0693 \u0634\u0648',
-      process: '\u067E\u0631\u0645\u062E\u062A\u06AB \u06A9\u06D0',
-      wait: '\u0627\u0646\u062A\u0638\u0627\u0631',
-      error: '\u062A\u06D0\u0631\u0648\u062A\u0646\u0647'
+      finish: 'بشپړ شو',
+      process: 'پرمختګ کې',
+      wait: 'انتظار',
+      error: 'تېروتنه'
     },
-    // پرمختګ
     progress: {
-      success: '\u0628\u0631\u06CC\u0627\u0644\u06CC\u062A\u0648\u0628',
-      exception: '\u0627\u0633\u062A\u062B\u0646\u0627',
-      warning: '\u062E\u0628\u0631\u062F\u0627\u0631\u06CC'
+      success: 'بریالیتوب',
+      exception: 'استثنا',
+      warning: 'خبرداری'
     },
-    // سکلېټون
     skeleton: {
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...'
+      loading: 'برسېرېدل...'
     },
-    // خالي
     empty: {
-      description:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      noData:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      noResult: '\u0647\u06CC\u0685 \u067E\u0627\u06CC\u0644\u0647 \u0646\u0634\u062A\u0647',
-      networkError: '\u062F \u0634\u0628\u06A9\u06D0 \u062A\u06D0\u0631\u0648\u062A\u0646\u0647',
-      serverError: '\u062F \u0633\u0631\u0648\u0631 \u062A\u06D0\u0631\u0648\u062A\u0646\u0647'
+      description: 'هیڅ معلومات نشته',
+      noData: 'هیڅ معلومات نشته',
+      noResult: 'هیڅ پایله نشته',
+      networkError: 'د شبکې تېروتنه',
+      serverError: 'د سرور تېروتنه'
     },
-    // پایله
     result: {
-      success: '\u0628\u0631\u06CC\u0627\u0644\u06CC\u062A\u0648\u0628',
-      error: '\u062A\u06D0\u0631\u0648\u062A\u0646\u0647',
-      warning: '\u062E\u0628\u0631\u062F\u0627\u0631\u06CC',
-      info: '\u0645\u0639\u0644\u0648\u0645\u0627\u062A',
-      backHome: '\u06A9\u0648\u0631 \u062A\u0647 \u0628\u06CC\u0631\u062A\u0647'
+      success: 'بریالیتوب',
+      error: 'تېروتنه',
+      warning: 'خبرداری',
+      info: 'معلومات',
+      backHome: 'کور ته بیرته'
     },
-    // اوبه
     waterfall: {
-      loading: '\u0628\u0631\u0633\u06D0\u0631\u06D0\u062F\u0644...',
-      noMore:
-        '\u0646\u0648\u0631 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647',
-      empty:
-        '\u0647\u06CC\u0685 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u0646\u0634\u062A\u0647'
+      loading: 'برسېرېدل...',
+      noMore: 'نور معلومات نشته',
+      empty: 'هیڅ معلومات نشته'
     },
-    // توضیحات
     descriptions: {
       colon: ':'
     },
-    // سلیډر
     slider: {
       tipFormatter: '{value}'
     },
-    // سویچ
     switch: {
       on: 'ON',
       off: 'OFF'
     },
-    // چک بکس
     checkbox: {
-      selectAll: '\u067C\u0648\u0644 \u063A\u0648\u0631\u0647 \u06A9\u0693\u0626'
+      selectAll: 'ټول غوره کړئ'
     },
-    // رادیو
     radio: {},
-    // مینو
     menu: {
-      collapse: '\u0645\u06CC\u0646\u0648 \u06A9\u0645\u0648\u0644',
-      expand: '\u0645\u06CC\u0646\u0648 \u067E\u0631\u0627\u062E\u0648\u0644'
+      collapse: 'مینو کمول',
+      expand: 'مینو پراخول'
     },
-    // کارت
     card: {
-      collapse: '\u06A9\u0645\u0648\u0644',
-      expand: '\u067E\u0631\u0627\u062E\u0648\u0644'
+      collapse: 'کمول',
+      expand: 'پراخول'
     },
-    // کمول
     collapse: {
-      expand: '\u067E\u0631\u0627\u062E\u0648\u0644',
-      collapse: '\u06A9\u0645\u0648\u0644'
+      expand: 'پراخول',
+      collapse: 'کمول'
     },
-    // د لارښود نوک
     tooltip: {},
-    // پاپ اوور
     popover: {},
-    // بیج
     badge: {},
-    // اوتار
     avatar: {
-      error:
-        '\u062F \u0628\u0631\u0633\u06D0\u0631\u0648\u0644\u0648 \u062A\u06D0\u0631\u0648\u062A\u0646\u0647'
+      error: 'د برسېرولو تېروتنه'
     },
-    // د اوبو نښه
     watermark: {},
-    // ویشونکی
     divider: {},
-    // کاروسل
     carousel: {
-      prev: '\u062A\u06CC\u0631',
-      next: '\u0631\u0627\u062A\u0644\u0648\u0646\u06A9\u06CC'
+      prev: 'تیر',
+      next: 'راتلونکی'
     },
-    // مارکیو
     marquee: {},
-    // تثبیت
     affix: {},
-    // انکر
-    anchor: {},
-    // Mention
-    mention: {
-      placeholder: '\u0A15\u0A3F\u0A30\u0A2A\u0A3E \u0A15\u0A41\u0A1D \u0A32\u0A3F\u0A16\u0A4B',
-      loading: '\u0A32\u0A4B\u0A21 \u0A39\u0A4B \u0A30\u0A3F\u0A39\u0A3E \u0A39\u0A48...',
-      noData: '\u0A15\u0A4B\u0A08 \u0A21\u0A3E\u0A1F\u0A3E \u0A28\u0A39\u0A40\u0A02'
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
     },
-    // AI Components
+    anchor: {},
+    mention: {
+      placeholder: 'ਕਿਰਪਾ ਕੁਝ ਲਿਖੋ',
+      loading: 'ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...',
+      noData: 'ਕੋਈ ਡਾਟਾ ਨਹੀਂ'
+    },
+    skuselector: {
+      placeholder: 'Select specifications',
+      emptyText: 'No specifications',
+      stock: 'Stock',
+      price: 'Price',
+      selected: 'Selected',
+      outOfStock: 'Out of Stock'
+    },
+    productcard: {
+      viewDetails: 'View Details',
+      buyNow: 'Buy Now',
+      addToCart: 'Add to Cart',
+      sold: 'Sold',
+      soldOut: 'Sold Out',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Original'
+    },
+    couponcard: {
+      available: 'Claim Now',
+      used: 'Used',
+      expired: 'Expired',
+      received: 'Received',
+      limit: 'Orders over {threshold}',
+      noThreshold: 'No threshold',
+      validPeriod: 'Validity',
+      ruleTitle: 'Usage Rules'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Drawing...',
+      end: 'Winner!',
+      retry: 'Retry'
+    },
+    filterbar: {
+      all: 'All',
+      sort: 'Sort',
+      filter: 'Filter',
+      cancel: 'Cancel',
+      reset: 'Reset',
+      confirm: 'Confirm',
+      noOptions: 'No options',
+      asc: 'Ascending',
+      desc: 'Descending',
+      selected: 'Selected'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selected',
+      submit: 'Checkout',
+      allSelect: 'Select All'
+    },
+    categorynav: {
+      all: 'All',
+      noData: 'No Data',
+      loading: 'Loading...'
+    },
+    smartaddress: {
+      placeholder: 'Paste address here, auto-detect name, phone, location',
+      parse: 'Smart Parse',
+      province: 'Province/City/District',
+      city: 'City',
+      district: 'District/County',
+      street: 'Street/Town',
+      detail: 'Detailed Address',
+      phone: 'Phone',
+      name: 'Recipient',
+      parseSuccess: 'Address parsed successfully',
+      parseFailed: 'Parse failed, please fill manually',
+      required: 'Please fill complete address',
+      provinceKeywords: ['Province', 'State'],
+      cityKeywords: ['City', 'Prefecture'],
+      districtKeywords: ['District', 'County', 'Township'],
+      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+    },
+    ganttchart: {
+      taskName: 'Task Name',
+      searchPlaceholder: 'Search tasks...',
+      zoom: 'Zoom',
+      day: 'Day',
+      week: 'Week',
+      month: 'Month',
+      year: 'Year',
+      milestone: 'Milestone'
+    },
+    imagemagnifier: {
+      switchToImage: 'Switch to image {index}',
+      galleryItem: 'Gallery {index}',
+      close: 'Close'
+    },
     ai: {
       bubble: {
-        citations: '\u0A09\u0A32\u0A47\u0A16'
+        citations: 'ਉਲੇਖ'
       },
       mention: {
-        placeholder:
-          '@ \u0A0F\u0A1C\u0A70\u0A1F, \u0A21\u0A3E\u0A15\u0A42\u0A2E\u0A48\u0A02\u0A1F \u0A1C\u0A3E\u0A02 \u0A1F\u0A47\u0A2C\u0A32 \u0A26\u0A3E \u0A1C\u0A3F\u0A15\u0A30 \u0A15\u0A30\u0A4B...',
-        agent: '\u0A0F\u0A1C\u0A70\u0A1F',
-        document: '\u0A21\u0A3E\u0A15\u0A42\u0A2E\u0A48\u0A02\u0A1F',
-        table: '\u0A1F\u0A47\u0A2C\u0A32',
-        knowledge: '\u0A17\u0A3F\u0A06\u0A28'
+        placeholder: '@ ਏਜੰਟ, ਡਾਕੂਮੈਂਟ ਜਾਂ ਟੇਬਲ ਦਾ ਜਿਕਰ ਕਰੋ...',
+        agent: 'ਏਜੰਟ',
+        document: 'ਡਾਕੂਮੈਂਟ',
+        table: 'ਟੇਬਲ',
+        knowledge: 'ਗਿਆਨ',
+        file: 'File'
       },
       codeBlock: {
-        copyCode: '\u0A15\u0A4B\u0A21 \u0A15\u0A3E\u0A2A\u0A40 \u0A15\u0A30\u0A4B',
-        copied: '\u0A15\u0A3E\u0A2A\u0A40 \u0A39\u0A4B \u0A17\u0A3F\u0A06!',
-        run: '\u0A15\u0A4B\u0A21 \u0A1A\u0A32\u0A3E\u0A13',
-        edit: '\u0A38\u0A70\u0A2A\u0A3E\u0A26\u0A3F\u0A24 \u0A15\u0A30\u0A4B',
-        save: '\u0A38\u0A70\u0A2D\u0A3E\u0A32\u0A4B',
-        cancel: '\u0A30\u0A71\u0A26 \u0A15\u0A30\u0A4B'
+        copyCode: 'ਕੋਡ ਕਾਪੀ ਕਰੋ',
+        copied: 'ਕਾਪੀ ਹੋ ਗਿਆ!',
+        run: 'ਕੋਡ ਚਲਾਓ',
+        edit: 'ਸੰਪਾਦਿਤ ਕਰੋ',
+        save: 'ਸੰਭਾਲੋ',
+        cancel: 'ਰੱਦ ਕਰੋ'
       },
       codeRunner: {
-        run: '\u0A1A\u0A32\u0A3E\u0A13',
-        stop: '\u0A30\u0A41\u0A15\u0A4B',
-        clear: '\u0A38\u0A3E\u0A2B\u0A3C \u0A15\u0A30\u0A4B',
-        reset: '\u0A2E\u0A41\u0A5C \u0A38\u0A48\u0A71\u0A1F \u0A15\u0A30\u0A4B',
-        placeholder:
-          '\u0A15\u0A4B\u0A21 \u0A1A\u0A32\u0A3E\u0A09\u0A23 \u0A32\u0A08 \u0A1A\u0A32\u0A3E\u0A13 \u0A2C\u0A1F\u0A28 \u0A24\u0A47 \u0A15\u0A32\u0A3F\u0A15 \u0A15\u0A30\u0A4B...'
+        run: 'ਚਲਾਓ',
+        stop: 'ਰੁਕੋ',
+        clear: 'ਸਾਫ਼ ਕਰੋ',
+        reset: 'ਮੁੜ ਸੈੱਟ ਕਰੋ',
+        placeholder: 'ਕੋਡ ਚਲਾਉਣ ਲਈ ਚਲਾਓ ਬਟਨ ਤੇ ਕਲਿਕ ਕਰੋ...'
       },
       sender: {
-        placeholder: '\u0A38\u0A41\u0A28\u0A47\u0A35\u0A3E \u0A2D\u0A47\u0A1C\u0A4B...',
-        dragTip:
-          '\u0A2B\u0A3E\u0A08\u0A32\u0A3E\u0A02 \u0A05\u0A71\u0A2A\u0A32\u0A4B\u0A21 \u0A15\u0A30\u0A28 \u0A32\u0A08 \u0A1B\u0A71\u0A21 \u0A26\u0A3F\u0A13'
+        placeholder: 'ਸੁਨੇਵਾ ਭੇਜੋ...',
+        dragTip: 'ਫਾਈਲਾਂ ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਛੱਡ ਦਿਓ',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
-        thoughtProcess:
-          '\u0A35\u0A3F\u0A1A\u0A3E\u0A30 \u0A2A\u0A4D\u0A30\u0A15\u0A3F\u0A30\u0A3F\u0A06',
-        thinking:
-          '\u0A35\u0A3F\u0A1A\u0A3E\u0A30 \u0A15\u0A30 \u0A30\u0A3F\u0A39\u0A3E \u0A39\u0A48...',
-        defaultTitle: '\u0A28\u0A35\u0A3E\u0A02 \u0A15\u0A26\u0A2E',
-        addNode: '\u0A15\u0A26\u0A2E \u0A1C\u0A4B\u0A21\u0A3C\u0A4B'
+        thoughtProcess: 'ਵਿਚਾਰ ਪ੍ਰਕਿਰਿਆ',
+        thinking: 'ਵਿਚਾਰ ਕਰ ਰਿਹਾ ਹੈ...',
+        defaultTitle: 'ਨਵਾਂ ਕਦਮ',
+        addNode: 'ਕਦਮ ਜੋਡ਼ੋ'
       },
       thinking: {
-        start:
-          '\u0A35\u0A3F\u0A1A\u0A3E\u0A30 \u0A15\u0A30\u0A28\u0A3E \u0A38\u0A3C\u0A41\u0A30\u0A42 \u0A15\u0A30\u0A4B',
-        thinking:
-          '\u0A35\u0A3F\u0A1A\u0A3E\u0A30 \u0A15\u0A30 \u0A30\u0A3F\u0A39\u0A3E \u0A39\u0A48...',
-        complete:
-          '\u0A35\u0A3F\u0A1A\u0A3E\u0A30 \u0A2A\u0A42\u0A30\u0A3E \u0A39\u0A4B \u0A17\u0A3F\u0A06',
-        error: '\u0A35\u0A3F\u0A1A\u0A3E\u0A30 \u0A35\u0A3F\u0A71\u0A1A \u0A17\u0A32\u0A24\u0A40'
+        start: 'ਵਿਚਾਰ ਕਰਨਾ ਸ਼ੁਰੂ ਕਰੋ',
+        thinking: 'ਵਿਚਾਰ ਕਰ ਰਿਹਾ ਹੈ...',
+        complete: 'ਵਿਚਾਰ ਪੂਰਾ ਹੋ ਗਿਆ',
+        error: 'ਵਿਚਾਰ ਵਿੱਚ ਗਲਤੀ'
       },
       welcome: {
-        title:
-          '\u0A38\u0A24 \u0A38\u0A4D\u0A30\u0A40 \u0A05\u0A15\u0A3E\u0A32, \u0A2E\u0A48\u0A02 YH AI \u0A39\u0A3E\u0A02',
+        title: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ, ਮੈਂ YH AI ਹਾਂ',
         description:
-          '\u0A2E\u0A48\u0A02 \u0A24\u0A41\u0A39\u0A3E\u0A21\u0A40 \u0A15\u0A4B\u0A21\u0A3F\u0A70\u0A17, \u0A21\u0A3E\u0A15\u0A42\u0A2E\u0A48\u0A02\u0A1F \u0A05\u0A28\u0A41\u0A35\u0A3E\u0A26 \u0A1C\u0A3E\u0A02 \u0A30\u0A1A\u0A28\u0A3E\u0A24\u0A2E\u0A15 \u0A32\u0A3F\u0A16\u0A3E\u0A08 \u0A35\u0A3F\u0A71\u0A1A \u0A2E\u0A26\u0A26 \u0A15\u0A30 \u0A38\u0A15\u0A26\u0A3E \u0A39\u0A3E\u0A02\u0964 \u0A05\u0A1C \u0A2E\u0A48\u0A02 \u0A24\u0A41\u0A39\u0A3E\u0A21\u0A47 \u0A32\u0A08 \u0A15\u0A40 \u0A15\u0A30 \u0A38\u0A15\u0A26\u0A3E \u0A39\u0A3E\u0A02?'
+          'ਮੈਂ ਤੁਹਾਡੀ ਕੋਡਿੰਗ, ਡਾਕੂਮੈਂਟ ਅਨੁਵਾਦ ਜਾਂ ਰਚਨਾਤਮਕ ਲਿਖਾਈ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ। ਅਜ ਮੈਂ ਤੁਹਾਡੇ ਲਈ ਕੀ ਕਰ ਸਕਦਾ ਹਾਂ?'
       },
       action: {
-        copy: '\u0A15\u0A3E\u0A2A\u0A40',
-        regenerate: '\u0A2E\u0A41\u0A5C \u0A2C\u0A23\u0A3E\u0A13',
-        share: '\u0A38\u0A3E\u0A02\u0A1D\u0A3E \u0A15\u0A30\u0A4B',
-        like: '\u0A2A\u0A38\u0A70\u0A26',
-        dislike: '\u0A28\u0A3E\u0A2A\u0A38\u0A70\u0A26',
-        edit: '\u0A38\u0A70\u0A2A\u0A3E\u0A26\u0A3F\u0A24 \u0A15\u0A30\u0A4B',
-        delete: '\u0A2E\u0A3F\u0A1F\u0A3E\u0A13'
+        copy: 'ਕਾਪੀ',
+        regenerate: 'ਮੁੜ ਬਣਾਓ',
+        share: 'ਸਾਂਝਾ ਕਰੋ',
+        like: 'ਪਸੰਦ',
+        dislike: 'ਨਾਪਸੰਦ',
+        edit: 'ਸੰਪਾਦਿਤ ਕਰੋ',
+        delete: 'ਮਿਟਾਓ'
       },
       artifacts: {
-        preview: '\u0A2A\u0A4D\u0A30\u0A40\u0A35\u0A3F\u0A0A',
-        inline: '\u0A07\u0A28\u0A32\u0A3E\u0A08\u0A28',
-        code: '\u0A38\u0A30\u0A4B\u0A24\u0A3E \u0A15\u0A4B\u0A21',
-        versions: '\u0A35\u0A30\u0A1C\u0A3C\u0A28',
-        rendering:
-          '\u0A15\u0A70\u0A2A\u0A4B\u0A28\u0A48\u0A02\u0A1F \u0A30\u0A48\u0A02\u0A21\u0A30 \u0A39\u0A4B \u0A30\u0A3F\u0A39\u0A3E \u0A39\u0A48...',
-        renderingChart:
-          '\u0A1A\u0A3E\u0A30\u0A1F \u0A30\u0A48\u0A02\u0A21\u0A30 \u0A39\u0A4B \u0A30\u0A3F\u0A39\u0A3E \u0A39\u0A48...',
-        renderingCanvas:
-          '\u0A15\u0A48\u0A02\u0A35\u0A38 \u0A24\u0A3F\u0A06\u0A30 \u0A39\u0A4B \u0A30\u0A3F\u0A39\u0A3E \u0A39\u0A48...'
+        preview: 'ਪ੍ਰੀਵਿਊ',
+        inline: 'ਇਨਲਾਈਨ',
+        code: 'ਸਰੋਤਾ ਕੋਡ',
+        versions: 'ਵਰਜ਼ਨ',
+        rendering: 'ਕੰਪੋਨੈਂਟ ਰੈਂਡਰ ਹੋ ਰਿਹਾ ਹੈ...',
+        renderingChart: 'ਚਾਰਟ ਰੈਂਡਰ ਹੋ ਰਿਹਾ ਹੈ...',
+        renderingCanvas: 'ਕੈਂਵਸ ਤਿਆਰ ਹੋ ਰਿਹਾ ਹੈ...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
-        trigger:
-          '\u0A2C\u0A4B\u0A32\u0A23 \u0A32\u0A08 \u0A15\u0A32\u0A3F\u0A15 \u0A15\u0A30\u0A4B',
-        listening: '\u0A38\u0A41\u0A23 \u0A30\u0A3F\u0A39\u0A3E \u0A39\u0A48...'
+        trigger: 'ਬੋਲਣ ਲਈ ਕਲਿਕ ਕਰੋ',
+        listening: 'ਸੁਣ ਰਿਹਾ ਹੈ...'
       },
       agent: {
-        uses: '\u0A35\u0A30\u0A24\u0A4B\u0A02',
-        use: '\u0A39\u0A41\u0A23 \u0A35\u0A30\u0A24\u0A4B\u0A02',
-        favorite: '\u0A2A\u0A38\u0A70\u0A26\u0A3F\u0A24\u0A3E',
-        unfavorite:
-          '\u0A2A\u0A38\u0A70\u0A26\u0A3F\u0A24\u0A3E \u0A24\u0A4B\u0A02 \u0A39\u0A1F\u0A3E\u0A13',
-        share: '\u0A38\u0A3E\u0A02\u0A1D\u0A3E \u0A15\u0A30\u0A4B',
-        online: '\u0A06\u0A28\u0A32\u0A3E\u0A08\u0A28',
-        offline: '\u0A06\u0A2B\u0A32\u0A3E\u0A08\u0A28',
-        busy: '\u0A30\u0A41\u0A71\u0A1D\u0A3F\u0A06',
-        verified: '\u0A2A\u0A4D\u0A30\u0A2E\u0A3E\u0A23\u0A3F\u0A24',
-        rating: '\u0A30\u0A47\u0A1F\u0A3F\u0A70\u0A17',
-        reviews: '\u0A38\u0A2E\u0A40\u0A16\u0A3F\u0A06\u0A35\u0A3E\u0A02',
-        responseTime: '\u0A14\u0A38\u0A24 \u0A1C\u0A35\u0A3E\u0A2C \u0A38\u0A2E\u0A3E\u0A02',
+        uses: 'ਵਰਤੋਂ',
+        use: 'ਹੁਣ ਵਰਤੋਂ',
+        favorite: 'ਪਸੰਦਿਤਾ',
+        unfavorite: 'ਪਸੰਦਿਤਾ ਤੋਂ ਹਟਾਓ',
+        share: 'ਸਾਂਝਾ ਕਰੋ',
+        online: 'ਆਨਲਾਈਨ',
+        offline: 'ਆਫਲਾਈਨ',
+        busy: 'ਰੁੱਝਿਆ',
+        verified: 'ਪ੍ਰਮਾਣਿਤ',
+        rating: 'ਰੇਟਿੰਗ',
+        reviews: 'ਸਮੀਖਿਆਵਾਂ',
+        responseTime: 'ਔਸਤ ਜਵਾਬ ਸਮਾਂ',
         ms: 'ms'
       },
       sources: {
-        references: '\u0A39\u0A35\u0A3E\u0A32\u0A47',
-        referencedSources: '\u0A39\u0A35\u0A3E\u0A32\u0A3E \u0A38\u0A30\u0A4B\u0A24',
-        relevant: '\u0A2A\u0A4D\u0A30\u0A38\u0A70\u0A17\u0A3F\u0A15\u0A24\u0A3E',
-        viewOriginal: '\u0A05\u0A38\u0A32 \u0A35\u0A47\u0A16\u0A4B',
-        showAll: '\u0A38\u0A2D \u0A35\u0A47\u0A16\u0A3E\u0A13',
-        more: '\u0A39\u0A4B\u0A30 \u0A38\u0A30\u0A4B\u0A24',
-        drawerTitle: '\u0A39\u0A35\u0A3E\u0A32\u0A47',
-        expandMore: '\u0A39\u0A4B\u0A30 \u0A35\u0A47\u0A16\u0A3E\u0A13',
-        collapseMore: '\u0A38\u0A70\u0A15\u0A41\u0A1A\u0A3F\u0A24 \u0A15\u0A30\u0A4B',
-        noSources: '\u0A15\u0A4B\u0A08 \u0A38\u0A30\u0A4B\u0A24 \u0A28\u0A39\u0A40\u0A02',
-        today: '\u0A05\u0A1C',
-        last7Days: '\u0A2A\u0A3F\u0A1B\u0A32\u0A47 7 \u0A26\u0A3F\u0A28',
-        last30Days: '\u0A2A\u0A3F\u0A1B\u0A32\u0A47 30 \u0A26\u0A3F\u0A28',
-        earlier: '\u0A2A\u0A39\u0A3F\u0A32\u0A3E\u0A02',
-        pinned: '\u0A2A\u0A3F\u0A28 \u0A15\u0A40\u0A24\u0A3E'
+        references: 'ਹਵਾਲੇ',
+        referencedSources: 'ਹਵਾਲਾ ਸਰੋਤ',
+        relevant: 'ਪ੍ਰਸੰਗਿਕਤਾ',
+        viewOriginal: 'ਅਸਲ ਵੇਖੋ',
+        showAll: 'ਸਭ ਵੇਖਾਓ',
+        more: 'ਹੋਰ ਸਰੋਤ',
+        drawerTitle: 'ਹਵਾਲੇ',
+        expandMore: 'ਹੋਰ ਵੇਖਾਓ',
+        collapseMore: 'ਸੰਕੁਚਿਤ ਕਰੋ',
+        noSources: 'ਕੋਈ ਸਰੋਤ ਨਹੀਂ',
+        today: 'ਅਜ',
+        last7Days: 'ਪਿਛਲੇ 7 ਦਿਨ',
+        last30Days: 'ਪਿਛਲੇ 30 ਦਿਨ',
+        earlier: 'ਪਹਿਲਾਂ',
+        pinned: 'ਪਿਨ ਕੀਤਾ'
       },
       conversations: {
-        today: '\u0A05\u0A1C',
-        last7Days: '\u0A2A\u0A3F\u0A1B\u0A32\u0A47 7 \u0A26\u0A3F\u0A28',
-        last30Days: '\u0A2A\u0A3F\u0A1B\u0A32\u0A47 30 \u0A26\u0A3F\u0A28',
-        earlier: '\u0A2A\u0A39\u0A3F\u0A32\u0A3E\u0A02',
-        pinned: '\u0A2A\u0A3F\u0A28 \u0A15\u0A40\u0A24\u0A3E',
-        pin: '\u0A2A\u0A3F\u0A28 \u0A15\u0A30\u0A4B',
-        unpin: '\u0A2A\u0A3F\u0A28 \u0A39\u0A1F\u0A3E\u0A13',
-        newConversation: '\u0A28\u0A35\u0A40\u0A02 \u0A17\u0A71\u0A32\u0A2C\u0A3E\u0A24',
-        rename: '\u0A28\u0A3E\u0A2E \u0A2C\u0A26\u0A32\u0A4B',
-        delete: '\u0A2E\u0A3F\u0A1F\u0A3E\u0A13',
-        deleteConfirm:
-          '\u0A15\u0A40 \u0A24\u0A41\u0A38\u0A40\u0A02 \u0A07\u0A38 \u0A17\u0A71\u0A32\u0A2C\u0A3E\u0A24 \u0A28\u0A42\u0A70 \u0A2E\u0A3F\u0A1F\u0A3E\u0A09\u0A23\u0A3E \u0A1A\u0A3E\u0A39\u0A26\u0A47 \u0A39\u0A4B?'
+        today: 'ਅਜ',
+        last7Days: 'ਪਿਛਲੇ 7 ਦਿਨ',
+        last30Days: 'ਪਿਛਲੇ 30 ਦਿਨ',
+        earlier: 'ਪਹਿਲਾਂ',
+        pinned: 'ਪਿਨ ਕੀਤਾ',
+        pin: 'ਪਿਨ ਕਰੋ',
+        unpin: 'ਪਿਨ ਹਟਾਓ',
+        newConversation: 'ਨਵੀਂ ਗੱਲਬਾਤ',
+        noData: 'No conversations yet',
+        rename: 'ਨਾਮ ਬਦਲੋ',
+        delete: 'ਮਿਟਾਓ',
+        deleteConfirm: 'ਕੀ ਤੁਸੀਂ ਇਸ ਗੱਲਬਾਤ ਨੂੰ ਮਿਟਾਉਣਾ ਚਾਹਦੇ ਹੋ?'
+      },
+      attachments: {
+        dropTip: 'Drop files here to upload',
+        clickToUpload: 'Click or drag files to upload',
+        uploadSuccess: 'Upload success',
+        uploadError: 'Upload failed',
+        deleteConfirm: 'Are you sure to delete this file?',
+        fileTooLarge: 'File size cannot exceed {size}',
+        invalidFileType: 'Invalid file type'
+      },
+      mermaid: {
+        image: 'Image',
+        code: 'Code',
+        zoomIn: 'Zoom In',
+        zoomOut: 'Zoom Out',
+        reset: 'Reset',
+        download: 'Download',
+        copyCode: 'Copy Code',
+        rendering: 'Rendering...',
+        renderError: 'Render failed',
+        renderSuccess: 'Render success',
+        retry: 'Retry'
       }
     }
   }
 }
+
+export default pa

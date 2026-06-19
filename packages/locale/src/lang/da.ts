@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const da: Language = {
   name: 'da',
   yh: {
-    // Fælles
     common: {
       yes: 'Ja',
       no: 'Nej',
@@ -27,7 +26,6 @@ export const da: Language = {
       selectAll: 'Vælg alle',
       unselectAll: 'Fravælg alle'
     },
-    // Farvevælger
     colorpicker: {
       confirm: 'OK',
       clear: 'Ryd',
@@ -37,7 +35,6 @@ export const da: Language = {
       recentColors: 'Seneste farver',
       presetColors: 'Forudindstillede farver'
     },
-    // Dato vælger
     datepicker: {
       now: 'Nu',
       today: 'I dag',
@@ -89,7 +86,6 @@ export const da: Language = {
         q4: 'Q4'
       }
     },
-    // Tid vælger
     timepicker: {
       confirm: 'OK',
       cancel: 'Annuller',
@@ -99,11 +95,9 @@ export const da: Language = {
       endPlaceholder: 'Sluttid',
       selectTime: 'Vælg tid'
     },
-    // Tid valg
     timeselect: {
       placeholder: 'Vælg tid'
     },
-    // Træ
     tree: {
       emptyText: 'Ingen data',
       loading: 'Indlæser...',
@@ -112,14 +106,12 @@ export const da: Language = {
       expandAll: 'Udvid alle',
       collapseAll: 'Skjul alle'
     },
-    // Træ valg
     treeselect: {
       placeholder: 'Vælg',
       emptyText: 'Ingen data',
       loading: 'Indlæser...',
       noMatch: 'Ingen matchende data'
     },
-    // Kalender
     calendar: {
       prevMonth: 'Forrige måned',
       nextMonth: 'Næste måned',
@@ -140,14 +132,12 @@ export const da: Language = {
         sat: 'Lør'
       }
     },
-    // Autofærdiggørelse
     autocomplete: {
       loading: 'Indlæser...',
       placeholder: 'Indtast venligst',
       noData: 'Ingen data',
       noMatch: 'Ingen matchende data'
     },
-    // Nedtælling
     countdown: {
       days: 'dage',
       hours: 'timer',
@@ -156,14 +146,12 @@ export const da: Language = {
       milliseconds: 'millisekunder',
       finished: 'Afsluttet'
     },
-    // Kaskade vælger
     cascader: {
       noMatch: 'Ingen matchende data',
       placeholder: 'Vælg',
       loading: 'Indlæser...',
       noData: 'Ingen data'
     },
-    // Overførsel
     transfer: {
       noMatch: 'Ingen matchende data',
       noData: 'Ingen data',
@@ -173,7 +161,6 @@ export const da: Language = {
       hasCheckedFormat: '{checked}/{total} valgt',
       searchPlaceholder: 'Indtast nøgleord'
     },
-    // Tabel
     table: {
       emptyText: 'Ingen data',
       confirmFilter: 'Bekræft',
@@ -190,7 +177,6 @@ export const da: Language = {
       page: 'Side {page}',
       yes: 'Ja',
       no: 'Nej',
-      // Værktøjslinje
       toolbar: {
         refresh: 'Opdater',
         density: 'Tæthed',
@@ -205,7 +191,6 @@ export const da: Language = {
         search: 'Søg',
         searchPlaceholder: 'Indtast nøgleord for at søge'
       },
-      // Filter
       filter: {
         selectAll: 'Vælg alle',
         selectInvert: 'Inverter valg',
@@ -221,13 +206,11 @@ export const da: Language = {
         lessThan: 'Mindre end',
         between: 'Mellem'
       },
-      // Sortering
       sort: {
         asc: 'Stigende',
         desc: 'Faldende',
         clear: 'Ryd sortering'
       },
-      // Eksport
       export: {
         title: 'Eksporter data',
         filename: 'Filnavn',
@@ -241,7 +224,6 @@ export const da: Language = {
         success: 'Eksport lykkedes',
         error: 'Eksport mislykkedes'
       },
-      // Import
       import: {
         title: 'Importer data',
         selectFile: 'Vælg fil',
@@ -252,7 +234,6 @@ export const da: Language = {
         preview: 'Data forhåndsvisning',
         confirm: 'Bekræft import'
       },
-      // Print
       printConfig: {
         title: 'Printindstillinger',
         pageTitle: 'Sidetitel',
@@ -265,7 +246,6 @@ export const da: Language = {
         portrait: 'Portræt',
         printing: 'Printer...'
       },
-      // Kolonneindstillinger
       columnSetting: {
         title: 'Kolonneindstillinger',
         showAll: 'Vis alle',
@@ -275,7 +255,6 @@ export const da: Language = {
         fixedRight: 'Fastgør til højre',
         unfixed: 'Frigiv'
       },
-      // Kontekstmenu
       contextMenu: {
         copy: 'Kopier',
         copyRow: 'Kopier række',
@@ -287,31 +266,26 @@ export const da: Language = {
         deleteSelectedRows: 'Slet valgte rækker',
         exportSelected: 'Eksporter valgte'
       },
-      // Valg
       selection: {
         selectAll: 'Vælg alle',
         selectInvert: 'Inverter valg',
         selectNone: 'Ryd valg',
         selected: '{count} elementer valgt'
       },
-      // Udvid
       expand: {
         expandAll: 'Udvid alle',
         collapseAll: 'Skjul alle'
       },
-      // Træ
       tree: {
         expandAll: 'Udvid alle',
         collapseAll: 'Skjul alle',
         expandLevel: 'Udvid til niveau {level}'
       },
-      // Træk
       drag: {
         dragTip: 'Træk for at omarrangere',
         dropTip: 'Slip for at placere'
       }
     },
-    // Beskedboks
     messagebox: {
       title: 'Besked',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const da: Language = {
       prompt: 'Prompt',
       inputPlaceholder: 'Indtast venligst'
     },
-    // Upload
     upload: {
       deleteTip: 'tryk delete for at fjerne',
       delete: 'Slet',
@@ -340,18 +313,15 @@ export const da: Language = {
       fileSizeError: 'Filstørrelse overskrider grænse',
       fileCountError: 'Filantal overskrider grænse'
     },
-    // Formular
     form: {
       validationFailed: 'Validering mislykkedes',
       required: 'Påkrævet',
       pleaseInput: 'Indtast venligst',
       pleaseSelect: 'Vælg venligst'
     },
-    // Knap
     button: {
       loading: 'Indlæser...'
     },
-    // Input
     input: {
       placeholder: 'Indtast venligst',
       clear: 'Ryd',
@@ -360,28 +330,23 @@ export const da: Language = {
       copy: 'Kopier',
       copied: 'Kopieret'
     },
-    // Input nummer
     inputnumber: {
       placeholder: 'Indtast venligst nummer',
       increase: 'Forøg',
       decrease: 'Formindsk'
     },
-    // Input tag
     inputtag: {
       placeholder: 'Indtast venligst',
       add: 'Tilføj',
       remove: 'Fjern'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Mere'
     },
-    // Tilbage til top
     backtop: {
       text: 'Tilbage til top'
     },
-    // Vælg
     select: {
       placeholder: 'Vælg venligst',
       noData: 'Ingen data',
@@ -390,7 +355,6 @@ export const da: Language = {
       selectAll: 'Vælg alle',
       clearAll: 'Ryd alle'
     },
-    // Paginering
     pagination: {
       goto: 'Gå til',
       page: '',
@@ -402,13 +366,11 @@ export const da: Language = {
       last: 'Sidste',
       pageClassifier: ''
     },
-    // Popbekræftelse
     popconfirm: {
       confirm: 'OK',
       cancel: 'Annuller',
       dontAskAgain: 'Spørg ikke igen'
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Annuller',
@@ -416,17 +378,14 @@ export const da: Language = {
       maximize: 'Maksimer',
       restore: 'Gendan'
     },
-    // Skuffe
     drawer: {
       close: 'Luk',
       confirm: 'OK',
       cancel: 'Annuller'
     },
-    // Dropdown menu
     dropdown: {
       loading: 'Indlæser...'
     },
-    // Billede
     image: {
       error: 'MISLYKKEDES',
       loading: 'Indlæser...',
@@ -438,7 +397,6 @@ export const da: Language = {
       originalSize: 'Original størrelse',
       fullscreen: 'Fuldskærm'
     },
-    // Billedviser
     imageviewer: {
       close: 'Luk',
       prev: 'Forrige',
@@ -451,65 +409,52 @@ export const da: Language = {
       fullscreen: 'Fuldskærm',
       exitFullscreen: 'Afslut fuldskærm'
     },
-    // Uendelig rulning
     infinitescroll: {
       loading: 'Indlæser...',
       finished: 'Ikke flere data',
       error: 'Indlæsning mislykkedes, klik for at prøve igen',
       retry: 'Klik for at prøve igen'
     },
-    // Besked
     message: {
       close: 'Luk'
     },
-    // Notifikation
     notification: {
       close: 'Luk'
     },
-    // Indlæsning
     loading: {
       text: 'Indlæser...'
     },
-    // Spin
     spin: {
       text: 'Indlæser...'
     },
-    // Vurdering
     rate: {
       texts: ['Ekstremt dårlig', 'Skuffet', 'Rimelig', 'Tilfreds', 'Overrasket']
     },
-    // Advarsel
     alert: {
       close: 'Luk'
     },
-    // Tag
     tag: {
       close: 'Luk'
     },
-    // Faner
     tabs: {
       close: 'Luk',
       add: 'Tilføj',
       more: 'Mere'
     },
-    // Trin
     steps: {
       finish: 'Afsluttet',
       process: 'I gang',
       wait: 'Venter',
       error: 'Fejl'
     },
-    // Fremskridt
     progress: {
       success: 'Succes',
       exception: 'Undtagelse',
       warning: 'Advarsel'
     },
-    // Skelet
     skeleton: {
       loading: 'Indlæser...'
     },
-    // Tom
     empty: {
       description: 'Ingen data',
       noData: 'Ingen data',
@@ -517,7 +462,6 @@ export const da: Language = {
       networkError: 'Netværksfejl',
       serverError: 'Serverfejl'
     },
-    // Resultat
     result: {
       success: 'Succes',
       error: 'Fejl',
@@ -525,78 +469,63 @@ export const da: Language = {
       info: 'Info',
       backHome: 'Tilbage til hjem'
     },
-    // Vandfald
     waterfall: {
       loading: 'Indlæser...',
       noMore: 'Ikke flere data',
       empty: 'Ingen data'
     },
-    // Beskrivelser
     descriptions: {
       colon: ':'
     },
-    // Slider
     slider: {
       tipFormatter: '{value}'
     },
-    // Kontakt
     switch: {
       on: 'TIL',
       off: 'FRA'
     },
-    // Afkrydsningsfelt
     checkbox: {
       selectAll: 'Vælg alle'
     },
-    // Radio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Skjul menu',
       expand: 'Udvid menu'
     },
-    // Kort
     card: {
       collapse: 'Skjul',
       expand: 'Udvid'
     },
-    // Skjul
     collapse: {
       expand: 'Udvid',
       collapse: 'Skjul'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Badge
     badge: {},
-    // Avatar
     avatar: {
       error: 'Indlæsning mislykkedes'
     },
-    // Vandmærke
     watermark: {},
-    // Skillevæg
     divider: {},
-    // Karrusel
     carousel: {
       prev: 'Forrige',
       next: 'Næste'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Anker
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Venligst indtast',
       loading: 'Indlæser...',
       noData: 'Ingen data'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Vælg specifikationer',
       emptyText: 'Ingen specifikationer',
@@ -697,7 +626,8 @@ export const da: Language = {
         agent: 'Agent',
         document: 'Dokument',
         table: 'Tabel',
-        knowledge: 'Viden'
+        knowledge: 'Viden',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopiér kode',
@@ -716,7 +646,8 @@ export const da: Language = {
       },
       sender: {
         placeholder: 'Send en besked...',
-        dragTip: 'Slip for at uploade filer'
+        dragTip: 'Slip for at uploade filer',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Tænkeproces',
@@ -751,7 +682,8 @@ export const da: Language = {
         versions: 'Versioner',
         rendering: 'Renderer komponent...',
         renderingChart: 'Renderer diagram...',
-        renderingCanvas: 'Forbereder lærred...'
+        renderingCanvas: 'Forbereder lærred...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Klik for at tale',

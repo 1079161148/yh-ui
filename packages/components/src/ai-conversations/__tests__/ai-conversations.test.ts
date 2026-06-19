@@ -214,4 +214,42 @@ describe('AiConversations', () => {
 
     expect(wrapper.attributes('style')).toContain('--yh-ai-conversations-active-bg-color: #111111')
   })
+
+  it('should support pin, edit, and delete actions when grouped=false and virtualScroll=true', async () => {
+    const wrapper = mount(AiConversations, {
+      props: {
+        grouped: false,
+        virtualScroll: true,
+        virtualScrollHeight: 400,
+        virtualScrollItemHeight: 40,
+        data: [{ id: '1', title: 'Flat Conversation', updatedAt: Date.now() }]
+      }
+    })
+
+    const item = wrapper.find('.yh-ai-conversations__item')
+    expect(item.exists()).toBe(true)
+
+    // Verify all action buttons exist (pin, edit, delete)
+    const actionBtns = item.findAll('.yh-ai-conversations__action-btn')
+    expect(actionBtns.length).toBe(3)
+
+    // Trigger pin
+    await actionBtns[0].trigger('click')
+    expect(wrapper.emitted('pin')).toBeTruthy()
+
+    // Trigger edit mode
+    await actionBtns[1].trigger('click')
+    expect(wrapper.find('input').exists()).toBe(true)
+    const inputEl = wrapper.find('input')
+    await inputEl.setValue('Updated Flat')
+    await inputEl.trigger('keydown.enter')
+    expect(wrapper.emitted('edit')?.[0]).toEqual([
+      expect.objectContaining({ id: '1' }),
+      'Updated Flat'
+    ])
+
+    // Trigger delete
+    await actionBtns[2].trigger('click')
+    expect(wrapper.emitted('delete')).toBeTruthy()
+  })
 })

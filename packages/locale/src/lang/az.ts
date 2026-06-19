@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const az: Language = {
   name: 'az',
   yh: {
-    // Ümumi
     common: {
       yes: 'Bəli',
       no: 'Xeyr',
@@ -27,7 +26,6 @@ export const az: Language = {
       selectAll: 'Hamısını seç',
       unselectAll: 'Seçimi ləğv et'
     },
-    // Rəng seçici
     colorpicker: {
       confirm: 'OK',
       clear: 'Təmizlə',
@@ -37,7 +35,6 @@ export const az: Language = {
       recentColors: 'Son rənglər',
       presetColors: 'Əvvəlcədən təyin edilmiş rənglər'
     },
-    // Tarix seçici
     datepicker: {
       now: 'İndi',
       today: 'Bu gün',
@@ -89,7 +86,6 @@ export const az: Language = {
         q4: 'R4'
       }
     },
-    // Vaxt seçici
     timepicker: {
       confirm: 'OK',
       cancel: 'Ləğv et',
@@ -99,11 +95,9 @@ export const az: Language = {
       endPlaceholder: 'Bitiş vaxtı',
       selectTime: 'Vaxt seçin'
     },
-    // Vaxt seçimi
     timeselect: {
       placeholder: 'Vaxt seçin'
     },
-    // Ağac
     tree: {
       emptyText: 'Məlumat yoxdur',
       loading: 'Yüklənir...',
@@ -112,14 +106,12 @@ export const az: Language = {
       expandAll: 'Hamısını genişləndir',
       collapseAll: 'Hamısını yığ'
     },
-    // Ağac seçici
     treeselect: {
       placeholder: 'Seçin',
       emptyText: 'Məlumat yoxdur',
       loading: 'Yüklənir...',
       noMatch: 'Uyğunluq yoxdur'
     },
-    // Təqvim
     calendar: {
       prevMonth: 'Əvvəlki ay',
       nextMonth: 'Növbəti ay',
@@ -140,14 +132,12 @@ export const az: Language = {
         sat: 'Şə'
       }
     },
-    // Avtomatik tamamlama
     autocomplete: {
       loading: 'Yüklənir...',
       placeholder: 'Zəhmət olmasa daxil edin',
       noData: 'Məlumat yoxdur',
       noMatch: 'Uyğunluq yoxdur'
     },
-    // Geri sayım
     countdown: {
       days: 'gün',
       hours: 'saat',
@@ -156,14 +146,12 @@ export const az: Language = {
       milliseconds: 'millisaniyə',
       finished: 'Tamamlandı'
     },
-    // Kaskad seçici
     cascader: {
       noMatch: 'Uyğunluq yoxdur',
       placeholder: 'Seçin',
       loading: 'Yüklənir...',
       noData: 'Məlumat yoxdur'
     },
-    // Transfer
     transfer: {
       noMatch: 'Uyğunluq yoxdur',
       noData: 'Məlumat yoxdur',
@@ -173,7 +161,6 @@ export const az: Language = {
       hasCheckedFormat: '{checked}/{total} seçildi',
       searchPlaceholder: 'Açar söz daxil edin'
     },
-    // Cədvəl
     table: {
       emptyText: 'Məlumat yoxdur',
       confirmFilter: 'Təsdiq et',
@@ -190,7 +177,6 @@ export const az: Language = {
       page: 'Səhifə {page}',
       yes: 'Bəli',
       no: 'Xeyr',
-      // Alətlər paneli
       toolbar: {
         refresh: 'Yenilə',
         density: 'Sıxlıq',
@@ -205,7 +191,6 @@ export const az: Language = {
         search: 'Axtar',
         searchPlaceholder: 'Axtarış üçün açar sözlər daxil edin'
       },
-      // Filtr
       filter: {
         selectAll: 'Hamısını seç',
         selectInvert: 'Seçimi çevir',
@@ -221,13 +206,11 @@ export const az: Language = {
         lessThan: 'Kiçikdir',
         between: 'Arasında'
       },
-      // Sıralama
       sort: {
         asc: 'Artan',
         desc: 'Azalan',
         clear: 'Sıralamanı təmizlə'
       },
-      // İxrac
       export: {
         title: 'Məlumat ixracı',
         filename: 'Fayl adı',
@@ -241,7 +224,6 @@ export const az: Language = {
         success: 'İxrac uğurlu oldu',
         error: 'İxrac xətası'
       },
-      // İdxal
       import: {
         title: 'Məlumat idxalı',
         selectFile: 'Fayl seçin',
@@ -252,7 +234,6 @@ export const az: Language = {
         preview: 'Məlumat önbaxışı',
         confirm: 'İdxalı təsdiq et'
       },
-      // Çap
       printConfig: {
         title: 'Çap parametrləri',
         pageTitle: 'Səhifə başlığı',
@@ -265,7 +246,6 @@ export const az: Language = {
         portrait: 'Portret',
         printing: 'Çap edilir...'
       },
-      // Sütun parametrləri
       columnSetting: {
         title: 'Sütun parametrləri',
         showAll: 'Hamısını göstər',
@@ -275,7 +255,6 @@ export const az: Language = {
         fixedRight: 'Sağa bərkid',
         unfixed: 'Bərkidməni ləğv et'
       },
-      // Kontekst menyusu
       contextMenu: {
         copy: 'Kopyala',
         copyRow: 'Sətri kopyala',
@@ -287,31 +266,26 @@ export const az: Language = {
         deleteSelectedRows: 'Seçilmiş sətirləri sil',
         exportSelected: 'Seçilmişləri ixrac et'
       },
-      // Seçim
       selection: {
         selectAll: 'Hamısını seç',
         selectInvert: 'Seçimi çevir',
         selectNone: 'Seçimi təmizlə',
         selected: '{count} element seçildi'
       },
-      // Genişləndirmə
       expand: {
         expandAll: 'Hamısını genişləndir',
         collapseAll: 'Hamısını yığ'
       },
-      // Ağac
       tree: {
         expandAll: 'Hamısını genişləndir',
         collapseAll: 'Hamısını yığ',
         expandLevel: '{level} səviyyəsinə qədər genişləndir'
       },
-      // Sürükləmə
       drag: {
         dragTip: 'Sıranı dəyişdirmək üçün sürükləyin',
         dropTip: 'Yerləşdirmək üçün buraxın'
       }
     },
-    // Mesaj qutusu
     messagebox: {
       title: 'Mesaj',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const az: Language = {
       prompt: 'Göstəriş',
       inputPlaceholder: 'Zəhmət olmasa daxil edin'
     },
-    // Yükləmə
     upload: {
       deleteTip: 'silmək üçün delete düyməsini basın',
       delete: 'Sil',
@@ -340,18 +313,15 @@ export const az: Language = {
       fileSizeError: 'Fayl ölçüsü limiti aşır',
       fileCountError: 'Fayl sayı limiti aşır'
     },
-    // Form
     form: {
       validationFailed: 'Doğrulama uğursuz oldu',
       required: 'Məcburidir',
       pleaseInput: 'Zəhmət olmasa daxil edin',
       pleaseSelect: 'Zəhmət olmasa seçin'
     },
-    // Düymə
     button: {
       loading: 'Yüklənir...'
     },
-    // Giriş
     input: {
       placeholder: 'Zəhmət olmasa daxil edin',
       clear: 'Təmizlə',
@@ -360,28 +330,23 @@ export const az: Language = {
       copy: 'Kopyala',
       copied: 'Kopyalandı'
     },
-    // Rəqəm girişi
     inputnumber: {
       placeholder: 'Zəhmət olmasa rəqəm daxil edin',
       increase: 'Artır',
       decrease: 'Azalt'
     },
-    // Teq girişi
     inputtag: {
       placeholder: 'Zəhmət olmasa daxil edin',
       add: 'Əlavə et',
       remove: 'Sil'
     },
-    // Çörək qırıntıları
     breadcrumb: {
       label: 'Çörək qırıntıları',
       more: 'Daha çox'
     },
-    // Yuxarı qayıt
     backtop: {
       text: 'Yuxarı qayıt'
     },
-    // Seçim
     select: {
       placeholder: 'Zəhmət olmasa seçin',
       noData: 'Məlumat yoxdur',
@@ -390,7 +355,6 @@ export const az: Language = {
       selectAll: 'Hamısını seç',
       clearAll: 'Hamısını təmizlə'
     },
-    // Səhifələmə
     pagination: {
       goto: 'Get',
       page: '',
@@ -402,13 +366,11 @@ export const az: Language = {
       last: 'Sonuncu',
       pageClassifier: ''
     },
-    // Təsdiq açılan pəncərəsi
     popconfirm: {
       confirm: 'OK',
       cancel: 'Ləğv et',
       dontAskAgain: 'Yenidən soruşma'
     },
-    // Dialoq
     dialog: {
       confirm: 'OK',
       cancel: 'Ləğv et',
@@ -416,17 +378,14 @@ export const az: Language = {
       maximize: 'Böyüt',
       restore: 'Bərpa et'
     },
-    // Çəkmə
     drawer: {
       close: 'Bağla',
       confirm: 'OK',
       cancel: 'Ləğv et'
     },
-    // Açılan menyu
     dropdown: {
       loading: 'Yüklənir...'
     },
-    // Şəkil
     image: {
       error: 'XƏTA',
       loading: 'Yüklənir...',
@@ -438,7 +397,6 @@ export const az: Language = {
       originalSize: 'Orijinal ölçü',
       fullscreen: 'Tam ekran'
     },
-    // Şəkil baxıcısı
     imageviewer: {
       close: 'Bağla',
       prev: 'Əvvəlki',
@@ -451,65 +409,52 @@ export const az: Language = {
       fullscreen: 'Tam ekran',
       exitFullscreen: 'Tam ekrandan çıx'
     },
-    // Sonsuz sürüşmə
     infinitescroll: {
       loading: 'Yüklənir...',
       finished: 'Daha çox məlumat yoxdur',
       error: 'Yükləmə xətası, yenidən cəhd etmək üçün klikləyin',
       retry: 'Yenidən cəhd etmək üçün klikləyin'
     },
-    // Mesaj
     message: {
       close: 'Bağla'
     },
-    // Bildiriş
     notification: {
       close: 'Bağla'
     },
-    // Yükləmə
     loading: {
       text: 'Yüklənir...'
     },
-    // Fırlanma
     spin: {
       text: 'Yüklənir...'
     },
-    // Reytinq
     rate: {
       texts: ['Çox pis', 'Məyus', 'Yaxşı', 'Məmnun', 'Təəccüblü']
     },
-    // Xəbərdarlıq
     alert: {
       close: 'Bağla'
     },
-    // Teq
     tag: {
       close: 'Bağla'
     },
-    // Tablar
     tabs: {
       close: 'Bağla',
       add: 'Əlavə et',
       more: 'Daha çox'
     },
-    // Addımlar
     steps: {
       finish: 'Tamamlandı',
       process: 'Davam edir',
       wait: 'Gözləyir',
       error: 'Xəta'
     },
-    // İrəliləmə
     progress: {
       success: 'Uğurlu',
       exception: 'İstisna',
       warning: 'Xəbərdarlıq'
     },
-    // Skelet
     skeleton: {
       loading: 'Yüklənir...'
     },
-    // Boş
     empty: {
       description: 'Məlumat yoxdur',
       noData: 'Məlumat yoxdur',
@@ -517,7 +462,6 @@ export const az: Language = {
       networkError: 'Şəbəkə xətası',
       serverError: 'Server xətası'
     },
-    // Nəticə
     result: {
       success: 'Uğurlu',
       error: 'Xəta',
@@ -525,78 +469,63 @@ export const az: Language = {
       info: 'Məlumat',
       backHome: 'Ana səhifəyə qayıt'
     },
-    // Şəlalə
     waterfall: {
       loading: 'Yüklənir...',
       noMore: 'Daha çox məlumat yoxdur',
       empty: 'Məlumat yoxdur'
     },
-    // Təsvirlər
     descriptions: {
       colon: ':'
     },
-    // Sürüşdürmə
     slider: {
       tipFormatter: '{value}'
     },
-    // Açar
     switch: {
       on: 'AÇ',
       off: 'BAĞLA'
     },
-    // Onay qutusu
     checkbox: {
       selectAll: 'Hamısını seç'
     },
-    // Radio
     radio: {},
-    // Menyu
     menu: {
       collapse: 'Menyunu yığ',
       expand: 'Menyunu genişləndir'
     },
-    // Kart
     card: {
       collapse: 'Yığ',
       expand: 'Genişləndir'
     },
-    // Yığma
     collapse: {
       expand: 'Genişləndir',
       collapse: 'Yığ'
     },
-    // Göstəriş
     tooltip: {},
-    // Açılan pəncərə
     popover: {},
-    // Nişan
     badge: {},
-    // Avatar
     avatar: {
       error: 'Yükləmə xətası'
     },
-    // Su nişanı
     watermark: {},
-    // Ayırıcı
     divider: {},
-    // Karusel
     carousel: {
       prev: 'Əvvəlki',
       next: 'Növbəti'
     },
-    // Hərəkətli mətn
     marquee: {},
-    // Bərkitmə
     affix: {},
-    // Lövbər
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Daxil edin',
       loading: 'Yüklənir...',
       noData: 'Məlumat yoxdur'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Xüsusiyyətləri seçin',
       emptyText: 'Xüsusiyyət yoxdur',
@@ -697,7 +626,8 @@ export const az: Language = {
         agent: 'Agent',
         document: 'Sənəd',
         table: 'Cədvəl',
-        knowledge: 'Bilik'
+        knowledge: 'Bilik',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kodu kopyala',
@@ -716,7 +646,8 @@ export const az: Language = {
       },
       sender: {
         placeholder: 'Mesaj göndərin...',
-        dragTip: 'Faylları yükləmək üçün buraxın'
+        dragTip: 'Faylları yükləmək üçün buraxın',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Düşüncə prosesi',
@@ -751,7 +682,8 @@ export const az: Language = {
         versions: 'Versiyalar',
         rendering: 'Komponent render edilir...',
         renderingChart: 'Qrafik render edilir...',
-        renderingCanvas: 'Kətan hazırlanır...'
+        renderingCanvas: 'Kətan hazırlanır...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Danışmaq üçün klikləyin',

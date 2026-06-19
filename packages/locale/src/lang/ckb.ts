@@ -1,9 +1,8 @@
-﻿import type { Language } from '../index'
+import type { Language } from '../index'
 
 export const ckb: Language = {
   name: 'ckb',
   yh: {
-    // 诏卮鬲蹖
     common: {
       yes: '亘蹠诘蹘',
       no: '賳蹠禺蹘乇',
@@ -27,7 +26,6 @@ export const ckb: Language = {
       selectAll: '賴蹠賲賵賵 賴蹠诘亘跇蹘乇蹠',
       unselectAll: '賴蹠賲賵賵 賴蹠诘亘跇丕乇丿賳 賴蹠诘賵蹠卮蹘賳蹠賵蹠'
     },
-    // 賴蹠诘亘跇丕乇丿賳蹖 跁蹠賳诏
     colorpicker: {
       confirm: '亘丕卮蹠',
       clear: '倬丕讴讴乇丿賳蹠賵蹠',
@@ -37,7 +35,6 @@ export const ckb: Language = {
       recentColors: '跁蹠賳诏蹠讴丕賳蹖 丿賵丕鬲乇',
       presetColors: '跁蹠賳诏蹠 倬蹘卮鬲乇 丿蹖丕乇蹖讴乇丕賵蹠讴丕賳'
     },
-    // 賴蹠诘亘跇丕乇丿賳蹖 亘蹠乇賵丕乇
     datepicker: {
       now: '卅蹘爻鬲丕',
       today: '卅蹠賲跁蹎',
@@ -89,7 +86,6 @@ export const ckb: Language = {
         q4: 'Q4'
       }
     },
-    // 賴蹠诘亘跇丕乇丿賳蹖 讴丕鬲
     timepicker: {
       confirm: '亘丕卮蹠',
       cancel: '賴蹠诘賵蹠卮丕賳丿賳',
@@ -99,11 +95,9 @@ export const ckb: Language = {
       endPlaceholder: '讴丕鬲蹖 讴蹎鬲丕蹖蹖',
       selectTime: '讴丕鬲 賴蹠诘亘跇蹘乇蹠'
     },
-    // 賴蹠诘亘跇丕乇丿賳蹖 讴丕鬲
     timeselect: {
       placeholder: '讴丕鬲 賴蹠诘亘跇蹘乇蹠'
     },
-    // 丿丕乇
     tree: {
       emptyText: '丿丕鬲丕 賳蹖蹖蹠',
       loading: '亘丕乇讴乇丿賳...',
@@ -112,14 +106,12 @@ export const ckb: Language = {
       expandAll: '賴蹠賲賵賵 賮乇丕賵丕賳 亘讴蹠',
       collapseAll: '賴蹠賲賵賵 讴蹠賲 亘讴蹠賵蹠'
     },
-    // 賴蹠诘亘跇丕乇丿賳蹖 丿丕乇
     treeselect: {
       placeholder: '賴蹠诘亘跇蹘乇蹠',
       emptyText: '丿丕鬲丕 賳蹖蹖蹠',
       loading: '亘丕乇讴乇丿賳...',
       noMatch: '丿丕鬲丕蹖 诏賵賳噩丕賵 賳蹖蹖蹠'
     },
-    // 讴丕鬲跇賲蹘乇
     calendar: {
       prevMonth: '賲丕賳诏蹖 倬蹘卮賵賵',
       nextMonth: '賲丕賳诏蹖 丿丕賴丕鬲賵賵',
@@ -140,14 +132,12 @@ export const ckb: Language = {
         sat: '丨蹠賵鬲'
       }
     },
-    // 禺蹎讴丕乇 倬跁讴乇丿賳蹠賵蹠
     autocomplete: {
       loading: '亘丕乇讴乇丿賳...',
       placeholder: '鬲讴丕蹖蹠 亘賳賵賵爻蹠',
       noData: '丿丕鬲丕 賳蹖蹖蹠',
       noMatch: '丿丕鬲丕蹖 诏賵賳噩丕賵 賳蹖蹖蹠'
     },
-    // 跇賲丕乇丿賳 亘蹠倬蹘趩蹠賵丕賳蹠
     countdown: {
       days: '跁蹎跇',
       hours: '讴丕鬲跇賲蹘乇',
@@ -156,14 +146,12 @@ export const ckb: Language = {
       milliseconds: '賲賱蹖 趩乇讴蹠',
       finished: '鬲蹠賵丕賵 亘賵賵'
     },
-    // 讴丕爻讴丕丿
     cascader: {
       noMatch: '丿丕鬲丕蹖 诏賵賳噩丕賵 賳蹖蹖蹠',
       placeholder: '賴蹠诘亘跇蹘乇蹠',
       loading: '亘丕乇讴乇丿賳...',
       noData: '丿丕鬲丕 賳蹖蹖蹠'
     },
-    // 诏賵丕爻鬲賳蹠賵蹠
     transfer: {
       noMatch: '丿丕鬲丕蹖 诏賵賳噩丕賵 賳蹖蹖蹠',
       noData: '丿丕鬲丕 賳蹖蹖蹠',
@@ -173,7 +161,6 @@ export const ckb: Language = {
       hasCheckedFormat: '{checked}/{total} 賴蹠诘亘跇蹘乇丿乇丕賵',
       searchPlaceholder: '賵卮蹠蹖 爻蹠乇蹠讴蹖 亘賳賵賵爻蹠'
     },
-    // 禺卮鬲蹠
     table: {
       emptyText: '丿丕鬲丕 賳蹖蹖蹠',
       confirmFilter: '丿诘賳蹖丕讴乇丿賳蹠賵蹠',
@@ -190,7 +177,6 @@ export const ckb: Language = {
       page: '賱丕倬蹠跁蹠 {page}',
       yes: '亘蹠诘蹘',
       no: '賳蹠禺蹘乇',
-      // 鬲賵賵诘蹖 卅丕賲乇丕夭
       toolbar: {
         refresh: '賳賵蹘讴乇丿賳蹠賵蹠',
         density: '趩跁蹖',
@@ -205,7 +191,6 @@ export const ckb: Language = {
         search: '诏蹠跁丕賳',
         searchPlaceholder: '亘蹎 诏蹠跁丕賳 賵卮蹠蹖 爻蹠乇蹠讴蹖 亘賳賵賵爻蹠'
       },
-      // 賮賱鬲蹠乇
       filter: {
         selectAll: '賴蹠賲賵賵 賴蹠诘亘跇蹘乇蹠',
         selectInvert: '賴蹠诘亘跇丕乇丿賳 倬蹘趩蹠賵丕賳蹠 亘讴蹠',
@@ -221,13 +206,11 @@ export const ckb: Language = {
         lessThan: '亘趩賵賵讴鬲乇蹠',
         between: '賱蹠 賳蹘賵丕賳'
       },
-      // 跁蹖夭讴乇丿賳
       sort: {
         asc: '夭蹖丕丿亘賵賵賳',
         desc: '讴蹠賲亘賵賵賳',
         clear: '跁蹖夭讴乇丿賳 倬丕讴 亘讴蹠'
       },
-      // 丿蹠乇賴蹘賳丕賳
       export: {
         title: '丿丕鬲丕 丿蹠乇賴蹘賳蹠',
         filename: '賳丕賵蹖 賮丕蹖賱',
@@ -241,7 +224,6 @@ export const ckb: Language = {
         success: '丿蹠乇賴蹘賳丕賳 爻蹠乇讴蹠賵鬲賵賵 亘賵賵',
         error: '丿蹠乇賴蹘賳丕賳 爻蹠乇讴蹠賵鬲賵賵 賳蹠亘賵賵'
       },
-      // 賴丕賵乇丿蹠讴乇丿賳
       import: {
         title: '丿丕鬲丕 賴丕賵乇丿蹠 亘讴蹠',
         selectFile: '賮丕蹖賱 賴蹠诘亘跇蹘乇蹠',
@@ -252,7 +234,6 @@ export const ckb: Language = {
         preview: '倬蹘卮亘蹖賳蹖賳蹖 丿丕鬲丕',
         confirm: '賴丕賵乇丿蹠讴乇丿賳 丿诘賳蹖丕 亘讴蹠賵蹠'
       },
-      // 趩丕倬讴乇丿賳
       printConfig: {
         title: '跁蹘讴禺爻鬲賳蹖 趩丕倬',
         pageTitle: '爻蹠乇丿蹘跁蹖 賱丕倬蹠跁蹠',
@@ -265,7 +246,6 @@ export const ckb: Language = {
         portrait: '爻鬲賵賵賳蹖',
         printing: '趩丕倬 丿蹠讴乇蹘鬲...'
       },
-      // 跁蹘讴禺爻鬲賳蹖 爻鬲賵賵賳
       columnSetting: {
         title: '跁蹘讴禺爻鬲賳蹖 爻鬲賵賵賳',
         showAll: '賴蹠賲賵賵 倬蹖卮丕賳 亘丿蹠',
@@ -275,7 +255,6 @@ export const ckb: Language = {
         fixedRight: '賱蹠 跁丕爻鬲 噩蹘诏蹖乇 亘讴蹠',
         unfixed: '噩蹘诏蹖乇 賳蹠讴蹠'
       },
-      // 賲蹘賳蹖賵蹖 丿蹎禺
       contextMenu: {
         copy: '讴蹎倬蹖 亘讴蹠',
         copyRow: '跁蹖夭蹖 讴蹎倬蹖 亘讴蹠',
@@ -287,31 +266,26 @@ export const ckb: Language = {
         deleteSelectedRows: '跁蹖夭蹠 賴蹠诘亘跇蹘乇丿乇丕賵蹠讴丕賳 亘爻跁蹠賵蹠',
         exportSelected: '賴蹠诘亘跇蹘乇丿乇丕賵 丿蹠乇賴蹘賳蹠'
       },
-      // 賴蹠诘亘跇丕乇丿賳
       selection: {
         selectAll: '賴蹠賲賵賵 賴蹠诘亘跇蹘乇蹠',
         selectInvert: '賴蹠诘亘跇丕乇丿賳 倬蹘趩蹠賵丕賳蹠 亘讴蹠',
         selectNone: '賴蹠诘亘跇丕乇丿賳 倬丕讴 亘讴蹠',
         selected: '{count} 亘蹠賳丿 賴蹠诘亘跇蹘乇丿乇丕賵'
       },
-      // 賮乇丕賵丕賳讴乇丿賳
       expand: {
         expandAll: '賴蹠賲賵賵 賮乇丕賵丕賳 亘讴蹠',
         collapseAll: '賴蹠賲賵賵 讴蹠賲 亘讴蹠賵蹠'
       },
-      // 丿丕乇
       tree: {
         expandAll: '賴蹠賲賵賵 賮乇丕賵丕賳 亘讴蹠',
         collapseAll: '賴蹠賲賵賵 讴蹠賲 亘讴蹠賵蹠',
         expandLevel: '亘蹎 卅丕爻鬲 {level} 賮乇丕賵丕賳 亘讴蹠'
       },
-      // 讴蹘卮丕賳丿賳
       drag: {
         dragTip: '亘蹎 跁蹖夭讴乇丿賳蹖 賳賵蹘 亘讴蹘卮蹠',
         dropTip: '亘蹎 丿丕賳丕賳 亘蹠噩蹘蹖 亘賴蹘诘蹠'
       }
     },
-    // 亘蹎讴爻蹠蹖 倬蹠蹖丕賲
     messagebox: {
       title: '倬蹠蹖丕賲',
       confirm: '亘丕卮蹠',
@@ -322,7 +296,6 @@ export const ckb: Language = {
       prompt: '丿丕賵丕蹖',
       inputPlaceholder: '鬲讴丕蹖蹠 亘賳賵賵爻蹠'
     },
-    // 亘丕乇讴乇丿賳
     upload: {
       deleteTip: '亘蹎 爻跁蹖賳蹠賵蹠 delete 亘诏乇蹠',
       delete: '爻跁蹖賳蹠賵蹠',
@@ -340,18 +313,15 @@ export const ckb: Language = {
       fileSizeError: '賯蹠亘丕乇蹠蹖 賮丕蹖賱 賱蹠 爻賳賵乇 丿蹠乇趩賵賵',
       fileCountError: '跇賲丕乇蹠蹖 賮丕蹖賱 賱蹠 爻賳賵乇 丿蹠乇趩賵賵'
     },
-    // 賮蹎乇賲
     form: {
       validationFailed: '倬卮鬲跁丕爻鬲讴乇丿賳蹠賵蹠 爻蹠乇讴蹠賵鬲賵賵 賳蹠亘賵賵',
       required: '倬蹘賵蹖爻鬲蹠',
       pleaseInput: '鬲讴丕蹖蹠 亘賳賵賵爻蹠',
       pleaseSelect: '鬲讴丕蹖蹠 賴蹠诘亘跇蹘乇蹠'
     },
-    // 丿賵诏賲蹠
     button: {
       loading: '亘丕乇讴乇丿賳...'
     },
-    // 丿丕禺賱讴乇丿賳
     input: {
       placeholder: '鬲讴丕蹖蹠 亘賳賵賵爻蹠',
       clear: '倬丕讴讴乇丿賳蹠賵蹠',
@@ -360,28 +330,23 @@ export const ckb: Language = {
       copy: '讴蹎倬蹖 亘讴蹠',
       copied: '讴蹎倬蹖 讴乇丕'
     },
-    // 跇賲丕乇蹠蹖 丿丕禺賱讴乇丿賳
     inputnumber: {
       placeholder: '鬲讴丕蹖蹠 跇賲丕乇蹠 亘賳賵賵爻蹠',
       increase: '夭蹖丕丿 亘讴蹠',
       decrease: '讴蹠賲 亘讴蹠'
     },
-    // 鬲丕诏蹖 丿丕禺賱讴乇丿賳
     inputtag: {
       placeholder: '鬲讴丕蹖蹠 亘賳賵賵爻蹠',
       add: '夭蹖丕丿讴乇丿賳',
       remove: '爻跁蹖賳蹠賵蹠'
     },
-    // 跁蹘诏蹠蹖 賳丕賵亘乇丿賳
     breadcrumb: {
       label: '跁蹘诏蹠蹖 賳丕賵亘乇丿賳',
       more: '夭蹖丕鬲乇'
     },
-    // 诏蹠跁丕賳蹠賵蹠 亘蹎 爻蹠乇蹠賵蹠
     backtop: {
       text: '诏蹠跁丕賳蹠賵蹠 亘蹎 爻蹠乇蹠賵蹠'
     },
-    // 賴蹠诘亘跇丕乇丿賳
     select: {
       placeholder: '鬲讴丕蹖蹠 賴蹠诘亘跇蹘乇蹠',
       noData: '丿丕鬲丕 賳蹖蹖蹠',
@@ -390,7 +355,6 @@ export const ckb: Language = {
       selectAll: '賴蹠賲賵賵 賴蹠诘亘跇蹘乇蹠',
       clearAll: '賴蹠賲賵賵 倬丕讴 亘讴蹠'
     },
-    // 賱丕倬蹠跁蹠讴乇丿賳
     pagination: {
       goto: '亘趩蹎 亘蹎',
       page: '',
@@ -402,13 +366,11 @@ export const ckb: Language = {
       last: '讴蹎鬲丕蹖蹖',
       pageClassifier: ''
     },
-    // 倬蹎倬 丿诘賳蹖丕讴乇丿賳蹠賵蹠
     popconfirm: {
       confirm: '亘丕卮蹠',
       cancel: '賴蹠诘賵蹠卮丕賳丿賳',
       dontAskAgain: '丿賵賵亘丕乇蹠 倬乇爻蹖丕乇 賲蹠讴蹠'
     },
-    // 丿蹖丕賱蹎诏
     dialog: {
       confirm: '亘丕卮蹠',
       cancel: '賴蹠诘賵蹠卮丕賳丿賳',
@@ -416,17 +378,14 @@ export const ckb: Language = {
       maximize: '夭蹎乇 诏蹠賵乇蹠 亘讴蹠',
       restore: '诏蹠跁丕賳丿賳蹠賵蹠'
     },
-    // 讴卮丕賵蹠
     drawer: {
       close: '丿丕禺爻鬲賳',
       confirm: '亘丕卮蹠',
       cancel: '賴蹠诘賵蹠卮丕賳丿賳'
     },
-    // 賲蹘賳蹖賵蹖 丿丕讴蹠賵鬲賵賵
     dropdown: {
       loading: '亘丕乇讴乇丿賳...'
     },
-    // 賵蹘賳蹠
     image: {
       error: '爻蹠乇讴蹠賵鬲賵賵 賳蹠亘賵賵',
       loading: '亘丕乇讴乇丿賳...',
@@ -438,7 +397,6 @@ export const ckb: Language = {
       originalSize: '賯蹠亘丕乇蹠蹖 亘賳蹠跁蹠鬲蹖',
       fullscreen: '倬跁 卮丕卮蹠'
     },
-    // 亘蹖賳蹠乇蹖 賵蹘賳蹠
     imageviewer: {
       close: '丿丕禺爻鬲賳',
       prev: '倬蹘卮賵賵',
@@ -451,7 +409,6 @@ export const ckb: Language = {
       fullscreen: '倬跁 卮丕卮蹠',
       exitFullscreen: '丿蹠乇趩賵賵賳 賱蹠 倬跁 卮丕卮蹠'
     },
-    // 賴丕鬲賳 亘蹘 讴蹎鬲丕蹖蹖
     infinitescroll: {
       loading: '亘丕乇讴乇丿賳...',
       finished: '丿丕鬲丕蹖 夭蹖丕鬲乇 賳蹖蹖蹠',
@@ -459,58 +416,46 @@ export const ckb: Language = {
         '亘丕乇讴乇丿賳 爻蹠乇讴蹠賵鬲賵賵 賳蹠亘賵賵貙 亘蹎 丿賵賵亘丕乇蹠 賴蹠賵诘丿丕賳 讴賱蹖讴 亘讴蹠',
       retry: '亘蹎 丿賵賵亘丕乇蹠 賴蹠賵诘丿丕賳 讴賱蹖讴 亘讴蹠'
     },
-    // 倬蹠蹖丕賲
     message: {
       close: '丿丕禺爻鬲賳'
     },
-    // 卅丕诏丕丿丕乇蹖
     notification: {
       close: '丿丕禺爻鬲賳'
     },
-    // 亘丕乇讴乇丿賳
     loading: {
       text: '亘丕乇讴乇丿賳...'
     },
-    // 禺賵賱丕賳蹠賵蹠
     spin: {
       text: '亘丕乇讴乇丿賳...'
     },
-    // 賳乇禺丕賳丿賳
     rate: {
       texts: ['夭蹎乇 禺乇丕倬', '賳丕丕賲蹖丿', '賲丕賲賳丕賵蹠賳丿', '跁丕夭蹖', '爻蹠乇爻丕賲']
     },
-    // 卅丕诏丕丿丕乇蹖
     alert: {
       close: '丿丕禺爻鬲賳'
     },
-    // 鬲丕诏
     tag: {
       close: '丿丕禺爻鬲賳'
     },
-    // 鬲丕亘
     tabs: {
       close: '丿丕禺爻鬲賳',
       add: '夭蹖丕丿讴乇丿賳',
       more: '夭蹖丕鬲乇'
     },
-    // 賴蹠賳诏丕賵
     steps: {
       finish: '鬲蹠賵丕賵 亘賵賵',
       process: '賱蹠 噩乇蹖丕賳丿丕',
       wait: '趩丕賵蹠跁蹘 丿蹠讴丕鬲',
       error: '賴蹠诘蹠'
     },
-    // 倬蹘卮讴蹠賵鬲賳
     progress: {
       success: '爻蹠乇讴蹠賵鬲賵賵',
       exception: '噩蹖丕賵丕夭蹖',
       warning: '卅丕诏丕丿丕乇蹖'
     },
-    // 倬蹠蹖讴蹠乇
     skeleton: {
       loading: '亘丕乇讴乇丿賳...'
     },
-    // 亘蹠鬲丕诘
     empty: {
       description: '丿丕鬲丕 賳蹖蹖蹠',
       noData: '丿丕鬲丕 賳蹖蹖蹠',
@@ -518,7 +463,6 @@ export const ckb: Language = {
       networkError: '賴蹠诘蹠蹖 鬲蹎跁',
       serverError: '賴蹠诘蹠蹖 爻蹘乇冥蹠乇'
     },
-    // 卅蹠賳噩丕賲
     result: {
       success: '爻蹠乇讴蹠賵鬲賵賵',
       error: '賴蹠诘蹠',
@@ -526,78 +470,63 @@ export const ckb: Language = {
       info: '夭丕賳蹖丕乇蹖',
       backHome: '诏蹠跁丕賳蹠賵蹠 亘蹎 賲丕诘蹠賵蹠'
     },
-    // 卮蹠诘蹠诘蹠
     waterfall: {
       loading: '亘丕乇讴乇丿賳...',
       noMore: '丿丕鬲丕蹖 夭蹖丕鬲乇 賳蹖蹖蹠',
       empty: '丿丕鬲丕 賳蹖蹖蹠'
     },
-    // 賵蹠爻賮
     descriptions: {
       colon: ':'
     },
-    // 爻賱丕蹖丿蹠乇
     slider: {
       tipFormatter: '{value}'
     },
-    // 诏蹎跁丕賳
     switch: {
       on: '讴乇丕賵蹠',
       off: '丿丕禺乇丕賵'
     },
-    // 亘蹎讴爻蹠蹖 倬卮讴賳蹖賳
     checkbox: {
       selectAll: '賴蹠賲賵賵 賴蹠诘亘跇蹘乇蹠'
     },
-    // 跁丕丿蹖蹎
     radio: {},
-    // 賲蹘賳蹖賵
     menu: {
       collapse: '賲蹘賳蹖賵 讴蹠賲 亘讴蹠賵蹠',
       expand: '賲蹘賳蹖賵 賮乇丕賵丕賳 亘讴蹠'
     },
-    // 讴丕乇鬲
     card: {
       collapse: '讴蹠賲讴乇丿賳蹠賵蹠',
       expand: '賮乇丕賵丕賳讴乇丿賳'
     },
-    // 讴蹠賲讴乇丿賳蹠賵蹠
     collapse: {
       expand: '賮乇丕賵丕賳讴乇丿賳',
       collapse: '讴蹠賲讴乇丿賳蹠賵蹠'
     },
-    // 卅丕賲蹎跇诏丕乇蹖
     tooltip: {},
-    // 倬蹎倬蹎冥蹠乇
     popover: {},
-    // 賳蹖卮丕賳蹠
     badge: {},
-    // 卅丕冥丕鬲丕乇
     avatar: {
       error: '亘丕乇讴乇丿賳 爻蹠乇讴蹠賵鬲賵賵 賳蹠亘賵賵'
     },
-    // 賳蹖卮丕賳蹠蹖 卅丕賵
     watermark: {},
-    // 噩蹖丕讴蹠乇蹠賵蹠
     divider: {},
-    // 讴丕乇賵爻蹘賱
     carousel: {
       prev: '倬蹘卮賵賵',
       next: '丿賵丕鬲乇'
     },
-    // 賲丕乇讴蹖
     marquee: {},
-    // 亘蹠爻鬲賳
     affix: {},
-    // 賱蹠賳诏蹠乇
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: '鬲讴丕蹖蹠 亘賳賵賵爻蹠',
       loading: '亘丕乇讴乇丿賳...',
       noData: '賴蹖趩 丿丕鬲丕蹖蹠讴 賳蹖蹖蹠'
     },
-    // AI Components
     skuselector: {
       placeholder: '鬲丕蹖亘蹠鬲賲蹠賳丿蹖蹖蹠讴丕賳 賴蹠诘亘跇蹘乇蹠',
       emptyText: '賴蹖趩 鬲丕蹖亘蹠鬲賲蹠賳丿蹖蹖蹠讴 賳蹖蹖蹠',
@@ -700,7 +629,8 @@ export const ckb: Language = {
         agent: '卅蹠蹖噩蹘賳鬲',
         document: '丿蹎讴賵賲蹘賳鬲',
         table: '禺卮鬲蹠',
-        knowledge: '夭丕賳蹖丕乇蹖'
+        knowledge: '夭丕賳蹖丕乇蹖',
+        file: 'File'
       },
       codeBlock: {
         copyCode: '讴蹎丿 讴蹎倬蹖 亘讴蹠',
@@ -719,7 +649,8 @@ export const ckb: Language = {
       },
       sender: {
         placeholder: '倬蹠蹖丕賲 亘賳蹘乇蹠...',
-        dragTip: '亘蹎 卅蹠倬賱蹎丿讴乇丿賳蹖 賮丕蹖賱蹠讴丕賳 卅丕夭丕丿蹖 亘讴蹠'
+        dragTip: '亘蹎 卅蹠倬賱蹎丿讴乇丿賳蹖 賮丕蹖賱蹠讴丕賳 卅丕夭丕丿蹖 亘讴蹠',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: '倬乇蹎爻蹠蹖 卅蹠賳丿蹘卮蹠',
@@ -754,7 +685,8 @@ export const ckb: Language = {
         versions: '賵蹠卮丕賳蹠讴丕賳',
         rendering: '亘蹠爻鬲蹠乇蹠讴蹠 丿蹠乇丿蹠讴蹠賵蹘鬲...',
         renderingChart: '賵蹘賳蹠蹖蹠讴蹠 丿蹠乇丿蹠讴蹠賵蹘鬲...',
-        renderingCanvas: '爻蹘诘丕 丿蹠爻鬲 丿蹠讴蹠賵蹘鬲...'
+        renderingCanvas: '爻蹘诘丕 丿蹠爻鬲 丿蹠讴蹠賵蹘鬲...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: '讴賱蹖讴 亘讴蹠 亘蹎 賯爻蹠讴乇丿賳',

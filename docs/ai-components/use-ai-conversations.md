@@ -534,11 +534,11 @@ const { conversations, isSyncing, syncError, syncToRemote, fetchFromRemote, star
 
 ### 远程同步 Options 扩展
 
-| 参数           | 类型                | 默认值  | 说明             |
-| -------------- | ------------------- | ------- | ---------------- |
-| `remoteSync`   | `RemoteSyncAdapter` | -       | 远程同步适配器   |
-| `autoSync`     | `boolean`           | `false` | 是否自动同步     |
-| `syncInterval` | `number`            | `30000` | 同步间隔（毫秒） |
+| 参数           | 类型                | 默认值  | 说明                             |
+| -------------- | ------------------- | ------- | -------------------------------- |
+| `remoteSync`   | `RemoteSyncAdapter` | -       | 远程同步适配器                   |
+| `autoSync`     | `boolean`           | `false` | 是否自动同步                     |
+| `syncInterval` | `number`            | `30000` | 同步间隔（毫秒），0 表示实时同步 |
 
 ### 远程同步返回值
 

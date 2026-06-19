@@ -25,7 +25,14 @@ export const removeUnit = (value: string): number => {
  * 将十六进制颜色转换为 RGB
  */
 export const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  let cleanHex = hex.replace(/^#/, '')
+  if (cleanHex.length === 3) {
+    cleanHex = cleanHex
+      .split('')
+      .map((char) => char + char)
+      .join('')
+  }
+  const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(cleanHex)
   return result
     ? {
         r: parseInt(result[1], 16),
@@ -39,8 +46,9 @@ export const hexToRgb = (hex: string): { r: number; g: number; b: number } | nul
  * 将 RGB 转换为十六进制颜色
  */
 export const rgbToHex = (r: number, g: number, b: number): string => {
+  const clamp = (val: number) => Math.max(0, Math.min(255, Math.round(val)))
   const toHex = (c: number) => {
-    const hex = c.toString(16)
+    const hex = clamp(c).toString(16)
     return hex.length === 1 ? '0' + hex : hex
   }
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`
@@ -88,32 +96,28 @@ export const generateColorPalette = (
 /**
  * 设置 CSS 变量
  */
-export const setCssVar = (
-  name: string,
-  value: string,
-  element: HTMLElement = document.documentElement
-): void => {
-  element.style.setProperty(name, value)
+export const setCssVar = (name: string, value: string, element?: HTMLElement): void => {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return
+  const el = element || document.documentElement
+  el.style.setProperty(name, value)
 }
 
 /**
  * 获取 CSS 变量
  */
-export const getCssVar = (
-  name: string,
-  element: HTMLElement = document.documentElement
-): string => {
-  return getComputedStyle(element).getPropertyValue(name).trim()
+export const getCssVar = (name: string, element?: HTMLElement): string => {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return ''
+  const el = element || document.documentElement
+  return getComputedStyle(el).getPropertyValue(name).trim()
 }
 
 /**
  * 批量设置 CSS 变量
  */
-export const setCssVars = (
-  vars: Record<string, string>,
-  element: HTMLElement = document.documentElement
-): void => {
+export const setCssVars = (vars: Record<string, string>, element?: HTMLElement): void => {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return
+  const el = element || document.documentElement
   Object.entries(vars).forEach(([name, value]) => {
-    setCssVar(name, value, element)
+    setCssVar(name, value, el)
   })
 }

@@ -177,6 +177,7 @@
                 :style="{ height: virtualScrollItemHeight + 'px' }"
                 @click="handleClick(item)"
               >
+                <!-- 置顶图标 -->
                 <span v-if="item.pinned" :class="ns.e('pin-icon')">
                   <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
                     <path
@@ -184,19 +185,45 @@
                     />
                   </svg>
                 </span>
+
+                <!-- Item Info -->
                 <div :class="ns.e('item-content')">
-                  <span :class="ns.e('title')" :title="item.title">{{ item.title }}</span>
-                  <span v-if="item.updatedAt" :class="ns.e('time')">{{
-                    formatTime(item.updatedAt)
-                  }}</span>
+                  <span
+                    v-if="!editingId || editingId !== item.id"
+                    :class="ns.e('title')"
+                    :title="item.title"
+                  >
+                    {{ item.title }}
+                  </span>
+                  <input
+                    v-else
+                    v-model="editTitle"
+                    :class="ns.e('input')"
+                    @blur="confirmEdit(item)"
+                    @keydown.enter="confirmEdit(item)"
+                    @keydown.esc="cancelEdit"
+                    @click.stop
+                    ref="inputRef"
+                  />
+
+                  <span v-if="item.updatedAt" :class="ns.e('time')">
+                    {{ formatTime(item.updatedAt) }}
+                  </span>
+                  <span v-if="item.excerpt" :class="ns.e('excerpt')">
+                    {{ item.excerpt }}
+                  </span>
                 </div>
+
+                <!-- Actions -->
                 <div
                   :class="ns.e('actions')"
                   @click.stop
                   v-if="!editingId || editingId !== item.id"
                 >
+                  <!-- 置顶/取消置顶 -->
                   <span
                     :class="[ns.e('action-btn'), ns.is('active', !!item.pinned)]"
+                    :title="item.pinned ? t('ai.conversations.unpin') : t('ai.conversations.pin')"
                     @click.stop="handlePin(item)"
                   >
                     <svg
@@ -212,13 +239,41 @@
                       />
                     </svg>
                   </span>
+                  <!-- Edit Icon -->
+                  <span :class="ns.e('action-btn')" @click.stop="startEdit(item)">
+                    <slot name="edit-icon">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                      </svg>
+                    </slot>
+                  </span>
+                  <!-- Delete Icon -->
                   <span :class="ns.e('action-btn')" @click.stop="handleDelete(item)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path
-                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                      ></path>
-                    </svg>
+                    <slot name="delete-icon">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path
+                          d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                        ></path>
+                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                      </svg>
+                    </slot>
                   </span>
                 </div>
               </div>
@@ -230,11 +285,107 @@
           <div
             v-for="item in data"
             :key="item.id"
-            :class="[ns.e('item'), ns.is('active', activeId === item.id)]"
+            :class="[
+              ns.e('item'),
+              ns.is('active', activeId === item.id),
+              ns.is('pinned', !!item.pinned)
+            ]"
             @click="handleClick(item)"
           >
+            <!-- 置顶图标 -->
+            <span v-if="item.pinned" :class="ns.e('pin-icon')">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                <path
+                  d="M16 12V4h1a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1v8l-2 2v2h5v5l1 1 1-1v-5h5v-2l-2-2z"
+                />
+              </svg>
+            </span>
+
+            <!-- Item Info -->
             <div :class="ns.e('item-content')">
-              <span :class="ns.e('title')" :title="item.title">{{ item.title }}</span>
+              <span
+                v-if="!editingId || editingId !== item.id"
+                :class="ns.e('title')"
+                :title="item.title"
+              >
+                {{ item.title }}
+              </span>
+              <input
+                v-else
+                v-model="editTitle"
+                :class="ns.e('input')"
+                @blur="confirmEdit(item)"
+                @keydown.enter="confirmEdit(item)"
+                @keydown.esc="cancelEdit"
+                @click.stop
+                ref="inputRef"
+              />
+
+              <span v-if="item.updatedAt" :class="ns.e('time')">
+                {{ formatTime(item.updatedAt) }}
+              </span>
+              <span v-if="item.excerpt" :class="ns.e('excerpt')">
+                {{ item.excerpt }}
+              </span>
+            </div>
+
+            <!-- Actions -->
+            <div :class="ns.e('actions')" @click.stop v-if="!editingId || editingId !== item.id">
+              <!-- 置顶/取消置顶 -->
+              <span
+                :class="[ns.e('action-btn'), ns.is('active', !!item.pinned)]"
+                :title="item.pinned ? t('ai.conversations.unpin') : t('ai.conversations.pin')"
+                @click.stop="handlePin(item)"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="13"
+                  height="13"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M16 12V4h1a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1v8l-2 2v2h5v5l1 1 1-1v-5h5v-2l-2-2z"
+                  />
+                </svg>
+              </span>
+              <!-- Edit Icon -->
+              <span :class="ns.e('action-btn')" @click.stop="startEdit(item)">
+                <slot name="edit-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </slot>
+              </span>
+              <!-- Delete Icon -->
+              <span :class="ns.e('action-btn')" @click.stop="handleDelete(item)">
+                <slot name="delete-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path
+                      d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                    ></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                  </svg>
+                </slot>
+              </span>
             </div>
           </div>
         </template>

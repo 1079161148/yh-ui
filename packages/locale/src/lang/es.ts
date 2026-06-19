@@ -514,8 +514,13 @@ export const es: Language = {
     },
     marquee: {},
     affix: {},
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Por favor ingrese',
       loading: 'Cargando...',
@@ -613,7 +618,6 @@ export const es: Language = {
       galleryItem: 'Galería {index}',
       close: 'Cerrar'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Citas'
@@ -623,7 +627,8 @@ export const es: Language = {
         agent: 'Agente',
         document: 'Documento',
         table: 'Tabla',
-        knowledge: 'Conocimiento'
+        knowledge: 'Conocimiento',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Copiar código',
@@ -642,7 +647,8 @@ export const es: Language = {
       },
       sender: {
         placeholder: 'Enviar mensaje...',
-        dragTip: 'Suelta para subir archivos'
+        dragTip: 'Suelta para subir archivos',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Proceso de pensamiento',
@@ -677,7 +683,8 @@ export const es: Language = {
         versions: 'Versiones',
         rendering: 'Renderizando componente...',
         renderingChart: 'Renderizando gráfico...',
-        renderingCanvas: 'Preparando lienzo...'
+        renderingCanvas: 'Preparando lienzo...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Clic para hablar',

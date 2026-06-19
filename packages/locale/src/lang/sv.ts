@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const sv: Language = {
   name: 'sv',
   yh: {
-    // Gemensamt
     common: {
       yes: 'Ja',
       no: 'Nej',
@@ -27,7 +26,6 @@ export const sv: Language = {
       selectAll: 'Välj alla',
       unselectAll: 'Avmarkera alla'
     },
-    // Färgväljare
     colorpicker: {
       confirm: 'OK',
       clear: 'Rensa',
@@ -37,7 +35,6 @@ export const sv: Language = {
       recentColors: 'Senaste färger',
       presetColors: 'Förinställda färger'
     },
-    // Datumväljare
     datepicker: {
       now: 'Nu',
       today: 'Idag',
@@ -89,7 +86,6 @@ export const sv: Language = {
         q4: 'Q4'
       }
     },
-    // Tidsväljare
     timepicker: {
       confirm: 'OK',
       cancel: 'Avbryt',
@@ -99,11 +95,9 @@ export const sv: Language = {
       endPlaceholder: 'Sluttid',
       selectTime: 'Välj tid'
     },
-    // Tidsval
     timeselect: {
       placeholder: 'Välj tid'
     },
-    // Träd
     tree: {
       emptyText: 'Ingen data',
       loading: 'Laddar...',
@@ -112,14 +106,12 @@ export const sv: Language = {
       expandAll: 'Expandera alla',
       collapseAll: 'Dölj alla'
     },
-    // Trädval
     treeselect: {
       placeholder: 'Välj',
       emptyText: 'Ingen data',
       loading: 'Laddar...',
       noMatch: 'Ingen matchande data'
     },
-    // Kalender
     calendar: {
       prevMonth: 'Föregående månad',
       nextMonth: 'Nästa månad',
@@ -140,14 +132,12 @@ export const sv: Language = {
         sat: 'Lör'
       }
     },
-    // Autofyllning
     autocomplete: {
       loading: 'Laddar...',
       placeholder: 'Vänligen ange',
       noData: 'Ingen data',
       noMatch: 'Ingen matchande data'
     },
-    // Nedräkning
     countdown: {
       days: 'dagar',
       hours: 'timmar',
@@ -156,14 +146,12 @@ export const sv: Language = {
       milliseconds: 'millisekunder',
       finished: 'Klar'
     },
-    // Kaskadväljare
     cascader: {
       noMatch: 'Ingen matchande data',
       placeholder: 'Välj',
       loading: 'Laddar...',
       noData: 'Ingen data'
     },
-    // Överföring
     transfer: {
       noMatch: 'Ingen matchande data',
       noData: 'Ingen data',
@@ -173,7 +161,6 @@ export const sv: Language = {
       hasCheckedFormat: '{checked}/{total} valda',
       searchPlaceholder: 'Ange nyckelord'
     },
-    // Tabell
     table: {
       emptyText: 'Ingen data',
       confirmFilter: 'Bekräfta',
@@ -190,7 +177,6 @@ export const sv: Language = {
       page: 'Sida {page}',
       yes: 'Ja',
       no: 'Nej',
-      // Verktygsfält
       toolbar: {
         refresh: 'Uppdatera',
         density: 'Täthet',
@@ -205,7 +191,6 @@ export const sv: Language = {
         search: 'Sök',
         searchPlaceholder: 'Ange nyckelord för att söka'
       },
-      // Filter
       filter: {
         selectAll: 'Välj alla',
         selectInvert: 'Invertera val',
@@ -221,13 +206,11 @@ export const sv: Language = {
         lessThan: 'Mindre än',
         between: 'Mellan'
       },
-      // Sortering
       sort: {
         asc: 'Stigande',
         desc: 'Fallande',
         clear: 'Rensa sortering'
       },
-      // Export
       export: {
         title: 'Exportera data',
         filename: 'Filnamn',
@@ -241,7 +224,6 @@ export const sv: Language = {
         success: 'Export lyckades',
         error: 'Export misslyckades'
       },
-      // Import
       import: {
         title: 'Importera data',
         selectFile: 'Välj fil',
@@ -252,7 +234,6 @@ export const sv: Language = {
         preview: 'Dataförhandsvisning',
         confirm: 'Bekräfta import'
       },
-      // Utskrift
       printConfig: {
         title: 'Utskriftsinställningar',
         pageTitle: 'Sidtitel',
@@ -265,7 +246,6 @@ export const sv: Language = {
         portrait: 'Stående',
         printing: 'Skriver ut...'
       },
-      // Kolumninställningar
       columnSetting: {
         title: 'Kolumninställningar',
         showAll: 'Visa alla',
@@ -275,7 +255,6 @@ export const sv: Language = {
         fixedRight: 'Fäst till höger',
         unfixed: 'Frigör'
       },
-      // Snabbmeny
       contextMenu: {
         copy: 'Kopiera',
         copyRow: 'Kopiera rad',
@@ -287,31 +266,26 @@ export const sv: Language = {
         deleteSelectedRows: 'Radera valda rader',
         exportSelected: 'Exportera valda'
       },
-      // Val
       selection: {
         selectAll: 'Välj alla',
         selectInvert: 'Invertera val',
         selectNone: 'Rensa val',
         selected: '{count} objekt valda'
       },
-      // Expandera
       expand: {
         expandAll: 'Expandera alla',
         collapseAll: 'Dölj alla'
       },
-      // Träd
       tree: {
         expandAll: 'Expandera alla',
         collapseAll: 'Dölj alla',
         expandLevel: 'Expandera till nivå {level}'
       },
-      // Dra
       drag: {
         dragTip: 'Dra för att ändra ordning',
         dropTip: 'Släpp för att placera'
       }
     },
-    // Meddelanderuta
     messagebox: {
       title: 'Meddelande',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const sv: Language = {
       prompt: 'Prompt',
       inputPlaceholder: 'Vänligen ange'
     },
-    // Uppladdning
     upload: {
       deleteTip: 'tryck delete för att ta bort',
       delete: 'Radera',
@@ -340,18 +313,15 @@ export const sv: Language = {
       fileSizeError: 'Filstorlek överskrider gräns',
       fileCountError: 'Filantal överskrider gräns'
     },
-    // Formulär
     form: {
       validationFailed: 'Validering misslyckades',
       required: 'Obligatorisk',
       pleaseInput: 'Vänligen ange',
       pleaseSelect: 'Vänligen välj'
     },
-    // Knapp
     button: {
       loading: 'Laddar...'
     },
-    // Inmatning
     input: {
       placeholder: 'Vänligen ange',
       clear: 'Rensa',
@@ -360,28 +330,23 @@ export const sv: Language = {
       copy: 'Kopiera',
       copied: 'Kopierat'
     },
-    // Nummerinmatning
     inputnumber: {
       placeholder: 'Vänligen ange nummer',
       increase: 'Öka',
       decrease: 'Minska'
     },
-    // Tagginmatning
     inputtag: {
       placeholder: 'Vänligen ange',
       add: 'Lägg till',
       remove: 'Ta bort'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Mer'
     },
-    // Tillbaka till toppen
     backtop: {
       text: 'Tillbaka till toppen'
     },
-    // Välj
     select: {
       placeholder: 'Vänligen välj',
       noData: 'Ingen data',
@@ -390,7 +355,6 @@ export const sv: Language = {
       selectAll: 'Välj alla',
       clearAll: 'Rensa alla'
     },
-    // Sidnumrering
     pagination: {
       goto: 'Gå till',
       page: '',
@@ -402,13 +366,11 @@ export const sv: Language = {
       last: 'Sista',
       pageClassifier: ''
     },
-    // Popbekräftelse
     popconfirm: {
       confirm: 'OK',
       cancel: 'Avbryt',
       dontAskAgain: 'Fråga inte igen'
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Avbryt',
@@ -416,17 +378,14 @@ export const sv: Language = {
       maximize: 'Maximera',
       restore: 'Återställ'
     },
-    // Låda
     drawer: {
       close: 'Stäng',
       confirm: 'OK',
       cancel: 'Avbryt'
     },
-    // Rullgardinsmeny
     dropdown: {
       loading: 'Laddar...'
     },
-    // Bild
     image: {
       error: 'MISSLYCKADES',
       loading: 'Laddar...',
@@ -438,7 +397,6 @@ export const sv: Language = {
       originalSize: 'Originalstorlek',
       fullscreen: 'Helskärm'
     },
-    // Bildvisare
     imageviewer: {
       close: 'Stäng',
       prev: 'Föregående',
@@ -451,65 +409,52 @@ export const sv: Language = {
       fullscreen: 'Helskärm',
       exitFullscreen: 'Avsluta helskärm'
     },
-    // Oändlig rullning
     infinitescroll: {
       loading: 'Laddar...',
       finished: 'Ingen mer data',
       error: 'Laddning misslyckades, klicka för att försöka igen',
       retry: 'Klicka för att försöka igen'
     },
-    // Meddelande
     message: {
       close: 'Stäng'
     },
-    // Notifiering
     notification: {
       close: 'Stäng'
     },
-    // Laddning
     loading: {
       text: 'Laddar...'
     },
-    // Snurr
     spin: {
       text: 'Laddar...'
     },
-    // Betyg
     rate: {
       texts: ['Mycket dålig', 'Besviken', 'Rättvis', 'Nöjd', 'Överraskad']
     },
-    // Varning
     alert: {
       close: 'Stäng'
     },
-    // Tag
     tag: {
       close: 'Stäng'
     },
-    // Flikar
     tabs: {
       close: 'Stäng',
       add: 'Lägg till',
       more: 'Mer'
     },
-    // Steg
     steps: {
       finish: 'Klar',
       process: 'Pågår',
       wait: 'Väntar',
       error: 'Fel'
     },
-    // Framsteg
     progress: {
       success: 'Framgång',
       exception: 'Undantag',
       warning: 'Varning'
     },
-    // Skelett
     skeleton: {
       loading: 'Laddar...'
     },
-    // Tom
     empty: {
       description: 'Ingen data',
       noData: 'Ingen data',
@@ -517,7 +462,6 @@ export const sv: Language = {
       networkError: 'Nätverksfel',
       serverError: 'Serverfel'
     },
-    // Resultat
     result: {
       success: 'Framgång',
       error: 'Fel',
@@ -525,78 +469,63 @@ export const sv: Language = {
       info: 'Info',
       backHome: 'Tillbaka till hem'
     },
-    // Vattenfall
     waterfall: {
       loading: 'Laddar...',
       noMore: 'Ingen mer data',
       empty: 'Ingen data'
     },
-    // Beskrivningar
     descriptions: {
       colon: ':'
     },
-    // Skjutreglage
     slider: {
       tipFormatter: '{value}'
     },
-    // Växel
     switch: {
       on: 'PÅ',
       off: 'AV'
     },
-    // Kryssruta
     checkbox: {
       selectAll: 'Välj alla'
     },
-    // Radio
     radio: {},
-    // Meny
     menu: {
       collapse: 'Dölj meny',
       expand: 'Expandera meny'
     },
-    // Kort
     card: {
       collapse: 'Dölj',
       expand: 'Expandera'
     },
-    // Dölj
     collapse: {
       expand: 'Expandera',
       collapse: 'Dölj'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Märke
     badge: {},
-    // Avatar
     avatar: {
       error: 'Laddning misslyckades'
     },
-    // Vattenstämpel
     watermark: {},
-    // Avdelare
     divider: {},
-    // Karusell
     carousel: {
       prev: 'Föregående',
       next: 'Nästa'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Ankare
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Var god ange',
       loading: 'Laddar...',
       noData: 'Ingen data'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Välj specifikationer',
       emptyText: 'Inga specifikationer',
@@ -697,7 +626,8 @@ export const sv: Language = {
         agent: 'Agent',
         document: 'Dokument',
         table: 'Tabell',
-        knowledge: 'Kunskap'
+        knowledge: 'Kunskap',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopiera kod',
@@ -716,7 +646,8 @@ export const sv: Language = {
       },
       sender: {
         placeholder: 'Skicka ett meddelande...',
-        dragTip: 'Släpp för att ladda upp filer'
+        dragTip: 'Släpp för att ladda upp filer',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Tankeprocess',
@@ -751,7 +682,8 @@ export const sv: Language = {
         versions: 'Versioner',
         rendering: 'Renderar komponent...',
         renderingChart: 'Renderar diagram...',
-        renderingCanvas: 'Förbereder canvas...'
+        renderingCanvas: 'Förbereder canvas...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Klicka för att tala',

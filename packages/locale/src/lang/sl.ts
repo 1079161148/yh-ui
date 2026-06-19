@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const sl: Language = {
   name: 'sl',
   yh: {
-    // Splošno
     common: {
       yes: 'Da',
       no: 'Ne',
@@ -27,7 +26,6 @@ export const sl: Language = {
       selectAll: 'Izberi vse',
       unselectAll: 'Prekliči izbiro'
     },
-    // Izbira barve
     colorpicker: {
       confirm: 'V redu',
       clear: 'Počisti',
@@ -37,7 +35,6 @@ export const sl: Language = {
       recentColors: 'Nedavne barve',
       presetColors: 'Vnaprej nastavljene barve'
     },
-    // Izbira datuma
     datepicker: {
       now: 'Zdaj',
       today: 'Danes',
@@ -89,7 +86,6 @@ export const sl: Language = {
         q4: 'Q4'
       }
     },
-    // Izbira časa
     timepicker: {
       confirm: 'V redu',
       cancel: 'Prekliči',
@@ -99,11 +95,9 @@ export const sl: Language = {
       endPlaceholder: 'Končni čas',
       selectTime: 'Izberi čas'
     },
-    // Izbira časa
     timeselect: {
       placeholder: 'Izberi čas'
     },
-    // Drevo
     tree: {
       emptyText: 'Ni podatkov',
       loading: 'Nalaganje...',
@@ -112,14 +106,12 @@ export const sl: Language = {
       expandAll: 'Razširi vse',
       collapseAll: 'Strni vse'
     },
-    // Izbira drevesa
     treeselect: {
       placeholder: 'Izberi',
       emptyText: 'Ni podatkov',
       loading: 'Nalaganje...',
       noMatch: 'Ni ustreznih podatkov'
     },
-    // Koledar
     calendar: {
       prevMonth: 'Prejšnji mesec',
       nextMonth: 'Naslednji mesec',
@@ -140,14 +132,12 @@ export const sl: Language = {
         sat: 'Sob'
       }
     },
-    // Samodejno dopolnjevanje
     autocomplete: {
       loading: 'Nalaganje...',
       placeholder: 'Prosimo, vnesite',
       noData: 'Ni podatkov',
       noMatch: 'Ni ustreznih podatkov'
     },
-    // Odštevanje
     countdown: {
       days: 'dni',
       hours: 'ure',
@@ -156,14 +146,12 @@ export const sl: Language = {
       milliseconds: 'milisekunde',
       finished: 'Končano'
     },
-    // Kaskada
     cascader: {
       noMatch: 'Ni ustreznih podatkov',
       placeholder: 'Izberi',
       loading: 'Nalaganje...',
       noData: 'Ni podatkov'
     },
-    // Prenos
     transfer: {
       noMatch: 'Ni ustreznih podatkov',
       noData: 'Ni podatkov',
@@ -173,7 +161,6 @@ export const sl: Language = {
       hasCheckedFormat: '{checked}/{total} izbranih',
       searchPlaceholder: 'Vnesite ključno besedo'
     },
-    // Tabela
     table: {
       emptyText: 'Ni podatkov',
       confirmFilter: 'Potrdi',
@@ -190,7 +177,6 @@ export const sl: Language = {
       page: 'Stran {page}',
       yes: 'Da',
       no: 'Ne',
-      // Orodna vrstica
       toolbar: {
         refresh: 'Osveži',
         density: 'Gostota',
@@ -205,7 +191,6 @@ export const sl: Language = {
         search: 'Iskanje',
         searchPlaceholder: 'Vnesite ključne besede za iskanje'
       },
-      // Filter
       filter: {
         selectAll: 'Izberi vse',
         selectInvert: 'Obrni izbiro',
@@ -221,13 +206,11 @@ export const sl: Language = {
         lessThan: 'Manjše od',
         between: 'Med'
       },
-      // Razvrščanje
       sort: {
         asc: 'Naraščajoče',
         desc: 'Padajoče',
         clear: 'Počisti razvrščanje'
       },
-      // Izvoz
       export: {
         title: 'Izvozi podatke',
         filename: 'Ime datoteke',
@@ -241,7 +224,6 @@ export const sl: Language = {
         success: 'Izvoz uspešen',
         error: 'Izvoz ni uspel'
       },
-      // Uvoz
       import: {
         title: 'Uvozi podatke',
         selectFile: 'Izberi datoteko',
@@ -252,7 +234,6 @@ export const sl: Language = {
         preview: 'Predogled podatkov',
         confirm: 'Potrdi uvoz'
       },
-      // Tiskanje
       printConfig: {
         title: 'Nastavitve tiskanja',
         pageTitle: 'Naslov strani',
@@ -265,7 +246,6 @@ export const sl: Language = {
         portrait: 'Pokončno',
         printing: 'Tiskanje...'
       },
-      // Nastavitve stolpcev
       columnSetting: {
         title: 'Nastavitve stolpcev',
         showAll: 'Prikaži vse',
@@ -275,7 +255,6 @@ export const sl: Language = {
         fixedRight: 'Privzemi desno',
         unfixed: 'Odpni'
       },
-      // Kontekstni meni
       contextMenu: {
         copy: 'Kopiraj',
         copyRow: 'Kopiraj vrstico',
@@ -287,31 +266,26 @@ export const sl: Language = {
         deleteSelectedRows: 'Izbriši izbrane vrstice',
         exportSelected: 'Izvozi izbrano'
       },
-      // Izbira
       selection: {
         selectAll: 'Izberi vse',
         selectInvert: 'Obrni izbiro',
         selectNone: 'Počisti izbiro',
         selected: '{count} elementov izbranih'
       },
-      // Razširitev
       expand: {
         expandAll: 'Razširi vse',
         collapseAll: 'Strni vse'
       },
-      // Drevo
       tree: {
         expandAll: 'Razširi vse',
         collapseAll: 'Strni vse',
         expandLevel: 'Razširi do nivoja {level}'
       },
-      // Vlečenje
       drag: {
         dragTip: 'Povleci za preurejanje',
         dropTip: 'Spusti za postavitev'
       }
     },
-    // Sporočilno okno
     messagebox: {
       title: 'Sporočilo',
       confirm: 'V redu',
@@ -322,7 +296,6 @@ export const sl: Language = {
       prompt: 'Vprašanje',
       inputPlaceholder: 'Prosimo, vnesite'
     },
-    // Nalaganje
     upload: {
       deleteTip: 'pritisnite delete za odstranitev',
       delete: 'Izbriši',
@@ -340,18 +313,15 @@ export const sl: Language = {
       fileSizeError: 'Velikost datoteke presega omejitev',
       fileCountError: 'Število datotek presega omejitev'
     },
-    // Obrazec
     form: {
       validationFailed: 'Preverjanje ni uspelo',
       required: 'Zahtevano',
       pleaseInput: 'Prosimo, vnesite',
       pleaseSelect: 'Prosimo, izberite'
     },
-    // Gumb
     button: {
       loading: 'Nalaganje...'
     },
-    // Vnos
     input: {
       placeholder: 'Prosimo, vnesite',
       clear: 'Počisti',
@@ -360,28 +330,23 @@ export const sl: Language = {
       copy: 'Kopiraj',
       copied: 'Kopirano'
     },
-    // Številski vnos
     inputnumber: {
       placeholder: 'Prosimo, vnesite številko',
       increase: 'Povečaj',
       decrease: 'Zmanjšaj'
     },
-    // Vnos oznake
     inputtag: {
       placeholder: 'Prosimo, vnesite',
       add: 'Dodaj',
       remove: 'Odstrani'
     },
-    // Navigacijska pot
     breadcrumb: {
       label: 'Navigacijska pot',
       more: 'Več'
     },
-    // Nazaj na vrh
     backtop: {
       text: 'Nazaj na vrh'
     },
-    // Izbira
     select: {
       placeholder: 'Prosimo, izberite',
       noData: 'Ni podatkov',
@@ -390,7 +355,6 @@ export const sl: Language = {
       selectAll: 'Izberi vse',
       clearAll: 'Počisti vse'
     },
-    // Paginacija
     pagination: {
       goto: 'Pojdi na',
       page: '',
@@ -402,13 +366,11 @@ export const sl: Language = {
       last: 'Zadnja',
       pageClassifier: ''
     },
-    // Potrditveni pojavni okvir
     popconfirm: {
       confirm: 'V redu',
       cancel: 'Prekliči',
       dontAskAgain: 'Ne sprašuj več'
     },
-    // Pogovorno okno
     dialog: {
       confirm: 'V redu',
       cancel: 'Prekliči',
@@ -416,17 +378,14 @@ export const sl: Language = {
       maximize: 'Maksimiraj',
       restore: 'Obnovi'
     },
-    // Predal
     drawer: {
       close: 'Zapri',
       confirm: 'V redu',
       cancel: 'Prekliči'
     },
-    // Spustni meni
     dropdown: {
       loading: 'Nalaganje...'
     },
-    // Slika
     image: {
       error: 'NEUSPEŠNO',
       loading: 'Nalaganje...',
@@ -438,7 +397,6 @@ export const sl: Language = {
       originalSize: 'Prvotna velikost',
       fullscreen: 'Celozaslonski način'
     },
-    // Pregledovalnik slik
     imageviewer: {
       close: 'Zapri',
       prev: 'Prejšnja',
@@ -451,65 +409,52 @@ export const sl: Language = {
       fullscreen: 'Celozaslonski način',
       exitFullscreen: 'Izhod iz celozaslonskega načina'
     },
-    // Neskončno drsenje
     infinitescroll: {
       loading: 'Nalaganje...',
       finished: 'Ni več podatkov',
       error: 'Nalaganje ni uspelo, kliknite za ponovni poskus',
       retry: 'Kliknite za ponovni poskus'
     },
-    // Sporočilo
     message: {
       close: 'Zapri'
     },
-    // Obvestilo
     notification: {
       close: 'Zapri'
     },
-    // Nalaganje
     loading: {
       text: 'Nalaganje...'
     },
-    // Vrtiljaj
     spin: {
       text: 'Nalaganje...'
     },
-    // Ocena
     rate: {
       texts: ['Izjemno slabo', 'Razočaran', 'Pošteno', 'Zadovoljen', 'Presenečen']
     },
-    // Opozorilo
     alert: {
       close: 'Zapri'
     },
-    // Oznaka
     tag: {
       close: 'Zapri'
     },
-    // Zavihki
     tabs: {
       close: 'Zapri',
       add: 'Dodaj',
       more: 'Več'
     },
-    // Koraki
     steps: {
       finish: 'Končano',
       process: 'V teku',
       wait: 'Čakanje',
       error: 'Napaka'
     },
-    // Napredek
     progress: {
       success: 'Uspeh',
       exception: 'Izjema',
       warning: 'Opozorilo'
     },
-    // Okostje
     skeleton: {
       loading: 'Nalaganje...'
     },
-    // Prazen
     empty: {
       description: 'Ni podatkov',
       noData: 'Ni podatkov',
@@ -517,7 +462,6 @@ export const sl: Language = {
       networkError: 'Napaka omrežja',
       serverError: 'Napaka strežnika'
     },
-    // Rezultat
     result: {
       success: 'Uspeh',
       error: 'Napaka',
@@ -525,72 +469,58 @@ export const sl: Language = {
       info: 'Informacije',
       backHome: 'Nazaj na domačo stran'
     },
-    // Slap
     waterfall: {
       loading: 'Nalaganje...',
       noMore: 'Ni več podatkov',
       empty: 'Ni podatkov'
     },
-    // Opisi
     descriptions: {
       colon: ':'
     },
-    // Drsnik
     slider: {
       tipFormatter: '{value}'
     },
-    // Stikalo
     switch: {
       on: 'VKLOPLJENO',
       off: 'IZKLOPLJENO'
     },
-    // Potrditveno polje
     checkbox: {
       selectAll: 'Izberi vse'
     },
-    // Radio
     radio: {},
-    // Meni
     menu: {
       collapse: 'Strni meni',
       expand: 'Razširi meni'
     },
-    // Kartica
     card: {
       collapse: 'Strni',
       expand: 'Razširi'
     },
-    // Strnjenje
     collapse: {
       expand: 'Razširi',
       collapse: 'Strni'
     },
-    // Namig
     tooltip: {},
-    // Pojavni okvir
     popover: {},
-    // Značka
     badge: {},
-    // Avatar
     avatar: {
       error: 'Nalaganje ni uspelo'
     },
-    // Vodni žig
     watermark: {},
-    // Ločilnik
     divider: {},
-    // Vrtiljaj
     carousel: {
       prev: 'Prejšnja',
       next: 'Naslednja'
     },
-    // Marquee
     marquee: {},
-    // Pritrditev
     affix: {},
-    // Sidro
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Prosim, vnesite',
       loading: 'Nalaganje...',
@@ -687,7 +617,6 @@ export const sl: Language = {
       galleryItem: 'Galerija {index}',
       close: 'Zapri'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Citati'
@@ -697,7 +626,8 @@ export const sl: Language = {
         agent: 'Agent',
         document: 'Dokument',
         table: 'Tabela',
-        knowledge: 'Znanje'
+        knowledge: 'Znanje',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopiraj kodo',
@@ -716,7 +646,8 @@ export const sl: Language = {
       },
       sender: {
         placeholder: 'Pošlji sporočilo...',
-        dragTip: 'Spustite za nalaganje datotek'
+        dragTip: 'Spustite za nalaganje datotek',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Proces razmišljanja',
@@ -751,7 +682,8 @@ export const sl: Language = {
         versions: 'Različice',
         rendering: 'Upodabljanje komponente...',
         renderingChart: 'Upodabljanje grafikona...',
-        renderingCanvas: 'Priprava platna...'
+        renderingCanvas: 'Priprava platna...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Kliknite za govorjenje',

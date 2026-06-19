@@ -53,12 +53,12 @@ export async function installSkill(options: InstallOptions): Promise<InstallResu
   }
 
   if (!options.dryRun && options.force) {
-    await Promise.all([
-      removePath(plan.skillDir),
-      removePath(plan.llmsPath),
-      removePath(plan.llmsFullPath),
-      removePath(plan.manifestPath)
-    ])
+    const pathsToRemove = [plan.skillDir, plan.llmsPath, plan.llmsFullPath, plan.manifestPath]
+    if (plan.target === 'cursor') {
+      pathsToRemove.push(join(plan.baseDir, 'rules', 'yh-ui.mdc'))
+      pathsToRemove.push(join(options.cwd, '.cursorrules'))
+    }
+    await Promise.all(pathsToRemove.map((p) => removePath(p)))
   }
 
   if (!options.dryRun) {
@@ -67,19 +67,38 @@ export async function installSkill(options: InstallOptions): Promise<InstallResu
     await copyFile(LLMS_ASSET_PATH, plan.llmsPath)
     await copyFile(LLMS_FULL_ASSET_PATH, plan.llmsFullPath)
 
+    const manifestFiles = [
+      'skills/yh-ui',
+      'skills/yh-ui/SKILL.md',
+      'llms.txt',
+      'llms-full.txt',
+      'yh-ui-skill.manifest.json'
+    ]
+
+    if (plan.target === 'cursor') {
+      const rawSkillContent = await readFile(join(SKILL_ASSET_DIR, 'SKILL.md'), 'utf8')
+      const bodyContent = rawSkillContent.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '')
+
+      // Write Cursor MDC rule
+      const mdcPath = join(plan.baseDir, 'rules', 'yh-ui.mdc')
+      const mdcFrontmatter = `---\ndescription: Guidelines for Vue, Nuxt, and TypeScript files using YH-UI components, hooks, request, theme, locale, flow, and AI SDK.\nglobs: **/*.vue, **/*.ts, **/*.tsx, **/*.js, **/*.jsx\n---\n\n`
+      await ensureParentDir(mdcPath)
+      await writeFile(mdcPath, mdcFrontmatter + bodyContent, 'utf8')
+      manifestFiles.push('rules/yh-ui.mdc')
+
+      // Write root .cursorrules
+      const cursorrulesPath = join(options.cwd, '.cursorrules')
+      await writeFile(cursorrulesPath, rawSkillContent, 'utf8')
+      manifestFiles.push('../.cursorrules')
+    }
+
     const manifest: InstalledManifest = {
       packageName: '@yh-ui/yh-ui-skill',
       version,
       target: plan.target,
       baseDir: plan.baseDir,
       installedAt: new Date().toISOString(),
-      files: [
-        'skills/yh-ui',
-        'skills/yh-ui/SKILL.md',
-        'llms.txt',
-        'llms-full.txt',
-        'yh-ui-skill.manifest.json'
-      ]
+      files: manifestFiles
     }
 
     await ensureParentDir(plan.manifestPath)
@@ -121,13 +140,28 @@ export async function inspectInstallation(options: InstallOptions): Promise<Doct
     }
   ]
 
+  if (plan.target === 'cursor') {
+    checks.push(
+      {
+        label: 'Cursor MDC rule',
+        path: join(plan.baseDir, 'rules', 'yh-ui.mdc'),
+        exists: await pathExists(join(plan.baseDir, 'rules', 'yh-ui.mdc'))
+      },
+      {
+        label: '.cursorrules',
+        path: join(options.cwd, '.cursorrules'),
+        exists: await pathExists(join(options.cwd, '.cursorrules'))
+      }
+    )
+  }
+
   checks
     .filter((check) => !check.exists)
     .forEach((check) => missingItems.push(relative(plan.baseDir, check.path).replace(/\\/g, '/')))
 
   let version: string | null = null
 
-  if (checks.at(-1)?.exists) {
+  if (checks.find((c) => c.label === 'Install manifest')?.exists) {
     const manifest = JSON.parse(await readFile(plan.manifestPath, 'utf8')) as InstalledManifest
     version = manifest.version
   }

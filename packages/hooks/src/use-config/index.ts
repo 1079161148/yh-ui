@@ -17,25 +17,33 @@ export const configProviderContextKey: InjectionKey<ComputedRef<ConfigProviderCo
   'configProviderContextKey'
 )
 
+export interface YhUIOptions {
+  size?: 'small' | 'default' | 'large'
+  zIndex?: number
+  namespace?: string
+  locale?: Language
+}
+
 /**
  * 获取全局配置 Hook
  */
 export const useConfig = () => {
   const configRef = inject(configProviderContextKey, null)
+  const globalOptions = inject<YhUIOptions | null>('yh-ui-options', null)
 
   const globalSize = computed(() => {
     const config = unref(configRef)
-    return config?.size || 'default'
+    return config?.size || globalOptions?.size || 'default'
   })
 
   const globalZIndex = computed(() => {
     const config = unref(configRef)
-    return config?.zIndex || 2000
+    return config?.zIndex || globalOptions?.zIndex || 2000
   })
 
   const globalLocale = computed(() => {
     const config = unref(configRef)
-    return config?.locale
+    return config?.locale || globalOptions?.locale
   })
 
   return {

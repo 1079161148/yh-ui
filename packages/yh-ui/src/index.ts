@@ -13,7 +13,7 @@
 
 import type { App, Plugin } from 'vue'
 import type { Language } from '@yh-ui/locale'
-import packageJson from '../package.json'
+import packageJson from '../package.json' with { type: 'json' }
 
 // 导出所有组件
 export * from '@yh-ui/components'

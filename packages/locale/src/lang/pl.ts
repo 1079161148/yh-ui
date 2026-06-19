@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const pl: Language = {
   name: 'pl',
   yh: {
-    // Wspólne
     common: {
       yes: 'Tak',
       no: 'Nie',
@@ -27,7 +26,6 @@ export const pl: Language = {
       selectAll: 'Zaznacz wszystko',
       unselectAll: 'Odznacz wszystko'
     },
-    // Wybór koloru
     colorpicker: {
       confirm: 'OK',
       clear: 'Wyczyść',
@@ -37,7 +35,6 @@ export const pl: Language = {
       recentColors: 'Ostatnie kolory',
       presetColors: 'Wstępnie ustawione kolory'
     },
-    // Wybór daty
     datepicker: {
       now: 'Teraz',
       today: 'Dzisiaj',
@@ -89,7 +86,6 @@ export const pl: Language = {
         q4: 'Q4'
       }
     },
-    // Wybór czasu
     timepicker: {
       confirm: 'OK',
       cancel: 'Anuluj',
@@ -99,11 +95,9 @@ export const pl: Language = {
       endPlaceholder: 'Czas zakończenia',
       selectTime: 'Wybierz czas'
     },
-    // Wybór czasu
     timeselect: {
       placeholder: 'Wybierz czas'
     },
-    // Drzewo
     tree: {
       emptyText: 'Brak danych',
       loading: 'Ładowanie...',
@@ -112,14 +106,12 @@ export const pl: Language = {
       expandAll: 'Rozwiń wszystko',
       collapseAll: 'Zwiń wszystko'
     },
-    // Wybór drzewa
     treeselect: {
       placeholder: 'Wybierz',
       emptyText: 'Brak danych',
       loading: 'Ładowanie...',
       noMatch: 'Brak pasujących danych'
     },
-    // Kalendarz
     calendar: {
       prevMonth: 'Poprzedni miesiąc',
       nextMonth: 'Następny miesiąc',
@@ -140,14 +132,12 @@ export const pl: Language = {
         sat: 'Sob'
       }
     },
-    // Autouzupełnianie
     autocomplete: {
       loading: 'Ładowanie...',
       placeholder: 'Wprowadź',
       noData: 'Brak danych',
       noMatch: 'Brak pasujących danych'
     },
-    // Odliczanie
     countdown: {
       days: 'dni',
       hours: 'godziny',
@@ -156,14 +146,12 @@ export const pl: Language = {
       milliseconds: 'milisekundy',
       finished: 'Zakończono'
     },
-    // Wybór kaskadowy
     cascader: {
       noMatch: 'Brak pasujących danych',
       placeholder: 'Wybierz',
       loading: 'Ładowanie...',
       noData: 'Brak danych'
     },
-    // Transfer
     transfer: {
       noMatch: 'Brak pasujących danych',
       noData: 'Brak danych',
@@ -173,7 +161,6 @@ export const pl: Language = {
       hasCheckedFormat: '{checked}/{total} zaznaczonych',
       searchPlaceholder: 'Wprowadź słowo kluczowe'
     },
-    // Tabela
     table: {
       emptyText: 'Brak danych',
       confirmFilter: 'Potwierdź',
@@ -190,7 +177,6 @@ export const pl: Language = {
       page: 'Strona {page}',
       yes: 'Tak',
       no: 'Nie',
-      // Pasek narzędzi
       toolbar: {
         refresh: 'Odśwież',
         density: 'Gęstość',
@@ -205,7 +191,6 @@ export const pl: Language = {
         search: 'Szukaj',
         searchPlaceholder: 'Wprowadź słowa kluczowe do wyszukania'
       },
-      // Filtr
       filter: {
         selectAll: 'Zaznacz wszystko',
         selectInvert: 'Odwróć zaznaczenie',
@@ -221,13 +206,11 @@ export const pl: Language = {
         lessThan: 'Mniejsze niż',
         between: 'Między'
       },
-      // Sortowanie
       sort: {
         asc: 'Rosnąco',
         desc: 'Malejąco',
         clear: 'Wyczyść sortowanie'
       },
-      // Eksport
       export: {
         title: 'Eksportuj dane',
         filename: 'Nazwa pliku',
@@ -241,7 +224,6 @@ export const pl: Language = {
         success: 'Eksport zakończony powodzeniem',
         error: 'Eksport nieudany'
       },
-      // Import
       import: {
         title: 'Importuj dane',
         selectFile: 'Wybierz plik',
@@ -252,7 +234,6 @@ export const pl: Language = {
         preview: 'Podgląd danych',
         confirm: 'Potwierdź import'
       },
-      // Druk
       printConfig: {
         title: 'Ustawienia drukowania',
         pageTitle: 'Tytuł strony',
@@ -265,7 +246,6 @@ export const pl: Language = {
         portrait: 'Pionowo',
         printing: 'Drukowanie...'
       },
-      // Ustawienia kolumn
       columnSetting: {
         title: 'Ustawienia kolumn',
         showAll: 'Pokaż wszystko',
@@ -275,7 +255,6 @@ export const pl: Language = {
         fixedRight: 'Przypnij do prawej',
         unfixed: 'Odpiń'
       },
-      // Menu kontekstowe
       contextMenu: {
         copy: 'Kopiuj',
         copyRow: 'Kopiuj wiersz',
@@ -287,31 +266,26 @@ export const pl: Language = {
         deleteSelectedRows: 'Usuń zaznaczone wiersze',
         exportSelected: 'Eksportuj zaznaczone'
       },
-      // Zaznaczenie
       selection: {
         selectAll: 'Zaznacz wszystko',
         selectInvert: 'Odwróć zaznaczenie',
         selectNone: 'Wyczyść zaznaczenie',
         selected: 'Zaznaczono {count} elementów'
       },
-      // Rozwiń
       expand: {
         expandAll: 'Rozwiń wszystko',
         collapseAll: 'Zwiń wszystko'
       },
-      // Drzewo
       tree: {
         expandAll: 'Rozwiń wszystko',
         collapseAll: 'Zwiń wszystko',
         expandLevel: 'Rozwiń do poziomu {level}'
       },
-      // Przeciąganie
       drag: {
         dragTip: 'Przeciągnij, aby zmienić kolejność',
         dropTip: 'Upuść, aby umieścić'
       }
     },
-    // Okno wiadomości
     messagebox: {
       title: 'Wiadomość',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const pl: Language = {
       prompt: 'Monit',
       inputPlaceholder: 'Wprowadź'
     },
-    // Przesyłanie
     upload: {
       deleteTip: 'naciśnij delete, aby usunąć',
       delete: 'Usuń',
@@ -340,18 +313,15 @@ export const pl: Language = {
       fileSizeError: 'Rozmiar pliku przekracza limit',
       fileCountError: 'Liczba plików przekracza limit'
     },
-    // Formularz
     form: {
       validationFailed: 'Walidacja nieudana',
       required: 'Wymagane',
       pleaseInput: 'Wprowadź',
       pleaseSelect: 'Wybierz'
     },
-    // Przycisk
     button: {
       loading: 'Ładowanie...'
     },
-    // Wprowadzanie
     input: {
       placeholder: 'Wprowadź',
       clear: 'Wyczyść',
@@ -360,28 +330,23 @@ export const pl: Language = {
       copy: 'Kopiuj',
       copied: 'Skopiowano'
     },
-    // Wprowadzanie liczby
     inputnumber: {
       placeholder: 'Wprowadź liczbę',
       increase: 'Zwiększ',
       decrease: 'Zmniejsz'
     },
-    // Wprowadzanie tagu
     inputtag: {
       placeholder: 'Wprowadź',
       add: 'Dodaj',
       remove: 'Usuń'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Więcej'
     },
-    // Powrót na górę
     backtop: {
       text: 'Powrót na górę'
     },
-    // Wybór
     select: {
       placeholder: 'Wybierz',
       noData: 'Brak danych',
@@ -390,7 +355,6 @@ export const pl: Language = {
       selectAll: 'Zaznacz wszystko',
       clearAll: 'Wyczyść wszystko'
     },
-    // Paginacja
     pagination: {
       goto: 'Przejdź do',
       page: '',
@@ -402,13 +366,11 @@ export const pl: Language = {
       last: 'Ostatnia',
       pageClassifier: ''
     },
-    // Potwierdzenie popup
     popconfirm: {
       confirm: 'OK',
       cancel: 'Anuluj',
       dontAskAgain: 'Nie pytaj ponownie'
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Anuluj',
@@ -416,17 +378,14 @@ export const pl: Language = {
       maximize: 'Maksymalizuj',
       restore: 'Przywróć'
     },
-    // Szuflada
     drawer: {
       close: 'Zamknij',
       confirm: 'OK',
       cancel: 'Anuluj'
     },
-    // Menu rozwijane
     dropdown: {
       loading: 'Ładowanie...'
     },
-    // Obraz
     image: {
       error: 'NIEPOWODZENIE',
       loading: 'Ładowanie...',
@@ -438,7 +397,6 @@ export const pl: Language = {
       originalSize: 'Oryginalny rozmiar',
       fullscreen: 'Pełny ekran'
     },
-    // Przeglądarka obrazów
     imageviewer: {
       close: 'Zamknij',
       prev: 'Poprzedni',
@@ -451,65 +409,52 @@ export const pl: Language = {
       fullscreen: 'Pełny ekran',
       exitFullscreen: 'Wyjdź z pełnego ekranu'
     },
-    // Nieskończone przewijanie
     infinitescroll: {
       loading: 'Ładowanie...',
       finished: 'Brak więcej danych',
       error: 'Ładowanie nieudane, kliknij, aby ponowić próbę',
       retry: 'Kliknij, aby ponowić próbę'
     },
-    // Wiadomość
     message: {
       close: 'Zamknij'
     },
-    // Powiadomienie
     notification: {
       close: 'Zamknij'
     },
-    // Ładowanie
     loading: {
       text: 'Ładowanie...'
     },
-    // Obrót
     spin: {
       text: 'Ładowanie...'
     },
-    // Ocena
     rate: {
       texts: ['Bardzo słabo', 'Rozczarowany', 'Przeciętnie', 'Zadowolony', 'Zaskoczony']
     },
-    // Alert
     alert: {
       close: 'Zamknij'
     },
-    // Tag
     tag: {
       close: 'Zamknij'
     },
-    // Zakładki
     tabs: {
       close: 'Zamknij',
       add: 'Dodaj',
       more: 'Więcej'
     },
-    // Kroki
     steps: {
       finish: 'Zakończono',
       process: 'W trakcie',
       wait: 'Oczekiwanie',
       error: 'Błąd'
     },
-    // Postęp
     progress: {
       success: 'Sukces',
       exception: 'Wyjątek',
       warning: 'Ostrzeżenie'
     },
-    // Szkielet
     skeleton: {
       loading: 'Ładowanie...'
     },
-    // Pusty
     empty: {
       description: 'Brak danych',
       noData: 'Brak danych',
@@ -517,7 +462,6 @@ export const pl: Language = {
       networkError: 'Błąd sieci',
       serverError: 'Błąd serwera'
     },
-    // Wynik
     result: {
       success: 'Sukces',
       error: 'Błąd',
@@ -525,78 +469,63 @@ export const pl: Language = {
       info: 'Informacja',
       backHome: 'Powrót do strony głównej'
     },
-    // Kaskada
     waterfall: {
       loading: 'Ładowanie...',
       noMore: 'Brak więcej danych',
       empty: 'Brak danych'
     },
-    // Opisy
     descriptions: {
       colon: ':'
     },
-    // Suwak
     slider: {
       tipFormatter: '{value}'
     },
-    // Przełącznik
     switch: {
       on: 'WŁĄCZONE',
       off: 'WYŁĄCZONE'
     },
-    // Pole wyboru
     checkbox: {
       selectAll: 'Zaznacz wszystko'
     },
-    // Radio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Zwiń menu',
       expand: 'Rozwiń menu'
     },
-    // Karta
     card: {
       collapse: 'Zwiń',
       expand: 'Rozwiń'
     },
-    // Zwiń
     collapse: {
       expand: 'Rozwiń',
       collapse: 'Zwiń'
     },
-    // Podpowiedź
     tooltip: {},
-    // Popover
     popover: {},
-    // Odznaka
     badge: {},
-    // Avatar
     avatar: {
       error: 'Ładowanie nieudane'
     },
-    // Znak wodny
     watermark: {},
-    // Separator
     divider: {},
-    // Karuzela
     carousel: {
       prev: 'Poprzedni',
       next: 'Następny'
     },
-    // Marquee
     marquee: {},
-    // Przypięcie
     affix: {},
-    // Kotwica
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Wprowadź',
       loading: 'Ładowanie...',
       noData: 'Brak danych'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Wybierz specyfikację',
       emptyText: 'Brak specyfikacji',
@@ -697,7 +626,8 @@ export const pl: Language = {
         agent: 'Agent',
         document: 'Dokument',
         table: 'Tabela',
-        knowledge: 'Wiedza'
+        knowledge: 'Wiedza',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopiuj kod',
@@ -716,7 +646,8 @@ export const pl: Language = {
       },
       sender: {
         placeholder: 'Wyślij wiadomość...',
-        dragTip: 'Puść, aby przesłać pliki'
+        dragTip: 'Puść, aby przesłać pliki',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Proces Myślenia',
@@ -751,7 +682,8 @@ export const pl: Language = {
         versions: 'Wersje',
         rendering: 'Renderowanie komponentu...',
         renderingChart: 'Renderowanie wykresu...',
-        renderingCanvas: 'Przygotowanie płótna...'
+        renderingCanvas: 'Przygotowanie płótna...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Kliknij, aby Mówić',

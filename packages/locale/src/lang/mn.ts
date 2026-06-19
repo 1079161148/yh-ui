@@ -3,93 +3,81 @@ import type { Language } from '../index'
 export const mn: Language = {
   name: 'mn',
   yh: {
-    // Ерөнхий
     common: {
-      yes: '\u0422\u0438\u0439\u043C',
-      no: '\u04AE\u0433\u04AF\u0439',
-      confirm:
-        '\u0411\u0430\u0442\u0430\u043B\u0433\u0430\u0430\u0436\u0443\u0443\u043B\u0430\u0445',
-      cancel: '\u0426\u0443\u0446\u043B\u0430\u0445',
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430',
-      close: '\u0425\u0430\u0430\u0445',
-      clear: '\u0426\u044D\u0432\u044D\u0440\u043B\u044D\u0445',
-      reset:
-        '\u0414\u0430\u0445\u0438\u043D \u0442\u043E\u0445\u0438\u0440\u0443\u0443\u043B\u0430\u0445',
-      save: '\u0425\u0430\u0434\u0433\u0430\u043B\u0430\u0445',
-      delete: '\u0423\u0441\u0442\u0433\u0430\u0445',
-      edit: '\u0417\u0430\u0441\u0430\u0445',
-      add: '\u041D\u044D\u043C\u044D\u0445',
-      search: '\u0425\u0430\u0439\u0445',
-      refresh: '\u0421\u044D\u0440\u0433\u044D\u044D\u0445',
-      expand: '\u04E8\u0440\u0433\u04E9\u0436\u04AF\u04AF\u043B\u044D\u0445',
-      collapse: '\u041D\u044D\u0433\u0442\u0433\u044D\u0445',
-      more: '\u0414\u044D\u043B\u0433\u044D\u0440\u044D\u043D\u0433\u04AF\u0439',
-      noData:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      noMatch:
-        '\u0422\u043E\u0445\u0438\u0440\u043E\u0445 \u04E9\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      selectAll: '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0441\u043E\u043D\u0433\u043E\u0445',
-      unselectAll:
-        '\u0411\u04AF\u0445 \u0441\u043E\u043D\u0433\u043E\u043B\u0442\u044B\u0433 \u0446\u0443\u0446\u043B\u0430\u0445'
+      yes: 'Тийм',
+      no: 'Үгүй',
+      confirm: 'Баталгаажуулах',
+      cancel: 'Цуцлах',
+      loading: 'Ачааллаж байна',
+      close: 'Хаах',
+      clear: 'Цэвэрлэх',
+      reset: 'Дахин тохируулах',
+      save: 'Хадгалах',
+      delete: 'Устгах',
+      edit: 'Засах',
+      add: 'Нэмэх',
+      search: 'Хайх',
+      refresh: 'Сэргээх',
+      expand: 'Өргөжүүлэх',
+      collapse: 'Нэгтгэх',
+      more: 'Дэлгэрэнгүй',
+      noData: 'Өгөгдөл байхгүй',
+      noMatch: 'Тохирох өгөгдөл байхгүй',
+      selectAll: 'Бүгдийг сонгох',
+      unselectAll: 'Бүх сонголтыг цуцлах'
     },
-    // Өнгө сонгох
     colorpicker: {
-      confirm: '\u0411\u043E\u043B\u043D\u043E',
-      clear: '\u0426\u044D\u0432\u044D\u0440\u043B\u044D\u0445',
-      eyeDropper: '\u0414\u0443\u0441\u043B\u044B\u043D \u0445\u044D\u043C\u0436\u04AF\u04AF\u0440',
-      suggestionDark:
-        '\u0426\u0430\u0433\u0430\u0430\u043D \u0442\u0435\u043A\u0441\u0442 \u0445\u0430\u043C\u0433\u0438\u0439\u043D \u0441\u0430\u0439\u043D',
-      suggestionLight:
-        '\u0425\u0430\u0440 \u0442\u0435\u043A\u0441\u0442 \u0445\u0430\u043C\u0433\u0438\u0439\u043D \u0441\u0430\u0439\u043D',
-      recentColors:
-        '\u0421\u04AF\u04AF\u043B\u0438\u0439\u043D \u04E9\u043D\u0433\u04E9\u043D\u04AF\u04AF\u0434',
-      presetColors:
-        '\u0423\u0440\u044C\u0434\u0447\u0438\u043B\u0430\u043D \u0442\u043E\u0445\u0438\u0440\u0443\u0443\u043B\u0441\u0430\u043D \u04E9\u043D\u0433\u04E9\u043D\u04AF\u04AF\u0434'
+      confirm: 'Болно',
+      clear: 'Цэвэрлэх',
+      eyeDropper: 'Дуслын хэмжүүр',
+      suggestionDark: 'Цагаан текст хамгийн сайн',
+      suggestionLight: 'Хар текст хамгийн сайн',
+      recentColors: 'Сүүлийн өнгөнүүд',
+      presetColors: 'Урьдчилан тохируулсан өнгөнүүд'
     },
-    // Огноо сонгох
     datepicker: {
-      now: '\u041E\u0434\u043E\u043E',
-      today: '\u04E8\u043D\u04E9\u04E9\u0434\u04E9\u0440',
-      cancel: '\u0426\u0443\u0446\u043B\u0430\u0445',
-      clear: '\u0426\u044D\u0432\u044D\u0440\u043B\u044D\u0445',
-      confirm: '\u0411\u043E\u043B\u043D\u043E',
-      selectDate: '\u041E\u0433\u043D\u043E\u043E \u0441\u043E\u043D\u0433\u043E\u0445',
-      selectTime: '\u0426\u0430\u0433 \u0441\u043E\u043D\u0433\u043E\u0445',
-      startDate: '\u042D\u0445\u043B\u044D\u0445 \u043E\u0433\u043D\u043E\u043E',
-      startTime: '\u042D\u0445\u043B\u044D\u0445 \u0446\u0430\u0433',
-      endDate: '\u0414\u0443\u0443\u0441\u0430\u0445 \u043E\u0433\u043D\u043E\u043E',
-      endTime: '\u0414\u0443\u0443\u0441\u0430\u0445 \u0446\u0430\u0433',
+      now: 'Одоо',
+      today: 'Өнөөдөр',
+      cancel: 'Цуцлах',
+      clear: 'Цэвэрлэх',
+      confirm: 'Болно',
+      selectDate: 'Огноо сонгох',
+      selectTime: 'Цаг сонгох',
+      startDate: 'Эхлэх огноо',
+      startTime: 'Эхлэх цаг',
+      endDate: 'Дуусах огноо',
+      endTime: 'Дуусах цаг',
       year: '',
       month: '',
       day: '',
-      week: '\u0414\u043E\u043B\u043E\u043E \u0445\u043E\u043D\u043E\u0433',
+      week: 'Долоо хоног',
       monthBeforeYear: true,
-      prevYear: '\u04E8\u043C\u043D\u04E9\u0445 \u0436\u0438\u043B',
-      nextYear: '\u0414\u0430\u0440\u0430\u0430\u0433\u0438\u0439\u043D \u0436\u0438\u043B',
-      prevMonth: '\u04E8\u043C\u043D\u04E9\u0445 \u0441\u0430\u0440',
-      nextMonth: '\u0414\u0430\u0440\u0430\u0430\u0433\u0438\u0439\u043D \u0441\u0430\u0440',
+      prevYear: 'Өмнөх жил',
+      nextYear: 'Дараагийн жил',
+      prevMonth: 'Өмнөх сар',
+      nextMonth: 'Дараагийн сар',
       weeks: {
-        sun: '\u041D\u044F',
-        mon: '\u0414\u0430',
-        tue: '\u041C\u044F',
-        wed: '\u041B\u0445',
-        thu: '\u041F\u04AF',
-        fri: '\u0411\u0430',
-        sat: '\u0411\u044F'
+        sun: 'Ня',
+        mon: 'Да',
+        tue: 'Мя',
+        wed: 'Лх',
+        thu: 'Пү',
+        fri: 'Ба',
+        sat: 'Бя'
       },
       months: {
-        jan: '1-\u0440 \u0441\u0430\u0440',
-        feb: '2-\u0440 \u0441\u0430\u0440',
-        mar: '3-\u0440 \u0441\u0430\u0440',
-        apr: '4-\u0440 \u0441\u0430\u0440',
-        may: '5-\u0440 \u0441\u0430\u0440',
-        jun: '6-\u0440 \u0441\u0430\u0440',
-        jul: '7-\u0440 \u0441\u0430\u0440',
-        aug: '8-\u0440 \u0441\u0430\u0440',
-        sep: '9-\u0440 \u0441\u0430\u0440',
-        oct: '10-\u0440 \u0441\u0430\u0440',
-        nov: '11-\u0440 \u0441\u0430\u0440',
-        dec: '12-\u0440 \u0441\u0430\u0440'
+        jan: '1-р сар',
+        feb: '2-р сар',
+        mar: '3-р сар',
+        apr: '4-р сар',
+        may: '5-р сар',
+        jun: '6-р сар',
+        jul: '7-р сар',
+        aug: '8-р сар',
+        sep: '9-р сар',
+        oct: '10-р сар',
+        nov: '11-р сар',
+        dec: '12-р сар'
       },
       quarters: {
         q1: 'Q1',
@@ -98,754 +86,679 @@ export const mn: Language = {
         q4: 'Q4'
       }
     },
-    // Цаг сонгох
     timepicker: {
-      confirm: '\u0411\u043E\u043B\u043D\u043E',
-      cancel: '\u0426\u0443\u0446\u043B\u0430\u0445',
-      now: '\u041E\u0434\u043E\u043E',
-      placeholder: '\u0426\u0430\u0433 \u0441\u043E\u043D\u0433\u043E\u0445',
-      startPlaceholder: '\u042D\u0445\u043B\u044D\u0445 \u0446\u0430\u0433',
-      endPlaceholder: '\u0414\u0443\u0443\u0441\u0430\u0445 \u0446\u0430\u0433',
-      selectTime: '\u0426\u0430\u0433 \u0441\u043E\u043D\u0433\u043E\u0445'
+      confirm: 'Болно',
+      cancel: 'Цуцлах',
+      now: 'Одоо',
+      placeholder: 'Цаг сонгох',
+      startPlaceholder: 'Эхлэх цаг',
+      endPlaceholder: 'Дуусах цаг',
+      selectTime: 'Цаг сонгох'
     },
-    // Цаг сонгох
     timeselect: {
-      placeholder: '\u0426\u0430\u0433 \u0441\u043E\u043D\u0433\u043E\u0445'
+      placeholder: 'Цаг сонгох'
     },
-    // Мод
     tree: {
-      emptyText:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      checkAll: '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0448\u0430\u043B\u0433\u0430\u0445',
-      uncheckAll:
-        '\u0411\u04AF\u0445 \u0448\u0430\u043B\u0433\u0430\u043B\u0442\u044B\u0433 \u0446\u0443\u0446\u043B\u0430\u0445',
-      expandAll:
-        '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u04E9\u0440\u0433\u04E9\u0436\u04AF\u04AF\u043B\u044D\u0445',
-      collapseAll:
-        '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u043D\u044D\u0433\u0442\u0433\u044D\u0445'
+      emptyText: 'Өгөгдөл байхгүй',
+      loading: 'Ачааллаж байна...',
+      checkAll: 'Бүгдийг шалгах',
+      uncheckAll: 'Бүх шалгалтыг цуцлах',
+      expandAll: 'Бүгдийг өргөжүүлэх',
+      collapseAll: 'Бүгдийг нэгтгэх'
     },
-    // Мод сонгох
     treeselect: {
-      placeholder: '\u0421\u043E\u043D\u0433\u043E\u0445',
-      emptyText:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      noMatch:
-        '\u0422\u043E\u0445\u0438\u0440\u043E\u0445 \u04E9\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439'
+      placeholder: 'Сонгох',
+      emptyText: 'Өгөгдөл байхгүй',
+      loading: 'Ачааллаж байна...',
+      noMatch: 'Тохирох өгөгдөл байхгүй'
     },
-    // Календарь
     calendar: {
-      prevMonth: '\u04E8\u043C\u043D\u04E9\u0445 \u0441\u0430\u0440',
-      nextMonth: '\u0414\u0430\u0440\u0430\u0430\u0433\u0438\u0439\u043D \u0441\u0430\u0440',
-      prevYear: '\u04E8\u043C\u043D\u04E9\u0445 \u0436\u0438\u043B',
-      nextYear: '\u0414\u0430\u0440\u0430\u0430\u0433\u0438\u0439\u043D \u0436\u0438\u043B',
-      today: '\u04E8\u043D\u04E9\u04E9\u0434\u04E9\u0440',
-      week: '\u0414\u043E\u043B\u043E\u043E \u0445\u043E\u043D\u043E\u0433',
-      holiday: '\u0410\u043C\u0440\u0430\u043B\u0442\u044B\u043D \u04E9\u0434\u04E9\u0440',
-      workday: '\u0410\u0436\u043B\u044B\u043D \u04E9\u0434\u04E9\u0440',
+      prevMonth: 'Өмнөх сар',
+      nextMonth: 'Дараагийн сар',
+      prevYear: 'Өмнөх жил',
+      nextYear: 'Дараагийн жил',
+      today: 'Өнөөдөр',
+      week: 'Долоо хоног',
+      holiday: 'Амралтын өдөр',
+      workday: 'Ажлын өдөр',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: '\u041D\u044F',
-        mon: '\u0414\u0430',
-        tue: '\u041C\u044F',
-        wed: '\u041B\u0445',
-        thu: '\u041F\u04AF',
-        fri: '\u0411\u0430',
-        sat: '\u0411\u044F'
+        sun: 'Ня',
+        mon: 'Да',
+        tue: 'Мя',
+        wed: 'Лх',
+        thu: 'Пү',
+        fri: 'Ба',
+        sat: 'Бя'
       }
     },
-    // Автомат бөглөлт
     autocomplete: {
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      placeholder: '\u041E\u0440\u0443\u0443\u043B\u043D\u0430 \u0443\u0443',
-      noData:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      noMatch:
-        '\u0422\u043E\u0445\u0438\u0440\u043E\u0445 \u04E9\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439'
+      loading: 'Ачааллаж байна...',
+      placeholder: 'Оруулна уу',
+      noData: 'Өгөгдөл байхгүй',
+      noMatch: 'Тохирох өгөгдөл байхгүй'
     },
-    // Тоолох
     countdown: {
-      days: '\u04E9\u0434\u04E9\u0440',
-      hours: '\u0446\u0430\u0433',
-      minutes: '\u043C\u0438\u043D\u0443\u0442',
-      seconds: '\u0441\u0435\u043A\u0443\u043D\u0434',
-      milliseconds: '\u043C\u0438\u043B\u043B\u0438\u0441\u0435\u043A\u0443\u043D\u0434',
-      finished: '\u0414\u0443\u0443\u0441\u043B\u0430\u0430'
+      days: 'өдөр',
+      hours: 'цаг',
+      minutes: 'минут',
+      seconds: 'секунд',
+      milliseconds: 'миллисекунд',
+      finished: 'Дууслаа'
     },
-    // Каскад
     cascader: {
-      noMatch:
-        '\u0422\u043E\u0445\u0438\u0440\u043E\u0445 \u04E9\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      placeholder: '\u0421\u043E\u043D\u0433\u043E\u0445',
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      noData:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439'
+      noMatch: 'Тохирох өгөгдөл байхгүй',
+      placeholder: 'Сонгох',
+      loading: 'Ачааллаж байна...',
+      noData: 'Өгөгдөл байхгүй'
     },
-    // Шилжүүлэх
     transfer: {
-      noMatch:
-        '\u0422\u043E\u0445\u0438\u0440\u043E\u0445 \u04E9\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      noData:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      titles: [
-        '\u0416\u0430\u0433\u0441\u0430\u0430\u043B\u0442 1',
-        '\u0416\u0430\u0433\u0441\u0430\u0430\u043B\u0442 2'
-      ],
-      filterPlaceholder:
-        '\u0422\u04AF\u043B\u0445\u04AF\u04AF\u0440 \u04AF\u0433 \u043E\u0440\u0443\u0443\u043B\u0430\u0445',
-      noCheckedFormat: '{total} \u0437\u04AF\u0439\u043B',
-      hasCheckedFormat: '{checked}/{total} \u0441\u043E\u043D\u0433\u043E\u0441\u043E\u043D',
-      searchPlaceholder:
-        '\u0422\u04AF\u043B\u0445\u04AF\u04AF\u0440 \u04AF\u0433 \u043E\u0440\u0443\u0443\u043B\u0430\u0445'
+      noMatch: 'Тохирох өгөгдөл байхгүй',
+      noData: 'Өгөгдөл байхгүй',
+      titles: ['Жагсаалт 1', 'Жагсаалт 2'],
+      filterPlaceholder: 'Түлхүүр үг оруулах',
+      noCheckedFormat: '{total} зүйл',
+      hasCheckedFormat: '{checked}/{total} сонгосон',
+      searchPlaceholder: 'Түлхүүр үг оруулах'
     },
-    // Хүснэгт
     table: {
-      emptyText:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      confirmFilter:
-        '\u0411\u0430\u0442\u0430\u043B\u0433\u0430\u0430\u0436\u0443\u0443\u043B\u0430\u0445',
-      resetFilter:
-        '\u0414\u0430\u0445\u0438\u043D \u0442\u043E\u0445\u0438\u0440\u0443\u0443\u043B\u0430\u0445',
-      clearFilter: '\u0411\u04AF\u0433\u0434',
-      sumText: '\u041D\u0438\u0439\u0442',
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      index: '\u0418\u043D\u0434\u0435\u043A\u0441',
-      print: '\u0425\u044D\u0432\u043B\u044D\u0445',
-      cancel: '\u0426\u0443\u0446\u043B\u0430\u0445',
-      preview:
-        '\u0425\u044D\u0432\u043B\u044D\u0445 \u0443\u0440\u044C\u0434\u0447\u0438\u043B\u0441\u0430\u043D \u0445\u0430\u0440\u0430\u0433\u0434\u0430\u0446',
-      printTime: '\u0425\u044D\u0432\u043B\u044D\u0445 \u0446\u0430\u0433',
-      total: '\u041D\u0438\u0439\u0442 {total} \u0437\u04AF\u0439\u043B',
-      page: '\u0425\u0443\u0443\u0434\u0430\u0441 {page}',
-      yes: '\u0422\u0438\u0439\u043C',
-      no: '\u04AE\u0433\u04AF\u0439',
-      // Хэрэгслийн самбар
+      emptyText: 'Өгөгдөл байхгүй',
+      confirmFilter: 'Баталгаажуулах',
+      resetFilter: 'Дахин тохируулах',
+      clearFilter: 'Бүгд',
+      sumText: 'Нийт',
+      loading: 'Ачааллаж байна...',
+      index: 'Индекс',
+      print: 'Хэвлэх',
+      cancel: 'Цуцлах',
+      preview: 'Хэвлэх урьдчилсан харагдац',
+      printTime: 'Хэвлэх цаг',
+      total: 'Нийт {total} зүйл',
+      page: 'Хуудас {page}',
+      yes: 'Тийм',
+      no: 'Үгүй',
       toolbar: {
-        refresh: '\u0421\u044D\u0440\u0433\u044D\u044D\u0445',
-        density: '\u041D\u044F\u0433\u0442\u0440\u0430\u043B',
-        densityDefault: '\u0410\u043D\u0445\u0434\u0430\u0433\u0447',
-        densityLarge: '\u0422\u043E\u043C',
-        densitySmall: '\u0416\u0438\u0436\u0438\u0433',
-        columnSetting:
-          '\u0411\u0430\u0433\u0430\u043D\u044B \u0442\u043E\u0445\u0438\u0440\u0433\u043E\u043E',
-        fullscreen: '\u0411\u04AF\u0442\u044D\u043D \u0434\u044D\u043B\u0433\u044D\u0446',
-        exitFullscreen:
-          '\u0411\u04AF\u0442\u044D\u043D \u0434\u044D\u043B\u0433\u044D\u0446\u043D\u044D\u044D\u0441 \u0433\u0430\u0440\u0430\u0445',
-        export: '\u042D\u043A\u0441\u043F\u043E\u0440\u0442',
-        import: '\u0418\u043C\u043F\u043E\u0440\u0442',
-        search: '\u0425\u0430\u0439\u0445',
-        searchPlaceholder:
-          '\u0425\u0430\u0439\u0445 \u0442\u04AF\u043B\u0445\u04AF\u04AF\u0440 \u04AF\u0433\u0441 \u043E\u0440\u0443\u0443\u043B\u0430\u0445'
+        refresh: 'Сэргээх',
+        density: 'Нягтрал',
+        densityDefault: 'Анхдагч',
+        densityLarge: 'Том',
+        densitySmall: 'Жижиг',
+        columnSetting: 'Баганы тохиргоо',
+        fullscreen: 'Бүтэн дэлгэц',
+        exitFullscreen: 'Бүтэн дэлгэцнээс гарах',
+        export: 'Экспорт',
+        import: 'Импорт',
+        search: 'Хайх',
+        searchPlaceholder: 'Хайх түлхүүр үгс оруулах'
       },
-      // Шүүлт
       filter: {
-        selectAll:
-          '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0441\u043E\u043D\u0433\u043E\u0445',
-        selectInvert:
-          '\u0421\u043E\u043D\u0433\u043E\u043B\u0442\u044B\u0433 \u044D\u0440\u0433\u04AF\u04AF\u043B\u044D\u0445',
-        empty: '\u0425\u043E\u043E\u0441\u043E\u043D',
-        notEmpty: '\u0425\u043E\u043E\u0441\u043E\u043D \u0431\u0438\u0448',
-        contains: '\u0410\u0433\u0443\u0443\u043B\u043D\u0430',
-        notContains: '\u0410\u0433\u0443\u0443\u043B\u0430\u0445\u0433\u04AF\u0439',
-        equals: '\u0422\u044D\u043D\u0446\u04AF\u04AF',
-        notEquals: '\u0422\u044D\u043D\u0446\u04AF\u04AF \u0431\u0438\u0448',
-        startsWith: '\u042D\u0445\u044D\u043B\u043D\u044D',
-        endsWith: '\u0414\u0443\u0443\u0441\u043D\u0430',
-        greaterThan: '\u0418\u043B\u04AF\u04AF \u0438\u0445',
-        lessThan: '\u0411\u0430\u0433\u0430',
-        between: '\u0425\u043E\u043E\u0440\u043E\u043D\u0434'
+        selectAll: 'Бүгдийг сонгох',
+        selectInvert: 'Сонголтыг эргүүлэх',
+        empty: 'Хоосон',
+        notEmpty: 'Хоосон биш',
+        contains: 'Агуулна',
+        notContains: 'Агуулахгүй',
+        equals: 'Тэнцүү',
+        notEquals: 'Тэнцүү биш',
+        startsWith: 'Эхэлнэ',
+        endsWith: 'Дуусна',
+        greaterThan: 'Илүү их',
+        lessThan: 'Бага',
+        between: 'Хооронд'
       },
-      // Эрэмбэлэх
       sort: {
-        asc: '\u04E8\u0441\u04E9\u0445',
-        desc: '\u0411\u0443\u0443\u0440\u0430\u0445',
-        clear:
-          '\u042D\u0440\u044D\u043C\u0431\u044D\u043B\u044D\u043B\u0442\u0438\u0439\u0433 \u0446\u044D\u0432\u044D\u0440\u043B\u044D\u0445'
+        asc: 'Өсөх',
+        desc: 'Буурах',
+        clear: 'Эрэмбэлэлтийг цэвэрлэх'
       },
-      // Экспорт
       export: {
-        title:
-          '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u044D\u043A\u0441\u043F\u043E\u0440\u0442\u043B\u043E\u0445',
-        filename: '\u0424\u0430\u0439\u043B\u044B\u043D \u043D\u044D\u0440',
-        type: '\u0424\u0430\u0439\u043B\u044B\u043D \u0442\u04E9\u0440\u04E9\u043B',
-        scope:
-          '\u042D\u043A\u0441\u043F\u043E\u0440\u0442\u044B\u043D \u0445\u04AF\u0440\u044D\u044D',
-        scopeAll: '\u0411\u04AF\u0445 \u04E9\u0433\u04E9\u0433\u0434\u04E9\u043B',
-        scopeSelected:
-          '\u0421\u043E\u043D\u0433\u043E\u0441\u043E\u043D \u04E9\u0433\u04E9\u0433\u0434\u04E9\u043B',
-        scopeCurrentPage:
-          '\u041E\u0434\u043E\u043E\u0433\u0438\u0439\u043D \u0445\u0443\u0443\u0434\u0430\u0441',
-        includeHeader:
-          '\u0422\u043E\u043B\u0433\u043E\u0439\u0433 \u043E\u0440\u0443\u0443\u043B\u0430\u0445',
-        exporting:
-          '\u042D\u043A\u0441\u043F\u043E\u0440\u0442\u043B\u043E\u0436 \u0431\u0430\u0439\u043D\u0430...',
-        success:
-          '\u042D\u043A\u0441\u043F\u043E\u0440\u0442 \u0430\u043C\u0436\u0438\u043B\u0442\u0442\u0430\u0439',
-        error:
-          '\u042D\u043A\u0441\u043F\u043E\u0440\u0442 \u0430\u043C\u0436\u0438\u043B\u0442\u0433\u04AF\u0439'
+        title: 'Өгөгдөл экспортлох',
+        filename: 'Файлын нэр',
+        type: 'Файлын төрөл',
+        scope: 'Экспортын хүрээ',
+        scopeAll: 'Бүх өгөгдөл',
+        scopeSelected: 'Сонгосон өгөгдөл',
+        scopeCurrentPage: 'Одоогийн хуудас',
+        includeHeader: 'Толгойг оруулах',
+        exporting: 'Экспортлож байна...',
+        success: 'Экспорт амжилттай',
+        error: 'Экспорт амжилтгүй'
       },
-      // Импорт
       import: {
-        title:
-          '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0438\u043C\u043F\u043E\u0440\u0442\u043B\u043E\u0445',
-        selectFile: '\u0424\u0430\u0439\u043B \u0441\u043E\u043D\u0433\u043E\u0445',
-        dragTip:
-          '\u0411\u0430\u0439\u0440\u0448\u0443\u0443\u043B\u0430\u0445\u044B\u043D \u0442\u0443\u043B\u0434 \u0444\u0430\u0439\u043B \u0434\u044D\u044D\u0440 \u0434\u0430\u0440\u0430\u0445 \u044D\u0441\u0432\u044D\u043B \u0447\u0438\u0440\u044D\u0445',
-        importing:
-          '\u0418\u043C\u043F\u043E\u0440\u0442\u043B\u043E\u0436 \u0431\u0430\u0439\u043D\u0430...',
-        success:
-          '\u0418\u043C\u043F\u043E\u0440\u0442 \u0430\u043C\u0436\u0438\u043B\u0442\u0442\u0430\u0439',
-        error:
-          '\u0418\u043C\u043F\u043E\u0440\u0442 \u0430\u043C\u0436\u0438\u043B\u0442\u0433\u04AF\u0439',
-        preview:
-          '\u04E8\u0433\u04E9\u0433\u0434\u043B\u0438\u0439\u043D \u0443\u0440\u044C\u0434\u0447\u0438\u043B\u0441\u0430\u043D \u0445\u0430\u0440\u0430\u0433\u0434\u0430\u0446',
-        confirm:
-          '\u0418\u043C\u043F\u043E\u0440\u0442\u044B\u0433 \u0431\u0430\u0442\u0430\u043B\u0433\u0430\u0430\u0436\u0443\u0443\u043B\u0430\u0445'
+        title: 'Өгөгдөл импортлох',
+        selectFile: 'Файл сонгох',
+        dragTip: 'Байршуулахын тулд файл дээр дарах эсвэл чирэх',
+        importing: 'Импортлож байна...',
+        success: 'Импорт амжилттай',
+        error: 'Импорт амжилтгүй',
+        preview: 'Өгөгдлийн урьдчилсан харагдац',
+        confirm: 'Импортыг баталгаажуулах'
       },
-      // Хэвлэх
       printConfig: {
-        title:
-          '\u0425\u044D\u0432\u043B\u044D\u0445 \u0442\u043E\u0445\u0438\u0440\u0433\u043E\u043E',
-        pageTitle:
-          '\u0425\u0443\u0443\u0434\u0430\u0441\u043D\u044B \u0433\u0430\u0440\u0447\u0438\u0433',
-        pageHeader: '\u0422\u043E\u043B\u0433\u043E\u0439',
-        pageFooter: '\u0425\u04E9\u043B',
-        printAll: '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0445\u044D\u0432\u043B\u044D\u0445',
-        printSelected:
-          '\u0421\u043E\u043D\u0433\u043E\u0441\u043E\u043D\u044B\u0433 \u0445\u044D\u0432\u043B\u044D\u0445',
-        printCurrentPage:
-          '\u041E\u0434\u043E\u043E\u0433\u0438\u0439\u043D \u0445\u0443\u0443\u0434\u0441\u044B\u0433 \u0445\u044D\u0432\u043B\u044D\u0445',
-        landscape: '\u0425\u044D\u0432\u0442\u044D\u044D',
-        portrait: '\u0411\u043E\u0441\u043E\u043E',
-        printing: '\u0425\u044D\u0432\u043B\u044D\u0436 \u0431\u0430\u0439\u043D\u0430...'
+        title: 'Хэвлэх тохиргоо',
+        pageTitle: 'Хуудасны гарчиг',
+        pageHeader: 'Толгой',
+        pageFooter: 'Хөл',
+        printAll: 'Бүгдийг хэвлэх',
+        printSelected: 'Сонгосоныг хэвлэх',
+        printCurrentPage: 'Одоогийн хуудсыг хэвлэх',
+        landscape: 'Хэвтээ',
+        portrait: 'Босоо',
+        printing: 'Хэвлэж байна...'
       },
-      // Баганы тохиргоо
       columnSetting: {
-        title:
-          '\u0411\u0430\u0433\u0430\u043D\u044B \u0442\u043E\u0445\u0438\u0440\u0433\u043E\u043E',
-        showAll:
-          '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0445\u0430\u0440\u0443\u0443\u043B\u0430\u0445',
-        hideAll: '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u043D\u0443\u0443\u0445',
-        reset:
-          '\u0414\u0430\u0445\u0438\u043D \u0442\u043E\u0445\u0438\u0440\u0443\u0443\u043B\u0430\u0445',
-        fixedLeft:
-          '\u0417\u04AF\u04AF\u043D \u0442\u0430\u043B\u0434 \u0431\u044D\u0445\u043B\u044D\u0445',
-        fixedRight:
-          '\u0411\u0430\u0440\u0443\u0443\u043D \u0442\u0430\u043B\u0434 \u0431\u044D\u0445\u043B\u044D\u0445',
-        unfixed: '\u0421\u0443\u043B\u043B\u0430\u0445'
+        title: 'Баганы тохиргоо',
+        showAll: 'Бүгдийг харуулах',
+        hideAll: 'Бүгдийг нуух',
+        reset: 'Дахин тохируулах',
+        fixedLeft: 'Зүүн талд бэхлэх',
+        fixedRight: 'Баруун талд бэхлэх',
+        unfixed: 'Суллах'
       },
-      // Контекст цэс
       contextMenu: {
-        copy: '\u0425\u0443\u0443\u043B\u0430\u0445',
-        copyRow: '\u041C\u04E9\u0440\u0438\u0439\u0433 \u0445\u0443\u0443\u043B\u0430\u0445',
-        copyCell: '\u041D\u04AF\u0434\u0438\u0439\u0433 \u0445\u0443\u0443\u043B\u0430\u0445',
-        paste: '\u041E\u0440\u0443\u0443\u043B\u0430\u0445',
-        insertRowAbove:
-          '\u0414\u044D\u044D\u0440 \u043C\u04E9\u0440 \u043D\u044D\u043C\u044D\u0445',
-        insertRowBelow:
-          '\u0414\u043E\u043E\u0440 \u043C\u04E9\u0440 \u043D\u044D\u043C\u044D\u0445',
-        deleteRow: '\u041C\u04E9\u0440\u0438\u0439\u0433 \u0443\u0441\u0442\u0433\u0430\u0445',
-        deleteSelectedRows:
-          '\u0421\u043E\u043D\u0433\u043E\u0441\u043E\u043D \u043C\u04E9\u0440\u04AF\u04AF\u0434\u0438\u0439\u0433 \u0443\u0441\u0442\u0433\u0430\u0445',
-        exportSelected:
-          '\u0421\u043E\u043D\u0433\u043E\u0441\u043E\u043D\u044B\u0433 \u044D\u043A\u0441\u043F\u043E\u0440\u0442\u043B\u043E\u0445'
+        copy: 'Хуулах',
+        copyRow: 'Мөрийг хуулах',
+        copyCell: 'Нүдийг хуулах',
+        paste: 'Оруулах',
+        insertRowAbove: 'Дээр мөр нэмэх',
+        insertRowBelow: 'Доор мөр нэмэх',
+        deleteRow: 'Мөрийг устгах',
+        deleteSelectedRows: 'Сонгосон мөрүүдийг устгах',
+        exportSelected: 'Сонгосоныг экспортлох'
       },
-      // Сонголт
       selection: {
-        selectAll:
-          '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0441\u043E\u043D\u0433\u043E\u0445',
-        selectInvert:
-          '\u0421\u043E\u043D\u0433\u043E\u043B\u0442\u044B\u0433 \u044D\u0440\u0433\u04AF\u04AF\u043B\u044D\u0445',
-        selectNone:
-          '\u0421\u043E\u043D\u0433\u043E\u043B\u0442\u044B\u0433 \u0446\u044D\u0432\u044D\u0440\u043B\u044D\u0445',
-        selected:
-          '{count} \u0437\u04AF\u0439\u043B \u0441\u043E\u043D\u0433\u043E\u0433\u0434\u0441\u043E\u043D'
+        selectAll: 'Бүгдийг сонгох',
+        selectInvert: 'Сонголтыг эргүүлэх',
+        selectNone: 'Сонголтыг цэвэрлэх',
+        selected: '{count} зүйл сонгогдсон'
       },
-      // Өргөжүүлэх
       expand: {
-        expandAll:
-          '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u04E9\u0440\u0433\u04E9\u0436\u04AF\u04AF\u043B\u044D\u0445',
-        collapseAll:
-          '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u043D\u044D\u0433\u0442\u0433\u044D\u0445'
+        expandAll: 'Бүгдийг өргөжүүлэх',
+        collapseAll: 'Бүгдийг нэгтгэх'
       },
-      // Мод
       tree: {
-        expandAll:
-          '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u04E9\u0440\u0433\u04E9\u0436\u04AF\u04AF\u043B\u044D\u0445',
-        collapseAll:
-          '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u043D\u044D\u0433\u0442\u0433\u044D\u0445',
-        expandLevel:
-          '{level} \u0442\u04AF\u0432\u0448\u0438\u043D\u0434 \u0445\u04AF\u0440\u0442\u044D\u043B \u04E9\u0440\u0433\u04E9\u0436\u04AF\u04AF\u043B\u044D\u0445'
+        expandAll: 'Бүгдийг өргөжүүлэх',
+        collapseAll: 'Бүгдийг нэгтгэх',
+        expandLevel: '{level} түвшинд хүртэл өргөжүүлэх'
       },
-      // Чирэх
       drag: {
-        dragTip:
-          '\u0414\u0430\u0445\u0438\u043D \u044D\u0440\u044D\u043C\u0431\u044D\u043B\u044D\u0445\u0438\u0439\u043D \u0442\u0443\u043B\u0434 \u0447\u0438\u0440\u044D\u0445',
-        dropTip:
-          '\u0411\u0430\u0439\u0440\u043B\u0443\u0443\u043B\u0430\u0445\u044B\u043D \u0442\u0443\u043B\u0434 \u0431\u0443\u0443\u043B\u0433\u0430\u0445'
+        dragTip: 'Дахин эрэмбэлэхийн тулд чирэх',
+        dropTip: 'Байрлуулахын тулд буулгах'
       }
     },
-    // Мессеж хайрцаг
     messagebox: {
-      title: '\u041C\u0435\u0441\u0441\u0435\u0436',
-      confirm: '\u0411\u043E\u043B\u043D\u043E',
-      cancel: '\u0426\u0443\u0446\u043B\u0430\u0445',
-      close: '\u0425\u0430\u0430\u0445',
-      error: '\u0411\u0443\u0440\u0443\u0443 \u043E\u0440\u0443\u0443\u043B\u0433\u0430',
-      alert: '\u0410\u043D\u0445\u0430\u0430\u0440\u0443\u0443\u043B\u0433\u0430',
-      prompt: '\u0423\u0440\u0438\u0430\u043B\u0433\u0430',
-      inputPlaceholder: '\u041E\u0440\u0443\u0443\u043B\u043D\u0430 \u0443\u0443'
+      title: 'Мессеж',
+      confirm: 'Болно',
+      cancel: 'Цуцлах',
+      close: 'Хаах',
+      error: 'Буруу оруулга',
+      alert: 'Анхааруулга',
+      prompt: 'Уриалга',
+      inputPlaceholder: 'Оруулна уу'
     },
-    // Байршуулах
     upload: {
-      deleteTip:
-        '\u0443\u0441\u0442\u0433\u0430\u0445\u044B\u043D \u0442\u0443\u043B\u0434 delete \u0434\u0430\u0440\u0430\u0445',
-      delete: '\u0423\u0441\u0442\u0433\u0430\u0445',
-      preview:
-        '\u0423\u0440\u044C\u0434\u0447\u0438\u043B\u0441\u0430\u043D \u0445\u0430\u0440\u0430\u0433\u0434\u0430\u0446',
-      continue: '\u04AE\u0440\u0433\u044D\u043B\u0436\u043B\u04AF\u04AF\u043B\u044D\u0445',
-      upload:
-        '\u0411\u0430\u0439\u0440\u0448\u0443\u0443\u043B\u0430\u0445\u044B\u043D \u0442\u0443\u043B\u0434 \u0434\u0430\u0440\u0430\u0445',
-      tip: '<em>\u0411\u0430\u0439\u0440\u0448\u0443\u0443\u043B\u0430\u0445</em>\u044B\u043D \u0442\u0443\u043B\u0434 \u0444\u0430\u0439\u043B\u044B\u0433 \u044D\u043D\u044D \u0445\u044D\u0441\u044D\u0433\u0442 \u0434\u0430\u0440\u0430\u0445 \u044D\u0441\u0432\u044D\u043B \u0447\u0438\u0440\u044D\u0445',
-      dragTip:
-        '\u0424\u0430\u0439\u043B\u044B\u0433 \u044D\u043D\u0434 \u0431\u0443\u0443\u043B\u0433\u0430\u0445 \u044D\u0441\u0432\u044D\u043B \u0431\u0430\u0439\u0440\u0448\u0443\u0443\u043B\u0430\u0445\u044B\u043D \u0442\u0443\u043B\u0434 \u0434\u0430\u0440\u0430\u0445',
-      uploading:
-        '\u0411\u0430\u0439\u0440\u0448\u0443\u0443\u043B\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      success:
-        '\u0411\u0430\u0439\u0440\u0448\u0443\u0443\u043B\u0430\u043B\u0442 \u0430\u043C\u0436\u0438\u043B\u0442\u0442\u0430\u0439',
-      error:
-        '\u0411\u0430\u0439\u0440\u0448\u0443\u0443\u043B\u0430\u043B\u0442 \u0430\u043C\u0436\u0438\u043B\u0442\u0433\u04AF\u0439',
-      retry: '\u0414\u0430\u0445\u0438\u043D \u043E\u0440\u043E\u043B\u0434\u043E\u0445',
-      cancel:
-        '\u0411\u0430\u0439\u0440\u0448\u0443\u0443\u043B\u0430\u043B\u0442\u044B\u0433 \u0446\u0443\u0446\u043B\u0430\u0445',
-      fileTypeError:
-        '\u0424\u0430\u0439\u043B\u044B\u043D \u0442\u04E9\u0440\u04E9\u043B \u0434\u044D\u043C\u0436\u0438\u0433\u0434\u044D\u0445\u0433\u04AF\u0439',
-      fileSizeError:
-        '\u0424\u0430\u0439\u043B\u044B\u043D \u0445\u044D\u043C\u0436\u044D\u044D \u0445\u044F\u0437\u0433\u0430\u0430\u0440\u0430\u0430\u0441 \u0445\u044D\u0442\u044D\u0440\u0441\u044D\u043D',
-      fileCountError:
-        '\u0424\u0430\u0439\u043B\u044B\u043D \u0442\u043E\u043E \u0445\u044F\u0437\u0433\u0430\u0430\u0440\u0430\u0430\u0441 \u0445\u044D\u0442\u044D\u0440\u0441\u044D\u043D'
+      deleteTip: 'устгахын тулд delete дарах',
+      delete: 'Устгах',
+      preview: 'Урьдчилсан харагдац',
+      continue: 'Үргэлжлүүлэх',
+      upload: 'Байршуулахын тулд дарах',
+      tip: '<em>Байршуулах</em>ын тулд файлыг энэ хэсэгт дарах эсвэл чирэх',
+      dragTip: 'Файлыг энд буулгах эсвэл байршуулахын тулд дарах',
+      uploading: 'Байршуулж байна...',
+      success: 'Байршуулалт амжилттай',
+      error: 'Байршуулалт амжилтгүй',
+      retry: 'Дахин оролдох',
+      cancel: 'Байршуулалтыг цуцлах',
+      fileTypeError: 'Файлын төрөл дэмжигдэхгүй',
+      fileSizeError: 'Файлын хэмжээ хязгаараас хэтэрсэн',
+      fileCountError: 'Файлын тоо хязгаараас хэтэрсэн'
     },
-    // Форм
     form: {
-      validationFailed:
-        '\u0411\u0430\u0442\u0430\u043B\u0433\u0430\u0430\u0436\u0443\u0443\u043B\u0430\u043B\u0442 \u0430\u043C\u0436\u0438\u043B\u0442\u0433\u04AF\u0439',
-      required: '\u0428\u0430\u0430\u0440\u0434\u043B\u0430\u0433\u0430\u0442\u0430\u0439',
-      pleaseInput: '\u041E\u0440\u0443\u0443\u043B\u043D\u0430 \u0443\u0443',
-      pleaseSelect: '\u0421\u043E\u043D\u0433\u043E\u043D\u043E \u0443\u0443'
+      validationFailed: 'Баталгаажуулалт амжилтгүй',
+      required: 'Шаардлагатай',
+      pleaseInput: 'Оруулна уу',
+      pleaseSelect: 'Сонгоно уу'
     },
-    // Товч
     button: {
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...'
+      loading: 'Ачааллаж байна...'
     },
-    // Оруулга
     input: {
-      placeholder: '\u041E\u0440\u0443\u0443\u043B\u043D\u0430 \u0443\u0443',
-      clear: '\u0426\u044D\u0432\u044D\u0440\u043B\u044D\u0445',
-      showPassword:
-        '\u041D\u0443\u0443\u0446 \u04AF\u0433\u0438\u0439\u0433 \u0445\u0430\u0440\u0443\u0443\u043B\u0430\u0445',
-      hidePassword:
-        '\u041D\u0443\u0443\u0446 \u04AF\u0433\u0438\u0439\u0433 \u043D\u0443\u0443\u0445',
-      copy: '\u0425\u0443\u0443\u043B\u0430\u0445',
-      copied: '\u0425\u0443\u0443\u043B\u0430\u0433\u0434\u0441\u0430\u043D'
+      placeholder: 'Оруулна уу',
+      clear: 'Цэвэрлэх',
+      showPassword: 'Нууц үгийг харуулах',
+      hidePassword: 'Нууц үгийг нуух',
+      copy: 'Хуулах',
+      copied: 'Хуулагдсан'
     },
-    // Тоо оруулах
     inputnumber: {
-      placeholder: '\u0422\u043E\u043E \u043E\u0440\u0443\u0443\u043B\u043D\u0430 \u0443\u0443',
-      increase: '\u041D\u044D\u043C\u044D\u0433\u0434\u04AF\u04AF\u043B\u044D\u0445',
-      decrease: '\u0411\u0443\u0443\u0440\u0443\u0443\u043B\u0430\u0445'
+      placeholder: 'Тоо оруулна уу',
+      increase: 'Нэмэгдүүлэх',
+      decrease: 'Бууруулах'
     },
-    // Шошго оруулах
     inputtag: {
-      placeholder: '\u041E\u0440\u0443\u0443\u043B\u043D\u0430 \u0443\u0443',
-      add: '\u041D\u044D\u043C\u044D\u0445',
-      remove: '\u0423\u0441\u0442\u0433\u0430\u0445'
+      placeholder: 'Оруулна уу',
+      add: 'Нэмэх',
+      remove: 'Устгах'
     },
-    // Навигацийн зам
     breadcrumb: {
-      label: '\u041D\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u0439\u043D \u0437\u0430\u043C',
-      more: '\u0414\u044D\u043B\u0433\u044D\u0440\u044D\u043D\u0433\u04AF\u0439'
+      label: 'Навигацийн зам',
+      more: 'Дэлгэрэнгүй'
     },
-    // Дээш буцах
     backtop: {
-      text: '\u0414\u044D\u044D\u0448 \u0431\u0443\u0446\u0430\u0445'
+      text: 'Дээш буцах'
     },
-    // Сонголт
     select: {
-      placeholder: '\u0421\u043E\u043D\u0433\u043E\u043D\u043E \u0443\u0443',
-      noData:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      noMatch:
-        '\u0422\u043E\u0445\u0438\u0440\u043E\u0445 \u04E9\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      selectAll: '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0441\u043E\u043D\u0433\u043E\u0445',
-      clearAll:
-        '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0446\u044D\u0432\u044D\u0440\u043B\u044D\u0445'
+      placeholder: 'Сонгоно уу',
+      noData: 'Өгөгдөл байхгүй',
+      loading: 'Ачааллаж байна...',
+      noMatch: 'Тохирох өгөгдөл байхгүй',
+      selectAll: 'Бүгдийг сонгох',
+      clearAll: 'Бүгдийг цэвэрлэх'
     },
-    // Хуудаслалт
     pagination: {
-      goto: '\u042F\u0432\u0430\u0445',
+      goto: 'Явах',
       page: '',
-      total: '\u041D\u0438\u0439\u0442 {total}',
-      pageSize: '/\u0445\u0443\u0443\u0434\u0430\u0441',
-      prev: '\u04E8\u043C\u043D\u04E9\u0445',
-      next: '\u0414\u0430\u0440\u0430\u0430\u0433\u0438\u0439\u043D',
-      first: '\u042D\u0445\u043D\u0438\u0439\u0445',
-      last: '\u0421\u04AF\u04AF\u043B\u0438\u0439\u043D\u0445',
+      total: 'Нийт {total}',
+      pageSize: '/хуудас',
+      prev: 'Өмнөх',
+      next: 'Дараагийн',
+      first: 'Эхнийх',
+      last: 'Сүүлийнх',
       pageClassifier: ''
     },
-    // Баталгаажуулах popup
     popconfirm: {
-      confirm: '\u0411\u043E\u043B\u043D\u043E',
-      cancel: '\u0426\u0443\u0446\u043B\u0430\u0445',
-      dontAskAgain:
-        '\u0414\u0430\u0445\u0438\u043D \u0430\u0441\u0443\u0443\u0445\u0433\u04AF\u0439'
+      confirm: 'Болно',
+      cancel: 'Цуцлах',
+      dontAskAgain: 'Дахин асуухгүй'
     },
-    // Диалог
     dialog: {
-      confirm: '\u0411\u043E\u043B\u043D\u043E',
-      cancel: '\u0426\u0443\u0446\u043B\u0430\u0445',
-      close: '\u0425\u0430\u0430\u0445',
-      maximize: '\u0418\u0445\u044D\u0441\u0433\u044D\u0445',
-      restore: '\u0421\u044D\u0440\u0433\u044D\u044D\u0445'
+      confirm: 'Болно',
+      cancel: 'Цуцлах',
+      close: 'Хаах',
+      maximize: 'Ихэсгэх',
+      restore: 'Сэргээх'
     },
-    // Шургуулга
     drawer: {
-      close: '\u0425\u0430\u0430\u0445',
-      confirm: '\u0411\u043E\u043B\u043D\u043E',
-      cancel: '\u0426\u0443\u0446\u043B\u0430\u0445'
+      close: 'Хаах',
+      confirm: 'Болно',
+      cancel: 'Цуцлах'
     },
-    // Доош цэс
     dropdown: {
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...'
+      loading: 'Ачааллаж байна...'
     },
-    // Зураг
     image: {
-      error: '\u0410\u041C\u0416\u0418\u041B\u0422\u0413\u04AE\u0419',
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      preview:
-        '\u0423\u0440\u044C\u0434\u0447\u0438\u043B\u0441\u0430\u043D \u0445\u0430\u0440\u0430\u0433\u0434\u0430\u0446',
-      zoomIn: '\u0422\u043E\u043C\u0440\u0443\u0443\u043B\u0430\u0445',
-      zoomOut: '\u0416\u0438\u0436\u0438\u0433\u0440\u04AF\u04AF\u043B\u044D\u0445',
-      rotateLeft:
-        '\u0417\u04AF\u04AF\u043D \u0442\u0438\u0439\u0448 \u044D\u0440\u0433\u04AF\u04AF\u043B\u044D\u0445',
-      rotateRight:
-        '\u0411\u0430\u0440\u0443\u0443\u043D \u0442\u0438\u0439\u0448 \u044D\u0440\u0433\u04AF\u04AF\u043B\u044D\u0445',
-      originalSize: '\u0410\u043D\u0445\u043D\u044B \u0445\u044D\u043C\u0436\u044D\u044D',
-      fullscreen: '\u0411\u04AF\u0442\u044D\u043D \u0434\u044D\u043B\u0433\u044D\u0446'
+      error: 'АМЖИЛТГҮЙ',
+      loading: 'Ачааллаж байна...',
+      preview: 'Урьдчилсан харагдац',
+      zoomIn: 'Томруулах',
+      zoomOut: 'Жижигрүүлэх',
+      rotateLeft: 'Зүүн тийш эргүүлэх',
+      rotateRight: 'Баруун тийш эргүүлэх',
+      originalSize: 'Анхны хэмжээ',
+      fullscreen: 'Бүтэн дэлгэц'
     },
-    // Зургийн харагч
     imageviewer: {
-      close: '\u0425\u0430\u0430\u0445',
-      prev: '\u04E8\u043C\u043D\u04E9\u0445',
-      next: '\u0414\u0430\u0440\u0430\u0430\u0433\u0438\u0439\u043D',
-      zoomIn: '\u0422\u043E\u043C\u0440\u0443\u0443\u043B\u0430\u0445',
-      zoomOut: '\u0416\u0438\u0436\u0438\u0433\u0440\u04AF\u04AF\u043B\u044D\u0445',
-      rotateLeft:
-        '\u0417\u04AF\u04AF\u043D \u0442\u0438\u0439\u0448 \u044D\u0440\u0433\u04AF\u04AF\u043B\u044D\u0445',
-      rotateRight:
-        '\u0411\u0430\u0440\u0443\u0443\u043D \u0442\u0438\u0439\u0448 \u044D\u0440\u0433\u04AF\u04AF\u043B\u044D\u0445',
-      reset:
-        '\u0414\u0430\u0445\u0438\u043D \u0442\u043E\u0445\u0438\u0440\u0443\u0443\u043B\u0430\u0445',
-      fullscreen: '\u0411\u04AF\u0442\u044D\u043D \u0434\u044D\u043B\u0433\u044D\u0446',
-      exitFullscreen:
-        '\u0411\u04AF\u0442\u044D\u043D \u0434\u044D\u043B\u0433\u044D\u0446\u043D\u044D\u044D\u0441 \u0433\u0430\u0440\u0430\u0445'
+      close: 'Хаах',
+      prev: 'Өмнөх',
+      next: 'Дараагийн',
+      zoomIn: 'Томруулах',
+      zoomOut: 'Жижигрүүлэх',
+      rotateLeft: 'Зүүн тийш эргүүлэх',
+      rotateRight: 'Баруун тийш эргүүлэх',
+      reset: 'Дахин тохируулах',
+      fullscreen: 'Бүтэн дэлгэц',
+      exitFullscreen: 'Бүтэн дэлгэцнээс гарах'
     },
-    // Хязгааргүй гүйлгэх
     infinitescroll: {
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      finished:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0434\u0443\u0443\u0441\u0441\u0430\u043D',
-      error:
-        '\u0410\u0447\u0430\u0430\u043B\u0430\u043B \u0430\u043C\u0436\u0438\u043B\u0442\u0433\u04AF\u0439, \u0434\u0430\u0445\u0438\u043D \u043E\u0440\u043E\u043B\u0434\u043E\u0445\u044B\u043D \u0442\u0443\u043B\u0434 \u0434\u0430\u0440\u0430\u0445',
-      retry:
-        '\u0414\u0430\u0445\u0438\u043D \u043E\u0440\u043E\u043B\u0434\u043E\u0445\u044B\u043D \u0442\u0443\u043B\u0434 \u0434\u0430\u0440\u0430\u0445'
+      loading: 'Ачааллаж байна...',
+      finished: 'Өгөгдөл дууссан',
+      error: 'Ачаалал амжилтгүй, дахин оролдохын тулд дарах',
+      retry: 'Дахин оролдохын тулд дарах'
     },
-    // Мессеж
     message: {
-      close: '\u0425\u0430\u0430\u0445'
+      close: 'Хаах'
     },
-    // Мэдэгдэл
     notification: {
-      close: '\u0425\u0430\u0430\u0445'
+      close: 'Хаах'
     },
-    // Ачаалал
     loading: {
-      text: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...'
+      text: 'Ачааллаж байна...'
     },
-    // Эргэлт
     spin: {
-      text: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...'
+      text: 'Ачааллаж байна...'
     },
-    // Үнэлгээ
     rate: {
-      texts: [
-        '\u041C\u0430\u0448 \u043C\u0443\u0443',
-        '\u0421\u044D\u0442\u0433\u044D\u043B \u0434\u0443\u043D\u0434\u0443\u0443\u0440',
-        '\u0414\u0443\u043D\u0434 \u0437\u044D\u0440\u044D\u0433',
-        '\u0421\u044D\u0442\u0433\u044D\u043B \u0445\u0430\u043D\u0433\u0430\u043B\u0443\u0443\u043D',
-        '\u0413\u0430\u0439\u0445\u0441\u0430\u043D'
-      ]
+      texts: ['Маш муу', 'Сэтгэл дундуур', 'Дунд зэрэг', 'Сэтгэл хангалуун', 'Гайхсан']
     },
-    // Анхааруулга
     alert: {
-      close: '\u0425\u0430\u0430\u0445'
+      close: 'Хаах'
     },
-    // Шошго
     tag: {
-      close: '\u0425\u0430\u0430\u0445'
+      close: 'Хаах'
     },
-    // Таб
     tabs: {
-      close: '\u0425\u0430\u0430\u0445',
-      add: '\u041D\u044D\u043C\u044D\u0445',
-      more: '\u0414\u044D\u043B\u0433\u044D\u0440\u044D\u043D\u0433\u04AF\u0439'
+      close: 'Хаах',
+      add: 'Нэмэх',
+      more: 'Дэлгэрэнгүй'
     },
-    // Алхам
     steps: {
-      finish: '\u0414\u0443\u0443\u0441\u043B\u0430\u0430',
-      process: '\u042F\u0432\u0436 \u0431\u0430\u0439\u043D\u0430',
-      wait: '\u0425\u04AF\u043B\u044D\u044D\u0436 \u0431\u0430\u0439\u043D\u0430',
-      error: '\u0410\u043B\u0434\u0430\u0430'
+      finish: 'Дууслаа',
+      process: 'Явж байна',
+      wait: 'Хүлээж байна',
+      error: 'Алдаа'
     },
-    // Явц
     progress: {
-      success: '\u0410\u043C\u0436\u0438\u043B\u0442',
-      exception: '\u04AE\u043B \u0445\u0430\u043C\u0430\u0430\u0440\u0430\u0445',
-      warning: '\u0410\u043D\u0445\u0430\u0430\u0440\u0443\u0443\u043B\u0433\u0430'
+      success: 'Амжилт',
+      exception: 'Үл хамаарах',
+      warning: 'Анхааруулга'
     },
-    // Хүрээ
     skeleton: {
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...'
+      loading: 'Ачааллаж байна...'
     },
-    // Хоосон
     empty: {
-      description:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      noData:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      noResult: '\u04AE\u0440 \u0434\u04AF\u043D \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-      networkError:
-        '\u0421\u04AF\u043B\u0436\u044D\u044D\u043D\u0438\u0439 \u0430\u043B\u0434\u0430\u0430',
-      serverError:
-        '\u0421\u0435\u0440\u0432\u0435\u0440\u0438\u0439\u043D \u0430\u043B\u0434\u0430\u0430'
+      description: 'Өгөгдөл байхгүй',
+      noData: 'Өгөгдөл байхгүй',
+      noResult: 'Үр дүн байхгүй',
+      networkError: 'Сүлжээний алдаа',
+      serverError: 'Серверийн алдаа'
     },
-    // Үр дүн
     result: {
-      success: '\u0410\u043C\u0436\u0438\u043B\u0442',
-      error: '\u0410\u043B\u0434\u0430\u0430',
-      warning: '\u0410\u043D\u0445\u0430\u0430\u0440\u0443\u0443\u043B\u0433\u0430',
-      info: '\u041C\u044D\u0434\u044D\u044D\u043B\u044D\u043B',
-      backHome:
-        '\u041D\u04AF\u04AF\u0440 \u0445\u0443\u0443\u0434\u0430\u0441 \u0440\u0443\u0443 \u0431\u0443\u0446\u0430\u0445'
+      success: 'Амжилт',
+      error: 'Алдаа',
+      warning: 'Анхааруулга',
+      info: 'Мэдээлэл',
+      backHome: 'Нүүр хуудас руу буцах'
     },
-    // Усны урсгал
     waterfall: {
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      noMore:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0434\u0443\u0443\u0441\u0441\u0430\u043D',
-      empty: '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439'
+      loading: 'Ачааллаж байна...',
+      noMore: 'Өгөгдөл дууссан',
+      empty: 'Өгөгдөл байхгүй'
     },
-    // Тайлбар
     descriptions: {
       colon: ':'
     },
-    // Гүйлгэх
     slider: {
       tipFormatter: '{value}'
     },
-    // Солих
     switch: {
-      on: '\u0410\u0421\u0410\u0410\u041B\u0422',
-      off: '\u0423\u041D\u0422\u0410\u041B\u0422'
+      on: 'АСААЛТ',
+      off: 'УНТАЛТ'
     },
-    // Шалгах хайрцаг
     checkbox: {
-      selectAll: '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0441\u043E\u043D\u0433\u043E\u0445'
+      selectAll: 'Бүгдийг сонгох'
     },
-    // Радио
     radio: {},
-    // Цэс
     menu: {
-      collapse: '\u0426\u044D\u0441\u0438\u0439\u0433 \u043D\u044D\u0433\u0442\u0433\u044D\u0445',
-      expand:
-        '\u0426\u044D\u0441\u0438\u0439\u0433 \u04E9\u0440\u0433\u04E9\u0436\u04AF\u04AF\u043B\u044D\u0445'
+      collapse: 'Цэсийг нэгтгэх',
+      expand: 'Цэсийг өргөжүүлэх'
     },
-    // Карт
     card: {
-      collapse: '\u041D\u044D\u0433\u0442\u0433\u044D\u0445',
-      expand: '\u04E8\u0440\u0433\u04E9\u0436\u04AF\u04AF\u043B\u044D\u0445'
+      collapse: 'Нэгтгэх',
+      expand: 'Өргөжүүлэх'
     },
-    // Нэгтгэх
     collapse: {
-      expand: '\u04E8\u0440\u0433\u04E9\u0436\u04AF\u04AF\u043B\u044D\u0445',
-      collapse: '\u041D\u044D\u0433\u0442\u0433\u044D\u0445'
+      expand: 'Өргөжүүлэх',
+      collapse: 'Нэгтгэх'
     },
-    // Зөвлөмж
     tooltip: {},
-    // Popover
     popover: {},
-    // Тэмдэг
     badge: {},
-    // Аватар
     avatar: {
-      error:
-        '\u0410\u0447\u0430\u0430\u043B\u0430\u043B \u0430\u043C\u0436\u0438\u043B\u0442\u0433\u04AF\u0439'
+      error: 'Ачаалал амжилтгүй'
     },
-    // Усны тэмдэг
     watermark: {},
-    // Хуваагч
     divider: {},
-    // Карусель
     carousel: {
-      prev: '\u04E8\u043C\u043D\u04E9\u0445',
-      next: '\u0414\u0430\u0440\u0430\u0430\u0433\u0438\u0439\u043D'
+      prev: 'Өмнөх',
+      next: 'Дараагийн'
     },
-    // Marquee
     marquee: {},
-    // Бэхлэх
     affix: {},
-    // Зангуу
-    anchor: {},
-    // Mention
-    mention: {
-      placeholder: '\u041E\u0440\u0443\u0443\u043B\u043D\u0430 \u0443\u0443',
-      loading: '\u0410\u0447\u0430\u0430\u043B\u043B\u0430\u0436 \u0431\u0430\u0439\u043D\u0430...',
-      noData:
-        '\u04E8\u0433\u04E9\u0433\u0434\u04E9\u043B \u0431\u0430\u0439\u0445\u0433\u04AF\u0439'
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
     },
-    // AI Components
+    anchor: {},
+    mention: {
+      placeholder: 'Оруулна уу',
+      loading: 'Ачааллаж байна...',
+      noData: 'Өгөгдөл байхгүй'
+    },
+    skuselector: {
+      placeholder: 'Select specifications',
+      emptyText: 'No specifications',
+      stock: 'Stock',
+      price: 'Price',
+      selected: 'Selected',
+      outOfStock: 'Out of Stock'
+    },
+    productcard: {
+      viewDetails: 'View Details',
+      buyNow: 'Buy Now',
+      addToCart: 'Add to Cart',
+      sold: 'Sold',
+      soldOut: 'Sold Out',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Original'
+    },
+    couponcard: {
+      available: 'Claim Now',
+      used: 'Used',
+      expired: 'Expired',
+      received: 'Received',
+      limit: 'Orders over {threshold}',
+      noThreshold: 'No threshold',
+      validPeriod: 'Validity',
+      ruleTitle: 'Usage Rules'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Drawing...',
+      end: 'Winner!',
+      retry: 'Retry'
+    },
+    filterbar: {
+      all: 'All',
+      sort: 'Sort',
+      filter: 'Filter',
+      cancel: 'Cancel',
+      reset: 'Reset',
+      confirm: 'Confirm',
+      noOptions: 'No options',
+      asc: 'Ascending',
+      desc: 'Descending',
+      selected: 'Selected'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selected',
+      submit: 'Checkout',
+      allSelect: 'Select All'
+    },
+    categorynav: {
+      all: 'All',
+      noData: 'No Data',
+      loading: 'Loading...'
+    },
+    smartaddress: {
+      placeholder: 'Paste address here, auto-detect name, phone, location',
+      parse: 'Smart Parse',
+      province: 'Province/City/District',
+      city: 'City',
+      district: 'District/County',
+      street: 'Street/Town',
+      detail: 'Detailed Address',
+      phone: 'Phone',
+      name: 'Recipient',
+      parseSuccess: 'Address parsed successfully',
+      parseFailed: 'Parse failed, please fill manually',
+      required: 'Please fill complete address',
+      provinceKeywords: ['Province', 'State'],
+      cityKeywords: ['City', 'Prefecture'],
+      districtKeywords: ['District', 'County', 'Township'],
+      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+    },
+    ganttchart: {
+      taskName: 'Task Name',
+      searchPlaceholder: 'Search tasks...',
+      zoom: 'Zoom',
+      day: 'Day',
+      week: 'Week',
+      month: 'Month',
+      year: 'Year',
+      milestone: 'Milestone'
+    },
+    imagemagnifier: {
+      switchToImage: 'Switch to image {index}',
+      galleryItem: 'Gallery {index}',
+      close: 'Close'
+    },
     ai: {
       bubble: {
-        citations: '\u041B\u0430\u0432\u043B\u0430\u0433\u0430\u0430'
+        citations: 'Лавлагаа'
       },
       mention: {
-        placeholder:
-          '@ \u0410\u0433\u0435\u043D\u0442, \u0411\u0430\u0440\u0438\u043C\u0442 \u044D\u0441\u0432\u044D\u043B \u0425\u04AF\u0441\u043D\u044D\u0433\u0442\u0438\u0439\u0433 \u0434\u0443\u0440\u0434\u0430\u0445...',
-        agent: '\u0410\u0433\u0435\u043D\u0442',
-        document: '\u0411\u0430\u0440\u0438\u043C\u0442',
-        table: '\u0425\u04AF\u0441\u043D\u044D\u0433\u0442',
-        knowledge: '\u041C\u044D\u0434\u043B\u044D\u0433'
+        placeholder: '@ Агент, Баримт эсвэл Хүснэгтийг дурдах...',
+        agent: 'Агент',
+        document: 'Баримт',
+        table: 'Хүснэгт',
+        knowledge: 'Мэдлэг',
+        file: 'File'
       },
       codeBlock: {
-        copyCode: '\u041A\u043E\u0434 \u0445\u0443\u0443\u043B\u0430\u0445',
-        copied: '\u0425\u0443\u0443\u043B\u0441\u0430\u043D!',
-        run: '\u041A\u043E\u0434 \u0430\u0436\u0438\u043B\u043B\u0443\u0443\u043B\u0430\u0445',
-        edit: '\u0417\u0430\u0441\u0430\u0445',
-        save: '\u0425\u0430\u0434\u0433\u0430\u043B\u0430\u0445',
-        cancel: '\u0426\u0443\u0446\u043B\u0430\u0445'
+        copyCode: 'Код хуулах',
+        copied: 'Хуулсан!',
+        run: 'Код ажиллуулах',
+        edit: 'Засах',
+        save: 'Хадгалах',
+        cancel: 'Цуцлах'
       },
       codeRunner: {
-        run: '\u0410\u0436\u0438\u043B\u043B\u0443\u0443\u043B\u0430\u0445',
-        stop: '\u0417\u043E\u0433\u0441\u043E\u043E\u0445',
-        clear: '\u0426\u044D\u0432\u044D\u0440\u043B\u044D\u0445',
-        reset:
-          '\u0414\u0430\u0445\u0438\u043D \u0442\u043E\u0445\u0438\u0440\u0443\u0443\u043B\u0430\u0445',
-        placeholder:
-          '\u041A\u043E\u0434 \u0430\u0436\u0438\u043B\u043B\u0443\u0443\u043B\u0430\u0445\u044B\u043D \u0442\u0443\u043B\u0434 \u0410\u0436\u0438\u043B\u043B\u0443\u0443\u043B\u0430\u0445 \u0434\u044D\u044D\u0440 \u0442\u043E\u0432\u0448\u0438\u043D\u043E \u0443\u0443...'
+        run: 'Ажиллуулах',
+        stop: 'Зогсоох',
+        clear: 'Цэвэрлэх',
+        reset: 'Дахин тохируулах',
+        placeholder: 'Код ажиллуулахын тулд Ажиллуулах дээр товшино уу...'
       },
       sender: {
-        placeholder: '\u0417\u0443\u0440\u0432\u0430\u0441 \u0438\u043B\u0433\u044D\u044D\u0445...',
-        dragTip:
-          '\u0424\u0430\u0439\u043B\u0443\u0443\u0434\u044B\u0433 \u043E\u0440\u0443\u0443\u043B\u0430\u0445\u044B\u043D \u0442\u0443\u043B\u0434 \u0441\u0443\u043B\u043B\u0430\u0430\u0440\u0430\u0439'
+        placeholder: 'Зурвас илгээх...',
+        dragTip: 'Файлуудыг оруулахын тулд суллаарай',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
-        thoughtProcess: '\u0411\u043E\u0434\u043E\u0445 \u04AF\u0439\u043B \u044F\u0432\u0446',
-        thinking: '\u0411\u043E\u0434\u043E\u0436 \u0431\u0430\u0439\u043D\u0430...',
-        defaultTitle: '\u0428\u0438\u043D\u044D \u0430\u043B\u0445\u0430\u043C',
-        addNode: '\u0410\u043B\u0445\u0430\u043C \u043D\u044D\u043C\u044D\u0445'
+        thoughtProcess: 'Бодох үйл явц',
+        thinking: 'Бодож байна...',
+        defaultTitle: 'Шинэ алхам',
+        addNode: 'Алхам нэмэх'
       },
       thinking: {
-        start: '\u0411\u043E\u043B\u043E\u0445 \u044D\u0445\u043B\u044D\u0445',
-        thinking: '\u0411\u043E\u0434\u043E\u0436 \u0431\u0430\u0439\u043D\u0430...',
-        complete:
-          '\u0411\u043E\u0434\u043E\u0445 \u044F\u0432\u0446 \u0434\u0443\u0443\u0441\u043B\u0430\u0430',
-        error: '\u0411\u043E\u0434\u043E\u0445 \u0430\u043B\u0434\u0430\u0430'
+        start: 'Болох эхлэх',
+        thinking: 'Бодож байна...',
+        complete: 'Бодох явц дууслаа',
+        error: 'Бодох алдаа'
       },
       welcome: {
-        title: '\u0421\u0430\u0439\u043D \u0443\u0443, \u0431\u0438 YH AI',
+        title: 'Сайн уу, би YH AI',
         description:
-          '\u0411\u0438 \u0442\u0430\u043D\u0434 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u0447\u043B\u0430\u043B, \u0431\u0430\u0440\u0438\u043C\u0442 \u043E\u0440\u0447\u0443\u0443\u043B\u0430\u0445 \u044D\u0441\u0432\u044D\u043B \u0431\u04AF\u0442\u044D\u044D\u043B\u0447 \u0431\u0438\u0447\u0438\u0445\u044D\u0434 \u0442\u0443\u0441\u043B\u0430\u0445 \u0431\u043E\u043B\u043D\u043E. \u04E8\u043D\u04E9\u04E9\u0434\u04E9\u0440 \u0431\u0438 \u0442\u0430\u043D\u0434 \u044E\u0443 \u0445\u0438\u0439\u0445 \u0432\u044D?'
+          'Би танд програмчлал, баримт орчуулах эсвэл бүтээлч бичихэд туслах болно. Өнөөдөр би танд юу хийх вэ?'
       },
       action: {
-        copy: '\u0425\u0443\u0443\u043B\u0430\u0445',
-        regenerate: '\u0414\u0430\u0445\u0438\u043D \u04AF\u04AF\u0441\u0433\u044D\u0445',
-        share: '\u0425\u0443\u0432\u0430\u0430\u043B\u0446\u0430\u0445',
-        like: '\u0422\u0430\u0430\u043B\u0430\u0433\u0434\u0430\u0445',
-        dislike: '\u0422\u0430\u0430\u043B\u0430\u0433\u0434\u0430\u0445\u0433\u04AF\u0439',
-        edit: '\u0417\u0430\u0441\u0430\u0445',
-        delete: '\u0423\u0441\u0442\u0433\u0430\u0445'
+        copy: 'Хуулах',
+        regenerate: 'Дахин үүсгэх',
+        share: 'Хуваалцах',
+        like: 'Таалагдах',
+        dislike: 'Таалагдахгүй',
+        edit: 'Засах',
+        delete: 'Устгах'
       },
       artifacts: {
-        preview:
-          '\u0423\u0440\u044C\u0434\u0447\u0438\u043B\u0430\u043D \u0445\u0430\u0440\u0430\u0445',
-        inline: '\u041C\u04E9\u0440\u04E9\u043D\u0434',
-        code: '\u042D\u0445 \u043A\u043E\u0434',
-        versions: '\u0425\u0443\u0432\u0438\u043B\u0431\u0430\u0440\u0443\u0443\u0434',
-        rendering:
-          '\u041A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442 \u0440\u0435\u043D\u0434\u0435\u0440\u043B\u044D\u0436 \u0431\u0430\u0439\u043D\u0430...',
-        renderingChart:
-          '\u0413\u0440\u0430\u0444\u0438\u043A \u0440\u0435\u043D\u0434\u0435\u0440\u043B\u044D\u0436 \u0431\u0430\u0439\u043D\u0430...',
-        renderingCanvas:
-          '\u0425\u044D\u0432\u043B\u044D\u0445 \u0442\u0430\u043B\u0431\u0430\u0440 \u0431\u044D\u043B\u0434\u044D\u0436 \u0431\u0430\u0439\u043D\u0430...'
+        preview: 'Урьдчилан харах',
+        inline: 'Мөрөнд',
+        code: 'Эх код',
+        versions: 'Хувилбарууд',
+        rendering: 'Компонент рендерлэж байна...',
+        renderingChart: 'График рендерлэж байна...',
+        renderingCanvas: 'Хэвлэх талбар бэлдэж байна...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
-        trigger:
-          '\u042F\u0440\u0438\u0445\u044B\u043D \u0442\u0443\u043B\u0434 \u0442\u043E\u0432\u0448\u0438\u043D\u043E \u0443\u0443',
-        listening: '\u0421\u043E\u043D\u0441\u043E\u0436 \u0431\u0430\u0439\u043D\u0430...'
+        trigger: 'Ярихын тулд товшино уу',
+        listening: 'Сонсож байна...'
       },
       agent: {
-        uses: '\u0430\u0448\u0438\u0433\u043B\u0430\u043B\u0442',
-        use: '\u041E\u0434\u043E\u043E \u0430\u0448\u0438\u0433\u043B\u0430\u0445',
-        favorite: '\u0414\u0443\u0440\u0442\u0430\u0439',
-        unfavorite:
-          '\u0414\u0443\u0440\u0442\u0430\u0439\u0433\u0430\u0430\u0441 \u0445\u0430\u0441\u0430\u0445',
-        share: '\u0425\u0443\u0432\u0430\u0430\u043B\u0446\u0430\u0445',
-        online: '\u041E\u043D\u043B\u0430\u0439\u043D',
-        offline: '\u041E\u0444\u043B\u0430\u0439\u043D',
-        busy: '\u0417occupp',
-        verified: '\u0411\u0430\u0442\u0430\u043B\u0433\u0430\u0430\u0436\u0441\u0430\u043D',
-        rating: '\u04AE\u043D\u044D\u043B\u0433\u044D\u044D',
-        reviews: '\u0441\u044D\u0442\u0433\u044D\u0433\u0434\u044D\u043B',
-        responseTime:
-          '\u0414\u0443\u043D\u0434\u0430\u0436 \u0445\u0430\u0440\u0438\u0443 \u0446\u0430\u0433',
-        ms: '\u043C\u0441'
+        uses: 'ашиглалт',
+        use: 'Одоо ашиглах',
+        favorite: 'Дуртай',
+        unfavorite: 'Дуртайгаас хасах',
+        share: 'Хуваалцах',
+        online: 'Онлайн',
+        offline: 'Офлайн',
+        busy: 'Зoccupp',
+        verified: 'Баталгаажсан',
+        rating: 'Үнэлгээ',
+        reviews: 'сэтгэгдэл',
+        responseTime: 'Дундаж хариу цаг',
+        ms: 'мс'
       },
       sources: {
-        references: '\u041B\u0430\u0432\u043B\u0430\u0433\u0430\u0430',
-        referencedSources:
-          '\u041B\u0430\u0432\u043B\u0430\u0441\u0430\u043D \u044D\u0445 \u0441\u0443\u0440\u0432\u0430\u043B\u0436',
-        relevant: '\u0425\u043E\u043B\u0431\u043E\u043E\u0442\u043E\u0439',
-        viewOriginal:
-          '\u042D\u0445\u043B\u044D\u043B\u0438\u0439\u0433 \u0445\u0430\u0440\u0430\u0445',
-        showAll: '\u0411\u04AF\u0433\u0434\u0438\u0439\u0433 \u0445\u0430\u0440\u0430\u0445',
-        more: '\u0438\u043B\u04AF\u04AF \u044D\u0445 \u0441\u0443\u0440\u0432\u0430\u043B\u0436',
-        drawerTitle: '\u041B\u0430\u0432\u043B\u0430\u0433\u0430\u0430',
-        expandMore: '\u0418\u043B\u04AF\u04AF \u0445\u0430\u0440\u0430\u0445',
-        collapseMore: '\u0425\u0443\u0440\u0430\u0445',
-        noSources:
-          '\u042D\u0445 \u0441\u0443\u0440\u0432\u0430\u043B\u0436 \u0431\u0430\u0439\u0445\u0433\u04AF\u0439',
-        today: '\u04E8\u043D\u04E9\u04E9\u0434\u04E9\u0440',
-        last7Days: '\u0421\u04AF\u04AF\u043B\u0438\u0439\u043D 7 \u0445\u043E\u043D\u043E\u0433',
-        last30Days: '\u0421\u04AF\u04AF\u043B\u0438\u0439\u043D 30 \u0445\u043E\u043D\u043E\u0433',
-        earlier: '\u04E8\u043C\u043D\u04E9\u0445',
-        pinned: '\u0417\u04AF\u04AF\u0433\u0434\u0441\u044D\u043D'
+        references: 'Лавлагаа',
+        referencedSources: 'Лавласан эх сурвалж',
+        relevant: 'Холбоотой',
+        viewOriginal: 'Эхлэлийг харах',
+        showAll: 'Бүгдийг харах',
+        more: 'илүү эх сурвалж',
+        drawerTitle: 'Лавлагаа',
+        expandMore: 'Илүү харах',
+        collapseMore: 'Хурах',
+        noSources: 'Эх сурвалж байхгүй',
+        today: 'Өнөөдөр',
+        last7Days: 'Сүүлийн 7 хоног',
+        last30Days: 'Сүүлийн 30 хоног',
+        earlier: 'Өмнөх',
+        pinned: 'Зүүгдсэн'
       },
       conversations: {
-        today: '\u04E8\u043D\u04E9\u04E9\u0434\u04E9\u0440',
-        last7Days: '\u0421\u04AF\u04AF\u043B\u0438\u0439\u043D 7 \u0445\u043E\u043D\u043E\u0433',
-        last30Days: '\u0421\u04AF\u04AF\u043B\u0438\u0439\u043D 30 \u0445\u043E\u043D\u043E\u0433',
-        earlier: '\u04E8\u043C\u043D\u04E9\u0445',
-        pinned: '\u0417\u04AF\u04AF\u0433\u0434\u0441\u044D\u043D',
-        pin: '\u0417\u04AF\u04AF\u0445',
-        unpin: '\u0417\u04AF\u04AF\u043B\u0442\u0438\u0439\u0433 \u0430\u0432\u0430\u0445',
-        newConversation: '\u0428\u0438\u043D\u044D \u044F\u0440\u0438\u0430',
-        rename: '\u041D\u044D\u0440 \u04E9\u04E9\u0440\u0447\u043B\u04E9\u0445',
-        delete: '\u0423\u0441\u0442\u0433\u0430\u0445',
-        deleteConfirm:
-          '\u042D\u043D\u044D \u044F\u0440\u0438\u0430\u0433 \u0443\u0441\u0442\u0433\u0430\u0445\u0430\u0430 \u0431\u0430\u0442\u0430\u043B\u0433\u0430\u0430\u0436\u0443\u0443\u043B\u0430\u0445 \u0443\u0443?'
+        today: 'Өнөөдөр',
+        last7Days: 'Сүүлийн 7 хоног',
+        last30Days: 'Сүүлийн 30 хоног',
+        earlier: 'Өмнөх',
+        pinned: 'Зүүгдсэн',
+        pin: 'Зүүх',
+        unpin: 'Зүүлтийг авах',
+        newConversation: 'Шинэ яриа',
+        noData: 'No conversations yet',
+        rename: 'Нэр өөрчлөх',
+        delete: 'Устгах',
+        deleteConfirm: 'Энэ яриаг устгахаа баталгаажуулах уу?'
+      },
+      attachments: {
+        dropTip: 'Drop files here to upload',
+        clickToUpload: 'Click or drag files to upload',
+        uploadSuccess: 'Upload success',
+        uploadError: 'Upload failed',
+        deleteConfirm: 'Are you sure to delete this file?',
+        fileTooLarge: 'File size cannot exceed {size}',
+        invalidFileType: 'Invalid file type'
+      },
+      mermaid: {
+        image: 'Image',
+        code: 'Code',
+        zoomIn: 'Zoom In',
+        zoomOut: 'Zoom Out',
+        reset: 'Reset',
+        download: 'Download',
+        copyCode: 'Copy Code',
+        rendering: 'Rendering...',
+        renderError: 'Render failed',
+        renderSuccess: 'Render success',
+        retry: 'Retry'
       }
     }
   }
 }
+
 export default mn

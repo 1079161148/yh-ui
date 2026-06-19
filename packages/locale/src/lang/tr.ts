@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const tr: Language = {
   name: 'tr',
   yh: {
-    // Genel
     common: {
       yes: 'Evet',
       no: 'Hayır',
@@ -27,7 +26,6 @@ export const tr: Language = {
       selectAll: 'Tümünü seç',
       unselectAll: 'Tümünü kaldır'
     },
-    // Renk Seçici
     colorpicker: {
       confirm: 'Tamam',
       clear: 'Temizle',
@@ -37,7 +35,6 @@ export const tr: Language = {
       recentColors: 'Son Renkler',
       presetColors: 'Önceden Ayarlanmış Renkler'
     },
-    // Tarih Seçici
     datepicker: {
       now: 'Şimdi',
       today: 'Bugün',
@@ -89,7 +86,6 @@ export const tr: Language = {
         q4: 'Q4'
       }
     },
-    // Saat Seçici
     timepicker: {
       confirm: 'Tamam',
       cancel: 'İptal',
@@ -99,11 +95,9 @@ export const tr: Language = {
       endPlaceholder: 'Bitiş saati',
       selectTime: 'Saat seç'
     },
-    // Saat Seçimi
     timeselect: {
       placeholder: 'Saat seç'
     },
-    // Ağaç
     tree: {
       emptyText: 'Veri yok',
       loading: 'Yükleniyor...',
@@ -112,14 +106,12 @@ export const tr: Language = {
       expandAll: 'Tümünü genişlet',
       collapseAll: 'Tümünü daralt'
     },
-    // Ağaç Seçimi
     treeselect: {
       placeholder: 'Seç',
       emptyText: 'Veri yok',
       loading: 'Yükleniyor...',
       noMatch: 'Eşleşen veri yok'
     },
-    // Takvim
     calendar: {
       prevMonth: 'Önceki Ay',
       nextMonth: 'Sonraki Ay',
@@ -140,14 +132,12 @@ export const tr: Language = {
         sat: 'Cmt'
       }
     },
-    // Otomatik Tamamlama
     autocomplete: {
       loading: 'Yükleniyor...',
       placeholder: 'Lütfen girin',
       noData: 'Veri yok',
       noMatch: 'Eşleşen veri yok'
     },
-    // Geri Sayım
     countdown: {
       days: 'gün',
       hours: 'saat',
@@ -156,14 +146,12 @@ export const tr: Language = {
       milliseconds: 'milisaniye',
       finished: 'Bitti'
     },
-    // Kaskad Seçim
     cascader: {
       noMatch: 'Eşleşen veri yok',
       placeholder: 'Seç',
       loading: 'Yükleniyor...',
       noData: 'Veri yok'
     },
-    // Transfer
     transfer: {
       noMatch: 'Eşleşen veri yok',
       noData: 'Veri yok',
@@ -173,7 +161,6 @@ export const tr: Language = {
       hasCheckedFormat: '{checked}/{total} seçildi',
       searchPlaceholder: 'Anahtar kelime girin'
     },
-    // Tablo
     table: {
       emptyText: 'Veri yok',
       confirmFilter: 'Onayla',
@@ -190,7 +177,6 @@ export const tr: Language = {
       page: 'Sayfa {page}',
       yes: 'Evet',
       no: 'Hayır',
-      // Araç Çubuğu
       toolbar: {
         refresh: 'Yenile',
         density: 'Yoğunluk',
@@ -205,7 +191,6 @@ export const tr: Language = {
         search: 'Ara',
         searchPlaceholder: 'Aramak için anahtar kelimeler girin'
       },
-      // Filtre
       filter: {
         selectAll: 'Tümünü seç',
         selectInvert: 'Seçimi tersine çevir',
@@ -221,13 +206,11 @@ export const tr: Language = {
         lessThan: 'Küçüktür',
         between: 'Arasında'
       },
-      // Sıralama
       sort: {
         asc: 'Artan',
         desc: 'Azalan',
         clear: 'Sıralamayı temizle'
       },
-      // Dışa Aktarma
       export: {
         title: 'Verileri Dışa Aktar',
         filename: 'Dosya Adı',
@@ -241,7 +224,6 @@ export const tr: Language = {
         success: 'Dışa Aktarma Başarılı',
         error: 'Dışa Aktarma Başarısız'
       },
-      // İçe Aktarma
       import: {
         title: 'Verileri İçe Aktar',
         selectFile: 'Dosya Seç',
@@ -252,7 +234,6 @@ export const tr: Language = {
         preview: 'Veri Önizlemesi',
         confirm: 'İçe Aktarmayı Onayla'
       },
-      // Yazdırma
       printConfig: {
         title: 'Yazdırma Ayarları',
         pageTitle: 'Sayfa Başlığı',
@@ -265,7 +246,6 @@ export const tr: Language = {
         portrait: 'Dikey',
         printing: 'Yazdırılıyor...'
       },
-      // Sütun Ayarları
       columnSetting: {
         title: 'Sütun Ayarları',
         showAll: 'Tümünü Göster',
@@ -275,7 +255,6 @@ export const tr: Language = {
         fixedRight: 'Sağa Sabitle',
         unfixed: 'Sabitlemeyi Kaldır'
       },
-      // Bağlam Menüsü
       contextMenu: {
         copy: 'Kopyala',
         copyRow: 'Satırı Kopyala',
@@ -287,31 +266,26 @@ export const tr: Language = {
         deleteSelectedRows: 'Seçili Satırları Sil',
         exportSelected: 'Seçileni Dışa Aktar'
       },
-      // Seçim
       selection: {
         selectAll: 'Tümünü seç',
         selectInvert: 'Seçimi tersine çevir',
         selectNone: 'Seçimi temizle',
         selected: '{count} öğe seçildi'
       },
-      // Genişlet
       expand: {
         expandAll: 'Tümünü genişlet',
         collapseAll: 'Tümünü daralt'
       },
-      // Ağaç
       tree: {
         expandAll: 'Tümünü genişlet',
         collapseAll: 'Tümünü daralt',
         expandLevel: "Seviye {level}'ye genişlet"
       },
-      // Sürükle
       drag: {
         dragTip: 'Yeniden sıralamak için sürükle',
         dropTip: 'Yerleştirmek için bırak'
       }
     },
-    // Mesaj Kutusu
     messagebox: {
       title: 'Mesaj',
       confirm: 'Tamam',
@@ -322,7 +296,6 @@ export const tr: Language = {
       prompt: 'İstem',
       inputPlaceholder: 'Lütfen girin'
     },
-    // Yükleme
     upload: {
       deleteTip: 'kaldırmak için delete tuşuna basın',
       delete: 'Sil',
@@ -340,18 +313,15 @@ export const tr: Language = {
       fileSizeError: 'Dosya boyutu limiti aşıyor',
       fileCountError: 'Dosya sayısı limiti aşıyor'
     },
-    // Form
     form: {
       validationFailed: 'Doğrulama başarısız',
       required: 'Gerekli',
       pleaseInput: 'Lütfen girin',
       pleaseSelect: 'Lütfen seçin'
     },
-    // Buton
     button: {
       loading: 'Yükleniyor...'
     },
-    // Giriş
     input: {
       placeholder: 'Lütfen girin',
       clear: 'Temizle',
@@ -360,28 +330,23 @@ export const tr: Language = {
       copy: 'Kopyala',
       copied: 'Kopyalandı'
     },
-    // Sayı Girişi
     inputnumber: {
       placeholder: 'Lütfen sayı girin',
       increase: 'Artır',
       decrease: 'Azalt'
     },
-    // Etiket Girişi
     inputtag: {
       placeholder: 'Lütfen girin',
       add: 'Ekle',
       remove: 'Kaldır'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Daha fazla'
     },
-    // Yukarı Dön
     backtop: {
       text: 'Yukarı Dön'
     },
-    // Seçim
     select: {
       placeholder: 'Lütfen seçin',
       noData: 'Veri yok',
@@ -390,7 +355,6 @@ export const tr: Language = {
       selectAll: 'Tümünü seç',
       clearAll: 'Tümünü temizle'
     },
-    // Sayfalama
     pagination: {
       goto: 'Git',
       page: '',
@@ -402,13 +366,11 @@ export const tr: Language = {
       last: 'Son',
       pageClassifier: ''
     },
-    // Popconfirm
     popconfirm: {
       confirm: 'Tamam',
       cancel: 'İptal',
       dontAskAgain: 'Tekrar sorma'
     },
-    // Diyalog
     dialog: {
       confirm: 'Tamam',
       cancel: 'İptal',
@@ -416,17 +378,14 @@ export const tr: Language = {
       maximize: 'Büyüt',
       restore: 'Geri Yükle'
     },
-    // Çekmece
     drawer: {
       close: 'Kapat',
       confirm: 'Tamam',
       cancel: 'İptal'
     },
-    // Açılır Menü
     dropdown: {
       loading: 'Yükleniyor...'
     },
-    // Resim
     image: {
       error: 'BAŞARISIZ',
       loading: 'Yükleniyor...',
@@ -438,7 +397,6 @@ export const tr: Language = {
       originalSize: 'Orijinal Boyut',
       fullscreen: 'Tam Ekran'
     },
-    // Resim Görüntüleyici
     imageviewer: {
       close: 'Kapat',
       prev: 'Önceki',
@@ -451,65 +409,52 @@ export const tr: Language = {
       fullscreen: 'Tam Ekran',
       exitFullscreen: 'Tam Ekrandan Çık'
     },
-    // Sonsuz Kaydırma
     infinitescroll: {
       loading: 'Yükleniyor...',
       finished: 'Daha fazla veri yok',
       error: 'Yükleme başarısız, yeniden denemek için tıklayın',
       retry: 'Yeniden denemek için tıklayın'
     },
-    // Mesaj
     message: {
       close: 'Kapat'
     },
-    // Bildirim
     notification: {
       close: 'Kapat'
     },
-    // Yükleme
     loading: {
       text: 'Yükleniyor...'
     },
-    // Döndürme
     spin: {
       text: 'Yükleniyor...'
     },
-    // Oran
     rate: {
       texts: ['Çok kötü', 'Hayal kırıklığı', 'Adil', 'Memnun', 'Şaşırtıcı']
     },
-    // Uyarı
     alert: {
       close: 'Kapat'
     },
-    // Etiket
     tag: {
       close: 'Kapat'
     },
-    // Sekmeler
     tabs: {
       close: 'Kapat',
       add: 'Ekle',
       more: 'Daha fazla'
     },
-    // Adımlar
     steps: {
       finish: 'Bitti',
       process: 'Devam Ediyor',
       wait: 'Bekliyor',
       error: 'Hata'
     },
-    // İlerleme
     progress: {
       success: 'Başarılı',
       exception: 'İstisna',
       warning: 'Uyarı'
     },
-    // İskelet
     skeleton: {
       loading: 'Yükleniyor...'
     },
-    // Boş
     empty: {
       description: 'Veri yok',
       noData: 'Veri yok',
@@ -517,7 +462,6 @@ export const tr: Language = {
       networkError: 'Ağ Hatası',
       serverError: 'Sunucu Hatası'
     },
-    // Sonuç
     result: {
       success: 'Başarılı',
       error: 'Hata',
@@ -525,78 +469,63 @@ export const tr: Language = {
       info: 'Bilgi',
       backHome: 'Ana Sayfaya Dön'
     },
-    // Şelale
     waterfall: {
       loading: 'Yükleniyor...',
       noMore: 'Daha fazla veri yok',
       empty: 'Veri yok'
     },
-    // Açıklamalar
     descriptions: {
       colon: ':'
     },
-    // Kaydırıcı
     slider: {
       tipFormatter: '{value}'
     },
-    // Anahtar
     switch: {
       on: 'AÇIK',
       off: 'KAPALI'
     },
-    // Onay Kutusu
     checkbox: {
       selectAll: 'Tümünü seç'
     },
-    // Radyo
     radio: {},
-    // Menü
     menu: {
       collapse: 'Menüyü Daralt',
       expand: 'Menüyü Genişlet'
     },
-    // Kart
     card: {
       collapse: 'Daralt',
       expand: 'Genişlet'
     },
-    // Daralt
     collapse: {
       expand: 'Genişlet',
       collapse: 'Daralt'
     },
-    // İpucu
     tooltip: {},
-    // Popover
     popover: {},
-    // Rozet
     badge: {},
-    // Avatar
     avatar: {
       error: 'Yükleme başarısız'
     },
-    // Filigran
     watermark: {},
-    // Ayırıcı
     divider: {},
-    // Karyola
     carousel: {
       prev: 'Önceki',
       next: 'Sonraki'
     },
-    // Kayan Yazı
     marquee: {},
-    // Sabitleme
     affix: {},
-    // Çapa
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Lütfen girin',
       loading: 'Yükleniyor...',
       noData: 'Veri yok'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Özellik seçin',
       emptyText: 'Özellik yok',
@@ -697,7 +626,8 @@ export const tr: Language = {
         agent: 'Agent',
         document: 'Doküman',
         table: 'Tablo',
-        knowledge: 'Bilgi'
+        knowledge: 'Bilgi',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kodu kopyala',
@@ -716,7 +646,8 @@ export const tr: Language = {
       },
       sender: {
         placeholder: 'Mesaj gönder...',
-        dragTip: 'Dosya yüklemek için bırakın'
+        dragTip: 'Dosya yüklemek için bırakın',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Düşünce Süreci',
@@ -751,7 +682,8 @@ export const tr: Language = {
         versions: 'Sürümler',
         rendering: 'Bileşen oluşturuluyor...',
         renderingChart: 'Grafik oluşturuluyor...',
-        renderingCanvas: 'Tuval hazırlanıyor...'
+        renderingCanvas: 'Tuval hazırlanıyor...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Konuşmak için tıklayın',

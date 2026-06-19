@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const hr: Language = {
   name: 'hr',
   yh: {
-    // Opće
     common: {
       yes: 'Da',
       no: 'Ne',
@@ -27,7 +26,6 @@ export const hr: Language = {
       selectAll: 'Odaberi sve',
       unselectAll: 'Poništi odabir'
     },
-    // Birač boja
     colorpicker: {
       confirm: 'U redu',
       clear: 'Očisti',
@@ -37,7 +35,6 @@ export const hr: Language = {
       recentColors: 'Nedavne boje',
       presetColors: 'Unaprijed postavljene boje'
     },
-    // Birač datuma
     datepicker: {
       now: 'Sada',
       today: 'Danas',
@@ -89,7 +86,6 @@ export const hr: Language = {
         q4: 'Q4'
       }
     },
-    // Birač vremena
     timepicker: {
       confirm: 'U redu',
       cancel: 'Odustani',
@@ -99,11 +95,9 @@ export const hr: Language = {
       endPlaceholder: 'Vrijeme završetka',
       selectTime: 'Odaberi vrijeme'
     },
-    // Odabir vremena
     timeselect: {
       placeholder: 'Odaberi vrijeme'
     },
-    // Stablo
     tree: {
       emptyText: 'Nema podataka',
       loading: 'Učitavanje...',
@@ -112,14 +106,12 @@ export const hr: Language = {
       expandAll: 'Proširi sve',
       collapseAll: 'Sažmi sve'
     },
-    // Odabir stabla
     treeselect: {
       placeholder: 'Odaberi',
       emptyText: 'Nema podataka',
       loading: 'Učitavanje...',
       noMatch: 'Nema podudaranja'
     },
-    // Kalendar
     calendar: {
       prevMonth: 'Prethodni mjesec',
       nextMonth: 'Sljedeći mjesec',
@@ -140,14 +132,12 @@ export const hr: Language = {
         sat: 'Sub'
       }
     },
-    // Automatsko dovršavanje
     autocomplete: {
       loading: 'Učitavanje...',
       placeholder: 'Molimo unesite',
       noData: 'Nema podataka',
       noMatch: 'Nema podudaranja'
     },
-    // Odbrojavanje
     countdown: {
       days: 'dana',
       hours: 'sati',
@@ -156,14 +146,12 @@ export const hr: Language = {
       milliseconds: 'milisekunde',
       finished: 'Završeno'
     },
-    // Kaskadni odabir
     cascader: {
       noMatch: 'Nema podudaranja',
       placeholder: 'Odaberi',
       loading: 'Učitavanje...',
       noData: 'Nema podataka'
     },
-    // Prijenos
     transfer: {
       noMatch: 'Nema podudaranja',
       noData: 'Nema podataka',
@@ -173,7 +161,6 @@ export const hr: Language = {
       hasCheckedFormat: '{checked}/{total} odabrano',
       searchPlaceholder: 'Unesite ključnu riječ'
     },
-    // Tablica
     table: {
       emptyText: 'Nema podataka',
       confirmFilter: 'Potvrdi',
@@ -190,7 +177,6 @@ export const hr: Language = {
       page: 'Stranica {page}',
       yes: 'Da',
       no: 'Ne',
-      // Alatna traka
       toolbar: {
         refresh: 'Osvježi',
         density: 'Gustoća',
@@ -205,7 +191,6 @@ export const hr: Language = {
         search: 'Pretraži',
         searchPlaceholder: 'Unesite ključne riječi za pretraživanje'
       },
-      // Filtar
       filter: {
         selectAll: 'Odaberi sve',
         selectInvert: 'Obrni odabir',
@@ -221,13 +206,11 @@ export const hr: Language = {
         lessThan: 'Manje od',
         between: 'Između'
       },
-      // Sortiranje
       sort: {
         asc: 'Uzlazno',
         desc: 'Silazno',
         clear: 'Očisti sortiranje'
       },
-      // Izvoz
       export: {
         title: 'Izvoz podataka',
         filename: 'Naziv datoteke',
@@ -241,7 +224,6 @@ export const hr: Language = {
         success: 'Izvoz uspješan',
         error: 'Izvoz neuspješan'
       },
-      // Uvoz
       import: {
         title: 'Uvoz podataka',
         selectFile: 'Odaberi datoteku',
@@ -252,7 +234,6 @@ export const hr: Language = {
         preview: 'Pregled podataka',
         confirm: 'Potvrdi uvoz'
       },
-      // Ispis
       printConfig: {
         title: 'Postavke ispisa',
         pageTitle: 'Naslov stranice',
@@ -265,7 +246,6 @@ export const hr: Language = {
         portrait: 'Okomito',
         printing: 'Ispis...'
       },
-      // Postavke stupaca
       columnSetting: {
         title: 'Postavke stupaca',
         showAll: 'Prikaži sve',
@@ -275,7 +255,6 @@ export const hr: Language = {
         fixedRight: 'Fiksiraj desno',
         unfixed: 'Ukloni fiksiranje'
       },
-      // Kontekstni izbornik
       contextMenu: {
         copy: 'Kopiraj',
         copyRow: 'Kopiraj redak',
@@ -287,31 +266,26 @@ export const hr: Language = {
         deleteSelectedRows: 'Obriši odabrane retke',
         exportSelected: 'Izvezi odabrano'
       },
-      // Odabir
       selection: {
         selectAll: 'Odaberi sve',
         selectInvert: 'Obrni odabir',
         selectNone: 'Očisti odabir',
         selected: '{count} stavki odabrano'
       },
-      // Proširenje
       expand: {
         expandAll: 'Proširi sve',
         collapseAll: 'Sažmi sve'
       },
-      // Stablo
       tree: {
         expandAll: 'Proširi sve',
         collapseAll: 'Sažmi sve',
         expandLevel: 'Proširi do razine {level}'
       },
-      // Povlačenje
       drag: {
         dragTip: 'Povucite za preuređenje',
         dropTip: 'Pustite za postavljanje'
       }
     },
-    // Okvir poruke
     messagebox: {
       title: 'Poruka',
       confirm: 'U redu',
@@ -322,7 +296,6 @@ export const hr: Language = {
       prompt: 'Upozorenje',
       inputPlaceholder: 'Molimo unesite'
     },
-    // Učitavanje
     upload: {
       deleteTip: 'pritisnite delete za brisanje',
       delete: 'Obriši',
@@ -340,18 +313,15 @@ export const hr: Language = {
       fileSizeError: 'Veličina datoteke premašuje ograničenje',
       fileCountError: 'Broj datoteka premašuje ograničenje'
     },
-    // Obrazac
     form: {
       validationFailed: 'Provjera neuspješna',
       required: 'Obavezno',
       pleaseInput: 'Molimo unesite',
       pleaseSelect: 'Molimo odaberite'
     },
-    // Gumb
     button: {
       loading: 'Učitavanje...'
     },
-    // Unos
     input: {
       placeholder: 'Molimo unesite',
       clear: 'Očisti',
@@ -360,28 +330,23 @@ export const hr: Language = {
       copy: 'Kopiraj',
       copied: 'Kopirano'
     },
-    // Brojčani unos
     inputnumber: {
       placeholder: 'Molimo unesite broj',
       increase: 'Povećaj',
       decrease: 'Smanji'
     },
-    // Unos oznake
     inputtag: {
       placeholder: 'Molimo unesite',
       add: 'Dodaj',
       remove: 'Ukloni'
     },
-    // Putokaz
     breadcrumb: {
       label: 'Putokaz',
       more: 'Više'
     },
-    // Povratak na vrh
     backtop: {
       text: 'Povratak na vrh'
     },
-    // Odabir
     select: {
       placeholder: 'Molimo odaberite',
       noData: 'Nema podataka',
@@ -390,7 +355,6 @@ export const hr: Language = {
       selectAll: 'Odaberi sve',
       clearAll: 'Očisti sve'
     },
-    // Straničenje
     pagination: {
       goto: 'Idi na',
       page: '',
@@ -402,13 +366,11 @@ export const hr: Language = {
       last: 'Zadnja',
       pageClassifier: ''
     },
-    // Potvrda skočnog prozora
     popconfirm: {
       confirm: 'U redu',
       cancel: 'Odustani',
       dontAskAgain: 'Ne pitaj ponovno'
     },
-    // Dijalog
     dialog: {
       confirm: 'U redu',
       cancel: 'Odustani',
@@ -416,17 +378,14 @@ export const hr: Language = {
       maximize: 'Maksimiziraj',
       restore: 'Vrati'
     },
-    // Ladica
     drawer: {
       close: 'Zatvori',
       confirm: 'U redu',
       cancel: 'Odustani'
     },
-    // Padajući izbornik
     dropdown: {
       loading: 'Učitavanje...'
     },
-    // Slika
     image: {
       error: 'NEUSPJEŠNO',
       loading: 'Učitavanje...',
@@ -438,7 +397,6 @@ export const hr: Language = {
       originalSize: 'Izvorna veličina',
       fullscreen: 'Puni zaslon'
     },
-    // Preglednik slika
     imageviewer: {
       close: 'Zatvori',
       prev: 'Prethodna',
@@ -451,65 +409,52 @@ export const hr: Language = {
       fullscreen: 'Puni zaslon',
       exitFullscreen: 'Izađi iz punog zaslona'
     },
-    // Beskonačno pomicanje
     infinitescroll: {
       loading: 'Učitavanje...',
       finished: 'Nema više podataka',
       error: 'Učitavanje neuspješno, kliknite za ponovni pokušaj',
       retry: 'Kliknite za ponovni pokušaj'
     },
-    // Poruka
     message: {
       close: 'Zatvori'
     },
-    // Obavijest
     notification: {
       close: 'Zatvori'
     },
-    // Učitavanje
     loading: {
       text: 'Učitavanje...'
     },
-    // Okretanje
     spin: {
       text: 'Učitavanje...'
     },
-    // Ocjena
     rate: {
       texts: ['Izuzetno loše', 'Razočaran', 'Pošteno', 'Zadovoljan', 'Iznenađen']
     },
-    // Upozorenje
     alert: {
       close: 'Zatvori'
     },
-    // Oznaka
     tag: {
       close: 'Zatvori'
     },
-    // Kartice
     tabs: {
       close: 'Zatvori',
       add: 'Dodaj',
       more: 'Više'
     },
-    // Koraci
     steps: {
       finish: 'Završeno',
       process: 'U tijeku',
       wait: 'Čeka',
       error: 'Greška'
     },
-    // Napredak
     progress: {
       success: 'Uspjeh',
       exception: 'Iznimka',
       warning: 'Upozorenje'
     },
-    // Kostur
     skeleton: {
       loading: 'Učitavanje...'
     },
-    // Prazno
     empty: {
       description: 'Nema podataka',
       noData: 'Nema podataka',
@@ -517,7 +462,6 @@ export const hr: Language = {
       networkError: 'Mrežna greška',
       serverError: 'Greška poslužitelja'
     },
-    // Rezultat
     result: {
       success: 'Uspjeh',
       error: 'Greška',
@@ -525,72 +469,58 @@ export const hr: Language = {
       info: 'Informacija',
       backHome: 'Povratak na početnu'
     },
-    // Vodopad
     waterfall: {
       loading: 'Učitavanje...',
       noMore: 'Nema više podataka',
       empty: 'Nema podataka'
     },
-    // Opisi
     descriptions: {
       colon: ':'
     },
-    // Klizač
     slider: {
       tipFormatter: '{value}'
     },
-    // Prekidač
     switch: {
       on: 'UKLJUČENO',
       off: 'ISKLJUČENO'
     },
-    // Potvrdni okvir
     checkbox: {
       selectAll: 'Odaberi sve'
     },
-    // Radio
     radio: {},
-    // Izbornik
     menu: {
       collapse: 'Sažmi izbornik',
       expand: 'Proširi izbornik'
     },
-    // Kartica
     card: {
       collapse: 'Sažmi',
       expand: 'Proširi'
     },
-    // Sažimanje
     collapse: {
       expand: 'Proširi',
       collapse: 'Sažmi'
     },
-    // Savjet
     tooltip: {},
-    // Skočni prozor
     popover: {},
-    // Značka
     badge: {},
-    // Avatar
     avatar: {
       error: 'Učitavanje neuspješno'
     },
-    // Vodeni žig
     watermark: {},
-    // Razdjelnik
     divider: {},
-    // Vrtuljak
     carousel: {
       prev: 'Prethodna',
       next: 'Sljedeća'
     },
-    // Tekstualni pomak
     marquee: {},
-    // Fiksiranje
     affix: {},
-    // Sidro
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Molimo unesite',
       loading: 'Učitavanje...',
@@ -687,7 +617,6 @@ export const hr: Language = {
       galleryItem: 'Galerija {index}',
       close: 'Zatvori'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Citati'
@@ -697,7 +626,8 @@ export const hr: Language = {
         agent: 'Agent',
         document: 'Dokument',
         table: 'Tablica',
-        knowledge: 'Znanje'
+        knowledge: 'Znanje',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopiraj kod',
@@ -716,7 +646,8 @@ export const hr: Language = {
       },
       sender: {
         placeholder: 'Pošalji poruku...',
-        dragTip: 'Otpušteno za prijenos datoteka'
+        dragTip: 'Otpušteno za prijenos datoteka',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Proces razmišljanja',
@@ -751,7 +682,8 @@ export const hr: Language = {
         versions: 'Verzije',
         rendering: 'Renderiranje komponente...',
         renderingChart: 'Renderiranje grafikona...',
-        renderingCanvas: 'Priprema platna...'
+        renderingCanvas: 'Priprema platna...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Kliknite za govor',

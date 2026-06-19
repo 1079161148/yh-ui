@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const uk: Language = {
   name: 'uk',
   yh: {
-    // Загальні
     common: {
       yes: 'Так',
       no: 'Ні',
@@ -27,7 +26,6 @@ export const uk: Language = {
       selectAll: 'Вибрати все',
       unselectAll: 'Зняти виділення'
     },
-    // Вибір кольору
     colorpicker: {
       confirm: 'OK',
       clear: 'Очистити',
@@ -37,7 +35,6 @@ export const uk: Language = {
       recentColors: 'Останні кольори',
       presetColors: 'Попередньо встановлені кольори'
     },
-    // Вибір дати
     datepicker: {
       now: 'Зараз',
       today: 'Сьогодні',
@@ -89,7 +86,6 @@ export const uk: Language = {
         q4: 'Q4'
       }
     },
-    // Вибір часу
     timepicker: {
       confirm: 'OK',
       cancel: 'Скасувати',
@@ -99,11 +95,9 @@ export const uk: Language = {
       endPlaceholder: 'Час закінчення',
       selectTime: 'Виберіть час'
     },
-    // Вибір часу
     timeselect: {
       placeholder: 'Виберіть час'
     },
-    // Дерево
     tree: {
       emptyText: 'Немає даних',
       loading: 'Завантаження...',
@@ -112,14 +106,12 @@ export const uk: Language = {
       expandAll: 'Розгорнути все',
       collapseAll: 'Згорнути все'
     },
-    // Вибір дерева
     treeselect: {
       placeholder: 'Виберіть',
       emptyText: 'Немає даних',
       loading: 'Завантаження...',
       noMatch: 'Немає збігів'
     },
-    // Календар
     calendar: {
       prevMonth: 'Попередній місяць',
       nextMonth: 'Наступний місяць',
@@ -140,14 +132,12 @@ export const uk: Language = {
         sat: 'Сб'
       }
     },
-    // Автодоповнення
     autocomplete: {
       loading: 'Завантаження...',
       placeholder: 'Будь ласка, введіть',
       noData: 'Немає даних',
       noMatch: 'Немає збігів'
     },
-    // Зворотний відлік
     countdown: {
       days: 'днів',
       hours: 'годин',
@@ -156,14 +146,12 @@ export const uk: Language = {
       milliseconds: 'мілісекунд',
       finished: 'Завершено'
     },
-    // Каскадний вибір
     cascader: {
       noMatch: 'Немає збігів',
       placeholder: 'Виберіть',
       loading: 'Завантаження...',
       noData: 'Немає даних'
     },
-    // Передача
     transfer: {
       noMatch: 'Немає збігів',
       noData: 'Немає даних',
@@ -173,7 +161,6 @@ export const uk: Language = {
       hasCheckedFormat: '{checked}/{total} вибрано',
       searchPlaceholder: 'Введіть ключове слово'
     },
-    // Таблиця
     table: {
       emptyText: 'Немає даних',
       confirmFilter: 'Підтвердити',
@@ -190,7 +177,6 @@ export const uk: Language = {
       page: 'Сторінка {page}',
       yes: 'Так',
       no: 'Ні',
-      // Панель інструментів
       toolbar: {
         refresh: 'Оновити',
         density: 'Щільність',
@@ -205,7 +191,6 @@ export const uk: Language = {
         search: 'Пошук',
         searchPlaceholder: 'Введіть ключові слова для пошуку'
       },
-      // Фільтр
       filter: {
         selectAll: 'Вибрати все',
         selectInvert: 'Інвертувати вибір',
@@ -221,13 +206,11 @@ export const uk: Language = {
         lessThan: 'Менше ніж',
         between: 'Між'
       },
-      // Сортування
       sort: {
         asc: 'За зростанням',
         desc: 'За спаданням',
         clear: 'Очистити сортування'
       },
-      // Експорт
       export: {
         title: 'Експорт даних',
         filename: "Ім'я файлу",
@@ -241,7 +224,6 @@ export const uk: Language = {
         success: 'Експорт успішний',
         error: 'Помилка експорту'
       },
-      // Імпорт
       import: {
         title: 'Імпорт даних',
         selectFile: 'Виберіть файл',
@@ -252,7 +234,6 @@ export const uk: Language = {
         preview: 'Попередній перегляд даних',
         confirm: 'Підтвердити імпорт'
       },
-      // Друк
       printConfig: {
         title: 'Налаштування друку',
         pageTitle: 'Заголовок сторінки',
@@ -265,7 +246,6 @@ export const uk: Language = {
         portrait: 'Книжна',
         printing: 'Друк...'
       },
-      // Налаштування стовпців
       columnSetting: {
         title: 'Налаштування стовпців',
         showAll: 'Показати все',
@@ -275,7 +255,6 @@ export const uk: Language = {
         fixedRight: 'Закріпити справа',
         unfixed: 'Відкріпити'
       },
-      // Контекстне меню
       contextMenu: {
         copy: 'Копіювати',
         copyRow: 'Копіювати рядок',
@@ -287,31 +266,26 @@ export const uk: Language = {
         deleteSelectedRows: 'Видалити вибрані рядки',
         exportSelected: 'Експортувати вибране'
       },
-      // Вибір
       selection: {
         selectAll: 'Вибрати все',
         selectInvert: 'Інвертувати вибір',
         selectNone: 'Очистити вибір',
         selected: 'Вибрано {count} елементів'
       },
-      // Розгорнути
       expand: {
         expandAll: 'Розгорнути все',
         collapseAll: 'Згорнути все'
       },
-      // Дерево
       tree: {
         expandAll: 'Розгорнути все',
         collapseAll: 'Згорнути все',
         expandLevel: 'Розгорнути до рівня {level}'
       },
-      // Перетягування
       drag: {
         dragTip: 'Перетягніть для зміни порядку',
         dropTip: 'Відпустіть для розміщення'
       }
     },
-    // Вікно повідомлення
     messagebox: {
       title: 'Повідомлення',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const uk: Language = {
       prompt: 'Підказка',
       inputPlaceholder: 'Будь ласка, введіть'
     },
-    // Завантаження
     upload: {
       deleteTip: 'натисніть delete для видалення',
       delete: 'Видалити',
@@ -340,18 +313,15 @@ export const uk: Language = {
       fileSizeError: 'Розмір файлу перевищує ліміт',
       fileCountError: 'Кількість файлів перевищує ліміт'
     },
-    // Форма
     form: {
       validationFailed: 'Перевірка не пройдена',
       required: "Обов'язково",
       pleaseInput: 'Будь ласка, введіть',
       pleaseSelect: 'Будь ласка, виберіть'
     },
-    // Кнопка
     button: {
       loading: 'Завантаження...'
     },
-    // Введення
     input: {
       placeholder: 'Будь ласка, введіть',
       clear: 'Очистити',
@@ -360,28 +330,23 @@ export const uk: Language = {
       copy: 'Копіювати',
       copied: 'Скопійовано'
     },
-    // Числове введення
     inputnumber: {
       placeholder: 'Будь ласка, введіть число',
       increase: 'Збільшити',
       decrease: 'Зменшити'
     },
-    // Введення тегів
     inputtag: {
       placeholder: 'Будь ласка, введіть',
       add: 'Додати',
       remove: 'Видалити'
     },
-    // Хлібні крихти
     breadcrumb: {
       label: 'Хлібні крихти',
       more: 'Ще'
     },
-    // Повернутися наверх
     backtop: {
       text: 'Повернутися наверх'
     },
-    // Вибір
     select: {
       placeholder: 'Будь ласка, виберіть',
       noData: 'Немає даних',
@@ -390,7 +355,6 @@ export const uk: Language = {
       selectAll: 'Вибрати все',
       clearAll: 'Очистити все'
     },
-    // Пагінація
     pagination: {
       goto: 'Перейти',
       page: '',
@@ -402,13 +366,11 @@ export const uk: Language = {
       last: 'Остання',
       pageClassifier: ''
     },
-    // Підтвердження спливаючого вікна
     popconfirm: {
       confirm: 'OK',
       cancel: 'Скасувати',
       dontAskAgain: 'Більше не питати'
     },
-    // Діалог
     dialog: {
       confirm: 'OK',
       cancel: 'Скасувати',
@@ -416,17 +378,14 @@ export const uk: Language = {
       maximize: 'Розгорнути',
       restore: 'Відновити'
     },
-    // Ящик
     drawer: {
       close: 'Закрити',
       confirm: 'OK',
       cancel: 'Скасувати'
     },
-    // Випадаюче меню
     dropdown: {
       loading: 'Завантаження...'
     },
-    // Зображення
     image: {
       error: 'ПОМИЛКА',
       loading: 'Завантаження...',
@@ -438,7 +397,6 @@ export const uk: Language = {
       originalSize: 'Оригінальний розмір',
       fullscreen: 'Повноекранний режим'
     },
-    // Переглядач зображень
     imageviewer: {
       close: 'Закрити',
       prev: 'Попереднє',
@@ -451,65 +409,52 @@ export const uk: Language = {
       fullscreen: 'Повноекранний режим',
       exitFullscreen: 'Вийти з повноекранного режиму'
     },
-    // Нескінченне прокручування
     infinitescroll: {
       loading: 'Завантаження...',
       finished: 'Більше немає даних',
       error: 'Помилка завантаження, натисніть для повтору',
       retry: 'Натисніть для повтору'
     },
-    // Повідомлення
     message: {
       close: 'Закрити'
     },
-    // Сповіщення
     notification: {
       close: 'Закрити'
     },
-    // Завантаження
     loading: {
       text: 'Завантаження...'
     },
-    // Спиннер
     spin: {
       text: 'Завантаження...'
     },
-    // Рейтинг
     rate: {
       texts: ['Дуже погано', 'Розчарований', 'Нормально', 'Задоволений', 'Здивований']
     },
-    // Попередження
     alert: {
       close: 'Закрити'
     },
-    // Тег
     tag: {
       close: 'Закрити'
     },
-    // Вкладки
     tabs: {
       close: 'Закрити',
       add: 'Додати',
       more: 'Ще'
     },
-    // Кроки
     steps: {
       finish: 'Завершено',
       process: 'В процесі',
       wait: 'Очікування',
       error: 'Помилка'
     },
-    // Прогрес
     progress: {
       success: 'Успіх',
       exception: 'Виняток',
       warning: 'Попередження'
     },
-    // Скелетон
     skeleton: {
       loading: 'Завантаження...'
     },
-    // Порожньо
     empty: {
       description: 'Немає даних',
       noData: 'Немає даних',
@@ -517,7 +462,6 @@ export const uk: Language = {
       networkError: 'Помилка мережі',
       serverError: 'Помилка сервера'
     },
-    // Результат
     result: {
       success: 'Успіх',
       error: 'Помилка',
@@ -525,78 +469,63 @@ export const uk: Language = {
       info: 'Інформація',
       backHome: 'Повернутися на головну'
     },
-    // Водоспад
     waterfall: {
       loading: 'Завантаження...',
       noMore: 'Більше немає даних',
       empty: 'Немає даних'
     },
-    // Опис
     descriptions: {
       colon: ':'
     },
-    // Слайдер
     slider: {
       tipFormatter: '{value}'
     },
-    // Перемикач
     switch: {
       on: 'ВКЛ',
       off: 'ВИКЛ'
     },
-    // Чекбокс
     checkbox: {
       selectAll: 'Вибрати все'
     },
-    // Радіо
     radio: {},
-    // Меню
     menu: {
       collapse: 'Згорнути меню',
       expand: 'Розгорнути меню'
     },
-    // Картка
     card: {
       collapse: 'Згорнути',
       expand: 'Розгорнути'
     },
-    // Згорнути
     collapse: {
       expand: 'Розгорнути',
       collapse: 'Згорнути'
     },
-    // Підказка
     tooltip: {},
-    // Спливаюче вікно
     popover: {},
-    // Значок
     badge: {},
-    // Аватар
     avatar: {
       error: 'Помилка завантаження'
     },
-    // Водяний знак
     watermark: {},
-    // Роздільник
     divider: {},
-    // Карусель
     carousel: {
       prev: 'Попереднє',
       next: 'Наступне'
     },
-    // Бігучий рядок
     marquee: {},
-    // Закріплення
     affix: {},
-    // Якір
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Будь ласка, введіть',
       loading: 'Завантаження...',
       noData: 'Немає даних'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Виберіть характеристики',
       emptyText: 'Немає характеристик',
@@ -697,7 +626,8 @@ export const uk: Language = {
         agent: 'Агент',
         document: 'Документ',
         table: 'Таблиця',
-        knowledge: 'Знання'
+        knowledge: 'Знання',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Копіювати код',
@@ -716,7 +646,8 @@ export const uk: Language = {
       },
       sender: {
         placeholder: 'Надіслати повідомлення...',
-        dragTip: 'Відпустіть для завантаження файлів'
+        dragTip: 'Відпустіть для завантаження файлів',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Процес мислення',
@@ -751,7 +682,8 @@ export const uk: Language = {
         versions: 'Версії',
         rendering: 'Рендеринг компонента...',
         renderingChart: 'Рендеринг діаграми...',
-        renderingCanvas: 'Підготовка полотна...'
+        renderingCanvas: 'Підготовка полотна...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Клік для голосу',

@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const ru: Language = {
   name: 'ru',
   yh: {
-    // Общие
     common: {
       yes: 'Да',
       no: 'Нет',
@@ -27,7 +26,6 @@ export const ru: Language = {
       selectAll: 'Выбрать все',
       unselectAll: 'Снять выделение'
     },
-    // Выбор цвета
     colorpicker: {
       confirm: 'OK',
       clear: 'Очистить',
@@ -37,7 +35,6 @@ export const ru: Language = {
       recentColors: 'Недавние цвета',
       presetColors: 'Предустановленные цвета'
     },
-    // Выбор даты
     datepicker: {
       now: 'Сейчас',
       today: 'Сегодня',
@@ -89,7 +86,6 @@ export const ru: Language = {
         q4: 'Q4'
       }
     },
-    // Выбор времени
     timepicker: {
       confirm: 'OK',
       cancel: 'Отмена',
@@ -99,11 +95,9 @@ export const ru: Language = {
       endPlaceholder: 'Время окончания',
       selectTime: 'Выберите время'
     },
-    // Выбор времени
     timeselect: {
       placeholder: 'Выберите время'
     },
-    // Дерево
     tree: {
       emptyText: 'Нет данных',
       loading: 'Загрузка...',
@@ -112,14 +106,12 @@ export const ru: Language = {
       expandAll: 'Развернуть все',
       collapseAll: 'Свернуть все'
     },
-    // Выбор дерева
     treeselect: {
       placeholder: 'Выберите',
       emptyText: 'Нет данных',
       loading: 'Загрузка...',
       noMatch: 'Нет совпадений'
     },
-    // Календарь
     calendar: {
       prevMonth: 'Предыдущий месяц',
       nextMonth: 'Следующий месяц',
@@ -140,14 +132,12 @@ export const ru: Language = {
         sat: 'Сб'
       }
     },
-    // Автозавершение
     autocomplete: {
       loading: 'Загрузка...',
       placeholder: 'Пожалуйста, введите',
       noData: 'Нет данных',
       noMatch: 'Нет совпадений'
     },
-    // Обратный отсчет
     countdown: {
       days: 'дней',
       hours: 'часов',
@@ -156,14 +146,12 @@ export const ru: Language = {
       milliseconds: 'миллисекунд',
       finished: 'Завершено'
     },
-    // Каскадный выбор
     cascader: {
       noMatch: 'Нет совпадений',
       placeholder: 'Выберите',
       loading: 'Загрузка...',
       noData: 'Нет данных'
     },
-    // Передача
     transfer: {
       noMatch: 'Нет совпадений',
       noData: 'Нет данных',
@@ -173,7 +161,6 @@ export const ru: Language = {
       hasCheckedFormat: '{checked}/{total} выбрано',
       searchPlaceholder: 'Введите ключевое слово'
     },
-    // Таблица
     table: {
       emptyText: 'Нет данных',
       confirmFilter: 'Подтвердить',
@@ -190,7 +177,6 @@ export const ru: Language = {
       page: 'Страница {page}',
       yes: 'Да',
       no: 'Нет',
-      // Панель инструментов
       toolbar: {
         refresh: 'Обновить',
         density: 'Плотность',
@@ -205,7 +191,6 @@ export const ru: Language = {
         search: 'Поиск',
         searchPlaceholder: 'Введите ключевые слова для поиска'
       },
-      // Фильтр
       filter: {
         selectAll: 'Выбрать все',
         selectInvert: 'Инвертировать выбор',
@@ -221,13 +206,11 @@ export const ru: Language = {
         lessThan: 'Меньше чем',
         between: 'Между'
       },
-      // Сортировка
       sort: {
         asc: 'По возрастанию',
         desc: 'По убыванию',
         clear: 'Очистить сортировку'
       },
-      // Экспорт
       export: {
         title: 'Экспорт данных',
         filename: 'Имя файла',
@@ -241,7 +224,6 @@ export const ru: Language = {
         success: 'Экспорт успешен',
         error: 'Ошибка экспорта'
       },
-      // Импорт
       import: {
         title: 'Импорт данных',
         selectFile: 'Выберите файл',
@@ -252,7 +234,6 @@ export const ru: Language = {
         preview: 'Предпросмотр данных',
         confirm: 'Подтвердить импорт'
       },
-      // Печать
       printConfig: {
         title: 'Настройки печати',
         pageTitle: 'Заголовок страницы',
@@ -265,7 +246,6 @@ export const ru: Language = {
         portrait: 'Книжная',
         printing: 'Печать...'
       },
-      // Настройки столбцов
       columnSetting: {
         title: 'Настройки столбцов',
         showAll: 'Показать все',
@@ -275,7 +255,6 @@ export const ru: Language = {
         fixedRight: 'Закрепить справа',
         unfixed: 'Открепить'
       },
-      // Контекстное меню
       contextMenu: {
         copy: 'Копировать',
         copyRow: 'Копировать строку',
@@ -287,31 +266,26 @@ export const ru: Language = {
         deleteSelectedRows: 'Удалить выбранные строки',
         exportSelected: 'Экспортировать выбранное'
       },
-      // Выбор
       selection: {
         selectAll: 'Выбрать все',
         selectInvert: 'Инвертировать выбор',
         selectNone: 'Очистить выбор',
         selected: 'Выбрано {count} элементов'
       },
-      // Развернуть
       expand: {
         expandAll: 'Развернуть все',
         collapseAll: 'Свернуть все'
       },
-      // Дерево
       tree: {
         expandAll: 'Развернуть все',
         collapseAll: 'Свернуть все',
         expandLevel: 'Развернуть до уровня {level}'
       },
-      // Перетаскивание
       drag: {
         dragTip: 'Перетащите для изменения порядка',
         dropTip: 'Отпустите для размещения'
       }
     },
-    // Окно сообщения
     messagebox: {
       title: 'Сообщение',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const ru: Language = {
       prompt: 'Подсказка',
       inputPlaceholder: 'Пожалуйста, введите'
     },
-    // Загрузка
     upload: {
       deleteTip: 'нажмите delete для удаления',
       delete: 'Удалить',
@@ -340,18 +313,15 @@ export const ru: Language = {
       fileSizeError: 'Размер файла превышает лимит',
       fileCountError: 'Количество файлов превышает лимит'
     },
-    // Форма
     form: {
       validationFailed: 'Проверка не пройдена',
       required: 'Обязательно',
       pleaseInput: 'Пожалуйста, введите',
       pleaseSelect: 'Пожалуйста, выберите'
     },
-    // Кнопка
     button: {
       loading: 'Загрузка...'
     },
-    // Ввод
     input: {
       placeholder: 'Пожалуйста, введите',
       clear: 'Очистить',
@@ -360,28 +330,23 @@ export const ru: Language = {
       copy: 'Копировать',
       copied: 'Скопировано'
     },
-    // Числовой ввод
     inputnumber: {
       placeholder: 'Пожалуйста, введите число',
       increase: 'Увеличить',
       decrease: 'Уменьшить'
     },
-    // Ввод тегов
     inputtag: {
       placeholder: 'Пожалуйста, введите',
       add: 'Добавить',
       remove: 'Удалить'
     },
-    // Хлебные крошки
     breadcrumb: {
       label: 'Хлебные крошки',
       more: 'Еще'
     },
-    // Вернуться наверх
     backtop: {
       text: 'Вернуться наверх'
     },
-    // Выбор
     select: {
       placeholder: 'Пожалуйста, выберите',
       noData: 'Нет данных',
@@ -390,7 +355,6 @@ export const ru: Language = {
       selectAll: 'Выбрать все',
       clearAll: 'Очистить все'
     },
-    // Пагинация
     pagination: {
       goto: 'Перейти',
       page: '',
@@ -402,13 +366,11 @@ export const ru: Language = {
       last: 'Последняя',
       pageClassifier: ''
     },
-    // Подтверждение всплывающего окна
     popconfirm: {
       confirm: 'OK',
       cancel: 'Отмена',
       dontAskAgain: 'Больше не спрашивать'
     },
-    // Диалог
     dialog: {
       confirm: 'OK',
       cancel: 'Отмена',
@@ -416,17 +378,14 @@ export const ru: Language = {
       maximize: 'Развернуть',
       restore: 'Восстановить'
     },
-    // Ящик
     drawer: {
       close: 'Закрыть',
       confirm: 'OK',
       cancel: 'Отмена'
     },
-    // Выпадающее меню
     dropdown: {
       loading: 'Загрузка...'
     },
-    // Изображение
     image: {
       error: 'ОШИБКА',
       loading: 'Загрузка...',
@@ -438,7 +397,6 @@ export const ru: Language = {
       originalSize: 'Оригинальный размер',
       fullscreen: 'Полный экран'
     },
-    // Просмотр изображений
     imageviewer: {
       close: 'Закрыть',
       prev: 'Предыдущее',
@@ -451,65 +409,52 @@ export const ru: Language = {
       fullscreen: 'Полный экран',
       exitFullscreen: 'Выйти из полноэкранного режима'
     },
-    // Бесконечная прокрутка
     infinitescroll: {
       loading: 'Загрузка...',
       finished: 'Больше нет данных',
       error: 'Ошибка загрузки, нажмите для повтора',
       retry: 'Нажмите для повтора'
     },
-    // Сообщение
     message: {
       close: 'Закрыть'
     },
-    // Уведомление
     notification: {
       close: 'Закрыть'
     },
-    // Загрузка
     loading: {
       text: 'Загрузка...'
     },
-    // Спиннер
     spin: {
       text: 'Загрузка...'
     },
-    // Рейтинг
     rate: {
       texts: ['Очень плохо', 'Разочарован', 'Нормально', 'Доволен', 'Удивлен']
     },
-    // Предупреждение
     alert: {
       close: 'Закрыть'
     },
-    // Тег
     tag: {
       close: 'Закрыть'
     },
-    // Вкладки
     tabs: {
       close: 'Закрыть',
       add: 'Добавить',
       more: 'Еще'
     },
-    // Шаги
     steps: {
       finish: 'Завершено',
       process: 'В процессе',
       wait: 'Ожидание',
       error: 'Ошибка'
     },
-    // Прогресс
     progress: {
       success: 'Успех',
       exception: 'Исключение',
       warning: 'Предупреждение'
     },
-    // Скелетон
     skeleton: {
       loading: 'Загрузка...'
     },
-    // Пусто
     empty: {
       description: 'Нет данных',
       noData: 'Нет данных',
@@ -517,7 +462,6 @@ export const ru: Language = {
       networkError: 'Ошибка сети',
       serverError: 'Ошибка сервера'
     },
-    // Результат
     result: {
       success: 'Успех',
       error: 'Ошибка',
@@ -525,72 +469,58 @@ export const ru: Language = {
       info: 'Информация',
       backHome: 'Вернуться на главную'
     },
-    // Водопад
     waterfall: {
       loading: 'Загрузка...',
       noMore: 'Больше нет данных',
       empty: 'Нет данных'
     },
-    // Описания
     descriptions: {
       colon: ':'
     },
-    // Слайдер
     slider: {
       tipFormatter: '{value}'
     },
-    // Переключатель
     switch: {
       on: 'ВКЛ',
       off: 'ВЫКЛ'
     },
-    // Чекбокс
     checkbox: {
       selectAll: 'Выбрать все'
     },
-    // Радио
     radio: {},
-    // Меню
     menu: {
       collapse: 'Свернуть меню',
       expand: 'Развернуть меню'
     },
-    // Карточка
     card: {
       collapse: 'Свернуть',
       expand: 'Развернуть'
     },
-    // Свернуть
     collapse: {
       expand: 'Развернуть',
       collapse: 'Свернуть'
     },
-    // Подсказка
     tooltip: {},
-    // Всплывающее окно
     popover: {},
-    // Значок
     badge: {},
-    // Аватар
     avatar: {
       error: 'Ошибка загрузки'
     },
-    // Водяной знак
     watermark: {},
-    // Разделитель
     divider: {},
-    // Карусель
     carousel: {
       prev: 'Предыдущее',
       next: 'Следующее'
     },
-    // Бегущая строка
     marquee: {},
-    // Закрепление
     affix: {},
-    // Якорь
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Пожалуйста, введите',
       loading: 'Загрузка...',
@@ -688,7 +618,6 @@ export const ru: Language = {
       galleryItem: 'Галерея {index}',
       close: 'Закрыть'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Цитаты'
@@ -698,7 +627,8 @@ export const ru: Language = {
         agent: 'Агент',
         document: 'Документ',
         table: 'Таблица',
-        knowledge: 'База знаний'
+        knowledge: 'База знаний',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Копировать код',
@@ -717,7 +647,8 @@ export const ru: Language = {
       },
       sender: {
         placeholder: 'Отправить сообщение...',
-        dragTip: 'Отпустите для загрузки файлов'
+        dragTip: 'Отпустите для загрузки файлов',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Процесс мышления',
@@ -752,7 +683,8 @@ export const ru: Language = {
         versions: 'Версии',
         rendering: 'Рендеринг компонента...',
         renderingChart: 'Рендеринг графика...',
-        renderingCanvas: 'Подготовка холста...'
+        renderingCanvas: 'Подготовка холста...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Нажмите для речи',

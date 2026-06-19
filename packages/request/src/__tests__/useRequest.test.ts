@@ -8,7 +8,7 @@ vi.mock('vue', async (importOriginal) => {
     getCurrentInstance: () => ({})
   }
 })
-import { nextTick } from 'vue'
+import { nextTick, ref } from 'vue'
 import { useRequest, useRequestSWR, useRequestPolling } from '../useRequest'
 
 describe('useRequest', () => {
@@ -233,6 +233,61 @@ describe('useRequestSWR', () => {
     expect(data.value).toBe('stale-value')
     await promise
     expect(data.value).toEqual({ data: 'fresh-data' })
+  })
+
+  it('respects staleTime freshness window', async () => {
+    const mockService = vi.fn().mockResolvedValue({ data: 'fresh-data' })
+    const { run, data } = useRequestSWR('stale-time-key', mockService, {
+      manual: true,
+      staleTime: 5000
+    })
+
+    // 1st request should hit network
+    await run('stale-time-key')
+    expect(mockService).toHaveBeenCalledTimes(1)
+    expect(data.value).toEqual({ data: 'fresh-data' })
+
+    // 2nd request within staleTime (e.g., 2000ms later) should skip network
+    mockService.mockClear()
+    vi.advanceTimersByTime(2000)
+    await run('stale-time-key')
+    expect(mockService).not.toHaveBeenCalled()
+    expect(data.value).toEqual({ data: 'fresh-data' })
+
+    // 3rd request after staleTime (e.g., total 6000ms later) should revalidate
+    mockService.mockClear()
+    vi.advanceTimersByTime(4000)
+    await run('stale-time-key')
+    expect(mockService).toHaveBeenCalledTimes(1)
+  })
+
+  it('debounces refreshDeps correctly using refreshDepsWait', async () => {
+    const mockService = vi.fn().mockResolvedValue({ data: 'fresh-data' })
+    const dep = ref(0)
+    const { run } = useRequestSWR('dep-key', mockService, {
+      manual: false,
+      refreshDeps: [dep],
+      refreshDepsWait: 500
+    })
+
+    await nextTick()
+    mockService.mockClear()
+
+    // Rapid dependency changes
+    dep.value = 1
+    await nextTick()
+    dep.value = 2
+    await nextTick()
+    dep.value = 3
+    await nextTick()
+
+    // Service should not have been called yet
+    expect(mockService).not.toHaveBeenCalled()
+
+    // Advance time and check
+    vi.advanceTimersByTime(500)
+    await nextTick()
+    expect(mockService).toHaveBeenCalledTimes(1)
   })
 })
 

@@ -514,8 +514,13 @@ export const ptBr: Language = {
     },
     marquee: {},
     affix: {},
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Por favor digite',
       loading: 'Carregando...',
@@ -612,7 +617,6 @@ export const ptBr: Language = {
       galleryItem: 'Galeria {index}',
       close: 'Fechar'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Citações'
@@ -622,7 +626,8 @@ export const ptBr: Language = {
         agent: 'Agente',
         document: 'Documento',
         table: 'Tabela',
-        knowledge: 'Conhecimento'
+        knowledge: 'Conhecimento',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Copiar código',
@@ -641,7 +646,8 @@ export const ptBr: Language = {
       },
       sender: {
         placeholder: 'Enviar uma mensagem...',
-        dragTip: 'Solte para carregar arquivos'
+        dragTip: 'Solte para carregar arquivos',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Processo de Pensamento',
@@ -676,7 +682,8 @@ export const ptBr: Language = {
         versions: 'Versões',
         rendering: 'Renderizando componente...',
         renderingChart: 'Renderizando gráfico...',
-        renderingCanvas: 'Preparando tela...'
+        renderingCanvas: 'Preparando tela...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Clique para Falar',

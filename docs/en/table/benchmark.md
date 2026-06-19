@@ -291,6 +291,7 @@ border
 stripe
 row-key="id"
 ref="tableRef"
+
 > <template #empty>
 
     <div style="padding: 40px; text-align: center; color: var(--vp-c-text-3);">

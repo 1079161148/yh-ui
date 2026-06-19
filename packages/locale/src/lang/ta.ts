@@ -3,94 +3,81 @@ import type { Language } from '../index'
 export const ta: Language = {
   name: 'ta',
   yh: {
-    // பொதுவான
     common: {
-      yes: '\u0B86\u0BAE\u0BCD',
-      no: '\u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      confirm:
-        '\u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1',
-      cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD',
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1',
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1',
-      clear: '\u0B85\u0BB4\u0BBF\u0B95\u0BCD\u0B95',
-      reset: '\u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8',
-      save: '\u0B9A\u0BC7\u0BAE\u0BBF',
-      delete: '\u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1',
-      edit: '\u0BA4\u0BBF\u0BB0\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1',
-      add: '\u0B9A\u0BC7\u0BB0\u0BCD',
-      search: '\u0BA4\u0BC7\u0B9F\u0BC1',
-      refresh: '\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF',
-      expand: '\u0BB5\u0BBF\u0BB0\u0BBF\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-      collapse: '\u0B9A\u0BC1\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1',
-      more: '\u0BAE\u0BC7\u0BB2\u0BC1\u0BAE\u0BCD',
-      noData: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      noMatch:
-        '\u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      selectAll:
-        '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-      unselectAll:
-        '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BB5\u0BC1 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1'
+      yes: 'ஆம்',
+      no: 'இல்லை',
+      confirm: 'உறுதிப்படுத்து',
+      cancel: 'ரத்துசெய்',
+      loading: 'ஏற்றுகிறது',
+      close: 'மூடு',
+      clear: 'அழிக்க',
+      reset: 'மீட்டமை',
+      save: 'சேமி',
+      delete: 'நீக்கு',
+      edit: 'திருத்து',
+      add: 'சேர்',
+      search: 'தேடு',
+      refresh: 'புதுப்பி',
+      expand: 'விரிவாக்கு',
+      collapse: 'சுருக்கு',
+      more: 'மேலும்',
+      noData: 'தரவு இல்லை',
+      noMatch: 'பொருந்தும் தரவு இல்லை',
+      selectAll: 'அனைத்தையும் தேர்ந்தெடு',
+      unselectAll: 'அனைத்தையும் தேர்வு நீக்கு'
     },
-    // நிறம் தேர்வு
     colorpicker: {
-      confirm: '\u0B9A\u0BB0\u0BBF',
-      clear: '\u0B85\u0BB4\u0BBF\u0B95\u0BCD\u0B95',
-      eyeDropper: '\u0B95\u0BA3\u0BCD \u0BA4\u0BC1\u0BB3\u0BBF',
-      suggestionDark:
-        '\u0BB5\u0BC6\u0BB3\u0BCD\u0BB3\u0BC8 \u0B89\u0BB0\u0BC8 \u0B9A\u0BBF\u0BB1\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1',
-      suggestionLight:
-        '\u0B95\u0BB0\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC8 \u0B9A\u0BBF\u0BB1\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1',
-      recentColors:
-        '\u0B9A\u0BAE\u0BC0\u0BAA\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF \u0BA8\u0BBF\u0BB1\u0B99\u0BCD\u0B95\u0BB3\u0BCD',
-      presetColors:
-        '\u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BAE\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BA8\u0BBF\u0BB1\u0B99\u0BCD\u0B95\u0BB3\u0BCD'
+      confirm: 'சரி',
+      clear: 'அழிக்க',
+      eyeDropper: 'கண் துளி',
+      suggestionDark: 'வெள்ளை உரை சிறந்தது',
+      suggestionLight: 'கருப்பு உரை சிறந்தது',
+      recentColors: 'சமீபத்திய நிறங்கள்',
+      presetColors: 'முன்னமைக்கப்பட்ட நிறங்கள்'
     },
-    // தேதி தேர்வு
     datepicker: {
-      now: '\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1',
-      today: '\u0B87\u0BA9\u0BCD\u0BB1\u0BC1',
-      cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD',
-      clear: '\u0B85\u0BB4\u0BBF\u0B95\u0BCD\u0B95',
-      confirm: '\u0B9A\u0BB0\u0BBF',
-      selectDate:
-        '\u0BA4\u0BC7\u0BA4\u0BBF\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-      selectTime:
-        '\u0BA8\u0BC7\u0BB0\u0BA4\u0BCD\u0BA4\u0BC8\u0BA4\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-      startDate: '\u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95 \u0BA4\u0BC7\u0BA4\u0BBF',
-      startTime: '\u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD',
-      endDate: '\u0BAE\u0BC1\u0B9F\u0BBF\u0BB5\u0BC1 \u0BA4\u0BC7\u0BA4\u0BBF',
-      endTime: '\u0BAE\u0BC1\u0B9F\u0BBF\u0BB5\u0BC1 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD',
+      now: 'இப்போது',
+      today: 'இன்று',
+      cancel: 'ரத்துசெய்',
+      clear: 'அழிக்க',
+      confirm: 'சரி',
+      selectDate: 'தேதியைத் தேர்ந்தெடு',
+      selectTime: 'நேரத்தைத் தேர்ந்தெடு',
+      startDate: 'தொடக்க தேதி',
+      startTime: 'தொடக்க நேரம்',
+      endDate: 'முடிவு தேதி',
+      endTime: 'முடிவு நேரம்',
       year: '',
       month: '',
       day: '',
-      week: '\u0BB5\u0BBE\u0BB0\u0BAE\u0BCD',
+      week: 'வாரம்',
       monthBeforeYear: true,
-      prevYear: '\u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0B86\u0BA3\u0BCD\u0B9F\u0BC1',
-      nextYear: '\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0B86\u0BA3\u0BCD\u0B9F\u0BC1',
-      prevMonth: '\u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD',
-      nextMonth: '\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD',
+      prevYear: 'முந்தைய ஆண்டு',
+      nextYear: 'அடுத்த ஆண்டு',
+      prevMonth: 'முந்தைய மாதம்',
+      nextMonth: 'அடுத்த மாதம்',
       weeks: {
-        sun: '\u0B9E\u0BBE',
-        mon: '\u0BA4\u0BBF',
-        tue: '\u0B9A\u0BC6',
-        wed: '\u0BAA\u0BC1',
-        thu: '\u0BB5\u0BBF',
-        fri: '\u0BB5\u0BC6',
-        sat: '\u0B9A'
+        sun: 'ஞா',
+        mon: 'தி',
+        tue: 'செ',
+        wed: 'பு',
+        thu: 'வி',
+        fri: 'வெ',
+        sat: 'ச'
       },
       months: {
-        jan: '\u0B9C\u0BA9',
-        feb: '\u0BAA\u0BBF\u0BAA\u0BCD',
-        mar: '\u0BAE\u0BBE\u0BB0\u0BCD',
-        apr: '\u0B8F\u0BAA\u0BCD',
-        may: '\u0BAE\u0BC7',
-        jun: '\u0B9C\u0BC2\u0BA9\u0BCD',
-        jul: '\u0B9C\u0BC2\u0BB2\u0BC8',
-        aug: '\u0B86\u0B95',
-        sep: '\u0B9A\u0BC6\u0BAA\u0BCD',
-        oct: '\u0B85\u0B95\u0BCD',
-        nov: '\u0BA8\u0BB5',
-        dec: '\u0B9F\u0BBF\u0B9A'
+        jan: 'ஜன',
+        feb: 'பிப்',
+        mar: 'மார்',
+        apr: 'ஏப்',
+        may: 'மே',
+        jun: 'ஜூன்',
+        jul: 'ஜூலை',
+        aug: 'ஆக',
+        sep: 'செப்',
+        oct: 'அக்',
+        nov: 'நவ',
+        dec: 'டிச'
       },
       quarters: {
         q1: 'Q1',
@@ -99,773 +86,679 @@ export const ta: Language = {
         q4: 'Q4'
       }
     },
-    // நேரம் தேர்வு
     timepicker: {
-      confirm: '\u0B9A\u0BB0\u0BBF',
-      cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD',
-      now: '\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1',
-      placeholder:
-        '\u0BA8\u0BC7\u0BB0\u0BA4\u0BCD\u0BA4\u0BC8\u0BA4\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-      startPlaceholder: '\u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD',
-      endPlaceholder: '\u0BAE\u0BC1\u0B9F\u0BBF\u0BB5\u0BC1 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD',
-      selectTime:
-        '\u0BA8\u0BC7\u0BB0\u0BA4\u0BCD\u0BA4\u0BC8\u0BA4\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1'
+      confirm: 'சரி',
+      cancel: 'ரத்துசெய்',
+      now: 'இப்போது',
+      placeholder: 'நேரத்தைத் தேர்ந்தெடு',
+      startPlaceholder: 'தொடக்க நேரம்',
+      endPlaceholder: 'முடிவு நேரம்',
+      selectTime: 'நேரத்தைத் தேர்ந்தெடு'
     },
-    // நேரம் தேர்வு
     timeselect: {
-      placeholder:
-        '\u0BA8\u0BC7\u0BB0\u0BA4\u0BCD\u0BA4\u0BC8\u0BA4\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1'
+      placeholder: 'நேரத்தைத் தேர்ந்தெடு'
     },
-    // மரம்
     tree: {
-      emptyText: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      checkAll:
-        '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD',
-      uncheckAll:
-        '\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0BAA\u0BCD\u0BAA\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1',
-      expandAll:
-        '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BB5\u0BBF\u0BB0\u0BBF\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-      collapseAll:
-        '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B9A\u0BC1\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1'
+      emptyText: 'தரவு இல்லை',
+      loading: 'ஏற்றுகிறது...',
+      checkAll: 'அனைத்தையும் சரிபார்',
+      uncheckAll: 'சரிபார்ப்பை நீக்கு',
+      expandAll: 'அனைத்தையும் விரிவாக்கு',
+      collapseAll: 'அனைத்தையும் சுருக்கு'
     },
-    // மரம் தேர்வு
     treeselect: {
-      placeholder: '\u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-      emptyText: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      noMatch:
-        '\u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8'
+      placeholder: 'தேர்ந்தெடு',
+      emptyText: 'தரவு இல்லை',
+      loading: 'ஏற்றுகிறது...',
+      noMatch: 'பொருந்தும் தரவு இல்லை'
     },
-    // நாட்காட்டி
     calendar: {
-      prevMonth: '\u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD',
-      nextMonth: '\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD',
-      prevYear: '\u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0B86\u0BA3\u0BCD\u0B9F\u0BC1',
-      nextYear: '\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0B86\u0BA3\u0BCD\u0B9F\u0BC1',
-      today: '\u0B87\u0BA9\u0BCD\u0BB1\u0BC1',
-      week: '\u0BB5\u0BBE\u0BB0\u0BAE\u0BCD',
-      holiday: '\u0BB5\u0BBF\u0B9F\u0BC1\u0BAE\u0BC1\u0BB1\u0BC8',
-      workday: '\u0BB5\u0BC7\u0BB2\u0BC8',
+      prevMonth: 'முந்தைய மாதம்',
+      nextMonth: 'அடுத்த மாதம்',
+      prevYear: 'முந்தைய ஆண்டு',
+      nextYear: 'அடுத்த ஆண்டு',
+      today: 'இன்று',
+      week: 'வாரம்',
+      holiday: 'விடுமுறை',
+      workday: 'வேலை',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: '\u0B9E\u0BBE',
-        mon: '\u0BA4\u0BBF',
-        tue: '\u0B9A\u0BC6',
-        wed: '\u0BAA\u0BC1',
-        thu: '\u0BB5\u0BBF',
-        fri: '\u0BB5\u0BC6',
-        sat: '\u0B9A'
+        sun: 'ஞா',
+        mon: 'தி',
+        tue: 'செ',
+        wed: 'பு',
+        thu: 'வி',
+        fri: 'வெ',
+        sat: 'ச'
       }
     },
-    // தானியங்கி நிரப்பு
     autocomplete: {
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      placeholder:
-        '\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD',
-      noData: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      noMatch:
-        '\u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8'
+      loading: 'ஏற்றுகிறது...',
+      placeholder: 'தயவுசெய்து உள்ளிடவும்',
+      noData: 'தரவு இல்லை',
+      noMatch: 'பொருந்தும் தரவு இல்லை'
     },
-    // எதிர் எண்ணிக்கை
     countdown: {
-      days: '\u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD',
-      hours: '\u0BAE\u0BA3\u0BBF\u0B95\u0BB3\u0BCD',
-      minutes: '\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0B99\u0BCD\u0B95\u0BB3\u0BCD',
-      seconds: '\u0BB5\u0BBF\u0BA9\u0BBE\u0B9F\u0BBF\u0B95\u0BB3\u0BCD',
-      milliseconds:
-        '\u0BAE\u0BBF\u0BB2\u0BCD\u0BB2\u0BBF \u0BB5\u0BBF\u0BA9\u0BBE\u0B9F\u0BBF\u0B95\u0BB3\u0BCD',
-      finished: '\u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1'
+      days: 'நாட்கள்',
+      hours: 'மணிகள்',
+      minutes: 'நிமிடங்கள்',
+      seconds: 'வினாடிகள்',
+      milliseconds: 'மில்லி வினாடிகள்',
+      finished: 'முடிந்தது'
     },
-    // அடுக்கு தேர்வு
     cascader: {
-      noMatch:
-        '\u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      placeholder: '\u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      noData: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8'
+      noMatch: 'பொருந்தும் தரவு இல்லை',
+      placeholder: 'தேர்ந்தெடு',
+      loading: 'ஏற்றுகிறது...',
+      noData: 'தரவு இல்லை'
     },
-    // மாற்றம்
     transfer: {
-      noMatch:
-        '\u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      noData: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      titles: [
-        '\u0BAA\u0B9F\u0BCD\u0B9F\u0BBF\u0BAF\u0BB2\u0BCD 1',
-        '\u0BAA\u0B9F\u0BCD\u0B9F\u0BBF\u0BAF\u0BB2\u0BCD 2'
-      ],
-      filterPlaceholder:
-        '\u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD',
-      noCheckedFormat: '{total} \u0B89\u0BB0\u0BC1\u0BAA\u0BCD\u0BAA\u0B9F\u0BBF\u0B95\u0BB3\u0BCD',
-      hasCheckedFormat:
-        '{checked}/{total} \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1',
-      searchPlaceholder:
-        '\u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD'
+      noMatch: 'பொருந்தும் தரவு இல்லை',
+      noData: 'தரவு இல்லை',
+      titles: ['பட்டியல் 1', 'பட்டியல் 2'],
+      filterPlaceholder: 'முக்கிய சொல்லை உள்ளிடவும்',
+      noCheckedFormat: '{total} உருப்படிகள்',
+      hasCheckedFormat: '{checked}/{total} தேர்ந்தெடுக்கப்பட்டது',
+      searchPlaceholder: 'முக்கிய சொல்லை உள்ளிடவும்'
     },
-    // அட்டவணை
     table: {
-      emptyText: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      confirmFilter:
-        '\u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1',
-      resetFilter: '\u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8',
-      clearFilter: '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD',
-      sumText: '\u0BA4\u0BCA\u0B95\u0BC8',
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      index: '\u0B95\u0BC1\u0BB1\u0BBF\u0BAF\u0BC0\u0B9F\u0BC1',
-      print: '\u0B85\u0B9A\u0BCD\u0B9A\u0BBF\u0B9F\u0BC1',
-      cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD',
-      preview:
-        '\u0B85\u0B9A\u0BCD\u0B9A\u0BC1 \u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BCB\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD',
-      printTime: '\u0B85\u0B9A\u0BCD\u0B9A\u0BC1 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD',
-      total:
-        '\u0BAE\u0BCA\u0BA4\u0BCD\u0BA4\u0BAE\u0BCD {total} \u0B89\u0BB0\u0BC1\u0BAA\u0BCD\u0BAA\u0B9F\u0BBF\u0B95\u0BB3\u0BCD',
-      page: '\u0BAA\u0B95\u0BCD\u0B95\u0BAE\u0BCD {page}',
-      yes: '\u0B86\u0BAE\u0BCD',
-      no: '\u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      // கருவிப்பட்டி
+      emptyText: 'தரவு இல்லை',
+      confirmFilter: 'உறுதிப்படுத்து',
+      resetFilter: 'மீட்டமை',
+      clearFilter: 'அனைத்தும்',
+      sumText: 'தொகை',
+      loading: 'ஏற்றுகிறது...',
+      index: 'குறியீடு',
+      print: 'அச்சிடு',
+      cancel: 'ரத்துசெய்',
+      preview: 'அச்சு முன்னோட்டம்',
+      printTime: 'அச்சு நேரம்',
+      total: 'மொத்தம் {total} உருப்படிகள்',
+      page: 'பக்கம் {page}',
+      yes: 'ஆம்',
+      no: 'இல்லை',
       toolbar: {
-        refresh: '\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF',
-        density: '\u0B85\u0B9F\u0BB0\u0BCD\u0BA4\u0BCD\u0BA4\u0BBF',
-        densityDefault: '\u0B87\u0BAF\u0BB2\u0BCD\u0BAA\u0BC1\u0BA8\u0BBF\u0BB2\u0BC8',
-        densityLarge: '\u0BAA\u0BC6\u0BB0\u0BBF\u0BAF\u0BA4\u0BC1',
-        densitySmall: '\u0B9A\u0BBF\u0BB1\u0BBF\u0BAF\u0BA4\u0BC1',
-        columnSetting:
-          '\u0BA8\u0BC6\u0B9F\u0BC1\u0BB5\u0BB0\u0BBF\u0B9A\u0BC8 \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD',
-        fullscreen: '\u0BAE\u0BC1\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC8',
-        exitFullscreen:
-          '\u0BAE\u0BC1\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC8\u0BAF\u0BBF\u0BB2\u0BBF\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1',
-        export: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BA4\u0BBF',
-        import: '\u0B87\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BA4\u0BBF',
-        search: '\u0BA4\u0BC7\u0B9F\u0BC1',
-        searchPlaceholder:
-          '\u0BA4\u0BC7\u0B9F\u0BC1\u0BB5\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 \u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD'
+        refresh: 'புதுப்பி',
+        density: 'அடர்த்தி',
+        densityDefault: 'இயல்புநிலை',
+        densityLarge: 'பெரியது',
+        densitySmall: 'சிறியது',
+        columnSetting: 'நெடுவரிசை அமைப்புகள்',
+        fullscreen: 'முழுத்திரை',
+        exitFullscreen: 'முழுத்திரையிலிருந்து வெளியேறு',
+        export: 'ஏற்றுமதி',
+        import: 'இறக்குமதி',
+        search: 'தேடு',
+        searchPlaceholder: 'தேடுவதற்கு முக்கிய சொற்களை உள்ளிடவும்'
       },
-      // வடிகட்டி
       filter: {
-        selectAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-        selectInvert: '\u0BA4\u0BC7\u0BB0\u0BCD\u0BB5\u0BC8 \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1',
-        empty: '\u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BC1',
-        notEmpty: '\u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BC1 \u0B85\u0BB2\u0BCD\u0BB2',
-        contains: '\u0B95\u0BCA\u0BA3\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1',
-        notContains:
-          '\u0B95\u0BCA\u0BA3\u0BCD\u0B9F\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8',
-        equals: '\u0B9A\u0BAE\u0BAE\u0BCD',
-        notEquals: '\u0B9A\u0BAE\u0BAE\u0BB2\u0BCD\u0BB2',
-        startsWith: '\u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1',
-        endsWith: '\u0BAE\u0BC1\u0B9F\u0BBF\u0B95\u0BBF\u0BB1\u0BA4\u0BC1',
-        greaterThan: '\u0B85\u0BA4\u0BBF\u0B95\u0BAE\u0BBE\u0BA9\u0BA4\u0BC1',
-        lessThan: '\u0B95\u0BC1\u0BB1\u0BC8\u0BB5\u0BBE\u0BA9\u0BA4\u0BC1',
-        between: '\u0B87\u0B9F\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD'
+        selectAll: 'அனைத்தையும் தேர்ந்தெடு',
+        selectInvert: 'தேர்வை மாற்று',
+        empty: 'வெற்று',
+        notEmpty: 'வெற்று அல்ல',
+        contains: 'கொண்டுள்ளது',
+        notContains: 'கொண்டிருக்கவில்லை',
+        equals: 'சமம்',
+        notEquals: 'சமமல்ல',
+        startsWith: 'தொடங்குகிறது',
+        endsWith: 'முடிகிறது',
+        greaterThan: 'அதிகமானது',
+        lessThan: 'குறைவானது',
+        between: 'இடையில்'
       },
-      // வரிசைப்படுத்து
       sort: {
-        asc: '\u0B8F\u0BB1\u0BC1\u0BB5\u0BB0\u0BBF\u0B9A\u0BC8',
-        desc: '\u0B87\u0BB1\u0B99\u0BCD\u0B95\u0BC1\u0BB5\u0BB0\u0BBF\u0B9A\u0BC8',
-        clear: '\u0BB5\u0BB0\u0BBF\u0B9A\u0BC8\u0BAF\u0BC8 \u0B85\u0BB4\u0BBF\u0B95\u0BCD\u0B95'
+        asc: 'ஏறுவரிசை',
+        desc: 'இறங்குவரிசை',
+        clear: 'வரிசையை அழிக்க'
       },
-      // ஏற்றுமதி
       export: {
-        title:
-          '\u0BA4\u0BB0\u0BB5\u0BC8 \u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD',
-        filename: '\u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD',
-        type: '\u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB5\u0B95\u0BC8',
-        scope:
-          '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BA4\u0BBF \u0BB5\u0BB0\u0BAE\u0BCD\u0BAA\u0BC1',
-        scopeAll: '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BA4\u0BB0\u0BB5\u0BC1',
-        scopeSelected:
-          '\u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BA4\u0BB0\u0BB5\u0BC1',
-        scopeCurrentPage:
-          '\u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0BAA\u0B95\u0BCD\u0B95\u0BAE\u0BCD',
-        includeHeader:
-          '\u0BA4\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD',
-        exporting:
-          '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-        success:
-          '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BA4\u0BBF \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95',
-        error:
-          '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BA4\u0BBF \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF'
+        title: 'தரவை ஏற்றுமதி செய்',
+        filename: 'கோப்பு பெயர்',
+        type: 'கோப்பு வகை',
+        scope: 'ஏற்றுமதி வரம்பு',
+        scopeAll: 'அனைத்து தரவு',
+        scopeSelected: 'தேர்ந்தெடுக்கப்பட்ட தரவு',
+        scopeCurrentPage: 'தற்போதைய பக்கம்',
+        includeHeader: 'தலைப்பைச் சேர்',
+        exporting: 'ஏற்றுமதி செய்கிறது...',
+        success: 'ஏற்றுமதி வெற்றிகரமாக',
+        error: 'ஏற்றுமதி தோல்வி'
       },
-      // இறக்குமதி
       import: {
-        title:
-          '\u0BA4\u0BB0\u0BB5\u0BC8 \u0B87\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD',
-        selectFile:
-          '\u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-        dragTip:
-          '\u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1\u0BC1\u0BB5\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 \u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC8 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B87\u0BB4\u0BC1\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD',
-        importing:
-          '\u0B87\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-        success:
-          '\u0B87\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BA4\u0BBF \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95',
-        error:
-          '\u0B87\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BA4\u0BBF \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF',
-        preview:
-          '\u0BA4\u0BB0\u0BB5\u0BC1 \u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BCB\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD',
-        confirm:
-          '\u0B87\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BA4\u0BBF\u0BAF\u0BC8 \u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1'
+        title: 'தரவை இறக்குமதி செய்',
+        selectFile: 'கோப்பைத் தேர்ந்தெடு',
+        dragTip: 'பதிவேற்றுவதற்கு கோப்பை இங்கே கிளிக் செய்யவும் அல்லது இழுக்கவும்',
+        importing: 'இறக்குமதி செய்கிறது...',
+        success: 'இறக்குமதி வெற்றிகரமாக',
+        error: 'இறக்குமதி தோல்வி',
+        preview: 'தரவு முன்னோட்டம்',
+        confirm: 'இறக்குமதியை உறுதிப்படுத்து'
       },
-      // அச்சிடு
       printConfig: {
-        title:
-          '\u0B85\u0B9A\u0BCD\u0B9A\u0BC1 \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD',
-        pageTitle:
-          '\u0BAA\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BA4\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1',
-        pageHeader: '\u0BA4\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1',
-        pageFooter:
-          '\u0B85\u0B9F\u0BBF\u0B95\u0BCD\u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1',
-        printAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B85\u0B9A\u0BCD\u0B9A\u0BBF\u0B9F\u0BC1',
-        printSelected:
-          '\u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BB5\u0BB1\u0BCD\u0BB1\u0BC8 \u0B85\u0B9A\u0BCD\u0B9A\u0BBF\u0B9F\u0BC1',
-        printCurrentPage:
-          '\u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0BAA\u0B95\u0BCD\u0B95\u0BA4\u0BCD\u0BA4\u0BC8 \u0B85\u0B9A\u0BCD\u0B9A\u0BBF\u0B9F\u0BC1',
-        landscape: '\u0B95\u0BBF\u0B9F\u0BC8\u0BAE\u0B9F\u0BCD\u0B9F',
-        portrait: '\u0B9A\u0BC6\u0B99\u0BCD\u0B95\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1',
-        printing: '\u0B85\u0B9A\u0BCD\u0B9A\u0BBF\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...'
+        title: 'அச்சு அமைப்புகள்',
+        pageTitle: 'பக்கம் தலைப்பு',
+        pageHeader: 'தலைப்பு',
+        pageFooter: 'அடிக்குறிப்பு',
+        printAll: 'அனைத்தையும் அச்சிடு',
+        printSelected: 'தேர்ந்தெடுக்கப்பட்டவற்றை அச்சிடு',
+        printCurrentPage: 'தற்போதைய பக்கத்தை அச்சிடு',
+        landscape: 'கிடைமட்ட',
+        portrait: 'செங்குத்து',
+        printing: 'அச்சிடுகிறது...'
       },
-      // நெடுவரிசை அமைப்புகள்
       columnSetting: {
-        title:
-          '\u0BA8\u0BC6\u0B9F\u0BC1\u0BB5\u0BB0\u0BBF\u0B9A\u0BC8 \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD',
-        showAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1',
-        hideAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BAE\u0BB1\u0BC8',
-        reset: '\u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8',
-        fixedLeft:
-          '\u0B87\u0B9F\u0BA4\u0BC1\u0BAA\u0BC1\u0BB1\u0BAE\u0BCD \u0BA8\u0BBF\u0BB2\u0BC8\u0BAF\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-        fixedRight:
-          '\u0BB5\u0BB2\u0BA4\u0BC1\u0BAA\u0BC1\u0BB1\u0BAE\u0BCD \u0BA8\u0BBF\u0BB2\u0BC8\u0BAF\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-        unfixed:
-          '\u0BA8\u0BBF\u0BB2\u0BC8\u0BAF\u0BBE\u0B95\u0BCD\u0B95\u0BB2\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1'
+        title: 'நெடுவரிசை அமைப்புகள்',
+        showAll: 'அனைத்தையும் காட்டு',
+        hideAll: 'அனைத்தையும் மறை',
+        reset: 'மீட்டமை',
+        fixedLeft: 'இடதுபுறம் நிலையாக்கு',
+        fixedRight: 'வலதுபுறம் நிலையாக்கு',
+        unfixed: 'நிலையாக்கலை நீக்கு'
       },
-      // சூழல் மெனு
       contextMenu: {
-        copy: '\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1',
-        copyRow: '\u0BB5\u0BB0\u0BBF\u0BAF\u0BC8 \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1',
-        copyCell: '\u0B95\u0BB2\u0BA4\u0BCD\u0BA4\u0BC8 \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1',
-        paste: '\u0B92\u0B9F\u0BCD\u0B9F\u0BC1',
-        insertRowAbove:
-          '\u0BAE\u0BC7\u0BB2\u0BC7 \u0BB5\u0BB0\u0BBF\u0BAF\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD',
-        insertRowBelow:
-          '\u0B95\u0BC0\u0BB4\u0BC7 \u0BB5\u0BB0\u0BBF\u0BAF\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD',
-        deleteRow: '\u0BB5\u0BB0\u0BBF\u0BAF\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1',
-        deleteSelectedRows:
-          '\u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BB0\u0BBF\u0B95\u0BB3\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1',
-        exportSelected:
-          '\u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BB5\u0BB1\u0BCD\u0BB1\u0BC8 \u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD'
+        copy: 'நகலெடு',
+        copyRow: 'வரியை நகலெடு',
+        copyCell: 'கலத்தை நகலெடு',
+        paste: 'ஒட்டு',
+        insertRowAbove: 'மேலே வரியைச் சேர்',
+        insertRowBelow: 'கீழே வரியைச் சேர்',
+        deleteRow: 'வரியை நீக்கு',
+        deleteSelectedRows: 'தேர்ந்தெடுக்கப்பட்ட வரிகளை நீக்கு',
+        exportSelected: 'தேர்ந்தெடுக்கப்பட்டவற்றை ஏற்றுமதி செய்'
       },
-      // தேர்வு
       selection: {
-        selectAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-        selectInvert: '\u0BA4\u0BC7\u0BB0\u0BCD\u0BB5\u0BC8 \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1',
-        selectNone: '\u0BA4\u0BC7\u0BB0\u0BCD\u0BB5\u0BC8 \u0B85\u0BB4\u0BBF\u0B95\u0BCD\u0B95',
-        selected:
-          '{count} \u0B89\u0BB0\u0BC1\u0BAA\u0BCD\u0BAA\u0B9F\u0BBF\u0B95\u0BB3\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1'
+        selectAll: 'அனைத்தையும் தேர்ந்தெடு',
+        selectInvert: 'தேர்வை மாற்று',
+        selectNone: 'தேர்வை அழிக்க',
+        selected: '{count} உருப்படிகள் தேர்ந்தெடுக்கப்பட்டது'
       },
-      // விரிவாக்கு
       expand: {
-        expandAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BB5\u0BBF\u0BB0\u0BBF\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-        collapseAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B9A\u0BC1\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1'
+        expandAll: 'அனைத்தையும் விரிவாக்கு',
+        collapseAll: 'அனைத்தையும் சுருக்கு'
       },
-      // மரம்
       tree: {
-        expandAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BB5\u0BBF\u0BB0\u0BBF\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-        collapseAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B9A\u0BC1\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1',
-        expandLevel:
-          '\u0BA8\u0BBF\u0BB2\u0BC8 {level} \u0BB5\u0BB0\u0BC8 \u0BB5\u0BBF\u0BB0\u0BBF\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1'
+        expandAll: 'அனைத்தையும் விரிவாக்கு',
+        collapseAll: 'அனைத்தையும் சுருக்கு',
+        expandLevel: 'நிலை {level} வரை விரிவாக்கு'
       },
-      // இழு
       drag: {
-        dragTip:
-          '\u0BAE\u0BB1\u0BC1\u0B9A\u0BC0\u0BB0\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 \u0B87\u0BB4\u0BC1\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD',
-        dropTip:
-          '\u0BB5\u0BC8\u0BAA\u0BCD\u0BAA\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 \u0BB5\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD'
+        dragTip: 'மறுசீரமைப்பதற்கு இழுக்கவும்',
+        dropTip: 'வைப்பதற்கு விடவும்'
       }
     },
-    // செய்தி பெட்டி
     messagebox: {
-      title: '\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BBF',
-      confirm: '\u0B9A\u0BB0\u0BBF',
-      cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD',
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1',
-      error:
-        '\u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BBE\u0BA4 \u0B89\u0BB3\u0BCD\u0BB3\u0BC0\u0B9F\u0BC1',
-      alert: '\u0B8E\u0B9A\u0BCD\u0B9A\u0BB0\u0BBF\u0B95\u0BCD\u0B95\u0BC8',
-      prompt: '\u0B95\u0BC7\u0B9F\u0BCD\u0B95',
-      inputPlaceholder:
-        '\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD'
+      title: 'செய்தி',
+      confirm: 'சரி',
+      cancel: 'ரத்துசெய்',
+      close: 'மூடு',
+      error: 'செல்லாத உள்ளீடு',
+      alert: 'எச்சரிக்கை',
+      prompt: 'கேட்க',
+      inputPlaceholder: 'தயவுசெய்து உள்ளிடவும்'
     },
-    // பதிவேற்று
     upload: {
-      deleteTip:
-        '\u0BA8\u0BC0\u0B95\u0BCD\u0B95 delete \u0B85\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BB5\u0BC1\u0BAE\u0BCD',
-      delete: '\u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1',
-      preview: '\u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BCB\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD',
-      continue: '\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD',
-      upload:
-        '\u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD',
-      tip: '<em>\u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1</em>\u0BB5\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 \u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC8 \u0B87\u0BA8\u0BCD\u0BA4 \u0BAA\u0B95\u0BC1\u0BA4\u0BBF\u0B95\u0BCD\u0B95\u0BC1 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B87\u0BB4\u0BC1\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD',
-      dragTip:
-        '\u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC8 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0BB5\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD',
-      uploading:
-        '\u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      success:
-        '\u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95',
-      error:
-        '\u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF',
-      retry:
-        '\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0BAF\u0BB1\u0BCD\u0B9A\u0BBF',
-      cancel:
-        '\u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1\u0BA4\u0BCD\u0BA4\u0BC8 \u0BB0\u0BA4\u0BCD\u0BA4\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD',
-      fileTypeError:
-        '\u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB5\u0B95\u0BC8 \u0B86\u0BA4\u0BB0\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8',
-      fileSizeError:
-        '\u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BB3\u0BB5\u0BC1 \u0BB5\u0BB0\u0BAE\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC0\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1',
-      fileCountError:
-        '\u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC1 \u0B8E\u0BA3\u0BCD\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BC8 \u0BB5\u0BB0\u0BAE\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC0\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1'
+      deleteTip: 'நீக்க delete அழுத்தவும்',
+      delete: 'நீக்கு',
+      preview: 'முன்னோட்டம்',
+      continue: 'தொடர்',
+      upload: 'பதிவேற்ற கிளிக் செய்யவும்',
+      tip: '<em>பதிவேற்ற</em>வதற்கு கோப்பை இந்த பகுதிக்கு கிளிக் செய்யவும் அல்லது இழுக்கவும்',
+      dragTip: 'கோப்பை இங்கே விடவும் அல்லது பதிவேற்ற கிளிக் செய்யவும்',
+      uploading: 'பதிவேற்றுகிறது...',
+      success: 'பதிவேற்றம் வெற்றிகரமாக',
+      error: 'பதிவேற்றம் தோல்வி',
+      retry: 'மீண்டும் முயற்சி',
+      cancel: 'பதிவேற்றத்தை ரத்துசெய்',
+      fileTypeError: 'கோப்பு வகை ஆதரிக்கப்படவில்லை',
+      fileSizeError: 'கோப்பு அளவு வரம்பை மீறுகிறது',
+      fileCountError: 'கோப்பு எண்ணிக்கை வரம்பை மீறுகிறது'
     },
-    // படிவம்
     form: {
-      validationFailed:
-        '\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF',
-      required: '\u0BA4\u0BC7\u0BB5\u0BC8\u0BAF\u0BBE\u0BA9\u0BA4\u0BC1',
-      pleaseInput:
-        '\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD',
-      pleaseSelect:
-        '\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD'
+      validationFailed: 'சரிபார்ப்பு தோல்வி',
+      required: 'தேவையானது',
+      pleaseInput: 'தயவுசெய்து உள்ளிடவும்',
+      pleaseSelect: 'தயவுசெய்து தேர்ந்தெடுக்கவும்'
     },
-    // பொத்தான்
     button: {
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...'
+      loading: 'ஏற்றுகிறது...'
     },
-    // உள்ளீடு
     input: {
-      placeholder:
-        '\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD',
-      clear: '\u0B85\u0BB4\u0BBF\u0B95\u0BCD\u0B95',
-      showPassword:
-        '\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8\u0B95\u0BCD \u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1',
-      hidePassword:
-        '\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0BAE\u0BB1\u0BC8',
-      copy: '\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1',
-      copied:
-        '\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1'
+      placeholder: 'தயவுசெய்து உள்ளிடவும்',
+      clear: 'அழிக்க',
+      showPassword: 'கடவுச்சொல்லைக் காட்டு',
+      hidePassword: 'கடவுச்சொல்லை மறை',
+      copy: 'நகலெடு',
+      copied: 'நகலெடுக்கப்பட்டது'
     },
-    // எண் உள்ளீடு
     inputnumber: {
-      placeholder:
-        '\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B8E\u0BA3\u0BCD\u0BA3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD',
-      increase: '\u0B85\u0BA4\u0BBF\u0B95\u0BB0\u0BBF\u0B95\u0BCD\u0B95',
-      decrease: '\u0B95\u0BC1\u0BB1\u0BC8\u0B95\u0BCD\u0B95'
+      placeholder: 'தயவுசெய்து எண்ணை உள்ளிடவும்',
+      increase: 'அதிகரிக்க',
+      decrease: 'குறைக்க'
     },
-    // குறிச்சொல் உள்ளீடு
     inputtag: {
-      placeholder:
-        '\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD',
-      add: '\u0B9A\u0BC7\u0BB0\u0BCD',
-      remove: '\u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1'
+      placeholder: 'தயவுசெய்து உள்ளிடவும்',
+      add: 'சேர்',
+      remove: 'நீக்கு'
     },
-    // பிரெட்க்ரம்ப்
     breadcrumb: {
-      label: '\u0BAA\u0BBF\u0BB0\u0BC6\u0B9F\u0BCD\u0B95\u0BCD\u0BB0\u0BAE\u0BCD\u0BAA\u0BCD',
-      more: '\u0BAE\u0BC7\u0BB2\u0BC1\u0BAE\u0BCD'
+      label: 'பிரெட்க்ரம்ப்',
+      more: 'மேலும்'
     },
-    // மேலே திரும்பு
     backtop: {
-      text: '\u0BAE\u0BC7\u0BB2\u0BC7 \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1'
+      text: 'மேலே திரும்பு'
     },
-    // தேர்வு
     select: {
-      placeholder:
-        '\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD',
-      noData: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      noMatch:
-        '\u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      selectAll:
-        '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1',
-      clearAll:
-        '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B85\u0BB4\u0BBF\u0B95\u0BCD\u0B95'
+      placeholder: 'தயவுசெய்து தேர்ந்தெடுக்கவும்',
+      noData: 'தரவு இல்லை',
+      loading: 'ஏற்றுகிறது...',
+      noMatch: 'பொருந்தும் தரவு இல்லை',
+      selectAll: 'அனைத்தையும் தேர்ந்தெடு',
+      clearAll: 'அனைத்தையும் அழிக்க'
     },
-    // பக்கமாக்கல்
     pagination: {
-      goto: '\u0B9A\u0BC6\u0BB2\u0BCD',
+      goto: 'செல்',
       page: '',
-      total: '\u0BAE\u0BCA\u0BA4\u0BCD\u0BA4\u0BAE\u0BCD {total}',
-      pageSize: '/\u0BAA\u0B95\u0BCD\u0B95\u0BAE\u0BCD',
-      prev: '\u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF',
-      next: '\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4',
-      first: '\u0BAE\u0BC1\u0BA4\u0BB2\u0BCD',
-      last: '\u0B95\u0B9F\u0BC8\u0B9A\u0BBF',
+      total: 'மொத்தம் {total}',
+      pageSize: '/பக்கம்',
+      prev: 'முந்தைய',
+      next: 'அடுத்த',
+      first: 'முதல்',
+      last: 'கடைசி',
       pageClassifier: ''
     },
-    // உறுதிப்படுத்தல் பாப்
     popconfirm: {
-      confirm: '\u0B9A\u0BB0\u0BBF',
-      cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD',
-      dontAskAgain:
-        '\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B95\u0BC7\u0B9F\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BBE\u0BAE\u0BCD'
+      confirm: 'சரி',
+      cancel: 'ரத்துசெய்',
+      dontAskAgain: 'மீண்டும் கேட்க வேண்டாம்'
     },
-    // உரையாடல்
     dialog: {
-      confirm: '\u0B9A\u0BB0\u0BBF',
-      cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD',
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1',
-      maximize: '\u0BAA\u0BC6\u0BB0\u0BBF\u0BA4\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-      restore: '\u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8'
+      confirm: 'சரி',
+      cancel: 'ரத்துசெய்',
+      close: 'மூடு',
+      maximize: 'பெரிதாக்கு',
+      restore: 'மீட்டமை'
     },
-    // இழுப்பறை
     drawer: {
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1',
-      confirm: '\u0B9A\u0BB0\u0BBF',
-      cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD'
+      close: 'மூடு',
+      confirm: 'சரி',
+      cancel: 'ரத்துசெய்'
     },
-    // கீழ்தோன்றும் மெனு
     dropdown: {
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...'
+      loading: 'ஏற்றுகிறது...'
     },
-    // படம்
     image: {
-      error: '\u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF',
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      preview: '\u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BCB\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD',
-      zoomIn: '\u0BAA\u0BC6\u0BB0\u0BBF\u0BA4\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-      zoomOut: '\u0B9A\u0BBF\u0BB1\u0BBF\u0BA4\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-      rotateLeft:
-        '\u0B87\u0B9F\u0BA4\u0BC1\u0BAA\u0BC1\u0BB1\u0BAE\u0BCD \u0B9A\u0BC1\u0BB4\u0BB1\u0BCD\u0BB1\u0BC1',
-      rotateRight:
-        '\u0BB5\u0BB2\u0BA4\u0BC1\u0BAA\u0BC1\u0BB1\u0BAE\u0BCD \u0B9A\u0BC1\u0BB4\u0BB1\u0BCD\u0BB1\u0BC1',
-      originalSize: '\u0B85\u0B9A\u0BB2\u0BCD \u0B85\u0BB3\u0BB5\u0BC1',
-      fullscreen: '\u0BAE\u0BC1\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC8'
+      error: 'தோல்வி',
+      loading: 'ஏற்றுகிறது...',
+      preview: 'முன்னோட்டம்',
+      zoomIn: 'பெரிதாக்கு',
+      zoomOut: 'சிறிதாக்கு',
+      rotateLeft: 'இடதுபுறம் சுழற்று',
+      rotateRight: 'வலதுபுறம் சுழற்று',
+      originalSize: 'அசல் அளவு',
+      fullscreen: 'முழுத்திரை'
     },
-    // படம் காட்டி
     imageviewer: {
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1',
-      prev: '\u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF',
-      next: '\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4',
-      zoomIn: '\u0BAA\u0BC6\u0BB0\u0BBF\u0BA4\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-      zoomOut: '\u0B9A\u0BBF\u0BB1\u0BBF\u0BA4\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-      rotateLeft:
-        '\u0B87\u0B9F\u0BA4\u0BC1\u0BAA\u0BC1\u0BB1\u0BAE\u0BCD \u0B9A\u0BC1\u0BB4\u0BB1\u0BCD\u0BB1\u0BC1',
-      rotateRight:
-        '\u0BB5\u0BB2\u0BA4\u0BC1\u0BAA\u0BC1\u0BB1\u0BAE\u0BCD \u0B9A\u0BC1\u0BB4\u0BB1\u0BCD\u0BB1\u0BC1',
-      reset: '\u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8',
-      fullscreen: '\u0BAE\u0BC1\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC8',
-      exitFullscreen:
-        '\u0BAE\u0BC1\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC8\u0BAF\u0BBF\u0BB2\u0BBF\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1'
+      close: 'மூடு',
+      prev: 'முந்தைய',
+      next: 'அடுத்த',
+      zoomIn: 'பெரிதாக்கு',
+      zoomOut: 'சிறிதாக்கு',
+      rotateLeft: 'இடதுபுறம் சுழற்று',
+      rotateRight: 'வலதுபுறம் சுழற்று',
+      reset: 'மீட்டமை',
+      fullscreen: 'முழுத்திரை',
+      exitFullscreen: 'முழுத்திரையிலிருந்து வெளியேறு'
     },
-    // முடிவிலா ஸ்க்ரோல்
     infinitescroll: {
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      finished:
-        '\u0BAE\u0BC7\u0BB2\u0BC1\u0BAE\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      error:
-        '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BA4\u0BB2\u0BCD \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF, \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0BAF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD',
-      retry:
-        '\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0BAF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD'
+      loading: 'ஏற்றுகிறது...',
+      finished: 'மேலும் தரவு இல்லை',
+      error: 'ஏற்றுதல் தோல்வி, மீண்டும் முயற்சிக்க கிளிக் செய்யவும்',
+      retry: 'மீண்டும் முயற்சிக்க கிளிக் செய்யவும்'
     },
-    // செய்தி
     message: {
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1'
+      close: 'மூடு'
     },
-    // அறிவிப்பு
     notification: {
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1'
+      close: 'மூடு'
     },
-    // ஏற்றுகிறது
     loading: {
-      text: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...'
+      text: 'ஏற்றுகிறது...'
     },
-    // சுழல்
     spin: {
-      text: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...'
+      text: 'ஏற்றுகிறது...'
     },
-    // மதிப்பீடு
     rate: {
-      texts: [
-        '\u0BAE\u0BBF\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u0BAE\u0BCB\u0B9A\u0BAE\u0BBE\u0BA9\u0BA4\u0BC1',
-        '\u0B8F\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD',
-        '\u0BA8\u0BBF\u0BAF\u0BBE\u0BAF\u0BAE\u0BBE\u0BA9\u0BA4\u0BC1',
-        '\u0BA4\u0BBF\u0BB0\u0BC1\u0BAA\u0BCD\u0BA4\u0BBF',
-        '\u0B86\u0B9A\u0BCD\u0B9A\u0BB0\u0BBF\u0BAF\u0BAE\u0BCD'
-      ]
+      texts: ['மிகவும் மோசமானது', 'ஏமாற்றம்', 'நியாயமானது', 'திருப்தி', 'ஆச்சரியம்']
     },
-    // எச்சரிக்கை
     alert: {
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1'
+      close: 'மூடு'
     },
-    // குறிச்சொல்
     tag: {
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1'
+      close: 'மூடு'
     },
-    // தாவல்கள்
     tabs: {
-      close: '\u0BAE\u0BC2\u0B9F\u0BC1',
-      add: '\u0B9A\u0BC7\u0BB0\u0BCD',
-      more: '\u0BAE\u0BC7\u0BB2\u0BC1\u0BAE\u0BCD'
+      close: 'மூடு',
+      add: 'சேர்',
+      more: 'மேலும்'
     },
-    // படிகள்
     steps: {
-      finish: '\u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1',
-      process:
-        '\u0BA8\u0B9F\u0BA8\u0BCD\u0BA4\u0BC1 \u0B95\u0BCA\u0BA3\u0BCD\u0B9F\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1',
-      wait: '\u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1',
-      error: '\u0BAA\u0BBF\u0BB4\u0BC8'
+      finish: 'முடிந்தது',
+      process: 'நடந்து கொண்டிருக்கிறது',
+      wait: 'காத்திருக்கிறது',
+      error: 'பிழை'
     },
-    // முன்னேற்றம்
     progress: {
-      success: '\u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF',
-      exception: '\u0BB5\u0BBF\u0BA4\u0BBF\u0BB5\u0BBF\u0BB2\u0B95\u0BCD\u0B95\u0BC1',
-      warning: '\u0B8E\u0B9A\u0BCD\u0B9A\u0BB0\u0BBF\u0B95\u0BCD\u0B95\u0BC8'
+      success: 'வெற்றி',
+      exception: 'விதிவிலக்கு',
+      warning: 'எச்சரிக்கை'
     },
-    // எலும்புக்கூடு
     skeleton: {
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...'
+      loading: 'ஏற்றுகிறது...'
     },
-    // வெற்று
     empty: {
-      description: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      noData: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      noResult:
-        '\u0BAE\u0BC1\u0B9F\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      networkError:
-        '\u0BB5\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BCD\u0BA9\u0BB2\u0BCD \u0BAA\u0BBF\u0BB4\u0BC8',
-      serverError: '\u0B9A\u0BC7\u0BB5\u0BC8\u0BAF\u0B95 \u0BAA\u0BBF\u0BB4\u0BC8'
+      description: 'தரவு இல்லை',
+      noData: 'தரவு இல்லை',
+      noResult: 'முடிவுகள் இல்லை',
+      networkError: 'வலைப்பின்னல் பிழை',
+      serverError: 'சேவையக பிழை'
     },
-    // முடிவு
     result: {
-      success: '\u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF',
-      error: '\u0BAA\u0BBF\u0BB4\u0BC8',
-      warning: '\u0B8E\u0B9A\u0BCD\u0B9A\u0BB0\u0BBF\u0B95\u0BCD\u0B95\u0BC8',
-      info: '\u0BA4\u0B95\u0BB5\u0BB2\u0BCD',
-      backHome:
-        '\u0BB5\u0BC0\u0B9F\u0BCD\u0B9F\u0BBF\u0BB1\u0BCD\u0B95\u0BC1 \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1'
+      success: 'வெற்றி',
+      error: 'பிழை',
+      warning: 'எச்சரிக்கை',
+      info: 'தகவல்',
+      backHome: 'வீட்டிற்கு திரும்பு'
     },
-    // நீர்வீழ்ச்சி
     waterfall: {
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      noMore:
-        '\u0BAE\u0BC7\u0BB2\u0BC1\u0BAE\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-      empty: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8'
+      loading: 'ஏற்றுகிறது...',
+      noMore: 'மேலும் தரவு இல்லை',
+      empty: 'தரவு இல்லை'
     },
-    // விளக்கங்கள்
     descriptions: {
       colon: ':'
     },
-    // ஸ்லைடர்
     slider: {
       tipFormatter: '{value}'
     },
-    // சுவிட்ச்
     switch: {
       on: 'ON',
       off: 'OFF'
     },
-    // சரிபார்ப்பு பெட்டி
     checkbox: {
-      selectAll:
-        '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1'
+      selectAll: 'அனைத்தையும் தேர்ந்தெடு'
     },
-    // ரேடியோ
     radio: {},
-    // மெனு
     menu: {
-      collapse:
-        '\u0BAE\u0BC6\u0BA9\u0BC1\u0BB5\u0BC8 \u0B9A\u0BC1\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1',
-      expand:
-        '\u0BAE\u0BC6\u0BA9\u0BC1\u0BB5\u0BC8 \u0BB5\u0BBF\u0BB0\u0BBF\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1'
+      collapse: 'மெனுவை சுருக்கு',
+      expand: 'மெனுவை விரிவாக்கு'
     },
-    // அட்டை
     card: {
-      collapse: '\u0B9A\u0BC1\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1',
-      expand: '\u0BB5\u0BBF\u0BB0\u0BBF\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1'
+      collapse: 'சுருக்கு',
+      expand: 'விரிவாக்கு'
     },
-    // சுருக்கு
     collapse: {
-      expand: '\u0BB5\u0BBF\u0BB0\u0BBF\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-      collapse: '\u0B9A\u0BC1\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1'
+      expand: 'விரிவாக்கு',
+      collapse: 'சுருக்கு'
     },
-    // கருவி குறிப்பு
     tooltip: {},
-    // பாப்ஓவர்
     popover: {},
-    // பேட்ஜ்
     badge: {},
-    // அவதார்
     avatar: {
-      error: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BA4\u0BB2\u0BCD \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF'
+      error: 'ஏற்றுதல் தோல்வி'
     },
-    // நீர் அடையாளம்
     watermark: {},
-    // பிரிப்பான்
     divider: {},
-    // கேரசல்
     carousel: {
-      prev: '\u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF',
-      next: '\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4'
+      prev: 'முந்தைய',
+      next: 'அடுத்த'
     },
-    // மார்க்கி
     marquee: {},
-    // இணைப்பு
     affix: {},
-    // நங்கூரம்
-    anchor: {},
-    // Mention
-    mention: {
-      placeholder:
-        '\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BCD \u0B9A\u0BC1\u0B9F\u0BCD\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD',
-      loading: '\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-      noData: '\u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8'
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
     },
-    // AI Components
+    anchor: {},
+    mention: {
+      placeholder: 'தயவுச் சுட்டவும்',
+      loading: 'ஏற்றுகிறது...',
+      noData: 'தரவு இல்லை'
+    },
+    skuselector: {
+      placeholder: 'Select specifications',
+      emptyText: 'No specifications',
+      stock: 'Stock',
+      price: 'Price',
+      selected: 'Selected',
+      outOfStock: 'Out of Stock'
+    },
+    productcard: {
+      viewDetails: 'View Details',
+      buyNow: 'Buy Now',
+      addToCart: 'Add to Cart',
+      sold: 'Sold',
+      soldOut: 'Sold Out',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Original'
+    },
+    couponcard: {
+      available: 'Claim Now',
+      used: 'Used',
+      expired: 'Expired',
+      received: 'Received',
+      limit: 'Orders over {threshold}',
+      noThreshold: 'No threshold',
+      validPeriod: 'Validity',
+      ruleTitle: 'Usage Rules'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Drawing...',
+      end: 'Winner!',
+      retry: 'Retry'
+    },
+    filterbar: {
+      all: 'All',
+      sort: 'Sort',
+      filter: 'Filter',
+      cancel: 'Cancel',
+      reset: 'Reset',
+      confirm: 'Confirm',
+      noOptions: 'No options',
+      asc: 'Ascending',
+      desc: 'Descending',
+      selected: 'Selected'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selected',
+      submit: 'Checkout',
+      allSelect: 'Select All'
+    },
+    categorynav: {
+      all: 'All',
+      noData: 'No Data',
+      loading: 'Loading...'
+    },
+    smartaddress: {
+      placeholder: 'Paste address here, auto-detect name, phone, location',
+      parse: 'Smart Parse',
+      province: 'Province/City/District',
+      city: 'City',
+      district: 'District/County',
+      street: 'Street/Town',
+      detail: 'Detailed Address',
+      phone: 'Phone',
+      name: 'Recipient',
+      parseSuccess: 'Address parsed successfully',
+      parseFailed: 'Parse failed, please fill manually',
+      required: 'Please fill complete address',
+      provinceKeywords: ['Province', 'State'],
+      cityKeywords: ['City', 'Prefecture'],
+      districtKeywords: ['District', 'County', 'Township'],
+      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+    },
+    ganttchart: {
+      taskName: 'Task Name',
+      searchPlaceholder: 'Search tasks...',
+      zoom: 'Zoom',
+      day: 'Day',
+      week: 'Week',
+      month: 'Month',
+      year: 'Year',
+      milestone: 'Milestone'
+    },
+    imagemagnifier: {
+      switchToImage: 'Switch to image {index}',
+      galleryItem: 'Gallery {index}',
+      close: 'Close'
+    },
     ai: {
       bubble: {
-        citations: '\u0BAE\u0BC7\u0BB1\u0BCD\u0B95\u0BCB\u0BB3\u0BCD\u0B95\u0BB3\u0BCD'
+        citations: 'மேற்கோள்கள்'
       },
       mention: {
-        placeholder:
-          '@ \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BCD, \u0B86\u0BB5\u0BA3\u0BAE\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAF\u0BC8\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD...',
-        agent: '\u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BCD',
-        document: '\u0B86\u0BB5\u0BA3\u0BAE\u0BCD',
-        table: '\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8',
-        knowledge: '\u0B85\u0BB1\u0BBF\u0BB5\u0BC1'
+        placeholder: '@ முகவர், ஆவணம் அல்லது அட்டவணையைக் குறிப்பிடவும்...',
+        agent: 'முகவர்',
+        document: 'ஆவணம்',
+        table: 'அட்டவணை',
+        knowledge: 'அறிவு',
+        file: 'File'
       },
       codeBlock: {
-        copyCode:
-          '\u0B95\u0BC1\u0BB1\u0BBF\u0BAF\u0BC0\u0B9F\u0BCD\u0B9F\u0BC8 \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1',
-        copied:
-          '\u0BA8\u0B95\u0BB2\u0BCD \u0B8E\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!',
-        run: '\u0B95\u0BC1\u0BB1\u0BBF\u0BAF\u0BC0\u0B9F\u0BCD\u0B9F\u0BC8 \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BC1',
-        edit: '\u0BA4\u0BBF\u0BB0\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1',
-        save: '\u0B9A\u0BC7\u0BAE\u0BBF',
-        cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1'
+        copyCode: 'குறியீட்டை நகலெடு',
+        copied: 'நகல் எடுக்கப்பட்டது!',
+        run: 'குறியீட்டை இயக்கு',
+        edit: 'திருத்து',
+        save: 'சேமி',
+        cancel: 'ரத்து'
       },
       codeRunner: {
-        run: '\u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BC1',
-        stop: '\u0BA8\u0BBF\u0BB1\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1',
-        clear: '\u0BA4\u0BC6\u0BB3\u0BBF\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-        reset: '\u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8',
-        placeholder:
-          '\u0B95\u0BC1\u0BB1\u0BBF\u0BAF\u0BC0\u0B9F\u0BCD\u0B9F\u0BC8 \u0B87\u0BAF\u0B95\u0BCD\u0B95 \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BC1 \u0BAA\u0B9F\u0BCD\u0B9F\u0BA9\u0BC8\u0B95\u0BCD \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD...'
+        run: 'இயக்கு',
+        stop: 'நிறுத்து',
+        clear: 'தெளிவாக்கு',
+        reset: 'மீட்டமை',
+        placeholder: 'குறியீட்டை இயக்க இயக்கு பட்டனைக் கிளிக் செய்யவும்...'
       },
       sender: {
-        placeholder:
-          '\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BBF \u0B85\u0BA9\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1...',
-        dragTip:
-          '\u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1 \u0BB5\u0BBF\u0B9F\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD'
+        placeholder: 'செய்தி அனுப்பு...',
+        dragTip: 'கோப்புகளை பதிவேற்ற விடுங்கள்',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
-        thoughtProcess:
-          '\u0B9A\u0BBF\u0BA8\u0BCD\u0BA4\u0BA9\u0BC8 \u0B9A\u0BC6\u0BAF\u0BB2\u0BCD\u0BAE\u0BC1\u0BB1\u0BC8',
-        thinking:
-          '\u0B9A\u0BBF\u0BA8\u0BCD\u0BA4\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-        defaultTitle: '\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0B9F\u0BBF',
-        addNode:
-          '\u0BAA\u0B9F\u0BBF\u0BAF\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95'
+        thoughtProcess: 'சிந்தனை செயல்முறை',
+        thinking: 'சிந்திக்கிறது...',
+        defaultTitle: 'புதிய படி',
+        addNode: 'படியைச் சேர்க்க'
       },
       thinking: {
-        start:
-          '\u0B9A\u0BBF\u0BA8\u0BCD\u0BA4\u0BA9\u0BC8\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1',
-        thinking:
-          '\u0B9A\u0BBF\u0BA8\u0BCD\u0BA4\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-        complete:
-          '\u0B9A\u0BBF\u0BA8\u0BCD\u0BA4\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4\u0BA4\u0BC1',
-        error: '\u0B9A\u0BBF\u0BA8\u0BCD\u0BA4\u0BA9\u0BC8 \u0BAA\u0BBF\u0BB4\u0BC8'
+        start: 'சிந்தனையைத் தொடங்கு',
+        thinking: 'சிந்திக்கிறது...',
+        complete: 'சிந்தித்து முடித்தது',
+        error: 'சிந்தனை பிழை'
       },
       welcome: {
-        title: '\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, \u0BA8\u0BBE\u0BA9\u0BCD YH AI',
+        title: 'வணக்கம், நான் YH AI',
         description:
-          '\u0BA8\u0BBE\u0BA9\u0BCD \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B95\u0BC1\u0BB1\u0BBF\u0BAF\u0BC0\u0B9F\u0BC1 \u0B8E\u0BB4\u0BC1\u0BA4\u0BC1\u0BA4\u0BB2\u0BCD, \u0B86\u0BB5\u0BA3\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BCA\u0BB4\u0BBF\u0BAA\u0BC6\u0BAF\u0BB0\u0BCD\u0BA4\u0BCD\u0BA4\u0BB2\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BAA\u0B9F\u0BC8\u0BAA\u0BCD\u0BAA\u0BBE\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0B86\u0B95\u0BBF\u0BAF\u0BB5\u0BB1\u0BCD\u0BB1\u0BBF\u0BB2\u0BCD \u0B89\u0BA4\u0BB5 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BC1\u0BAE\u0BCD. \u0B87\u0BA9\u0BCD\u0BB1\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B8E\u0BA9\u0BCD\u0BA9 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BC1\u0BAE\u0BCD?'
+          'நான் உங்களுக்கு குறியீடு எழுதுதல், ஆவணங்கள் மொழிபெயர்த்தல் அல்லது படைப்பாக்கம் ஆகியவற்றில் உதவ முடியும். இன்று உங்களுக்கு என்ன செய்ய முடியும்?'
       },
       action: {
-        copy: '\u0BA8\u0B95\u0BB2\u0BCD',
-        regenerate: '\u0BAE\u0BC0\u0BB3 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1',
-        share: '\u0BAA\u0B95\u0BBF\u0BB0\u0BCD',
-        like: '\u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1\u0B95\u0BBF\u0BB1\u0BC7\u0BA9\u0BCD',
-        dislike: '\u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8',
-        edit: '\u0BA4\u0BBF\u0BB0\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1',
-        delete: '\u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1'
+        copy: 'நகல்',
+        regenerate: 'மீள உருவாக்கு',
+        share: 'பகிர்',
+        like: 'விரும்புகிறேன்',
+        dislike: 'விரும்பவில்லை',
+        edit: 'திருத்து',
+        delete: 'நீக்கு'
       },
       artifacts: {
-        preview: '\u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BCB\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD',
-        inline: '\u0B87\u0BA9\u0BCD-\u0BB2\u0BC8\u0BA9\u0BCD',
-        code: '\u0BAE\u0BC2\u0BB2 \u0B95\u0BC1\u0BB1\u0BBF\u0BAF\u0BC0\u0B9F\u0BC1',
-        versions: '\u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD',
-        rendering:
-          '\u0B95\u0BC2\u0BB1\u0BC1 \u0BB5\u0BB4\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-        renderingChart:
-          '\u0BB5\u0BB0\u0BC8\u0BAA\u0B9F\u0BAE\u0BCD \u0BB5\u0BB4\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...',
-        renderingCanvas:
-          '\u0B95\u0BC7\u0BA9\u0BCD\u0BB5\u0BBE\u0BB8\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...'
+        preview: 'முன்னோட்டம்',
+        inline: 'இன்-லைன்',
+        code: 'மூல குறியீடு',
+        versions: 'பதிப்புகள்',
+        rendering: 'கூறு வழங்குகிறது...',
+        renderingChart: 'வரைபடம் வழங்குகிறது...',
+        renderingCanvas: 'கேன்வாஸ் தயாராகிறது...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
-        trigger:
-          '\u0BAA\u0BC7\u0B9A \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0B95',
-        listening: '\u0B95\u0BC7\u0B9F\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...'
+        trigger: 'பேச கிளிக் செய்க',
+        listening: 'கேட்கிறது...'
       },
       agent: {
-        uses: '\u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0BBE\u0B9F\u0BC1\u0B95\u0BB3\u0BCD',
-        use: '\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1',
-        favorite: '\u0BAA\u0BBF\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4',
-        unfavorite:
-          '\u0BAA\u0BBF\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4\u0BA4\u0BBF\u0BB2\u0BBF\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1',
-        share: '\u0BAA\u0B95\u0BBF\u0BB0\u0BCD',
-        online: '\u0B86\u0BA9\u0BCD\u0BB2\u0BC8\u0BA9\u0BCD',
-        offline: '\u0B86\u0B83\u0BAA\u0BCD\u0BB2\u0BC8\u0BA9\u0BCD',
-        busy: ' \u0437\u0430\u043D\u044F\u0442',
-        verified:
-          '\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F',
-        rating: '\u0BAE\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC0\u0B9F\u0BC1',
-        reviews: '\u0BAE\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0BB0\u0BC8\u0B95\u0BB3\u0BCD',
-        responseTime:
-          '\u0B9A\u0BB0\u0BBE\u0B9A\u0BB0\u0BBF \u0BAA\u0BA4\u0BBF\u0BB2\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD',
-        ms: '\u0BAE\u0BBF.\u0BB5\u0BBF'
+        uses: 'பயன்பாடுகள்',
+        use: 'இப்போது பயன்படுத்து',
+        favorite: 'பிடித்த',
+        unfavorite: 'பிடித்ததிலிருந்து நீக்கு',
+        share: 'பகிர்',
+        online: 'ஆன்லைன்',
+        offline: 'ஆஃப்லைன்',
+        busy: ' занят',
+        verified: 'சரிபார்க்கப்பட்ட',
+        rating: 'மதிப்பீடு',
+        reviews: 'மதிப்புரைகள்',
+        responseTime: 'சராசரி பதில் நேரம்',
+        ms: 'மி.வி'
       },
       sources: {
-        references: '\u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD',
-        referencedSources:
-          '\u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BAE\u0BC2\u0BB2\u0B99\u0BCD\u0B95\u0BB3\u0BCD',
-        relevant: '\u0BAA\u0BCA\u0BB0\u0BC1\u0BA4\u0BCD\u0BA4\u0BAE\u0BCD',
-        viewOriginal: '\u0B85\u0B9A\u0BB2\u0BC8\u0B95\u0BCD \u0B95\u0BBE\u0BA3\u0BCD\u0B95',
-        showAll:
-          '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B95\u0BBE\u0BA3\u0BCD\u0BAA\u0BBF',
-        more: '\u0BAE\u0BC2\u0BB2\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC7\u0BB2\u0BC1\u0BAE\u0BCD',
-        drawerTitle: '\u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD',
-        expandMore: '\u0BAE\u0BC7\u0BB2\u0BC1\u0BAE\u0BCD \u0B95\u0BBE\u0BA3\u0BCD\u0BAA\u0BBF',
-        collapseMore: '\u0B9A\u0BC1\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1',
-        noSources:
-          '\u0BAE\u0BC2\u0BB2\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8',
-        today: '\u0B87\u0BA9\u0BCD\u0BB1\u0BC1',
-        last7Days: '\u0B95\u0B9F\u0BA8\u0BCD\u0BA4 7 \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD',
-        last30Days: '\u0B95\u0B9F\u0BA8\u0BCD\u0BA4 30 \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD',
-        earlier: '\u0BAE\u0BC1\u0BA9\u0BCD\u0BAA\u0BC1',
-        pinned:
-          '\u0BAA\u0BBF\u0BA9\u0BCD \u0BB5\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F'
+        references: 'குறிப்புகள்',
+        referencedSources: 'குறிப்பிடப்பட்ட மூலங்கள்',
+        relevant: 'பொருத்தம்',
+        viewOriginal: 'அசலைக் காண்க',
+        showAll: 'அனைத்தையும் காண்பி',
+        more: 'மூலங்கள் மேலும்',
+        drawerTitle: 'குறிப்புகள்',
+        expandMore: 'மேலும் காண்பி',
+        collapseMore: 'சுருக்கு',
+        noSources: 'மூலங்கள் இல்லை',
+        today: 'இன்று',
+        last7Days: 'கடந்த 7 நாட்கள்',
+        last30Days: 'கடந்த 30 நாட்கள்',
+        earlier: 'முன்பு',
+        pinned: 'பின் வைக்கப்பட்ட'
       },
       conversations: {
-        today: '\u0B87\u0BA9\u0BCD\u0BB1\u0BC1',
-        last7Days: '\u0B95\u0B9F\u0BA8\u0BCD\u0BA4 7 \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD',
-        last30Days: '\u0B95\u0B9F\u0BA8\u0BCD\u0BA4 30 \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD',
-        earlier: '\u0BAE\u0BC1\u0BA9\u0BCD\u0BAA\u0BC1',
-        pinned:
-          '\u0BAA\u0BBF\u0BA9\u0BCD \u0BB5\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F',
-        pin: '\u0BAA\u0BBF\u0BA9\u0BCD \u0BB5\u0BC8',
-        unpin: '\u0BAA\u0BBF\u0BA9\u0BCD \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1',
-        newConversation:
-          '\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B89\u0BB0\u0BC8\u0BAF\u0BBE\u0B9F\u0BB2\u0BCD',
-        rename: '\u0BAA\u0BC6\u0BAF\u0BB0\u0BCD \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1',
-        delete: '\u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1',
-        deleteConfirm:
-          '\u0B87\u0BA8\u0BCD\u0BA4 \u0B89\u0BB0\u0BC8\u0BAF\u0BBE\u0B9F\u0BB2\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95 \u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BBE?'
+        today: 'இன்று',
+        last7Days: 'கடந்த 7 நாட்கள்',
+        last30Days: 'கடந்த 30 நாட்கள்',
+        earlier: 'முன்பு',
+        pinned: 'பின் வைக்கப்பட்ட',
+        pin: 'பின் வை',
+        unpin: 'பின் நீக்கு',
+        newConversation: 'புதிய உரையாடல்',
+        noData: 'No conversations yet',
+        rename: 'பெயர் மாற்று',
+        delete: 'நீக்கு',
+        deleteConfirm: 'இந்த உரையாடலை நீக்க விரும்புகிறீர்களா?'
+      },
+      attachments: {
+        dropTip: 'Drop files here to upload',
+        clickToUpload: 'Click or drag files to upload',
+        uploadSuccess: 'Upload success',
+        uploadError: 'Upload failed',
+        deleteConfirm: 'Are you sure to delete this file?',
+        fileTooLarge: 'File size cannot exceed {size}',
+        invalidFileType: 'Invalid file type'
+      },
+      mermaid: {
+        image: 'Image',
+        code: 'Code',
+        zoomIn: 'Zoom In',
+        zoomOut: 'Zoom Out',
+        reset: 'Reset',
+        download: 'Download',
+        copyCode: 'Copy Code',
+        rendering: 'Rendering...',
+        renderError: 'Render failed',
+        renderSuccess: 'Render success',
+        retry: 'Retry'
       }
     }
   }
 }
+
 export default ta

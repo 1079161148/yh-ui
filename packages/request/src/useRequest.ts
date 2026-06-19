@@ -126,10 +126,12 @@ interface CancelableError extends Error {
 // ==================== 缓存管理 ====================
 
 const globalCache = new Map<string, { data: unknown; expireTime: number }>()
+const cacheTimestamps = new Map<string, number>()
 
 function setCache<T>(key: string, value: T, cacheTime?: number): void {
   const expireTime = Date.now() + (cacheTime || 5 * 60 * 1000) // 默认 5 分钟
   globalCache.set(key, { data: value, expireTime })
+  cacheTimestamps.set(key, Date.now())
 }
 
 function getCache<T>(key: string): T | undefined {
@@ -139,6 +141,7 @@ function getCache<T>(key: string): T | undefined {
       return cached.data as T
     }
     globalCache.delete(key)
+    cacheTimestamps.delete(key)
   }
   return undefined
 }
@@ -440,12 +443,14 @@ export function useRequestSWR<TData = unknown>(
 ): UseRequestReturn<TData, [string]> {
   const {
     cacheTime = 10 * 60 * 1000,
+    staleTime = 0,
     setCache: customSetCache,
     getCache: customGetCache,
     refreshOnWindowFocus = false,
     refreshDepsWait = 1000,
     refreshDeps = [],
     manual = false,
+    onSuccess,
     ...requestOptions
   } = options
 
@@ -473,7 +478,7 @@ export function useRequestSWR<TData = unknown>(
   } = useRequest<TData, [string]>(
     (key: string, options?: { signal?: AbortSignal }) => service(key, options),
     {
-      manual,
+      manual: true, // Always true internally so we can control mount/auto-run behavior
       defaultParams: (manual ? [] : [getKey()]) as unknown as [string],
       ...requestOptions
     }
@@ -488,10 +493,26 @@ export function useRequestSWR<TData = unknown>(
     }
   }
 
+  const isFresh = (key: string): boolean => {
+    if (!staleTime) return false
+    const cachedTime = cacheTimestamps.get(key)
+    if (!cachedTime) return false
+    return Date.now() - cachedTime <= staleTime
+  }
+
   const swrRun = async (key: string): Promise<RequestResponse<TData>> => {
     const cachedVal = getCacheFn(key)
     if (cachedVal !== undefined) {
       data.value = cachedVal as TData
+      if (isFresh(key)) {
+        loading.value = false
+        error.value = undefined
+        params.value = [key]
+        if (onSuccess) {
+          onSuccess(cachedVal, [key])
+        }
+        return { data: cachedVal } as unknown as RequestResponse<TData>
+      }
     }
     return originalRun(key)
   }
@@ -508,6 +529,7 @@ export function useRequestSWR<TData = unknown>(
     const key = getKey()
     if (key) {
       setCacheFn(key, newData)
+      cacheTimestamps.set(key, Date.now())
     }
   }
 
@@ -544,22 +566,55 @@ export function useRequestSWR<TData = unknown>(
     }
   }
 
+  // 自动执行
+  if (!manual) {
+    if (getCurrentInstance()) {
+      onMounted(() => {
+        const key = getKey()
+        if (key !== undefined && key !== null) {
+          swrRun(key).catch(() => {})
+        }
+      })
+    } else {
+      const key = getKey()
+      if (key !== undefined && key !== null) {
+        swrRun(key).catch(() => {})
+      }
+    }
+  }
+
   // 依赖变化重新请求
+  let refreshDepsTimer: ReturnType<typeof setTimeout> | null = null
   if (refreshDeps && refreshDeps.length > 0 && !manual) {
     watch(
       () => refreshDeps.map((dep) => dep.value),
       () => {
+        if (refreshDepsTimer) {
+          clearTimeout(refreshDepsTimer)
+        }
         const key = getKey()
         if (key) {
           const cachedVal = getCacheFn(key)
           if (cachedVal !== undefined) {
             data.value = cachedVal as TData
           }
-          setTimeout(() => swrRun(key).catch(() => {}), refreshDepsWait)
+          refreshDepsTimer = setTimeout(() => {
+            refreshDepsTimer = null
+            swrRun(key).catch(() => {})
+          }, refreshDepsWait)
         }
       },
       { deep: true }
     )
+  }
+
+  if (getCurrentInstance()) {
+    onUnmounted(() => {
+      if (refreshDepsTimer) {
+        clearTimeout(refreshDepsTimer)
+        refreshDepsTimer = null
+      }
+    })
   }
 
   return {

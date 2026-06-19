@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const ro: Language = {
   name: 'ro',
   yh: {
-    // Comun
     common: {
       yes: 'Da',
       no: 'Nu',
@@ -27,7 +26,6 @@ export const ro: Language = {
       selectAll: 'Selectează tot',
       unselectAll: 'Deselectează tot'
     },
-    // Selector de culori
     colorpicker: {
       confirm: 'OK',
       clear: 'Șterge',
@@ -37,7 +35,6 @@ export const ro: Language = {
       recentColors: 'Culori recente',
       presetColors: 'Culori prestabilite'
     },
-    // Selector de dată
     datepicker: {
       now: 'Acum',
       today: 'Astăzi',
@@ -89,7 +86,6 @@ export const ro: Language = {
         q4: 'T4'
       }
     },
-    // Selector de oră
     timepicker: {
       confirm: 'OK',
       cancel: 'Anulează',
@@ -99,11 +95,9 @@ export const ro: Language = {
       endPlaceholder: 'Ora de sfârșit',
       selectTime: 'Selectați ora'
     },
-    // Selectare oră
     timeselect: {
       placeholder: 'Selectați ora'
     },
-    // Arbore
     tree: {
       emptyText: 'Fără date',
       loading: 'Se încarcă...',
@@ -112,14 +106,12 @@ export const ro: Language = {
       expandAll: 'Extinde tot',
       collapseAll: 'Restrânge tot'
     },
-    // Selector arbore
     treeselect: {
       placeholder: 'Selectați',
       emptyText: 'Fără date',
       loading: 'Se încarcă...',
       noMatch: 'Nicio potrivire'
     },
-    // Calendar
     calendar: {
       prevMonth: 'Luna precedentă',
       nextMonth: 'Luna următoare',
@@ -140,14 +132,12 @@ export const ro: Language = {
         sat: 'Sâ'
       }
     },
-    // Autocompletare
     autocomplete: {
       loading: 'Se încarcă...',
       placeholder: 'Vă rugăm să introduceți',
       noData: 'Fără date',
       noMatch: 'Nicio potrivire'
     },
-    // Numărătoare inversă
     countdown: {
       days: 'zile',
       hours: 'ore',
@@ -156,14 +146,12 @@ export const ro: Language = {
       milliseconds: 'milisecunde',
       finished: 'Terminat'
     },
-    // Cascadă
     cascader: {
       noMatch: 'Nicio potrivire',
       placeholder: 'Selectați',
       loading: 'Se încarcă...',
       noData: 'Fără date'
     },
-    // Transfer
     transfer: {
       noMatch: 'Nicio potrivire',
       noData: 'Fără date',
@@ -173,7 +161,6 @@ export const ro: Language = {
       hasCheckedFormat: '{checked}/{total} selectate',
       searchPlaceholder: 'Introduceți cuvântul cheie'
     },
-    // Tabel
     table: {
       emptyText: 'Fără date',
       confirmFilter: 'Confirmă',
@@ -190,7 +177,6 @@ export const ro: Language = {
       page: 'Pagina {page}',
       yes: 'Da',
       no: 'Nu',
-      // Bara de instrumente
       toolbar: {
         refresh: 'Reîmprospătează',
         density: 'Densitate',
@@ -205,7 +191,6 @@ export const ro: Language = {
         search: 'Caută',
         searchPlaceholder: 'Introduceți cuvintele cheie pentru căutare'
       },
-      // Filtru
       filter: {
         selectAll: 'Selectează tot',
         selectInvert: 'Inversează selecția',
@@ -221,13 +206,11 @@ export const ro: Language = {
         lessThan: 'Mai mic decât',
         between: 'Între'
       },
-      // Sortare
       sort: {
         asc: 'Crescător',
         desc: 'Descrescător',
         clear: 'Șterge sortarea'
       },
-      // Exportare
       export: {
         title: 'Exportare date',
         filename: 'Nume fișier',
@@ -241,7 +224,6 @@ export const ro: Language = {
         success: 'Export reușit',
         error: 'Eroare la export'
       },
-      // Importare
       import: {
         title: 'Importare date',
         selectFile: 'Selectați fișierul',
@@ -252,7 +234,6 @@ export const ro: Language = {
         preview: 'Previzualizare date',
         confirm: 'Confirmă importul'
       },
-      // Tipărire
       printConfig: {
         title: 'Setări tipărire',
         pageTitle: 'Titlul paginii',
@@ -265,7 +246,6 @@ export const ro: Language = {
         portrait: 'Portret',
         printing: 'Se tipărește...'
       },
-      // Setări coloane
       columnSetting: {
         title: 'Setări coloane',
         showAll: 'Afișează tot',
@@ -275,7 +255,6 @@ export const ro: Language = {
         fixedRight: 'Fixează la dreapta',
         unfixed: 'Anulează fixarea'
       },
-      // Meniu contextual
       contextMenu: {
         copy: 'Copiază',
         copyRow: 'Copiază rândul',
@@ -287,31 +266,26 @@ export const ro: Language = {
         deleteSelectedRows: 'Șterge rândurile selectate',
         exportSelected: 'Exportă selecția'
       },
-      // Selecție
       selection: {
         selectAll: 'Selectează tot',
         selectInvert: 'Inversează selecția',
         selectNone: 'Șterge selecția',
         selected: '{count} elemente selectate'
       },
-      // Extindere
       expand: {
         expandAll: 'Extinde tot',
         collapseAll: 'Restrânge tot'
       },
-      // Arbore
       tree: {
         expandAll: 'Extinde tot',
         collapseAll: 'Restrânge tot',
         expandLevel: 'Extinde până la nivelul {level}'
       },
-      // Tragere
       drag: {
         dragTip: 'Trageți pentru a reordona',
         dropTip: 'Eliberați pentru a plasa'
       }
     },
-    // Casetă de mesaj
     messagebox: {
       title: 'Mesaj',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const ro: Language = {
       prompt: 'Sugestie',
       inputPlaceholder: 'Vă rugăm să introduceți'
     },
-    // Încărcare
     upload: {
       deleteTip: 'apăsați delete pentru a șterge',
       delete: 'Șterge',
@@ -340,18 +313,15 @@ export const ro: Language = {
       fileSizeError: 'Dimensiunea fișierului depășește limita',
       fileCountError: 'Numărul de fișiere depășește limita'
     },
-    // Formular
     form: {
       validationFailed: 'Validare eșuată',
       required: 'Obligatoriu',
       pleaseInput: 'Vă rugăm să introduceți',
       pleaseSelect: 'Vă rugăm să selectați'
     },
-    // Buton
     button: {
       loading: 'Se încarcă...'
     },
-    // Intrare
     input: {
       placeholder: 'Vă rugăm să introduceți',
       clear: 'Șterge',
@@ -360,28 +330,23 @@ export const ro: Language = {
       copy: 'Copiază',
       copied: 'Copiat'
     },
-    // Număr
     inputnumber: {
       placeholder: 'Vă rugăm să introduceți un număr',
       increase: 'Crește',
       decrease: 'Scade'
     },
-    // Etichetă de intrare
     inputtag: {
       placeholder: 'Vă rugăm să introduceți',
       add: 'Adaugă',
       remove: 'Elimină'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Mai mult'
     },
-    // Înapoi sus
     backtop: {
       text: 'Înapoi sus'
     },
-    // Selectare
     select: {
       placeholder: 'Vă rugăm să selectați',
       noData: 'Fără date',
@@ -390,7 +355,6 @@ export const ro: Language = {
       selectAll: 'Selectează tot',
       clearAll: 'Șterge tot'
     },
-    // Paginare
     pagination: {
       goto: 'Mergi la',
       page: '',
@@ -402,13 +366,11 @@ export const ro: Language = {
       last: 'Ultima',
       pageClassifier: ''
     },
-    // Confirmare popup
     popconfirm: {
       confirm: 'OK',
       cancel: 'Anulează',
       dontAskAgain: 'Nu întreba din nou'
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Anulează',
@@ -416,17 +378,14 @@ export const ro: Language = {
       maximize: 'Maximizează',
       restore: 'Restaurează'
     },
-    // Sertar
     drawer: {
       close: 'Închide',
       confirm: 'OK',
       cancel: 'Anulează'
     },
-    // Meniu dropdown
     dropdown: {
       loading: 'Se încarcă...'
     },
-    // Imagine
     image: {
       error: 'EROARE',
       loading: 'Se încarcă...',
@@ -438,7 +397,6 @@ export const ro: Language = {
       originalSize: 'Dimensiune originală',
       fullscreen: 'Ecran complet'
     },
-    // Vizualizator imagini
     imageviewer: {
       close: 'Închide',
       prev: 'Precedent',
@@ -451,65 +409,52 @@ export const ro: Language = {
       fullscreen: 'Ecran complet',
       exitFullscreen: 'Ieșire ecran complet'
     },
-    // Derulare infinită
     infinitescroll: {
       loading: 'Se încarcă...',
       finished: 'Nu mai sunt date',
       error: 'Eroare la încărcare, faceți clic pentru a reîncerca',
       retry: 'Faceți clic pentru a reîncerca'
     },
-    // Mesaj
     message: {
       close: 'Închide'
     },
-    // Notificare
     notification: {
       close: 'Închide'
     },
-    // Încărcare
     loading: {
       text: 'Se încarcă...'
     },
-    // Spinner
     spin: {
       text: 'Se încarcă...'
     },
-    // Evaluare
     rate: {
       texts: ['Foarte rău', 'Dezamăgit', 'OK', 'Mulțumit', 'Surprins']
     },
-    // Alertă
     alert: {
       close: 'Închide'
     },
-    // Etichetă
     tag: {
       close: 'Închide'
     },
-    // File
     tabs: {
       close: 'Închide',
       add: 'Adaugă',
       more: 'Mai mult'
     },
-    // Pași
     steps: {
       finish: 'Terminat',
       process: 'În curs',
       wait: 'Așteptare',
       error: 'Eroare'
     },
-    // Progres
     progress: {
       success: 'Succes',
       exception: 'Excepție',
       warning: 'Avertisment'
     },
-    // Schelet
     skeleton: {
       loading: 'Se încarcă...'
     },
-    // Gol
     empty: {
       description: 'Fără date',
       noData: 'Fără date',
@@ -517,7 +462,6 @@ export const ro: Language = {
       networkError: 'Eroare de rețea',
       serverError: 'Eroare de server'
     },
-    // Rezultat
     result: {
       success: 'Succes',
       error: 'Eroare',
@@ -525,78 +469,63 @@ export const ro: Language = {
       info: 'Informație',
       backHome: 'Înapoi acasă'
     },
-    // Cascadă
     waterfall: {
       loading: 'Se încarcă...',
       noMore: 'Nu mai sunt date',
       empty: 'Fără date'
     },
-    // Descrieri
     descriptions: {
       colon: ':'
     },
-    // Cursor
     slider: {
       tipFormatter: '{value}'
     },
-    // Comutator
     switch: {
       on: 'DA',
       off: 'NU'
     },
-    // Casetă de bifare
     checkbox: {
       selectAll: 'Selectează tot'
     },
-    // Radio
     radio: {},
-    // Meniu
     menu: {
       collapse: 'Restrânge meniul',
       expand: 'Extinde meniul'
     },
-    // Card
     card: {
       collapse: 'Restrânge',
       expand: 'Extinde'
     },
-    // Restrângere
     collapse: {
       expand: 'Extinde',
       collapse: 'Restrânge'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Insignă
     badge: {},
-    // Avatar
     avatar: {
       error: 'Eroare la încărcare'
     },
-    // Filigran
     watermark: {},
-    // Separator
     divider: {},
-    // Carusel
     carousel: {
       prev: 'Precedent',
       next: 'Următor'
     },
-    // Text defilant
     marquee: {},
-    // Fixare
     affix: {},
-    // Ancoră
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Vă rugăm să introduceți',
       loading: 'Se încarcă...',
       noData: 'Nu există date'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Selectați specificațiile',
       emptyText: 'Nu există specificații',
@@ -697,7 +626,8 @@ export const ro: Language = {
         agent: 'Agent',
         document: 'Document',
         table: 'Tabel',
-        knowledge: 'Cunoștințe'
+        knowledge: 'Cunoștințe',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Copiază codul',
@@ -716,7 +646,8 @@ export const ro: Language = {
       },
       sender: {
         placeholder: 'Trimite un mesaj...',
-        dragTip: 'Eliberați pentru a încărca fișiere'
+        dragTip: 'Eliberați pentru a încărca fișiere',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Proces de Gândire',
@@ -751,7 +682,8 @@ export const ro: Language = {
         versions: 'Versiuni',
         rendering: 'Se redă componenta...',
         renderingChart: 'Se redă graficul...',
-        renderingCanvas: 'Se pregătește pânza...'
+        renderingCanvas: 'Se pregătește pânza...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Faceți clic pentru a vorbi',

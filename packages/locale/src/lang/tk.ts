@@ -3,83 +3,80 @@ import type { Language } from '../index'
 export const tk: Language = {
   name: 'tk',
   yh: {
-    // Umumy
     common: {
       yes: 'Hawa',
-      no: '\xDDok',
+      no: 'Ýok',
       confirm: 'Tassyklamak',
-      cancel: '\xDDatyrmak',
-      loading: '\xDD\xFCklen\xFD\xE4r',
-      close: '\xDDapmak',
+      cancel: 'Ýatyrmak',
+      loading: 'Ýüklenýär',
+      close: 'Ýapmak',
       clear: 'Arassalamak',
-      reset: 'Ba\u015Fdan d\xFCzmek',
+      reset: 'Başdan düzmek',
       save: 'Saklamak',
       delete: 'Pozmak',
-      edit: '\xDC\xFDtgetmek',
-      add: 'Go\u015Fmak',
-      search: 'G\xF6zlemek',
-      refresh: 'T\xE4zelemek',
-      expand: 'Gi\u0148eltmek',
-      collapse: 'Ki\xE7eltmek',
-      more: 'Has k\xF6p',
-      noData: 'Maglumat \xFDok',
-      noMatch: 'Gabat gel\xFD\xE4n maglumat \xFDok',
-      selectAll: 'Hemmesini sa\xFDlamak',
-      unselectAll: 'Sa\xFDlamagy a\xFDyrmak'
+      edit: 'Üýtgetmek',
+      add: 'Goşmak',
+      search: 'Gözlemek',
+      refresh: 'Täzelemek',
+      expand: 'Giňeltmek',
+      collapse: 'Kiçeltmek',
+      more: 'Has köp',
+      noData: 'Maglumat ýok',
+      noMatch: 'Gabat gelýän maglumat ýok',
+      selectAll: 'Hemmesini saýlamak',
+      unselectAll: 'Saýlamagy aýyrmak'
     },
-    // Reňk saýlaýjy
     colorpicker: {
-      confirm: 'Bol\xFDar',
+      confirm: 'Bolýar',
       clear: 'Arassalamak',
-      eyeDropper: 'G\xF6z damjasy',
-      suggestionDark: 'Ak teksti\u0148 has gowy',
-      suggestionLight: 'Gara teksti\u0148 has gowy',
-      recentColors: 'So\u0148ky re\u0148kler',
-      presetColors: '\xD6\u0148\xFCnden d\xFC\u015F\xFCrilen re\u0148kler'
+      eyeDropper: 'Göz damjasy',
+      suggestionDark: 'Ak tekstiň has gowy',
+      suggestionLight: 'Gara tekstiň has gowy',
+      recentColors: 'Soňky reňkler',
+      presetColors: 'Öňünden düşürilen reňkler'
     },
-    // Sene saýlaýjy
     datepicker: {
-      now: '\u015Eu wagt',
-      today: '\u015Eu g\xFCn',
-      cancel: '\xDDatyrmak',
+      now: 'Şu wagt',
+      today: 'Şu gün',
+      cancel: 'Ýatyrmak',
       clear: 'Arassalamak',
-      confirm: 'Bol\xFDar',
-      selectDate: 'Sene sa\xFDla\u0148',
-      selectTime: 'Wagt sa\xFDla\u0148',
-      startDate: 'Ba\u015Flan\xFDan sene',
-      startTime: 'Ba\u015Flan\xFDan wagt',
-      endDate: 'Gutar\xFDan sene',
-      endTime: 'Gutar\xFDan wagt',
+      confirm: 'Bolýar',
+      selectDate: 'Sene saýlaň',
+      selectTime: 'Wagt saýlaň',
+      startDate: 'Başlanýan sene',
+      startTime: 'Başlanýan wagt',
+      endDate: 'Gutarýan sene',
+      endTime: 'Gutarýan wagt',
       year: '',
       month: '',
       day: '',
       week: 'Hepde',
       monthBeforeYear: true,
-      prevYear: '\xD6\u0148ki \xFDyl',
-      nextYear: 'Indiki \xFDyl',
-      prevMonth: '\xD6\u0148ki a\xFD',
-      nextMonth: 'Indiki a\xFD',
+      prevYear: 'Öňki ýyl',
+      nextYear: 'Indiki ýyl',
+      prevMonth: 'Öňki aý',
+      nextMonth: 'Indiki aý',
       weeks: {
-        sun: '\xDDek',
-        mon: 'Du\u015F',
-        tue: 'Si\u015F',
-        wed: '\xC7ar',
+        sun: 'Ýek',
+        mon: 'Duş',
+        tue: 'Siş',
+        wed: 'Çar',
         thu: 'Pen',
         fri: 'Ann',
-        sat: '\u015Een'
+        sat: 'Şen'
       },
       months: {
-        jan: '\xDDan',
+        jan: 'Ýan',
         feb: 'Few',
         mar: 'Mar',
         apr: 'Apr',
-        may: 'Ma\xFD',
-        jun: 'I\xFDun',
-        jul: 'I\xFDul',
+        may: 'Maý',
+        jun: 'Iýun',
+        jul: 'Iýul',
         aug: 'Awg',
         sep: 'Sen',
         oct: 'Okt',
-        nov: 'No\xFD',
+        nov: 'Noý',
         dec: 'Dek'
       },
       quarters: {
@@ -89,638 +86,679 @@ export const tk: Language = {
         q4: 'Q4'
       }
     },
-    // Wagt saýlaýjy
     timepicker: {
-      confirm: 'Bol\xFDar',
-      cancel: '\xDDatyrmak',
-      now: '\u015Eu wagt',
-      placeholder: 'Wagt sa\xFDla\u0148',
-      startPlaceholder: 'Ba\u015Flan\xFDan wagt',
-      endPlaceholder: 'Gutar\xFDan wagt',
-      selectTime: 'Wagt sa\xFDla\u0148'
+      confirm: 'Bolýar',
+      cancel: 'Ýatyrmak',
+      now: 'Şu wagt',
+      placeholder: 'Wagt saýlaň',
+      startPlaceholder: 'Başlanýan wagt',
+      endPlaceholder: 'Gutarýan wagt',
+      selectTime: 'Wagt saýlaň'
     },
-    // Wagt saýlamak
     timeselect: {
-      placeholder: 'Wagt sa\xFDla\u0148'
+      placeholder: 'Wagt saýlaň'
     },
-    // Agaj
     tree: {
-      emptyText: 'Maglumat \xFDok',
-      loading: '\xDD\xFCklen\xFD\xE4r...',
-      checkAll: 'Hemmesini barla\u0148',
-      uncheckAll: 'Barlamagy a\xFDyrmak',
-      expandAll: 'Hemmesini gi\u0148eltmek',
-      collapseAll: 'Hemmesini ki\xE7eltmek'
+      emptyText: 'Maglumat ýok',
+      loading: 'Ýüklenýär...',
+      checkAll: 'Hemmesini barlaň',
+      uncheckAll: 'Barlamagy aýyrmak',
+      expandAll: 'Hemmesini giňeltmek',
+      collapseAll: 'Hemmesini kiçeltmek'
     },
-    // Agaj saýlaýjy
     treeselect: {
-      placeholder: 'Sa\xFDla\u0148',
-      emptyText: 'Maglumat \xFDok',
-      loading: '\xDD\xFCklen\xFD\xE4r...',
-      noMatch: 'Gabat gel\xFD\xE4n maglumat \xFDok'
+      placeholder: 'Saýlaň',
+      emptyText: 'Maglumat ýok',
+      loading: 'Ýüklenýär...',
+      noMatch: 'Gabat gelýän maglumat ýok'
     },
-    // Kalendar
     calendar: {
-      prevMonth: '\xD6\u0148ki a\xFD',
-      nextMonth: 'Indiki a\xFD',
-      prevYear: '\xD6\u0148ki \xFDyl',
-      nextYear: 'Indiki \xFDyl',
-      today: '\u015Eu g\xFCn',
+      prevMonth: 'Öňki aý',
+      nextMonth: 'Indiki aý',
+      prevYear: 'Öňki ýyl',
+      nextYear: 'Indiki ýyl',
+      today: 'Şu gün',
       week: 'Hepde',
-      holiday: 'Ba\xFDram',
-      workday: 'I\u015F',
+      holiday: 'Baýram',
+      workday: 'Iş',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: '\xDDek',
-        mon: 'Du\u015F',
-        tue: 'Si\u015F',
-        wed: '\xC7ar',
+        sun: 'Ýek',
+        mon: 'Duş',
+        tue: 'Siş',
+        wed: 'Çar',
         thu: 'Pen',
         fri: 'Ann',
-        sat: '\u015Een'
+        sat: 'Şen'
       }
     },
-    // Awto doldurma
     autocomplete: {
-      loading: '\xDD\xFCklen\xFD\xE4r...',
-      placeholder: '\xDDazmagy\u0148yzy ha\xFDy\u015F ed\xFD\xE4ris',
-      noData: 'Maglumat \xFDok',
-      noMatch: 'Gabat gel\xFD\xE4n maglumat \xFDok'
+      loading: 'Ýüklenýär...',
+      placeholder: 'Ýazmagyňyzy haýyş edýäris',
+      noData: 'Maglumat ýok',
+      noMatch: 'Gabat gelýän maglumat ýok'
     },
-    // Geri sanama
     countdown: {
-      days: 'g\xFCnler',
+      days: 'günler',
       hours: 'sagatlar',
       minutes: 'minutlar',
       seconds: 'sekuntlar',
       milliseconds: 'millisekuntlar',
       finished: 'Tamamlandy'
     },
-    // Kaskad
     cascader: {
-      noMatch: 'Gabat gel\xFD\xE4n maglumat \xFDok',
-      placeholder: 'Sa\xFDla\u0148',
-      loading: '\xDD\xFCklen\xFD\xE4r...',
-      noData: 'Maglumat \xFDok'
+      noMatch: 'Gabat gelýän maglumat ýok',
+      placeholder: 'Saýlaň',
+      loading: 'Ýüklenýär...',
+      noData: 'Maglumat ýok'
     },
-    // Geçirmek
     transfer: {
-      noMatch: 'Gabat gel\xFD\xE4n maglumat \xFDok',
-      noData: 'Maglumat \xFDok',
+      noMatch: 'Gabat gelýän maglumat ýok',
+      noData: 'Maglumat ýok',
       titles: ['Sanaw 1', 'Sanaw 2'],
-      filterPlaceholder: 'A\xE7ar s\xF6z girizi\u0148',
+      filterPlaceholder: 'Açar söz giriziň',
       noCheckedFormat: '{total} element',
-      hasCheckedFormat: '{checked}/{total} sa\xFDlandy',
-      searchPlaceholder: 'A\xE7ar s\xF6z girizi\u0148'
+      hasCheckedFormat: '{checked}/{total} saýlandy',
+      searchPlaceholder: 'Açar söz giriziň'
     },
-    // Tabela
     table: {
-      emptyText: 'Maglumat \xFDok',
+      emptyText: 'Maglumat ýok',
       confirmFilter: 'Tassyklamak',
-      resetFilter: 'Ba\u015Fdan d\xFCzmek',
+      resetFilter: 'Başdan düzmek',
       clearFilter: 'Hemmesi',
       sumText: 'Jemi',
-      loading: '\xDD\xFCklen\xFD\xE4r...',
+      loading: 'Ýüklenýär...',
       index: 'Indeks',
-      print: '\xC7ap etmek',
-      cancel: '\xDDatyrmak',
-      preview: '\xC7ap \xF6\u0148\xFCnden g\xF6r\xFCni\u015Fi',
-      printTime: '\xC7ap wagty',
+      print: 'Çap etmek',
+      cancel: 'Ýatyrmak',
+      preview: 'Çap öňünden görünişi',
+      printTime: 'Çap wagty',
       total: 'Jemi {total} element',
       page: 'Sahypa {page}',
       yes: 'Hawa',
-      no: '\xDDok',
-      // Gural paneli
+      no: 'Ýok',
       toolbar: {
-        refresh: 'T\xE4zelemek',
-        density: 'G\xFDyglylyk',
+        refresh: 'Täzelemek',
+        density: 'Gýyglylyk',
         densityDefault: 'Bellenen',
         densityLarge: 'Uly',
-        densitySmall: 'Ki\xE7i',
-        columnSetting: 'S\xFCtun sazlamalary',
+        densitySmall: 'Kiçi',
+        columnSetting: 'Sütun sazlamalary',
         fullscreen: 'Doly ekran',
-        exitFullscreen: 'Doly ekrandan \xE7ykmak',
+        exitFullscreen: 'Doly ekrandan çykmak',
         export: 'Eksport',
         import: 'Import',
-        search: 'G\xF6zlemek',
-        searchPlaceholder: 'G\xF6zlemek \xFC\xE7in a\xE7ar s\xF6zler girizi\u0148'
+        search: 'Gözlemek',
+        searchPlaceholder: 'Gözlemek üçin açar sözler giriziň'
       },
-      // Filter
       filter: {
-        selectAll: 'Hemmesini sa\xFDlamak',
-        selectInvert: 'Sa\xFDlamany tersine \xE7evirmek',
-        empty: 'Bo\u015F',
-        notEmpty: 'Bo\u015F d\xE4l',
-        contains: '\xD6z i\xE7ine al\xFDar',
-        notContains: '\xD6z i\xE7ine alm\xFDar',
-        equals: 'De\u0148',
-        notEquals: 'De\u0148 d\xE4l',
-        startsWith: 'Ba\u015Flan\xFDar',
+        selectAll: 'Hemmesini saýlamak',
+        selectInvert: 'Saýlamany tersine çevirmek',
+        empty: 'Boş',
+        notEmpty: 'Boş däl',
+        contains: 'Öz içine alýar',
+        notContains: 'Öz içine almýar',
+        equals: 'Deň',
+        notEquals: 'Deň däl',
+        startsWith: 'Başlanýar',
         endsWith: 'Gutaryar',
         greaterThan: 'Uly',
-        lessThan: 'Ki\xE7i',
+        lessThan: 'Kiçi',
         between: 'Aralygynda'
       },
-      // Tertiplemek
       sort: {
-        asc: 'Art\xFDan',
-        desc: 'Az\xFDan',
-        clear: 'Tertiplem\xE4ni arassalamak'
+        asc: 'Artýan',
+        desc: 'Azýan',
+        clear: 'Tertiplemäni arassalamak'
       },
-      // Eksport
       export: {
         title: 'Maglumat eksport etmek',
-        filename: 'Fa\xFDl ady',
-        type: 'Fa\xFDl g\xF6rn\xFC\u015Fi',
-        scope: 'Eksport \xE7\xE4kleri',
+        filename: 'Faýl ady',
+        type: 'Faýl görnüşi',
+        scope: 'Eksport çäkleri',
         scopeAll: 'Hemme maglumat',
-        scopeSelected: 'Sa\xFDlanan maglumat',
-        scopeCurrentPage: 'H\xE4zirki sahypa',
-        includeHeader: 'Ba\u015Flygy go\u015Fmak',
-        exporting: 'Eksport edil\xFD\xE4r...',
-        success: 'Eksport \xFCst\xFCnlikli',
-        error: 'Eksport \xFDal\u0148y\u015Flygy'
+        scopeSelected: 'Saýlanan maglumat',
+        scopeCurrentPage: 'Häzirki sahypa',
+        includeHeader: 'Başlygy goşmak',
+        exporting: 'Eksport edilýär...',
+        success: 'Eksport üstünlikli',
+        error: 'Eksport ýalňyşlygy'
       },
-      // Import
       import: {
         title: 'Maglumat import etmek',
-        selectFile: 'Fa\xFDl sa\xFDla\u0148',
-        dragTip:
-          '\xDD\xFCklemek \xFC\xE7in fa\xFDly \u015Fu \xFDere basy\u0148 \xFDa-da s\xFC\xFD\xFC\u0148',
-        importing: 'Import edil\xFD\xE4r...',
-        success: 'Import \xFCst\xFCnlikli',
-        error: 'Import \xFDal\u0148y\u015Flygy',
-        preview: 'Maglumat \xF6\u0148\xFCnden g\xF6r\xFCni\u015Fi',
+        selectFile: 'Faýl saýlaň',
+        dragTip: 'Ýüklemek üçin faýly şu ýere basyň ýa-da süýüň',
+        importing: 'Import edilýär...',
+        success: 'Import üstünlikli',
+        error: 'Import ýalňyşlygy',
+        preview: 'Maglumat öňünden görünişi',
         confirm: 'Importy tassyklamak'
       },
-      // Çap
       printConfig: {
-        title: '\xC7ap sazlamalary',
+        title: 'Çap sazlamalary',
         pageTitle: 'Sahypa ady',
-        pageHeader: 'Ba\u015Flyk',
-        pageFooter: 'A\u015Faklyk',
-        printAll: 'Hemmesini \xE7ap etmek',
-        printSelected: 'Sa\xFDlanany \xE7ap etmek',
-        printCurrentPage: 'H\xE4zirki sahypany \xE7ap etmek',
+        pageHeader: 'Başlyk',
+        pageFooter: 'Aşaklyk',
+        printAll: 'Hemmesini çap etmek',
+        printSelected: 'Saýlanany çap etmek',
+        printCurrentPage: 'Häzirki sahypany çap etmek',
         landscape: 'Gorizontal',
         portrait: 'Wertikal',
-        printing: '\xC7ap edil\xFD\xE4r...'
+        printing: 'Çap edilýär...'
       },
-      // Sütun sazlamalary
       columnSetting: {
-        title: 'S\xFCtun sazlamalary',
-        showAll: 'Hemmesini g\xF6rkezmek',
+        title: 'Sütun sazlamalary',
+        showAll: 'Hemmesini görkezmek',
         hideAll: 'Hemmesini gizlemek',
-        reset: 'Ba\u015Fdan d\xFCzmek',
-        fixedLeft: '\xC7epe berkemek',
+        reset: 'Başdan düzmek',
+        fixedLeft: 'Çepe berkemek',
         fixedRight: 'Saga berkemek',
-        unfixed: 'Berkem\xE4ni a\xFDyrmak'
+        unfixed: 'Berkemäni aýyrmak'
       },
-      // Kontekst menýu
       contextMenu: {
-        copy: 'Kop\xFDalamak',
-        copyRow: 'Setiri kop\xFDalamak',
-        copyCell: '\xDDa\xE7kany kop\xFDalamak',
-        paste: '\xDDapy\u015Fdyrmak',
-        insertRowAbove: '\xDCst\xFCne setir go\u015Fmak',
-        insertRowBelow: 'A\u015Fagyna setir go\u015Fmak',
+        copy: 'Kopýalamak',
+        copyRow: 'Setiri kopýalamak',
+        copyCell: 'Ýaçkany kopýalamak',
+        paste: 'Ýapyşdyrmak',
+        insertRowAbove: 'Üstüne setir goşmak',
+        insertRowBelow: 'Aşagyna setir goşmak',
         deleteRow: 'Setiri pozmak',
-        deleteSelectedRows: 'Sa\xFDlanan setirleri pozmak',
-        exportSelected: 'Sa\xFDlanany eksport etmek'
+        deleteSelectedRows: 'Saýlanan setirleri pozmak',
+        exportSelected: 'Saýlanany eksport etmek'
       },
-      // Saýlamak
       selection: {
-        selectAll: 'Hemmesini sa\xFDlamak',
-        selectInvert: 'Sa\xFDlamany tersine \xE7evirmek',
-        selectNone: 'Sa\xFDlamany arassalamak',
-        selected: '{count} element sa\xFDlandy'
+        selectAll: 'Hemmesini saýlamak',
+        selectInvert: 'Saýlamany tersine çevirmek',
+        selectNone: 'Saýlamany arassalamak',
+        selected: '{count} element saýlandy'
       },
-      // Giňeltmek
       expand: {
-        expandAll: 'Hemmesini gi\u0148eltmek',
-        collapseAll: 'Hemmesini ki\xE7eltmek'
+        expandAll: 'Hemmesini giňeltmek',
+        collapseAll: 'Hemmesini kiçeltmek'
       },
-      // Agaj
       tree: {
-        expandAll: 'Hemmesini gi\u0148eltmek',
-        collapseAll: 'Hemmesini ki\xE7eltmek',
-        expandLevel: '{level} derej\xE4 gi\u0148eltmek'
+        expandAll: 'Hemmesini giňeltmek',
+        collapseAll: 'Hemmesini kiçeltmek',
+        expandLevel: '{level} derejä giňeltmek'
       },
-      // Süýürmek
       drag: {
-        dragTip: 'Tertibi \xFC\xFDtgetmek \xFC\xE7in s\xFC\xFD\xFC\u0148',
-        dropTip: '\xDDerle\u015Fdirmek \xFC\xE7in go\xFDu\u0148'
+        dragTip: 'Tertibi üýtgetmek üçin süýüň',
+        dropTip: 'Ýerleşdirmek üçin goýuň'
       }
     },
-    // Habar gutusy
     messagebox: {
       title: 'Habar',
-      confirm: 'Bol\xFDar',
-      cancel: '\xDDatyrmak',
-      close: '\xDDapmak',
-      error: 'N\xE4dogry girizme',
-      alert: 'Du\xFDdury\u015F',
+      confirm: 'Bolýar',
+      cancel: 'Ýatyrmak',
+      close: 'Ýapmak',
+      error: 'Nädogry girizme',
+      alert: 'Duýduryş',
       prompt: 'Teklip',
-      inputPlaceholder: '\xDDazmagy\u0148yzy ha\xFDy\u015F ed\xFD\xE4ris'
+      inputPlaceholder: 'Ýazmagyňyzy haýyş edýäris'
     },
-    // Ýüklemek
     upload: {
-      deleteTip: 'pozmak \xFC\xE7in delete basy\u0148',
+      deleteTip: 'pozmak üçin delete basyň',
       delete: 'Pozmak',
-      preview: '\xD6\u0148\xFCnden g\xF6r\xFCni\u015F',
+      preview: 'Öňünden görüniş',
       continue: 'Dowam etdirmek',
-      upload: '\xDD\xFCklemek \xFC\xE7in basy\u0148',
-      tip: '<em>\xDD\xFCklemek</em> \xFC\xE7in fa\xFDly \u015Fu \xFDere basy\u0148 \xFDa-da s\xFC\xFD\xFC\u0148',
-      dragTip:
-        'Fa\xFDly \u015Fu \xFDere go\xFDu\u0148 \xFDa-da \xFD\xFCklemek \xFC\xE7in basy\u0148',
-      uploading: '\xDD\xFCklen\xFD\xE4r...',
-      success: '\xDD\xFCkleme \xFCst\xFCnlikli',
-      error: '\xDD\xFCkleme \xFDal\u0148y\u015Flygy',
-      retry: 'T\xE4zeden synany\u015Fmak',
-      cancel: '\xDD\xFCklem\xE4ni \xFDatyrmak',
-      fileTypeError: 'Fa\xFDl g\xF6rn\xFC\u015Fi goldanylma\xFDar',
-      fileSizeError: 'Fa\xFDl \xF6l\xE7egi \xE7\xE4gi ge\xE7\xFD\xE4r',
-      fileCountError: 'Fa\xFDl sany \xE7\xE4gi ge\xE7\xFD\xE4r'
+      upload: 'Ýüklemek üçin basyň',
+      tip: '<em>Ýüklemek</em> üçin faýly şu ýere basyň ýa-da süýüň',
+      dragTip: 'Faýly şu ýere goýuň ýa-da ýüklemek üçin basyň',
+      uploading: 'Ýüklenýär...',
+      success: 'Ýükleme üstünlikli',
+      error: 'Ýükleme ýalňyşlygy',
+      retry: 'Täzeden synanyşmak',
+      cancel: 'Ýüklemäni ýatyrmak',
+      fileTypeError: 'Faýl görnüşi goldanylmaýar',
+      fileSizeError: 'Faýl ölçegi çägi geçýär',
+      fileCountError: 'Faýl sany çägi geçýär'
     },
-    // Forma
     form: {
-      validationFailed: 'Barlama \u015Fowsuz',
-      required: 'M\xF6h\xFCm',
-      pleaseInput: '\xDDazmagy\u0148yzy ha\xFDy\u015F ed\xFD\xE4ris',
-      pleaseSelect: 'Sa\xFDlamagy\u0148yzy ha\xFDy\u015F ed\xFD\xE4ris'
+      validationFailed: 'Barlama şowsuz',
+      required: 'Möhüm',
+      pleaseInput: 'Ýazmagyňyzy haýyş edýäris',
+      pleaseSelect: 'Saýlamagyňyzy haýyş edýäris'
     },
-    // Düwme
     button: {
-      loading: '\xDD\xFCklen\xFD\xE4r...'
+      loading: 'Ýüklenýär...'
     },
-    // Girizmek
     input: {
-      placeholder: '\xDDazmagy\u0148yzy ha\xFDy\u015F ed\xFD\xE4ris',
+      placeholder: 'Ýazmagyňyzy haýyş edýäris',
       clear: 'Arassalamak',
-      showPassword: 'Paroly g\xF6rkezmek',
+      showPassword: 'Paroly görkezmek',
       hidePassword: 'Paroly gizlemek',
-      copy: 'Kop\xFDalamak',
-      copied: 'Kop\xFDalandy'
+      copy: 'Kopýalamak',
+      copied: 'Kopýalandy'
     },
-    // San girizmek
     inputnumber: {
-      placeholder: 'San \xFDazmagy\u0148yzy ha\xFDy\u015F ed\xFD\xE4ris',
-      increase: 'K\xF6pe\xFDtmek',
+      placeholder: 'San ýazmagyňyzy haýyş edýäris',
+      increase: 'Köpeýtmek',
       decrease: 'Azaltmak'
     },
-    // Bellik girizmek
     inputtag: {
-      placeholder: '\xDDazmagy\u0148yzy ha\xFDy\u015F ed\xFD\xE4ris',
-      add: 'Go\u015Fmak',
-      remove: 'A\xFDyrmak'
+      placeholder: 'Ýazmagyňyzy haýyş edýäris',
+      add: 'Goşmak',
+      remove: 'Aýyrmak'
     },
-    // Çörüň ýoly
     breadcrumb: {
-      label: '\xC7\xF6r\xFC\u0148 \xFDoly',
-      more: 'Has k\xF6p'
+      label: 'Çörüň ýoly',
+      more: 'Has köp'
     },
-    // Ýokary gaýtmak
     backtop: {
-      text: '\xDDokary ga\xFDtmak'
+      text: 'Ýokary gaýtmak'
     },
-    // Saýlamak
     select: {
-      placeholder: 'Sa\xFDlamagy\u0148yzy ha\xFDy\u015F ed\xFD\xE4ris',
-      noData: 'Maglumat \xFDok',
-      loading: '\xDD\xFCklen\xFD\xE4r...',
-      noMatch: 'Gabat gel\xFD\xE4n maglumat \xFDok',
-      selectAll: 'Hemmesini sa\xFDlamak',
+      placeholder: 'Saýlamagyňyzy haýyş edýäris',
+      noData: 'Maglumat ýok',
+      loading: 'Ýüklenýär...',
+      noMatch: 'Gabat gelýän maglumat ýok',
+      selectAll: 'Hemmesini saýlamak',
       clearAll: 'Hemmesini arassalamak'
     },
-    // Sahypalama
     pagination: {
-      goto: 'Ga\xFDtmak',
+      goto: 'Gaýtmak',
       page: '',
       total: 'Jemi {total}',
       pageSize: '/sahypa',
-      prev: '\xD6\u0148ki',
+      prev: 'Öňki',
       next: 'Indiki',
       first: 'Birinjisi',
-      last: 'So\u0148kysy',
+      last: 'Soňkysy',
       pageClassifier: ''
     },
-    // Tassyklama popup
     popconfirm: {
-      confirm: 'Bol\xFDar',
-      cancel: '\xDDatyrmak',
-      dontAskAgain: 'T\xE4zeden sorama\u0148'
+      confirm: 'Bolýar',
+      cancel: 'Ýatyrmak',
+      dontAskAgain: 'Täzeden soramaň'
     },
-    // Dialog
     dialog: {
-      confirm: 'Bol\xFDar',
-      cancel: '\xDDatyrmak',
-      close: '\xDDapmak',
-      maximize: 'Ulyla\u015Fdyrmak',
+      confirm: 'Bolýar',
+      cancel: 'Ýatyrmak',
+      close: 'Ýapmak',
+      maximize: 'Ulylaşdyrmak',
       restore: 'Yzyna getirmek'
     },
-    // Çekmeje
     drawer: {
-      close: '\xDDapmak',
-      confirm: 'Bol\xFDar',
-      cancel: '\xDDatyrmak'
+      close: 'Ýapmak',
+      confirm: 'Bolýar',
+      cancel: 'Ýatyrmak'
     },
-    // Aşak menýu
     dropdown: {
-      loading: '\xDD\xFCklen\xFD\xE4r...'
+      loading: 'Ýüklenýär...'
     },
-    // Surat
     image: {
-      error: '\u015EOWSYZ',
-      loading: '\xDD\xFCklen\xFD\xE4r...',
-      preview: '\xD6\u0148\xFCnden g\xF6r\xFCni\u015F',
-      zoomIn: 'Ulyla\u015Fdyrmak',
-      zoomOut: 'Ki\xE7eltmek',
-      rotateLeft: '\xC7epe a\xFDlamak',
-      rotateRight: 'Saga a\xFDlamak',
-      originalSize: 'Asyl \xF6l\xE7egi',
+      error: 'ŞOWSYZ',
+      loading: 'Ýüklenýär...',
+      preview: 'Öňünden görüniş',
+      zoomIn: 'Ulylaşdyrmak',
+      zoomOut: 'Kiçeltmek',
+      rotateLeft: 'Çepe aýlamak',
+      rotateRight: 'Saga aýlamak',
+      originalSize: 'Asyl ölçegi',
       fullscreen: 'Doly ekran'
     },
-    // Surat görüjisi
     imageviewer: {
-      close: '\xDDapmak',
-      prev: '\xD6\u0148ki',
+      close: 'Ýapmak',
+      prev: 'Öňki',
       next: 'Indiki',
-      zoomIn: 'Ulyla\u015Fdyrmak',
-      zoomOut: 'Ki\xE7eltmek',
-      rotateLeft: '\xC7epe a\xFDlamak',
-      rotateRight: 'Saga a\xFDlamak',
-      reset: 'Ba\u015Fdan d\xFCzmek',
+      zoomIn: 'Ulylaşdyrmak',
+      zoomOut: 'Kiçeltmek',
+      rotateLeft: 'Çepe aýlamak',
+      rotateRight: 'Saga aýlamak',
+      reset: 'Başdan düzmek',
       fullscreen: 'Doly ekran',
-      exitFullscreen: 'Doly ekrandan \xE7ykmak'
+      exitFullscreen: 'Doly ekrandan çykmak'
     },
-    // Çäksiz skroll
     infinitescroll: {
-      loading: '\xDD\xFCklen\xFD\xE4r...',
-      finished: 'Has maglumat \xFDok',
-      error:
-        '\xDD\xFCkleme \xFDal\u0148y\u015Flygy, t\xE4zeden synany\u015Fmak \xFC\xE7in basy\u0148',
-      retry: 'T\xE4zeden synany\u015Fmak \xFC\xE7in basy\u0148'
+      loading: 'Ýüklenýär...',
+      finished: 'Has maglumat ýok',
+      error: 'Ýükleme ýalňyşlygy, täzeden synanyşmak üçin basyň',
+      retry: 'Täzeden synanyşmak üçin basyň'
     },
-    // Habar
     message: {
-      close: '\xDDapmak'
+      close: 'Ýapmak'
     },
-    // Bildiriş
     notification: {
-      close: '\xDDapmak'
+      close: 'Ýapmak'
     },
-    // Ýüklemek
     loading: {
-      text: '\xDD\xFCklen\xFD\xE4r...'
+      text: 'Ýüklenýär...'
     },
-    // Aýlanma
     spin: {
-      text: '\xDD\xFCklen\xFD\xE4r...'
+      text: 'Ýüklenýär...'
     },
-    // Bahalandyrmak
     rate: {
-      texts: [
-        '\xD6r\xE4n \xFDaman',
-        'Gynan\xE7ly',
-        'Orta\xE7a',
-        'Razyla\u015Fdyrylan',
-        'Ha\xFDran galdyrylan'
-      ]
+      texts: ['Örän ýaman', 'Gynançly', 'Ortaça', 'Razylaşdyrylan', 'Haýran galdyrylan']
     },
-    // Duýduryş
     alert: {
-      close: '\xDDapmak'
+      close: 'Ýapmak'
     },
-    // Bellik
     tag: {
-      close: '\xDDapmak'
+      close: 'Ýapmak'
     },
-    // Tablar
     tabs: {
-      close: '\xDDapmak',
-      add: 'Go\u015Fmak',
-      more: 'Has k\xF6p'
+      close: 'Ýapmak',
+      add: 'Goşmak',
+      more: 'Has köp'
     },
-    // Basgançaklar
     steps: {
       finish: 'Tamamlandy',
-      process: 'Dowam ed\xFD\xE4r',
-      wait: 'Gara\u015Fmak',
-      error: '\xDDal\u0148y\u015Flyk'
+      process: 'Dowam edýär',
+      wait: 'Garaşmak',
+      error: 'Ýalňyşlyk'
     },
-    // Öňe gitmek
     progress: {
-      success: '\xDCst\xFCnlik',
-      exception: '\xDDal\u0148y\u015Flyk',
-      warning: 'Du\xFDdury\u015F'
+      success: 'Üstünlik',
+      exception: 'Ýalňyşlyk',
+      warning: 'Duýduryş'
     },
-    // Skelet
     skeleton: {
-      loading: '\xDD\xFCklen\xFD\xE4r...'
+      loading: 'Ýüklenýär...'
     },
-    // Boş
     empty: {
-      description: 'Maglumat \xFDok',
-      noData: 'Maglumat \xFDok',
-      noResult: 'Netije \xFDok',
-      networkError: 'Tor \xFDal\u0148y\u015Flygy',
-      serverError: 'Serwer \xFDal\u0148y\u015Flygy'
+      description: 'Maglumat ýok',
+      noData: 'Maglumat ýok',
+      noResult: 'Netije ýok',
+      networkError: 'Tor ýalňyşlygy',
+      serverError: 'Serwer ýalňyşlygy'
     },
-    // Netije
     result: {
-      success: '\xDCst\xFCnlik',
-      error: '\xDDal\u0148y\u015Flyk',
-      warning: 'Du\xFDdury\u015F',
+      success: 'Üstünlik',
+      error: 'Ýalňyşlyk',
+      warning: 'Duýduryş',
       info: 'Maglumat',
-      backHome: 'Ba\u015F sahypa ga\xFDtmak'
+      backHome: 'Baş sahypa gaýtmak'
     },
-    // Suw agşy
     waterfall: {
-      loading: '\xDD\xFCklen\xFD\xE4r...',
-      noMore: 'Has maglumat \xFDok',
-      empty: 'Maglumat \xFDok'
+      loading: 'Ýüklenýär...',
+      noMore: 'Has maglumat ýok',
+      empty: 'Maglumat ýok'
     },
-    // Düşündirişler
     descriptions: {
       colon: ':'
     },
-    // Slýder
     slider: {
       tipFormatter: '{value}'
     },
-    // Geçiriji
     switch: {
       on: 'ON',
       off: 'OFF'
     },
-    // Barlag gutusy
     checkbox: {
-      selectAll: 'Hemmesini sa\xFDlamak'
+      selectAll: 'Hemmesini saýlamak'
     },
-    // Radio
     radio: {},
-    // Menýu
     menu: {
-      collapse: 'Men\xFDuny ki\xE7eltmek',
-      expand: 'Men\xFDuny gi\u0148eltmek'
+      collapse: 'Menýuny kiçeltmek',
+      expand: 'Menýuny giňeltmek'
     },
-    // Karta
     card: {
-      collapse: 'Ki\xE7eltmek',
-      expand: 'Gi\u0148eltmek'
+      collapse: 'Kiçeltmek',
+      expand: 'Giňeltmek'
     },
-    // Kiçeltmek
     collapse: {
-      expand: 'Gi\u0148eltmek',
-      collapse: 'Ki\xE7eltmek'
+      expand: 'Giňeltmek',
+      collapse: 'Kiçeltmek'
     },
-    // Gural maslahaty
     tooltip: {},
-    // Popover
     popover: {},
-    // Nyşan
     badge: {},
-    // Awatar
     avatar: {
-      error: '\xDD\xFCkleme \xFDal\u0148y\u015Flygy'
+      error: 'Ýükleme ýalňyşlygy'
     },
-    // Suw nyşany
     watermark: {},
-    // Bölüjik
     divider: {},
-    // Karusel
     carousel: {
-      prev: '\xD6\u0148ki',
+      prev: 'Öňki',
       next: 'Indiki'
     },
-    // Marquee
     marquee: {},
-    // Berkemek
     affix: {},
-    // Ýakor
-    anchor: {},
-    // Mention
-    mention: {
-      placeholder: 'Girizi\u0148',
-      loading: '\xDD\xFCklen\xFD\xE4r...',
-      noData: 'Maglumat \xFDok'
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
     },
-    // AI Components
+    anchor: {},
+    mention: {
+      placeholder: 'Giriziň',
+      loading: 'Ýüklenýär...',
+      noData: 'Maglumat ýok'
+    },
+    skuselector: {
+      placeholder: 'Select specifications',
+      emptyText: 'No specifications',
+      stock: 'Stock',
+      price: 'Price',
+      selected: 'Selected',
+      outOfStock: 'Out of Stock'
+    },
+    productcard: {
+      viewDetails: 'View Details',
+      buyNow: 'Buy Now',
+      addToCart: 'Add to Cart',
+      sold: 'Sold',
+      soldOut: 'Sold Out',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Original'
+    },
+    couponcard: {
+      available: 'Claim Now',
+      used: 'Used',
+      expired: 'Expired',
+      received: 'Received',
+      limit: 'Orders over {threshold}',
+      noThreshold: 'No threshold',
+      validPeriod: 'Validity',
+      ruleTitle: 'Usage Rules'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Drawing...',
+      end: 'Winner!',
+      retry: 'Retry'
+    },
+    filterbar: {
+      all: 'All',
+      sort: 'Sort',
+      filter: 'Filter',
+      cancel: 'Cancel',
+      reset: 'Reset',
+      confirm: 'Confirm',
+      noOptions: 'No options',
+      asc: 'Ascending',
+      desc: 'Descending',
+      selected: 'Selected'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selected',
+      submit: 'Checkout',
+      allSelect: 'Select All'
+    },
+    categorynav: {
+      all: 'All',
+      noData: 'No Data',
+      loading: 'Loading...'
+    },
+    smartaddress: {
+      placeholder: 'Paste address here, auto-detect name, phone, location',
+      parse: 'Smart Parse',
+      province: 'Province/City/District',
+      city: 'City',
+      district: 'District/County',
+      street: 'Street/Town',
+      detail: 'Detailed Address',
+      phone: 'Phone',
+      name: 'Recipient',
+      parseSuccess: 'Address parsed successfully',
+      parseFailed: 'Parse failed, please fill manually',
+      required: 'Please fill complete address',
+      provinceKeywords: ['Province', 'State'],
+      cityKeywords: ['City', 'Prefecture'],
+      districtKeywords: ['District', 'County', 'Township'],
+      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+    },
+    ganttchart: {
+      taskName: 'Task Name',
+      searchPlaceholder: 'Search tasks...',
+      zoom: 'Zoom',
+      day: 'Day',
+      week: 'Week',
+      month: 'Month',
+      year: 'Year',
+      milestone: 'Milestone'
+    },
+    imagemagnifier: {
+      switchToImage: 'Switch to image {index}',
+      galleryItem: 'Gallery {index}',
+      close: 'Close'
+    },
     ai: {
       bubble: {
         citations: 'Sitatlar'
       },
       mention: {
-        placeholder: '@ Agent, Resminama \xFDa-da Tablisany bell\xE4\u0148...',
+        placeholder: '@ Agent, Resminama ýa-da Tablisany belläň...',
         agent: 'Agent',
         document: 'Resminama',
         table: 'Tablisa',
-        knowledge: 'Bilim'
+        knowledge: 'Bilim',
+        file: 'File'
       },
       codeBlock: {
-        copyCode: 'Kody g\xF6\xE7\xFCr',
-        copied: 'G\xF6\xE7\xFCrildi!',
-        run: 'Kody i\u015Flet',
-        edit: '\xDC\xFDtget',
+        copyCode: 'Kody göçür',
+        copied: 'Göçürildi!',
+        run: 'Kody işlet',
+        edit: 'Üýtget',
         save: 'Sakla',
         cancel: 'Cancel'
       },
       codeRunner: {
-        run: 'I\u015Flet',
+        run: 'Işlet',
         stop: 'Dur',
-        clear: 'T\xE4zele',
+        clear: 'Täzele',
         reset: 'Resetle',
-        placeholder: 'Kody i\u015Fletmek \xFC\xE7in I\u015Flet d\xFCwmesine basy\u0148...'
+        placeholder: 'Kody işletmek üçin Işlet düwmesine basyň...'
       },
       sender: {
         placeholder: 'Habarlar ugrat...',
-        dragTip: 'Fa\xFDllary \xFD\xFCklemek \xFC\xE7in go\xFDberi\u0148'
+        dragTip: 'Faýllary ýüklemek üçin goýberiň',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
-        thoughtProcess: 'O\xFDlanma prosesi',
-        thinking: 'O\xFDlan\xFDar...',
-        defaultTitle: 'T\xE4ze \xE4dim',
-        addNode: '\xC4dim go\u015F'
+        thoughtProcess: 'Oýlanma prosesi',
+        thinking: 'Oýlanýar...',
+        defaultTitle: 'Täze ädim',
+        addNode: 'Ädim goş'
       },
       thinking: {
-        start: 'O\xFDlanmaga ba\u015Fla',
-        thinking: 'O\xFDlan\xFDar...',
-        complete: 'O\xFDlanma tamamlandy',
-        error: 'O\xFDlanma s\xE4wligi'
+        start: 'Oýlanmaga başla',
+        thinking: 'Oýlanýar...',
+        complete: 'Oýlanma tamamlandy',
+        error: 'Oýlanma säwligi'
       },
       welcome: {
         title: 'Salam, men YH AI',
         description:
-          'Kodlamada, resminamalary terjime etmekde \xFDa-da d\xF6rediji \xFDazuwda size k\xF6mek edip bilerin. Bu g\xFCn size n\xE4me edip bilerin?'
+          'Kodlamada, resminamalary terjime etmekde ýa-da dörediji ýazuwda size kömek edip bilerin. Bu gün size näme edip bilerin?'
       },
       action: {
-        copy: 'G\xF6\xE7\xFCr',
-        regenerate: 'T\xE4zeden d\xF6ret',
-        share: 'Pa\xFDla\u015F',
+        copy: 'Göçür',
+        regenerate: 'Täzeden döret',
+        share: 'Paýlaş',
         like: 'Halan',
         dislike: 'Halanma',
-        edit: '\xDC\xFDtget',
+        edit: 'Üýtget',
         delete: 'Poz'
       },
       artifacts: {
-        preview: '\xD6\u0148\xFCnden g\xF6rmek',
+        preview: 'Öňünden görmek',
         inline: 'Setirde',
-        code: '\xC7e\u015Fme kody',
-        versions: 'Wersi\xFDalar',
-        rendering: 'Komponent g\xF6rkezil\xFD\xE4r...',
-        renderingChart: 'Grafik g\xF6rkezil\xFD\xE4r...',
-        renderingCanvas: 'Tuwralyk ta\xFD\xFDarlanyl\xFD\xE4r...'
+        code: 'Çeşme kody',
+        versions: 'Wersiýalar',
+        rendering: 'Komponent görkezilýär...',
+        renderingChart: 'Grafik görkezilýär...',
+        renderingCanvas: 'Tuwralyk taýýarlanylýär...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
-        trigger: 'S\xF6\xFDlemek \xFC\xE7in basy\u0148',
-        listening: 'Di\u0148le\xFD\xE4r...'
+        trigger: 'Söýlemek üçin basyň',
+        listening: 'Diňleýär...'
       },
       agent: {
-        uses: 'ulany\u015Flar',
-        use: '\u015Eimdi ulan',
+        uses: 'ulanyşlar',
+        use: 'Şimdi ulan',
         favorite: 'Halanan',
-        unfavorite: 'Halananlardan a\xFDyr',
-        share: 'Pa\xFDla\u015F',
-        online: 'Onla\xFDn',
-        offline: 'Ofla\xFDn',
-        busy: 'Me\u015Fgul',
+        unfavorite: 'Halananlardan aýyr',
+        share: 'Paýlaş',
+        online: 'Onlaýn',
+        offline: 'Oflaýn',
+        busy: 'Meşgul',
         verified: 'Tassyklanan',
-        rating: 'Re\xFDting',
+        rating: 'Reýting',
         reviews: 'teswirlar',
         responseTime: 'Orta jogap wagty',
         ms: 'ms'
       },
       sources: {
         references: 'Ssalgalar',
-        referencedSources: 'Ssalga berilen \xE7e\u015Fmeler',
-        relevant: 'Baglany\u015Fykly',
-        viewOriginal: 'Aslyny g\xF6r',
-        showAll: 'Hemmesini g\xF6r',
-        more: 'k\xE4bir \xE7e\u015Fmeler',
+        referencedSources: 'Ssalga berilen çeşmeler',
+        relevant: 'Baglanyşykly',
+        viewOriginal: 'Aslyny gör',
+        showAll: 'Hemmesini gör',
+        more: 'käbir çeşmeler',
         drawerTitle: 'Ssalgalar',
-        expandMore: 'K\xF6pr\xE4k g\xF6r',
-        collapseMore: '\xDDygy\u015F',
-        noSources: '\xC7e\u015Fme \xFDok',
-        today: '\u015Eu g\xFCn',
-        last7Days: 'So\u0148ky 7 g\xFCn',
-        last30Days: 'So\u0148ky 30 g\xFCn',
-        earlier: '\xD6\u0148',
+        expandMore: 'Köpräk gör',
+        collapseMore: 'Ýygyş',
+        noSources: 'Çeşme ýok',
+        today: 'Şu gün',
+        last7Days: 'Soňky 7 gün',
+        last30Days: 'Soňky 30 gün',
+        earlier: 'Öň',
         pinned: 'Pipet'
       },
       conversations: {
-        today: '\u015Eu g\xFCn',
-        last7Days: 'So\u0148ky 7 g\xFCn',
-        last30Days: 'So\u0148ky 30 g\xFCn',
-        earlier: '\xD6\u0148',
+        today: 'Şu gün',
+        last7Days: 'Soňky 7 gün',
+        last30Days: 'Soňky 30 gün',
+        earlier: 'Öň',
         pinned: 'Pipet',
         pin: 'Pip et',
-        unpin: 'Pipden a\xFDyr',
-        newConversation: 'T\xE4ze s\xF6hbet',
-        rename: 'Ady \xFC\xFDtget',
+        unpin: 'Pipden aýyr',
+        newConversation: 'Täze söhbet',
+        noData: 'No conversations yet',
+        rename: 'Ady üýtget',
         delete: 'Poz',
-        deleteConfirm: '\u015Eu s\xF6hbeti pozmagy tassykla\u0148?'
+        deleteConfirm: 'Şu söhbeti pozmagy tassyklaň?'
+      },
+      attachments: {
+        dropTip: 'Drop files here to upload',
+        clickToUpload: 'Click or drag files to upload',
+        uploadSuccess: 'Upload success',
+        uploadError: 'Upload failed',
+        deleteConfirm: 'Are you sure to delete this file?',
+        fileTooLarge: 'File size cannot exceed {size}',
+        invalidFileType: 'Invalid file type'
+      },
+      mermaid: {
+        image: 'Image',
+        code: 'Code',
+        zoomIn: 'Zoom In',
+        zoomOut: 'Zoom Out',
+        reset: 'Reset',
+        download: 'Download',
+        copyCode: 'Copy Code',
+        rendering: 'Rendering...',
+        renderError: 'Render failed',
+        renderSuccess: 'Render success',
+        retry: 'Retry'
       }
     }
   }
 }
+
 export default tk

@@ -490,11 +490,11 @@ const { conversations, isSyncing, syncToRemote, startSync, stopSync } = useAiCon
 
 ### Remote Sync Options
 
-| Param          | Type                | Default | Description         |
-| -------------- | ------------------- | ------- | ------------------- |
-| `remoteSync`   | `RemoteSyncAdapter` | -       | Remote sync adapter |
-| `autoSync`     | `boolean`           | `false` | Enable auto sync    |
-| `syncInterval` | `number`            | `30000` | Sync interval (ms)  |
+| Param          | Type                | Default | Description                                     |
+| -------------- | ------------------- | ------- | ----------------------------------------------- |
+| `remoteSync`   | `RemoteSyncAdapter` | -       | Remote sync adapter                             |
+| `autoSync`     | `boolean`           | `false` | Enable auto sync                                |
+| `syncInterval` | `number`            | `30000` | Sync interval (ms), 0 represents real-time sync |
 
 ### Remote Sync Returns
 

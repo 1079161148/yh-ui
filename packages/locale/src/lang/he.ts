@@ -1,9 +1,8 @@
-﻿import type { Language } from '../index'
+import type { Language } from '../index'
 
 export const he: Language = {
   name: 'he',
   yh: {
-    // 谞驻讜抓
     common: {
       yes: '讻谉',
       no: '诇讗',
@@ -27,7 +26,6 @@ export const he: Language = {
       selectAll: '讘讞专 讛讻诇',
       unselectAll: '讘讟诇 讘讞讬专讛'
     },
-    // 讘讜讞专 爪讘注讬诐
     colorpicker: {
       confirm: '讗讬砖讜专',
       clear: '谞拽讛',
@@ -37,7 +35,6 @@ export const he: Language = {
       recentColors: '爪讘注讬诐 讗讞专讜谞讬诐',
       presetColors: '爪讘注讬诐 诪讜讙讚专讬诐 诪专讗砖'
     },
-    // 讘讜讞专 转讗专讬讱
     datepicker: {
       now: '注讻砖讬讜',
       today: '讛讬讜诐',
@@ -89,7 +86,6 @@ export const he: Language = {
         q4: 'Q4'
       }
     },
-    // 讘讜讞专 砖注讛
     timepicker: {
       confirm: '讗讬砖讜专',
       cancel: '讘讬讟讜诇',
@@ -99,11 +95,9 @@ export const he: Language = {
       endPlaceholder: '砖注转 住讬讜诐',
       selectTime: '讘讞专 砖注讛'
     },
-    // 讘讞讬专转 砖注讛
     timeselect: {
       placeholder: '讘讞专 砖注讛'
     },
-    // 注抓
     tree: {
       emptyText: '讗讬谉 谞转讜谞讬诐',
       loading: '讟讜注谉...',
@@ -112,14 +106,12 @@ export const he: Language = {
       expandAll: '讛专讞讘 讛讻诇',
       collapseAll: '讻讜讜抓 讛讻诇'
     },
-    // 讘讞讬专转 注抓
     treeselect: {
       placeholder: '讘讞专',
       emptyText: '讗讬谉 谞转讜谞讬诐',
       loading: '讟讜注谉...',
       noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐'
     },
-    // 诇讜讞 砖谞讛
     calendar: {
       prevMonth: '讞讜讚砖 拽讜讚诐',
       nextMonth: '讞讜讚砖 讛讘讗',
@@ -140,14 +132,12 @@ export const he: Language = {
         sat: '砖'
       }
     },
-    // 讛砖诇诪讛 讗讜讟讜诪讟讬转
     autocomplete: {
       loading: '讟讜注谉...',
       placeholder: '讗谞讗 讛讝谉',
       noData: '讗讬谉 谞转讜谞讬诐',
       noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐'
     },
-    // 住驻讬专讛 诇讗讞讜专
     countdown: {
       days: '讬诪讬诐',
       hours: '砖注讜转',
@@ -156,14 +146,12 @@ export const he: Language = {
       milliseconds: '诪讬诇讬砖谞讬讜转',
       finished: '讛住转讬讬诐'
     },
-    // 拽住拽讬讬讚
     cascader: {
       noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐',
       placeholder: '讘讞专',
       loading: '讟讜注谉...',
       noData: '讗讬谉 谞转讜谞讬诐'
     },
-    // 讛注讘专讛
     transfer: {
       noMatch: '讗讬谉 谞转讜谞讬诐 转讜讗诪讬诐',
       noData: '讗讬谉 谞转讜谞讬诐',
@@ -173,7 +161,6 @@ export const he: Language = {
       hasCheckedFormat: '{checked}/{total} 谞讘讞专讜',
       searchPlaceholder: '讛讝谉 诪讬诇转 诪驻转讞'
     },
-    // 讟讘诇讛
     table: {
       emptyText: '讗讬谉 谞转讜谞讬诐',
       confirmFilter: '讗讬砖讜专',
@@ -190,7 +177,6 @@ export const he: Language = {
       page: '注诪讜讚 {page}',
       yes: '讻谉',
       no: '诇讗',
-      // 住专讙诇 讻诇讬诐
       toolbar: {
         refresh: '专注谞讜谉',
         density: '爪驻讬驻讜转',
@@ -205,7 +191,6 @@ export const he: Language = {
         search: '讞讬驻讜砖',
         searchPlaceholder: '讛讝谉 诪讬诇讜转 诪驻转讞 诇讞讬驻讜砖'
       },
-      // 诪住谞谉
       filter: {
         selectAll: '讘讞专 讛讻诇',
         selectInvert: '讛驻讜讱 讘讞讬专讛',
@@ -221,13 +206,11 @@ export const he: Language = {
         lessThan: '拽讟谉 诪',
         between: '讘讬谉'
       },
-      // 诪讬讜谉
       sort: {
         asc: '注讜诇讛',
         desc: '讬讜专讚',
         clear: '谞拽讛 诪讬讜谉'
       },
-      // 讬讬爪讜讗
       export: {
         title: '讬讬爪讜讗 谞转讜谞讬诐',
         filename: '砖诐 拽讜讘抓',
@@ -241,7 +224,6 @@ export const he: Language = {
         success: '讬讬爪讜讗 讛爪诇讬讞',
         error: '讬讬爪讜讗 谞讻砖诇'
       },
-      // 讬讬讘讜讗
       import: {
         title: '讬讬讘讜讗 谞转讜谞讬诐',
         selectFile: '讘讞专 拽讜讘抓',
@@ -252,7 +234,6 @@ export const he: Language = {
         preview: '转爪讜讙讛 诪拽讚讬诪讛 砖诇 谞转讜谞讬诐',
         confirm: '讗砖专 讬讬讘讜讗'
       },
-      // 讛讚驻住讛
       printConfig: {
         title: '讛讙讚专讜转 讛讚驻住讛',
         pageTitle: '讻讜转专转 注诪讜讚',
@@ -265,7 +246,6 @@ export const he: Language = {
         portrait: '讗谞讻讬',
         printing: '诪讚驻讬住...'
       },
-      // 讛讙讚专讜转 注诪讜讚讜转
       columnSetting: {
         title: '讛讙讚专讜转 注诪讜讚讜转',
         showAll: '讛爪讙 讛讻诇',
@@ -275,7 +255,6 @@ export const he: Language = {
         fixedRight: '拽讘注 诇讬诪讬谉',
         unfixed: '砖讞专专'
       },
-      // 转驻专讬讟 讛拽砖专
       contextMenu: {
         copy: '讛注转拽',
         copyRow: '讛注转拽 砖讜专讛',
@@ -287,31 +266,26 @@ export const he: Language = {
         deleteSelectedRows: '诪讞拽 砖讜专讜转 谞讘讞专讜转',
         exportSelected: '讬讬爪讗 谞讘讞专'
       },
-      // 讘讞讬专讛
       selection: {
         selectAll: '讘讞专 讛讻诇',
         selectInvert: '讛驻讜讱 讘讞讬专讛',
         selectNone: '谞拽讛 讘讞讬专讛',
         selected: '{count} 驻专讬讟讬诐 谞讘讞专讜'
       },
-      // 讛专讞讘讛
       expand: {
         expandAll: '讛专讞讘 讛讻诇',
         collapseAll: '讻讜讜抓 讛讻诇'
       },
-      // 注抓
       tree: {
         expandAll: '讛专讞讘 讛讻诇',
         collapseAll: '讻讜讜抓 讛讻诇',
         expandLevel: '讛专讞讘 诇专诪讛 {level}'
       },
-      // 讙专讬专讛
       drag: {
         dragTip: '讙专讜专 诇住讬讚讜专 诪讞讚砖',
         dropTip: '砖讞专专 诇诪讬拽讜诐'
       }
     },
-    // 转讬讘转 讛讜讚注讛
     messagebox: {
       title: '讛讜讚注讛',
       confirm: '讗讬砖讜专',
@@ -322,7 +296,6 @@ export const he: Language = {
       prompt: '讘拽砖讛',
       inputPlaceholder: '讗谞讗 讛讝谉'
     },
-    // 讛注诇讗讛
     upload: {
       deleteTip: '诇讞抓 delete 诇讛住专讛',
       delete: '诪讞拽',
@@ -340,18 +313,15 @@ export const he: Language = {
       fileSizeError: '讙讜讚诇 拽讜讘抓 讞讜专讙 诪讛讙讘讜诇',
       fileCountError: '诪住驻专 拽讘爪讬诐 讞讜专讙 诪讛讙讘讜诇'
     },
-    // 讟讜驻住
     form: {
       validationFailed: '讗讬诪讜转 谞讻砖诇',
       required: '谞讚专砖',
       pleaseInput: '讗谞讗 讛讝谉',
       pleaseSelect: '讗谞讗 讘讞专'
     },
-    // 讻驻转讜专
     button: {
       loading: '讟讜注谉...'
     },
-    // 拽诇讟
     input: {
       placeholder: '讗谞讗 讛讝谉',
       clear: '谞拽讛',
@@ -360,28 +330,23 @@ export const he: Language = {
       copy: '讛注转拽',
       copied: '讛讜注转拽'
     },
-    // 拽诇讟 诪住驻专
     inputnumber: {
       placeholder: '讗谞讗 讛讝谉 诪住驻专',
       increase: '讛讙讚诇',
       decrease: '讛拽讟谉'
     },
-    // 拽诇讟 转讙
     inputtag: {
       placeholder: '讗谞讗 讛讝谉',
       add: '讛讜住祝',
       remove: '讛住专'
     },
-    // 驻讬专讜专讬 诇讞诐
     breadcrumb: {
       label: '驻讬专讜专讬 诇讞诐',
       more: '注讜讚'
     },
-    // 讞讝专讛 诇诪注诇讛
     backtop: {
       text: '讞讝专讛 诇诪注诇讛'
     },
-    // 讘讞讬专讛
     select: {
       placeholder: '讗谞讗 讘讞专',
       noData: '讗讬谉 谞转讜谞讬诐',
@@ -390,7 +355,6 @@ export const he: Language = {
       selectAll: '讘讞专 讛讻诇',
       clearAll: '谞拽讛 讛讻诇'
     },
-    // 注讬诪讜讚
     pagination: {
       goto: '注讘讜专 诇',
       page: '',
@@ -402,13 +366,11 @@ export const he: Language = {
       last: '讗讞专讜谉',
       pageClassifier: ''
     },
-    // 讗讬砖讜专 拽讜驻抓
     popconfirm: {
       confirm: '讗讬砖讜专',
       cancel: '讘讬讟讜诇',
       dontAskAgain: '讗诇 转砖讗诇 砖讜讘'
     },
-    // 讚讬讗诇讜讙
     dialog: {
       confirm: '讗讬砖讜专',
       cancel: '讘讬讟讜诇',
@@ -416,17 +378,14 @@ export const he: Language = {
       maximize: '讛讙讚诇 诇诪拽住讬诪讜诐',
       restore: '砖讞讝专'
     },
-    // 诪讙讬专讛
     drawer: {
       close: '住讙讜专',
       confirm: '讗讬砖讜专',
       cancel: '讘讬讟讜诇'
     },
-    // 转驻专讬讟 谞驻转讞
     dropdown: {
       loading: '讟讜注谉...'
     },
-    // 转诪讜谞讛
     image: {
       error: '谞讻砖诇',
       loading: '讟讜注谉...',
@@ -438,7 +397,6 @@ export const he: Language = {
       originalSize: '讙讜讚诇 诪拽讜专讬',
       fullscreen: '诪住讱 诪诇讗'
     },
-    // 诪爪讬讙 转诪讜谞讜转
     imageviewer: {
       close: '住讙讜专',
       prev: '讛拽讜讚诐',
@@ -451,65 +409,52 @@ export const he: Language = {
       fullscreen: '诪住讱 诪诇讗',
       exitFullscreen: '爪讗 诪诪住讱 诪诇讗'
     },
-    // 讙诇讬诇讛 讗讬谞住讜驻讬转
     infinitescroll: {
       loading: '讟讜注谉...',
       finished: '讗讬谉 注讜讚 谞转讜谞讬诐',
       error: '讟注讬谞讛 谞讻砖诇讛, 诇讞抓 诇谞讬住讬讜谉 讞讜讝专',
       retry: '诇讞抓 诇谞讬住讬讜谉 讞讜讝专'
     },
-    // 讛讜讚注讛
     message: {
       close: '住讙讜专'
     },
-    // 讛转专讗讛
     notification: {
       close: '住讙讜专'
     },
-    // 讟注讬谞讛
     loading: {
       text: '讟讜注谉...'
     },
-    // 住讬讘讜讘
     spin: {
       text: '讟讜注谉...'
     },
-    // 讚讬专讜讙
     rate: {
       texts: ['讙专讜注 诪讗讜讚', '诪讗讜讻讝讘', '讛讜讙谉', '诪专讜爪讛', '诪讜驻转注']
     },
-    // 讛转专讗讛
     alert: {
       close: '住讙讜专'
     },
-    // 转讙
     tag: {
       close: '住讙讜专'
     },
-    // 讻专讟讬住讬讜转
     tabs: {
       close: '住讙讜专',
       add: '讛讜住祝',
       more: '注讜讚'
     },
-    // 砖诇讘讬诐
     steps: {
       finish: '讛讜砖诇诐',
       process: '讘转讛诇讬讱',
       wait: '诪诪转讬谉',
       error: '砖讙讬讗讛'
     },
-    // 讛转拽讚诪讜转
     progress: {
       success: '讛爪诇讞讛',
       exception: '讬讜爪讗 讚讜驻谉',
       warning: '讗讝讛专讛'
     },
-    // 砖诇讚
     skeleton: {
       loading: '讟讜注谉...'
     },
-    // 专讬拽
     empty: {
       description: '讗讬谉 谞转讜谞讬诐',
       noData: '讗讬谉 谞转讜谞讬诐',
@@ -517,7 +462,6 @@ export const he: Language = {
       networkError: '砖讙讬讗转 专砖转',
       serverError: '砖讙讬讗转 砖专转'
     },
-    // 转讜爪讗讛
     result: {
       success: '讛爪诇讞讛',
       error: '砖讙讬讗讛',
@@ -525,72 +469,58 @@ export const he: Language = {
       info: '诪讬讚注',
       backHome: '讞讝专讛 诇讚祝 讛讘讬转'
     },
-    // 诪驻诇
     waterfall: {
       loading: '讟讜注谉...',
       noMore: '讗讬谉 注讜讚 谞转讜谞讬诐',
       empty: '讗讬谉 谞转讜谞讬诐'
     },
-    // 转讬讗讜专讬诐
     descriptions: {
       colon: ':'
     },
-    // 诪讞讜讜谉
     slider: {
       tipFormatter: '{value}'
     },
-    // 诪转讙
     switch: {
       on: '驻讜注诇',
       off: '讻讘讜讬'
     },
-    // 转讬讘转 住讬诪讜谉
     checkbox: {
       selectAll: '讘讞专 讛讻诇'
     },
-    // 专讚讬讜
     radio: {},
-    // 转驻专讬讟
     menu: {
       collapse: '讻讜讜抓 转驻专讬讟',
       expand: '讛专讞讘 转驻专讬讟'
     },
-    // 讻专讟讬住
     card: {
       collapse: '讻讜讜抓',
       expand: '讛专讞讘'
     },
-    // 讻讬讜讜抓
     collapse: {
       expand: '讛专讞讘',
       collapse: '讻讜讜抓'
     },
-    // 专诪讝
     tooltip: {},
-    // 讞诇讜谉 拽讜驻抓
     popover: {},
-    // 转讙
     badge: {},
-    // 讗讜讜讟专
     avatar: {
       error: '讟注讬谞讛 谞讻砖诇讛'
     },
-    // 住讬诪谉 诪讬诐
     watermark: {},
-    // 诪驻专讬讚
     divider: {},
-    // 拽专讜住诇讛
     carousel: {
       prev: '讛拽讜讚诐',
       next: '讛讘讗'
     },
-    // 诪专拽讬讝
     marquee: {},
-    // 讛讬爪诪讚讜转
     affix: {},
-    // 注讜讙谉
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: '讗谞讗 讛讝谉',
       loading: '讟讜注谉...',
@@ -688,7 +618,6 @@ export const he: Language = {
       galleryItem: '讙诇专讬讛 {index}',
       close: '住讙讜专'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: '爪讬讟讜讟讬诐'
@@ -698,7 +627,8 @@ export const he: Language = {
         agent: '住讜讻谉',
         document: '诪住诪讱',
         table: '讟讘诇讛',
-        knowledge: '讬讚注'
+        knowledge: '讬讚注',
+        file: 'File'
       },
       codeBlock: {
         copyCode: '讛注转拽 拽讜讚',
@@ -717,7 +647,8 @@ export const he: Language = {
       },
       sender: {
         placeholder: '砖诇讞 讛讜讚注讛...',
-        dragTip: '砖讞专专 诇讛注诇讗转 拽讘爪讬诐'
+        dragTip: '砖讞专专 诇讛注诇讗转 拽讘爪讬诐',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: '转讛诇讬讱 讞砖讬讘讛',
@@ -752,7 +683,8 @@ export const he: Language = {
         versions: '讙专住讗讜转',
         rendering: '诪注讘讚 专讻讬讘...',
         renderingChart: '诪注讘讚 讙专祝...',
-        renderingCanvas: '诪讻讬谉 讘讚...'
+        renderingCanvas: '诪讻讬谉 讘讚...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: '诇讞抓 诇讚讬讘讜专',

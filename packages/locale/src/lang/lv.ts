@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const lv: Language = {
   name: 'lv',
   yh: {
-    // Kopīgs
     common: {
       yes: 'Jā',
       no: 'Nē',
@@ -27,7 +26,6 @@ export const lv: Language = {
       selectAll: 'Izvēlēties visu',
       unselectAll: 'Noņemt visu izvēli'
     },
-    // Krāsu izvēle
     colorpicker: {
       confirm: 'Labi',
       clear: 'Notīrīt',
@@ -37,7 +35,6 @@ export const lv: Language = {
       recentColors: 'Pēdējās krāsas',
       presetColors: 'Iepriekš iestatītās krāsas'
     },
-    // Datuma izvēle
     datepicker: {
       now: 'Tagad',
       today: 'Šodien',
@@ -89,7 +86,6 @@ export const lv: Language = {
         q4: 'Q4'
       }
     },
-    // Laika izvēle
     timepicker: {
       confirm: 'Labi',
       cancel: 'Atcelt',
@@ -99,11 +95,9 @@ export const lv: Language = {
       endPlaceholder: 'Beigu laiks',
       selectTime: 'Izvēlieties laiku'
     },
-    // Laika izvēle
     timeselect: {
       placeholder: 'Izvēlieties laiku'
     },
-    // Koks
     tree: {
       emptyText: 'Nav datu',
       loading: 'Ielādē...',
@@ -112,14 +106,12 @@ export const lv: Language = {
       expandAll: 'Izvērst visu',
       collapseAll: 'Sakļaut visu'
     },
-    // Koka izvēle
     treeselect: {
       placeholder: 'Izvēlieties',
       emptyText: 'Nav datu',
       loading: 'Ielādē...',
       noMatch: 'Nav atbilstošu datu'
     },
-    // Kalendārs
     calendar: {
       prevMonth: 'Iepriekšējais mēnesis',
       nextMonth: 'Nākamais mēnesis',
@@ -140,14 +132,12 @@ export const lv: Language = {
         sat: 'Se'
       }
     },
-    // Automātiskā aizpilde
     autocomplete: {
       loading: 'Ielādē...',
       placeholder: 'Lūdzu, ievadiet',
       noData: 'Nav datu',
       noMatch: 'Nav atbilstošu datu'
     },
-    // Atpakaļskaitīšana
     countdown: {
       days: 'dienas',
       hours: 'stundas',
@@ -156,14 +146,12 @@ export const lv: Language = {
       milliseconds: 'milisekundes',
       finished: 'Pabeigts'
     },
-    // Kaskāde
     cascader: {
       noMatch: 'Nav atbilstošu datu',
       placeholder: 'Izvēlieties',
       loading: 'Ielādē...',
       noData: 'Nav datu'
     },
-    // Pārsūtīšana
     transfer: {
       noMatch: 'Nav atbilstošu datu',
       noData: 'Nav datu',
@@ -173,7 +161,6 @@ export const lv: Language = {
       hasCheckedFormat: '{checked}/{total} izvēlēts',
       searchPlaceholder: 'Ievadiet atslēgvārdu'
     },
-    // Tabula
     table: {
       emptyText: 'Nav datu',
       confirmFilter: 'Apstiprināt',
@@ -190,7 +177,6 @@ export const lv: Language = {
       page: 'Lapa {page}',
       yes: 'Jā',
       no: 'Nē',
-      // Rīkjosla
       toolbar: {
         refresh: 'Atjaunot',
         density: 'Blīvums',
@@ -205,7 +191,6 @@ export const lv: Language = {
         search: 'Meklēt',
         searchPlaceholder: 'Ievadiet atslēgvārdus meklēšanai'
       },
-      // Filtrs
       filter: {
         selectAll: 'Izvēlēties visu',
         selectInvert: 'Apgriezt izvēli',
@@ -221,13 +206,11 @@ export const lv: Language = {
         lessThan: 'Mazāks par',
         between: 'Starp'
       },
-      // Kārtošana
       sort: {
         asc: 'Augošā secībā',
         desc: 'Dilstošā secībā',
         clear: 'Notīrīt kārtošanu'
       },
-      // Eksportēšana
       export: {
         title: 'Eksportēt datus',
         filename: 'Faila nosaukums',
@@ -241,7 +224,6 @@ export const lv: Language = {
         success: 'Eksports veiksmīgs',
         error: 'Eksporta kļūda'
       },
-      // Importēšana
       import: {
         title: 'Importēt datus',
         selectFile: 'Izvēlieties failu',
@@ -252,7 +234,6 @@ export const lv: Language = {
         preview: 'Datu priekšskatījums',
         confirm: 'Apstiprināt importu'
       },
-      // Drukāšana
       printConfig: {
         title: 'Drukas iestatījumi',
         pageTitle: 'Lapas nosaukums',
@@ -265,7 +246,6 @@ export const lv: Language = {
         portrait: 'Portrets',
         printing: 'Drukā...'
       },
-      // Kolonnu iestatījumi
       columnSetting: {
         title: 'Kolonnu iestatījumi',
         showAll: 'Rādīt visu',
@@ -275,7 +255,6 @@ export const lv: Language = {
         fixedRight: 'Fiksēt pa labi',
         unfixed: 'Atbrīvot'
       },
-      // Konteksta izvēlne
       contextMenu: {
         copy: 'Kopēt',
         copyRow: 'Kopēt rindu',
@@ -287,31 +266,26 @@ export const lv: Language = {
         deleteSelectedRows: 'Dzēst izvēlētās rindas',
         exportSelected: 'Eksportēt izvēlēto'
       },
-      // Izvēle
       selection: {
         selectAll: 'Izvēlēties visu',
         selectInvert: 'Apgriezt izvēli',
         selectNone: 'Notīrīt izvēli',
         selected: '{count} vienības izvēlētas'
       },
-      // Izvēršana
       expand: {
         expandAll: 'Izvērst visu',
         collapseAll: 'Sakļaut visu'
       },
-      // Koks
       tree: {
         expandAll: 'Izvērst visu',
         collapseAll: 'Sakļaut visu',
         expandLevel: 'Izvērst līdz līmenim {level}'
       },
-      // Vilkšana
       drag: {
         dragTip: 'Velciet, lai pārkārtotu',
         dropTip: 'Atlaidiet, lai novietotu'
       }
     },
-    // Ziņojuma lodziņš
     messagebox: {
       title: 'Ziņojums',
       confirm: 'Labi',
@@ -322,7 +296,6 @@ export const lv: Language = {
       prompt: 'Pieprasījums',
       inputPlaceholder: 'Lūdzu, ievadiet'
     },
-    // Augšupielāde
     upload: {
       deleteTip: 'nospiediet delete, lai dzēstu',
       delete: 'Dzēst',
@@ -340,18 +313,15 @@ export const lv: Language = {
       fileSizeError: 'Faila izmērs pārsniedz ierobežojumu',
       fileCountError: 'Failu skaits pārsniedz ierobežojumu'
     },
-    // Forma
     form: {
       validationFailed: 'Validācija neizdevās',
       required: 'Obligāts',
       pleaseInput: 'Lūdzu, ievadiet',
       pleaseSelect: 'Lūdzu, izvēlieties'
     },
-    // Poga
     button: {
       loading: 'Ielādē...'
     },
-    // Ievade
     input: {
       placeholder: 'Lūdzu, ievadiet',
       clear: 'Notīrīt',
@@ -360,28 +330,23 @@ export const lv: Language = {
       copy: 'Kopēt',
       copied: 'Nokopēts'
     },
-    // Skaitļa ievade
     inputnumber: {
       placeholder: 'Lūdzu, ievadiet skaitli',
       increase: 'Palielināt',
       decrease: 'Samazināt'
     },
-    // Birka ievade
     inputtag: {
       placeholder: 'Lūdzu, ievadiet',
       add: 'Pievienot',
       remove: 'Noņemt'
     },
-    // Navigācijas ceļš
     breadcrumb: {
       label: 'Navigācijas ceļš',
       more: 'Vairāk'
     },
-    // Atgriezties uz augšu
     backtop: {
       text: 'Atgriezties uz augšu'
     },
-    // Izvēle
     select: {
       placeholder: 'Lūdzu, izvēlieties',
       noData: 'Nav datu',
@@ -390,7 +355,6 @@ export const lv: Language = {
       selectAll: 'Izvēlēties visu',
       clearAll: 'Notīrīt visu'
     },
-    // Lapošana
     pagination: {
       goto: 'Doties uz',
       page: '',
@@ -402,13 +366,11 @@ export const lv: Language = {
       last: 'Pēdējā',
       pageClassifier: ''
     },
-    // Apstiprinājuma izlecošais logs
     popconfirm: {
       confirm: 'Labi',
       cancel: 'Atcelt',
       dontAskAgain: 'Vairs nejautāt'
     },
-    // Dialogs
     dialog: {
       confirm: 'Labi',
       cancel: 'Atcelt',
@@ -416,17 +378,14 @@ export const lv: Language = {
       maximize: 'Maksimizēt',
       restore: 'Atjaunot'
     },
-    // Atvilktne
     drawer: {
       close: 'Aizvērt',
       confirm: 'Labi',
       cancel: 'Atcelt'
     },
-    // Nolaižamā izvēlne
     dropdown: {
       loading: 'Ielādē...'
     },
-    // Attēls
     image: {
       error: 'NEIZDEVAS',
       loading: 'Ielādē...',
@@ -438,7 +397,6 @@ export const lv: Language = {
       originalSize: 'Sākotnējais izmērs',
       fullscreen: 'Pilnekrāns'
     },
-    // Attēla skatītājs
     imageviewer: {
       close: 'Aizvērt',
       prev: 'Iepriekšējais',
@@ -451,65 +409,52 @@ export const lv: Language = {
       fullscreen: 'Pilnekrāns',
       exitFullscreen: 'Iziet no pilnekrāna'
     },
-    // Bezgalīga ritināšana
     infinitescroll: {
       loading: 'Ielādē...',
       finished: 'Nav vairāk datu',
       error: 'Ielādes kļūda, noklikšķiniet, lai mēģinātu vēlreiz',
       retry: 'Noklikšķiniet, lai mēģinātu vēlreiz'
     },
-    // Ziņojums
     message: {
       close: 'Aizvērt'
     },
-    // Paziņojums
     notification: {
       close: 'Aizvērt'
     },
-    // Ielāde
     loading: {
       text: 'Ielādē...'
     },
-    // Griešanās
     spin: {
       text: 'Ielādē...'
     },
-    // Vērtējums
     rate: {
       texts: ['Ļoti slikti', 'Vīlies', 'Viduvēji', 'Apmierināts', 'Pārsteigts']
     },
-    // Brīdinājums
     alert: {
       close: 'Aizvērt'
     },
-    // Birka
     tag: {
       close: 'Aizvērt'
     },
-    // Cilnes
     tabs: {
       close: 'Aizvērt',
       add: 'Pievienot',
       more: 'Vairāk'
     },
-    // Soļi
     steps: {
       finish: 'Pabeigts',
       process: 'Notiek',
       wait: 'Gaida',
       error: 'Kļūda'
     },
-    // Progress
     progress: {
       success: 'Veiksmīgi',
       exception: 'Izņēmums',
       warning: 'Brīdinājums'
     },
-    // Skelets
     skeleton: {
       loading: 'Ielādē...'
     },
-    // Tukšs
     empty: {
       description: 'Nav datu',
       noData: 'Nav datu',
@@ -517,7 +462,6 @@ export const lv: Language = {
       networkError: 'Tīkla kļūda',
       serverError: 'Servera kļūda'
     },
-    // Rezultāts
     result: {
       success: 'Veiksmīgi',
       error: 'Kļūda',
@@ -525,72 +469,58 @@ export const lv: Language = {
       info: 'Informācija',
       backHome: 'Atgriezties uz sākumu'
     },
-    // Ūdenskritums
     waterfall: {
       loading: 'Ielādē...',
       noMore: 'Nav vairāk datu',
       empty: 'Nav datu'
     },
-    // Apraksti
     descriptions: {
       colon: ':'
     },
-    // Slīdnis
     slider: {
       tipFormatter: '{value}'
     },
-    // Slēdzis
     switch: {
       on: 'ON',
       off: 'OFF'
     },
-    // Izvēles rūtiņa
     checkbox: {
       selectAll: 'Izvēlēties visu'
     },
-    // Radio
     radio: {},
-    // Izvēlne
     menu: {
       collapse: 'Sakļaut izvēlni',
       expand: 'Izvērst izvēlni'
     },
-    // Karte
     card: {
       collapse: 'Sakļaut',
       expand: 'Izvērst'
     },
-    // Sakļaut
     collapse: {
       expand: 'Izvērst',
       collapse: 'Sakļaut'
     },
-    // Padoms
     tooltip: {},
-    // Izlecošais logs
     popover: {},
-    // Nozīme
     badge: {},
-    // Avatārs
     avatar: {
       error: 'Ielādes kļūda'
     },
-    // Ūdenszīme
     watermark: {},
-    // Atdalītājs
     divider: {},
-    // Karuselis
     carousel: {
       prev: 'Iepriekšējais',
       next: 'Nākamais'
     },
-    // Marquee
     marquee: {},
-    // Piestiprināšana
     affix: {},
-    // Enkura
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Lūdzu, ievadiet',
       loading: 'Ielādē...',
@@ -688,7 +618,6 @@ export const lv: Language = {
       galleryItem: 'Galerija {index}',
       close: 'Aizvērt'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Atsauces'
@@ -698,7 +627,8 @@ export const lv: Language = {
         agent: 'Aģents',
         document: 'Dokuments',
         table: 'Tabula',
-        knowledge: 'Zināšanas'
+        knowledge: 'Zināšanas',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopēt kodu',
@@ -717,7 +647,8 @@ export const lv: Language = {
       },
       sender: {
         placeholder: 'Sūtīt ziņu...',
-        dragTip: 'Atlaidiet, lai augšupielādētu failus'
+        dragTip: 'Atlaidiet, lai augšupielādētu failus',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Domāšanas process',
@@ -752,7 +683,8 @@ export const lv: Language = {
         versions: 'Versijas',
         rendering: 'Renderē komponentu...',
         renderingChart: 'Renderē diagrammu...',
-        renderingCanvas: 'Sagatavo audeklu...'
+        renderingCanvas: 'Sagatavo audeklu...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Noklikšķiniet, lai runātu',

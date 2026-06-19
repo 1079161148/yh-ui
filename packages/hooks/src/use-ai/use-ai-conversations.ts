@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, onUnmounted, getCurrentInstance } from 'vue'
 
 // ─── 基础类型 ─────────────────────────────────────────────────────────────────
 
@@ -327,6 +327,9 @@ export function useAiConversations(options: UseAiConversationsOptions = {}) {
     }
     conversations.value.unshift(newConv)
     await persist()
+    if (remoteSync && autoSync && syncInterval === 0) {
+      await syncToRemote()
+    }
     return newConv
   }
 
@@ -335,6 +338,9 @@ export function useAiConversations(options: UseAiConversationsOptions = {}) {
     if (idx !== -1) {
       conversations.value.splice(idx, 1)
       await persist()
+      if (remoteSync && autoSync && syncInterval === 0) {
+        await syncToRemote()
+      }
     }
   }
 
@@ -350,23 +356,39 @@ export function useAiConversations(options: UseAiConversationsOptions = {}) {
         updatedAt: Date.now()
       }
       await persist()
+      if (remoteSync && autoSync && syncInterval === 0) {
+        await syncToRemote()
+      }
     }
   }
 
   const pinConversation = async (id: string, pinned = true): Promise<void> => {
-    await updateConversation(id, { pinned })
+    const idx = conversations.value.findIndex((c) => c.id === id)
+    if (idx !== -1) {
+      conversations.value[idx] = {
+        ...conversations.value[idx],
+        pinned,
+        updatedAt: Date.now()
+      }
+    }
     // 重新排序（置顶在前）
     conversations.value.sort((a, b) => {
       if (a.pinned !== b.pinned) return a.pinned ? -1 : 1
       return b.updatedAt - a.updatedAt
     })
     await persist()
+    if (remoteSync && autoSync && syncInterval === 0) {
+      await syncToRemote()
+    }
   }
 
   const clear = async (): Promise<void> => {
     conversations.value = []
     if (adapter) {
       await adapter.removeItem(storageKey)
+    }
+    if (remoteSync && autoSync && syncInterval === 0) {
+      await syncToRemote()
     }
   }
 
@@ -441,6 +463,12 @@ export function useAiConversations(options: UseAiConversationsOptions = {}) {
   // 自动同步
   if (remoteSync && autoSync) {
     startSync()
+  }
+
+  if (getCurrentInstance()) {
+    onUnmounted(() => {
+      stopSync()
+    })
   }
 
   return {

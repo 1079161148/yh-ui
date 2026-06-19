@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const eu: Language = {
   name: 'eu',
   yh: {
-    // Orokorra
     common: {
       yes: 'Bai',
       no: 'Ez',
@@ -27,7 +26,6 @@ export const eu: Language = {
       selectAll: 'Dena hautatu',
       unselectAll: 'Hautaketa guztiak kendu'
     },
-    // Kolore hautatzailea
     colorpicker: {
       confirm: 'Ados',
       clear: 'Garbitu',
@@ -37,7 +35,6 @@ export const eu: Language = {
       recentColors: 'Azken koloreak',
       presetColors: 'Aurrez definitutako koloreak'
     },
-    // Data hautatzailea
     datepicker: {
       now: 'Orain',
       today: 'Gaur',
@@ -89,7 +86,6 @@ export const eu: Language = {
         q4: 'Q4'
       }
     },
-    // Ordu hautatzailea
     timepicker: {
       confirm: 'Ados',
       cancel: 'Utzi',
@@ -99,11 +95,9 @@ export const eu: Language = {
       endPlaceholder: 'Amaierako ordua',
       selectTime: 'Ordua hautatu'
     },
-    // Ordu hautaketa
     timeselect: {
       placeholder: 'Ordua hautatu'
     },
-    // Zuhaitza
     tree: {
       emptyText: 'Daturik ez',
       loading: 'Kargatzen...',
@@ -112,14 +106,12 @@ export const eu: Language = {
       expandAll: 'Dena zabaldu',
       collapseAll: 'Dena tolestu'
     },
-    // Zuhaitz hautaketa
     treeselect: {
       placeholder: 'Hautatu',
       emptyText: 'Daturik ez',
       loading: 'Kargatzen...',
       noMatch: 'Datu bat datorrenik ez'
     },
-    // Egutegia
     calendar: {
       prevMonth: 'Aurreko hilabetea',
       nextMonth: 'Hurrengo hilabetea',
@@ -140,14 +132,12 @@ export const eu: Language = {
         sat: 'Lar'
       }
     },
-    // Autobetetzeko
     autocomplete: {
       loading: 'Kargatzen...',
       placeholder: 'Mesedez, sartu',
       noData: 'Daturik ez',
       noMatch: 'Datu bat datorrenik ez'
     },
-    // Atzerako zenbaketa
     countdown: {
       days: 'egun',
       hours: 'ordu',
@@ -156,14 +146,12 @@ export const eu: Language = {
       milliseconds: 'milisegundo',
       finished: 'Amaitua'
     },
-    // Kaskada hautatzailea
     cascader: {
       noMatch: 'Datu bat datorrenik ez',
       placeholder: 'Hautatu',
       loading: 'Kargatzen...',
       noData: 'Daturik ez'
     },
-    // Transferentzia
     transfer: {
       noMatch: 'Datu bat datorrenik ez',
       noData: 'Daturik ez',
@@ -173,7 +161,6 @@ export const eu: Language = {
       hasCheckedFormat: '{checked}/{total} hautatuta',
       searchPlaceholder: 'Gako-hitza sartu'
     },
-    // Taula
     table: {
       emptyText: 'Daturik ez',
       confirmFilter: 'Berretsi',
@@ -190,7 +177,6 @@ export const eu: Language = {
       page: '{page} orrialdea',
       yes: 'Bai',
       no: 'Ez',
-      // Tresna-barra
       toolbar: {
         refresh: 'Freskatu',
         density: 'Dentsitatea',
@@ -205,7 +191,6 @@ export const eu: Language = {
         search: 'Bilatu',
         searchPlaceholder: 'Bilatzeko gako-hitzak sartu'
       },
-      // Iragazkia
       filter: {
         selectAll: 'Dena hautatu',
         selectInvert: 'Hautaketa alderantzikatu',
@@ -221,13 +206,11 @@ export const eu: Language = {
         lessThan: 'Baino txikiagoa',
         between: 'Artean'
       },
-      // Ordenatu
       sort: {
         asc: 'Goranzkoa',
         desc: 'Beheranzkoa',
         clear: 'Ordena garbitu'
       },
-      // Esportatu
       export: {
         title: 'Datuak esportatu',
         filename: 'Fitxategi izena',
@@ -241,7 +224,6 @@ export const eu: Language = {
         success: 'Esportatzea arrakastatsua',
         error: 'Esportatzea huts egin du'
       },
-      // Inportatu
       import: {
         title: 'Datuak inportatu',
         selectFile: 'Fitxategia hautatu',
@@ -252,7 +234,6 @@ export const eu: Language = {
         preview: 'Datuen aurrebista',
         confirm: 'Inportatzea berretsi'
       },
-      // Inprimatu
       printConfig: {
         title: 'Inprimatzeko ezarpenak',
         pageTitle: 'Orrialdearen izenburua',
@@ -265,7 +246,6 @@ export const eu: Language = {
         portrait: 'Bertikala',
         printing: 'Inprimatzen...'
       },
-      // Zutabe ezarpenak
       columnSetting: {
         title: 'Zutabe ezarpenak',
         showAll: 'Dena erakutsi',
@@ -275,7 +255,6 @@ export const eu: Language = {
         fixedRight: 'Eskubian finkatu',
         unfixed: 'Finkatzea kendu'
       },
-      // Testuinguru menua
       contextMenu: {
         copy: 'Kopiatu',
         copyRow: 'Lerroa kopiatu',
@@ -287,31 +266,26 @@ export const eu: Language = {
         deleteSelectedRows: 'Hautatutako lerroak ezabatu',
         exportSelected: 'Hautatutakoak esportatu'
       },
-      // Hautaketa
       selection: {
         selectAll: 'Dena hautatu',
         selectInvert: 'Hautaketa alderantzikatu',
         selectNone: 'Hautaketa garbitu',
         selected: '{count} elementu hautatuta'
       },
-      // Zabaltzea
       expand: {
         expandAll: 'Dena zabaldu',
         collapseAll: 'Dena tolestu'
       },
-      // Zuhaitza
       tree: {
         expandAll: 'Dena zabaldu',
         collapseAll: 'Dena tolestu',
         expandLevel: '{level} mailara zabaldu'
       },
-      // Arrastatu
       drag: {
         dragTip: 'Berriro ordenatzeko arrastatu',
         dropTip: 'Kokatzeko utzi'
       }
     },
-    // Mezu kutxa
     messagebox: {
       title: 'Mezua',
       confirm: 'Ados',
@@ -322,7 +296,6 @@ export const eu: Language = {
       prompt: 'Galdetua',
       inputPlaceholder: 'Mesedez, sartu'
     },
-    // Igo
     upload: {
       deleteTip: 'ezabatzeko delete sakatu',
       delete: 'Ezabatu',
@@ -340,18 +313,15 @@ export const eu: Language = {
       fileSizeError: 'Fitxategi tamaina muga gainditu du',
       fileCountError: 'Fitxategi kopurua muga gainditu du'
     },
-    // Formularioa
     form: {
       validationFailed: 'Baliozkotzea huts egin du',
       required: 'Beharrezkoa',
       pleaseInput: 'Mesedez, sartu',
       pleaseSelect: 'Mesedez, hautatu'
     },
-    // Botoia
     button: {
       loading: 'Kargatzen...'
     },
-    // Sarrera
     input: {
       placeholder: 'Mesedez, sartu',
       clear: 'Garbitu',
@@ -360,28 +330,23 @@ export const eu: Language = {
       copy: 'Kopiatu',
       copied: 'Kopiatuta'
     },
-    // Zenbaki sarrera
     inputnumber: {
       placeholder: 'Mesedez, zenbakia sartu',
       increase: 'Handitu',
       decrease: 'Txikitu'
     },
-    // Etiketa sarrera
     inputtag: {
       placeholder: 'Mesedez, sartu',
       add: 'Gehitu',
       remove: 'Kendu'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Nabigazio bidea',
       more: 'Gehiago'
     },
-    // Goira itzuli
     backtop: {
       text: 'Goira itzuli'
     },
-    // Hautatu
     select: {
       placeholder: 'Mesedez, hautatu',
       noData: 'Daturik ez',
@@ -390,7 +355,6 @@ export const eu: Language = {
       selectAll: 'Dena hautatu',
       clearAll: 'Dena garbitu'
     },
-    // Orrialdekatzea
     pagination: {
       goto: 'Joan',
       page: '',
@@ -402,13 +366,11 @@ export const eu: Language = {
       last: 'Azkena',
       pageClassifier: ''
     },
-    // Popconfirm
     popconfirm: {
       confirm: 'Ados',
       cancel: 'Utzi',
       dontAskAgain: 'Ez galdetu berriro'
     },
-    // Elkarrizketa
     dialog: {
       confirm: 'Ados',
       cancel: 'Utzi',
@@ -416,17 +378,14 @@ export const eu: Language = {
       maximize: 'Maximizatu',
       restore: 'Berreskuratu'
     },
-    // Drawer
     drawer: {
       close: 'Itxi',
       confirm: 'Ados',
       cancel: 'Utzi'
     },
-    // Dropdown
     dropdown: {
       loading: 'Kargatzen...'
     },
-    // Irudia
     image: {
       error: 'HUTS EGIN DU',
       loading: 'Kargatzen...',
@@ -438,7 +397,6 @@ export const eu: Language = {
       originalSize: 'Jatorrizko tamaina',
       fullscreen: 'Pantaila osoa'
     },
-    // Irudi ikuslea
     imageviewer: {
       close: 'Itxi',
       prev: 'Aurrekoa',
@@ -451,65 +409,52 @@ export const eu: Language = {
       fullscreen: 'Pantaila osoa',
       exitFullscreen: 'Pantaila osotik irten'
     },
-    // Mugagabea korritzea
     infinitescroll: {
       loading: 'Kargatzen...',
       finished: 'Daturik gehiago ez',
       error: 'Kargatzeak huts egin du, saiatu berriro klik egiteko',
       retry: 'Saiatu berriro klik egiteko'
     },
-    // Mezua
     message: {
       close: 'Itxi'
     },
-    // Jakinarazpena
     notification: {
       close: 'Itxi'
     },
-    // Kargatzen
     loading: {
       text: 'Kargatzen...'
     },
-    // Spin
     spin: {
       text: 'Kargatzen...'
     },
-    // Balorazioa
     rate: {
       texts: ['Oso txarra', 'Desengainatua', 'Justua', 'Asetua', 'Harritua']
     },
-    // Oharra
     alert: {
       close: 'Itxi'
     },
-    // Etiketa
     tag: {
       close: 'Itxi'
     },
-    // Fitxak
     tabs: {
       close: 'Itxi',
       add: 'Gehitu',
       more: 'Gehiago'
     },
-    // Urratsak
     steps: {
       finish: 'Amaitua',
       process: 'Prozesuan',
       wait: 'Itxaroten',
       error: 'Errorea'
     },
-    // Aurrerapena
     progress: {
       success: 'Arrakasta',
       exception: 'Salbuespena',
       warning: 'Oharra'
     },
-    // Skeleton
     skeleton: {
       loading: 'Kargatzen...'
     },
-    // Hutsa
     empty: {
       description: 'Daturik ez',
       noData: 'Daturik ez',
@@ -517,7 +462,6 @@ export const eu: Language = {
       networkError: 'Sare errorea',
       serverError: 'Zerbitzari errorea'
     },
-    // Emaitza
     result: {
       success: 'Arrakasta',
       error: 'Errorea',
@@ -525,72 +469,58 @@ export const eu: Language = {
       info: 'Informazioa',
       backHome: 'Etxera itzuli'
     },
-    // Waterfall
     waterfall: {
       loading: 'Kargatzen...',
       noMore: 'Daturik gehiago ez',
       empty: 'Daturik ez'
     },
-    // Deskribapenak
     descriptions: {
       colon: ':'
     },
-    // Slider
     slider: {
       tipFormatter: '{value}'
     },
-    // Switch
     switch: {
       on: 'PIZTUTA',
       off: 'ITZALITA'
     },
-    // Checkbox
     checkbox: {
       selectAll: 'Dena hautatu'
     },
-    // Radio
     radio: {},
-    // Menua
     menu: {
       collapse: 'Menua tolestu',
       expand: 'Menua zabaldu'
     },
-    // Txartela
     card: {
       collapse: 'Tolestu',
       expand: 'Zabaldu'
     },
-    // Tolestu
     collapse: {
       expand: 'Zabaldu',
       collapse: 'Tolestu'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Badge
     badge: {},
-    // Avatar
     avatar: {
       error: 'Kargatzeak huts egin du'
     },
-    // Watermark
     watermark: {},
-    // Divider
     divider: {},
-    // Carousel
     carousel: {
       prev: 'Aurrekoa',
       next: 'Hurrengoa'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Anchor
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Sartu mesedez',
       loading: 'Kargatzen...',
@@ -687,7 +617,6 @@ export const eu: Language = {
       galleryItem: '{index}. galeria',
       close: 'Itxi'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Aipuak'
@@ -697,7 +626,8 @@ export const eu: Language = {
         agent: 'Agentzia',
         document: 'Dokumentua',
         table: 'Taula',
-        knowledge: 'Ezagutza'
+        knowledge: 'Ezagutza',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopiatu kodea',
@@ -716,7 +646,8 @@ export const eu: Language = {
       },
       sender: {
         placeholder: 'Bidali mezua...',
-        dragTip: 'Askatu fitxategiak igotzeko'
+        dragTip: 'Askatu fitxategiak igotzeko',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Pentsamendu prozesua',
@@ -751,7 +682,8 @@ export const eu: Language = {
         versions: 'Bertsiok',
         rendering: 'Osagaia renderizatzen...',
         renderingChart: 'Grafikoa renderizatzen...',
-        renderingCanvas: 'Oihala prestatzen...'
+        renderingCanvas: 'Oihala prestatzen...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Egin klik hitz egiteko',

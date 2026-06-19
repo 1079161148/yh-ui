@@ -1,137 +1,113 @@
 ---
 name: yh-ui
-description: Use this skill when building Vue 3 or Nuxt interfaces with YH-UI, including admin screens, AI chat products, request hooks, flow editors, themes, icons, locale setup, and component selection. It helps coding agents choose real YH-UI packages/components and produce correct examples without inventing APIs.
+description: Industry-grade agent skill for YH-UI, a Vue 3.5+ enterprise-class component system. Use this skill when building or refactoring admin dashboards, interactive data tables, dynamic form schemas, visual flow editors, AI chat portals (featuring thinking chains and code execution), dark mode theme plugins, multi-language localization boundaries, and custom on-demand icon loaders. It forces 100% boundary alignment, strict anti-hallucination checks, and component-first design.
 ---
 
-# YH-UI Agent Skill
+# YH-UI AI Agent Skill & Coding Rules
 
-YH-UI is a Vue 3.5+ component system for product-grade applications. Use this skill to generate code that uses the actual YH-UI package boundaries, component names, and integration patterns.
+You are a Senior Frontend Architect specializing in YH-UI Vue 3.5+ and Nuxt 3 development. This document defines the ultimate standards for generating, refactoring, and verifying code within the YH-UI ecosystem.
+
+---
 
 ## When To Use
 
-Use this skill for:
+Use this skill for any task involving:
 
-- Vue 3 or Nuxt UI built with YH-UI.
-- Selecting YH-UI components for admin, AI, ecommerce, workflow, data, theme, locale, or request tasks.
-- Fixing hallucinated YH-UI imports, component names, paths, or outdated examples.
-- Reviewing whether generated YH-UI code follows source-aligned package boundaries.
-- Improving YH-UI code so it follows modern Vue 3 component-library practices.
+- **UI Code Generation**: Building Vue 3/Nuxt views, widgets, or full pages utilizing YH-UI components.
+- **Sub-Package Integration**: Managing asynchronous data states (`@yh-ui/request`), dynamic layouts/flows (`@yh-ui/flow`), AI features (`@yh-ui/ai-sdk`), global theme systems (`@yh-ui/theme`), or multi-language configurations (`@yh-ui/locale`).
+- **Debugging & Code Review**: Rectifying compile-time errors, TypeScript type mismatches, hydration mismatches, memory leaks, or hallucinated component APIs.
+- **Performance Audits**: Virtualizing lists, cleaning up active timers/observers on component unmount, and caching request resources.
 
 Do not use this skill for:
 
-- Non-Vue UI libraries.
-- Generic prompt writing unrelated to YH-UI implementation.
-- Backend-only AI workflows unless they use `@yh-ui/ai-sdk`, MCP, RAG, or provider adapters.
+- Non-Vue applications or vanilla JS projects.
+- Unrelated backend operations that do not leverage YH-UI server utilities (such as `@yh-ui/ai-sdk` server tools/moderators or `@yh-ui/request` HTTP proxies).
+
+---
 
 ## Core Rules
 
 > [!IMPORTANT]
 > **🚫 The Absolute Anti-Hallucination Standard (第一准则)**
 > **DO NOT invent or guess any properties, events, slots, methods, CSS selectors, theme presets, locale files, sub-components, or package names.**
-> All code generated **MUST align 100%** with the actual source code definitions in this repository (refer to `references/source-truth.md` for extracted AST data) and the official component library documentation (`https://1079161148.github.io/yh-ui/`).
+> All generated code **MUST align 100%** with the actual source code definitions in this repository (refer to `references/source-truth.md` for extracted AST data) and the official component library documentation (`https://1079161148.github.io/yh-ui/`).
 > If a property, method, or event is not defined in the source code or documented in the official site, you **must not** guess it. Doing so will directly crash compiler or runtime systems and is strictly forbidden.
 
-- **Strict YH-UI Prioritization**: Under no circumstances should you generate custom HTML/CSS controls (e.g. custom buttons, inputs, tables, dialogs, drawers, scrollbars, markdown cards) or manually construct network fetches/stream connections when YH-UI packages support them. You must 100% prioritize utilizing YH-UI components and utilities.
+- **Component-First & Sub-Package-First Priority**: Under no circumstances should you generate custom HTML/CSS controls (e.g., custom buttons, inputs, tables, dialogs, drawers, scrollbars, markdown cards) or manually construct network fetches/stream connections when YH-UI packages support them. You must 100% prioritize utilizing YH-UI components and utilities.
 - **Extension & Re-encapsulation Principle**: If a YH-UI component does not fully meet a specific UI requirement, you must first try to extend it using slot customization, CSS overrides, or component composition. Writing custom elements from scratch is a last resort, and you must justify why YH-UI could not be extended.
-- **On-Demand Loading (按需加载) by Default**: Unless configuring global imports, prioritize on-demand imports to ensure optimal bundle size (体积最优).
-  - Import components from `@yh-ui/components` and their styling:
+- **On-Demand Loading (按需加载) by Default**: Import components and utility functions directly from their specialized sub-packages to optimize bundle size:
+  - Components & Styles:
     ```ts
     import { YhButton, YhTable } from '@yh-ui/components'
     import '@yh-ui/components/style.css'
     ```
-  - Import icons from `@yh-ui/icons/vue` or `@yh-ui/icons`:
+  - Icons:
     ```ts
     import { Icon } from '@yh-ui/icons/vue'
     ```
-- **Language Defaults (TypeScript & SCSS/Sass)**: By default, SFC files and code snippets must declare TypeScript (`lang="ts"`) for script blocks and SCSS/Sass (`lang="scss"`) for style blocks.
-- Use `@yh-ui/yh-ui` for ordinary Vue apps that want the all-in-one entry.
-- Use `@yh-ui/nuxt` for Nuxt apps and rely on auto-imported components/composables.
-- Use `@yh-ui/components` when the user asks for component-only usage.
-- Use `@yh-ui/request` for request state, SSE, pagination, queues, GraphQL, WebSocket, or HTTP cache helpers.
-- Use `@yh-ui/flow` for flow charts, node editors, BPMN sketches, or AI workflow diagrams.
-- Use `@yh-ui/ai-sdk` with `@yh-ui/components` for AI chat, streaming, tools, and provider adapters.
-- Use `@yh-ui/theme` tokens and CSS variables instead of hard-coded visual systems.
-- Keep model API keys on the server. Never put provider secrets in browser code.
-- In SSR/Nuxt, wrap browser-heavy flow editors in `<ClientOnly>`.
+- **Language Defaults (TypeScript & SCSS)**: By default, Vue SFC files and code snippets must declare TypeScript (`lang="ts"`) for script blocks and SCSS/Sass (`lang="scss"`) for style blocks.
+- **SSR & Hydration Safeguards**: Wrap heavy browser-specific elements (like `@yh-ui/flow` canvases, Monaco editors, or visual charts) in `<ClientOnly>` tags in SSR environments to avoid canvas initialization/ResizeObserver crashes on server builds.
+- **No Secrets in Frontend Code**: Never expose LLM provider API keys, server tokens, or private environment variables on the client side. Wrap them inside server-side routes or providers.
 
-### Component-Level Best Practices & Source Alignment
+---
 
-Below are the detailed rules and best practices for core YH-UI components. Refer to `references/source-truth.md` for the complete API surface of all priority components.
+## Agent Workflow
 
-#### 1. Data Tables: `YhTable` & `YhTableColumn`
+To ensure high-fidelity outputs, follow this strict task execution lifecycle:
 
-- **Column Setup**: Bind column configurations via the `columns` property as a stable array (computed or constant). Do not write raw loop markups inside the component unless using column-slot extensions.
-- **Feature Integration**: Use built-in properties like `pagination`, `resizable`, `loading`, `border` directly.
-- **Exposed Methods**: Use typed refs (`InstanceType<typeof YhTable>`) to invoke functions like `exportData`, `importData`, `insertRow`, `removeRow`, `scrollTo`, and `clearSelection`. Do not guess names (e.g., do not write `.getSelectedRows()` if the source exposes `.getSelectionRows()`).
-- **Events**: Handle events like `selection-change`, `page-change`, `row-click`, `sort-change`, `update:data` exactly as defined.
+```mermaid
+graph TD
+  A[Receive User Request] --> B{Identify Scope}
+  B -->|Vue/Nuxt View| C[Check component-map.md]
+  B -->|AI Features| D[Check references/recipes-ai.md]
+  B -->|Flow Canvas| E[Check references/recipes-flow.md]
+  B -->|Data/Requests| F[Check references/recipes-table.md]
+  C & D & E & F --> G[Verify APIs in references/source-truth.md]
+  G --> H[Apply vue-component-practices.md Rules]
+  H --> I[Generate SFC & Logic]
+  I --> J[Check Against codegen-rubric.md]
+  J --> K[Return Response]
+```
 
-#### 2. Forms & Inputs: `YhForm`, `YhFormItem`, `YhFormSchema`
+1. **Classify the Scope**: Categorize the task (e.g. Admin screen, AI Chatbot, Flow builder, Theme preset switcher, Custom form, Nuxt plugin).
+2. **Consult Source Truth**: Open and inspect `references/source-truth.md` and `references/api-cheatsheet.md` to retrieve exact property lists, event signatures, and exposed methods of the target components.
+3. **Select the Scenario Guide**: Load the specialized recipe file (e.g. `recipes-table.md` for grids, `recipes-ai.md` for chats, `recipes-flow.md` for canvas, etc.) and copy its design patterns as a starting boilerplate.
+4. **Enforce Vue Evolved Standards**: Follow `references/vue-component-practices.md` to implement script structures, reactive prop defaults, slot options, keyboard accessibility, and scoped SCSS.
+5. **Self-Correct & Verify**: Crosscheck your generated code against the accept/reject rules in `references/codegen-rubric.md` before returning your answer.
 
-- **Form Validation**: Always bind `:model` and `:rules` on `YhForm`. `YhFormItem` must define the matching `prop` string for validation.
-- **Form Schema**: Use `YhFormSchema` with `:schema` and `:formProps` to render dynamic schemas. Schema configurations must utilize real component names (e.g., `input`, `select`, `date-picker`).
-- **Input Components**: Use `v-model` with native properties like `clearable`, `placeholder`, `disabled`, `show-word-limit`.
+---
 
-#### 3. AI UI Components: `YhAiChat`, `YhAiBubble`, `YhAiSender`, `YhAiThoughtChain`
+## Progressive References
 
-- **State Binding**: Do not manage messages and loading states manually. Connect them directly to `useAIChat` or `useAIStream` from `@yh-ui/ai-sdk/vue`.
-- **Sender Layout (`YhAiSender`)**: Bind `v-model` for input and listen to `@send`, `@upload`, and `@command` events. Custom action icons should be placed inside `#actions` or `#submit` slots.
-- **Bubble Layout (`YhAiBubble`)**: Use `citations` array to display reference sources, and handle citation click logic. Ensure `role` (`'user'` or `'assistant'`), `streaming`, and `loading` are properly set.
-- **Thought Chain (`YhAiThoughtChain`)**: Feed structured steps into the `items` property. Bind `@node-click` to let users view step details.
+Read only the reference files required for the task to keep the context context-efficient:
 
-#### 4. Interactive Flow Canvas: `Flow` (from `@yh-ui/flow`)
+- **Source-Truth API Mapping**: [source-truth.md](references/source-truth.md) - Exact list of component exports, props, emits, and slots.
+- **AI Task Workflow**: [agent-workflows.md](references/agent-workflows.md) - Workflow routing criteria for AI coding agents.
+- **Vue SFC Standards**: [vue-component-practices.md](references/vue-component-practices.md) - Vue 3.5+ destructuring defaults, ref models, performance structures.
+- **Component Selection Chart**: [component-map.md](references/component-map.md) - Scenario-to-component lookup map.
+- **Implementation Boilerplates**: [usage-patterns.md](references/usage-patterns.md) - Baseline snippets for dialogs, forms, and custom CSS.
+- **Cheatsheet Reference**: [api-cheatsheet.md](references/api-cheatsheet.md) - Most common props, events, and sub-package setups.
+- **Nuxt & SSR Integration**: [nuxt.md](references/nuxt.md) - Module setup, client-only triggers, and SSR-safe variables.
+- **Deep Recipe: Data Tables**: [recipes-table.md](references/recipes-table.md) - Advanced `YhTable` features: print, Excel export, custom cell slots.
+- **Deep Recipe: Form Schema**: [recipes-form-schema.md](references/recipes-form-schema.md) - Configuration-driven forms, repeating sub-forms, conditional fields.
+- **Deep Recipe: AI Portals**: [recipes-ai.md](references/recipes-ai.md) - Chat interfaces, reasoning log viewers, code executors, Mermaid diagrams.
+- **Deep Recipe: Flow Canvas**: [recipes-flow.md](references/recipes-flow.md) - Workflow editors, resizers, custom node toolbars, undo/redo logs.
+- **Deep Recipe: Theme Systems**: [recipes-theme.md](references/recipes-theme.md) - Custom theme plugins, WCAG contrast verification, responsive scaling.
+- **Deep Recipe: Iconography**: [recipes-icons.md](references/recipes-icons.md) - Iconify sets, inline SVG rendering.
+- **Code Acceptance Rubric**: [codegen-rubric.md](references/codegen-rubric.md) - Strict Accept/Reject checklist for checking code generation.
+- **Evaluation Scenarios**: [eval-scenarios.md](references/eval-scenarios.md) - AI system prompts for verifying the skill itself.
 
-- **Layout Sizing**: Always wrap the `Flow` component in a container with a defined height (e.g., `height: 600px;` or `h-screen`).
-- **Canvas Extensions**: Place `Minimap`, `Controls`, and `FlowBackground` inside the `Flow` template body.
-- **Gating in SSR**: Wrap the `Flow` component inside `<ClientOnly>` in SSR environments (such as Nuxt) to avoid canvas/ResizeObserver errors during server builds.
+---
 
-#### 5. Layout & Utilities: `YhScrollbar`, `YhConfigProvider`
+## Common Failure Guards
 
-- **Custom Scrollbars**: Use `YhScrollbar` with `height` or `max-height` instead of styling custom divs.
-- **Global Provider**: Place `YhConfigProvider` at the root of the app to control global sizes and internationalization (`:locale`).
-- **Locale Files**: Import locale languages using lowercase paths:
+- **No Obsolete Theme / Request APIs**: Never use legacy `createYhTheme` or `createRequestInstance`. Use `@yh-ui/theme`'s `ThemePlugin` and `@yh-ui/request`'s `createRequest`.
+- **Locale Path Syntax**: Always load locale translations using lowercase paths:
   ```ts
   import zhCn from '@yh-ui/locale/lang/zh-cn'
   import en from '@yh-ui/locale/lang/en'
   ```
-
-## Agent Workflow
-
-1. Classify the task: Vue app, Nuxt app, AI UI, request/data, flow/workflow, theme/locale, icon, or review.
-2. Read `references/source-truth.md` when component/package accuracy matters.
-3. Read only the specialized reference needed for the classified task.
-4. Apply `references/vue-component-practices.md` for SFC structure, TypeScript, props/emits, slots, accessibility, SSR, and performance.
-5. Generate code with real package imports and YH-UI components.
-6. Check the result against `references/codegen-rubric.md` before answering.
-
-## Progressive References
-
-Read only the file needed for the task:
-
-- Source-aligned exports and package boundaries: `references/source-truth.md`
-- Agent task workflows: `references/agent-workflows.md`
-- Vue component-library practices: `references/vue-component-practices.md`
-- Component selection: `references/component-map.md`
-- Common implementation patterns: `references/usage-patterns.md`
-- Frequently used props/events: `references/api-cheatsheet.md`
-- Nuxt auto-import and SSR: `references/nuxt.md`
-- AI components and AI SDK: `references/ai-components.md`
-- Request hooks: `references/request.md`
-- Flow editor: `references/flow.md`
-- Deep table recipe: `references/recipes-table.md`
-- Deep form schema recipe: `references/recipes-form-schema.md`
-- Deep AI recipe: `references/recipes-ai.md`
-- Deep Flow recipe: `references/recipes-flow.md`
-- Deep Theme recipe: `references/recipes-theme.md`
-- Deep Icons recipe: `references/recipes-icons.md`
-- Code generation acceptance rubric: `references/codegen-rubric.md`
-- Evaluation prompts for regression testing: `references/eval-scenarios.md`
-
-## Common Failure Guards
-
-- Do not use old or non-existing APIs such as `createYhTheme` or `createRequestInstance`.
-- Locale files use paths like `@yh-ui/locale/lang/zh-cn`.
-- Nuxt users should not manually import every component in ordinary pages.
-- Flow canvases need an explicit height.
-- Prefer `YhConfigProvider` for runtime locale/config boundaries.
-- Prefer theme CSS variables such as `var(--yh-color-primary)` in custom styles.
-- If unsure whether a component exists, check `references/source-truth.md` before generating code.
+  Never write `@yh-ui/yh-ui/locale/zh-CN` or `@yh-ui/yh-ui/locale/zh-cn`.
+- **Explicit Height Constraint**: Always set an explicit height on the parent container of `Flow` or `YhScrollbar` components (e.g. `height: 600px`). Otherwise, canvas or scroll calculations collapse.
+- **Shallow Ref for Heavy Runtimes**: Always store heavy objects like Monaco editors, ECharts instances, or Flow canvas objects in `shallowRef()` instead of `ref()` to preserve performance.
+- **Component Expose Checks**: When calling component functions via template refs, type them as `InstanceType<typeof Component>` and use exact names (e.g. `tableRef.value.getSelectionRows()` instead of `tableRef.value.getSelected()`).

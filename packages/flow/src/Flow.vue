@@ -436,6 +436,8 @@ const historyManager = {
     } else {
       localHistoryManager.undo()
     }
+    emit('update:nodes', nodesRef.value)
+    emit('update:edges', edgesRef.value)
   },
   redo: () => {
     const plugin = getHistoryPlugin()
@@ -444,6 +446,8 @@ const historyManager = {
     } else {
       localHistoryManager.redo()
     }
+    emit('update:nodes', nodesRef.value)
+    emit('update:edges', edgesRef.value)
   },
   clear: () => {
     const plugin = getHistoryPlugin()
@@ -1224,7 +1228,7 @@ const prevSelectedNodeIds = ref<Set<string>>(new Set())
 const prevSelectedEdgeIds = ref<Set<string>>(new Set())
 
 watch(
-  [nodesRef, edgesRef],
+  () => [nodesRef.value, edgesRef.value],
   ([nodes, edges]) => {
     const selectedNodes = nodes.filter((n) => n.selected)
     const selectedEdges = edges.filter((e) => e.selected)

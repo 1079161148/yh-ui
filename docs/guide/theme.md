@@ -125,32 +125,33 @@ YH-UI 内置 12 个预设主题：
 
 ### ThemeManager 方法
 
-| 方法名                | 说明                 | 参数                        |
-| --------------------- | -------------------- | --------------------------- |
-| `setPreset`           | 设置预设主题         | `preset: PresetTheme`       |
-| `setThemePreset`      | 设置预设主题别名方法 | `preset: PresetTheme`       |
-| `setColors`           | 设置自定义颜色       | `colors: ThemeColors`       |
-| `setPrimaryColor`     | 设置主色             | `color: string`             |
-| `setDarkMode`         | 设置暗色模式         | `dark: boolean`             |
-| `toggleDarkMode`      | 切换暗色模式         | —                           |
-| `setDensity`          | 设置密度             | `density: ThemeDensity`     |
-| `setAlgorithm`        | 设置色彩算法         | `algorithm: ColorAlgorithm` |
-| `setColorBlindMode`   | 设置色盲模式         | `mode: ColorBlindMode`      |
-| `setComponentTheme`   | 设置组件级覆盖       | `name, overrides`           |
-| `clearComponentTheme` | 清除组件级覆盖       | `name`                      |
-| `enableTransition`    | 启用切换动画         | `config?`                   |
-| `disableTransition`   | 禁用切换动画         | —                           |
-| `applyFromPrimary`    | 从主色生成调色板     | `color: string`             |
-| `exportTheme`         | 导出当前主题         | `options?`                  |
-| `importTheme`         | 导入主题配置         | `json: string`              |
-| `exportAsCss`         | 导出当前主题为 CSS   | —                           |
-| `createTheme`         | 创建主题配置对象     | `config`                    |
-| `applyFullConfig`     | 应用完整主题配置     | `config`                    |
-| `undo`                | 撤销主题变更         | —                           |
-| `getHistory`          | 获取主题历史         | —                           |
-| `clearHistory`        | 清空主题历史         | —                           |
-| `setResponsiveVar`    | 设置响应式 CSS 变量  | `name, values`              |
-| `reset`               | 重置为默认主题       | —                           |
+| 方法名                | 说明                 | 参数                                               |
+| --------------------- | -------------------- | -------------------------------------------------- |
+| `setPreset`           | 设置预设主题         | `preset: PresetTheme`                              |
+| `setThemePreset`      | 设置预设主题别名方法 | `preset: PresetTheme`                              |
+| `setColors`           | 设置自定义颜色       | `colors: ThemeColors`                              |
+| `setPrimaryColor`     | 设置主色             | `color: string`                                    |
+| `setDarkMode`         | 设置暗色模式         | `dark: boolean`                                    |
+| `toggleDarkMode`      | 切换暗色模式         | —                                                  |
+| `setDensity`          | 设置密度             | `density: ThemeDensity`                            |
+| `setAlgorithm`        | 设置色彩算法         | `algorithm: ColorAlgorithm`                        |
+| `setColorBlindMode`   | 设置色盲模式         | `mode: ColorBlindMode`                             |
+| `setRadius`           | 设置圆角大小         | `radius: 'none' \| 'sm' \| 'md' \| 'lg' \| 'full'` |
+| `setComponentTheme`   | 设置组件级覆盖       | `name, overrides`                                  |
+| `clearComponentTheme` | 清除组件级覆盖       | `name`                                             |
+| `enableTransition`    | 启用切换动画         | `config?`                                          |
+| `disableTransition`   | 禁用切换动画         | —                                                  |
+| `applyFromPrimary`    | 从主色生成调色板     | `color: string`                                    |
+| `exportTheme`         | 导出当前主题         | `options?`                                         |
+| `importTheme`         | 导入主题配置         | `json: string`                                     |
+| `exportAsCss`         | 导出当前主题为 CSS   | —                                                  |
+| `createTheme`         | 创建主题配置对象     | `config`                                           |
+| `applyFullConfig`     | 应用完整主题配置     | `config`                                           |
+| `undo`                | 撤销主题变更         | —                                                  |
+| `getHistory`          | 获取主题历史         | —                                                  |
+| `clearHistory`        | 清空主题历史         | —                                                  |
+| `setResponsiveVar`    | 设置响应式 CSS 变量  | `name, values`                                     |
+| `reset`               | 重置为默认主题       | —                                                  |
 
 ### 快捷函数
 
@@ -187,6 +188,8 @@ type ThemeDensity = 'comfortable' | 'compact' | 'dense'
 type ColorAlgorithm = 'default' | 'vibrant' | 'muted' | 'pastel'
 
 type ColorBlindMode = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'achromatopsia'
+
+type ThemeRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 ```
 
 ---
@@ -203,6 +206,7 @@ type ColorBlindMode = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'a
 | `--yh-color-danger`       | 危险色     | `#f56c6c` |
 | `--yh-color-info`         | 信息色     | `#909399` |
 | `--yh-border-radius-base` | 基础圆角   | `4px`     |
+| `--yh-radius-base`        | 动态圆角   | `4px`     |
 | `--yh-font-size-base`     | 基础字号   | `14px`    |
 | `--yh-bg-color`           | 全站背景色 | `#ffffff` |
 

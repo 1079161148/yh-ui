@@ -166,4 +166,38 @@ describe('useConfig', () => {
     expect(childVm.config.message?.duration).toBe(3000)
     expect(childVm.config.message?.offset).toBe(20)
   })
+
+  it('should fall back to global options (yh-ui-options) when config provider is absent', async () => {
+    const Child = defineComponent({
+      name: 'ChildComponent',
+      setup() {
+        return useConfig()
+      },
+      render() {
+        return h('div')
+      }
+    })
+
+    const TestComponent = defineComponent({
+      setup() {
+        provide('yh-ui-options', {
+          size: 'small',
+          zIndex: 1500,
+          locale: { name: 'fr' } as any
+        })
+      },
+      render() {
+        return h(Child)
+      }
+    })
+
+    const wrapper = mount(TestComponent)
+    const childVm = wrapper.findComponent({ name: 'ChildComponent' }).vm as any
+
+    await nextTick()
+
+    expect(childVm.globalSize).toBe('small')
+    expect(childVm.globalZIndex).toBe(1500)
+    expect(childVm.globalLocale?.name).toBe('fr')
+  })
 })

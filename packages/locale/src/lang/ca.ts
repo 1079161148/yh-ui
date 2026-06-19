@@ -1,9 +1,8 @@
-﻿import type { Language } from '../index'
+import type { Language } from '../index'
 
 export const ca: Language = {
   name: 'ca',
   yh: {
-    // Com煤
     common: {
       yes: 'S铆',
       no: 'No',
@@ -27,7 +26,6 @@ export const ca: Language = {
       selectAll: 'Seleccionar tot',
       unselectAll: 'Desseleccionar tot'
     },
-    // Selector de color
     colorpicker: {
       confirm: "D'acord",
       clear: 'Netejar',
@@ -37,7 +35,6 @@ export const ca: Language = {
       recentColors: 'Colors recents',
       presetColors: 'Colors predefinits'
     },
-    // Selector de data
     datepicker: {
       now: 'Ara',
       today: 'Avui',
@@ -89,7 +86,6 @@ export const ca: Language = {
         q4: 'T4'
       }
     },
-    // Selector d'hora
     timepicker: {
       confirm: "D'acord",
       cancel: 'Cancel路lar',
@@ -99,11 +95,9 @@ export const ca: Language = {
       endPlaceholder: 'Hora de fi',
       selectTime: 'Seleccionar hora'
     },
-    // Selecci贸 d'hora
     timeselect: {
       placeholder: 'Seleccionar hora'
     },
-    // Arbre
     tree: {
       emptyText: 'Sense dades',
       loading: 'Carregant...',
@@ -112,14 +106,12 @@ export const ca: Language = {
       expandAll: 'Expandir tot',
       collapseAll: 'Contraure tot'
     },
-    // Selector d'arbre
     treeselect: {
       placeholder: 'Seleccionar',
       emptyText: 'Sense dades',
       loading: 'Carregant...',
       noMatch: 'Sense coincid猫ncies'
     },
-    // Calendari
     calendar: {
       prevMonth: 'Mes anterior',
       nextMonth: 'Mes seg眉ent',
@@ -140,14 +132,12 @@ export const ca: Language = {
         sat: 'Ds'
       }
     },
-    // Autocompletat
     autocomplete: {
       loading: 'Carregant...',
       placeholder: 'Si us plau, introdu茂u',
       noData: 'Sense dades',
       noMatch: 'Sense coincid猫ncies'
     },
-    // Compte enrere
     countdown: {
       days: 'dies',
       hours: 'hores',
@@ -156,14 +146,12 @@ export const ca: Language = {
       milliseconds: 'mil路lisegons',
       finished: 'Acabat'
     },
-    // Cascada
     cascader: {
       noMatch: 'Sense coincid猫ncies',
       placeholder: 'Seleccionar',
       loading: 'Carregant...',
       noData: 'Sense dades'
     },
-    // Transfer猫ncia
     transfer: {
       noMatch: 'Sense coincid猫ncies',
       noData: 'Sense dades',
@@ -173,7 +161,6 @@ export const ca: Language = {
       hasCheckedFormat: '{checked}/{total} seleccionats',
       searchPlaceholder: 'Introduir paraula clau'
     },
-    // Taula
     table: {
       emptyText: 'Sense dades',
       confirmFilter: 'Confirmar',
@@ -190,7 +177,6 @@ export const ca: Language = {
       page: 'P脿gina {page}',
       yes: 'S铆',
       no: 'No',
-      // Barra d'eines
       toolbar: {
         refresh: 'Actualitzar',
         density: 'Densitat',
@@ -205,7 +191,6 @@ export const ca: Language = {
         search: 'Cercar',
         searchPlaceholder: 'Introduir paraules clau per cercar'
       },
-      // Filtre
       filter: {
         selectAll: 'Seleccionar tot',
         selectInvert: 'Invertir selecci贸',
@@ -221,13 +206,11 @@ export const ca: Language = {
         lessThan: 'Menor que',
         between: 'Entre'
       },
-      // Ordenaci贸
       sort: {
         asc: 'Ascendent',
         desc: 'Descendent',
         clear: 'Netejar ordenaci贸'
       },
-      // Exportaci贸
       export: {
         title: 'Exportar dades',
         filename: 'Nom del fitxer',
@@ -241,7 +224,6 @@ export const ca: Language = {
         success: 'Exportaci贸 exitosa',
         error: "Error en l'exportaci贸"
       },
-      // Importaci贸
       import: {
         title: 'Importar dades',
         selectFile: 'Seleccionar fitxer',
@@ -252,7 +234,6 @@ export const ca: Language = {
         preview: 'Vista pr猫via de dades',
         confirm: 'Confirmar importaci贸'
       },
-      // Impressi贸
       printConfig: {
         title: "Configuraci贸 d'impressi贸",
         pageTitle: 'T铆tol de la p脿gina',
@@ -265,7 +246,6 @@ export const ca: Language = {
         portrait: 'Vertical',
         printing: 'Imprimint...'
       },
-      // Configuraci贸 de columnes
       columnSetting: {
         title: 'Configuraci贸 de columnes',
         showAll: 'Mostrar tot',
@@ -275,7 +255,6 @@ export const ca: Language = {
         fixedRight: 'Fixar a la dreta',
         unfixed: 'Desfixar'
       },
-      // Men煤 contextual
       contextMenu: {
         copy: 'Copiar',
         copyRow: 'Copiar fila',
@@ -287,31 +266,26 @@ export const ca: Language = {
         deleteSelectedRows: 'Eliminar files seleccionades',
         exportSelected: 'Exportar seleccionat'
       },
-      // Selecci贸
       selection: {
         selectAll: 'Seleccionar tot',
         selectInvert: 'Invertir selecci贸',
         selectNone: 'Netejar selecci贸',
         selected: '{count} elements seleccionats'
       },
-      // Expandir
       expand: {
         expandAll: 'Expandir tot',
         collapseAll: 'Contraure tot'
       },
-      // Arbre
       tree: {
         expandAll: 'Expandir tot',
         collapseAll: 'Contraure tot',
         expandLevel: 'Expandir al nivell {level}'
       },
-      // Arrossegar
       drag: {
         dragTip: 'Arrossegar per reordenar',
         dropTip: 'Deixar anar per col路locar'
       }
     },
-    // Quadre de missatge
     messagebox: {
       title: 'Missatge',
       confirm: "D'acord",
@@ -322,7 +296,6 @@ export const ca: Language = {
       prompt: 'Sol路licitud',
       inputPlaceholder: 'Si us plau, introdu茂u'
     },
-    // Pujada
     upload: {
       deleteTip: 'premeu delete per eliminar',
       delete: 'Eliminar',
@@ -340,18 +313,15 @@ export const ca: Language = {
       fileSizeError: 'La mida del fitxer supera el l铆mit',
       fileCountError: 'El nombre de fitxers supera el l铆mit'
     },
-    // Formulari
     form: {
       validationFailed: 'La validaci贸 ha fallat',
       required: 'Obligatori',
       pleaseInput: 'Si us plau, introdu茂u',
       pleaseSelect: 'Si us plau, seleccioneu'
     },
-    // Bot贸
     button: {
       loading: 'Carregant...'
     },
-    // Entrada
     input: {
       placeholder: 'Si us plau, introdu茂u',
       clear: 'Netejar',
@@ -360,28 +330,23 @@ export const ca: Language = {
       copy: 'Copiar',
       copied: 'Copiat'
     },
-    // Entrada num猫rica
     inputnumber: {
       placeholder: 'Si us plau, introdu茂u un nombre',
       increase: 'Augmentar',
       decrease: 'Disminuir'
     },
-    // Etiqueta d\'entrada
     inputtag: {
       placeholder: 'Si us plau, introdu茂u',
       add: 'Afegir',
       remove: 'Eliminar'
     },
-    // Ruta de navegaci贸
     breadcrumb: {
       label: 'Ruta de navegaci贸',
       more: 'M茅s'
     },
-    // Tornar a dalt
     backtop: {
       text: 'Tornar a dalt'
     },
-    // Selecci贸
     select: {
       placeholder: 'Si us plau, seleccioneu',
       noData: 'Sense dades',
@@ -390,7 +355,6 @@ export const ca: Language = {
       selectAll: 'Seleccionar tot',
       clearAll: 'Netejar tot'
     },
-    // Paginaci贸
     pagination: {
       goto: 'Anar a',
       page: '',
@@ -402,13 +366,11 @@ export const ca: Language = {
       last: '脷ltima',
       pageClassifier: ''
     },
-    // Confirmaci贸 emergent
     popconfirm: {
       confirm: "D'acord",
       cancel: 'Cancel路lar',
       dontAskAgain: 'No tornar a preguntar'
     },
-    // Di脿leg
     dialog: {
       confirm: "D'acord",
       cancel: 'Cancel路lar',
@@ -416,17 +378,14 @@ export const ca: Language = {
       maximize: 'Maximitzar',
       restore: 'Restaurar'
     },
-    // Calaix
     drawer: {
       close: 'Tancar',
       confirm: "D'acord",
       cancel: 'Cancel路lar'
     },
-    // Men煤 desplegable
     dropdown: {
       loading: 'Carregant...'
     },
-    // Imatge
     image: {
       error: 'ERROR',
       loading: 'Carregant...',
@@ -438,7 +397,6 @@ export const ca: Language = {
       originalSize: 'Mida original',
       fullscreen: 'Pantalla completa'
     },
-    // Visor d\'imatges
     imageviewer: {
       close: 'Tancar',
       prev: 'Anterior',
@@ -451,65 +409,52 @@ export const ca: Language = {
       fullscreen: 'Pantalla completa',
       exitFullscreen: 'Sortir de pantalla completa'
     },
-    // Despla莽ament infinit
     infinitescroll: {
       loading: 'Carregant...',
       finished: 'No hi ha m茅s dades',
       error: 'Error en la c脿rrega, feu clic per tornar a intentar',
       retry: 'Feu clic per tornar a intentar'
     },
-    // Missatge
     message: {
       close: 'Tancar'
     },
-    // Notificaci贸
     notification: {
       close: 'Tancar'
     },
-    // C脿rrega
     loading: {
       text: 'Carregant...'
     },
-    // Gir
     spin: {
       text: 'Carregant...'
     },
-    // Valoraci贸
     rate: {
       texts: ['Extremadament dolent', 'Decebut', 'Just', 'Satisfet', 'Sorprenent']
     },
-    // Alerta
     alert: {
       close: 'Tancar'
     },
-    // Etiqueta
     tag: {
       close: 'Tancar'
     },
-    // Pestanyes
     tabs: {
       close: 'Tancar',
       add: 'Afegir',
       more: 'M茅s'
     },
-    // Passos
     steps: {
       finish: 'Acabat',
       process: 'En curs',
       wait: 'Esperant',
       error: 'Error'
     },
-    // Progr茅s
     progress: {
       success: '脠xit',
       exception: 'Excepci贸',
       warning: 'Advert猫ncia'
     },
-    // Esquelet
     skeleton: {
       loading: 'Carregant...'
     },
-    // Buit
     empty: {
       description: 'Sense dades',
       noData: 'Sense dades',
@@ -517,7 +462,6 @@ export const ca: Language = {
       networkError: 'Error de xarxa',
       serverError: 'Error del servidor'
     },
-    // Resultat
     result: {
       success: '脠xit',
       error: 'Error',
@@ -525,78 +469,63 @@ export const ca: Language = {
       info: 'Informaci贸',
       backHome: "Tornar a l'inici"
     },
-    // Cascada
     waterfall: {
       loading: 'Carregant...',
       noMore: 'No hi ha m茅s dades',
       empty: 'Sense dades'
     },
-    // Descripcions
     descriptions: {
       colon: ':'
     },
-    // Control lliscant
     slider: {
       tipFormatter: '{value}'
     },
-    // Interruptor
     switch: {
       on: 'ON',
       off: 'OFF'
     },
-    // Casella de verificaci贸
     checkbox: {
       selectAll: 'Seleccionar tot'
     },
-    // R脿dio
     radio: {},
-    // Men煤
     menu: {
       collapse: 'Contraure men煤',
       expand: 'Expandir men煤'
     },
-    // Targeta
     card: {
       collapse: 'Contraure',
       expand: 'Expandir'
     },
-    // Contraure
     collapse: {
       expand: 'Expandir',
       collapse: 'Contraure'
     },
-    // Informaci贸 sobre eines
     tooltip: {},
-    // Emergent
     popover: {},
-    // Ins铆gnia
     badge: {},
-    // Avatar
     avatar: {
       error: 'Error en la c脿rrega'
     },
-    // Marca d\'aigua
     watermark: {},
-    // Divisor
     divider: {},
-    // Carrusel
     carousel: {
       prev: 'Anterior',
       next: 'Seg眉ent'
     },
-    // Marqu猫s
     marquee: {},
-    // Fixaci贸
     affix: {},
-    // 脌ncora
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Si us plau, introdu茂u',
       loading: 'Carregant...',
       noData: 'Sense dades'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Seleccioneu les especificacions',
       emptyText: 'No hi ha especificacions',
@@ -698,7 +627,8 @@ export const ca: Language = {
         agent: 'Agent',
         document: 'Document',
         table: 'Taula',
-        knowledge: 'Coneixement'
+        knowledge: 'Coneixement',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Copiar codi',
@@ -717,7 +647,8 @@ export const ca: Language = {
       },
       sender: {
         placeholder: 'Enviar missatge...',
-        dragTip: 'Allibereu per pujar fitxers'
+        dragTip: 'Allibereu per pujar fitxers',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Proc茅s de pensament',
@@ -752,7 +683,8 @@ export const ca: Language = {
         versions: 'Versions',
         rendering: 'Renderitzant component...',
         renderingChart: 'Renderitzant gr脿fic...',
-        renderingCanvas: 'Preparant llen莽...'
+        renderingCanvas: 'Preparant llen莽...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Feu clic per parlar',

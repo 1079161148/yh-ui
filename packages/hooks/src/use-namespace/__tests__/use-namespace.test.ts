@@ -92,4 +92,33 @@ describe('useNamespace', () => {
       '--yh-primary': '#409eff'
     })
   })
+
+  it('should fall back to global options (yh-ui-options) when namespace provider is absent', () => {
+    const Child = defineComponent({
+      name: 'ChildComponent',
+      setup() {
+        const ns = useNamespace('card')
+        return { ns }
+      },
+      render() {
+        return h('div')
+      }
+    })
+
+    const TestComponent = defineComponent({
+      setup() {
+        provide('yh-ui-options', {
+          namespace: 'fallback-ns'
+        })
+      },
+      render() {
+        return h(Child)
+      }
+    })
+
+    const wrapper = mount(TestComponent)
+    const childVm = wrapper.findComponent({ name: 'ChildComponent' }).vm as any
+    expect(unref(childVm.ns.namespace)).toBe('fallback-ns')
+    expect(childVm.ns.b()).toBe('fallback-ns-card')
+  })
 })

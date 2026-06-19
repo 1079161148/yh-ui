@@ -3,798 +3,762 @@ import type { Language } from '../index'
 export const fa: Language = {
   name: 'fa',
   yh: {
-    // عمومی
     common: {
-      yes: '\u0628\u0644\u0647',
-      no: '\u062E\u06CC\u0631',
-      confirm: '\u062A\u0627\u06CC\u06CC\u062F',
-      cancel: '\u0644\u063A\u0648',
-      loading: '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC',
-      close: '\u0628\u0633\u062A\u0646',
-      clear: '\u067E\u0627\u06A9 \u06A9\u0631\u062F\u0646',
-      reset: '\u0628\u0627\u0632\u0646\u0634\u0627\u0646\u06CC',
-      save: '\u0630\u062E\u06CC\u0631\u0647',
-      delete: '\u062D\u0630\u0641',
-      edit: '\u0648\u06CC\u0631\u0627\u06CC\u0634',
-      add: '\u0627\u0641\u0632\u0648\u062F\u0646',
-      search: '\u062C\u0633\u062A\u062C\u0648',
-      refresh: '\u062A\u0627\u0632\u0647\u200C\u0633\u0627\u0632\u06CC',
-      expand: '\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646',
-      collapse: '\u062C\u0645\u0639 \u06A9\u0631\u062F\u0646',
-      more: '\u0628\u06CC\u0634\u062A\u0631',
-      noData:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      noMatch: '\u0645\u0648\u0631\u062F\u06CC \u06CC\u0627\u0641\u062A \u0646\u0634\u062F',
-      selectAll: '\u0627\u0646\u062A\u062E\u0627\u0628 \u0647\u0645\u0647',
-      unselectAll: '\u0644\u063A\u0648 \u0627\u0646\u062A\u062E\u0627\u0628 \u0647\u0645\u0647'
+      yes: 'بله',
+      no: 'خیر',
+      confirm: 'تایید',
+      cancel: 'لغو',
+      loading: 'در حال بارگذاری',
+      close: 'بستن',
+      clear: 'پاک کردن',
+      reset: 'بازنشانی',
+      save: 'ذخیره',
+      delete: 'حذف',
+      edit: 'ویرایش',
+      add: 'افزودن',
+      search: 'جستجو',
+      refresh: 'تازه‌سازی',
+      expand: 'باز کردن',
+      collapse: 'جمع کردن',
+      more: 'بیشتر',
+      noData: 'داده‌ای وجود ندارد',
+      noMatch: 'موردی یافت نشد',
+      selectAll: 'انتخاب همه',
+      unselectAll: 'لغو انتخاب همه'
     },
-    // انتخابگر رنگ
     colorpicker: {
-      confirm: '\u062A\u0627\u06CC\u06CC\u062F',
-      clear: '\u067E\u0627\u06A9 \u06A9\u0631\u062F\u0646',
-      eyeDropper: '\u0642\u0637\u0631\u0647\u200C\u0686\u06A9\u0627\u0646',
-      suggestionDark:
-        '\u0645\u062A\u0646 \u0633\u0641\u06CC\u062F \u0628\u0647\u062A\u0631 \u0627\u0633\u062A',
-      suggestionLight:
-        '\u0645\u062A\u0646 \u0633\u06CC\u0627\u0647 \u0628\u0647\u062A\u0631 \u0627\u0633\u062A',
-      recentColors: '\u0631\u0646\u06AF\u200C\u0647\u0627\u06CC \u0627\u062E\u06CC\u0631',
-      presetColors:
-        '\u0631\u0646\u06AF\u200C\u0647\u0627\u06CC \u0627\u0632 \u067E\u06CC\u0634 \u062A\u0639\u06CC\u06CC\u0646 \u0634\u062F\u0647'
+      confirm: 'تایید',
+      clear: 'پاک کردن',
+      eyeDropper: 'قطره‌چکان',
+      suggestionDark: 'متن سفید بهتر است',
+      suggestionLight: 'متن سیاه بهتر است',
+      recentColors: 'رنگ‌های اخیر',
+      presetColors: 'رنگ‌های از پیش تعیین شده'
     },
-    // انتخابگر تاریخ
     datepicker: {
-      now: '\u0627\u06A9\u0646\u0648\u0646',
-      today: '\u0627\u0645\u0631\u0648\u0632',
-      cancel: '\u0644\u063A\u0648',
-      clear: '\u067E\u0627\u06A9 \u06A9\u0631\u062F\u0646',
-      confirm: '\u062A\u0627\u06CC\u06CC\u062F',
-      selectDate:
-        '\u062A\u0627\u0631\u06CC\u062E \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F',
-      selectTime:
-        '\u0632\u0645\u0627\u0646 \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F',
-      startDate: '\u062A\u0627\u0631\u06CC\u062E \u0634\u0631\u0648\u0639',
-      startTime: '\u0632\u0645\u0627\u0646 \u0634\u0631\u0648\u0639',
-      endDate: '\u062A\u0627\u0631\u06CC\u062E \u067E\u0627\u06CC\u0627\u0646',
-      endTime: '\u0632\u0645\u0627\u0646 \u067E\u0627\u06CC\u0627\u0646',
+      now: 'اکنون',
+      today: 'امروز',
+      cancel: 'لغو',
+      clear: 'پاک کردن',
+      confirm: 'تایید',
+      selectDate: 'تاریخ را انتخاب کنید',
+      selectTime: 'زمان را انتخاب کنید',
+      startDate: 'تاریخ شروع',
+      startTime: 'زمان شروع',
+      endDate: 'تاریخ پایان',
+      endTime: 'زمان پایان',
       year: '',
       month: '',
       day: '',
-      week: '\u0647\u0641\u062A\u0647',
+      week: 'هفته',
       monthBeforeYear: true,
-      prevYear: '\u0633\u0627\u0644 \u0642\u0628\u0644',
-      nextYear: '\u0633\u0627\u0644 \u0628\u0639\u062F',
-      prevMonth: '\u0645\u0627\u0647 \u0642\u0628\u0644',
-      nextMonth: '\u0645\u0627\u0647 \u0628\u0639\u062F',
+      prevYear: 'سال قبل',
+      nextYear: 'سال بعد',
+      prevMonth: 'ماه قبل',
+      nextMonth: 'ماه بعد',
       weeks: {
-        sun: '\u06CC\u06A9',
-        mon: '\u062F\u0648',
-        tue: '\u0633\u0647',
-        wed: '\u0686\u0647\u0627\u0631',
-        thu: '\u067E\u0646\u062C',
-        fri: '\u062C\u0645\u0639\u0647',
-        sat: '\u0634\u0646\u0628\u0647'
+        sun: 'یک',
+        mon: 'دو',
+        tue: 'سه',
+        wed: 'چهار',
+        thu: 'پنج',
+        fri: 'جمعه',
+        sat: 'شنبه'
       },
       months: {
-        jan: '\u0698\u0627\u0646',
-        feb: '\u0641\u0648\u0631',
-        mar: '\u0645\u0627\u0631\u0633',
-        apr: '\u0622\u0648\u0631',
-        may: '\u0645\u0647',
-        jun: '\u0698\u0648\u0626\u0646',
-        jul: '\u0698\u0648\u0626\u06CC',
-        aug: '\u0627\u0648\u062A',
-        sep: '\u0633\u067E\u062A',
-        oct: '\u0627\u06A9\u062A',
-        nov: '\u0646\u0648\u0627',
-        dec: '\u062F\u0633\u0627'
+        jan: 'ژان',
+        feb: 'فور',
+        mar: 'مارس',
+        apr: 'آور',
+        may: 'مه',
+        jun: 'ژوئن',
+        jul: 'ژوئی',
+        aug: 'اوت',
+        sep: 'سپت',
+        oct: 'اکت',
+        nov: 'نوا',
+        dec: 'دسا'
       },
       quarters: {
-        q1: '\u0641\u06F1',
-        q2: '\u0641\u06F2',
-        q3: '\u0641\u06F3',
-        q4: '\u0641\u06F4'
+        q1: 'ف۱',
+        q2: 'ف۲',
+        q3: 'ف۳',
+        q4: 'ف۴'
       }
     },
-    // انتخابگر زمان
     timepicker: {
-      confirm: '\u062A\u0627\u06CC\u06CC\u062F',
-      cancel: '\u0644\u063A\u0648',
-      now: '\u0627\u06A9\u0646\u0648\u0646',
-      placeholder:
-        '\u0632\u0645\u0627\u0646 \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F',
-      startPlaceholder: '\u0632\u0645\u0627\u0646 \u0634\u0631\u0648\u0639',
-      endPlaceholder: '\u0632\u0645\u0627\u0646 \u067E\u0627\u06CC\u0627\u0646',
-      selectTime:
-        '\u0632\u0645\u0627\u0646 \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F'
+      confirm: 'تایید',
+      cancel: 'لغو',
+      now: 'اکنون',
+      placeholder: 'زمان را انتخاب کنید',
+      startPlaceholder: 'زمان شروع',
+      endPlaceholder: 'زمان پایان',
+      selectTime: 'زمان را انتخاب کنید'
     },
-    // انتخاب زمان
     timeselect: {
-      placeholder:
-        '\u0632\u0645\u0627\u0646 \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F'
+      placeholder: 'زمان را انتخاب کنید'
     },
-    // درخت
     tree: {
-      emptyText:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      checkAll: '\u0627\u0646\u062A\u062E\u0627\u0628 \u0647\u0645\u0647',
-      uncheckAll: '\u0644\u063A\u0648 \u0627\u0646\u062A\u062E\u0627\u0628 \u0647\u0645\u0647',
-      expandAll: '\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646 \u0647\u0645\u0647',
-      collapseAll: '\u062C\u0645\u0639 \u06A9\u0631\u062F\u0646 \u0647\u0645\u0647'
+      emptyText: 'داده‌ای وجود ندارد',
+      loading: 'در حال بارگذاری...',
+      checkAll: 'انتخاب همه',
+      uncheckAll: 'لغو انتخاب همه',
+      expandAll: 'باز کردن همه',
+      collapseAll: 'جمع کردن همه'
     },
-    // انتخابگر درختی
     treeselect: {
-      placeholder: '\u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F',
-      emptyText:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      noMatch: '\u0645\u0648\u0631\u062F\u06CC \u06CC\u0627\u0641\u062A \u0646\u0634\u062F'
+      placeholder: 'انتخاب کنید',
+      emptyText: 'داده‌ای وجود ندارد',
+      loading: 'در حال بارگذاری...',
+      noMatch: 'موردی یافت نشد'
     },
-    // تقویم
     calendar: {
-      prevMonth: '\u0645\u0627\u0647 \u0642\u0628\u0644',
-      nextMonth: '\u0645\u0627\u0647 \u0628\u0639\u062F',
-      prevYear: '\u0633\u0627\u0644 \u0642\u0628\u0644',
-      nextYear: '\u0633\u0627\u0644 \u0628\u0639\u062F',
-      today: '\u0627\u0645\u0631\u0648\u0632',
-      week: '\u0647\u0641\u062A\u0647',
-      holiday: '\u062A\u0639\u0637\u06CC\u0644',
-      workday: '\u06A9\u0627\u0631\u06CC',
+      prevMonth: 'ماه قبل',
+      nextMonth: 'ماه بعد',
+      prevYear: 'سال قبل',
+      nextYear: 'سال بعد',
+      today: 'امروز',
+      week: 'هفته',
+      holiday: 'تعطیل',
+      workday: 'کاری',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: '\u06CC\u06A9',
-        mon: '\u062F\u0648',
-        tue: '\u0633\u0647',
-        wed: '\u0686\u0647\u0627\u0631',
-        thu: '\u067E\u0646\u062C',
-        fri: '\u062C\u0645\u0639\u0647',
-        sat: '\u0634\u0646\u0628\u0647'
+        sun: 'یک',
+        mon: 'دو',
+        tue: 'سه',
+        wed: 'چهار',
+        thu: 'پنج',
+        fri: 'جمعه',
+        sat: 'شنبه'
       }
     },
-    // تکمیل خودکار
     autocomplete: {
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      placeholder: '\u0644\u0637\u0641\u0627 \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F',
-      noData:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      noMatch: '\u0645\u0648\u0631\u062F\u06CC \u06CC\u0627\u0641\u062A \u0646\u0634\u062F'
+      loading: 'در حال بارگذاری...',
+      placeholder: 'لطفا وارد کنید',
+      noData: 'داده‌ای وجود ندارد',
+      noMatch: 'موردی یافت نشد'
     },
-    // شمارش معکوس
     countdown: {
-      days: '\u0631\u0648\u0632',
-      hours: '\u0633\u0627\u0639\u062A',
-      minutes: '\u062F\u0642\u06CC\u0642\u0647',
-      seconds: '\u062B\u0627\u0646\u06CC\u0647',
-      milliseconds: '\u0645\u06CC\u0644\u06CC\u200C\u062B\u0627\u0646\u06CC\u0647',
-      finished: '\u062A\u0645\u0627\u0645 \u0634\u062F'
+      days: 'روز',
+      hours: 'ساعت',
+      minutes: 'دقیقه',
+      seconds: 'ثانیه',
+      milliseconds: 'میلی‌ثانیه',
+      finished: 'تمام شد'
     },
-    // انتخابگر آبشاری
     cascader: {
-      noMatch: '\u0645\u0648\u0631\u062F\u06CC \u06CC\u0627\u0641\u062A \u0646\u0634\u062F',
-      placeholder: '\u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F',
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      noData:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F'
+      noMatch: 'موردی یافت نشد',
+      placeholder: 'انتخاب کنید',
+      loading: 'در حال بارگذاری...',
+      noData: 'داده‌ای وجود ندارد'
     },
-    // انتقال
     transfer: {
-      noMatch: '\u0645\u0648\u0631\u062F\u06CC \u06CC\u0627\u0641\u062A \u0646\u0634\u062F',
-      noData:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      titles: ['\u0644\u06CC\u0633\u062A \u06F1', '\u0644\u06CC\u0633\u062A \u06F2'],
-      filterPlaceholder:
-        '\u06A9\u0644\u0645\u0647 \u06A9\u0644\u06CC\u062F\u06CC \u0631\u0627 \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F',
-      noCheckedFormat: '{total} \u0645\u0648\u0631\u062F',
-      hasCheckedFormat: '{checked}/{total} \u0627\u0646\u062A\u062E\u0627\u0628 \u0634\u062F\u0647',
-      searchPlaceholder:
-        '\u06A9\u0644\u0645\u0647 \u06A9\u0644\u06CC\u062F\u06CC \u0631\u0627 \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F'
+      noMatch: 'موردی یافت نشد',
+      noData: 'داده‌ای وجود ندارد',
+      titles: ['لیست ۱', 'لیست ۲'],
+      filterPlaceholder: 'کلمه کلیدی را وارد کنید',
+      noCheckedFormat: '{total} مورد',
+      hasCheckedFormat: '{checked}/{total} انتخاب شده',
+      searchPlaceholder: 'کلمه کلیدی را وارد کنید'
     },
-    // جدول
     table: {
-      emptyText:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      confirmFilter: '\u062A\u0627\u06CC\u06CC\u062F',
-      resetFilter: '\u0628\u0627\u0632\u0646\u0634\u0627\u0646\u06CC',
-      clearFilter: '\u0647\u0645\u0647',
-      sumText: '\u0645\u062C\u0645\u0648\u0639',
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      index: '\u0631\u062F\u06CC\u0641',
-      print: '\u0686\u0627\u067E',
-      cancel: '\u0644\u063A\u0648',
-      preview: '\u067E\u06CC\u0634\u200C\u0646\u0645\u0627\u06CC\u0634 \u0686\u0627\u067E',
-      printTime: '\u0632\u0645\u0627\u0646 \u0686\u0627\u067E',
-      total: '\u0645\u062C\u0645\u0648\u0639 {total} \u0645\u0648\u0631\u062F',
-      page: '\u0635\u0641\u062D\u0647 {page}',
-      yes: '\u0628\u0644\u0647',
-      no: '\u062E\u06CC\u0631',
-      // نوار ابزار
+      emptyText: 'داده‌ای وجود ندارد',
+      confirmFilter: 'تایید',
+      resetFilter: 'بازنشانی',
+      clearFilter: 'همه',
+      sumText: 'مجموع',
+      loading: 'در حال بارگذاری...',
+      index: 'ردیف',
+      print: 'چاپ',
+      cancel: 'لغو',
+      preview: 'پیش‌نمایش چاپ',
+      printTime: 'زمان چاپ',
+      total: 'مجموع {total} مورد',
+      page: 'صفحه {page}',
+      yes: 'بله',
+      no: 'خیر',
       toolbar: {
-        refresh: '\u062A\u0627\u0632\u0647\u200C\u0633\u0627\u0632\u06CC',
-        density: '\u062A\u0631\u0627\u06A9\u0645',
-        densityDefault: '\u067E\u06CC\u0634\u200C\u0641\u0631\u0636',
-        densityLarge: '\u0628\u0632\u0631\u06AF',
-        densitySmall: '\u06A9\u0648\u0686\u06A9',
-        columnSetting: '\u062A\u0646\u0638\u06CC\u0645\u0627\u062A \u0633\u062A\u0648\u0646',
-        fullscreen: '\u062A\u0645\u0627\u0645 \u0635\u0641\u062D\u0647',
-        exitFullscreen:
-          '\u062E\u0631\u0648\u062C \u0627\u0632 \u062A\u0645\u0627\u0645 \u0635\u0641\u062D\u0647',
-        export: '\u0635\u062F\u0648\u0631',
-        import: '\u0648\u0627\u0631\u062F\u0627\u062A',
-        search: '\u062C\u0633\u062A\u062C\u0648',
-        searchPlaceholder:
-          '\u06A9\u0644\u0645\u0627\u062A \u06A9\u0644\u06CC\u062F\u06CC \u0631\u0627 \u0628\u0631\u0627\u06CC \u062C\u0633\u062A\u062C\u0648 \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F'
+        refresh: 'تازه‌سازی',
+        density: 'تراکم',
+        densityDefault: 'پیش‌فرض',
+        densityLarge: 'بزرگ',
+        densitySmall: 'کوچک',
+        columnSetting: 'تنظیمات ستون',
+        fullscreen: 'تمام صفحه',
+        exitFullscreen: 'خروج از تمام صفحه',
+        export: 'صدور',
+        import: 'واردات',
+        search: 'جستجو',
+        searchPlaceholder: 'کلمات کلیدی را برای جستجو وارد کنید'
       },
-      // فیلتر
       filter: {
-        selectAll: '\u0627\u0646\u062A\u062E\u0627\u0628 \u0647\u0645\u0647',
-        selectInvert:
-          '\u0645\u0639\u06A9\u0648\u0633 \u06A9\u0631\u062F\u0646 \u0627\u0646\u062A\u062E\u0627\u0628',
-        empty: '\u062E\u0627\u0644\u06CC',
-        notEmpty: '\u062E\u0627\u0644\u06CC \u0646\u06CC\u0633\u062A',
-        contains: '\u0634\u0627\u0645\u0644',
-        notContains: '\u0634\u0627\u0645\u0644 \u0646\u0645\u06CC\u200C\u0634\u0648\u062F',
-        equals: '\u0628\u0631\u0627\u0628\u0631',
-        notEquals: '\u0646\u0627\u0628\u0631\u0627\u0628\u0631',
-        startsWith: '\u0634\u0631\u0648\u0639 \u0628\u0627',
-        endsWith: '\u067E\u0627\u06CC\u0627\u0646 \u0628\u0627',
-        greaterThan: '\u0628\u0632\u0631\u06AF\u062A\u0631 \u0627\u0632',
-        lessThan: '\u06A9\u0648\u0686\u06A9\u062A\u0631 \u0627\u0632',
-        between: '\u0628\u06CC\u0646'
+        selectAll: 'انتخاب همه',
+        selectInvert: 'معکوس کردن انتخاب',
+        empty: 'خالی',
+        notEmpty: 'خالی نیست',
+        contains: 'شامل',
+        notContains: 'شامل نمی‌شود',
+        equals: 'برابر',
+        notEquals: 'نابرابر',
+        startsWith: 'شروع با',
+        endsWith: 'پایان با',
+        greaterThan: 'بزرگتر از',
+        lessThan: 'کوچکتر از',
+        between: 'بین'
       },
-      // مرتب‌سازی
       sort: {
-        asc: '\u0635\u0639\u0648\u062F\u06CC',
-        desc: '\u0646\u0632\u0648\u0644\u06CC',
-        clear:
-          '\u067E\u0627\u06A9 \u06A9\u0631\u062F\u0646 \u0645\u0631\u062A\u0628\u200C\u0633\u0627\u0632\u06CC'
+        asc: 'صعودی',
+        desc: 'نزولی',
+        clear: 'پاک کردن مرتب‌سازی'
       },
-      // صدور
       export: {
-        title: '\u0635\u062F\u0648\u0631 \u062F\u0627\u062F\u0647\u200C\u0647\u0627',
-        filename: '\u0646\u0627\u0645 \u0641\u0627\u06CC\u0644',
-        type: '\u0646\u0648\u0639 \u0641\u0627\u06CC\u0644',
-        scope: '\u0645\u062D\u062F\u0648\u062F\u0647 \u0635\u062F\u0648\u0631',
-        scopeAll: '\u0647\u0645\u0647 \u062F\u0627\u062F\u0647\u200C\u0647\u0627',
-        scopeSelected:
-          '\u062F\u0627\u062F\u0647\u200C\u0647\u0627\u06CC \u0627\u0646\u062A\u062E\u0627\u0628 \u0634\u062F\u0647',
-        scopeCurrentPage: '\u0635\u0641\u062D\u0647 \u0641\u0639\u0644\u06CC',
-        includeHeader: '\u0634\u0627\u0645\u0644 \u0633\u0631\u0635\u0641\u062D\u0647',
-        exporting: '\u062F\u0631 \u062D\u0627\u0644 \u0635\u062F\u0648\u0631...',
-        success: '\u0635\u062F\u0648\u0631 \u0645\u0648\u0641\u0642',
-        error: '\u062E\u0637\u0627 \u062F\u0631 \u0635\u062F\u0648\u0631'
+        title: 'صدور داده‌ها',
+        filename: 'نام فایل',
+        type: 'نوع فایل',
+        scope: 'محدوده صدور',
+        scopeAll: 'همه داده‌ها',
+        scopeSelected: 'داده‌های انتخاب شده',
+        scopeCurrentPage: 'صفحه فعلی',
+        includeHeader: 'شامل سرصفحه',
+        exporting: 'در حال صدور...',
+        success: 'صدور موفق',
+        error: 'خطا در صدور'
       },
-      // واردات
       import: {
-        title: '\u0648\u0627\u0631\u062F\u0627\u062A \u062F\u0627\u062F\u0647\u200C\u0647\u0627',
-        selectFile:
-          '\u0641\u0627\u06CC\u0644 \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F',
-        dragTip:
-          '\u0628\u0631\u0627\u06CC \u0622\u067E\u0644\u0648\u062F \u0641\u0627\u06CC\u0644 \u0631\u0627 \u0627\u06CC\u0646\u062C\u0627 \u0628\u06A9\u0634\u06CC\u062F \u06CC\u0627 \u06A9\u0644\u06CC\u06A9 \u06A9\u0646\u06CC\u062F',
-        importing: '\u062F\u0631 \u062D\u0627\u0644 \u0648\u0627\u0631\u062F\u0627\u062A...',
-        success: '\u0648\u0627\u0631\u062F\u0627\u062A \u0645\u0648\u0641\u0642',
-        error: '\u062E\u0637\u0627 \u062F\u0631 \u0648\u0627\u0631\u062F\u0627\u062A',
-        preview:
-          '\u067E\u06CC\u0634\u200C\u0646\u0645\u0627\u06CC\u0634 \u062F\u0627\u062F\u0647\u200C\u0647\u0627',
-        confirm: '\u062A\u0627\u06CC\u06CC\u062F \u0648\u0627\u0631\u062F\u0627\u062A'
+        title: 'واردات داده‌ها',
+        selectFile: 'فایل را انتخاب کنید',
+        dragTip: 'برای آپلود فایل را اینجا بکشید یا کلیک کنید',
+        importing: 'در حال واردات...',
+        success: 'واردات موفق',
+        error: 'خطا در واردات',
+        preview: 'پیش‌نمایش داده‌ها',
+        confirm: 'تایید واردات'
       },
-      // چاپ
       printConfig: {
-        title: '\u062A\u0646\u0638\u06CC\u0645\u0627\u062A \u0686\u0627\u067E',
-        pageTitle: '\u0639\u0646\u0648\u0627\u0646 \u0635\u0641\u062D\u0647',
-        pageHeader: '\u0633\u0631\u0635\u0641\u062D\u0647',
-        pageFooter: '\u067E\u0627\u0635\u0641\u062D\u0647',
-        printAll: '\u0686\u0627\u067E \u0647\u0645\u0647',
-        printSelected:
-          '\u0686\u0627\u067E \u0627\u0646\u062A\u062E\u0627\u0628 \u0634\u062F\u0647\u200C\u0647\u0627',
-        printCurrentPage: '\u0686\u0627\u067E \u0635\u0641\u062D\u0647 \u0641\u0639\u0644\u06CC',
-        landscape: '\u0627\u0641\u0642\u06CC',
-        portrait: '\u0639\u0645\u0648\u062F\u06CC',
-        printing: '\u062F\u0631 \u062D\u0627\u0644 \u0686\u0627\u067E...'
+        title: 'تنظیمات چاپ',
+        pageTitle: 'عنوان صفحه',
+        pageHeader: 'سرصفحه',
+        pageFooter: 'پاصفحه',
+        printAll: 'چاپ همه',
+        printSelected: 'چاپ انتخاب شده‌ها',
+        printCurrentPage: 'چاپ صفحه فعلی',
+        landscape: 'افقی',
+        portrait: 'عمودی',
+        printing: 'در حال چاپ...'
       },
-      // تنظیمات ستون
       columnSetting: {
-        title: '\u062A\u0646\u0638\u06CC\u0645\u0627\u062A \u0633\u062A\u0648\u0646',
-        showAll: '\u0646\u0645\u0627\u06CC\u0634 \u0647\u0645\u0647',
-        hideAll: '\u067E\u0646\u0647\u0627\u0646 \u06A9\u0631\u062F\u0646 \u0647\u0645\u0647',
-        reset: '\u0628\u0627\u0632\u0646\u0634\u0627\u0646\u06CC',
-        fixedLeft: '\u062B\u0627\u0628\u062A \u062F\u0631 \u0686\u067E',
-        fixedRight: '\u062B\u0627\u0628\u062A \u062F\u0631 \u0631\u0627\u0633\u062A',
-        unfixed: '\u0644\u063A\u0648 \u062B\u0627\u0628\u062A \u06A9\u0631\u062F\u0646'
+        title: 'تنظیمات ستون',
+        showAll: 'نمایش همه',
+        hideAll: 'پنهان کردن همه',
+        reset: 'بازنشانی',
+        fixedLeft: 'ثابت در چپ',
+        fixedRight: 'ثابت در راست',
+        unfixed: 'لغو ثابت کردن'
       },
-      // منوی زمینه
       contextMenu: {
-        copy: '\u06A9\u067E\u06CC',
-        copyRow: '\u06A9\u067E\u06CC \u0631\u062F\u06CC\u0641',
-        copyCell: '\u06A9\u067E\u06CC \u0633\u0644\u0648\u0644',
-        paste: '\u0686\u0633\u0628\u0627\u0646\u062F\u0646',
-        insertRowAbove: '\u062F\u0631\u062C \u0631\u062F\u06CC\u0641 \u0628\u0627\u0644\u0627',
-        insertRowBelow:
-          '\u062F\u0631\u062C \u0631\u062F\u06CC\u0641 \u067E\u0627\u06CC\u06CC\u0646',
-        deleteRow: '\u062D\u0630\u0641 \u0631\u062F\u06CC\u0641',
-        deleteSelectedRows:
-          '\u062D\u0630\u0641 \u0631\u062F\u06CC\u0641\u200C\u0647\u0627\u06CC \u0627\u0646\u062A\u062E\u0627\u0628 \u0634\u062F\u0647',
-        exportSelected:
-          '\u0635\u062F\u0648\u0631 \u0627\u0646\u062A\u062E\u0627\u0628 \u0634\u062F\u0647\u200C\u0647\u0627'
+        copy: 'کپی',
+        copyRow: 'کپی ردیف',
+        copyCell: 'کپی سلول',
+        paste: 'چسباندن',
+        insertRowAbove: 'درج ردیف بالا',
+        insertRowBelow: 'درج ردیف پایین',
+        deleteRow: 'حذف ردیف',
+        deleteSelectedRows: 'حذف ردیف‌های انتخاب شده',
+        exportSelected: 'صدور انتخاب شده‌ها'
       },
-      // انتخاب
       selection: {
-        selectAll: '\u0627\u0646\u062A\u062E\u0627\u0628 \u0647\u0645\u0647',
-        selectInvert:
-          '\u0645\u0639\u06A9\u0648\u0633 \u06A9\u0631\u062F\u0646 \u0627\u0646\u062A\u062E\u0627\u0628',
-        selectNone:
-          '\u067E\u0627\u06A9 \u06A9\u0631\u062F\u0646 \u0627\u0646\u062A\u062E\u0627\u0628',
-        selected:
-          '{count} \u0645\u0648\u0631\u062F \u0627\u0646\u062A\u062E\u0627\u0628 \u0634\u062F\u0647'
+        selectAll: 'انتخاب همه',
+        selectInvert: 'معکوس کردن انتخاب',
+        selectNone: 'پاک کردن انتخاب',
+        selected: '{count} مورد انتخاب شده'
       },
-      // باز کردن
       expand: {
-        expandAll: '\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646 \u0647\u0645\u0647',
-        collapseAll: '\u062C\u0645\u0639 \u06A9\u0631\u062F\u0646 \u0647\u0645\u0647'
+        expandAll: 'باز کردن همه',
+        collapseAll: 'جمع کردن همه'
       },
-      // درخت
       tree: {
-        expandAll: '\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646 \u0647\u0645\u0647',
-        collapseAll: '\u062C\u0645\u0639 \u06A9\u0631\u062F\u0646 \u0647\u0645\u0647',
-        expandLevel:
-          '\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646 \u062A\u0627 \u0633\u0637\u062D {level}'
+        expandAll: 'باز کردن همه',
+        collapseAll: 'جمع کردن همه',
+        expandLevel: 'باز کردن تا سطح {level}'
       },
-      // کشیدن
       drag: {
-        dragTip:
-          '\u0628\u0631\u0627\u06CC \u062A\u063A\u06CC\u06CC\u0631 \u062A\u0631\u062A\u06CC\u0628 \u0628\u06A9\u0634\u06CC\u062F',
-        dropTip:
-          '\u0628\u0631\u0627\u06CC \u0642\u0631\u0627\u0631 \u062F\u0627\u062F\u0646 \u0631\u0647\u0627 \u06A9\u0646\u06CC\u062F'
+        dragTip: 'برای تغییر ترتیب بکشید',
+        dropTip: 'برای قرار دادن رها کنید'
       }
     },
-    // کادر پیام
     messagebox: {
-      title: '\u067E\u06CC\u0627\u0645',
-      confirm: '\u062A\u0627\u06CC\u06CC\u062F',
-      cancel: '\u0644\u063A\u0648',
-      close: '\u0628\u0633\u062A\u0646',
-      error: '\u0648\u0631\u0648\u062F\u06CC \u0646\u0627\u0645\u0639\u062A\u0628\u0631',
-      alert: '\u0647\u0634\u062F\u0627\u0631',
-      prompt: '\u0631\u0627\u0647\u0646\u0645\u0627\u06CC\u06CC',
-      inputPlaceholder: '\u0644\u0637\u0641\u0627 \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F'
+      title: 'پیام',
+      confirm: 'تایید',
+      cancel: 'لغو',
+      close: 'بستن',
+      error: 'ورودی نامعتبر',
+      alert: 'هشدار',
+      prompt: 'راهنمایی',
+      inputPlaceholder: 'لطفا وارد کنید'
     },
-    // آپلود
     upload: {
-      deleteTip:
-        '\u0628\u0631\u0627\u06CC \u062D\u0630\u0641 delete \u0631\u0627 \u0641\u0634\u0627\u0631 \u062F\u0647\u06CC\u062F',
-      delete: '\u062D\u0630\u0641',
-      preview: '\u067E\u06CC\u0634\u200C\u0646\u0645\u0627\u06CC\u0634',
-      continue: '\u0627\u062F\u0627\u0645\u0647',
-      upload:
-        '\u0628\u0631\u0627\u06CC \u0622\u067E\u0644\u0648\u062F \u06A9\u0644\u06CC\u06A9 \u06A9\u0646\u06CC\u062F',
-      tip: '\u0641\u0627\u06CC\u0644 \u0631\u0627 \u0628\u0647 \u0627\u06CC\u0646 \u0646\u0627\u062D\u06CC\u0647 \u0628\u06A9\u0634\u06CC\u062F \u06CC\u0627 \u0628\u0631\u0627\u06CC <em>\u0622\u067E\u0644\u0648\u062F</em> \u06A9\u0644\u06CC\u06A9 \u06A9\u0646\u06CC\u062F',
-      dragTip:
-        '\u0641\u0627\u06CC\u0644 \u0631\u0627 \u0627\u06CC\u0646\u062C\u0627 \u0628\u06A9\u0634\u06CC\u062F \u06CC\u0627 \u0628\u0631\u0627\u06CC \u0622\u067E\u0644\u0648\u062F \u06A9\u0644\u06CC\u06A9 \u06A9\u0646\u06CC\u062F',
-      uploading: '\u062F\u0631 \u062D\u0627\u0644 \u0622\u067E\u0644\u0648\u062F...',
-      success: '\u0622\u067E\u0644\u0648\u062F \u0645\u0648\u0641\u0642',
-      error: '\u062E\u0637\u0627 \u062F\u0631 \u0622\u067E\u0644\u0648\u062F',
-      retry: '\u062A\u0644\u0627\u0634 \u0645\u062C\u062F\u062F',
-      cancel: '\u0644\u063A\u0648 \u0622\u067E\u0644\u0648\u062F',
-      fileTypeError:
-        '\u0646\u0648\u0639 \u0641\u0627\u06CC\u0644 \u067E\u0634\u062A\u06CC\u0628\u0627\u0646\u06CC \u0646\u0645\u06CC\u200C\u0634\u0648\u062F',
-      fileSizeError:
-        '\u0627\u0646\u062F\u0627\u0632\u0647 \u0641\u0627\u06CC\u0644 \u0627\u0632 \u062D\u062F \u0645\u062C\u0627\u0632 \u0628\u06CC\u0634\u062A\u0631 \u0627\u0633\u062A',
-      fileCountError:
-        '\u062A\u0639\u062F\u0627\u062F \u0641\u0627\u06CC\u0644\u200C\u0647\u0627 \u0627\u0632 \u062D\u062F \u0645\u062C\u0627\u0632 \u0628\u06CC\u0634\u062A\u0631 \u0627\u0633\u062A'
+      deleteTip: 'برای حذف delete را فشار دهید',
+      delete: 'حذف',
+      preview: 'پیش‌نمایش',
+      continue: 'ادامه',
+      upload: 'برای آپلود کلیک کنید',
+      tip: 'فایل را به این ناحیه بکشید یا برای <em>آپلود</em> کلیک کنید',
+      dragTip: 'فایل را اینجا بکشید یا برای آپلود کلیک کنید',
+      uploading: 'در حال آپلود...',
+      success: 'آپلود موفق',
+      error: 'خطا در آپلود',
+      retry: 'تلاش مجدد',
+      cancel: 'لغو آپلود',
+      fileTypeError: 'نوع فایل پشتیبانی نمی‌شود',
+      fileSizeError: 'اندازه فایل از حد مجاز بیشتر است',
+      fileCountError: 'تعداد فایل‌ها از حد مجاز بیشتر است'
     },
-    // فرم
     form: {
-      validationFailed:
-        '\u0627\u0639\u062A\u0628\u0627\u0631\u0633\u0646\u062C\u06CC \u0646\u0627\u0645\u0648\u0641\u0642',
-      required: '\u0627\u0644\u0632\u0627\u0645\u06CC',
-      pleaseInput: '\u0644\u0637\u0641\u0627 \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F',
-      pleaseSelect:
-        '\u0644\u0637\u0641\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F'
+      validationFailed: 'اعتبارسنجی ناموفق',
+      required: 'الزامی',
+      pleaseInput: 'لطفا وارد کنید',
+      pleaseSelect: 'لطفا انتخاب کنید'
     },
-    // دکمه
     button: {
-      loading: '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...'
+      loading: 'در حال بارگذاری...'
     },
-    // ورودی
     input: {
-      placeholder: '\u0644\u0637\u0641\u0627 \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F',
-      clear: '\u067E\u0627\u06A9 \u06A9\u0631\u062F\u0646',
-      showPassword: '\u0646\u0645\u0627\u06CC\u0634 \u0631\u0645\u0632 \u0639\u0628\u0648\u0631',
-      hidePassword:
-        '\u067E\u0646\u0647\u0627\u0646 \u06A9\u0631\u062F\u0646 \u0631\u0645\u0632 \u0639\u0628\u0648\u0631',
-      copy: '\u06A9\u067E\u06CC',
-      copied: '\u06A9\u067E\u06CC \u0634\u062F'
+      placeholder: 'لطفا وارد کنید',
+      clear: 'پاک کردن',
+      showPassword: 'نمایش رمز عبور',
+      hidePassword: 'پنهان کردن رمز عبور',
+      copy: 'کپی',
+      copied: 'کپی شد'
     },
-    // ورودی عددی
     inputnumber: {
-      placeholder:
-        '\u0644\u0637\u0641\u0627 \u0639\u062F\u062F \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F',
-      increase: '\u0627\u0641\u0632\u0627\u06CC\u0634',
-      decrease: '\u06A9\u0627\u0647\u0634'
+      placeholder: 'لطفا عدد وارد کنید',
+      increase: 'افزایش',
+      decrease: 'کاهش'
     },
-    // ورودی برچسب
     inputtag: {
-      placeholder: '\u0644\u0637\u0641\u0627 \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F',
-      add: '\u0627\u0641\u0632\u0648\u062F\u0646',
-      remove: '\u062D\u0630\u0641'
+      placeholder: 'لطفا وارد کنید',
+      add: 'افزودن',
+      remove: 'حذف'
     },
-    // مسیر راهنما
     breadcrumb: {
-      label: '\u0645\u0633\u06CC\u0631 \u0631\u0627\u0647\u0646\u0645\u0627',
-      more: '\u0628\u06CC\u0634\u062A\u0631'
+      label: 'مسیر راهنما',
+      more: 'بیشتر'
     },
-    // بازگشت به بالا
     backtop: {
-      text: '\u0628\u0627\u0632\u06AF\u0634\u062A \u0628\u0647 \u0628\u0627\u0644\u0627'
+      text: 'بازگشت به بالا'
     },
-    // انتخاب
     select: {
-      placeholder:
-        '\u0644\u0637\u0641\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F',
-      noData:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      noMatch: '\u0645\u0648\u0631\u062F\u06CC \u06CC\u0627\u0641\u062A \u0646\u0634\u062F',
-      selectAll: '\u0627\u0646\u062A\u062E\u0627\u0628 \u0647\u0645\u0647',
-      clearAll: '\u067E\u0627\u06A9 \u06A9\u0631\u062F\u0646 \u0647\u0645\u0647'
+      placeholder: 'لطفا انتخاب کنید',
+      noData: 'داده‌ای وجود ندارد',
+      loading: 'در حال بارگذاری...',
+      noMatch: 'موردی یافت نشد',
+      selectAll: 'انتخاب همه',
+      clearAll: 'پاک کردن همه'
     },
-    // صفحه‌بندی
     pagination: {
-      goto: '\u0628\u0631\u0648 \u0628\u0647',
+      goto: 'برو به',
       page: '',
-      total: '\u0645\u062C\u0645\u0648\u0639 {total}',
-      pageSize: '/\u0635\u0641\u062D\u0647',
-      prev: '\u0642\u0628\u0644\u06CC',
-      next: '\u0628\u0639\u062F\u06CC',
-      first: '\u0627\u0648\u0644',
-      last: '\u0622\u062E\u0631',
+      total: 'مجموع {total}',
+      pageSize: '/صفحه',
+      prev: 'قبلی',
+      next: 'بعدی',
+      first: 'اول',
+      last: 'آخر',
       pageClassifier: ''
     },
-    // تایید بازشو
     popconfirm: {
-      confirm: '\u062A\u0627\u06CC\u06CC\u062F',
-      cancel: '\u0644\u063A\u0648',
-      dontAskAgain: '\u062F\u06CC\u06AF\u0631 \u0646\u067E\u0631\u0633'
+      confirm: 'تایید',
+      cancel: 'لغو',
+      dontAskAgain: 'دیگر نپرس'
     },
-    // دیالوگ
     dialog: {
-      confirm: '\u062A\u0627\u06CC\u06CC\u062F',
-      cancel: '\u0644\u063A\u0648',
-      close: '\u0628\u0633\u062A\u0646',
-      maximize: '\u0628\u0632\u0631\u06AF \u06A9\u0631\u062F\u0646',
-      restore: '\u0628\u0627\u0632\u06AF\u0631\u062F\u0627\u0646\u062F\u0646'
+      confirm: 'تایید',
+      cancel: 'لغو',
+      close: 'بستن',
+      maximize: 'بزرگ کردن',
+      restore: 'بازگرداندن'
     },
-    // کشو
     drawer: {
-      close: '\u0628\u0633\u062A\u0646',
-      confirm: '\u062A\u0627\u06CC\u06CC\u062F',
-      cancel: '\u0644\u063A\u0648'
+      close: 'بستن',
+      confirm: 'تایید',
+      cancel: 'لغو'
     },
-    // منوی کشویی
     dropdown: {
-      loading: '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...'
+      loading: 'در حال بارگذاری...'
     },
-    // تصویر
     image: {
-      error: '\u062E\u0637\u0627',
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      preview: '\u067E\u06CC\u0634\u200C\u0646\u0645\u0627\u06CC\u0634',
-      zoomIn: '\u0628\u0632\u0631\u06AF\u0646\u0645\u0627\u06CC\u06CC',
-      zoomOut: '\u06A9\u0648\u0686\u06A9\u200C\u0646\u0645\u0627\u06CC\u06CC',
-      rotateLeft: '\u0686\u0631\u062E\u0634 \u0628\u0647 \u0686\u067E',
-      rotateRight: '\u0686\u0631\u062E\u0634 \u0628\u0647 \u0631\u0627\u0633\u062A',
-      originalSize: '\u0627\u0646\u062F\u0627\u0632\u0647 \u0627\u0635\u0644\u06CC',
-      fullscreen: '\u062A\u0645\u0627\u0645 \u0635\u0641\u062D\u0647'
+      error: 'خطا',
+      loading: 'در حال بارگذاری...',
+      preview: 'پیش‌نمایش',
+      zoomIn: 'بزرگنمایی',
+      zoomOut: 'کوچک‌نمایی',
+      rotateLeft: 'چرخش به چپ',
+      rotateRight: 'چرخش به راست',
+      originalSize: 'اندازه اصلی',
+      fullscreen: 'تمام صفحه'
     },
-    // نمایشگر تصویر
     imageviewer: {
-      close: '\u0628\u0633\u062A\u0646',
-      prev: '\u0642\u0628\u0644\u06CC',
-      next: '\u0628\u0639\u062F\u06CC',
-      zoomIn: '\u0628\u0632\u0631\u06AF\u0646\u0645\u0627\u06CC\u06CC',
-      zoomOut: '\u06A9\u0648\u0686\u06A9\u200C\u0646\u0645\u0627\u06CC\u06CC',
-      rotateLeft: '\u0686\u0631\u062E\u0634 \u0628\u0647 \u0686\u067E',
-      rotateRight: '\u0686\u0631\u062E\u0634 \u0628\u0647 \u0631\u0627\u0633\u062A',
-      reset: '\u0628\u0627\u0632\u0646\u0634\u0627\u0646\u06CC',
-      fullscreen: '\u062A\u0645\u0627\u0645 \u0635\u0641\u062D\u0647',
-      exitFullscreen:
-        '\u062E\u0631\u0648\u062C \u0627\u0632 \u062A\u0645\u0627\u0645 \u0635\u0641\u062D\u0647'
+      close: 'بستن',
+      prev: 'قبلی',
+      next: 'بعدی',
+      zoomIn: 'بزرگنمایی',
+      zoomOut: 'کوچک‌نمایی',
+      rotateLeft: 'چرخش به چپ',
+      rotateRight: 'چرخش به راست',
+      reset: 'بازنشانی',
+      fullscreen: 'تمام صفحه',
+      exitFullscreen: 'خروج از تمام صفحه'
     },
-    // پیمایش بی‌نهایت
     infinitescroll: {
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      finished:
-        '\u062F\u0627\u062F\u0647 \u0628\u06CC\u0634\u062A\u0631\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      error:
-        '\u062E\u0637\u0627 \u062F\u0631 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC\u060C \u0628\u0631\u0627\u06CC \u062A\u0644\u0627\u0634 \u0645\u062C\u062F\u062F \u06A9\u0644\u06CC\u06A9 \u06A9\u0646\u06CC\u062F',
-      retry:
-        '\u0628\u0631\u0627\u06CC \u062A\u0644\u0627\u0634 \u0645\u062C\u062F\u062F \u06A9\u0644\u06CC\u06A9 \u06A9\u0646\u06CC\u062F'
+      loading: 'در حال بارگذاری...',
+      finished: 'داده بیشتری وجود ندارد',
+      error: 'خطا در بارگذاری، برای تلاش مجدد کلیک کنید',
+      retry: 'برای تلاش مجدد کلیک کنید'
     },
-    // پیام
     message: {
-      close: '\u0628\u0633\u062A\u0646'
+      close: 'بستن'
     },
-    // اعلان
     notification: {
-      close: '\u0628\u0633\u062A\u0646'
+      close: 'بستن'
     },
-    // بارگذاری
     loading: {
-      text: '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...'
+      text: 'در حال بارگذاری...'
     },
-    // چرخنده
     spin: {
-      text: '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...'
+      text: 'در حال بارگذاری...'
     },
-    // امتیازدهی
     rate: {
-      texts: [
-        '\u062E\u06CC\u0644\u06CC \u0628\u062F',
-        '\u0646\u0627\u0627\u0645\u06CC\u062F',
-        '\u062E\u0648\u0628',
-        '\u0631\u0627\u0636\u06CC',
-        '\u0634\u06AF\u0641\u062A\u200C\u0632\u062F\u0647'
-      ]
+      texts: ['خیلی بد', 'ناامید', 'خوب', 'راضی', 'شگفت‌زده']
     },
-    // هشدار
     alert: {
-      close: '\u0628\u0633\u062A\u0646'
+      close: 'بستن'
     },
-    // برچسب
     tag: {
-      close: '\u0628\u0633\u062A\u0646'
+      close: 'بستن'
     },
-    // تب‌ها
     tabs: {
-      close: '\u0628\u0633\u062A\u0646',
-      add: '\u0627\u0641\u0632\u0648\u062F\u0646',
-      more: '\u0628\u06CC\u0634\u062A\u0631'
+      close: 'بستن',
+      add: 'افزودن',
+      more: 'بیشتر'
     },
-    // مراحل
     steps: {
-      finish: '\u062A\u0645\u0627\u0645 \u0634\u062F',
-      process: '\u062F\u0631 \u062D\u0627\u0644 \u0627\u0646\u062C\u0627\u0645',
-      wait: '\u062F\u0631 \u0627\u0646\u062A\u0638\u0627\u0631',
-      error: '\u062E\u0637\u0627'
+      finish: 'تمام شد',
+      process: 'در حال انجام',
+      wait: 'در انتظار',
+      error: 'خطا'
     },
-    // پیشرفت
     progress: {
-      success: '\u0645\u0648\u0641\u0642',
-      exception: '\u0627\u0633\u062A\u062B\u0646\u0627',
-      warning: '\u0647\u0634\u062F\u0627\u0631'
+      success: 'موفق',
+      exception: 'استثنا',
+      warning: 'هشدار'
     },
-    // اسکلت
     skeleton: {
-      loading: '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...'
+      loading: 'در حال بارگذاری...'
     },
-    // خالی
     empty: {
-      description:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      noData:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      noResult:
-        '\u0646\u062A\u06CC\u062C\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      networkError: '\u062E\u0637\u0627\u06CC \u0634\u0628\u06A9\u0647',
-      serverError: '\u062E\u0637\u0627\u06CC \u0633\u0631\u0648\u0631'
+      description: 'داده‌ای وجود ندارد',
+      noData: 'داده‌ای وجود ندارد',
+      noResult: 'نتیجه‌ای وجود ندارد',
+      networkError: 'خطای شبکه',
+      serverError: 'خطای سرور'
     },
-    // نتیجه
     result: {
-      success: '\u0645\u0648\u0641\u0642',
-      error: '\u062E\u0637\u0627',
-      warning: '\u0647\u0634\u062F\u0627\u0631',
-      info: '\u0627\u0637\u0644\u0627\u0639\u0627\u062A',
-      backHome: '\u0628\u0627\u0632\u06AF\u0634\u062A \u0628\u0647 \u062E\u0627\u0646\u0647'
+      success: 'موفق',
+      error: 'خطا',
+      warning: 'هشدار',
+      info: 'اطلاعات',
+      backHome: 'بازگشت به خانه'
     },
-    // آبشار
     waterfall: {
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      noMore:
-        '\u062F\u0627\u062F\u0647 \u0628\u06CC\u0634\u062A\u0631\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F',
-      empty:
-        '\u062F\u0627\u062F\u0647\u200C\u0627\u06CC \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F'
+      loading: 'در حال بارگذاری...',
+      noMore: 'داده بیشتری وجود ندارد',
+      empty: 'داده‌ای وجود ندارد'
     },
-    // توضیحات
     descriptions: {
       colon: ':'
     },
-    // لغزنده
     slider: {
       tipFormatter: '{value}'
     },
-    // سوئیچ
     switch: {
-      on: '\u0631\u0648\u0634\u0646',
-      off: '\u062E\u0627\u0645\u0648\u0634'
+      on: 'روشن',
+      off: 'خاموش'
     },
-    // چک‌باکس
     checkbox: {
-      selectAll: '\u0627\u0646\u062A\u062E\u0627\u0628 \u0647\u0645\u0647'
+      selectAll: 'انتخاب همه'
     },
-    // رادیو
     radio: {},
-    // منو
     menu: {
-      collapse: '\u062C\u0645\u0639 \u06A9\u0631\u062F\u0646 \u0645\u0646\u0648',
-      expand: '\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646 \u0645\u0646\u0648'
+      collapse: 'جمع کردن منو',
+      expand: 'باز کردن منو'
     },
-    // کارت
     card: {
-      collapse: '\u062C\u0645\u0639 \u06A9\u0631\u062F\u0646',
-      expand: '\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646'
+      collapse: 'جمع کردن',
+      expand: 'باز کردن'
     },
-    // جمع‌شونده
     collapse: {
-      expand: '\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646',
-      collapse: '\u062C\u0645\u0639 \u06A9\u0631\u062F\u0646'
+      expand: 'باز کردن',
+      collapse: 'جمع کردن'
     },
-    // راهنما
     tooltip: {},
-    // پاپ‌اور
     popover: {},
-    // نشان
     badge: {},
-    // آواتار
     avatar: {
-      error: '\u062E\u0637\u0627 \u062F\u0631 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC'
+      error: 'خطا در بارگذاری'
     },
-    // واترمارک
     watermark: {},
-    // جداکننده
     divider: {},
-    // کاروسل
     carousel: {
-      prev: '\u0642\u0628\u0644\u06CC',
-      next: '\u0628\u0639\u062F\u06CC'
+      prev: 'قبلی',
+      next: 'بعدی'
     },
-    // متن متحرک
     marquee: {},
-    // چسبنده
     affix: {},
-    // لنگر
-    anchor: {},
-    // Mention
-    mention: {
-      placeholder:
-        '\u0644\u0637\u0641\u0627\u064B \u0648\u0627\u0631\u062F \u06A9\u0646\u06CC\u062F',
-      loading:
-        '\u062F\u0631 \u062D\u0627\u0644 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC...',
-      noData: '\u062F\u0627\u062F\u0647 \u0627\u06CC \u0646\u06CC\u0633\u062A'
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
     },
-    // AI Components
+    anchor: {},
+    mention: {
+      placeholder: 'لطفاً وارد کنید',
+      loading: 'در حال بارگذاری...',
+      noData: 'داده ای نیست'
+    },
+    skuselector: {
+      placeholder: 'Select specifications',
+      emptyText: 'No specifications',
+      stock: 'Stock',
+      price: 'Price',
+      selected: 'Selected',
+      outOfStock: 'Out of Stock'
+    },
+    productcard: {
+      viewDetails: 'View Details',
+      buyNow: 'Buy Now',
+      addToCart: 'Add to Cart',
+      sold: 'Sold',
+      soldOut: 'Sold Out',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Original'
+    },
+    couponcard: {
+      available: 'Claim Now',
+      used: 'Used',
+      expired: 'Expired',
+      received: 'Received',
+      limit: 'Orders over {threshold}',
+      noThreshold: 'No threshold',
+      validPeriod: 'Validity',
+      ruleTitle: 'Usage Rules'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Drawing...',
+      end: 'Winner!',
+      retry: 'Retry'
+    },
+    filterbar: {
+      all: 'All',
+      sort: 'Sort',
+      filter: 'Filter',
+      cancel: 'Cancel',
+      reset: 'Reset',
+      confirm: 'Confirm',
+      noOptions: 'No options',
+      asc: 'Ascending',
+      desc: 'Descending',
+      selected: 'Selected'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selected',
+      submit: 'Checkout',
+      allSelect: 'Select All'
+    },
+    categorynav: {
+      all: 'All',
+      noData: 'No Data',
+      loading: 'Loading...'
+    },
+    smartaddress: {
+      placeholder: 'Paste address here, auto-detect name, phone, location',
+      parse: 'Smart Parse',
+      province: 'Province/City/District',
+      city: 'City',
+      district: 'District/County',
+      street: 'Street/Town',
+      detail: 'Detailed Address',
+      phone: 'Phone',
+      name: 'Recipient',
+      parseSuccess: 'Address parsed successfully',
+      parseFailed: 'Parse failed, please fill manually',
+      required: 'Please fill complete address',
+      provinceKeywords: ['Province', 'State'],
+      cityKeywords: ['City', 'Prefecture'],
+      districtKeywords: ['District', 'County', 'Township'],
+      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+    },
+    ganttchart: {
+      taskName: 'Task Name',
+      searchPlaceholder: 'Search tasks...',
+      zoom: 'Zoom',
+      day: 'Day',
+      week: 'Week',
+      month: 'Month',
+      year: 'Year',
+      milestone: 'Milestone'
+    },
+    imagemagnifier: {
+      switchToImage: 'Switch to image {index}',
+      galleryItem: 'Gallery {index}',
+      close: 'Close'
+    },
     ai: {
       bubble: {
         citations: 'citations'
       },
       mention: {
-        placeholder:
-          '@ \u0627\u0634\u0627\u0631\u0647 \u0628\u0647 \u0639\u0627\u0645\u0644\u060C \u0633\u0646\u062F \u06CC\u0627 \u062C\u062F\u0648\u0644...',
-        agent: '\u0639\u0627\u0645\u0644',
-        document: '\u0633\u0646\u062F',
-        table: '\u062C\u062F\u0648\u0644',
-        knowledge: '\u062F\u0627\u0646\u0634'
+        placeholder: '@ اشاره به عامل، سند یا جدول...',
+        agent: 'عامل',
+        document: 'سند',
+        table: 'جدول',
+        knowledge: 'دانش',
+        file: 'File'
       },
       codeBlock: {
-        copyCode: '\u06A9\u067E\u06CC \u06A9\u062F',
-        copied: '\u06A9\u067E\u06CC \u0634\u062F!',
-        run: '\u0627\u062C\u0631\u0627\u06CC \u06A9\u062F',
-        edit: '\u0648\u06CC\u0631\u0627\u06CC\u0634',
-        save: '\u0630\u062E\u06CC\u0631\u0647',
-        cancel: '\u0644\u063A\u0648'
+        copyCode: 'کپی کد',
+        copied: 'کپی شد!',
+        run: 'اجرای کد',
+        edit: 'ویرایش',
+        save: 'ذخیره',
+        cancel: 'لغو'
       },
       codeRunner: {
-        run: '\u0627\u062C\u0631\u0627',
-        stop: '\u062A\u0648\u0642\u0641',
-        clear: '\u067E\u0627\u06A9 \u06A9\u0631\u062F\u0646',
-        reset: '\u0628\u0627\u0632\u0646\u0634\u0627\u0646\u06CC',
-        placeholder:
-          '\u0628\u0631\u0627\u06CC \u0627\u062C\u0631\u0627\u06CC \u06A9\u062F \u0631\u0648\u06CC \u0627\u062C\u0631\u0627 \u06A9\u0644\u06CC\u06A9 \u06A9\u0646\u06CC\u062F...'
+        run: 'اجرا',
+        stop: 'توقف',
+        clear: 'پاک کردن',
+        reset: 'بازنشانی',
+        placeholder: 'برای اجرای کد روی اجرا کلیک کنید...'
       },
       sender: {
-        placeholder:
-          '\u067E\u06CC\u0627\u0645 \u0627\u0631\u0633\u0627\u0644 \u06A9\u0646\u06CC\u062F...',
-        dragTip:
-          '\u0628\u0631\u0627\u06CC \u0622\u067E\u0644\u0648\u062F \u0641\u0627\u06CC\u0644 \u0631\u0647\u0627 \u06A9\u0646\u06CC\u062F'
+        placeholder: 'پیام ارسال کنید...',
+        dragTip: 'برای آپلود فایل رها کنید',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
-        thoughtProcess: '\u0641\u0631\u0622\u06CC\u0646\u062F \u062A\u0641\u06A9\u0631',
-        thinking: '\u062F\u0631 \u062D\u0627\u0644 \u062A\u0641\u06A9\u0631...',
-        defaultTitle: '\u0645\u0631\u062D\u0644\u0647 \u062C\u062F\u06CC\u062F',
-        addNode: '\u0627\u0641\u0632\u0648\u062F\u0646 \u0645\u0631\u062D\u0644\u0647'
+        thoughtProcess: 'فرآیند تفکر',
+        thinking: 'در حال تفکر...',
+        defaultTitle: 'مرحله جدید',
+        addNode: 'افزودن مرحله'
       },
       thinking: {
-        start: '\u0634\u0631\u0648\u0639 \u0628\u0647 \u062A\u0641\u06A9\u0631',
-        thinking: '\u062F\u0631 \u062D\u0627\u0644 \u062A\u0641\u06A9\u0631...',
-        complete: '\u062A\u0641\u06A9\u0631 \u062A\u06A9\u0645\u06CC\u0644 \u0634\u062F',
-        error: '\u062E\u0637\u0627\u06CC \u062A\u0641\u06A9\u0631'
+        start: 'شروع به تفکر',
+        thinking: 'در حال تفکر...',
+        complete: 'تفکر تکمیل شد',
+        error: 'خطای تفکر'
       },
       welcome: {
-        title: '\u0633\u0644\u0627\u0645\u060C \u0645\u0646 YH AI \u0647\u0633\u062A\u0645',
+        title: 'سلام، من YH AI هستم',
         description:
-          '\u0645\u06CC \u062A\u0648\u0627\u0646\u0645 \u062F\u0631 \u0628\u0631\u0646\u0627\u0645\u0647 \u0646\u0648\u06CC\u0633\u06CC\u060C \u062A\u0631\u062C\u0645\u0647 \u0627\u0633\u0646\u0627\u062F \u06CC\u0627 \u0646\u0648\u0634\u062A\u0646 \u062E\u0644\u0627\u0642\u0627\u0646\u0647 \u06A9\u0645\u06A9 \u06A9\u0646\u0645. \u0627\u0645\u0631\u0648\u0632 \u0686\u0647 \u06A9\u0645\u06A9\u06CC \u0645\u06CC \u062A\u0648\u0627\u0646\u0645 \u0628\u0647 \u0634\u0645\u0627 \u0628\u06A9\u0646\u0645\u061F'
+          'می توانم در برنامه نویسی، ترجمه اسناد یا نوشتن خلاقانه کمک کنم. امروز چه کمکی می توانم به شما بکنم؟'
       },
       action: {
-        copy: '\u06A9\u067E\u06CC',
-        regenerate: '\u0628\u0627\u0632\u062A\u0648\u0644\u06CC\u062F',
-        share: '\u0627\u0634\u062A\u0631\u0627\u06A9 \u06AF\u0630\u0627\u0631\u06CC',
-        like: '\u067E\u0633\u0646\u062F\u06CC\u062F\u0646',
-        dislike: '\u0646\u067E\u0633\u0646\u062F\u06CC\u062F\u0646',
-        edit: '\u0648\u06CC\u0631\u0627\u06CC\u0634',
-        delete: '\u062D\u0630\u0641'
+        copy: 'کپی',
+        regenerate: 'بازتولید',
+        share: 'اشتراک گذاری',
+        like: 'پسندیدن',
+        dislike: 'نپسندیدن',
+        edit: 'ویرایش',
+        delete: 'حذف'
       },
       artifacts: {
-        preview: '\u067E\u06CC\u0634 \u0646\u0645\u0627\u06CC\u0634',
-        inline: '\u062F\u0631\u0648\u0646 \u062E\u0637\u06CC',
-        code: '\u0633\u0648\u0631\u0633',
-        versions: '\u0646\u0633\u062E\u0647 \u0647\u0627',
-        rendering:
-          '\u062F\u0631 \u062D\u0627\u0644 \u0631\u0646\u062F\u0631 \u06A9\u0627\u0645\u067E\u0648\u0646\u0646\u062A...',
-        renderingChart:
-          '\u062F\u0631 \u062D\u0627\u0644 \u0631\u0646\u062F\u0631 \u0646\u0645\u0648\u062F\u0627\u0631...',
-        renderingCanvas:
-          '\u0622\u0645\u0627\u062F\u0647 \u0633\u0627\u0632\u06CC \u0628\u0648\u0645...'
+        preview: 'پیش نمایش',
+        inline: 'درون خطی',
+        code: 'سورس',
+        versions: 'نسخه ها',
+        rendering: 'در حال رندر کامپوننت...',
+        renderingChart: 'در حال رندر نمودار...',
+        renderingCanvas: 'آماده سازی بوم...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
-        trigger: '\u06A9\u0644\u06CC\u06A9 \u0628\u0631\u0627\u06CC \u0635\u062D\u0628\u062A',
-        listening: '\u062F\u0631 \u062D\u0627\u0644 \u06AF\u0648\u0634 \u062F\u0627\u062F\u0646...'
+        trigger: 'کلیک برای صحبت',
+        listening: 'در حال گوش دادن...'
       },
       agent: {
-        uses: '\u0627\u0633\u062A\u0641\u0627\u062F\u0647 \u0645\u06CC \u06A9\u0646\u062F',
-        use: '\u0627\u0633\u062A\u0641\u0627\u062F\u0647 \u06A9\u0646\u06CC\u062F',
-        favorite: '\u0645\u0648\u0631\u062F \u0639\u0644\u0627\u0642\u0647',
-        unfavorite:
-          '\u062D\u0630\u0641 \u0627\u0632 \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062F\u06CC',
-        share: '\u0627\u0634\u062A\u0631\u0627\u06A9 \u06AF\u0630\u0627\u0631\u06CC',
-        online: '\u0622\u0646\u0644\u0627\u06CC\u0646',
-        offline: '\u0622\u0641\u0644\u0627\u06CC\u0646',
-        busy: '\u0645\u0634\u063A\u0648\u0644',
-        verified: '\u062A\u0623\u06CC\u06CC\u062F \u0634\u062F\u0647',
-        rating: '\u0631\u062A\u0628\u0647',
-        reviews: '\u0646\u0638\u0631\u0627\u062A',
-        responseTime:
-          '\u0645\u06CC\u0627\u0646\u06AF\u06CC\u0646 \u0632\u0645\u0627\u0646 \u067E\u0627\u0633\u062E',
-        ms: '\u0645\u06CC\u0644\u06CC \u062B\u0627\u0646\u06CC\u0647'
+        uses: 'استفاده می کند',
+        use: 'استفاده کنید',
+        favorite: 'مورد علاقه',
+        unfavorite: 'حذف از علاقه مندی',
+        share: 'اشتراک گذاری',
+        online: 'آنلاین',
+        offline: 'آفلاین',
+        busy: 'مشغول',
+        verified: 'تأیید شده',
+        rating: 'رتبه',
+        reviews: 'نظرات',
+        responseTime: 'میانگین زمان پاسخ',
+        ms: 'میلی ثانیه'
       },
       sources: {
         references: 'references',
         referencedSources: 'references',
-        relevant: '\u0645\u0631\u062A\u0628\u0637',
-        viewOriginal: '\u0645\u0634\u0627\u0647\u062F\u0647 \u0627\u0635\u0644',
-        showAll: '\u0646\u0645\u0627\u06CC\u0634 \u0647\u0645\u0647',
-        more: 'references \u0628\u06CC\u0634\u062A\u0631',
+        relevant: 'مرتبط',
+        viewOriginal: 'مشاهده اصل',
+        showAll: 'نمایش همه',
+        more: 'references بیشتر',
         drawerTitle: 'references',
-        expandMore: '\u0646\u0645\u0627\u06CC\u0634 \u0628\u06CC\u0634\u062A\u0631',
-        collapseMore: '\u0628\u0633\u062A\u0646',
-        noSources: '\u0628\u062F\u0648\u0646 \u0645\u0646\u0628\u0639',
-        today: '\u0627\u0645\u0631\u0648\u0632',
-        last7Days: '7 \u0631\u0648\u0632 \u06AF\u0630\u0634\u062A\u0647',
-        last30Days: '30 \u0631\u0648\u0632 \u06AF\u0630\u0634\u062A\u0647',
-        earlier: '\u0642\u0628\u0644 \u062A\u0631',
-        pinned: '\u067E\u06CC\u0646 \u0634\u062F\u0647'
+        expandMore: 'نمایش بیشتر',
+        collapseMore: 'بستن',
+        noSources: 'بدون منبع',
+        today: 'امروز',
+        last7Days: '7 روز گذشته',
+        last30Days: '30 روز گذشته',
+        earlier: 'قبل تر',
+        pinned: 'پین شده'
       },
       conversations: {
-        today: '\u0627\u0645\u0631\u0648\u0632',
-        last7Days: '7 \u0631\u0648\u0632 \u06AF\u0630\u0634\u062A\u0647',
-        last30Days: '30 \u0631\u0648\u0632 \u06AF\u0630\u0634\u062A\u0647',
-        earlier: '\u0642\u0628\u0644 \u062A\u0631',
-        pinned: '\u067E\u06CC\u0646 \u0634\u062F\u0647',
-        pin: '\u067E\u06CC\u0646',
-        unpin: '\u062D\u0630\u0641 \u067E\u06CC\u0646',
-        newConversation: '\u06AF\u0641\u062A\u06AF\u0648\u06CC \u062C\u062F\u06CC\u062F',
-        rename: '\u062A\u063A\u06CC\u06CC\u0631 \u0646\u0627\u0645',
-        delete: '\u062D\u0630\u0641',
-        deleteConfirm:
-          '\u062A\u0627\u06CC\u06CC\u062F \u062D\u0630\u0641 \u0627\u06CC\u0646 \u06AF\u0641\u062A\u06AF\u0648\u061F'
+        today: 'امروز',
+        last7Days: '7 روز گذشته',
+        last30Days: '30 روز گذشته',
+        earlier: 'قبل تر',
+        pinned: 'پین شده',
+        pin: 'پین',
+        unpin: 'حذف پین',
+        newConversation: 'گفتگوی جدید',
+        noData: 'No conversations yet',
+        rename: 'تغییر نام',
+        delete: 'حذف',
+        deleteConfirm: 'تایید حذف این گفتگو؟'
+      },
+      attachments: {
+        dropTip: 'Drop files here to upload',
+        clickToUpload: 'Click or drag files to upload',
+        uploadSuccess: 'Upload success',
+        uploadError: 'Upload failed',
+        deleteConfirm: 'Are you sure to delete this file?',
+        fileTooLarge: 'File size cannot exceed {size}',
+        invalidFileType: 'Invalid file type'
+      },
+      mermaid: {
+        image: 'Image',
+        code: 'Code',
+        zoomIn: 'Zoom In',
+        zoomOut: 'Zoom Out',
+        reset: 'Reset',
+        download: 'Download',
+        copyCode: 'Copy Code',
+        rendering: 'Rendering...',
+        renderError: 'Render failed',
+        renderSuccess: 'Render success',
+        retry: 'Retry'
       }
     }
   }
 }
+
 export default fa

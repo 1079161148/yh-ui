@@ -688,6 +688,23 @@ export const zhCn: Language = {
       districtKeywords: ['区', '县', '旗', '镇', '市'],
       streetKeywords: ['街道', '镇', '乡', '村']
     },
+    // 甘特图
+    ganttchart: {
+      taskName: '任务名称',
+      searchPlaceholder: '搜索任务...',
+      zoom: '缩放',
+      day: '日',
+      week: '周',
+      month: '月',
+      year: '年',
+      milestone: '里程碑'
+    },
+    // 图像放大镜
+    imagemagnifier: {
+      switchToImage: '切换至图片 {index}',
+      galleryItem: '缩略图 {index}',
+      close: '关闭'
+    },
     // AI 组件
     ai: {
       bubble: {

@@ -719,14 +719,20 @@ export default defineConfig({
     }
   },
   head: [
-    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png?v=2' }],
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg?v=2' }],
-    ['link', { rel: 'shortcut icon', href: '/favicon.ico?v=2' }],
-    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png?v=2' }],
+    [
+      'link',
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/yh-ui/favicon-32x32.png?v=2' }
+    ],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/yh-ui/logo.svg?v=2' }],
+    ['link', { rel: 'shortcut icon', href: '/yh-ui/favicon.ico?v=2' }],
+    [
+      'link',
+      { rel: 'apple-touch-icon', sizes: '180x180', href: '/yh-ui/apple-touch-icon.png?v=2' }
+    ],
     ['meta', { name: 'theme-color', content: '#409eff' }]
   ],
   themeConfig: {
-    logo: '/logo.svg',
+    logo: '/yh-ui/logo.svg',
     sidebar,
     socialLinks: [{ icon: 'github', link: 'https://github.com/1079161148/yh-ui' }],
     footer: {

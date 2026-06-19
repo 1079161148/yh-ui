@@ -162,6 +162,31 @@ describe('useLocale', () => {
     await nextTick()
     expect((wrapper.vm as any).lang).toBe('en')
   })
+
+  it('should fall back to global options (yh-ui-options) when config provider is absent', async () => {
+    const TestComp = defineComponent({
+      setup() {
+        const { lang } = useLocale()
+        return { lang }
+      },
+      render() {
+        return h('div')
+      }
+    })
+
+    const wrapper = mount(TestComp, {
+      global: {
+        provide: {
+          'yh-ui-options': {
+            locale: en
+          }
+        }
+      }
+    })
+
+    await nextTick()
+    expect((wrapper.vm as any).lang).toBe('en')
+  })
 })
 
 describe('setDayjsLocale', () => {

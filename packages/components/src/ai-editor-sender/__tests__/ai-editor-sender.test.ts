@@ -576,6 +576,37 @@ describe('YhAiEditorSender', () => {
       await wrapper.find('textarea').setValue('/help ')
       expect(wrapper.emitted('command-panel-hide')).toBeTruthy()
     })
+
+    it('should support multi-character command triggers', async () => {
+      const wrapper = createWrapper({ props: { commands: mockCommands, commandTrigger: '//' } })
+      await wrapper.find('textarea').setValue('//')
+      expect(wrapper.emitted('command-panel-show')).toBeTruthy()
+      expect((wrapper.vm as any).commandSearchText).toBe('')
+
+      await wrapper.find('textarea').setValue('//help')
+      expect((wrapper.vm as any).commandSearchText).toBe('help')
+    })
+
+    it('should emit command-search debounced by commandSearchDelay', async () => {
+      vi.useFakeTimers()
+      const wrapper = createWrapper({
+        props: {
+          commands: mockCommands,
+          commandSearchDelay: 200
+        }
+      })
+      await wrapper.find('textarea').setValue('/h')
+      expect(wrapper.emitted('command-search')).toBeFalsy()
+
+      vi.advanceTimersByTime(100)
+      expect(wrapper.emitted('command-search')).toBeFalsy()
+
+      vi.advanceTimersByTime(110)
+      expect(wrapper.emitted('command-search')).toBeTruthy()
+      expect(wrapper.emitted('command-search')?.[0]).toEqual(['h'])
+
+      vi.useRealTimers()
+    })
   })
 
   // ─── 暴露方法测试 ─────────────────────────────────────────

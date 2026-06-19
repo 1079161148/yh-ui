@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const ms: Language = {
   name: 'ms',
   yh: {
-    // Umum
     common: {
       yes: 'Ya',
       no: 'Tidak',
@@ -27,7 +26,6 @@ export const ms: Language = {
       selectAll: 'Pilih semua',
       unselectAll: 'Nyahpilih semua'
     },
-    // Pemilih warna
     colorpicker: {
       confirm: 'OK',
       clear: 'Kosongkan',
@@ -37,7 +35,6 @@ export const ms: Language = {
       recentColors: 'Warna terkini',
       presetColors: 'Warna yang telah ditetapkan'
     },
-    // Pemilih tarikh
     datepicker: {
       now: 'Sekarang',
       today: 'Hari ini',
@@ -89,7 +86,6 @@ export const ms: Language = {
         q4: 'Q4'
       }
     },
-    // Pemilih masa
     timepicker: {
       confirm: 'OK',
       cancel: 'Batal',
@@ -99,11 +95,9 @@ export const ms: Language = {
       endPlaceholder: 'Masa akhir',
       selectTime: 'Pilih masa'
     },
-    // Pilih masa
     timeselect: {
       placeholder: 'Pilih masa'
     },
-    // Pokok
     tree: {
       emptyText: 'Tiada data',
       loading: 'Memuatkan...',
@@ -112,14 +106,12 @@ export const ms: Language = {
       expandAll: 'Kembangkan semua',
       collapseAll: 'Runtuhkan semua'
     },
-    // Pilih pokok
     treeselect: {
       placeholder: 'Pilih',
       emptyText: 'Tiada data',
       loading: 'Memuatkan...',
       noMatch: 'Tiada data yang sepadan'
     },
-    // Kalendar
     calendar: {
       prevMonth: 'Bulan sebelumnya',
       nextMonth: 'Bulan seterusnya',
@@ -140,14 +132,12 @@ export const ms: Language = {
         sat: 'Sab'
       }
     },
-    // Pelengkapan automatik
     autocomplete: {
       loading: 'Memuatkan...',
       placeholder: 'Sila masukkan',
       noData: 'Tiada data',
       noMatch: 'Tiada data yang sepadan'
     },
-    // Kiraan undur
     countdown: {
       days: 'hari',
       hours: 'jam',
@@ -156,14 +146,12 @@ export const ms: Language = {
       milliseconds: 'milisaat',
       finished: 'Selesai'
     },
-    // Pemilih kaskad
     cascader: {
       noMatch: 'Tiada data yang sepadan',
       placeholder: 'Pilih',
       loading: 'Memuatkan...',
       noData: 'Tiada data'
     },
-    // Pemindahan
     transfer: {
       noMatch: 'Tiada data yang sepadan',
       noData: 'Tiada data',
@@ -173,7 +161,6 @@ export const ms: Language = {
       hasCheckedFormat: '{checked}/{total} dipilih',
       searchPlaceholder: 'Masukkan kata kunci'
     },
-    // Jadual
     table: {
       emptyText: 'Tiada data',
       confirmFilter: 'Sahkan',
@@ -190,7 +177,6 @@ export const ms: Language = {
       page: 'Halaman {page}',
       yes: 'Ya',
       no: 'Tidak',
-      // Bar alat
       toolbar: {
         refresh: 'Muat semula',
         density: 'Ketumpatan',
@@ -205,7 +191,6 @@ export const ms: Language = {
         search: 'Cari',
         searchPlaceholder: 'Masukkan kata kunci untuk mencari'
       },
-      // Penapis
       filter: {
         selectAll: 'Pilih semua',
         selectInvert: 'Terbalikkan pilihan',
@@ -221,13 +206,11 @@ export const ms: Language = {
         lessThan: 'Lebih kecil daripada',
         between: 'Antara'
       },
-      // Susun
       sort: {
         asc: 'Menaik',
         desc: 'Menurun',
         clear: 'Kosongkan susunan'
       },
-      // Eksport
       export: {
         title: 'Eksport data',
         filename: 'Nama fail',
@@ -241,7 +224,6 @@ export const ms: Language = {
         success: 'Eksport berjaya',
         error: 'Eksport gagal'
       },
-      // Import
       import: {
         title: 'Import data',
         selectFile: 'Pilih fail',
@@ -252,7 +234,6 @@ export const ms: Language = {
         preview: 'Pratonton data',
         confirm: 'Sahkan import'
       },
-      // Cetak
       printConfig: {
         title: 'Tetapan cetak',
         pageTitle: 'Tajuk halaman',
@@ -265,7 +246,6 @@ export const ms: Language = {
         portrait: 'Potret',
         printing: 'Mencetak...'
       },
-      // Tetapan lajur
       columnSetting: {
         title: 'Tetapan lajur',
         showAll: 'Tunjukkan semua',
@@ -275,7 +255,6 @@ export const ms: Language = {
         fixedRight: 'Tetapkan ke kanan',
         unfixed: 'Lepaskan'
       },
-      // Menu konteks
       contextMenu: {
         copy: 'Salin',
         copyRow: 'Salin baris',
@@ -287,31 +266,26 @@ export const ms: Language = {
         deleteSelectedRows: 'Padam baris yang dipilih',
         exportSelected: 'Eksport yang dipilih'
       },
-      // Pilihan
       selection: {
         selectAll: 'Pilih semua',
         selectInvert: 'Terbalikkan pilihan',
         selectNone: 'Kosongkan pilihan',
         selected: '{count} item dipilih'
       },
-      // Kembangkan
       expand: {
         expandAll: 'Kembangkan semua',
         collapseAll: 'Runtuhkan semua'
       },
-      // Pokok
       tree: {
         expandAll: 'Kembangkan semua',
         collapseAll: 'Runtuhkan semua',
         expandLevel: 'Kembangkan ke peringkat {level}'
       },
-      // Seret
       drag: {
         dragTip: 'Seret untuk menyusun semula',
         dropTip: 'Lepaskan untuk meletakkan'
       }
     },
-    // Kotak mesej
     messagebox: {
       title: 'Mesej',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const ms: Language = {
       prompt: 'Tinggal',
       inputPlaceholder: 'Sila masukkan'
     },
-    // Muat naik
     upload: {
       deleteTip: 'tekan delete untuk membuang',
       delete: 'Padam',
@@ -340,18 +313,15 @@ export const ms: Language = {
       fileSizeError: 'Saiz fail melebihi had',
       fileCountError: 'Bilangan fail melebihi had'
     },
-    // Borang
     form: {
       validationFailed: 'Pengesahan gagal',
       required: 'Diperlukan',
       pleaseInput: 'Sila masukkan',
       pleaseSelect: 'Sila pilih'
     },
-    // Butang
     button: {
       loading: 'Memuatkan...'
     },
-    // Input
     input: {
       placeholder: 'Sila masukkan',
       clear: 'Kosongkan',
@@ -360,28 +330,23 @@ export const ms: Language = {
       copy: 'Salin',
       copied: 'Disalin'
     },
-    // Input nombor
     inputnumber: {
       placeholder: 'Sila masukkan nombor',
       increase: 'Tingkatkan',
       decrease: 'Kurangkan'
     },
-    // Input tag
     inputtag: {
       placeholder: 'Sila masukkan',
       add: 'Tambah',
       remove: 'Buang'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Navigasi',
       more: 'Lagi'
     },
-    // Kembali ke atas
     backtop: {
       text: 'Kembali ke atas'
     },
-    // Pilih
     select: {
       placeholder: 'Sila pilih',
       noData: 'Tiada data',
@@ -390,7 +355,6 @@ export const ms: Language = {
       selectAll: 'Pilih semua',
       clearAll: 'Kosongkan semua'
     },
-    // Paginasi
     pagination: {
       goto: 'Pergi ke',
       page: '',
@@ -402,13 +366,11 @@ export const ms: Language = {
       last: 'Terakhir',
       pageClassifier: ''
     },
-    // Sahkan popup
     popconfirm: {
       confirm: 'OK',
       cancel: 'Batal',
       dontAskAgain: 'Jangan tanya lagi'
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Batal',
@@ -416,17 +378,14 @@ export const ms: Language = {
       maximize: 'Maksimumkan',
       restore: 'Pulihkan'
     },
-    // Laci
     drawer: {
       close: 'Tutup',
       confirm: 'OK',
       cancel: 'Batal'
     },
-    // Menu juntai bawah
     dropdown: {
       loading: 'Memuatkan...'
     },
-    // Imej
     image: {
       error: 'GAGAL',
       loading: 'Memuatkan...',
@@ -438,7 +397,6 @@ export const ms: Language = {
       originalSize: 'Saiz asal',
       fullscreen: 'Skrin penuh'
     },
-    // Penonton imej
     imageviewer: {
       close: 'Tutup',
       prev: 'Sebelumnya',
@@ -451,65 +409,52 @@ export const ms: Language = {
       fullscreen: 'Skrin penuh',
       exitFullscreen: 'Keluar dari skrin penuh'
     },
-    // Tatal tak terhingga
     infinitescroll: {
       loading: 'Memuatkan...',
       finished: 'Tiada data lagi',
       error: 'Memuatkan gagal, klik untuk mencuba lagi',
       retry: 'Klik untuk mencuba lagi'
     },
-    // Mesej
     message: {
       close: 'Tutup'
     },
-    // Pemberitahuan
     notification: {
       close: 'Tutup'
     },
-    // Memuatkan
     loading: {
       text: 'Memuatkan...'
     },
-    // Putar
     spin: {
       text: 'Memuatkan...'
     },
-    // Kadar
     rate: {
       texts: ['Sangat teruk', 'Kecewa', 'Sederhana', 'Berpuas hati', 'Terkejut']
     },
-    // Amaran
     alert: {
       close: 'Tutup'
     },
-    // Tag
     tag: {
       close: 'Tutup'
     },
-    // Tab
     tabs: {
       close: 'Tutup',
       add: 'Tambah',
       more: 'Lagi'
     },
-    // Langkah
     steps: {
       finish: 'Selesai',
       process: 'Sedang berlangsung',
       wait: 'Menunggu',
       error: 'Ralat'
     },
-    // Kemajuan
     progress: {
       success: 'Berjaya',
       exception: 'Pengecualian',
       warning: 'Amaran'
     },
-    // Rangka
     skeleton: {
       loading: 'Memuatkan...'
     },
-    // Kosong
     empty: {
       description: 'Tiada data',
       noData: 'Tiada data',
@@ -517,7 +462,6 @@ export const ms: Language = {
       networkError: 'Ralat rangkaian',
       serverError: 'Ralat pelayan'
     },
-    // Hasil
     result: {
       success: 'Berjaya',
       error: 'Ralat',
@@ -525,78 +469,63 @@ export const ms: Language = {
       info: 'Maklumat',
       backHome: 'Kembali ke laman utama'
     },
-    // Air terjun
     waterfall: {
       loading: 'Memuatkan...',
       noMore: 'Tiada data lagi',
       empty: 'Tiada data'
     },
-    // Penerangan
     descriptions: {
       colon: ':'
     },
-    // Slider
     slider: {
       tipFormatter: '{value}'
     },
-    // Suis
     switch: {
       on: 'HIDUP',
       off: 'MATI'
     },
-    // Kotak semak
     checkbox: {
       selectAll: 'Pilih semua'
     },
-    // Radio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Runtuhkan menu',
       expand: 'Kembangkan menu'
     },
-    // Kad
     card: {
       collapse: 'Runtuhkan',
       expand: 'Kembangkan'
     },
-    // Runtuh
     collapse: {
       expand: 'Kembangkan',
       collapse: 'Runtuhkan'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Badge
     badge: {},
-    // Avatar
     avatar: {
       error: 'Memuatkan gagal'
     },
-    // Tanda air
     watermark: {},
-    // Pembahagi
     divider: {},
-    // Karusel
     carousel: {
       prev: 'Sebelumnya',
       next: 'Seterusnya'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Jangkar
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Sila masukkan',
       loading: 'Memuatkan...',
       noData: 'Tiada data'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Pilih spesifikasi',
       emptyText: 'Tiada spesifikasi',
@@ -697,7 +626,8 @@ export const ms: Language = {
         agent: 'Ejen',
         document: 'Dokumen',
         table: 'Jadual',
-        knowledge: 'Pengetahuan'
+        knowledge: 'Pengetahuan',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Salin kod',
@@ -716,7 +646,8 @@ export const ms: Language = {
       },
       sender: {
         placeholder: 'Hantar mesej...',
-        dragTip: 'Lepaskan untuk memuat naik fail'
+        dragTip: 'Lepaskan untuk memuat naik fail',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Proses pemikiran',
@@ -751,7 +682,8 @@ export const ms: Language = {
         versions: 'Versi',
         rendering: 'Memaparkan komponen...',
         renderingChart: 'Memupakan carta...',
-        renderingCanvas: 'Menyediakan kanvas...'
+        renderingCanvas: 'Menyediakan kanvas...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Klik untuk bercakap',

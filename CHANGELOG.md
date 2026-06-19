@@ -4,20 +4,34 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.61] - 2026-06-19
+
+> 修复了 `useRequest` 防抖/节流分支的测试死锁问题；修复了 `ai-thought-chain` ESLint 多行 HTML 元素内容换行警告；完善了 `utils`、`hooks`、`theme`、`request` 等核心工具包的边界性稳健性，全量通过单元测试与类型校验。
+
+### Fixed
+
+- **request**: 修复 `useRequest` 防抖（debounce）与节流（throttle）分支的测试死锁问题，正确处理 timer 清理与 Promise resolve/reject 时序。
+- **ai-thought-chain**: 修复 ESLint 报告的多行 HTML 元素内容换行规则警告，保持模板代码风格一致性。
+
+---
+
 ## [1.0.60] - 2026-06-19
 
-> 修复了 YhAiCodeBlock, YhAiThinking, YhAiThoughtChain, Request 核心类, useSSE, createHttpCacheInterceptor, useRequest, XRequest, useConversation, useAIChat, createRAGSystem, createPlanExecuteAgent 等组件与工具中的 12 项 Bug 与设计缺陷，补充了完善的单元测试用例，所有单元测试与类型校验全量通过。
+> 修复了 YhAiCodeBlock, YhAiThinking, YhAiThoughtChain, Request 核心类, useSSE, createHttpCacheInterceptor, useRequest, XRequest, useConversation, useAIChat, createRAGSystem, createPlanExecuteAgent 等组件与工具中的 12 项 Bug 与设计缺陷；升级了 yh-skills 智能体工程，支持 Cursor MDC 规则与 root .cursorrules 写入；修复了官网文档部署后的 Favicon 资源 404，所有单元测试与类型校验全量通过。
 
 ### Added
 
 - **ai-sdk**: 为 `createRAGSystem` 的 RAG 检索器实现了 MMR (最大边际相关性) 检索策略与 Hybrid (混合相似度与关键词检索) 检索策略。
 - **ai-sdk**: 为 `createPlanExecuteAgent` 添加了 `maxSteps` 属性支持，控制 Agent 最大执行规划步骤上限。
+- **yh-ui-skill**: 支持本地 CLI 自动将 `SKILL.md` 编译并安装至 Cursor MDC 规则目录(`.cursor/rules/yh-ui.mdc`)，并可在工作区根目录同步写入 `.cursorrules` 文件。
 
 ### Changed
 
-- **ai-code-block**: 统一 `editable` 属性的 API 语义，在模板和组件实现中真正消费公开的 `editable` 属性，而非仅依赖内部 `showEdit`。
+- **ai-code-block**: 统一 `editable` 属性的 API 语义，在模板 and 组件实现中真正消费公开的 `editable` 属性，而非仅依赖内部 `showEdit`。
 - **request**: 优化 `requestKey` 重复请求过滤机制，仅当显式设置 `abortSameKey: true` 时才取消相同的旧请求。
 - **request**: 合并外部传入的 `AbortSignal` 与内部 `timeout` 机制产生的 `AbortSignal`，确保外部控制器 `AbortController.abort()` 可以按约定正确取消请求，不再直接覆盖。
+- **yh-ui-skill**: 升级 `SKILL.md` 中的触发器描述与系统规则层级，完全契合 Claude Desktop 及 Cursor rules 开发体系，并添加了多包联动最佳实践示例。
+- **yh-ui-skill**: 扩展了 `generate-yh-ui-skill.mjs` 中的 `priorityComponents`，支持直接从 TS AST 中提取导出为 `interface` 的 Props 和 Emits 声明，确保 100% 对标组件源码。
 
 ### Fixed
 
@@ -28,6 +42,7 @@ YH-UI 的重要版本变更会记录在这里。
 - **request**: 补齐了 `XRequest` 的 `cache.strategy` 配置（支持 `memory` / `localStorage` / `sessionStorage`），加入 SSR 环境的 Storage 保护规避报错。
 - **ai-sdk**: 修复 `useConversation` 和 `useConversations` 会话历史加载还原时将 Date 对象当作 string 处理的缺陷，支持在 JSON 反序列化时自动恢复 Date 实例。
 - **ai-sdk**: 修复 `useAIChat` 流式请求失败或被立即中止（stop）时，保留空 assistant 消息气泡的缺陷，无数据时将自动移除该占位。
+- **docs**: 修复部署后 Favicon / Logo 在 `/yh-ui/` 子路径下报错 404 的问题，为所有 `head` 中的静态图标资源补全基准路径前缀。
 
 ## [1.0.59] - 2026-06-18
 

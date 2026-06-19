@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const nbNo: Language = {
   name: 'nb-NO',
   yh: {
-    // Felles
     common: {
       yes: 'Ja',
       no: 'Nei',
@@ -27,7 +26,6 @@ export const nbNo: Language = {
       selectAll: 'Velg alle',
       unselectAll: 'Fjern valg fra alle'
     },
-    // Fargevelger
     colorpicker: {
       confirm: 'OK',
       clear: 'Tøm',
@@ -37,7 +35,6 @@ export const nbNo: Language = {
       recentColors: 'Siste farger',
       presetColors: 'Forhåndsinnstilte farger'
     },
-    // Dato velger
     datepicker: {
       now: 'Nå',
       today: 'I dag',
@@ -89,7 +86,6 @@ export const nbNo: Language = {
         q4: 'Q4'
       }
     },
-    // Tid velger
     timepicker: {
       confirm: 'OK',
       cancel: 'Avbryt',
@@ -99,11 +95,9 @@ export const nbNo: Language = {
       endPlaceholder: 'Sluttid',
       selectTime: 'Velg tid'
     },
-    // Tid valg
     timeselect: {
       placeholder: 'Velg tid'
     },
-    // Tre
     tree: {
       emptyText: 'Ingen data',
       loading: 'Laster...',
@@ -112,14 +106,12 @@ export const nbNo: Language = {
       expandAll: 'Utvid alle',
       collapseAll: 'Skjul alle'
     },
-    // Tre valg
     treeselect: {
       placeholder: 'Velg',
       emptyText: 'Ingen data',
       loading: 'Laster...',
       noMatch: 'Ingen matchende data'
     },
-    // Kalender
     calendar: {
       prevMonth: 'Forrige måned',
       nextMonth: 'Neste måned',
@@ -140,14 +132,12 @@ export const nbNo: Language = {
         sat: 'Lør'
       }
     },
-    // Autofullføring
     autocomplete: {
       loading: 'Laster...',
       placeholder: 'Vennligst skriv inn',
       noData: 'Ingen data',
       noMatch: 'Ingen matchende data'
     },
-    // Nedtelling
     countdown: {
       days: 'dager',
       hours: 'timer',
@@ -156,14 +146,12 @@ export const nbNo: Language = {
       milliseconds: 'millisekunder',
       finished: 'Ferdig'
     },
-    // Kaskade velger
     cascader: {
       noMatch: 'Ingen matchende data',
       placeholder: 'Velg',
       loading: 'Laster...',
       noData: 'Ingen data'
     },
-    // Overføring
     transfer: {
       noMatch: 'Ingen matchende data',
       noData: 'Ingen data',
@@ -173,7 +161,6 @@ export const nbNo: Language = {
       hasCheckedFormat: '{checked}/{total} valgt',
       searchPlaceholder: 'Skriv inn nøkkelord'
     },
-    // Tabell
     table: {
       emptyText: 'Ingen data',
       confirmFilter: 'Bekreft',
@@ -190,7 +177,6 @@ export const nbNo: Language = {
       page: 'Side {page}',
       yes: 'Ja',
       no: 'Nei',
-      // Verktøylinje
       toolbar: {
         refresh: 'Oppdater',
         density: 'Tetthet',
@@ -205,7 +191,6 @@ export const nbNo: Language = {
         search: 'Søk',
         searchPlaceholder: 'Skriv inn nøkkelord for å søke'
       },
-      // Filter
       filter: {
         selectAll: 'Velg alle',
         selectInvert: 'Inverter valg',
@@ -221,13 +206,11 @@ export const nbNo: Language = {
         lessThan: 'Mindre enn',
         between: 'Mellom'
       },
-      // Sortering
       sort: {
         asc: 'Stigende',
         desc: 'Synkende',
         clear: 'Tøm sortering'
       },
-      // Eksport
       export: {
         title: 'Eksporter data',
         filename: 'Filnavn',
@@ -241,7 +224,6 @@ export const nbNo: Language = {
         success: 'Eksport lyktes',
         error: 'Eksport mislyktes'
       },
-      // Import
       import: {
         title: 'Importer data',
         selectFile: 'Velg fil',
@@ -252,7 +234,6 @@ export const nbNo: Language = {
         preview: 'Dataforhåndsvisning',
         confirm: 'Bekreft import'
       },
-      // Utskrift
       printConfig: {
         title: 'Utskriftsinnstillinger',
         pageTitle: 'Sidetittel',
@@ -265,7 +246,6 @@ export const nbNo: Language = {
         portrait: 'Portrett',
         printing: 'Skriver ut...'
       },
-      // Kolonneinnstillinger
       columnSetting: {
         title: 'Kolonneinnstillinger',
         showAll: 'Vis alle',
@@ -275,7 +255,6 @@ export const nbNo: Language = {
         fixedRight: 'Fest til høyre',
         unfixed: 'Frigjør'
       },
-      // Kontekstmeny
       contextMenu: {
         copy: 'Kopier',
         copyRow: 'Kopier rad',
@@ -287,31 +266,26 @@ export const nbNo: Language = {
         deleteSelectedRows: 'Slett valgte rader',
         exportSelected: 'Eksporter valgte'
       },
-      // Valg
       selection: {
         selectAll: 'Velg alle',
         selectInvert: 'Inverter valg',
         selectNone: 'Tøm valg',
         selected: '{count} elementer valgt'
       },
-      // Utvid
       expand: {
         expandAll: 'Utvid alle',
         collapseAll: 'Skjul alle'
       },
-      // Tre
       tree: {
         expandAll: 'Utvid alle',
         collapseAll: 'Skjul alle',
         expandLevel: 'Utvid til nivå {level}'
       },
-      // Dra
       drag: {
         dragTip: 'Dra for å omorganisere',
         dropTip: 'Slipp for å plassere'
       }
     },
-    // Meldingsboks
     messagebox: {
       title: 'Melding',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const nbNo: Language = {
       prompt: 'Prompt',
       inputPlaceholder: 'Vennligst skriv inn'
     },
-    // Opplasting
     upload: {
       deleteTip: 'trykk delete for å fjerne',
       delete: 'Slett',
@@ -340,18 +313,15 @@ export const nbNo: Language = {
       fileSizeError: 'Filstørrelse overskrider grense',
       fileCountError: 'Filantall overskrider grense'
     },
-    // Skjema
     form: {
       validationFailed: 'Validering mislyktes',
       required: 'Påkrevd',
       pleaseInput: 'Vennligst skriv inn',
       pleaseSelect: 'Vennligst velg'
     },
-    // Knapp
     button: {
       loading: 'Laster...'
     },
-    // Inndata
     input: {
       placeholder: 'Vennligst skriv inn',
       clear: 'Tøm',
@@ -360,28 +330,23 @@ export const nbNo: Language = {
       copy: 'Kopier',
       copied: 'Kopiert'
     },
-    // Nummerinndata
     inputnumber: {
       placeholder: 'Vennligst skriv inn nummer',
       increase: 'Øk',
       decrease: 'Reduser'
     },
-    // Taginndata
     inputtag: {
       placeholder: 'Vennligst skriv inn',
       add: 'Legg til',
       remove: 'Fjern'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Mer'
     },
-    // Tilbake til toppen
     backtop: {
       text: 'Tilbake til toppen'
     },
-    // Velg
     select: {
       placeholder: 'Vennligst velg',
       noData: 'Ingen data',
@@ -390,7 +355,6 @@ export const nbNo: Language = {
       selectAll: 'Velg alle',
       clearAll: 'Tøm alle'
     },
-    // Paginering
     pagination: {
       goto: 'Gå til',
       page: '',
@@ -402,13 +366,11 @@ export const nbNo: Language = {
       last: 'Siste',
       pageClassifier: ''
     },
-    // Popbekreftelse
     popconfirm: {
       confirm: 'OK',
       cancel: 'Avbryt',
       dontAskAgain: 'Ikke spør igjen'
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Avbryt',
@@ -416,17 +378,14 @@ export const nbNo: Language = {
       maximize: 'Maksimer',
       restore: 'Gjenopprett'
     },
-    // Skuff
     drawer: {
       close: 'Lukk',
       confirm: 'OK',
       cancel: 'Avbryt'
     },
-    // Nedtrekksmeny
     dropdown: {
       loading: 'Laster...'
     },
-    // Bilde
     image: {
       error: 'MISLYKTES',
       loading: 'Laster...',
@@ -438,7 +397,6 @@ export const nbNo: Language = {
       originalSize: 'Opprinnelig størrelse',
       fullscreen: 'Fullskjerm'
     },
-    // Bildeviser
     imageviewer: {
       close: 'Lukk',
       prev: 'Forrige',
@@ -451,65 +409,52 @@ export const nbNo: Language = {
       fullscreen: 'Fullskjerm',
       exitFullscreen: 'Avslutt fullskjerm'
     },
-    // Uendelig rulling
     infinitescroll: {
       loading: 'Laster...',
       finished: 'Ikke mer data',
       error: 'Lasting mislyktes, klikk for å prøve igjen',
       retry: 'Klikk for å prøve igjen'
     },
-    // Melding
     message: {
       close: 'Lukk'
     },
-    // Varsling
     notification: {
       close: 'Lukk'
     },
-    // Lasting
     loading: {
       text: 'Laster...'
     },
-    // Spinn
     spin: {
       text: 'Laster...'
     },
-    // Vurdering
     rate: {
       texts: ['Ekstremt dårlig', 'Skuffet', 'Rimelig', 'Fornøyd', 'Overrasket']
     },
-    // Advarsel
     alert: {
       close: 'Lukk'
     },
-    // Tag
     tag: {
       close: 'Lukk'
     },
-    // Faner
     tabs: {
       close: 'Lukk',
       add: 'Legg til',
       more: 'Mer'
     },
-    // Steg
     steps: {
       finish: 'Ferdig',
       process: 'Pågår',
       wait: 'Venter',
       error: 'Feil'
     },
-    // Fremgang
     progress: {
       success: 'Suksess',
       exception: 'Unntak',
       warning: 'Advarsel'
     },
-    // Skjelett
     skeleton: {
       loading: 'Laster...'
     },
-    // Tom
     empty: {
       description: 'Ingen data',
       noData: 'Ingen data',
@@ -517,7 +462,6 @@ export const nbNo: Language = {
       networkError: 'Nettverksfeil',
       serverError: 'Serverfeil'
     },
-    // Resultat
     result: {
       success: 'Suksess',
       error: 'Feil',
@@ -525,78 +469,63 @@ export const nbNo: Language = {
       info: 'Info',
       backHome: 'Tilbake til hjem'
     },
-    // Vannfall
     waterfall: {
       loading: 'Laster...',
       noMore: 'Ikke mer data',
       empty: 'Ingen data'
     },
-    // Beskrivelser
     descriptions: {
       colon: ':'
     },
-    // Skyveknapp
     slider: {
       tipFormatter: '{value}'
     },
-    // Bryter
     switch: {
       on: 'PÅ',
       off: 'AV'
     },
-    // Avkryssingsboks
     checkbox: {
       selectAll: 'Velg alle'
     },
-    // Radio
     radio: {},
-    // Meny
     menu: {
       collapse: 'Skjul meny',
       expand: 'Utvid meny'
     },
-    // Kort
     card: {
       collapse: 'Skjul',
       expand: 'Utvid'
     },
-    // Skjul
     collapse: {
       expand: 'Utvid',
       collapse: 'Skjul'
     },
-    // Verktøytips
     tooltip: {},
-    // Popover
     popover: {},
-    // Merke
     badge: {},
-    // Avatar
     avatar: {
       error: 'Lasting mislyktes'
     },
-    // Vannmerke
     watermark: {},
-    // Skilletegn
     divider: {},
-    // Karusell
     carousel: {
       prev: 'Forrige',
       next: 'Neste'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Anker
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Vennligst skriv inn',
       loading: 'Laster...',
       noData: 'Ingen data'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Velg spesifikasjoner',
       emptyText: 'Ingen spesifikasjoner',
@@ -697,7 +626,8 @@ export const nbNo: Language = {
         agent: 'Agent',
         document: 'Dokument',
         table: 'Tabell',
-        knowledge: 'Kunnskap'
+        knowledge: 'Kunnskap',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopier kode',
@@ -716,7 +646,8 @@ export const nbNo: Language = {
       },
       sender: {
         placeholder: 'Send melding...',
-        dragTip: 'Slipp for å laste opp filer'
+        dragTip: 'Slipp for å laste opp filer',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Tenkningsprosess',
@@ -751,7 +682,8 @@ export const nbNo: Language = {
         versions: 'Versjoner',
         rendering: 'Renderer komponent...',
         renderingChart: 'Renderer diagram...',
-        renderingCanvas: 'Forbereder lerret...'
+        renderingCanvas: 'Forbereder lerret...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Klikk for å snakke',

@@ -69,6 +69,8 @@ export const isEmpty = (val: unknown): boolean => {
   if (isNil(val)) return true
   if (isArray(val)) return val.length === 0
   if (isString(val)) return val.trim().length === 0
+  if (val instanceof Map || val instanceof Set) return val.size === 0
+  if (val instanceof Date || val instanceof RegExp) return false
   if (isObject(val)) return Object.keys(val).length === 0
   return false
 }

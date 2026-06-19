@@ -877,5 +877,4 @@ export interface Language {
     }
   }>
 }
-export * from './lang/zh-cn'
-export * from './lang/en'
+export * from './all'

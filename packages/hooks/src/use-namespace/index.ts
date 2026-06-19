@@ -12,11 +12,17 @@ const statePrefix = 'is-'
 // 命名空间注入 Key
 export const namespaceContextKey: InjectionKey<Ref<string>> = Symbol('namespaceContextKey')
 
+interface YhUIOptions {
+  namespace?: string
+}
+
 /**
  * 获取全局命名空间
  */
 export const useGlobalNamespace = () => {
-  return inject(namespaceContextKey, ref(defaultNamespace))
+  const globalOptions = inject<YhUIOptions | null>('yh-ui-options', null)
+  const fallback = globalOptions?.namespace ? ref(globalOptions.namespace) : ref(defaultNamespace)
+  return inject(namespaceContextKey, fallback)
 }
 
 /**

@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const et: Language = {
   name: 'et',
   yh: {
-    // Üldine
     common: {
       yes: 'Jah',
       no: 'Ei',
@@ -27,7 +26,6 @@ export const et: Language = {
       selectAll: 'Vali kõik',
       unselectAll: 'Tühista kõik valikud'
     },
-    // Värvi valik
     colorpicker: {
       confirm: 'OK',
       clear: 'Tühjenda',
@@ -37,7 +35,6 @@ export const et: Language = {
       recentColors: 'Hiljutised värvid',
       presetColors: 'Eelseadistatud värvid'
     },
-    // Kuupäeva valik
     datepicker: {
       now: 'Nüüd',
       today: 'Täna',
@@ -89,7 +86,6 @@ export const et: Language = {
         q4: 'Q4'
       }
     },
-    // Kellaaja valik
     timepicker: {
       confirm: 'OK',
       cancel: 'Tühista',
@@ -99,11 +95,9 @@ export const et: Language = {
       endPlaceholder: 'Lõppaeg',
       selectTime: 'Vali kellaaeg'
     },
-    // Kellaaja valik
     timeselect: {
       placeholder: 'Vali kellaaeg'
     },
-    // Puu
     tree: {
       emptyText: 'Andmeid pole',
       loading: 'Laadimine...',
@@ -112,14 +106,12 @@ export const et: Language = {
       expandAll: 'Laienda kõik',
       collapseAll: 'Ahenda kõik'
     },
-    // Puu valik
     treeselect: {
       placeholder: 'Vali',
       emptyText: 'Andmeid pole',
       loading: 'Laadimine...',
       noMatch: 'Sobivaid andmeid pole'
     },
-    // Kalender
     calendar: {
       prevMonth: 'Eelmine kuu',
       nextMonth: 'Järgmine kuu',
@@ -140,14 +132,12 @@ export const et: Language = {
         sat: 'L'
       }
     },
-    // Automaattäide
     autocomplete: {
       loading: 'Laadimine...',
       placeholder: 'Palun sisesta',
       noData: 'Andmeid pole',
       noMatch: 'Sobivaid andmeid pole'
     },
-    // Loendus
     countdown: {
       days: 'päeva',
       hours: 'tundi',
@@ -156,14 +146,12 @@ export const et: Language = {
       milliseconds: 'millisekundit',
       finished: 'Lõpetatud'
     },
-    // Kaskaad
     cascader: {
       noMatch: 'Sobivaid andmeid pole',
       placeholder: 'Vali',
       loading: 'Laadimine...',
       noData: 'Andmeid pole'
     },
-    // Ülekanne
     transfer: {
       noMatch: 'Sobivaid andmeid pole',
       noData: 'Andmeid pole',
@@ -173,7 +161,6 @@ export const et: Language = {
       hasCheckedFormat: '{checked}/{total} valitud',
       searchPlaceholder: 'Sisesta märksõna'
     },
-    // Tabel
     table: {
       emptyText: 'Andmeid pole',
       confirmFilter: 'Kinnita',
@@ -190,7 +177,6 @@ export const et: Language = {
       page: 'Lehekülg {page}',
       yes: 'Jah',
       no: 'Ei',
-      // Tööriistariba
       toolbar: {
         refresh: 'Värskenda',
         density: 'Tihedus',
@@ -205,7 +191,6 @@ export const et: Language = {
         search: 'Otsi',
         searchPlaceholder: 'Sisesta märksõnad otsimiseks'
       },
-      // Filter
       filter: {
         selectAll: 'Vali kõik',
         selectInvert: 'Pööra valik ümber',
@@ -221,13 +206,11 @@ export const et: Language = {
         lessThan: 'Väiksem kui',
         between: 'Vahel'
       },
-      // Sorteerimine
       sort: {
         asc: 'Kasvavalt',
         desc: 'Kahanevalt',
         clear: 'Tühjenda sorteerimine'
       },
-      // Eksport
       export: {
         title: 'Ekspordi andmed',
         filename: 'Faili nimi',
@@ -241,7 +224,6 @@ export const et: Language = {
         success: 'Eksport õnnestus',
         error: 'Eksport ebaõnnestus'
       },
-      // Import
       import: {
         title: 'Impordi andmed',
         selectFile: 'Vali fail',
@@ -252,7 +234,6 @@ export const et: Language = {
         preview: 'Andmete eelvaade',
         confirm: 'Kinnita import'
       },
-      // Printimine
       printConfig: {
         title: 'Printimise seaded',
         pageTitle: 'Lehekülje pealkiri',
@@ -265,7 +246,6 @@ export const et: Language = {
         portrait: 'Püstine',
         printing: 'Printimine...'
       },
-      // Veeru seaded
       columnSetting: {
         title: 'Veeru seaded',
         showAll: 'Näita kõiki',
@@ -275,7 +255,6 @@ export const et: Language = {
         fixedRight: 'Kinnita paremale',
         unfixed: 'Vabasta'
       },
-      // Kontekstimenüü
       contextMenu: {
         copy: 'Kopeeri',
         copyRow: 'Kopeeri rida',
@@ -287,31 +266,26 @@ export const et: Language = {
         deleteSelectedRows: 'Kustuta valitud read',
         exportSelected: 'Ekspordi valitud'
       },
-      // Valik
       selection: {
         selectAll: 'Vali kõik',
         selectInvert: 'Pööra valik ümber',
         selectNone: 'Tühjenda valik',
         selected: '{count} üksust valitud'
       },
-      // Laiendamine
       expand: {
         expandAll: 'Laienda kõik',
         collapseAll: 'Ahenda kõik'
       },
-      // Puu
       tree: {
         expandAll: 'Laienda kõik',
         collapseAll: 'Ahenda kõik',
         expandLevel: 'Laienda tasemeni {level}'
       },
-      // Lohistamine
       drag: {
         dragTip: 'Lohista ümberkorraldamiseks',
         dropTip: 'Lase paigutamiseks'
       }
     },
-    // Sõnumikast
     messagebox: {
       title: 'Sõnum',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const et: Language = {
       prompt: 'Küsimus',
       inputPlaceholder: 'Palun sisesta'
     },
-    // Üleslaadimine
     upload: {
       deleteTip: 'vajuta delete kustutamiseks',
       delete: 'Kustuta',
@@ -340,18 +313,15 @@ export const et: Language = {
       fileSizeError: 'Faili suurus ületab piirangu',
       fileCountError: 'Failide arv ületab piirangu'
     },
-    // Vorm
     form: {
       validationFailed: 'Kontroll ebaõnnestus',
       required: 'Nõutud',
       pleaseInput: 'Palun sisesta',
       pleaseSelect: 'Palun vali'
     },
-    // Nupp
     button: {
       loading: 'Laadimine...'
     },
-    // Sisend
     input: {
       placeholder: 'Palun sisesta',
       clear: 'Tühjenda',
@@ -360,28 +330,23 @@ export const et: Language = {
       copy: 'Kopeeri',
       copied: 'Kopeeritud'
     },
-    // Numbri sisend
     inputnumber: {
       placeholder: 'Palun sisesta number',
       increase: 'Suurenda',
       decrease: 'Vähenda'
     },
-    // Sildi sisend
     inputtag: {
       placeholder: 'Palun sisesta',
       add: 'Lisa',
       remove: 'Eemalda'
     },
-    // Navigeerimistee
     breadcrumb: {
       label: 'Navigeerimistee',
       more: 'Rohkem'
     },
-    // Tagasi üles
     backtop: {
       text: 'Tagasi üles'
     },
-    // Valik
     select: {
       placeholder: 'Palun vali',
       noData: 'Andmeid pole',
@@ -390,7 +355,6 @@ export const et: Language = {
       selectAll: 'Vali kõik',
       clearAll: 'Tühjenda kõik'
     },
-    // Lehekülgede nummerdamine
     pagination: {
       goto: 'Mine',
       page: '',
@@ -402,13 +366,11 @@ export const et: Language = {
       last: 'Viimane',
       pageClassifier: ''
     },
-    // Kinnituse hüpikaken
     popconfirm: {
       confirm: 'OK',
       cancel: 'Tühista',
       dontAskAgain: 'Ära küsi enam'
     },
-    // Dialoog
     dialog: {
       confirm: 'OK',
       cancel: 'Tühista',
@@ -416,17 +378,14 @@ export const et: Language = {
       maximize: 'Maksimeeri',
       restore: 'Taasta'
     },
-    // Sahtel
     drawer: {
       close: 'Sulge',
       confirm: 'OK',
       cancel: 'Tühista'
     },
-    // Ripmenüü
     dropdown: {
       loading: 'Laadimine...'
     },
-    // Pilt
     image: {
       error: 'EBAÕNNESTUS',
       loading: 'Laadimine...',
@@ -438,7 +397,6 @@ export const et: Language = {
       originalSize: 'Originaalne suurus',
       fullscreen: 'Täisekraan'
     },
-    // Pildivaatur
     imageviewer: {
       close: 'Sulge',
       prev: 'Eelmine',
@@ -451,65 +409,52 @@ export const et: Language = {
       fullscreen: 'Täisekraan',
       exitFullscreen: 'Välju täisekraanist'
     },
-    // Lõpmatu kerimine
     infinitescroll: {
       loading: 'Laadimine...',
       finished: 'Rohkem andmeid pole',
       error: 'Laadimine ebaõnnestus, klõpsa uuesti proovimiseks',
       retry: 'Klõpsa uuesti proovimiseks'
     },
-    // Sõnum
     message: {
       close: 'Sulge'
     },
-    // Teavitus
     notification: {
       close: 'Sulge'
     },
-    // Laadimine
     loading: {
       text: 'Laadimine...'
     },
-    // Pöörlemine
     spin: {
       text: 'Laadimine...'
     },
-    // Hinnang
     rate: {
       texts: ['Väga halb', 'Pettunud', 'Keskmine', 'Rahul', 'Üllatunud']
     },
-    // Hoiatus
     alert: {
       close: 'Sulge'
     },
-    // Silt
     tag: {
       close: 'Sulge'
     },
-    // Kaardid
     tabs: {
       close: 'Sulge',
       add: 'Lisa',
       more: 'Rohkem'
     },
-    // Sammud
     steps: {
       finish: 'Lõpetatud',
       process: 'Käimas',
       wait: 'Ootan',
       error: 'Viga'
     },
-    // Edenemine
     progress: {
       success: 'Õnnestus',
       exception: 'Erand',
       warning: 'Hoiatus'
     },
-    // Skelett
     skeleton: {
       loading: 'Laadimine...'
     },
-    // Tühi
     empty: {
       description: 'Andmeid pole',
       noData: 'Andmeid pole',
@@ -517,7 +462,6 @@ export const et: Language = {
       networkError: 'Võrgu viga',
       serverError: 'Serveri viga'
     },
-    // Tulemus
     result: {
       success: 'Õnnestus',
       error: 'Viga',
@@ -525,78 +469,63 @@ export const et: Language = {
       info: 'Info',
       backHome: 'Tagasi avalehele'
     },
-    // Kosk
     waterfall: {
       loading: 'Laadimine...',
       noMore: 'Rohkem andmeid pole',
       empty: 'Andmeid pole'
     },
-    // Kirjeldused
     descriptions: {
       colon: ':'
     },
-    // Liugur
     slider: {
       tipFormatter: '{value}'
     },
-    // Lüliti
     switch: {
       on: 'SEES',
       off: 'VÄLJAS'
     },
-    // Märkeruut
     checkbox: {
       selectAll: 'Vali kõik'
     },
-    // Raadio
     radio: {},
-    // Menüü
     menu: {
       collapse: 'Ahenda menüü',
       expand: 'Laienda menüü'
     },
-    // Kaart
     card: {
       collapse: 'Ahenda',
       expand: 'Laienda'
     },
-    // Ahendamine
     collapse: {
       expand: 'Laienda',
       collapse: 'Ahenda'
     },
-    // Näpunäide
     tooltip: {},
-    // Hüpikaken
     popover: {},
-    // Märgis
     badge: {},
-    // Avatari
     avatar: {
       error: 'Laadimine ebaõnnestus'
     },
-    // Vesimärk
     watermark: {},
-    // Eraldaja
     divider: {},
-    // Karussell
     carousel: {
       prev: 'Eelmine',
       next: 'Järgmine'
     },
-    // Marquee
     marquee: {},
-    // Kinnitamine
     affix: {},
-    // Ankur
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Palun sisesta',
       loading: 'Laadimine...',
       noData: 'Andmed puuduvad'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Vali spetsifikatsioonid',
       emptyText: 'Spetsifikatsioonid puuduvad',
@@ -697,7 +626,8 @@ export const et: Language = {
         agent: 'Agent',
         document: 'Dokument',
         table: 'Tabel',
-        knowledge: 'Teadmised'
+        knowledge: 'Teadmised',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopeeri kood',
@@ -716,7 +646,8 @@ export const et: Language = {
       },
       sender: {
         placeholder: 'Saada sõnum...',
-        dragTip: 'Failide üleslaadimiseks vabasta'
+        dragTip: 'Failide üleslaadimiseks vabasta',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Mõtteprotsess',
@@ -751,7 +682,8 @@ export const et: Language = {
         versions: 'Versioonid',
         rendering: 'Komponenti renderdatakse...',
         renderingChart: 'Graafikut renderdatakse...',
-        renderingCanvas: 'Lõuendit valmistatakse ette...'
+        renderingCanvas: 'Lõuendit valmistatakse ette...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Kõnelemiseks klõpsa',

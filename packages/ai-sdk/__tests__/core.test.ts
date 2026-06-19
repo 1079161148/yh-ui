@@ -1188,4 +1188,74 @@ describe('AI-SDK bug fixes: XRequest cache, Date parsing, useAIChat cleanup', ()
     expect(messages.value).toHaveLength(1)
     expect(messages.value[0].role).toBe('user')
   })
+
+  it('useConversation and useConversations truncate restored arrays by maxHistory / maxConversations', () => {
+    // 1. useConversation maxHistory truncation on load
+    const storageKeyH = 'test-conversation-trunc'
+    localStorage.setItem(
+      storageKeyH,
+      JSON.stringify([
+        { id: '1', role: 'user', content: 'msg1' },
+        { id: '2', role: 'user', content: 'msg2' },
+        { id: '3', role: 'user', content: 'msg3' }
+      ])
+    )
+    const { messages } = useConversation({ persist: true, storageKey: storageKeyH, maxHistory: 2 })
+    expect(messages.value).toHaveLength(2)
+    expect(messages.value[0].content).toBe('msg2')
+    expect(messages.value[1].content).toBe('msg3')
+
+    // 2. useConversations maxConversations truncation on load
+    const storageKeyC = 'test-conversations-trunc'
+    localStorage.setItem(
+      storageKeyC,
+      JSON.stringify({
+        conversations: [
+          { id: 'c1', title: 'conv1', createdAt: new Date(), updatedAt: new Date(), messages: [] },
+          { id: 'c2', title: 'conv2', createdAt: new Date(), updatedAt: new Date(), messages: [] },
+          { id: 'c3', title: 'conv3', createdAt: new Date(), updatedAt: new Date(), messages: [] }
+        ],
+        currentId: 'c2'
+      })
+    )
+    const { conversations } = useConversations({
+      persist: true,
+      storageKey: storageKeyC,
+      maxConversations: 2
+    })
+    expect(conversations.value).toHaveLength(2)
+    expect(conversations.value[0].title).toBe('conv2')
+    expect(conversations.value[1].title).toBe('conv3')
+  })
+
+  it('XRequest propagates requestId and extra configurations as headers', async () => {
+    const mockResponse = {
+      ok: true,
+      status: 200,
+      json: async () => ({ success: true }),
+      text: async () => '{"success":true}',
+      body: null
+    }
+    vi.mocked(fetch).mockResolvedValue(mockResponse as any)
+
+    await XRequest({
+      url: '/api/headers-prop',
+      requestId: 'req-id-123',
+      extra: {
+        'user-tier': 'pro',
+        'trace-id': 'xyz789'
+      }
+    })
+
+    expect(fetch).toHaveBeenCalledWith(
+      '/api/headers-prop',
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          'X-Request-Id': 'req-id-123',
+          'X-Extra-user-tier': 'pro',
+          'X-Extra-trace-id': 'xyz789'
+        })
+      })
+    )
+  })
 })

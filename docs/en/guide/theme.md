@@ -127,32 +127,33 @@ YH-UI includes 12 built-in preset themes:
 
 ### ThemeManager Methods
 
-| Method                | Description                             | Parameters                  |
-| --------------------- | --------------------------------------- | --------------------------- |
-| `setPreset`           | Set a preset theme                      | `preset: PresetTheme`       |
-| `setThemePreset`      | Alias for setting a preset theme        | `preset: PresetTheme`       |
-| `setColors`           | Set custom colors                       | `colors: ThemeColors`       |
-| `setPrimaryColor`     | Set the primary color                   | `color: string`             |
-| `setDarkMode`         | Set dark mode                           | `dark: boolean`             |
-| `toggleDarkMode`      | Toggle dark mode                        | —                           |
-| `setDensity`          | Set density                             | `density: ThemeDensity`     |
-| `setAlgorithm`        | Set color generation algorithm          | `algorithm: ColorAlgorithm` |
-| `setColorBlindMode`   | Set colorblind mode                     | `mode: ColorBlindMode`      |
-| `setComponentTheme`   | Set component-level overrides           | `name, overrides`           |
-| `clearComponentTheme` | Clear component-level overrides         | `name`                      |
-| `enableTransition`    | Enable switcher animations              | `config?`                   |
-| `disableTransition`   | Disable switcher animations             | —                           |
-| `applyFromPrimary`    | Generate a palette from a primary color | `color: string`             |
-| `exportTheme`         | Export the current theme                | `options?`                  |
-| `importTheme`         | Import a theme configuration            | `json: string`              |
-| `exportAsCss`         | Export the current theme as CSS         | —                           |
-| `createTheme`         | Create a theme configuration object     | `config`                    |
-| `applyFullConfig`     | Apply a full theme configuration        | `config`                    |
-| `undo`                | Undo theme changes                      | —                           |
-| `getHistory`          | Retrieve theme history                  | —                           |
-| `clearHistory`        | Clear theme history                     | —                           |
-| `setResponsiveVar`    | Set a responsive CSS variable           | `name, values`              |
-| `reset`               | Reset to the default theme              | —                           |
+| Method                | Description                             | Parameters                                         |
+| --------------------- | --------------------------------------- | -------------------------------------------------- |
+| `setPreset`           | Set a preset theme                      | `preset: PresetTheme`                              |
+| `setThemePreset`      | Alias for setting a preset theme        | `preset: PresetTheme`                              |
+| `setColors`           | Set custom colors                       | `colors: ThemeColors`                              |
+| `setPrimaryColor`     | Set the primary color                   | `color: string`                                    |
+| `setDarkMode`         | Set dark mode                           | `dark: boolean`                                    |
+| `toggleDarkMode`      | Toggle dark mode                        | —                                                  |
+| `setDensity`          | Set density                             | `density: ThemeDensity`                            |
+| `setAlgorithm`        | Set color generation algorithm          | `algorithm: ColorAlgorithm`                        |
+| `setColorBlindMode`   | Set colorblind mode                     | `mode: ColorBlindMode`                             |
+| `setRadius`           | Set border radius size                  | `radius: 'none' \| 'sm' \| 'md' \| 'lg' \| 'full'` |
+| `setComponentTheme`   | Set component-level overrides           | `name, overrides`                                  |
+| `clearComponentTheme` | Clear component-level overrides         | `name`                                             |
+| `enableTransition`    | Enable switcher animations              | `config?`                                          |
+| `disableTransition`   | Disable switcher animations             | —                                                  |
+| `applyFromPrimary`    | Generate a palette from a primary color | `color: string`                                    |
+| `exportTheme`         | Export the current theme                | `options?`                                         |
+| `importTheme`         | Import a theme configuration            | `json: string`                                     |
+| `exportAsCss`         | Export the current theme as CSS         | —                                                  |
+| `createTheme`         | Create a theme configuration object     | `config`                                           |
+| `applyFullConfig`     | Apply a full theme configuration        | `config`                                           |
+| `undo`                | Undo theme changes                      | —                                                  |
+| `getHistory`          | Retrieve theme history                  | —                                                  |
+| `clearHistory`        | Clear theme history                     | —                                                  |
+| `setResponsiveVar`    | Set a responsive CSS variable           | `name, values`                                     |
+| `reset`               | Reset to the default theme              | —                                                  |
 
 ### Shortcut Functions
 
@@ -190,6 +191,8 @@ type ColorAlgorithm = 'default' | 'vibrant' | 'muted' | 'pastel'
 
 type ColorBlindMode = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'achromatopsia'
 
+type ThemeRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
+
 interface ThemeOptions {
   preset?: PresetTheme
   colors?: ThemeColors
@@ -197,6 +200,7 @@ interface ThemeOptions {
   persist?: boolean
   followSystem?: boolean
   algorithm?: ColorAlgorithm
+  radius?: ThemeRadius
 }
 ```
 
@@ -214,6 +218,7 @@ interface ThemeOptions {
 | `--yh-color-danger`       | Danger color               | `#f56c6c` |
 | `--yh-color-info`         | Info color                 | `#909399` |
 | `--yh-border-radius-base` | Base border radius         | `4px`     |
+| `--yh-radius-base`        | Dynamic border radius      | `4px`     |
 | `--yh-font-size-base`     | Base font size             | `14px`    |
 | `--yh-bg-color`           | Site-wide background color | `#ffffff` |
 

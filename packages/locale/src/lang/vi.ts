@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const vi: Language = {
   name: 'vi',
   yh: {
-    // Chung
     common: {
       yes: 'Có',
       no: 'Không',
@@ -27,7 +26,6 @@ export const vi: Language = {
       selectAll: 'Chọn tất cả',
       unselectAll: 'Bỏ chọn tất cả'
     },
-    // Bộ chọn màu
     colorpicker: {
       confirm: 'OK',
       clear: 'Xóa',
@@ -37,7 +35,6 @@ export const vi: Language = {
       recentColors: 'Màu gần đây',
       presetColors: 'Màu đặt trước'
     },
-    // Bộ chọn ngày
     datepicker: {
       now: 'Bây giờ',
       today: 'Hôm nay',
@@ -89,7 +86,6 @@ export const vi: Language = {
         q4: 'Q4'
       }
     },
-    // Bộ chọn giờ
     timepicker: {
       confirm: 'OK',
       cancel: 'Hủy',
@@ -99,11 +95,9 @@ export const vi: Language = {
       endPlaceholder: 'Giờ kết thúc',
       selectTime: 'Chọn giờ'
     },
-    // Chọn giờ
     timeselect: {
       placeholder: 'Chọn giờ'
     },
-    // Cây
     tree: {
       emptyText: 'Không có dữ liệu',
       loading: 'Đang tải...',
@@ -112,14 +106,12 @@ export const vi: Language = {
       expandAll: 'Mở rộng tất cả',
       collapseAll: 'Thu gọn tất cả'
     },
-    // Chọn cây
     treeselect: {
       placeholder: 'Chọn',
       emptyText: 'Không có dữ liệu',
       loading: 'Đang tải...',
       noMatch: 'Không có dữ liệu khớp'
     },
-    // Lịch
     calendar: {
       prevMonth: 'Tháng trước',
       nextMonth: 'Tháng sau',
@@ -140,14 +132,12 @@ export const vi: Language = {
         sat: 'T7'
       }
     },
-    // Tự động hoàn thành
     autocomplete: {
       loading: 'Đang tải...',
       placeholder: 'Vui lòng nhập',
       noData: 'Không có dữ liệu',
       noMatch: 'Không có dữ liệu khớp'
     },
-    // Đếm ngược
     countdown: {
       days: 'ngày',
       hours: 'giờ',
@@ -156,14 +146,12 @@ export const vi: Language = {
       milliseconds: 'mili giây',
       finished: 'Hoàn thành'
     },
-    // Chọn tầng
     cascader: {
       noMatch: 'Không có dữ liệu khớp',
       placeholder: 'Chọn',
       loading: 'Đang tải...',
       noData: 'Không có dữ liệu'
     },
-    // Chuyển giao
     transfer: {
       noMatch: 'Không có dữ liệu khớp',
       noData: 'Không có dữ liệu',
@@ -173,7 +161,6 @@ export const vi: Language = {
       hasCheckedFormat: '{checked}/{total} đã chọn',
       searchPlaceholder: 'Nhập từ khóa'
     },
-    // Bảng
     table: {
       emptyText: 'Không có dữ liệu',
       confirmFilter: 'Xác nhận',
@@ -190,7 +177,6 @@ export const vi: Language = {
       page: 'Trang {page}',
       yes: 'Có',
       no: 'Không',
-      // Thanh công cụ
       toolbar: {
         refresh: 'Làm mới',
         density: 'Mật độ',
@@ -205,7 +191,6 @@ export const vi: Language = {
         search: 'Tìm kiếm',
         searchPlaceholder: 'Nhập từ khóa để tìm kiếm'
       },
-      // Bộ lọc
       filter: {
         selectAll: 'Chọn tất cả',
         selectInvert: 'Đảo ngược lựa chọn',
@@ -221,13 +206,11 @@ export const vi: Language = {
         lessThan: 'Nhỏ hơn',
         between: 'Giữa'
       },
-      // Sắp xếp
       sort: {
         asc: 'Tăng dần',
         desc: 'Giảm dần',
         clear: 'Xóa sắp xếp'
       },
-      // Xuất
       export: {
         title: 'Xuất dữ liệu',
         filename: 'Tên tệp',
@@ -241,7 +224,6 @@ export const vi: Language = {
         success: 'Xuất thành công',
         error: 'Xuất thất bại'
       },
-      // Nhập
       import: {
         title: 'Nhập dữ liệu',
         selectFile: 'Chọn tệp',
@@ -252,7 +234,6 @@ export const vi: Language = {
         preview: 'Xem trước dữ liệu',
         confirm: 'Xác nhận nhập'
       },
-      // In
       printConfig: {
         title: 'Cài đặt in',
         pageTitle: 'Tiêu đề trang',
@@ -265,7 +246,6 @@ export const vi: Language = {
         portrait: 'Dọc',
         printing: 'Đang in...'
       },
-      // Cài đặt cột
       columnSetting: {
         title: 'Cài đặt cột',
         showAll: 'Hiển thị tất cả',
@@ -275,7 +255,6 @@ export const vi: Language = {
         fixedRight: 'Cố định bên phải',
         unfixed: 'Bỏ cố định'
       },
-      // Menu ngữ cảnh
       contextMenu: {
         copy: 'Sao chép',
         copyRow: 'Sao chép hàng',
@@ -287,31 +266,26 @@ export const vi: Language = {
         deleteSelectedRows: 'Xóa các hàng đã chọn',
         exportSelected: 'Xuất đã chọn'
       },
-      // Lựa chọn
       selection: {
         selectAll: 'Chọn tất cả',
         selectInvert: 'Đảo ngược lựa chọn',
         selectNone: 'Xóa lựa chọn',
         selected: 'Đã chọn {count} mục'
       },
-      // Mở rộng
       expand: {
         expandAll: 'Mở rộng tất cả',
         collapseAll: 'Thu gọn tất cả'
       },
-      // Cây
       tree: {
         expandAll: 'Mở rộng tất cả',
         collapseAll: 'Thu gọn tất cả',
         expandLevel: 'Mở rộng đến cấp {level}'
       },
-      // Kéo
       drag: {
         dragTip: 'Kéo để sắp xếp lại',
         dropTip: 'Thả để đặt'
       }
     },
-    // Hộp thông báo
     messagebox: {
       title: 'Thông báo',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const vi: Language = {
       prompt: 'Nhắc nhở',
       inputPlaceholder: 'Vui lòng nhập'
     },
-    // Tải lên
     upload: {
       deleteTip: 'nhấn delete để xóa',
       delete: 'Xóa',
@@ -340,18 +313,15 @@ export const vi: Language = {
       fileSizeError: 'Kích thước tệp vượt quá giới hạn',
       fileCountError: 'Số lượng tệp vượt quá giới hạn'
     },
-    // Biểu mẫu
     form: {
       validationFailed: 'Xác thực thất bại',
       required: 'Bắt buộc',
       pleaseInput: 'Vui lòng nhập',
       pleaseSelect: 'Vui lòng chọn'
     },
-    // Nút
     button: {
       loading: 'Đang tải...'
     },
-    // Đầu vào
     input: {
       placeholder: 'Vui lòng nhập',
       clear: 'Xóa',
@@ -360,28 +330,23 @@ export const vi: Language = {
       copy: 'Sao chép',
       copied: 'Đã sao chép'
     },
-    // Đầu vào số
     inputnumber: {
       placeholder: 'Vui lòng nhập số',
       increase: 'Tăng',
       decrease: 'Giảm'
     },
-    // Đầu vào thẻ
     inputtag: {
       placeholder: 'Vui lòng nhập',
       add: 'Thêm',
       remove: 'Xóa'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Thêm'
     },
-    // Quay lại đầu trang
     backtop: {
       text: 'Quay lại đầu trang'
     },
-    // Chọn
     select: {
       placeholder: 'Vui lòng chọn',
       noData: 'Không có dữ liệu',
@@ -390,7 +355,6 @@ export const vi: Language = {
       selectAll: 'Chọn tất cả',
       clearAll: 'Xóa tất cả'
     },
-    // Phân trang
     pagination: {
       goto: 'Đi đến',
       page: '',
@@ -402,13 +366,11 @@ export const vi: Language = {
       last: 'Cuối',
       pageClassifier: ''
     },
-    // Xác nhận popup
     popconfirm: {
       confirm: 'OK',
       cancel: 'Hủy',
       dontAskAgain: 'Không hỏi lại'
     },
-    // Hộp thoại
     dialog: {
       confirm: 'OK',
       cancel: 'Hủy',
@@ -416,17 +378,14 @@ export const vi: Language = {
       maximize: 'Phóng to',
       restore: 'Khôi phục'
     },
-    // Ngăn kéo
     drawer: {
       close: 'Đóng',
       confirm: 'OK',
       cancel: 'Hủy'
     },
-    // Menu thả xuống
     dropdown: {
       loading: 'Đang tải...'
     },
-    // Hình ảnh
     image: {
       error: 'THẤT BẠI',
       loading: 'Đang tải...',
@@ -438,7 +397,6 @@ export const vi: Language = {
       originalSize: 'Kích thước gốc',
       fullscreen: 'Toàn màn hình'
     },
-    // Trình xem hình ảnh
     imageviewer: {
       close: 'Đóng',
       prev: 'Trước',
@@ -451,65 +409,52 @@ export const vi: Language = {
       fullscreen: 'Toàn màn hình',
       exitFullscreen: 'Thoát toàn màn hình'
     },
-    // Cuộn vô hạn
     infinitescroll: {
       loading: 'Đang tải...',
       finished: 'Không còn dữ liệu',
       error: 'Tải thất bại, nhấp để thử lại',
       retry: 'Nhấp để thử lại'
     },
-    // Thông báo
     message: {
       close: 'Đóng'
     },
-    // Thông báo
     notification: {
       close: 'Đóng'
     },
-    // Đang tải
     loading: {
       text: 'Đang tải...'
     },
-    // Quay
     spin: {
       text: 'Đang tải...'
     },
-    // Đánh giá
     rate: {
       texts: ['Rất kém', 'Thất vọng', 'Bình thường', 'Hài lòng', 'Ngạc nhiên']
     },
-    // Cảnh báo
     alert: {
       close: 'Đóng'
     },
-    // Thẻ
     tag: {
       close: 'Đóng'
     },
-    // Tab
     tabs: {
       close: 'Đóng',
       add: 'Thêm',
       more: 'Thêm'
     },
-    // Bước
     steps: {
       finish: 'Hoàn thành',
       process: 'Đang tiến hành',
       wait: 'Chờ đợi',
       error: 'Lỗi'
     },
-    // Tiến trình
     progress: {
       success: 'Thành công',
       exception: 'Ngoại lệ',
       warning: 'Cảnh báo'
     },
-    // Bộ xương
     skeleton: {
       loading: 'Đang tải...'
     },
-    // Trống
     empty: {
       description: 'Không có dữ liệu',
       noData: 'Không có dữ liệu',
@@ -517,7 +462,6 @@ export const vi: Language = {
       networkError: 'Lỗi mạng',
       serverError: 'Lỗi máy chủ'
     },
-    // Kết quả
     result: {
       success: 'Thành công',
       error: 'Lỗi',
@@ -525,78 +469,63 @@ export const vi: Language = {
       info: 'Thông tin',
       backHome: 'Về trang chủ'
     },
-    // Thác nước
     waterfall: {
       loading: 'Đang tải...',
       noMore: 'Không còn dữ liệu',
       empty: 'Không có dữ liệu'
     },
-    // Mô tả
     descriptions: {
       colon: ':'
     },
-    // Thanh trượt
     slider: {
       tipFormatter: '{value}'
     },
-    // Công tắc
     switch: {
       on: 'BẬT',
       off: 'TẮT'
     },
-    // Hộp kiểm
     checkbox: {
       selectAll: 'Chọn tất cả'
     },
-    // Radio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Thu gọn menu',
       expand: 'Mở rộng menu'
     },
-    // Thẻ
     card: {
       collapse: 'Thu gọn',
       expand: 'Mở rộng'
     },
-    // Thu gọn
     collapse: {
       expand: 'Mở rộng',
       collapse: 'Thu gọn'
     },
-    // Gợi ý
     tooltip: {},
-    // Popover
     popover: {},
-    // Huy hiệu
     badge: {},
-    // Avatar
     avatar: {
       error: 'Tải thất bại'
     },
-    // Hình mờ
     watermark: {},
-    // Dải phân cách
     divider: {},
-    // Băng chuyền
     carousel: {
       prev: 'Trước',
       next: 'Tiếp'
     },
-    // Marquee
     marquee: {},
-    // Gắn cố định
     affix: {},
-    // Neo
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Vui lòng nhập',
       loading: 'Đang tải...',
       noData: 'Không có dữ liệu'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Chọn thông số',
       emptyText: 'Không có thông số',
@@ -697,7 +626,8 @@ export const vi: Language = {
         agent: 'Agent',
         document: 'Tài liệu',
         table: 'Bảng',
-        knowledge: 'Kiến thức'
+        knowledge: 'Kiến thức',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Sao chép mã',
@@ -716,7 +646,8 @@ export const vi: Language = {
       },
       sender: {
         placeholder: 'Gửi tin nhắn...',
-        dragTip: 'Thả để tải tệp lên'
+        dragTip: 'Thả để tải tệp lên',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Quá trình suy nghĩ',
@@ -751,7 +682,8 @@ export const vi: Language = {
         versions: 'Phiên bản',
         rendering: 'Đang hiển thị component...',
         renderingChart: 'Đang hiển thị biểu đồ...',
-        renderingCanvas: 'Đang chuẩn bị canvas...'
+        renderingCanvas: 'Đang chuẩn bị canvas...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Nhấn để nói',

@@ -150,6 +150,18 @@ describe('utils/common', () => {
       const throttled = throttle(vi.fn(), 100)
       expect(() => throttled.cancel()).not.toThrow()
     })
+
+    it('should use the latest arguments for trailing execution', () => {
+      const fn = vi.fn()
+      const throttled = throttle(fn, 100)
+      throttled('first')
+      throttled('second')
+      throttled('third')
+      vi.advanceTimersByTime(100)
+      expect(fn).toHaveBeenCalledTimes(2)
+      expect(fn).toHaveBeenNthCalledWith(1, 'first')
+      expect(fn).toHaveBeenNthCalledWith(2, 'third')
+    })
   })
 
   // ======================== deepClone ========================
@@ -195,6 +207,54 @@ describe('utils/common', () => {
       obj.a = 1
       const cloned = deepClone(obj)
       expect(cloned.a).toBe(1)
+    })
+
+    it('should clone RegExp objects', () => {
+      const regex = /abc/gi
+      const cloned = deepClone(regex)
+      expect(cloned.source).toBe(regex.source)
+      expect(cloned.flags).toBe(regex.flags)
+      expect(cloned).not.toBe(regex)
+    })
+
+    it('should clone Map objects', () => {
+      const map = new Map([['key', { val: 1 }]])
+      const cloned = deepClone(map)
+      expect(cloned.get('key')).toEqual({ val: 1 })
+      expect(cloned.get('key')).not.toBe(map.get('key'))
+      expect(cloned).not.toBe(map)
+    })
+
+    it('should clone Set objects', () => {
+      const set = new Set([{ val: 1 }])
+      const cloned = deepClone(set)
+      const values = Array.from(cloned.values())
+      expect(values[0]).toEqual({ val: 1 })
+      expect(values[0]).not.toBe(Array.from(set.values())[0])
+      expect(cloned).not.toBe(set)
+    })
+
+    it('should handle circular references', () => {
+      const obj: any = { a: 1 }
+      obj.self = obj
+      const cloned = deepClone(obj)
+      expect(cloned.a).toBe(1)
+      expect(cloned.self).toBe(cloned)
+      expect(cloned).not.toBe(obj)
+    })
+
+    it('should preserve custom prototypes', () => {
+      class CustomClass {
+        a = 1
+        foo() {
+          return 'bar'
+        }
+      }
+      const instance = new CustomClass()
+      const cloned = deepClone(instance)
+      expect(cloned.a).toBe(1)
+      expect(cloned.foo()).toBe('bar')
+      expect(Object.getPrototypeOf(cloned)).toBe(CustomClass.prototype)
     })
   })
 
@@ -244,6 +304,13 @@ describe('utils/common', () => {
       const result = deepMerge(target, source)
       expect(result).toEqual({ own: 2 })
       expect((result as Record<string, unknown>).inherited).toBeUndefined()
+    })
+
+    it('should prevent prototype pollution', () => {
+      const target: any = {}
+      const source = JSON.parse('{"__proto__": {"polluted": true}}')
+      deepMerge(target, source)
+      expect((Object.prototype as any).polluted).toBeUndefined()
     })
   })
 

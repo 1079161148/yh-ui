@@ -3,96 +3,81 @@ import type { Language } from '../index'
 export const km: Language = {
   name: 'km',
   yh: {
-    // ទូទៅ
     common: {
-      yes: '\u1794\u17B6\u1791',
-      no: '\u1791\u17C1',
-      confirm: '\u1794\u1789\u17D2\u1787\u17B6\u1780\u17CB',
-      cancel: '\u1794\u17C4\u17C7\u1794\u1784\u17CB',
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780',
-      close: '\u1794\u17B7\u1791',
-      clear: '\u179F\u1798\u17D2\u17A2\u17B6\u178F',
-      reset: '\u1780\u17C6\u178E\u178F\u17CB\u17A1\u17BE\u1784\u179C\u17B7\u1789',
-      save: '\u179A\u1780\u17D2\u179F\u17B6\u1791\u17BB\u1780',
-      delete: '\u179B\u17BB\u1794',
-      edit: '\u1780\u17C2\u1794\u17D2\u179A\u17C2',
-      add: '\u1794\u1793\u17D2\u1790\u17C2\u1798',
-      search: '\u179F\u17D2\u179C\u17C2\u1784\u179A\u1780',
-      refresh: '\u1792\u17D2\u179C\u17BE\u17B1\u17D2\u1799\u179F\u17D2\u179A\u179F\u17CB',
-      expand: '\u1796\u1784\u17D2\u179A\u17B8\u1780',
-      collapse: '\u1794\u1784\u17D2\u179A\u17BD\u1798',
-      more: '\u1794\u1793\u17D2\u1790\u17C2\u1798\u1791\u17C0\u178F',
-      noData: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-      noMatch:
-        '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u178A\u17C2\u179B\u178F\u17D2\u179A\u17BC\u179C\u1782\u17D2\u1793\u17B6',
-      selectAll:
-        '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-      unselectAll:
-        '\u179B\u17BB\u1794\u1780\u17B6\u179A\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB'
+      yes: 'បាទ',
+      no: 'ទេ',
+      confirm: 'បញ្ជាក់',
+      cancel: 'បោះបង់',
+      loading: 'កំពុងផ្ទុក',
+      close: 'បិទ',
+      clear: 'សម្អាត',
+      reset: 'កំណត់ឡើងវិញ',
+      save: 'រក្សាទុក',
+      delete: 'លុប',
+      edit: 'កែប្រែ',
+      add: 'បន្ថែម',
+      search: 'ស្វែងរក',
+      refresh: 'ធ្វើឱ្យស្រស់',
+      expand: 'ពង្រីក',
+      collapse: 'បង្រួម',
+      more: 'បន្ថែមទៀត',
+      noData: 'គ្មានទិន្នន័យ',
+      noMatch: 'គ្មានទិន្នន័យដែលត្រូវគ្នា',
+      selectAll: 'ជ្រើសរើសទាំងអស់',
+      unselectAll: 'លុបការជ្រើសរើសទាំងអស់'
     },
-    // កម្មវិធីជ្រើសរើសពណ៌
     colorpicker: {
-      confirm: '\u1799\u179B\u17CB\u1796\u17D2\u179A\u1798',
-      clear: '\u179F\u1798\u17D2\u17A2\u17B6\u178F',
-      eyeDropper:
-        '\u17A7\u1794\u1780\u179A\u178E\u17CD\u1787\u17D2\u179A\u17BE\u179F\u1796\u178E\u17CC',
-      suggestionDark:
-        '\u17A2\u178F\u17D2\u1790\u1794\u1791\u179F \u1782\u17BA\u179B\u17D2\u17A2\u1794\u17C6\u1795\u17BB\u178F',
-      suggestionLight:
-        '\u17A2\u178F\u17D2\u1790\u1794\u1791\u1781\u17D2\u1798\u17C5 \u1782\u17BA\u179B\u17D2\u17A2\u1794\u17C6\u1795\u17BB\u178F',
-      recentColors: '\u1796\u178E\u17CC\u1790\u17D2\u1798\u17B8\u17D7',
-      presetColors:
-        '\u1796\u178E\u17CC\u178A\u17C2\u179B\u1780\u17C6\u178E\u178F\u17CB\u1787\u17B6\u1798\u17BB\u1793'
+      confirm: 'យល់ព្រម',
+      clear: 'សម្អាត',
+      eyeDropper: 'ឧបករណ៍ជ្រើសពណ៌',
+      suggestionDark: 'អត្ថបទស គឺល្អបំផុត',
+      suggestionLight: 'អត្ថបទខ្មៅ គឺល្អបំផុត',
+      recentColors: 'ពណ៌ថ្មីៗ',
+      presetColors: 'ពណ៌ដែលកំណត់ជាមុន'
     },
-    // កម្មវិធីជ្រើសរើសកាលបរិច្ឆេទ
     datepicker: {
-      now: '\u17A5\u17A1\u17BC\u179C',
-      today: '\u1790\u17D2\u1784\u17C3\u1793\u17C1\u17C7',
-      cancel: '\u1794\u17C4\u17C7\u1794\u1784\u17CB',
-      clear: '\u179F\u1798\u17D2\u17A2\u17B6\u178F',
-      confirm: '\u1799\u179B\u17CB\u1796\u17D2\u179A\u1798',
-      selectDate:
-        '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1780\u17B6\u179B\u1794\u179A\u17B7\u1785\u17D2\u1786\u17C1\u1791',
-      selectTime:
-        '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6',
-      startDate:
-        '\u1780\u17B6\u179B\u1794\u179A\u17B7\u1785\u17D2\u1786\u17C1\u1791\u1785\u17B6\u1794\u17CB\u1795\u17D2\u178F\u17BE\u1798',
-      startTime:
-        '\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6\u1785\u17B6\u1794\u17CB\u1795\u17D2\u178F\u17BE\u1798',
-      endDate:
-        '\u1780\u17B6\u179B\u1794\u179A\u17B7\u1785\u17D2\u1786\u17C1\u1791\u1794\u1789\u17D2\u1785\u1794\u17CB',
-      endTime: '\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6\u1794\u1789\u17D2\u1785\u1794\u17CB',
+      now: 'ឥឡូវ',
+      today: 'ថ្ងៃនេះ',
+      cancel: 'បោះបង់',
+      clear: 'សម្អាត',
+      confirm: 'យល់ព្រម',
+      selectDate: 'ជ្រើសរើសកាលបរិច្ឆេទ',
+      selectTime: 'ជ្រើសរើសពេលវេលា',
+      startDate: 'កាលបរិច្ឆេទចាប់ផ្តើម',
+      startTime: 'ពេលវេលាចាប់ផ្តើម',
+      endDate: 'កាលបរិច្ឆេទបញ្ចប់',
+      endTime: 'ពេលវេលាបញ្ចប់',
       year: '',
       month: '',
       day: '',
-      week: '\u179F\u1794\u17D2\u178F\u17B6\u17A0\u17CD',
+      week: 'សប្តាហ៍',
       monthBeforeYear: true,
-      prevYear: '\u1786\u17D2\u1793\u17B6\u17C6\u1798\u17BB\u1793',
-      nextYear: '\u1786\u17D2\u1793\u17B6\u17C6\u1794\u1793\u17D2\u1791\u17B6\u1794\u17CB',
-      prevMonth: '\u1781\u17C2\u1798\u17BB\u1793',
-      nextMonth: '\u1781\u17C2\u1794\u1793\u17D2\u1791\u17B6\u1794\u17CB',
+      prevYear: 'ឆ្នាំមុន',
+      nextYear: 'ឆ្នាំបន្ទាប់',
+      prevMonth: 'ខែមុន',
+      nextMonth: 'ខែបន្ទាប់',
       weeks: {
-        sun: '\u17A2\u17B6\u1791\u17B7\u178F\u17D2\u1799',
-        mon: '\u1785\u17D0\u1793\u17D2\u1791',
-        tue: '\u17A2\u1784\u17D2\u1782\u17B6\u179A',
-        wed: '\u1796\u17BB\u1792',
-        thu: '\u1796\u17D2\u179A\u17A0\u179F\u17D2\u1794\u178F\u17B7\u17CD',
-        fri: '\u179F\u17BB\u1780\u17D2\u179A',
-        sat: '\u179F\u17C5\u179A\u17CD'
+        sun: 'អាទិត្យ',
+        mon: 'ច័ន្ទ',
+        tue: 'អង្គារ',
+        wed: 'ពុធ',
+        thu: 'ព្រហស្បតិ៍',
+        fri: 'សុក្រ',
+        sat: 'សៅរ៍'
       },
       months: {
-        jan: '\u1798\u1780\u179A\u17B6',
-        feb: '\u1780\u17BB\u1798\u17D2\u1797\u17C8',
-        mar: '\u1798\u17B8\u1793\u17B6',
-        apr: '\u1798\u17C1\u179F\u17B6',
-        may: '\u17A7\u179F\u1797\u17B6',
-        jun: '\u1798\u17B7\u1790\u17BB\u1793\u17B6',
-        jul: '\u1780\u1780\u17D2\u1780\u178A\u17B6',
-        aug: '\u179F\u17B8\u17A0\u17B6',
-        sep: '\u1780\u1789\u17D2\u1789\u17B6',
-        oct: '\u178F\u17BB\u179B\u17B6',
-        nov: '\u179C\u17B7\u1785\u17D2\u1786\u17B7\u1780\u17B6',
-        dec: '\u1792\u17D2\u1793\u17BC'
+        jan: 'មករា',
+        feb: 'កុម្ភៈ',
+        mar: 'មីនា',
+        apr: 'មេសា',
+        may: 'ឧសភា',
+        jun: 'មិថុនា',
+        jul: 'កក្កដា',
+        aug: 'សីហា',
+        sep: 'កញ្ញា',
+        oct: 'តុលា',
+        nov: 'វិច្ឆិកា',
+        dec: 'ធ្នូ'
       },
       quarters: {
         q1: 'Q1',
@@ -101,730 +86,679 @@ export const km: Language = {
         q4: 'Q4'
       }
     },
-    // កម្មវិធីជ្រើសរើសពេលវេលា
     timepicker: {
-      confirm: '\u1799\u179B\u17CB\u1796\u17D2\u179A\u1798',
-      cancel: '\u1794\u17C4\u17C7\u1794\u1784\u17CB',
-      now: '\u17A5\u17A1\u17BC\u179C',
-      placeholder:
-        '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6',
-      startPlaceholder:
-        '\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6\u1785\u17B6\u1794\u17CB\u1795\u17D2\u178F\u17BE\u1798',
-      endPlaceholder:
-        '\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6\u1794\u1789\u17D2\u1785\u1794\u17CB',
-      selectTime:
-        '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6'
+      confirm: 'យល់ព្រម',
+      cancel: 'បោះបង់',
+      now: 'ឥឡូវ',
+      placeholder: 'ជ្រើសរើសពេលវេលា',
+      startPlaceholder: 'ពេលវេលាចាប់ផ្តើម',
+      endPlaceholder: 'ពេលវេលាបញ្ចប់',
+      selectTime: 'ជ្រើសរើសពេលវេលា'
     },
-    // ការជ្រើសរើសពេលវេលា
     timeselect: {
-      placeholder:
-        '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6'
+      placeholder: 'ជ្រើសរើសពេលវេលា'
     },
-    // ដើមឈើ
     tree: {
-      emptyText: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      checkAll:
-        '\u1796\u17B7\u1793\u17B7\u178F\u17D2\u1799\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-      uncheckAll:
-        '\u179B\u17BB\u1794\u1780\u17B6\u179A\u1796\u17B7\u1793\u17B7\u178F\u17D2\u1799\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-      expandAll: '\u1796\u1784\u17D2\u179A\u17B8\u1780\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-      collapseAll: '\u1794\u1784\u17D2\u179A\u17BD\u1798\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB'
+      emptyText: 'គ្មានទិន្នន័យ',
+      loading: 'កំពុងផ្ទុក...',
+      checkAll: 'ពិនិត្យទាំងអស់',
+      uncheckAll: 'លុបការពិនិត្យទាំងអស់',
+      expandAll: 'ពង្រីកទាំងអស់',
+      collapseAll: 'បង្រួមទាំងអស់'
     },
-    // ការជ្រើសរើសដើមឈើ
     treeselect: {
-      placeholder: '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-      emptyText: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      noMatch:
-        '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u178A\u17C2\u179B\u178F\u17D2\u179A\u17BC\u179C\u1782\u17D2\u1793\u17B6'
+      placeholder: 'ជ្រើសរើស',
+      emptyText: 'គ្មានទិន្នន័យ',
+      loading: 'កំពុងផ្ទុក...',
+      noMatch: 'គ្មានទិន្នន័យដែលត្រូវគ្នា'
     },
-    // ប្រតិទិន
     calendar: {
-      prevMonth: '\u1781\u17C2\u1798\u17BB\u1793',
-      nextMonth: '\u1781\u17C2\u1794\u1793\u17D2\u1791\u17B6\u1794\u17CB',
-      prevYear: '\u1786\u17D2\u1793\u17B6\u17C6\u1798\u17BB\u1793',
-      nextYear: '\u1786\u17D2\u1793\u17B6\u17C6\u1794\u1793\u17D2\u1791\u17B6\u1794\u17CB',
-      today: '\u1790\u17D2\u1784\u17C3\u1793\u17C1\u17C7',
-      week: '\u179F\u1794\u17D2\u178F\u17B6\u17A0\u17CD',
-      holiday: '\u1790\u17D2\u1784\u17C3\u1788\u1794\u17CB\u179F\u1798\u17D2\u179A\u17B6\u1780',
-      workday: '\u1780\u17B6\u179A\u1784\u17B6\u179A',
+      prevMonth: 'ខែមុន',
+      nextMonth: 'ខែបន្ទាប់',
+      prevYear: 'ឆ្នាំមុន',
+      nextYear: 'ឆ្នាំបន្ទាប់',
+      today: 'ថ្ងៃនេះ',
+      week: 'សប្តាហ៍',
+      holiday: 'ថ្ងៃឈប់សម្រាក',
+      workday: 'ការងារ',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: '\u17A2\u17B6\u1791\u17B7\u178F\u17D2\u1799',
-        mon: '\u1785\u17D0\u1793\u17D2\u1791',
-        tue: '\u17A2\u1784\u17D2\u1782\u17B6\u179A',
-        wed: '\u1796\u17BB\u1792',
-        thu: '\u1796\u17D2\u179A\u17A0\u179F\u17D2\u1794\u178F\u17B7\u17CD',
-        fri: '\u179F\u17BB\u1780\u17D2\u179A',
-        sat: '\u179F\u17C5\u179A\u17CD'
+        sun: 'អាទិត្យ',
+        mon: 'ច័ន្ទ',
+        tue: 'អង្គារ',
+        wed: 'ពុធ',
+        thu: 'ព្រហស្បតិ៍',
+        fri: 'សុក្រ',
+        sat: 'សៅរ៍'
       }
     },
-    // បំពេញស្វ័យប្រវត្តិ
     autocomplete: {
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      placeholder: '\u179F\u17BC\u1798\u1794\u1789\u17D2\u1785\u17BC\u179B',
-      noData: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-      noMatch:
-        '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u178A\u17C2\u179B\u178F\u17D2\u179A\u17BC\u179C\u1782\u17D2\u1793\u17B6'
+      loading: 'កំពុងផ្ទុក...',
+      placeholder: 'សូមបញ្ចូល',
+      noData: 'គ្មានទិន្នន័យ',
+      noMatch: 'គ្មានទិន្នន័យដែលត្រូវគ្នា'
     },
-    // រាប់ថយក្រោយ
     countdown: {
-      days: '\u1790\u17D2\u1784\u17C3',
-      hours: '\u1798\u17C9\u17C4\u1784',
-      minutes: '\u1793\u17B6\u1791\u17B8',
-      seconds: '\u179C\u17B7\u1793\u17B6\u1791\u17B8',
-      milliseconds: '\u1798\u17B8\u179B\u17B8\u179C\u17B7\u1793\u17B6\u1791\u17B8',
-      finished: '\u1794\u17B6\u1793\u1794\u1789\u17D2\u1785\u1794\u17CB'
+      days: 'ថ្ងៃ',
+      hours: 'ម៉ោង',
+      minutes: 'នាទី',
+      seconds: 'វិនាទី',
+      milliseconds: 'មីលីវិនាទី',
+      finished: 'បានបញ្ចប់'
     },
-    // កម្មវិធីជ្រើសរើសជាកាត់
     cascader: {
-      noMatch:
-        '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u178A\u17C2\u179B\u178F\u17D2\u179A\u17BC\u179C\u1782\u17D2\u1793\u17B6',
-      placeholder: '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      noData: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799'
+      noMatch: 'គ្មានទិន្នន័យដែលត្រូវគ្នា',
+      placeholder: 'ជ្រើសរើស',
+      loading: 'កំពុងផ្ទុក...',
+      noData: 'គ្មានទិន្នន័យ'
     },
-    // ផ្ទេរ
     transfer: {
-      noMatch:
-        '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u178A\u17C2\u179B\u178F\u17D2\u179A\u17BC\u179C\u1782\u17D2\u1793\u17B6',
-      noData: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-      titles: ['\u1794\u1789\u17D2\u1787\u17B8 \u17E1', '\u1794\u1789\u17D2\u1787\u17B8 \u17E2'],
-      filterPlaceholder:
-        '\u1794\u1789\u17D2\u1785\u17BC\u179B\u1796\u17B6\u1780\u17D2\u1799\u1782\u1793\u17D2\u179B\u17B9\u17C7',
-      noCheckedFormat: '{total} \u1792\u17B6\u178F\u17BB',
-      hasCheckedFormat:
-        '{checked}/{total} \u1794\u17B6\u1793\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-      searchPlaceholder:
-        '\u1794\u1789\u17D2\u1785\u17BC\u179B\u1796\u17B6\u1780\u17D2\u1799\u1782\u1793\u17D2\u179B\u17B9\u17C7'
+      noMatch: 'គ្មានទិន្នន័យដែលត្រូវគ្នា',
+      noData: 'គ្មានទិន្នន័យ',
+      titles: ['បញ្ជី ១', 'បញ្ជី ២'],
+      filterPlaceholder: 'បញ្ចូលពាក្យគន្លឹះ',
+      noCheckedFormat: '{total} ធាតុ',
+      hasCheckedFormat: '{checked}/{total} បានជ្រើសរើស',
+      searchPlaceholder: 'បញ្ចូលពាក្យគន្លឹះ'
     },
-    // តារាង
     table: {
-      emptyText: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-      confirmFilter: '\u1794\u1789\u17D2\u1787\u17B6\u1780\u17CB',
-      resetFilter: '\u1780\u17C6\u178E\u178F\u17CB\u17A1\u17BE\u1784\u179C\u17B7\u1789',
-      clearFilter: '\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-      sumText: '\u1795\u179B\u1794\u17BC\u1780',
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      index: '\u179B\u17B7\u1794\u17B7\u1780\u17D2\u179A\u1798',
-      print: '\u1794\u17C4\u17C7\u1796\u17BB\u1798\u17D2\u1796',
-      cancel: '\u1794\u17C4\u17C7\u1794\u1784\u17CB',
-      preview:
-        '\u1798\u17BE\u179B\u1787\u17B6\u1798\u17BB\u1793\u1780\u17B6\u179A\u1794\u17C4\u17C7\u1796\u17BB\u1798\u17D2\u1796',
-      printTime:
-        '\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6\u1794\u17C4\u17C7\u1796\u17BB\u1798\u17D2\u1796',
-      total: '\u179F\u179A\u17BB\u1794 {total} \u1792\u17B6\u178F\u17BB',
-      page: '\u1791\u17C6\u1796\u17D0\u179A {page}',
-      yes: '\u1794\u17B6\u1791',
-      no: '\u1791\u17C1',
-      // របារឧបករណ៍
+      emptyText: 'គ្មានទិន្នន័យ',
+      confirmFilter: 'បញ្ជាក់',
+      resetFilter: 'កំណត់ឡើងវិញ',
+      clearFilter: 'ទាំងអស់',
+      sumText: 'ផលបូក',
+      loading: 'កំពុងផ្ទុក...',
+      index: 'លិបិក្រម',
+      print: 'បោះពុម្ព',
+      cancel: 'បោះបង់',
+      preview: 'មើលជាមុនការបោះពុម្ព',
+      printTime: 'ពេលវេលាបោះពុម្ព',
+      total: 'សរុប {total} ធាតុ',
+      page: 'ទំព័រ {page}',
+      yes: 'បាទ',
+      no: 'ទេ',
       toolbar: {
-        refresh: '\u1792\u17D2\u179C\u17BE\u17B1\u17D2\u1799\u179F\u17D2\u179A\u179F\u17CB',
-        density: '\u178A\u1784\u17CB\u179F\u17CA\u17B8\u178F\u17C1',
-        densityDefault: '\u179B\u17C6\u1793\u17B6\u17C6\u178A\u17BE\u1798',
-        densityLarge: '\u1792\u17C6',
-        densitySmall: '\u178F\u17BC\u1785',
-        columnSetting:
-          '\u1780\u17B6\u179A\u1780\u17C6\u178E\u178F\u17CB\u1787\u17BD\u179A\u1788\u179A',
-        fullscreen: '\u17A2\u17C1\u1780\u17D2\u179A\u1784\u17CB\u1796\u17C1\u1789',
-        exitFullscreen:
-          '\u1785\u17C1\u1789\u1796\u17B8\u17A2\u17C1\u1780\u17D2\u179A\u1784\u17CB\u1796\u17C1\u1789',
-        export: '\u1793\u17B6\u17C6\u1785\u17C1\u1789',
-        import: '\u1793\u17B6\u17C6\u1785\u17BC\u179B',
-        search: '\u179F\u17D2\u179C\u17C2\u1784\u179A\u1780',
-        searchPlaceholder:
-          '\u1794\u1789\u17D2\u1785\u17BC\u179B\u1796\u17B6\u1780\u17D2\u1799\u1782\u1793\u17D2\u179B\u17B9\u17C7\u178A\u17BE\u1798\u17D2\u1794\u17B8\u179F\u17D2\u179C\u17C2\u1784\u179A\u1780'
+        refresh: 'ធ្វើឱ្យស្រស់',
+        density: 'ដង់ស៊ីតេ',
+        densityDefault: 'លំនាំដើម',
+        densityLarge: 'ធំ',
+        densitySmall: 'តូច',
+        columnSetting: 'ការកំណត់ជួរឈរ',
+        fullscreen: 'អេក្រង់ពេញ',
+        exitFullscreen: 'ចេញពីអេក្រង់ពេញ',
+        export: 'នាំចេញ',
+        import: 'នាំចូល',
+        search: 'ស្វែងរក',
+        searchPlaceholder: 'បញ្ចូលពាក្យគន្លឹះដើម្បីស្វែងរក'
       },
-      // តម្រង
       filter: {
-        selectAll:
-          '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        selectInvert:
-          '\u1794\u1789\u17D2\u1785\u17D2\u179A\u17B6\u179F\u1780\u17B6\u179A\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-        empty: '\u1791\u1791\u17C1',
-        notEmpty: '\u1798\u17B7\u1793\u1791\u1791\u17C1',
-        contains: '\u1798\u17B6\u1793',
-        notContains: '\u1782\u17D2\u1798\u17B6\u1793',
-        equals: '\u179F\u17D2\u1798\u17BE',
-        notEquals: '\u1798\u17B7\u1793\u179F\u17D2\u1798\u17BE',
-        startsWith: '\u1785\u17B6\u1794\u17CB\u1795\u17D2\u178F\u17BE\u1798\u178A\u17C4\u1799',
-        endsWith: '\u1794\u1789\u17D2\u1785\u1794\u17CB\u178A\u17C4\u1799',
-        greaterThan: '\u1792\u17C6\u1787\u17B6\u1784',
-        lessThan: '\u178F\u17BC\u1785\u1787\u17B6\u1784',
-        between: '\u179A\u179C\u17B6\u1784'
+        selectAll: 'ជ្រើសរើសទាំងអស់',
+        selectInvert: 'បញ្ច្រាសការជ្រើសរើស',
+        empty: 'ទទេ',
+        notEmpty: 'មិនទទេ',
+        contains: 'មាន',
+        notContains: 'គ្មាន',
+        equals: 'ស្មើ',
+        notEquals: 'មិនស្មើ',
+        startsWith: 'ចាប់ផ្តើមដោយ',
+        endsWith: 'បញ្ចប់ដោយ',
+        greaterThan: 'ធំជាង',
+        lessThan: 'តូចជាង',
+        between: 'រវាង'
       },
-      // រៀបចំ
       sort: {
-        asc: '\u17A1\u17BE\u1784',
-        desc: '\u1785\u17BB\u17C7',
-        clear:
-          '\u179F\u1798\u17D2\u17A2\u17B6\u178F\u1780\u17B6\u179A\u179A\u17C0\u1794\u1785\u17C6'
+        asc: 'ឡើង',
+        desc: 'ចុះ',
+        clear: 'សម្អាតការរៀបចំ'
       },
-      // នាំចេញ
       export: {
-        title:
-          '\u1793\u17B6\u17C6\u1785\u17C1\u1789\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-        filename: '\u1788\u17D2\u1798\u17C4\u17C7\u17AF\u1780\u179F\u17B6\u179A',
-        type: '\u1794\u17D2\u179A\u1797\u17C1\u1791\u17AF\u1780\u179F\u17B6\u179A',
-        scope:
-          '\u179C\u17B7\u179F\u17B6\u179B\u1797\u17B6\u1796\u1793\u17B6\u17C6\u1785\u17C1\u1789',
-        scopeAll:
-          '\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        scopeSelected:
-          '\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u178A\u17C2\u179B\u1794\u17B6\u1793\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-        scopeCurrentPage:
-          '\u1791\u17C6\u1796\u17D0\u179A\u1794\u1785\u17D2\u1785\u17BB\u1794\u17D2\u1794\u1793\u17D2\u1793',
-        includeHeader:
-          '\u179A\u17BD\u1798\u1794\u1789\u17D2\u1785\u17BC\u179B\u1780\u17D2\u1794\u17B6\u179B',
-        exporting: '\u1780\u17C6\u1796\u17BB\u1784\u1793\u17B6\u17C6\u1785\u17C1\u1789...',
-        success:
-          '\u1780\u17B6\u179A\u1793\u17B6\u17C6\u1785\u17C1\u1789\u1787\u17C4\u1782\u1787\u17D0\u1799',
-        error:
-          '\u1780\u17B6\u179A\u1793\u17B6\u17C6\u1785\u17C1\u1789\u1794\u179A\u17B6\u1787\u17D0\u1799'
+        title: 'នាំចេញទិន្នន័យ',
+        filename: 'ឈ្មោះឯកសារ',
+        type: 'ប្រភេទឯកសារ',
+        scope: 'វិសាលភាពនាំចេញ',
+        scopeAll: 'ទិន្នន័យទាំងអស់',
+        scopeSelected: 'ទិន្នន័យដែលបានជ្រើសរើស',
+        scopeCurrentPage: 'ទំព័របច្ចុប្បន្ន',
+        includeHeader: 'រួមបញ្ចូលក្បាល',
+        exporting: 'កំពុងនាំចេញ...',
+        success: 'ការនាំចេញជោគជ័យ',
+        error: 'ការនាំចេញបរាជ័យ'
       },
-      // នាំចូល
       import: {
-        title:
-          '\u1793\u17B6\u17C6\u1785\u17BC\u179B\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-        selectFile:
-          '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u17AF\u1780\u179F\u17B6\u179A',
-        dragTip:
-          '\u1785\u17BB\u1785 \u17AC\u1791\u17B6\u1789\u17AF\u1780\u179F\u17B6\u179A\u1791\u17C5\u1791\u17B8\u1793\u17C1\u17C7\u178A\u17BE\u1798\u17D2\u1794\u17B8\u1795\u17D2\u1791\u17BB\u1780\u17A1\u17BE\u1784',
-        importing: '\u1780\u17C6\u1796\u17BB\u1784\u1793\u17B6\u17C6\u1785\u17BC\u179B...',
-        success:
-          '\u1780\u17B6\u179A\u1793\u17B6\u17C6\u1785\u17BC\u179B\u1787\u17C4\u1782\u1787\u17D0\u1799',
-        error:
-          '\u1780\u17B6\u179A\u1793\u17B6\u17C6\u1785\u17BC\u179B\u1794\u179A\u17B6\u1787\u17D0\u1799',
-        preview:
-          '\u1798\u17BE\u179B\u1787\u17B6\u1798\u17BB\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-        confirm:
-          '\u1794\u1789\u17D2\u1787\u17B6\u1780\u17CB\u1780\u17B6\u179A\u1793\u17B6\u17C6\u1785\u17BC\u179B'
+        title: 'នាំចូលទិន្នន័យ',
+        selectFile: 'ជ្រើសរើសឯកសារ',
+        dragTip: 'ចុច ឬទាញឯកសារទៅទីនេះដើម្បីផ្ទុកឡើង',
+        importing: 'កំពុងនាំចូល...',
+        success: 'ការនាំចូលជោគជ័យ',
+        error: 'ការនាំចូលបរាជ័យ',
+        preview: 'មើលជាមុនទិន្នន័យ',
+        confirm: 'បញ្ជាក់ការនាំចូល'
       },
-      // បោះពុម្ព
       printConfig: {
-        title:
-          '\u1780\u17B6\u179A\u1780\u17C6\u178E\u178F\u17CB\u1794\u17C4\u17C7\u1796\u17BB\u1798\u17D2\u1796',
-        pageTitle: '\u1785\u17C6\u178E\u1784\u1787\u17BE\u1784\u1791\u17C6\u1796\u17D0\u179A',
-        pageHeader: '\u1780\u17D2\u1794\u17B6\u179B',
-        pageFooter: '\u1780\u17D2\u179A\u17C4\u1798',
-        printAll:
-          '\u1794\u17C4\u17C7\u1796\u17BB\u1798\u17D2\u1796\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        printSelected:
-          '\u1794\u17C4\u17C7\u1796\u17BB\u1798\u17D2\u1796\u178A\u17C2\u179B\u1794\u17B6\u1793\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-        printCurrentPage:
-          '\u1794\u17C4\u17C7\u1796\u17BB\u1798\u17D2\u1796\u1791\u17C6\u1796\u17D0\u179A\u1794\u1785\u17D2\u1785\u17BB\u1794\u17D2\u1794\u1793\u17D2\u1793',
-        landscape: '\u1795\u17D2\u178F\u17C1\u1780',
-        portrait: '\u1794\u1789\u17D2\u1788\u179A',
-        printing:
-          '\u1780\u17C6\u1796\u17BB\u1784\u1794\u17C4\u17C7\u1796\u17BB\u1798\u17D2\u1796...'
+        title: 'ការកំណត់បោះពុម្ព',
+        pageTitle: 'ចំណងជើងទំព័រ',
+        pageHeader: 'ក្បាល',
+        pageFooter: 'ក្រោម',
+        printAll: 'បោះពុម្ពទាំងអស់',
+        printSelected: 'បោះពុម្ពដែលបានជ្រើសរើស',
+        printCurrentPage: 'បោះពុម្ពទំព័របច្ចុប្បន្ន',
+        landscape: 'ផ្តេក',
+        portrait: 'បញ្ឈរ',
+        printing: 'កំពុងបោះពុម្ព...'
       },
-      // ការកំណត់ជួរឈរ
       columnSetting: {
-        title: '\u1780\u17B6\u179A\u1780\u17C6\u178E\u178F\u17CB\u1787\u17BD\u179A\u1788\u179A',
-        showAll: '\u1794\u1784\u17D2\u17A0\u17B6\u1789\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        hideAll: '\u179B\u17B6\u1780\u17CB\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        reset: '\u1780\u17C6\u178E\u178F\u17CB\u17A1\u17BE\u1784\u179C\u17B7\u1789',
-        fixedLeft:
-          '\u1787\u17B6\u1794\u17CB\u1793\u17C5\u1781\u17B6\u1784\u1786\u17D2\u179C\u17C1\u1784',
-        fixedRight:
-          '\u1787\u17B6\u1794\u17CB\u1793\u17C5\u1781\u17B6\u1784\u179F\u17D2\u178F\u17B6\u17C6',
-        unfixed: '\u179B\u17BB\u1794\u1780\u17B6\u179A\u1787\u17B6\u1794\u17CB'
+        title: 'ការកំណត់ជួរឈរ',
+        showAll: 'បង្ហាញទាំងអស់',
+        hideAll: 'លាក់ទាំងអស់',
+        reset: 'កំណត់ឡើងវិញ',
+        fixedLeft: 'ជាប់នៅខាងឆ្វេង',
+        fixedRight: 'ជាប់នៅខាងស្តាំ',
+        unfixed: 'លុបការជាប់'
       },
-      // ម៉ឺនុយបរិបទ
       contextMenu: {
-        copy: '\u1785\u1798\u17D2\u179B\u1784',
-        copyRow: '\u1785\u1798\u17D2\u179B\u1784\u1787\u17BD\u179A',
-        copyCell: '\u1785\u1798\u17D2\u179B\u1784\u1780\u17D2\u179A\u17A1\u17B6',
-        paste: '\u1794\u17B7\u1791\u1797\u17D2\u1787\u17B6\u1794\u17CB',
-        insertRowAbove:
-          '\u1794\u1789\u17D2\u1785\u17BC\u179B\u1787\u17BD\u17D2\u179A\u1781\u17B6\u1784\u179B\u17BE',
-        insertRowBelow:
-          '\u1794\u1789\u17D2\u1785\u17BC\u179B\u1787\u17BD\u179A\u1781\u17B6\u1784\u1780\u17D2\u179A\u17C4\u1798',
-        deleteRow: '\u179B\u17BB\u1794\u1787\u17BD\u179A',
-        deleteSelectedRows:
-          '\u179B\u17BB\u1794\u1787\u17BD\u179A\u178A\u17C2\u179B\u1794\u17B6\u1793\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-        exportSelected:
-          '\u1793\u17B6\u17C6\u1785\u17C1\u1789\u178A\u17C2\u179B\u1794\u17B6\u1793\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F'
+        copy: 'ចម្លង',
+        copyRow: 'ចម្លងជួរ',
+        copyCell: 'ចម្លងក្រឡា',
+        paste: 'បិទភ្ជាប់',
+        insertRowAbove: 'បញ្ចូលជួ្រខាងលើ',
+        insertRowBelow: 'បញ្ចូលជួរខាងក្រោម',
+        deleteRow: 'លុបជួរ',
+        deleteSelectedRows: 'លុបជួរដែលបានជ្រើសរើស',
+        exportSelected: 'នាំចេញដែលបានជ្រើសរើស'
       },
-      // ការជ្រើសរើស
       selection: {
-        selectAll:
-          '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        selectInvert:
-          '\u1794\u1789\u17D2\u1785\u17D2\u179A\u17B6\u179F\u1780\u17B6\u179A\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-        selectNone:
-          '\u179F\u1798\u17D2\u17A2\u17B6\u178F\u1780\u17B6\u179A\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-        selected:
-          '{count} \u1792\u17B6\u178F\u17BB\u1794\u17B6\u1793\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F'
+        selectAll: 'ជ្រើសរើសទាំងអស់',
+        selectInvert: 'បញ្ច្រាសការជ្រើសរើស',
+        selectNone: 'សម្អាតការជ្រើសរើស',
+        selected: '{count} ធាតុបានជ្រើសរើស'
       },
-      // ពង្រីក
       expand: {
-        expandAll: '\u1796\u1784\u17D2\u179A\u17B8\u1780\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        collapseAll:
-          '\u1794\u1784\u17D2\u179A\u17BD\u1798\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB'
+        expandAll: 'ពង្រីកទាំងអស់',
+        collapseAll: 'បង្រួមទាំងអស់'
       },
-      // ដើមឈើ
       tree: {
-        expandAll: '\u1796\u1784\u17D2\u179A\u17B8\u1780\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        collapseAll:
-          '\u1794\u1784\u17D2\u179A\u17BD\u1798\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        expandLevel:
-          '\u1796\u1784\u17D2\u179A\u17B8\u1780\u178A\u179B\u17CB\u1780\u1798\u17D2\u179A\u17B7\u178F {level}'
+        expandAll: 'ពង្រីកទាំងអស់',
+        collapseAll: 'បង្រួមទាំងអស់',
+        expandLevel: 'ពង្រីកដល់កម្រិត {level}'
       },
-      // ទាញ
       drag: {
-        dragTip:
-          '\u1791\u17B6\u1789\u178A\u17BE\u1798\u17D2\u1794\u17B8\u179A\u17C0\u1794\u1785\u17C6\u17A1\u17BE\u1784\u179C\u17B7\u1789',
-        dropTip:
-          '\u1791\u1798\u17D2\u179B\u17B6\u1780\u17CB\u178A\u17BE\u1798\u17D2\u1794\u17B8\u178A\u17B6\u1780\u17CB'
+        dragTip: 'ទាញដើម្បីរៀបចំឡើងវិញ',
+        dropTip: 'ទម្លាក់ដើម្បីដាក់'
       }
     },
-    // ប្រអប់សារ
     messagebox: {
-      title: '\u179F\u17B6\u179A',
-      confirm: '\u1799\u179B\u17CB\u1796\u17D2\u179A\u1798',
-      cancel: '\u1794\u17C4\u17C7\u1794\u1784\u17CB',
-      close: '\u1794\u17B7\u1791',
-      error:
-        '\u1780\u17B6\u179A\u1794\u1789\u17D2\u1785\u17BC\u179B\u1798\u17B7\u1793\u178F\u17D2\u179A\u17B9\u1798\u178F\u17D2\u179A\u17BC\u179C',
-      alert: '\u1780\u17B6\u179A\u1796\u17D2\u179A\u1798\u17B6\u1793',
-      prompt: '\u179F\u17D2\u1793\u17BE\u179F\u17BB\u17C6',
-      inputPlaceholder: '\u179F\u17BC\u1798\u1794\u1789\u17D2\u1785\u17BC\u179B'
+      title: 'សារ',
+      confirm: 'យល់ព្រម',
+      cancel: 'បោះបង់',
+      close: 'បិទ',
+      error: 'ការបញ្ចូលមិនត្រឹមត្រូវ',
+      alert: 'ការព្រមាន',
+      prompt: 'ស្នើសុំ',
+      inputPlaceholder: 'សូមបញ្ចូល'
     },
-    // ផ្ទុកឡើង
     upload: {
-      deleteTip: '\u1785\u17BB\u1785 delete \u178A\u17BE\u1798\u17D2\u1794\u17B8\u179B\u17BB\u1794',
-      delete: '\u179B\u17BB\u1794',
-      preview: '\u1798\u17BE\u179B\u1787\u17B6\u1798\u17BB\u1793',
-      continue: '\u1794\u1793\u17D2\u178F',
-      upload:
-        '\u1785\u17BB\u1785\u178A\u17BE\u1798\u17D2\u1794\u17B8\u1795\u17D2\u1791\u17BB\u1780\u17A1\u17BE\u1784',
-      tip: '\u1785\u17BB\u1785 \u17AC\u1791\u17B6\u1789\u17AF\u1780\u179F\u17B6\u179A\u1791\u17C5\u178F\u17C6\u1794\u1793\u17CB\u1793\u17C1\u17C7\u178A\u17BE\u1798\u17D2\u1794\u17B8 <em>\u1795\u17D2\u1791\u17BB\u1780\u17A1\u17BE\u1784</em>',
-      dragTip:
-        '\u1791\u1798\u17D2\u179B\u17B6\u1780\u17CB\u17AF\u1780\u179F\u17B6\u179A\u1793\u17C5\u1791\u17B8\u1793\u17C1\u17C7 \u17AC\u1785\u17BB\u1785\u178A\u17BE\u1798\u17D2\u1794\u17B8\u1795\u17D2\u1791\u17BB\u1780\u17A1\u17BE\u1784',
-      uploading:
-        '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780\u17A1\u17BE\u1784...',
-      success:
-        '\u1780\u17B6\u179A\u1795\u17D2\u1791\u17BB\u1780\u17A1\u17BE\u1784\u1787\u17C4\u1782\u1787\u17D0\u1799',
-      error:
-        '\u1780\u17B6\u179A\u1795\u17D2\u1791\u17BB\u1780\u17A1\u17BE\u1784\u1794\u179A\u17B6\u1787\u17D0\u1799',
-      retry: '\u1796\u17D2\u1799\u17B6\u1799\u17B6\u1798\u1798\u17D2\u178F\u1784\u1791\u17C0\u178F',
-      cancel:
-        '\u1794\u17C4\u17C7\u1794\u1784\u17CB\u1780\u17B6\u179A\u1795\u17D2\u1791\u17BB\u1780\u17A1\u17BE\u1784',
-      fileTypeError:
-        '\u1794\u17D2\u179A\u1797\u17C1\u1791\u17AF\u1780\u179F\u17B6\u179A\u1798\u17B7\u1793\u178F\u17D2\u179A\u17BC\u179C\u1794\u17B6\u1793\u1782\u17B6\u17C6\u1791\u17D2\u179A',
-      fileSizeError:
-        '\u1791\u17C6\u17A0\u17C6\u17AF\u1780\u179F\u17B6\u179A\u179B\u17BE\u179F\u1796\u17B8\u1780\u17C6\u17A0\u17B7\u178F',
-      fileCountError:
-        '\u1785\u17C6\u1793\u17BD\u1793\u17AF\u1780\u179F\u17B6\u179A\u179B\u17BE\u179F\u1796\u17B8\u1780\u17C6\u17A0\u17B7\u178F'
+      deleteTip: 'ចុច delete ដើម្បីលុប',
+      delete: 'លុប',
+      preview: 'មើលជាមុន',
+      continue: 'បន្ត',
+      upload: 'ចុចដើម្បីផ្ទុកឡើង',
+      tip: 'ចុច ឬទាញឯកសារទៅតំបន់នេះដើម្បី <em>ផ្ទុកឡើង</em>',
+      dragTip: 'ទម្លាក់ឯកសារនៅទីនេះ ឬចុចដើម្បីផ្ទុកឡើង',
+      uploading: 'កំពុងផ្ទុកឡើង...',
+      success: 'ការផ្ទុកឡើងជោគជ័យ',
+      error: 'ការផ្ទុកឡើងបរាជ័យ',
+      retry: 'ព្យាយាមម្តងទៀត',
+      cancel: 'បោះបង់ការផ្ទុកឡើង',
+      fileTypeError: 'ប្រភេទឯកសារមិនត្រូវបានគាំទ្រ',
+      fileSizeError: 'ទំហំឯកសារលើសពីកំហិត',
+      fileCountError: 'ចំនួនឯកសារលើសពីកំហិត'
     },
-    // ទម្រង់
     form: {
-      validationFailed:
-        '\u1780\u17B6\u179A\u1795\u17D2\u1791\u17C0\u1784\u1795\u17D2\u1791\u17B6\u178F\u17CB\u1794\u179A\u17B6\u1787\u17D0\u1799',
-      required: '\u178F\u17D2\u179A\u17BC\u179C\u1780\u17B6\u179A',
-      pleaseInput: '\u179F\u17BC\u1798\u1794\u1789\u17D2\u1785\u17BC\u179B',
-      pleaseSelect: '\u179F\u17BC\u1798\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F'
+      validationFailed: 'ការផ្ទៀងផ្ទាត់បរាជ័យ',
+      required: 'ត្រូវការ',
+      pleaseInput: 'សូមបញ្ចូល',
+      pleaseSelect: 'សូមជ្រើសរើស'
     },
-    // ប៊ូតុង
     button: {
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...'
+      loading: 'កំពុងផ្ទុក...'
     },
-    // ការបញ្ចូល
     input: {
-      placeholder: '\u179F\u17BC\u1798\u1794\u1789\u17D2\u1785\u17BC\u179B',
-      clear: '\u179F\u1798\u17D2\u17A2\u17B6\u178F',
-      showPassword:
-        '\u1794\u1784\u17D2\u17A0\u17B6\u1789\u1796\u17B6\u1780\u17D2\u1799\u179F\u1798\u17D2\u1784\u17B6\u178F\u17CB',
-      hidePassword:
-        '\u179B\u17B6\u1780\u17CB\u1796\u17B6\u1780\u17D2\u1799\u179F\u1798\u17D2\u1784\u17B6\u178F\u17CB',
-      copy: '\u1785\u1798\u17D2\u179B\u1784',
-      copied: '\u1794\u17B6\u1793\u1785\u1798\u17D2\u179B\u1784'
+      placeholder: 'សូមបញ្ចូល',
+      clear: 'សម្អាត',
+      showPassword: 'បង្ហាញពាក្យសម្ងាត់',
+      hidePassword: 'លាក់ពាក្យសម្ងាត់',
+      copy: 'ចម្លង',
+      copied: 'បានចម្លង'
     },
-    // ការបញ្ចូលលេខ
     inputnumber: {
-      placeholder: '\u179F\u17BC\u1798\u1794\u1789\u17D2\u1785\u17BC\u179B\u179B\u17C1\u1781',
-      increase: '\u1794\u1784\u17D2\u1780\u17BE\u1793',
-      decrease: '\u1794\u1793\u17D2\u1790\u1799'
+      placeholder: 'សូមបញ្ចូលលេខ',
+      increase: 'បង្កើន',
+      decrease: 'បន្ថយ'
     },
-    // ការបញ្ចូលស្លាក
     inputtag: {
-      placeholder: '\u179F\u17BC\u1798\u1794\u1789\u17D2\u1785\u17BC\u179B',
-      add: '\u1794\u1793\u17D2\u1790\u17C2\u1798',
-      remove: '\u1799\u1780\u1785\u17C1\u1789'
+      placeholder: 'សូមបញ្ចូល',
+      add: 'បន្ថែម',
+      remove: 'យកចេញ'
     },
-    // Breadcrumb
     breadcrumb: {
-      label: '\u1795\u17D2\u179B\u17BC\u179C',
-      more: '\u1794\u1793\u17D2\u1790\u17C2\u1798\u1791\u17C0\u178F'
+      label: 'ផ្លូវ',
+      more: 'បន្ថែមទៀត'
     },
-    // ត្រឡប់ទៅកំពូល
     backtop: {
-      text: '\u178F\u17D2\u179A\u17A1\u1794\u17CB\u1791\u17C5\u1780\u17C6\u1796\u17BC\u179B'
+      text: 'ត្រឡប់ទៅកំពូល'
     },
-    // ជ្រើសរើស
     select: {
-      placeholder: '\u179F\u17BC\u1798\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F',
-      noData: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      noMatch:
-        '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u178A\u17C2\u179B\u178F\u17D2\u179A\u17BC\u179C\u1782\u17D2\u1793\u17B6',
-      selectAll:
-        '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-      clearAll: '\u179F\u1798\u17D2\u17A2\u17B6\u178F\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB'
+      placeholder: 'សូមជ្រើសរើស',
+      noData: 'គ្មានទិន្នន័យ',
+      loading: 'កំពុងផ្ទុក...',
+      noMatch: 'គ្មានទិន្នន័យដែលត្រូវគ្នា',
+      selectAll: 'ជ្រើសរើសទាំងអស់',
+      clearAll: 'សម្អាតទាំងអស់'
     },
-    // ការបែងចែកទំព័រ
     pagination: {
-      goto: '\u1791\u17C5',
+      goto: 'ទៅ',
       page: '',
-      total: '\u179F\u179A\u17BB\u1794 {total}',
-      pageSize: '/\u1791\u17C6\u1796\u17D0\u179A',
-      prev: '\u1798\u17BB\u1793',
-      next: '\u1794\u1793\u17D2\u1791\u17B6\u1794\u17CB',
-      first: '\u1791\u17B8\u1798\u17BD\u1799',
-      last: '\u1785\u17BB\u1784\u1780\u17D2\u179A\u17C4\u1799',
+      total: 'សរុប {total}',
+      pageSize: '/ទំព័រ',
+      prev: 'មុន',
+      next: 'បន្ទាប់',
+      first: 'ទីមួយ',
+      last: 'ចុងក្រោយ',
       pageClassifier: ''
     },
-    // Popconfirm
     popconfirm: {
-      confirm: '\u1799\u179B\u17CB\u1796\u17D2\u179A\u1798',
-      cancel: '\u1794\u17C4\u17C7\u1794\u1784\u17CB',
-      dontAskAgain: '\u1780\u17BB\u17C6\u179F\u17BD\u179A\u1798\u17D2\u178F\u1784\u1791\u17C0\u178F'
+      confirm: 'យល់ព្រម',
+      cancel: 'បោះបង់',
+      dontAskAgain: 'កុំសួរម្តងទៀត'
     },
-    // ការសន្ទនា
     dialog: {
-      confirm: '\u1799\u179B\u17CB\u1796\u17D2\u179A\u1798',
-      cancel: '\u1794\u17C4\u17C7\u1794\u1784\u17CB',
-      close: '\u1794\u17B7\u1791',
-      maximize: '\u1796\u1784\u17D2\u179A\u17B8\u1780\u17A2\u178F\u17B7\u1794\u179A\u1798\u17B6',
-      restore: '\u179F\u17D2\u178F\u17B6\u179A'
+      confirm: 'យល់ព្រម',
+      cancel: 'បោះបង់',
+      close: 'បិទ',
+      maximize: 'ពង្រីកអតិបរមា',
+      restore: 'ស្តារ'
     },
-    // Drawer
     drawer: {
-      close: '\u1794\u17B7\u1791',
-      confirm: '\u1799\u179B\u17CB\u1796\u17D2\u179A\u1798',
-      cancel: '\u1794\u17C4\u17C7\u1794\u1784\u17CB'
+      close: 'បិទ',
+      confirm: 'យល់ព្រម',
+      cancel: 'បោះបង់'
     },
-    // Dropdown
     dropdown: {
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...'
+      loading: 'កំពុងផ្ទុក...'
     },
-    // រូបភាព
     image: {
-      error: '\u1794\u179A\u17B6\u1787\u17D0\u1799',
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      preview: '\u1798\u17BE\u179B\u1787\u17B6\u1798\u17BB\u1793',
-      zoomIn: '\u1796\u1784\u17D2\u179A\u17B8\u1780',
-      zoomOut: '\u1794\u1784\u17D2\u179A\u17BD\u1798',
-      rotateLeft: '\u1794\u1784\u17D2\u179C\u17B7\u179B\u1791\u17C5\u1786\u17D2\u179C\u17C1\u1784',
-      rotateRight: '\u1794\u1784\u17D2\u179C\u17B7\u179B\u1791\u17C5\u179F\u17D2\u178F\u17B6\u17C6',
-      originalSize: '\u1791\u17C6\u17A0\u17C6\u178A\u17BE\u1798',
-      fullscreen: '\u17A2\u17C1\u1780\u17D2\u179A\u1784\u17CB\u1796\u17C1\u1789'
+      error: 'បរាជ័យ',
+      loading: 'កំពុងផ្ទុក...',
+      preview: 'មើលជាមុន',
+      zoomIn: 'ពង្រីក',
+      zoomOut: 'បង្រួម',
+      rotateLeft: 'បង្វិលទៅឆ្វេង',
+      rotateRight: 'បង្វិលទៅស្តាំ',
+      originalSize: 'ទំហំដើម',
+      fullscreen: 'អេក្រង់ពេញ'
     },
-    // កម្មវិធីមើលរូបភាព
     imageviewer: {
-      close: '\u1794\u17B7\u1791',
-      prev: '\u1798\u17BB\u1793',
-      next: '\u1794\u1793\u17D2\u1791\u17B6\u1794\u17CB',
-      zoomIn: '\u1796\u1784\u17D2\u179A\u17B8\u1780',
-      zoomOut: '\u1794\u1784\u17D2\u179A\u17BD\u1798',
-      rotateLeft: '\u1794\u1784\u17D2\u179C\u17B7\u179B\u1791\u17C5\u1786\u17D2\u179C\u17C1\u1784',
-      rotateRight: '\u1794\u1784\u17D2\u179C\u17B7\u179B\u1791\u17C5\u179F\u17D2\u178F\u17B6\u17C6',
-      reset: '\u1780\u17C6\u178E\u178F\u17CB\u17A1\u17BE\u1784\u179C\u17B7\u1789',
-      fullscreen: '\u17A2\u17C1\u1780\u17D2\u179A\u1784\u17CB\u1796\u17C1\u1789',
-      exitFullscreen:
-        '\u1785\u17C1\u1789\u1796\u17B8\u17A2\u17C1\u1780\u17D2\u179A\u1784\u17CB\u1796\u17C1\u1789'
+      close: 'បិទ',
+      prev: 'មុន',
+      next: 'បន្ទាប់',
+      zoomIn: 'ពង្រីក',
+      zoomOut: 'បង្រួម',
+      rotateLeft: 'បង្វិលទៅឆ្វេង',
+      rotateRight: 'បង្វិលទៅស្តាំ',
+      reset: 'កំណត់ឡើងវិញ',
+      fullscreen: 'អេក្រង់ពេញ',
+      exitFullscreen: 'ចេញពីអេក្រង់ពេញ'
     },
-    // ការរំកិលគ្មានកំណត់
     infinitescroll: {
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      finished:
-        '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u1794\u1793\u17D2\u1790\u17C2\u1798\u1791\u17C0\u178F',
-      error:
-        '\u1780\u17B6\u179A\u1795\u17D2\u1791\u17BB\u1780\u1794\u179A\u17B6\u1787\u17D0\u1799 \u1785\u17BB\u1785\u178A\u17BE\u1798\u17D2\u1794\u17B8\u1796\u17D2\u1799\u17B6\u1799\u17B6\u1798\u1798\u17D2\u178F\u1784\u1791\u17C0\u178F',
-      retry:
-        '\u1785\u17BB\u1785\u178A\u17BE\u1798\u17D2\u1794\u17B8\u1796\u17D2\u1799\u17B6\u1799\u17B6\u1798\u1798\u17D2\u178F\u1784\u1791\u17C0\u178F'
+      loading: 'កំពុងផ្ទុក...',
+      finished: 'គ្មានទិន្នន័យបន្ថែមទៀត',
+      error: 'ការផ្ទុកបរាជ័យ ចុចដើម្បីព្យាយាមម្តងទៀត',
+      retry: 'ចុចដើម្បីព្យាយាមម្តងទៀត'
     },
-    // សារ
     message: {
-      close: '\u1794\u17B7\u1791'
+      close: 'បិទ'
     },
-    // ការជូនដំណឹង
     notification: {
-      close: '\u1794\u17B7\u1791'
+      close: 'បិទ'
     },
-    // ការផ្ទុក
     loading: {
-      text: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...'
+      text: 'កំពុងផ្ទុក...'
     },
-    // Spin
     spin: {
-      text: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...'
+      text: 'កំពុងផ្ទុក...'
     },
-    // ការវាយតម្លៃ
     rate: {
-      texts: [
-        '\u17A2\u17B6\u1780\u17D2\u179A\u1780\u17CB\u178E\u17B6\u179F\u17CB',
-        '\u1781\u1780\u1785\u17B7\u178F\u17D2\u178F',
-        '\u1799\u17BB\u178F\u17D2\u178F\u17B7\u1792\u1798\u17CC',
-        '\u1796\u17C1\u1789\u1785\u17B7\u178F\u17D2\u178F',
-        '\u1797\u17D2\u1789\u17B6\u1780\u17CB\u1795\u17D2\u17A2\u17BE\u179B'
-      ]
+      texts: ['អាក្រក់ណាស់', 'ខកចិត្ត', 'យុត្តិធម៌', 'ពេញចិត្ត', 'ភ្ញាក់ផ្អើល']
     },
-    // ការព្រមាន
     alert: {
-      close: '\u1794\u17B7\u1791'
+      close: 'បិទ'
     },
-    // ស្លាក
     tag: {
-      close: '\u1794\u17B7\u1791'
+      close: 'បិទ'
     },
-    // ផ្ទាំង
     tabs: {
-      close: '\u1794\u17B7\u1791',
-      add: '\u1794\u1793\u17D2\u1790\u17C2\u1798',
-      more: '\u1794\u1793\u17D2\u1790\u17C2\u1798\u1791\u17C0\u178F'
+      close: 'បិទ',
+      add: 'បន្ថែម',
+      more: 'បន្ថែមទៀត'
     },
-    // ជំហាន
     steps: {
-      finish: '\u1794\u17B6\u1793\u1794\u1789\u17D2\u1785\u1794\u17CB',
-      process: '\u1780\u17C6\u1796\u17BB\u1784\u178A\u17C6\u178E\u17BE\u179A\u1780\u17B6\u179A',
-      wait: '\u1780\u17C6\u1796\u17BB\u1784\u179A\u1784\u17CB\u1785\u17B6\u17C6',
-      error: '\u1780\u17C6\u17A0\u17BB\u179F'
+      finish: 'បានបញ្ចប់',
+      process: 'កំពុងដំណើរការ',
+      wait: 'កំពុងរង់ចាំ',
+      error: 'កំហុស'
     },
-    // វឌ្ឍនភាព
     progress: {
-      success: '\u1787\u17C4\u1782\u1787\u17D0\u1799',
-      exception: '\u1780\u179A\u178E\u17B8\u179B\u17BE\u1780\u179B\u17C2\u1784',
-      warning: '\u1780\u17B6\u179A\u1796\u17D2\u179A\u1798\u17B6\u1793'
+      success: 'ជោគជ័យ',
+      exception: 'ករណីលើកលែង',
+      warning: 'ការព្រមាន'
     },
-    // Skeleton
     skeleton: {
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...'
+      loading: 'កំពុងផ្ទុក...'
     },
-    // ទទេ
     empty: {
-      description: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-      noData: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799',
-      noResult: '\u1782\u17D2\u1798\u17B6\u1793\u179B\u1791\u17D2\u1792\u1795\u179B',
-      networkError: '\u1780\u17C6\u17A0\u17BB\u179F\u1794\u178E\u17D2\u178F\u17B6\u1789',
-      serverError:
-        '\u1780\u17C6\u17A0\u17BB\u179F\u1798\u17C9\u17B6\u179F\u17CA\u17B8\u1793\u1794\u1798\u17D2\u179A\u17BE'
+      description: 'គ្មានទិន្នន័យ',
+      noData: 'គ្មានទិន្នន័យ',
+      noResult: 'គ្មានលទ្ធផល',
+      networkError: 'កំហុសបណ្តាញ',
+      serverError: 'កំហុសម៉ាស៊ីនបម្រើ'
     },
-    // លទ្ធផល
     result: {
-      success: '\u1787\u17C4\u1782\u1787\u17D0\u1799',
-      error: '\u1780\u17C6\u17A0\u17BB\u179F',
-      warning: '\u1780\u17B6\u179A\u1796\u17D2\u179A\u1798\u17B6\u1793',
-      info: '\u1796\u17D0\u178F\u17CC\u1798\u17B6\u1793',
-      backHome:
-        '\u178F\u17D2\u179A\u17A1\u1794\u17CB\u1791\u17C5\u1791\u17C6\u1796\u17D0\u179A\u178A\u17BE\u1798'
+      success: 'ជោគជ័យ',
+      error: 'កំហុស',
+      warning: 'ការព្រមាន',
+      info: 'ព័ត៌មាន',
+      backHome: 'ត្រឡប់ទៅទំព័រដើម'
     },
-    // Waterfall
     waterfall: {
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      noMore:
-        '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799\u1794\u1793\u17D2\u1790\u17C2\u1798\u1791\u17C0\u178F',
-      empty: '\u1782\u17D2\u1798\u17B6\u1793\u1791\u17B7\u1793\u17D2\u1793\u1793\u17D0\u1799'
+      loading: 'កំពុងផ្ទុក...',
+      noMore: 'គ្មានទិន្នន័យបន្ថែមទៀត',
+      empty: 'គ្មានទិន្នន័យ'
     },
-    // ការពិពណ៌នា
     descriptions: {
       colon: ':'
     },
-    // Slider
     slider: {
       tipFormatter: '{value}'
     },
-    // Switch
     switch: {
-      on: '\u1794\u17BE\u1780',
-      off: '\u1794\u17B7\u1791'
+      on: 'បើក',
+      off: 'បិទ'
     },
-    // Checkbox
     checkbox: {
-      selectAll:
-        '\u1787\u17D2\u179A\u17BE\u179F\u179A\u17BE\u179F\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB'
+      selectAll: 'ជ្រើសរើសទាំងអស់'
     },
-    // Radio
     radio: {},
-    // ម៉ឺនុយ
     menu: {
-      collapse: '\u1794\u1784\u17D2\u179A\u17BD\u1798\u1798\u17C9\u17BA\u1793\u17BB\u1799',
-      expand: '\u1796\u1784\u17D2\u179A\u17B8\u1780\u1798\u17C9\u17BA\u1793\u17BB\u1799'
+      collapse: 'បង្រួមម៉ឺនុយ',
+      expand: 'ពង្រីកម៉ឺនុយ'
     },
-    // កាត
     card: {
-      collapse: '\u1794\u1784\u17D2\u179A\u17BD\u1798',
-      expand: '\u1796\u1784\u17D2\u179A\u17B8\u1780'
+      collapse: 'បង្រួម',
+      expand: 'ពង្រីក'
     },
-    // បង្រួម
     collapse: {
-      expand: '\u1796\u1784\u17D2\u179A\u17B8\u1780',
-      collapse: '\u1794\u1784\u17D2\u179A\u17BD\u1798'
+      expand: 'ពង្រីក',
+      collapse: 'បង្រួម'
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Badge
     badge: {},
-    // Avatar
     avatar: {
-      error: '\u1780\u17B6\u179A\u1795\u17D2\u1791\u17BB\u1780\u1794\u179A\u17B6\u1787\u17D0\u1799'
+      error: 'ការផ្ទុកបរាជ័យ'
     },
-    // Watermark
     watermark: {},
-    // Divider
     divider: {},
-    // Carousel
     carousel: {
-      prev: '\u1798\u17BB\u1793',
-      next: '\u1794\u1793\u17D2\u1791\u17B6\u1794\u17CB'
+      prev: 'មុន',
+      next: 'បន្ទាប់'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Anchor
-    anchor: {},
-    // Mention
-    mention: {
-      placeholder: '\u179F\u17BC\u1798\u1794\u1789\u17D2\u1785\u17BC\u179B',
-      loading: '\u1780\u17C6\u1796\u17BB\u1784\u1795\u17D2\u1791\u17BB\u1780...',
-      noData: '\uFFFD \u043D\u0435\u043A\u043E\u0442\u043E\u0440'
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
     },
-    // AI Components
+    anchor: {},
+    mention: {
+      placeholder: 'សូមបញ្ចូល',
+      loading: 'កំពុងផ្ទុក...',
+      noData: '� некотор'
+    },
+    skuselector: {
+      placeholder: 'Select specifications',
+      emptyText: 'No specifications',
+      stock: 'Stock',
+      price: 'Price',
+      selected: 'Selected',
+      outOfStock: 'Out of Stock'
+    },
+    productcard: {
+      viewDetails: 'View Details',
+      buyNow: 'Buy Now',
+      addToCart: 'Add to Cart',
+      sold: 'Sold',
+      soldOut: 'Sold Out',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Original'
+    },
+    couponcard: {
+      available: 'Claim Now',
+      used: 'Used',
+      expired: 'Expired',
+      received: 'Received',
+      limit: 'Orders over {threshold}',
+      noThreshold: 'No threshold',
+      validPeriod: 'Validity',
+      ruleTitle: 'Usage Rules'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Drawing...',
+      end: 'Winner!',
+      retry: 'Retry'
+    },
+    filterbar: {
+      all: 'All',
+      sort: 'Sort',
+      filter: 'Filter',
+      cancel: 'Cancel',
+      reset: 'Reset',
+      confirm: 'Confirm',
+      noOptions: 'No options',
+      asc: 'Ascending',
+      desc: 'Descending',
+      selected: 'Selected'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selected',
+      submit: 'Checkout',
+      allSelect: 'Select All'
+    },
+    categorynav: {
+      all: 'All',
+      noData: 'No Data',
+      loading: 'Loading...'
+    },
+    smartaddress: {
+      placeholder: 'Paste address here, auto-detect name, phone, location',
+      parse: 'Smart Parse',
+      province: 'Province/City/District',
+      city: 'City',
+      district: 'District/County',
+      street: 'Street/Town',
+      detail: 'Detailed Address',
+      phone: 'Phone',
+      name: 'Recipient',
+      parseSuccess: 'Address parsed successfully',
+      parseFailed: 'Parse failed, please fill manually',
+      required: 'Please fill complete address',
+      provinceKeywords: ['Province', 'State'],
+      cityKeywords: ['City', 'Prefecture'],
+      districtKeywords: ['District', 'County', 'Township'],
+      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+    },
+    ganttchart: {
+      taskName: 'Task Name',
+      searchPlaceholder: 'Search tasks...',
+      zoom: 'Zoom',
+      day: 'Day',
+      week: 'Week',
+      month: 'Month',
+      year: 'Year',
+      milestone: 'Milestone'
+    },
+    imagemagnifier: {
+      switchToImage: 'Switch to image {index}',
+      galleryItem: 'Gallery {index}',
+      close: 'Close'
+    },
     ai: {
       bubble: {
-        citations: '\u1780\u17B6\u179A\u178A\u1780\u179F\u17D2\u179A\u1784\u17CB'
+        citations: 'ការដកស្រង់'
       },
       mention: {
-        placeholder:
-          '@ \u179B\u17BE\u1780\u17A1\u17BE\u1784\u1797\u17D2\u1793\u17B6\u1780\u17CB\u1784\u17B6\u179A \u17AF\u1780\u179F\u17B6\u179A \u17AC\u178F\u17B6\u179A\u17B6\u1784...',
-        agent: '\u1797\u17D2\u1793\u17B6\u1780\u17CB\u1784\u17B6\u179A',
-        document: '\u17AF\u1780\u179F\u17B6\u179A',
-        table: '\u178F\u17B6\u179A\u17B6\u1784',
-        knowledge: '\u1785\u17C6\u178E\u17C1\u17C7'
+        placeholder: '@ លើកឡើងភ្នាក់ងារ ឯកសារ ឬតារាង...',
+        agent: 'ភ្នាក់ងារ',
+        document: 'ឯកសារ',
+        table: 'តារាង',
+        knowledge: 'ចំណេះ',
+        file: 'File'
       },
       codeBlock: {
-        copyCode: '\u1785\u1798\u17D2\u179B\u1784\u1780\u17BC\u178A',
-        copied: '\u1794\u17B6\u1793\u1785\u1798\u17D2\u179B\u1784!',
-        run: '\u179A\u178F\u17CB\u1780\u17BC\u178A',
-        edit: '\u1780\u17C2\u179F\u1798\u17D2\u179A\u17BD\u179B',
-        save: '\u179A\u1780\u17D2\u179F\u17B6\u1791\u17BB\u1780',
-        cancel: '\u1794\u17C4\u17C7\u1794\u1784\u17CB'
+        copyCode: 'ចម្លងកូដ',
+        copied: 'បានចម្លង!',
+        run: 'រត់កូដ',
+        edit: 'កែសម្រួល',
+        save: 'រក្សាទុក',
+        cancel: 'បោះបង់'
       },
       codeRunner: {
-        run: '\u179A\u178F\u17CB',
-        stop: '\u1794\u1789\u17D2\u1788\u1794\u17CB',
-        clear: '\u179F\u17C6\u17A2\u17B6\u178F',
-        reset: '\u1780\u17C6\u178E\u178F\u17CB\u17A1\u17BE\u1784\u179C\u17B7\u1789',
-        placeholder:
-          '\u1785\u17BB\u1785\u1794\u17CA\u17BC\u178F\u17BB\u1784 \u179A\u178F\u17CB \u178A\u17BE\u1798\u17D2\u1794\u17B8\u1794\u17D2\u179A\u178F\u17B7\u1794\u178F\u17D2\u178F\u17B7\u1780\u17BC\u178A...'
+        run: 'រត់',
+        stop: 'បញ្ឈប់',
+        clear: 'សំអាត',
+        reset: 'កំណត់ឡើងវិញ',
+        placeholder: 'ចុចប៊ូតុង រត់ ដើម្បីប្រតិបត្តិកូដ...'
       },
       sender: {
-        placeholder: '\u1795\u17D2\u1789\u17BE\u179F\u17B6\u179A...',
-        dragTip:
-          '\u178A\u17C4\u17C7\u178A\u17BE\u1798\u17D2\u1794\u17B8\u1794\u1784\u17D2\u17A0\u17C4\u17C7\u17AF\u1780\u179F\u17B6\u179A'
+        placeholder: 'ផ្ញើសារ...',
+        dragTip: 'ដោះដើម្បីបង្ហោះឯកសារ',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
-        thoughtProcess: '\u178A\u17C6\u178E\u17BE\u179A\u1780\u17B6\u179A\u1782\u17B7\u178F',
-        thinking: '\u1780\u17C6\u1796\u17BB\u1784\u1782\u17B7\u178F...',
-        defaultTitle: '\u1787\u17C6\u17A0\u17B6\u1793\u1790\u17D2\u1798\u17B8',
-        addNode: '\u1794\u1793\u17D2\u1790\u17C2\u1798\u1787\u17C6\u17A0\u17B6\u1793'
+        thoughtProcess: 'ដំណើរការគិត',
+        thinking: 'កំពុងគិត...',
+        defaultTitle: 'ជំហានថ្មី',
+        addNode: 'បន្ថែមជំហាន'
       },
       thinking: {
-        start: '\u1785\u17B6\u1794\u17CB\u1795\u17D2\u178F\u17BE\u1798\u1782\u17B7\u178F',
-        thinking: '\u1780\u17C6\u1796\u17BB\u1784\u1782\u17B7\u178F...',
-        complete:
-          '\u1780\u17B6\u179A\u1782\u17B7\u178F\u1794\u17B6\u1793\u1794\u1789\u17D2\u1785\u1794\u17CB',
-        error:
-          '\u1780\u17C6\u17A0\u17BB\u179F\u1780\u17D2\u1793\u17BB\u1784\u1780\u17B6\u179A\u1782\u17B7\u178F'
+        start: 'ចាប់ផ្តើមគិត',
+        thinking: 'កំពុងគិត...',
+        complete: 'ការគិតបានបញ្ចប់',
+        error: 'កំហុសក្នុងការគិត'
       },
       welcome: {
-        title:
-          '\u179F\u17BD\u179F\u17D2\u178F\u17B8 \u1781\u17D2\u1789\u17BB\u17C6\u1782\u17BA YH AI',
+        title: 'សួស្តី ខ្ញុំគឺ YH AI',
         description:
-          '\u1781\u17D2\u1789\u17BB\u17C6\u17A2\u17B6\u1785\u1787\u17BD\u1799\u17A2\u17D2\u1793\u1780\u1780\u17D2\u1793\u17BB\u1784\u1780\u17B6\u179A\u179F\u179A\u179F\u17C1\u179A\u1780\u17BC\u178A \u1794\u1780\u1794\u17D2\u179A\u17C2\u17AF\u1780\u179F\u17B6\u179A \u17AC\u179F\u179A\u179F\u17C1\u179A\u1785\u17D2\u1793\u17C3\u1794\u17D2\u179A\u178C\u17B7\u178F\u17D4 \u178F\u17BE\u1798\u17B6\u1793\u17A2\u17D2\u179C\u17B8\u178A\u17C2\u179B\u1781\u17D2\u1789\u17BB\u17C6\u17A2\u17B6\u1785\u1792\u17D2\u179C\u17BE\u1794\u17B6\u1793\u179F\u1798\u17D2\u179A\u17B6\u1794\u17CB\u17A2\u17D2\u1793\u1780\u1790\u17D2\u1784\u17C3\u1793\u17C1\u17C7?'
+          'ខ្ញុំអាចជួយអ្នកក្នុងការសរសេរកូដ បកប្រែឯកសារ ឬសរសេរច្នៃប្រឌិត។ តើមានអ្វីដែលខ្ញុំអាចធ្វើបានសម្រាប់អ្នកថ្ងៃនេះ?'
       },
       action: {
-        copy: '\u1785\u1798\u17D2\u179B\u1784',
-        regenerate: '\u1794\u1784\u17D2\u1780\u17BE\u178F\u17A1\u17BE\u1784\u179C\u17B7\u1789',
-        share: '\u1785\u17C2\u1780\u179A\u17C6\u179B\u17C2\u1780',
-        like: '\u1785\u17BC\u179B\u1785\u17B7\u178F\u17D2\u178F',
-        dislike: '\u1798\u17B7\u1793\u1785\u17BC\u179B\u1785\u17B7\u178F\u17D2\u178F',
-        edit: '\u1780\u17C2\u179F\u1798\u17D2\u179A\u17BD\u179B',
-        delete: '\u179B\u17BB\u1794'
+        copy: 'ចម្លង',
+        regenerate: 'បង្កើតឡើងវិញ',
+        share: 'ចែករំលែក',
+        like: 'ចូលចិត្ត',
+        dislike: 'មិនចូលចិត្ត',
+        edit: 'កែសម្រួល',
+        delete: 'លុប'
       },
       artifacts: {
-        preview: '\u1798\u17BE\u179B\u1787\u17B6\u1798\u17BB\u1793',
-        inline: '\u1780\u17D2\u1793\u17BB\u1784\u1794\u1793\u17D2\u1791\u17B6\u178F\u17CB',
-        code: '\u1794\u17D2\u179A\u1797\u1796\u1780\u17BC\u178A',
-        versions: '\u1780\u17C6\u178E\u17C2\u1791\u1798\u17D2\u179A\u1784\u17CB',
-        rendering:
-          '\u1780\u17C6\u1796\u17BB\u1784\u1794\u1784\u17D2\u17A0\u17B6\u1789\u1792\u17B6\u178F\u17BB...',
-        renderingChart:
-          '\u1780\u17C6\u1796\u17BB\u1784\u1782\u17BC\u179F\u178F\u17B6\u179A\u17B6\u1784...',
-        renderingCanvas:
-          '\u1780\u17C6\u1796\u17BB\u1784\u179A\u17C0\u1794\u1785\u17C6\u1795\u17D2\u1791\u17B6\u17C6\u1784\u1782\u17C6\u1793\u17BC\u179F...'
+        preview: 'មើលជាមុន',
+        inline: 'ក្នុងបន្ទាត់',
+        code: 'ប្រភពកូដ',
+        versions: 'កំណែទម្រង់',
+        rendering: 'កំពុងបង្ហាញធាតុ...',
+        renderingChart: 'កំពុងគូសតារាង...',
+        renderingCanvas: 'កំពុងរៀបចំផ្ទាំងគំនូស...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
-        trigger:
-          '\u1785\u17BB\u1785\u178A\u17BE\u1798\u17D2\u1794\u17B8\u1793\u17B7\u1799\u17B6\u1799',
-        listening: '\u1780\u17C6\u1796\u17BB\u1784\u179F\u17D2\u178F\u17B6\u1794\u17CB...'
+        trigger: 'ចុចដើម្បីនិយាយ',
+        listening: 'កំពុងស្តាប់...'
       },
       agent: {
-        uses: '\u1780\u17B6\u179A\u1794\u17D2\u179A\u17BE\u1794\u17D2\u179A\u17B6\u179F\u17CB',
-        use: '\u1794\u17D2\u179A\u17BE\u17A5\u17A1\u17BC\u179C',
-        favorite: '\u1785\u17C6\u178E\u17BC\u179B\u1785\u17B7\u178F\u17D2\u178F',
-        unfavorite:
-          '\u178A\u1780\u1785\u17C1\u1789\u1796\u17B8\u1785\u17C6\u178E\u17BC\u179B\u1785\u17B7\u178F\u17D2\u178F',
-        share: '\u1785\u17C2\u1780\u179A\u17C6\u179B\u17C2\u1780',
-        online: '\u179B\u17BE\u1794\u178E\u17D2\u178F\u17B6\u1789',
-        offline: '\u1780\u17D2\u179A\u17C5\u1794\u178E\u17D2\u178F\u17B6\u1789',
-        busy: '\u179A\u179C\u179B\u17CB',
-        verified: '\u1794\u17B6\u1793\u1794\uFFFD\u17D2\u1787\u17B6\u1780\u17CB',
-        rating: '\u1780\u17B6\u179A\u179C\u17B6\u1799\u178F\u1798\u17D2\u1794\u17C9',
-        reviews: '\u1780\u17B6\u179A\u1796\u17B7\u1793\u17B7\u178F\u17D2\u1799',
-        responseTime:
-          '\u1796\u17C1\u179B\u179C\u17C1\u179B\u17B6\u1786\u17D2\u179B\u17BE\u1799\u178F\u1794\u1798\u1792\u17D2\u1799\u1780\u1798\u17D2\u1798',
-        ms: '\u1798\u17B7\u179B\u17D2\u179B\u17B8\u179C\u17B7\u1793\u17B6\u1791\u17B8'
+        uses: 'ការប្រើប្រាស់',
+        use: 'ប្រើឥឡូវ',
+        favorite: 'ចំណូលចិត្ត',
+        unfavorite: 'ដកចេញពីចំណូលចិត្ត',
+        share: 'ចែករំលែក',
+        online: 'លើបណ្តាញ',
+        offline: 'ក្រៅបណ្តាញ',
+        busy: 'រវល់',
+        verified: 'បានប�្ជាក់',
+        rating: 'ការវាយតម្ប៉',
+        reviews: 'ការពិនិត្យ',
+        responseTime: 'ពេលវេលាឆ្លើយតបមធ្យកម្ម',
+        ms: 'មិល្លីវិនាទី'
       },
       sources: {
-        references: '\u17AF\u1780\u179F\u17B6\u179A\u1799\u17C4\u1784',
-        referencedSources:
-          '\u1794\u17D2\u179A\u1797\u1796\u178A\u17C2\u179B\u1794\u17B6\u1793\u1799\u17C4\u1784',
-        relevant: '\u1797\u17B6\u1796\u1796\u17B6\u1780\u17CB\u179F\u17D2\u1790\u17B6\u1793',
-        viewOriginal: '\u1798\u17BE\u179B\u1794\u17D2\u179A\u1797\u1796',
-        showAll: '\u1794\u1784\u17D2\u17A0\u17B6\u1789\u1791\u17B6\u17C6\u1784\u17A2\u179F\u17CB',
-        more: '\u1794\u17D2\u179A\u1797\u1796\u1794\u1793\u17D2\u1790\u17C2\u1798\u1791\u17C0\u178F',
-        drawerTitle: '\u17AF\u1780\u179F\u17B6\u179A\u1799\u17C4\u1784',
-        expandMore: '\u1794\u1784\u17D2\u17A0\u17B6\u1789\u1794\u1793\u17D2\u1790\u17C2\u1798',
-        collapseMore: '\u1794\u1784\u17D2\u179A\u17BD\u1798',
-        noSources: '\u1782\u17D2\u1798\u17B6\u1793\u1794\u17D2\u179A\u1797\u1796',
-        today: '\u1790\u17D2\u1784\u17C3\u1793\u17C1\u17C7',
-        last7Days: '\u17E7\u1790\u17D2\u1784\u17C3\u1798\u17BB\u1793',
-        last30Days: '\u17E3\u17E0\u1790\u17D2\u1784\u17C3\u1798\u17BB\u1793',
-        earlier: '\u1798\u17BB\u1793',
-        pinned: '\u1794\u17B6\u1793\u1794\u17B7\u1791'
+        references: 'ឯកសារយោង',
+        referencedSources: 'ប្រភពដែលបានយោង',
+        relevant: 'ភាពពាក់ស្ថាន',
+        viewOriginal: 'មើលប្រភព',
+        showAll: 'បង្ហាញទាំងអស់',
+        more: 'ប្រភពបន្ថែមទៀត',
+        drawerTitle: 'ឯកសារយោង',
+        expandMore: 'បង្ហាញបន្ថែម',
+        collapseMore: 'បង្រួម',
+        noSources: 'គ្មានប្រភព',
+        today: 'ថ្ងៃនេះ',
+        last7Days: '៧ថ្ងៃមុន',
+        last30Days: '៣០ថ្ងៃមុន',
+        earlier: 'មុន',
+        pinned: 'បានបិទ'
       },
       conversations: {
-        today: '\u1790\u17D2\u1784\u17C3\u1793\u17C1\u17C7',
-        last7Days: '\u17E7\u1790\u17D2\u1784\u17C3\u1798\u17BB\u1793',
-        last30Days: '\u17E3\u17E0\u1790\u17D2\u1784\u17C3\u1798\u17BB\u1793',
-        earlier: '\u1798\u17BB\u1793',
-        pinned: '\u1794\u17B6\u1793\u1794\u17B7\u1791',
-        pin: '\u1794\u17B7\u1791',
-        unpin: '\u1794\u17BE\u1780',
-        newConversation:
-          '\u1780\u17B6\u179A\u179F\u1793\u17D2\u1791\u1793\u17B6\u1790\u17D2\u1798\u17B8',
-        rename: '\u1794\u17D2\u178F\u17BC\u179A\u1788\u17D2\u1798\u17C4\u17C7',
-        delete: '\u179B\u17BB\u1794',
-        deleteConfirm:
-          '\u178F\u17BE\u17A2\u17D2\u1793\u1780\u1796\u17B7\u178F\u1787\u17B6\u1785\u1784\u17CB\u179B\u17BB\u1794\u1780\u17B6\u179A\u179F\u1793\u17D2\u1791\u1793\u17B6\u1793\u17C1\u17C7\u1791\u17C1?'
+        today: 'ថ្ងៃនេះ',
+        last7Days: '៧ថ្ងៃមុន',
+        last30Days: '៣០ថ្ងៃមុន',
+        earlier: 'មុន',
+        pinned: 'បានបិទ',
+        pin: 'បិទ',
+        unpin: 'បើក',
+        newConversation: 'ការសន្ទនាថ្មី',
+        noData: 'No conversations yet',
+        rename: 'ប្តូរឈ្មោះ',
+        delete: 'លុប',
+        deleteConfirm: 'តើអ្នកពិតជាចង់លុបការសន្ទនានេះទេ?'
+      },
+      attachments: {
+        dropTip: 'Drop files here to upload',
+        clickToUpload: 'Click or drag files to upload',
+        uploadSuccess: 'Upload success',
+        uploadError: 'Upload failed',
+        deleteConfirm: 'Are you sure to delete this file?',
+        fileTooLarge: 'File size cannot exceed {size}',
+        invalidFileType: 'Invalid file type'
+      },
+      mermaid: {
+        image: 'Image',
+        code: 'Code',
+        zoomIn: 'Zoom In',
+        zoomOut: 'Zoom Out',
+        reset: 'Reset',
+        download: 'Download',
+        copyCode: 'Copy Code',
+        rendering: 'Rendering...',
+        renderError: 'Render failed',
+        renderSuccess: 'Render success',
+        retry: 'Retry'
       }
     }
   }
 }
+
 export default km

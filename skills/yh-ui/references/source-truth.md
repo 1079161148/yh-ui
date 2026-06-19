@@ -98,7 +98,7 @@ Expose: `clear`, `reset`, `run`, `stop`
 
 ### YhAiFileCard
 
-Props: `audioProps`, `byte`, `description`, `icon`, `imageProps`, `loading`, `mask`, `name`, `size`, `src`, `themeOverrides`, `type`, `videoProps`
+Props: `audioProps`, `byte`, `description`, `extension`, `icon`, `imageProps`, `items`, `loading`, `mask`, `name`, `onClick`, `onRemove`, `overflow`, `removable`, `size`, `src`, `themeOverrides`, `type`, `videoProps`
 Emits: `click`
 Slots: `default`
 Expose: None detected
@@ -131,6 +131,69 @@ Emits: `node-add`, `node-click`, `node-delete`, `reorder`, `update:items`
 Slots: `default`
 Expose: None detected
 
+### YhButton
+
+Props: `autofocus`, `block`, `circle`, `color`, `disabled`, `icon`, `iconPosition`, `link`, `loading`, `nativeType`, `plain`, `round`, `size`, `suffixIcon`, `tag`, `text`, `themeOverrides`, `type`
+Emits: None detected
+Slots: `default`, `icon`, `loading`, `suffixIcon`
+Expose: `disabled`, `ref`, `size`, `type`
+
+### YhCategoryNav
+
+Props: `anchor`, `categories`, `columns`, `loading`, `modelValue`, `showAll`, `sideWidth`, `subImageSize`, `subValue`, `themeOverrides`
+Emits: `categoryClick`, `subCategoryClick`, `update:modelValue`, `update:subValue`
+Slots: `all-icon`, `default`, `footer`, `header`, `section-footer`, `section-header`, `sub-item`
+Expose: None detected
+
+### YhConfigProvider
+
+Props: `global`, `locale`, `message`, `size`, `theme`, `zIndex`
+Emits: None detected
+Slots: `default`
+Expose: None detected
+
+### YhCouponCard
+
+Props: `actionText`, `amount`, `badge`, `badgeType`, `description`, `disabled`, `percent`, `percentText`, `ruleTitle`, `rules`, `selectable`, `selected`, `status`, `symbol`, `themeOverrides`, `threshold`, `title`, `validPeriod`, `variant`
+Emits: `action`, `click`, `update:selected`
+Slots: `action`, `badge`, `default`, `description`, `rules`, `seal`, `title`
+Expose: None detected
+
+### YhDatePicker
+
+Props: `cellRender`, `cellShape`, `clearIcon`, `clearable`, `dateFormat`, `defaultTime`, `defaultValue`, `disabled`, `disabledDate`, `endPlaceholder`, `firstDayOfWeek`, `format`, `id`, `modelValue`, `name`, `orderOnConfirm`, `panelOnly`, `placeholder`, `popperClass`, `prefixIcon`, `presetPosition`, `presets`, `rangeSeparator`, `readonly`, `showFooter`, `size`, `startPlaceholder`, `status`, `teleported`, `themeOverrides`, `timeFormat`, `type`
+Emits: `blur`, `change`, `clear`, `confirm`, `focus`, `panel-change`, `update:modelValue`, `visible-change`
+Slots: `clear-icon`, `date-cell`, `default`, `extra`, `footer`, `prefix-icon`
+Expose: None detected
+
+### YhDialog
+
+Props: `action`, `actionClass`, `actionStyle`, `alignCenter`, `autoFocus`, `beforeClose`, `cancelText`, `center`, `closeIcon`, `closeOnClickModal`, `closeOnPressEscape`, `confirmText`, `content`, `contentAlign`, `contentClass`, `contentStyle`, `customClass`, `destroyOnClose`, `draggable`, `footerAlign`, `footerAlignCenter`, `fullscreen`, `glass`, `headerAlign`, `headerAlignCenter`, `loading`, `lockScroll`, `modal`, `modalClass`, `modelValue`, `overflow`, `showClose`
+Emits: `cancel`, `close`, `closed`, `confirm`, `dragEnd`, `dragMove`, `dragStart`, `open`, `opened`, `update:modelValue`
+Slots: `default`, `footer`, `header`, `title`
+Expose: `dialogRef`, `handleCancel`, `handleClose`, `handleConfirm`, `visible`
+
+### YhDrawer
+
+Props: `beforeClose`, `closeIcon`, `closeOnClickModal`, `closeOnPressEscape`, `contentStyle`, `customClass`, `destroyOnClose`, `drawerStyle`, `footerStyle`, `glass`, `inner`, `lockScroll`, `maxSize`, `minSize`, `modal`, `modalClass`, `modelValue`, `placement`, `resizable`, `round`, `showClose`, `showFooter`, `showHeader`, `size`, `teleportTo`, `themeOverrides`, `title`, `titleStyle`, `zIndex`
+Emits: `close`, `closed`, `open`, `opened`, `resize`, `update:modelValue`
+Slots: `close-icon`, `default`, `footer`, `header`, `title`
+Expose: `drawerRef`, `handleClose`
+
+### YhFilterBar
+
+Props: `filterInPanel`, `filterValue`, `filters`, `showAll`, `showGlobalFilter`, `showViewToggle`, `sort`, `sorts`, `sticky`, `stickyOffset`, `teleported`, `themeOverrides`, `viewType`
+Emits: `confirm`, `filterChange`, `openFilter`, `reset`, `resetPanel`, `sortChange`, `update:filterValue`, `update:sort`, `update:viewType`, `viewChange`
+Slots: `default`, `extra`, `filter`, `filter-icon`, `view-icon`
+Expose: None detected
+
+### YhForm
+
+Props: `disabled`, `hideRequiredAsterisk`, `labelPosition`, `labelSuffix`, `labelWidth`, `layout`, `model`, `rules`, `scrollIntoViewOptions`, `scrollToError`, `scrollToErrorOffset`, `showMessage`, `size`, `statusIcon`, `themeOverrides`
+Emits: `validate`
+Slots: `default`
+Expose: `clearValidate`, `resetFields`, `scrollToField`, `validate`
+
 ### YhFormSchema
 
 Props: `formProps`, `gutter`, `modelValue`, `schema`
@@ -138,12 +201,96 @@ Emits: `change`, `submit`, `update:modelValue`, `validate`
 Slots: `default`
 Expose: `clearValidate`, `formRef`, `getModel`, `resetFields`, `scrollToField`, `setFieldValue`, `validate`
 
+### YhGanttChart
+
+Props: None detected
+Emits: None detected
+Slots: `default`, `table-cell`, `task-content`, `tooltip`
+Expose: None detected
+
+### YhInput
+
+Props: `ariaLabel`, `autocomplete`, `autofocus`, `autosize`, `clearIcon`, `clearOnEscape`, `clearable`, `countConfig`, `disabled`, `form`, `formatter`, `id`, `inputStyle`, `inputmode`, `label`, `list`, `loading`, `maxlength`, `minlength`, `modelModifiers`, `modelValue`, `name`, `parser`, `placeholder`, `prefix`, `prefixIcon`, `readonly`, `resize`, `rows`, `selectOnFocus`, `showPassword`, `showWordLimit`
+Emits: None detected
+Slots: `append`, `clearIcon`, `default`, `loadingIcon`, `prefix`, `prepend`, `suffix`
+Expose: `blur`, `clear`, `focus`, `ref`, `select`, `textLength`, `wrapperRef`
+
+### YhLuckyDraw
+
+Props: `actionText`, `duration`, `hideBtn`, `loading`, `prizes`, `rounds`, `size`, `targetId`, `themeOverrides`, `type`
+Emits: `click`, `finish`, `start`
+Slots: `action`, `default`, `prize`
+Expose: None detected
+
+### YhOption
+
+Props: `allowCreate`, `clearable`, `collapseTags`, `collapseTagsTooltip`, `disabled`, `filterMethod`, `filterable`, `fitInputWidth`, `height`, `itemHeight`, `label`, `labelKey`, `loading`, `loadingText`, `maxCollapseTags`, `modelValue`, `multiple`, `multipleLimit`, `noDataText`, `noMatchText`, `options`, `placeholder`, `popperClass`, `remote`, `remoteMethod`, `size`, `tagType`, `teleported`, `themeOverrides`, `validateEvent`, `value`, `valueKey`
+Emits: None detected
+Slots: `default`, `empty`, `prefix`, `tag`
+Expose: `blur`, `focus`, `inputRef`
+
+### YhPagination
+
+Props: `background`, `circle`, `currentPage`, `disabled`, `hideOnSinglePage`, `layout`, `nextText`, `pageSize`, `pageSizes`, `pagerCount`, `prevText`, `small`, `themeOverrides`, `total`
+Emits: None detected
+Slots: `default`, `next-icon`, `prev-icon`
+Expose: `currentPage`, `pageCount`, `pageSize`
+
+### YhPrice
+
+Props: `animated`, `approx`, `bold`, `decimalScale`, `deleteLabel`, `deleteValue`, `gradient`, `lineThrough`, `maxValue`, `precision`, `prefix`, `size`, `split`, `suffix`, `symbol`, `symbolPosition`, `tag`, `tagType`, `themeOverrides`, `thousandth`, `unit`, `value`
+Emits: None detected
+Slots: `default`, `prefix`, `suffix`, `symbol`, `tag`, `unit`
+Expose: None detected
+
+### YhProductCard
+
+Props: `actionLoading`, `actionText`, `badgePosition`, `badges`, `border`, `currency`, `description`, `descriptionLines`, `exposure`, `exposureOnce`, `exposureThreshold`, `hoverImage`, `image`, `layout`, `lazy`, `marketPrice`, `price`, `readonly`, `ribbon`, `ribbonColor`, `shadow`, `soldOut`, `stockColor`, `stockProgress`, `stockText`, `tag`, `tagType`, `themeOverrides`, `title`, `titleLines`, `unit`, `videoSrc`
+Emits: `action`, `click`, `expose`
+Slots: `description`, `footer`, `title`
+Expose: None detected
+
+### YhSelect
+
+Props: `allowCreate`, `clearable`, `collapseTags`, `collapseTagsTooltip`, `disabled`, `filterMethod`, `filterable`, `fitInputWidth`, `height`, `itemHeight`, `label`, `labelKey`, `loading`, `loadingText`, `maxCollapseTags`, `modelValue`, `multiple`, `multipleLimit`, `noDataText`, `noMatchText`, `options`, `placeholder`, `popperClass`, `remote`, `remoteMethod`, `size`, `tagType`, `teleported`, `themeOverrides`, `validateEvent`, `value`, `valueKey`
+Emits: None detected
+Slots: `default`, `empty`, `option`, `prefix`, `tag`
+Expose: `blur`, `focus`, `inputRef`
+
+### YhSkuSelector
+
+Props: `allowUnselect`, `checkStock`, `disabled`, `imageSize`, `modelValue`, `placeholder`, `showSelectedSummary`, `size`, `skus`, `specs`, `summaryPrefix`, `themeOverrides`
+Emits: `change`, `select`, `update:modelValue`
+Slots: `default`, `label`, `summary`, `value`
+Expose: None detected
+
+### YhSmartAddress
+
+Props: `childrenField`, `detailPlaceholder`, `disabled`, `labelField`, `labelPlacement`, `modelValue`, `namePlaceholder`, `parseButtonText`, `parsePlaceholder`, `parser`, `phonePlaceholder`, `placeholder`, `regionOptions`, `regionType`, `required`, `showName`, `showParser`, `showPhone`, `showStreet`, `streetPlaceholder`, `themeOverrides`, `valueField`
+Emits: `change`, `parsed`, `update:modelValue`
+Slots: `default`, `extra`, `parse-icon`, `region`
+Expose: None detected
+
+### YhSubmitBar
+
+Props: `buttonText`, `buttonType`, `centUnit`, `checked`, `currency`, `decimalLength`, `disabled`, `indeterminate`, `label`, `loading`, `price`, `safeAreaInsetBottom`, `selectedCount`, `showCheckbox`, `themeOverrides`, `tip`
+Emits: `check-change`, `submit`, `update:checked`
+Slots: `button`, `default`, `left`, `price`, `right`, `tip`
+Expose: None detected
+
 ### YhTable
 
 Props: `autoHeight`, `border`, `cellClassName`, `cellStyle`, `columns`, `contextMenuConfig`, `currentRowKey`, `data`, `dragConfig`, `emptyConfig`, `emptyText`, `expandConfig`, `filterConfig`, `fit`, `headerCellClassName`, `headerCellStyle`, `headerConfig`, `headerRowClassName`, `headerRowStyle`, `height`, `highlightCurrentRow`, `indexConfig`, `keepScroll`, `lazy`, `loadMethod`, `loading`, `maxHeight`, `pagination`, `resizable`, `rowClassName`, `rowConfig`, `rowKey`
 Emits: `cell-click`, `cell-dblclick`, `column-resize`, `column-visible-change`, `current-change`, `drag-end`, `expand-change`, `filter-change`, `header-click`, `header-contextmenu`, `page-change`, `row-click`, `row-contextmenu`, `row-dblclick`, `scroll`, `select`, `select-all`, `selection-change`, `sort-change`, `update:currentRowKey`, `update:data`
 Slots: `default`, `toolbar`, `toolbar-left`, `toolbar-left-prefix`, `toolbar-left-suffix`, `toolbar-right`, `toolbar-right-prefix`, `toolbar-right-suffix`
 Expose: `clearFilter`, `clearSelection`, `clearSort`, `doLayout`, `exportData`, `filter`, `getColumns`, `getExpandedRowKeys`, `getSelectionRowKeys`, `getSelectionRows`, `getTableData`, `importData`, `importFile`, `insertRow`, `openImport`, `print`, `printMultiple`, `printTemplate`, `refresh`, `removeRow`, `resetColumns`, `scrollTo`, `setColumnVisible`, `setCurrentRow`
+
+### YhUpload
+
+Props: `accept`, `action`, `autoUpload`, `beforeRemove`, `beforeUpload`, `crossorigin`, `data`, `directory`, `disabled`, `drag`, `fileIcon`, `fileList`, `headers`, `httpRequest`, `limit`, `listType`, `maxSize`, `method`, `multiple`, `name`, `showDownload`, `showFileList`, `themeOverrides`, `thumbnailRequest`, `triggerPosition`, `withCredentials`
+Emits: `change`, `download`, `error`, `exceed`, `preview`, `progress`, `remove`, `success`, `update:fileList`
+Slots: `default`, `file`, `file-icon`, `tip`, `trigger`
+Expose: `handleDownload`, `handleFiles`, `handlePreview`, `handleRemove`, `submit`, `triggerInput`
 
 ## `@yh-ui/hooks` Exports
 

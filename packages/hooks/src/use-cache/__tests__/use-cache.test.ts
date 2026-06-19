@@ -1,8 +1,12 @@
-import { describe, it, expect, vi } from 'vitest'
-import { useCache } from '../index'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { useCache, clearCache } from '../index'
 
 describe('useCache', () => {
-  it('should initialize with null data', () => {
+  beforeEach(() => {
+    clearCache()
+  })
+
+  it('should initialize with null data when cache is empty', () => {
     const { data } = useCache('test-key', () => 'data')
     expect(data.value).toBeNull()
   })
@@ -14,6 +18,22 @@ describe('useCache', () => {
     await execute()
     expect(fetcher).toHaveBeenCalled()
     expect(data.value).toBe('cached-data')
+  })
+
+  it('should initialize with cached data if key exists in cache', async () => {
+    const fetcher1 = vi.fn().mockReturnValue('value-1')
+    const cache1 = useCache('shared-key', fetcher1)
+    await cache1.execute()
+    expect(cache1.data.value).toBe('value-1')
+
+    const fetcher2 = vi.fn().mockReturnValue('value-2')
+    const cache2 = useCache('shared-key', fetcher2)
+    // Should initialize with value-1 immediately
+    expect(cache2.data.value).toBe('value-1')
+
+    // execute should still be able to update
+    await cache2.execute()
+    expect(cache2.data.value).toBe('value-2')
   })
 
   it('should handle async fetchers', async () => {

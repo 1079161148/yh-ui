@@ -1,5 +1,7 @@
 import { shallowRef, type ShallowRef } from 'vue'
 
+const cacheMap = new Map<string, unknown>()
+
 export interface UseCacheReturn<T> {
   data: ShallowRef<T | null>
   execute: () => Promise<void>
@@ -10,13 +12,14 @@ export interface UseCacheReturn<T> {
  * 在服务端可以将结果存入缓存，客户端可以从缓存中恢复或重新计算
  */
 export function useCache<T>(key: string, fetcher: () => T | Promise<T>): UseCacheReturn<T> {
-  const data = shallowRef<T | null>(null)
+  const cachedValue = cacheMap.has(key) ? (cacheMap.get(key) as T) : null
+  const data = shallowRef<T | null>(cachedValue)
 
-  // 简单的内存缓存（在单次请求生命周期内有效）
-  // 注意：在实际 Nuxt 环境中，建议配合 useAsyncData 使用
   const execute = async () => {
     try {
-      data.value = await fetcher()
+      const result = await fetcher()
+      cacheMap.set(key, result)
+      data.value = result
     } catch (err) {
       console.error(`[YH-UI] Cache fetcher error for key ${key}:`, err)
     }
@@ -26,4 +29,11 @@ export function useCache<T>(key: string, fetcher: () => T | Promise<T>): UseCach
     data,
     execute
   }
+}
+
+/**
+ * 清除所有缓存 (用于测试或手动重置)
+ */
+export function clearCache(): void {
+  cacheMap.clear()
 }

@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const hu: Language = {
   name: 'hu',
   yh: {
-    // Általános
     common: {
       yes: 'Igen',
       no: 'Nem',
@@ -27,7 +26,6 @@ export const hu: Language = {
       selectAll: 'Összes kijelölése',
       unselectAll: 'Kijelölés megszüntetése'
     },
-    // Színválasztó
     colorpicker: {
       confirm: 'OK',
       clear: 'Törlés',
@@ -37,7 +35,6 @@ export const hu: Language = {
       recentColors: 'Legutóbbi színek',
       presetColors: 'Előre beállított színek'
     },
-    // Dátumválasztó
     datepicker: {
       now: 'Most',
       today: 'Ma',
@@ -89,7 +86,6 @@ export const hu: Language = {
         q4: 'N4'
       }
     },
-    // Időválasztó
     timepicker: {
       confirm: 'OK',
       cancel: 'Mégse',
@@ -99,11 +95,9 @@ export const hu: Language = {
       endPlaceholder: 'Befejező idő',
       selectTime: 'Válasszon időt'
     },
-    // Idő kiválasztása
     timeselect: {
       placeholder: 'Válasszon időt'
     },
-    // Fa
     tree: {
       emptyText: 'Nincs adat',
       loading: 'Betöltés...',
@@ -112,14 +106,12 @@ export const hu: Language = {
       expandAll: 'Összes kibontása',
       collapseAll: 'Összes összecsukása'
     },
-    // Fa kiválasztó
     treeselect: {
       placeholder: 'Válasszon',
       emptyText: 'Nincs adat',
       loading: 'Betöltés...',
       noMatch: 'Nincs találat'
     },
-    // Naptár
     calendar: {
       prevMonth: 'Előző hónap',
       nextMonth: 'Következő hónap',
@@ -140,14 +132,12 @@ export const hu: Language = {
         sat: 'Szo'
       }
     },
-    // Automatikus kiegészítés
     autocomplete: {
       loading: 'Betöltés...',
       placeholder: 'Kérjük, írjon be',
       noData: 'Nincs adat',
       noMatch: 'Nincs találat'
     },
-    // Visszaszámlálás
     countdown: {
       days: 'nap',
       hours: 'óra',
@@ -156,14 +146,12 @@ export const hu: Language = {
       milliseconds: 'ezredmásodperc',
       finished: 'Befejezve'
     },
-    // Kaszkád választó
     cascader: {
       noMatch: 'Nincs találat',
       placeholder: 'Válasszon',
       loading: 'Betöltés...',
       noData: 'Nincs adat'
     },
-    // Átvitel
     transfer: {
       noMatch: 'Nincs találat',
       noData: 'Nincs adat',
@@ -173,7 +161,6 @@ export const hu: Language = {
       hasCheckedFormat: '{checked}/{total} kijelölve',
       searchPlaceholder: 'Kulcsszó megadása'
     },
-    // Táblázat
     table: {
       emptyText: 'Nincs adat',
       confirmFilter: 'Megerősítés',
@@ -190,7 +177,6 @@ export const hu: Language = {
       page: '{page}. oldal',
       yes: 'Igen',
       no: 'Nem',
-      // Eszköztár
       toolbar: {
         refresh: 'Frissítés',
         density: 'Sűrűség',
@@ -205,7 +191,6 @@ export const hu: Language = {
         search: 'Keresés',
         searchPlaceholder: 'Adja meg a keresési kulcsszavakat'
       },
-      // Szűrő
       filter: {
         selectAll: 'Összes kijelölése',
         selectInvert: 'Kijelölés megfordítása',
@@ -221,13 +206,11 @@ export const hu: Language = {
         lessThan: 'Kisebb mint',
         between: 'Között'
       },
-      // Rendezés
       sort: {
         asc: 'Növekvő',
         desc: 'Csökkenő',
         clear: 'Rendezés törlése'
       },
-      // Exportálás
       export: {
         title: 'Adatok exportálása',
         filename: 'Fájlnév',
@@ -241,7 +224,6 @@ export const hu: Language = {
         success: 'Exportálás sikeres',
         error: 'Exportálási hiba'
       },
-      // Importálás
       import: {
         title: 'Adatok importálása',
         selectFile: 'Válasszon fájlt',
@@ -252,7 +234,6 @@ export const hu: Language = {
         preview: 'Adatok előnézete',
         confirm: 'Importálás megerősítése'
       },
-      // Nyomtatás
       printConfig: {
         title: 'Nyomtatási beállítások',
         pageTitle: 'Oldal címe',
@@ -265,7 +246,6 @@ export const hu: Language = {
         portrait: 'Álló',
         printing: 'Nyomtatás...'
       },
-      // Oszlopbeállítások
       columnSetting: {
         title: 'Oszlopbeállítások',
         showAll: 'Összes megjelenítése',
@@ -275,7 +255,6 @@ export const hu: Language = {
         fixedRight: 'Rögzítés jobbra',
         unfixed: 'Rögzítés feloldása'
       },
-      // Helyi menü
       contextMenu: {
         copy: 'Másolás',
         copyRow: 'Sor másolása',
@@ -287,31 +266,26 @@ export const hu: Language = {
         deleteSelectedRows: 'Kijelölt sorok törlése',
         exportSelected: 'Kijelöltek exportálása'
       },
-      // Kijelölés
       selection: {
         selectAll: 'Összes kijelölése',
         selectInvert: 'Kijelölés megfordítása',
         selectNone: 'Kijelölés törlése',
         selected: '{count} elem kijelölve'
       },
-      // Kibontás
       expand: {
         expandAll: 'Összes kibontása',
         collapseAll: 'Összes összecsukása'
       },
-      // Fa
       tree: {
         expandAll: 'Összes kibontása',
         collapseAll: 'Összes összecsukása',
         expandLevel: 'Kibontás {level} szintig'
       },
-      // Húzás
       drag: {
         dragTip: 'Húzza a sorrend módosításához',
         dropTip: 'Engedje el az elhelyezéshez'
       }
     },
-    // Üzenetdoboz
     messagebox: {
       title: 'Üzenet',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const hu: Language = {
       prompt: 'Súgó',
       inputPlaceholder: 'Kérjük, írjon be'
     },
-    // Feltöltés
     upload: {
       deleteTip: 'nyomja meg a delete gombot a törléshez',
       delete: 'Törlés',
@@ -340,18 +313,15 @@ export const hu: Language = {
       fileSizeError: 'A fájlméret meghaladja a korlátot',
       fileCountError: 'A fájlok száma meghaladja a korlátot'
     },
-    // Űrlap
     form: {
       validationFailed: 'Érvényesítés sikertelen',
       required: 'Kötelező',
       pleaseInput: 'Kérjük, írjon be',
       pleaseSelect: 'Kérjük, válasszon'
     },
-    // Gomb
     button: {
       loading: 'Betöltés...'
     },
-    // Beviteli mező
     input: {
       placeholder: 'Kérjük, írjon be',
       clear: 'Törlés',
@@ -360,28 +330,23 @@ export const hu: Language = {
       copy: 'Másolás',
       copied: 'Másolva'
     },
-    // Számláló
     inputnumber: {
       placeholder: 'Kérjük, adjon meg egy számot',
       increase: 'Növelés',
       decrease: 'Csökkentés'
     },
-    // Címke bevitel
     inputtag: {
       placeholder: 'Kérjük, írjon be',
       add: 'Hozzáadás',
       remove: 'Eltávolítás'
     },
-    // Morzsamenü
     breadcrumb: {
       label: 'Morzsamenü',
       more: 'Több'
     },
-    // Vissza a tetejére
     backtop: {
       text: 'Vissza a tetejére'
     },
-    // Választó
     select: {
       placeholder: 'Kérjük, válasszon',
       noData: 'Nincs adat',
@@ -390,7 +355,6 @@ export const hu: Language = {
       selectAll: 'Összes kijelölése',
       clearAll: 'Összes törlése'
     },
-    // Lapozás
     pagination: {
       goto: 'Ugrás',
       page: '',
@@ -402,13 +366,11 @@ export const hu: Language = {
       last: 'Utolsó',
       pageClassifier: ''
     },
-    // Megerősítő felugró ablak
     popconfirm: {
       confirm: 'OK',
       cancel: 'Mégse',
       dontAskAgain: 'Ne kérdezze újra'
     },
-    // Párbeszédablak
     dialog: {
       confirm: 'OK',
       cancel: 'Mégse',
@@ -416,17 +378,14 @@ export const hu: Language = {
       maximize: 'Maximalizálás',
       restore: 'Visszaállítás'
     },
-    // Fiók
     drawer: {
       close: 'Bezárás',
       confirm: 'OK',
       cancel: 'Mégse'
     },
-    // Legördülő menü
     dropdown: {
       loading: 'Betöltés...'
     },
-    // Kép
     image: {
       error: 'HIBA',
       loading: 'Betöltés...',
@@ -438,7 +397,6 @@ export const hu: Language = {
       originalSize: 'Eredeti méret',
       fullscreen: 'Teljes képernyő'
     },
-    // Képnézegető
     imageviewer: {
       close: 'Bezárás',
       prev: 'Előző',
@@ -451,65 +409,52 @@ export const hu: Language = {
       fullscreen: 'Teljes képernyő',
       exitFullscreen: 'Kilépés a teljes képernyőből'
     },
-    // Végtelen görgetés
     infinitescroll: {
       loading: 'Betöltés...',
       finished: 'Nincs több adat',
       error: 'Betöltési hiba, kattintson az újrapróbálkozáshoz',
       retry: 'Kattintson az újrapróbálkozáshoz'
     },
-    // Üzenet
     message: {
       close: 'Bezárás'
     },
-    // Értesítés
     notification: {
       close: 'Bezárás'
     },
-    // Betöltés
     loading: {
       text: 'Betöltés...'
     },
-    // Pörgő
     spin: {
       text: 'Betöltés...'
     },
-    // Értékelés
     rate: {
       texts: ['Nagyon rossz', 'Csalódott', 'Rendben', 'Elégedett', 'Lenyűgözött']
     },
-    // Figyelmeztetés
     alert: {
       close: 'Bezárás'
     },
-    // Címke
     tag: {
       close: 'Bezárás'
     },
-    // Fülek
     tabs: {
       close: 'Bezárás',
       add: 'Hozzáadás',
       more: 'Több'
     },
-    // Lépések
     steps: {
       finish: 'Befejezve',
       process: 'Folyamatban',
       wait: 'Várakozás',
       error: 'Hiba'
     },
-    // Folyamat
     progress: {
       success: 'Sikeres',
       exception: 'Kivétel',
       warning: 'Figyelmeztetés'
     },
-    // Csontváz
     skeleton: {
       loading: 'Betöltés...'
     },
-    // Üres
     empty: {
       description: 'Nincs adat',
       noData: 'Nincs adat',
@@ -517,7 +462,6 @@ export const hu: Language = {
       networkError: 'Hálózati hiba',
       serverError: 'Szerverhiba'
     },
-    // Eredmény
     result: {
       success: 'Sikeres',
       error: 'Hiba',
@@ -525,78 +469,63 @@ export const hu: Language = {
       info: 'Információ',
       backHome: 'Vissza a kezdőlapra'
     },
-    // Vízesés
     waterfall: {
       loading: 'Betöltés...',
       noMore: 'Nincs több adat',
       empty: 'Nincs adat'
     },
-    // Leírások
     descriptions: {
       colon: ':'
     },
-    // Csúszka
     slider: {
       tipFormatter: '{value}'
     },
-    // Kapcsoló
     switch: {
       on: 'BE',
       off: 'KI'
     },
-    // Jelölőnégyzet
     checkbox: {
       selectAll: 'Összes kijelölése'
     },
-    // Rádiógomb
     radio: {},
-    // Menü
     menu: {
       collapse: 'Menü összecsukása',
       expand: 'Menü kibontása'
     },
-    // Kártya
     card: {
       collapse: 'Összecsukás',
       expand: 'Kibontás'
     },
-    // Összecsukás
     collapse: {
       expand: 'Kibontás',
       collapse: 'Összecsukás'
     },
-    // Eszköztipp
     tooltip: {},
-    // Felugró ablak
     popover: {},
-    // Jelvény
     badge: {},
-    // Profilkép
     avatar: {
       error: 'Betöltési hiba'
     },
-    // Vízjel
     watermark: {},
-    // Elválasztó
     divider: {},
-    // Körhinta
     carousel: {
       prev: 'Előző',
       next: 'Következő'
     },
-    // Futó szöveg
     marquee: {},
-    // Rögzítés
     affix: {},
-    // Horgony
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Kérem írja be',
       loading: 'Betöltés...',
       noData: 'Nincs adat'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Válasszon specifikációt',
       emptyText: 'Nincs specifikáció',
@@ -697,7 +626,8 @@ export const hu: Language = {
         agent: 'Agent',
         document: 'Dokumentum',
         table: 'Táblázat',
-        knowledge: 'Tudás'
+        knowledge: 'Tudás',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kód másolása',
@@ -716,7 +646,8 @@ export const hu: Language = {
       },
       sender: {
         placeholder: 'Üzenet küldése...',
-        dragTip: 'Fájlok feltöltéséhez engedje el'
+        dragTip: 'Fájlok feltöltéséhez engedje el',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Gondolkodási folyamat',
@@ -751,7 +682,8 @@ export const hu: Language = {
         versions: 'Verziók',
         rendering: 'Komponens renderelése...',
         renderingChart: 'Diagram renderelése...',
-        renderingCanvas: 'Vászon előkészítése...'
+        renderingCanvas: 'Vászon előkészítése...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Kattintson a beszédhez',

@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const it: Language = {
   name: 'it',
   yh: {
-    // Comune
     common: {
       yes: 'Sì',
       no: 'No',
@@ -27,7 +26,6 @@ export const it: Language = {
       selectAll: 'Seleziona tutto',
       unselectAll: 'Deseleziona tutto'
     },
-    // Selettore colori
     colorpicker: {
       confirm: 'OK',
       clear: 'Cancella',
@@ -37,7 +35,6 @@ export const it: Language = {
       recentColors: 'Colori recenti',
       presetColors: 'Colori preimpostati'
     },
-    // Selettore data
     datepicker: {
       now: 'Ora',
       today: 'Oggi',
@@ -89,7 +86,6 @@ export const it: Language = {
         q4: 'Q4'
       }
     },
-    // Selettore ora
     timepicker: {
       confirm: 'OK',
       cancel: 'Annulla',
@@ -99,11 +95,9 @@ export const it: Language = {
       endPlaceholder: 'Ora di fine',
       selectTime: 'Seleziona ora'
     },
-    // Selezione ora
     timeselect: {
       placeholder: 'Seleziona ora'
     },
-    // Albero
     tree: {
       emptyText: 'Nessun dato',
       loading: 'Caricamento...',
@@ -112,14 +106,12 @@ export const it: Language = {
       expandAll: 'Espandi tutto',
       collapseAll: 'Comprimi tutto'
     },
-    // Selezione albero
     treeselect: {
       placeholder: 'Seleziona',
       emptyText: 'Nessun dato',
       loading: 'Caricamento...',
       noMatch: 'Nessun dato corrispondente'
     },
-    // Calendario
     calendar: {
       prevMonth: 'Mese precedente',
       nextMonth: 'Mese successivo',
@@ -140,14 +132,12 @@ export const it: Language = {
         sat: 'Sab'
       }
     },
-    // Completamento automatico
     autocomplete: {
       loading: 'Caricamento...',
       placeholder: 'Inserisci',
       noData: 'Nessun dato',
       noMatch: 'Nessun dato corrispondente'
     },
-    // Conto alla rovescia
     countdown: {
       days: 'giorni',
       hours: 'ore',
@@ -156,14 +146,12 @@ export const it: Language = {
       milliseconds: 'millisecondi',
       finished: 'Finito'
     },
-    // Selettore a cascata
     cascader: {
       noMatch: 'Nessun dato corrispondente',
       placeholder: 'Seleziona',
       loading: 'Caricamento...',
       noData: 'Nessun dato'
     },
-    // Trasferimento
     transfer: {
       noMatch: 'Nessun dato corrispondente',
       noData: 'Nessun dato',
@@ -173,7 +161,6 @@ export const it: Language = {
       hasCheckedFormat: '{checked}/{total} selezionati',
       searchPlaceholder: 'Inserisci parola chiave'
     },
-    // Tabella
     table: {
       emptyText: 'Nessun dato',
       confirmFilter: 'Conferma',
@@ -190,7 +177,6 @@ export const it: Language = {
       page: 'Pagina {page}',
       yes: 'Sì',
       no: 'No',
-      // Barra degli strumenti
       toolbar: {
         refresh: 'Aggiorna',
         density: 'Densità',
@@ -205,7 +191,6 @@ export const it: Language = {
         search: 'Cerca',
         searchPlaceholder: 'Inserisci parole chiave per cercare'
       },
-      // Filtro
       filter: {
         selectAll: 'Seleziona tutto',
         selectInvert: 'Inverti selezione',
@@ -221,13 +206,11 @@ export const it: Language = {
         lessThan: 'Minore di',
         between: 'Tra'
       },
-      // Ordinamento
       sort: {
         asc: 'Crescente',
         desc: 'Decrescente',
         clear: 'Cancella ordinamento'
       },
-      // Esportazione
       export: {
         title: 'Esporta dati',
         filename: 'Nome file',
@@ -241,7 +224,6 @@ export const it: Language = {
         success: 'Esportazione riuscita',
         error: 'Esportazione fallita'
       },
-      // Importazione
       import: {
         title: 'Importa dati',
         selectFile: 'Seleziona file',
@@ -252,7 +234,6 @@ export const it: Language = {
         preview: 'Anteprima dati',
         confirm: 'Conferma importazione'
       },
-      // Stampa
       printConfig: {
         title: 'Impostazioni di stampa',
         pageTitle: 'Titolo pagina',
@@ -265,7 +246,6 @@ export const it: Language = {
         portrait: 'Verticale',
         printing: 'Stampa...'
       },
-      // Impostazioni colonne
       columnSetting: {
         title: 'Impostazioni colonne',
         showAll: 'Mostra tutto',
@@ -275,7 +255,6 @@ export const it: Language = {
         fixedRight: 'Fissa a destra',
         unfixed: 'Rimuovi fissaggio'
       },
-      // Menu contestuale
       contextMenu: {
         copy: 'Copia',
         copyRow: 'Copia riga',
@@ -287,31 +266,26 @@ export const it: Language = {
         deleteSelectedRows: 'Elimina righe selezionate',
         exportSelected: 'Esporta selezionato'
       },
-      // Selezione
       selection: {
         selectAll: 'Seleziona tutto',
         selectInvert: 'Inverti selezione',
         selectNone: 'Cancella selezione',
         selected: '{count} elementi selezionati'
       },
-      // Espandi
       expand: {
         expandAll: 'Espandi tutto',
         collapseAll: 'Comprimi tutto'
       },
-      // Albero
       tree: {
         expandAll: 'Espandi tutto',
         collapseAll: 'Comprimi tutto',
         expandLevel: 'Espandi al livello {level}'
       },
-      // Trascina
       drag: {
         dragTip: 'Trascina per riordinare',
         dropTip: 'Rilascia per posizionare'
       }
     },
-    // Finestra messaggio
     messagebox: {
       title: 'Messaggio',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const it: Language = {
       prompt: 'Richiesta',
       inputPlaceholder: 'Inserisci'
     },
-    // Caricamento
     upload: {
       deleteTip: 'premi delete per rimuovere',
       delete: 'Elimina',
@@ -340,18 +313,15 @@ export const it: Language = {
       fileSizeError: 'Dimensione file supera il limite',
       fileCountError: 'Numero di file supera il limite'
     },
-    // Modulo
     form: {
       validationFailed: 'Validazione fallita',
       required: 'Obbligatorio',
       pleaseInput: 'Inserisci',
       pleaseSelect: 'Seleziona'
     },
-    // Pulsante
     button: {
       loading: 'Caricamento...'
     },
-    // Input
     input: {
       placeholder: 'Inserisci',
       clear: 'Cancella',
@@ -360,28 +330,23 @@ export const it: Language = {
       copy: 'Copia',
       copied: 'Copiato'
     },
-    // Input numero
     inputnumber: {
       placeholder: 'Inserisci numero',
       increase: 'Aumenta',
       decrease: 'Diminuisci'
     },
-    // Input tag
     inputtag: {
       placeholder: 'Inserisci',
       add: 'Aggiungi',
       remove: 'Rimuovi'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Breadcrumb',
       more: 'Altro'
     },
-    // Torna su
     backtop: {
       text: 'Torna su'
     },
-    // Selezione
     select: {
       placeholder: 'Seleziona',
       noData: 'Nessun dato',
@@ -390,7 +355,6 @@ export const it: Language = {
       selectAll: 'Seleziona tutto',
       clearAll: 'Cancella tutto'
     },
-    // Paginazione
     pagination: {
       goto: 'Vai a',
       page: '',
@@ -402,13 +366,11 @@ export const it: Language = {
       last: 'Ultima',
       pageClassifier: ''
     },
-    // Conferma popup
     popconfirm: {
       confirm: 'OK',
       cancel: 'Annulla',
       dontAskAgain: 'Non chiedere più'
     },
-    // Dialogo
     dialog: {
       confirm: 'OK',
       cancel: 'Annulla',
@@ -416,17 +378,14 @@ export const it: Language = {
       maximize: 'Massimizza',
       restore: 'Ripristina'
     },
-    // Cassetto
     drawer: {
       close: 'Chiudi',
       confirm: 'OK',
       cancel: 'Annulla'
     },
-    // Menu a discesa
     dropdown: {
       loading: 'Caricamento...'
     },
-    // Immagine
     image: {
       error: 'FALLITO',
       loading: 'Caricamento...',
@@ -438,7 +397,6 @@ export const it: Language = {
       originalSize: 'Dimensione originale',
       fullscreen: 'Schermo intero'
     },
-    // Visualizzatore immagini
     imageviewer: {
       close: 'Chiudi',
       prev: 'Precedente',
@@ -451,65 +409,52 @@ export const it: Language = {
       fullscreen: 'Schermo intero',
       exitFullscreen: 'Esci da schermo intero'
     },
-    // Scorrimento infinito
     infinitescroll: {
       loading: 'Caricamento...',
       finished: 'Nessun altro dato',
       error: 'Caricamento fallito, clicca per riprovare',
       retry: 'Clicca per riprovare'
     },
-    // Messaggio
     message: {
       close: 'Chiudi'
     },
-    // Notifica
     notification: {
       close: 'Chiudi'
     },
-    // Caricamento
     loading: {
       text: 'Caricamento...'
     },
-    // Rotazione
     spin: {
       text: 'Caricamento...'
     },
-    // Valutazione
     rate: {
       texts: ['Estremamente scarso', 'Deludente', 'Discreto', 'Soddisfacente', 'Sorprendente']
     },
-    // Avviso
     alert: {
       close: 'Chiudi'
     },
-    // Tag
     tag: {
       close: 'Chiudi'
     },
-    // Schede
     tabs: {
       close: 'Chiudi',
       add: 'Aggiungi',
       more: 'Altro'
     },
-    // Passi
     steps: {
       finish: 'Finito',
       process: 'In corso',
       wait: 'In attesa',
       error: 'Errore'
     },
-    // Progresso
     progress: {
       success: 'Successo',
       exception: 'Eccezione',
       warning: 'Avviso'
     },
-    // Scheletro
     skeleton: {
       loading: 'Caricamento...'
     },
-    // Vuoto
     empty: {
       description: 'Nessun dato',
       noData: 'Nessun dato',
@@ -517,7 +462,6 @@ export const it: Language = {
       networkError: 'Errore di rete',
       serverError: 'Errore del server'
     },
-    // Risultato
     result: {
       success: 'Successo',
       error: 'Errore',
@@ -525,72 +469,58 @@ export const it: Language = {
       info: 'Informazione',
       backHome: 'Torna alla home'
     },
-    // Cascata
     waterfall: {
       loading: 'Caricamento...',
       noMore: 'Nessun altro dato',
       empty: 'Nessun dato'
     },
-    // Descrizioni
     descriptions: {
       colon: ':'
     },
-    // Slider
     slider: {
       tipFormatter: '{value}'
     },
-    // Interruttore
     switch: {
       on: 'ACCESO',
       off: 'SPENTO'
     },
-    // Casella di controllo
     checkbox: {
       selectAll: 'Seleziona tutto'
     },
-    // Radio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Comprimi menu',
       expand: 'Espandi menu'
     },
-    // Carta
     card: {
       collapse: 'Comprimi',
       expand: 'Espandi'
     },
-    // Comprimi
     collapse: {
       expand: 'Espandi',
       collapse: 'Comprimi'
     },
-    // Suggerimento
     tooltip: {},
-    // Popover
     popover: {},
-    // Badge
     badge: {},
-    // Avatar
     avatar: {
       error: 'Caricamento fallito'
     },
-    // Filigrana
     watermark: {},
-    // Divisore
     divider: {},
-    // Carosello
     carousel: {
       prev: 'Precedente',
       next: 'Successivo'
     },
-    // Marquee
     marquee: {},
-    // Affisso
     affix: {},
-    // Ancora
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Inserisci',
       loading: 'Caricamento...',
@@ -687,7 +617,6 @@ export const it: Language = {
       galleryItem: 'Galleria {index}',
       close: 'Chiudi'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Citazioni'
@@ -697,7 +626,8 @@ export const it: Language = {
         agent: 'Agente',
         document: 'Documento',
         table: 'Tabella',
-        knowledge: 'Conoscenza'
+        knowledge: 'Conoscenza',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Copia codice',
@@ -716,7 +646,8 @@ export const it: Language = {
       },
       sender: {
         placeholder: 'Invia un messaggio...',
-        dragTip: 'Rilascia per caricare file'
+        dragTip: 'Rilascia per caricare file',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Processo di Pensiero',
@@ -751,7 +682,8 @@ export const it: Language = {
         versions: 'Versioni',
         rendering: 'Rendering componente...',
         renderingChart: 'Rendering grafico...',
-        renderingCanvas: 'Preparazione tela...'
+        renderingCanvas: 'Preparazione tela...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Clicca per Parlare',

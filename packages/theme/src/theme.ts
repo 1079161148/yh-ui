@@ -728,6 +728,7 @@ export class ThemeManager {
   private themeHistory: ThemeSnapshot[] = []
   private maxHistoryLength: number = 10
   private responsiveVars = new Map<string, Partial<Record<Breakpoint, string>>>()
+  private currentRadius: 'none' | 'sm' | 'md' | 'lg' | 'full' = 'md'
 
   // 响应式状态
   public readonly state = reactive({
@@ -738,6 +739,7 @@ export class ThemeManager {
     density: 'comfortable' as ThemeDensity,
     colorBlindMode: 'none' as ColorBlindMode,
     algorithm: 'default' as ColorAlgorithm,
+    radius: 'md' as 'none' | 'sm' | 'md' | 'lg' | 'full',
     componentThemeVersion: 0
   })
 
@@ -747,10 +749,20 @@ export class ThemeManager {
 
   /** 初始化主题 */
   initTheme(options?: FullThemeConfig): void {
+    let restoredOptions: Partial<FullThemeConfig> = {}
     // 先尝试从持久化存储恢复
     if (options?.persist !== false) {
       this.persistKey = options?.persistKey || 'yh-ui-theme'
-      this.restoreFromStorage()
+      if (this.restoreFromStorage()) {
+        restoredOptions = {
+          preset: this.currentTheme,
+          colors: this.customColors,
+          dark: this.isDark,
+          algorithm: this.algorithm,
+          density: this.currentDensity,
+          radius: this.currentRadius
+        }
+      }
     }
 
     this.targetEl = getTargetElement(options?.scope)
@@ -758,6 +770,7 @@ export class ThemeManager {
     // 应用传入的选项
     this.applyFullConfig({
       preset: 'default',
+      ...restoredOptions,
       ...options
     })
 
@@ -776,9 +789,11 @@ export class ThemeManager {
 
   /** 应用主题 */
   apply(options: ThemeOptions): void {
-    const { preset, colors, dark, scope, algorithm } = options
+    const { preset, colors, dark, scope, algorithm, radius } = options
 
-    this.targetEl = getTargetElement(scope)
+    if (scope !== undefined) {
+      this.targetEl = getTargetElement(scope)
+    }
 
     if (algorithm) {
       this.algorithm = algorithm
@@ -794,6 +809,10 @@ export class ThemeManager {
 
     if (colors) {
       this.setColors(colors)
+    }
+
+    if (radius) {
+      this.setRadius(radius)
     }
   }
 
@@ -1034,6 +1053,15 @@ export class ThemeManager {
       styles[`--yh-radius-${key}`] = value
     })
 
+    const radiusMap: Record<'none' | 'sm' | 'md' | 'lg' | 'full', string> = {
+      none: designTokens.radius.none,
+      sm: designTokens.radius.sm,
+      md: designTokens.radius.base,
+      lg: designTokens.radius.lg,
+      full: designTokens.radius.round
+    }
+    styles['--yh-radius-base'] = radiusMap[this.currentRadius] || designTokens.radius.base
+
     Object.entries(designTokens.zIndex).forEach(([key, value]) => {
       styles[`--yh-z-index-${key}`] = value
     })
@@ -1107,7 +1135,7 @@ export class ThemeManager {
       preset: this.currentTheme,
       colors: this.customColors,
       dark: this.isDark,
-      radius: 'md',
+      radius: this.currentRadius,
       algorithm: this.algorithm,
       density: this.currentDensity,
       timestamp: Date.now(),
@@ -1136,12 +1164,14 @@ export class ThemeManager {
       this.isDark = snapshot.dark
       this.algorithm = (snapshot.algorithm as ColorAlgorithm) || 'default'
       this.currentDensity = snapshot.density || 'comfortable'
+      this.currentRadius = (snapshot.radius as 'none' | 'sm' | 'md' | 'lg' | 'full') || 'md'
 
       this.state.theme = this.currentTheme
       this.state.dark = this.isDark
       this.state.colors = this.customColors
       this.state.density = this.currentDensity
       this.state.algorithm = this.algorithm
+      this.state.radius = this.currentRadius
 
       return true
     } catch (e) {
@@ -1156,7 +1186,7 @@ export class ThemeManager {
       preset: this.currentTheme,
       colors: this.customColors,
       dark: this.isDark,
-      radius: 'md',
+      radius: this.currentRadius,
       algorithm: this.algorithm,
       density: this.currentDensity,
       timestamp: Date.now(),
@@ -1191,6 +1221,9 @@ export class ThemeManager {
       if (snapshot.density) {
         this.setDensity(snapshot.density)
       }
+      if (snapshot.radius) {
+        this.setRadius(snapshot.radius as 'none' | 'sm' | 'md' | 'lg' | 'full')
+      }
 
       return true
     } catch (e) {
@@ -1221,6 +1254,7 @@ export class ThemeManager {
     this.currentDensity = 'comfortable'
     this.colorBlindMode = 'none'
     this.componentOverrides = {}
+    this.currentRadius = 'md'
 
     this.state.theme = 'default'
     this.state.dark = false
@@ -1228,10 +1262,12 @@ export class ThemeManager {
     this.state.density = 'comfortable'
     this.state.colorBlindMode = 'none'
     this.state.algorithm = 'default'
+    this.state.radius = 'md'
     this.state.componentThemeVersion += 1
 
     const el = this.targetEl || document.documentElement
     el.classList.remove('dark')
+    removeCssVar('--yh-radius-base', el)
 
     const colorTypes = ['primary', 'success', 'warning', 'danger', 'info']
     const suffixes = [
@@ -1297,6 +1333,41 @@ export class ThemeManager {
   /** 获取当前密度 */
   get density(): ThemeDensity {
     return this.state.density
+  }
+
+  // ==================== 圆角控制 ====================
+
+  /** 设置圆角 */
+  setRadius(radius: 'none' | 'sm' | 'md' | 'lg' | 'full'): void {
+    if (this.transitionEnabled) {
+      enableThemeTransition(
+        this.transitionConfig.duration,
+        this.transitionConfig.timing,
+        this.targetEl
+      )
+    }
+
+    this.currentRadius = radius
+    this.state.radius = radius
+
+    const el = this.targetEl || (typeof document !== 'undefined' ? document.documentElement : null)
+    if (!el) return
+
+    const radiusMap: Record<'none' | 'sm' | 'md' | 'lg' | 'full', string> = {
+      none: designTokens.radius.none,
+      sm: designTokens.radius.sm,
+      md: designTokens.radius.base,
+      lg: designTokens.radius.lg,
+      full: designTokens.radius.round
+    }
+    setCssVar('--yh-radius-base', radiusMap[radius] || designTokens.radius.base, el)
+
+    this.saveToStorage()
+  }
+
+  /** 获取当前圆角 */
+  get radius(): 'none' | 'sm' | 'md' | 'lg' | 'full' {
+    return this.state.radius as 'none' | 'sm' | 'md' | 'lg' | 'full'
   }
 
   // ==================== 色盲模式 ====================
@@ -1451,6 +1522,9 @@ export class ThemeManager {
     if (config.density) {
       this.setDensity(config.density)
     }
+    if (snapshot.radius) {
+      this.setRadius(snapshot.radius as 'none' | 'sm' | 'md' | 'lg' | 'full')
+    }
     if (config.colorBlindMode) {
       this.setColorBlindMode(config.colorBlindMode)
     }
@@ -1469,7 +1543,7 @@ export class ThemeManager {
       preset: this.currentTheme,
       colors: { ...this.customColors },
       dark: this.isDark,
-      radius: 'md',
+      radius: this.currentRadius,
       algorithm: this.algorithm,
       density: this.currentDensity,
       timestamp: Date.now(),
@@ -1580,9 +1654,11 @@ export class ThemeManager {
     this.disableSystemFollow()
 
     // 清理响应式变量样式
-    const style = document.getElementById('yh-responsive-vars')
-    if (style) {
-      style.remove()
+    if (typeof document !== 'undefined') {
+      const style = document.getElementById('yh-responsive-vars')
+      if (style) {
+        style.remove()
+      }
     }
     this.responsiveVars.clear()
   }

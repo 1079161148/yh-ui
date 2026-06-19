@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const cs: Language = {
   name: 'cs',
   yh: {
-    // Společné
     common: {
       yes: 'Ano',
       no: 'Ne',
@@ -27,7 +26,6 @@ export const cs: Language = {
       selectAll: 'Vybrat vše',
       unselectAll: 'Zrušit výběr všeho'
     },
-    // Výběr barvy
     colorpicker: {
       confirm: 'OK',
       clear: 'Vymazat',
@@ -37,7 +35,6 @@ export const cs: Language = {
       recentColors: 'Nedávné barvy',
       presetColors: 'Přednastavené barvy'
     },
-    // Výběr data
     datepicker: {
       now: 'Nyní',
       today: 'Dnes',
@@ -89,7 +86,6 @@ export const cs: Language = {
         q4: 'Q4'
       }
     },
-    // Výběr času
     timepicker: {
       confirm: 'OK',
       cancel: 'Zrušit',
@@ -99,11 +95,9 @@ export const cs: Language = {
       endPlaceholder: 'Čas konce',
       selectTime: 'Vyberte čas'
     },
-    // Výběr času
     timeselect: {
       placeholder: 'Vyberte čas'
     },
-    // Strom
     tree: {
       emptyText: 'Žádná data',
       loading: 'Načítání...',
@@ -112,14 +106,12 @@ export const cs: Language = {
       expandAll: 'Rozbalit vše',
       collapseAll: 'Sbalit vše'
     },
-    // Výběr stromu
     treeselect: {
       placeholder: 'Vyberte',
       emptyText: 'Žádná data',
       loading: 'Načítání...',
       noMatch: 'Žádná odpovídající data'
     },
-    // Kalendář
     calendar: {
       prevMonth: 'Předchozí měsíc',
       nextMonth: 'Příští měsíc',
@@ -140,14 +132,12 @@ export const cs: Language = {
         sat: 'So'
       }
     },
-    // Automatické dokončování
     autocomplete: {
       loading: 'Načítání...',
       placeholder: 'Prosím zadejte',
       noData: 'Žádná data',
       noMatch: 'Žádná odpovídající data'
     },
-    // Odpočítávání
     countdown: {
       days: 'dní',
       hours: 'hodin',
@@ -156,14 +146,12 @@ export const cs: Language = {
       milliseconds: 'milisekund',
       finished: 'Dokončeno'
     },
-    // Kaskádový výběr
     cascader: {
       noMatch: 'Žádná odpovídající data',
       placeholder: 'Vyberte',
       loading: 'Načítání...',
       noData: 'Žádná data'
     },
-    // Převod
     transfer: {
       noMatch: 'Žádná odpovídající data',
       noData: 'Žádná data',
@@ -173,7 +161,6 @@ export const cs: Language = {
       hasCheckedFormat: '{checked}/{total} vybráno',
       searchPlaceholder: 'Zadejte klíčové slovo'
     },
-    // Tabulka
     table: {
       emptyText: 'Žádná data',
       confirmFilter: 'Potvrdit',
@@ -190,7 +177,6 @@ export const cs: Language = {
       page: 'Stránka {page}',
       yes: 'Ano',
       no: 'Ne',
-      // Panel nástrojů
       toolbar: {
         refresh: 'Obnovit',
         density: 'Hustota',
@@ -205,7 +191,6 @@ export const cs: Language = {
         search: 'Hledat',
         searchPlaceholder: 'Zadejte klíčová slova pro vyhledávání'
       },
-      // Filtr
       filter: {
         selectAll: 'Vybrat vše',
         selectInvert: 'Invertovat výběr',
@@ -221,13 +206,11 @@ export const cs: Language = {
         lessThan: 'Menší než',
         between: 'Mezi'
       },
-      // Řazení
       sort: {
         asc: 'Vzestupně',
         desc: 'Sestupně',
         clear: 'Vymazat řazení'
       },
-      // Export
       export: {
         title: 'Exportovat data',
         filename: 'Název souboru',
@@ -241,7 +224,6 @@ export const cs: Language = {
         success: 'Export úspěšný',
         error: 'Export selhal'
       },
-      // Import
       import: {
         title: 'Importovat data',
         selectFile: 'Vyberte soubor',
@@ -252,7 +234,6 @@ export const cs: Language = {
         preview: 'Náhled dat',
         confirm: 'Potvrdit import'
       },
-      // Tisk
       printConfig: {
         title: 'Nastavení tisku',
         pageTitle: 'Název stránky',
@@ -265,7 +246,6 @@ export const cs: Language = {
         portrait: 'Na výšku',
         printing: 'Tisknutí...'
       },
-      // Nastavení sloupců
       columnSetting: {
         title: 'Nastavení sloupců',
         showAll: 'Zobrazit vše',
@@ -275,7 +255,6 @@ export const cs: Language = {
         fixedRight: 'Připevnit vpravo',
         unfixed: 'Uvolnit'
       },
-      // Kontextové menu
       contextMenu: {
         copy: 'Kopírovat',
         copyRow: 'Kopírovat řádek',
@@ -287,31 +266,26 @@ export const cs: Language = {
         deleteSelectedRows: 'Smazat vybrané řádky',
         exportSelected: 'Exportovat vybrané'
       },
-      // Výběr
       selection: {
         selectAll: 'Vybrat vše',
         selectInvert: 'Invertovat výběr',
         selectNone: 'Zrušit výběr',
         selected: 'Vybráno {count} položek'
       },
-      // Rozbalit
       expand: {
         expandAll: 'Rozbalit vše',
         collapseAll: 'Sbalit vše'
       },
-      // Strom
       tree: {
         expandAll: 'Rozbalit vše',
         collapseAll: 'Sbalit vše',
         expandLevel: 'Rozbalit na úroveň {level}'
       },
-      // Přetahování
       drag: {
         dragTip: 'Přetáhněte pro změnu pořadí',
         dropTip: 'Pusťte pro umístění'
       }
     },
-    // Zpráva
     messagebox: {
       title: 'Zpráva',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const cs: Language = {
       prompt: 'Výzva',
       inputPlaceholder: 'Prosím zadejte'
     },
-    // Nahrávání
     upload: {
       deleteTip: 'stiskněte delete pro odstranění',
       delete: 'Smazat',
@@ -340,18 +313,15 @@ export const cs: Language = {
       fileSizeError: 'Velikost souboru překračuje limit',
       fileCountError: 'Počet souborů překračuje limit'
     },
-    // Formulář
     form: {
       validationFailed: 'Ověření selhalo',
       required: 'Povinné',
       pleaseInput: 'Prosím zadejte',
       pleaseSelect: 'Prosím vyberte'
     },
-    // Tlačítko
     button: {
       loading: 'Načítání...'
     },
-    // Vstup
     input: {
       placeholder: 'Prosím zadejte',
       clear: 'Vymazat',
@@ -360,28 +330,23 @@ export const cs: Language = {
       copy: 'Kopírovat',
       copied: 'Zkopírováno'
     },
-    // Číselný vstup
     inputnumber: {
       placeholder: 'Prosím zadejte číslo',
       increase: 'Zvýšit',
       decrease: 'Snížit'
     },
-    // Vstup značek
     inputtag: {
       placeholder: 'Prosím zadejte',
       add: 'Přidat',
       remove: 'Odstranit'
     },
-    // Drobečková navigace
     breadcrumb: {
       label: 'Drobečková navigace',
       more: 'Více'
     },
-    // Zpět nahoru
     backtop: {
       text: 'Zpět nahoru'
     },
-    // Výběr
     select: {
       placeholder: 'Prosím vyberte',
       noData: 'Žádná data',
@@ -390,7 +355,6 @@ export const cs: Language = {
       selectAll: 'Vybrat vše',
       clearAll: 'Vymazat vše'
     },
-    // Stránkování
     pagination: {
       goto: 'Přejít na',
       page: '',
@@ -402,13 +366,11 @@ export const cs: Language = {
       last: 'Poslední',
       pageClassifier: ''
     },
-    // Potvrzení
     popconfirm: {
       confirm: 'OK',
       cancel: 'Zrušit',
       dontAskAgain: 'Znovu se neptat'
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Zrušit',
@@ -416,17 +378,14 @@ export const cs: Language = {
       maximize: 'Maximalizovat',
       restore: 'Obnovit'
     },
-    // Zásuvka
     drawer: {
       close: 'Zavřít',
       confirm: 'OK',
       cancel: 'Zrušit'
     },
-    // Rozbalovací menu
     dropdown: {
       loading: 'Načítání...'
     },
-    // Obrázek
     image: {
       error: 'SELHALO',
       loading: 'Načítání...',
@@ -438,7 +397,6 @@ export const cs: Language = {
       originalSize: 'Původní velikost',
       fullscreen: 'Celá obrazovka'
     },
-    // Prohlížeč obrázků
     imageviewer: {
       close: 'Zavřít',
       prev: 'Předchozí',
@@ -451,65 +409,52 @@ export const cs: Language = {
       fullscreen: 'Celá obrazovka',
       exitFullscreen: 'Ukončit celou obrazovku'
     },
-    // Nekonečné posouvání
     infinitescroll: {
       loading: 'Načítání...',
       finished: 'Žádná další data',
       error: 'Načtení selhalo, klikněte pro opakování',
       retry: 'Klikněte pro opakování'
     },
-    // Zpráva
     message: {
       close: 'Zavřít'
     },
-    // Oznámení
     notification: {
       close: 'Zavřít'
     },
-    // Načítání
     loading: {
       text: 'Načítání...'
     },
-    // Točení
     spin: {
       text: 'Načítání...'
     },
-    // Hodnocení
     rate: {
       texts: ['Velmi špatné', 'Zklamání', 'Průměrné', 'Spokojené', 'Překvapené']
     },
-    // Upozornění
     alert: {
       close: 'Zavřít'
     },
-    // Značka
     tag: {
       close: 'Zavřít'
     },
-    // Karty
     tabs: {
       close: 'Zavřít',
       add: 'Přidat',
       more: 'Více'
     },
-    // Kroky
     steps: {
       finish: 'Dokončeno',
       process: 'Probíhá',
       wait: 'Čekání',
       error: 'Chyba'
     },
-    // Průběh
     progress: {
       success: 'Úspěch',
       exception: 'Výjimka',
       warning: 'Upozornění'
     },
-    // Kostra
     skeleton: {
       loading: 'Načítání...'
     },
-    // Prázdné
     empty: {
       description: 'Žádná data',
       noData: 'Žádná data',
@@ -517,7 +462,6 @@ export const cs: Language = {
       networkError: 'Chyba sítě',
       serverError: 'Chyba serveru'
     },
-    // Výsledek
     result: {
       success: 'Úspěch',
       error: 'Chyba',
@@ -525,78 +469,63 @@ export const cs: Language = {
       info: 'Informace',
       backHome: 'Zpět na začátek'
     },
-    // Vodopád
     waterfall: {
       loading: 'Načítání...',
       noMore: 'Žádná další data',
       empty: 'Žádná data'
     },
-    // Popisy
     descriptions: {
       colon: ':'
     },
-    // Posuvník
     slider: {
       tipFormatter: '{value}'
     },
-    // Přepínač
     switch: {
       on: 'ZAP',
       off: 'VYP'
     },
-    // Zaškrtávací pole
     checkbox: {
       selectAll: 'Vybrat vše'
     },
-    // Radio
     radio: {},
-    // Menu
     menu: {
       collapse: 'Sbalit menu',
       expand: 'Rozbalit menu'
     },
-    // Karta
     card: {
       collapse: 'Sbalit',
       expand: 'Rozbalit'
     },
-    // Sbalit
     collapse: {
       expand: 'Rozbalit',
       collapse: 'Sbalit'
     },
-    // Nápověda
     tooltip: {},
-    // Vyskakovací okno
     popover: {},
-    // Odznak
     badge: {},
-    // Avatar
     avatar: {
       error: 'Načtení selhalo'
     },
-    // Vodoznak
     watermark: {},
-    // Oddělovač
     divider: {},
-    // Kolotoč
     carousel: {
       prev: 'Předchozí',
       next: 'Další'
     },
-    // Běžící text
     marquee: {},
-    // Připnutí
     affix: {},
-    // Kotva
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Prosím zadejte',
       loading: 'Načítání...',
       noData: 'Žádná data'
     },
-    // AI Components
     skuselector: {
       placeholder: 'Vyberte specifikace',
       emptyText: 'Žádné specifikace',
@@ -697,7 +626,8 @@ export const cs: Language = {
         agent: 'Agent',
         document: 'Dokument',
         table: 'Tabulka',
-        knowledge: 'Znalosti'
+        knowledge: 'Znalosti',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kopírovat kód',
@@ -716,7 +646,8 @@ export const cs: Language = {
       },
       sender: {
         placeholder: 'Poslat zprávu...',
-        dragTip: 'Uvolněte pro nahrání souborů'
+        dragTip: 'Uvolněte pro nahrání souborů',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Myšlenkový proces',
@@ -751,7 +682,8 @@ export const cs: Language = {
         versions: 'Verze',
         rendering: 'Vykreslování komponenty...',
         renderingChart: 'Vykreslování grafu...',
-        renderingCanvas: 'Příprava plátna...'
+        renderingCanvas: 'Příprava plátna...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Klikněte pro mluvení',

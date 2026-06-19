@@ -30,13 +30,13 @@ interface CancelableFunction<T extends AnyFunction> {
 export const debounce = <T extends AnyFunction>(fn: T, delay: number): CancelableFunction<T> => {
   let timer: ReturnType<typeof setTimeout> | null = null
 
-  const debounced = ((...args: Parameters<T>) => {
+  const debounced = function (this: unknown, ...args: Parameters<T>) {
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => {
-      fn(...args)
+      fn.apply(this, args)
       timer = null
     }, delay)
-  }) as CancelableFunction<T>
+  } as unknown as CancelableFunction<T>
 
   debounced.cancel = () => {
     if (timer) {
@@ -54,26 +54,30 @@ export const debounce = <T extends AnyFunction>(fn: T, delay: number): Cancelabl
 export const throttle = <T extends AnyFunction>(fn: T, delay: number): CancelableFunction<T> => {
   let lastTime = 0
   let timer: ReturnType<typeof setTimeout> | null = null
+  let pendingArgs: Parameters<T> | null = null
 
-  const throttled = ((...args: Parameters<T>) => {
+  const throttled = function (this: unknown, ...args: Parameters<T>) {
     const now = Date.now()
     const remaining = delay - (now - lastTime)
+    pendingArgs = args
 
     if (remaining <= 0) {
       if (timer) {
         clearTimeout(timer)
         timer = null
       }
-      fn(...args)
+      fn.apply(this, pendingArgs)
       lastTime = now
+      pendingArgs = null
     } else if (!timer) {
       timer = setTimeout(() => {
-        fn(...args)
+        fn.apply(this, pendingArgs!)
         lastTime = Date.now()
         timer = null
+        pendingArgs = null
       }, remaining)
     }
-  }) as CancelableFunction<T>
+  } as unknown as CancelableFunction<T>
 
   throttled.cancel = () => {
     if (timer) {
@@ -81,6 +85,7 @@ export const throttle = <T extends AnyFunction>(fn: T, delay: number): Cancelabl
       timer = null
     }
     lastTime = 0
+    pendingArgs = null
   }
 
   return throttled
@@ -89,19 +94,51 @@ export const throttle = <T extends AnyFunction>(fn: T, delay: number): Cancelabl
 /**
  * 深拷贝
  */
-export const deepClone = <T>(obj: T): T => {
+export const deepClone = <T>(obj: T, cache = new WeakMap<object, unknown>()): T => {
   if (obj === null || typeof obj !== 'object') return obj
   if (obj instanceof Date) return new Date(obj.getTime()) as unknown as T
-  if (obj instanceof Array) {
-    return obj.map((item) => deepClone(item)) as unknown as T
+  if (obj instanceof RegExp) return new RegExp(obj.source, obj.flags) as unknown as T
+
+  if (cache.has(obj)) {
+    return cache.get(obj) as T
   }
-  if (obj instanceof Object) {
-    const copy = {} as Record<string, unknown>
-    Object.keys(obj).forEach((key) => {
-      copy[key] = deepClone((obj as Record<string, unknown>)[key])
+
+  if (obj instanceof Map) {
+    const copy = new Map()
+    cache.set(obj, copy)
+    obj.forEach((val, key) => {
+      copy.set(deepClone(key, cache), deepClone(val, cache))
     })
     return copy as unknown as T
   }
+
+  if (obj instanceof Set) {
+    const copy = new Set()
+    cache.set(obj, copy)
+    obj.forEach((val) => {
+      copy.add(deepClone(val, cache))
+    })
+    return copy as unknown as T
+  }
+
+  if (obj instanceof Array) {
+    const copy: unknown[] = []
+    cache.set(obj, copy)
+    obj.forEach((item, index) => {
+      copy[index] = deepClone(item, cache)
+    })
+    return copy as unknown as T
+  }
+
+  if (obj instanceof Object) {
+    const copy = Object.create(Object.getPrototypeOf(obj)) as Record<string, unknown>
+    cache.set(obj, copy)
+    Object.keys(obj).forEach((key) => {
+      copy[key] = deepClone((obj as Record<string, unknown>)[key], cache)
+    })
+    return copy as unknown as T
+  }
+
   return obj
 }
 
@@ -119,6 +156,9 @@ export const deepMerge = <T extends Record<string, unknown>>(
 
   for (const key in source) {
     if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+        continue
+      }
       const targetValue = target[key]
       const sourceValue = source[key]
 

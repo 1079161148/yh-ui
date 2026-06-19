@@ -3,7 +3,6 @@ import type { Language } from '../index'
 export const uzUz: Language = {
   name: 'uz-uz',
   yh: {
-    // Umumiy
     common: {
       yes: 'Ha',
       no: "Yo'q",
@@ -27,7 +26,6 @@ export const uzUz: Language = {
       selectAll: 'Barchasini tanlash',
       unselectAll: 'Barcha tanlovni bekor qilish'
     },
-    // Rang tanlovchi
     colorpicker: {
       confirm: 'OK',
       clear: 'Tozalash',
@@ -37,7 +35,6 @@ export const uzUz: Language = {
       recentColors: "So'nggi ranglar",
       presetColors: 'Oldindan belgilangan ranglar'
     },
-    // Sana tanlovchi
     datepicker: {
       now: 'Hozir',
       today: 'Bugun',
@@ -89,7 +86,6 @@ export const uzUz: Language = {
         q4: 'Q4'
       }
     },
-    // Vaqt tanlovchi
     timepicker: {
       confirm: 'OK',
       cancel: 'Bekor qilish',
@@ -99,11 +95,9 @@ export const uzUz: Language = {
       endPlaceholder: 'Tugash vaqti',
       selectTime: 'Vaqtni tanlang'
     },
-    // Vaqt tanlash
     timeselect: {
       placeholder: 'Vaqtni tanlang'
     },
-    // Daraxt
     tree: {
       emptyText: "Ma'lumot yo'q",
       loading: 'Yuklanmoqda...',
@@ -112,14 +106,12 @@ export const uzUz: Language = {
       expandAll: 'Barchasini kengaytirish',
       collapseAll: "Barchasini yig'ish"
     },
-    // Daraxt tanlash
     treeselect: {
       placeholder: 'Tanlang',
       emptyText: "Ma'lumot yo'q",
       loading: 'Yuklanmoqda...',
       noMatch: "Mos ma'lumot yo'q"
     },
-    // Taqvim
     calendar: {
       prevMonth: "O'tgan oy",
       nextMonth: 'Keyingi oy',
@@ -140,14 +132,12 @@ export const uzUz: Language = {
         sat: 'Shan'
       }
     },
-    // Avtomatik to\'ldirish
     autocomplete: {
       loading: 'Yuklanmoqda...',
       placeholder: 'Iltimos, kiriting',
       noData: "Ma'lumot yo'q",
       noMatch: "Mos ma'lumot yo'q"
     },
-    // Teskari hisoblash
     countdown: {
       days: 'kun',
       hours: 'soat',
@@ -156,14 +146,12 @@ export const uzUz: Language = {
       milliseconds: 'millisekund',
       finished: 'Tugadi'
     },
-    // Kaskad tanlovchi
     cascader: {
       noMatch: "Mos ma'lumot yo'q",
       placeholder: 'Tanlang',
       loading: 'Yuklanmoqda...',
       noData: "Ma'lumot yo'q"
     },
-    // O\'tkazish
     transfer: {
       noMatch: "Mos ma'lumot yo'q",
       noData: "Ma'lumot yo'q",
@@ -173,7 +161,6 @@ export const uzUz: Language = {
       hasCheckedFormat: '{checked}/{total} tanlangan',
       searchPlaceholder: "Kalit so'zni kiriting"
     },
-    // Jadval
     table: {
       emptyText: "Ma'lumot yo'q",
       confirmFilter: 'Tasdiqlash',
@@ -190,7 +177,6 @@ export const uzUz: Language = {
       page: 'Sahifa {page}',
       yes: 'Ha',
       no: "Yo'q",
-      // Asboblar paneli
       toolbar: {
         refresh: 'Yangilash',
         density: 'Zichlik',
@@ -205,7 +191,6 @@ export const uzUz: Language = {
         search: 'Qidirish',
         searchPlaceholder: "Qidirish uchun kalit so'zlarni kiriting"
       },
-      // Filtr
       filter: {
         selectAll: 'Barchasini tanlash',
         selectInvert: 'Tanlovni teskari aylantirish',
@@ -221,13 +206,11 @@ export const uzUz: Language = {
         lessThan: 'Dan kichik',
         between: "Oralig'ida"
       },
-      // Tartiblash
       sort: {
         asc: "O'sish",
         desc: 'Kamayish',
         clear: 'Tartibni tozalash'
       },
-      // Eksport
       export: {
         title: "Ma'lumotlarni eksport qilish",
         filename: 'Fayl nomi',
@@ -241,7 +224,6 @@ export const uzUz: Language = {
         success: 'Eksport muvaffaqiyatli',
         error: 'Eksport muvaffaqiyatsiz'
       },
-      // Import
       import: {
         title: "Ma'lumotlarni import qilish",
         selectFile: 'Faylni tanlang',
@@ -252,7 +234,6 @@ export const uzUz: Language = {
         preview: "Ma'lumotlar ko'rinishi",
         confirm: 'Importni tasdiqlash'
       },
-      // Chop etish
       printConfig: {
         title: 'Chop etish sozlamalari',
         pageTitle: 'Sahifa sarlavhasi',
@@ -265,7 +246,6 @@ export const uzUz: Language = {
         portrait: 'Portret',
         printing: 'Chop etilmoqda...'
       },
-      // Ustun sozlamalari
       columnSetting: {
         title: 'Ustun sozlamalari',
         showAll: "Barchasini ko'rsatish",
@@ -275,7 +255,6 @@ export const uzUz: Language = {
         fixedRight: "O'ngga mahkamlang",
         unfixed: 'Mahkamlamani olib tashlash'
       },
-      // Kontekst menyusi
       contextMenu: {
         copy: 'Nusxalash',
         copyRow: 'Qatorni nusxalash',
@@ -287,31 +266,26 @@ export const uzUz: Language = {
         deleteSelectedRows: "Tanlangan qatorlarni o'chirish",
         exportSelected: 'Tanlanganlarni eksport qilish'
       },
-      // Tanlash
       selection: {
         selectAll: 'Barchasini tanlash',
         selectInvert: 'Tanlovni teskari aylantirish',
         selectNone: 'Tanlovni tozalash',
         selected: '{count} element tanlangan'
       },
-      // Kengaytirish
       expand: {
         expandAll: 'Barchasini kengaytirish',
         collapseAll: "Barchasini yig'ish"
       },
-      // Daraxt
       tree: {
         expandAll: 'Barchasini kengaytirish',
         collapseAll: "Barchasini yig'ish",
         expandLevel: 'Daraja {level} gacha kengaytirish'
       },
-      // Sudrab o\'tkazish
       drag: {
         dragTip: "Qayta tartiblash uchun sudrab o'tkazing",
         dropTip: "Joylashtirish uchun qo'ying"
       }
     },
-    // Xabar qutisi
     messagebox: {
       title: 'Xabar',
       confirm: 'OK',
@@ -322,7 +296,6 @@ export const uzUz: Language = {
       prompt: "So'rov",
       inputPlaceholder: 'Iltimos, kiriting'
     },
-    // Yuklash
     upload: {
       deleteTip: "o'chirish uchun delete ni bosing",
       delete: "O'chirish",
@@ -340,18 +313,15 @@ export const uzUz: Language = {
       fileSizeError: 'Fayl hajmi chegaradan oshib ketdi',
       fileCountError: 'Fayl soni chegaradan oshib ketdi'
     },
-    // Forma
     form: {
       validationFailed: 'Tekshirish muvaffaqiyatsiz',
       required: 'Majburiy',
       pleaseInput: 'Iltimos, kiriting',
       pleaseSelect: 'Iltimos, tanlang'
     },
-    // Tugma
     button: {
       loading: 'Yuklanmoqda...'
     },
-    // Kirish
     input: {
       placeholder: 'Iltimos, kiriting',
       clear: 'Tozalash',
@@ -360,28 +330,23 @@ export const uzUz: Language = {
       copy: 'Nusxalash',
       copied: 'Nusxalandi'
     },
-    // Raqam kirish
     inputnumber: {
       placeholder: 'Iltimos, raqam kiriting',
       increase: 'Oshirish',
       decrease: 'Kamaytirish'
     },
-    // Teg kirish
     inputtag: {
       placeholder: 'Iltimos, kiriting',
       add: "Qo'shish",
       remove: 'Olib tashlash'
     },
-    // Breadcrumb
     breadcrumb: {
       label: 'Navigatsiya',
       more: "Ko'proq"
     },
-    // Yuqoriga qaytish
     backtop: {
       text: 'Yuqoriga qaytish'
     },
-    // Tanlash
     select: {
       placeholder: 'Iltimos, tanlang',
       noData: "Ma'lumot yo'q",
@@ -390,7 +355,6 @@ export const uzUz: Language = {
       selectAll: 'Barchasini tanlash',
       clearAll: 'Barchasini tozalash'
     },
-    // Sahifalash
     pagination: {
       goto: "O'tish",
       page: '',
@@ -402,13 +366,11 @@ export const uzUz: Language = {
       last: 'Oxirgi',
       pageClassifier: ''
     },
-    // Popconfirm
     popconfirm: {
       confirm: 'OK',
       cancel: 'Bekor qilish',
       dontAskAgain: "Yana so'ramang"
     },
-    // Dialog
     dialog: {
       confirm: 'OK',
       cancel: 'Bekor qilish',
@@ -416,17 +378,14 @@ export const uzUz: Language = {
       maximize: 'Kattalashtirish',
       restore: 'Tiklash'
     },
-    // Drawer
     drawer: {
       close: 'Yopish',
       confirm: 'OK',
       cancel: 'Bekor qilish'
     },
-    // Dropdown
     dropdown: {
       loading: 'Yuklanmoqda...'
     },
-    // Rasm
     image: {
       error: 'MUVAFFAQIYATSIZ',
       loading: 'Yuklanmoqda...',
@@ -438,7 +397,6 @@ export const uzUz: Language = {
       originalSize: "Asl o'lcham",
       fullscreen: "To'liq ekran"
     },
-    // Rasm ko\'ruvchi
     imageviewer: {
       close: 'Yopish',
       prev: 'Oldingi',
@@ -451,65 +409,52 @@ export const uzUz: Language = {
       fullscreen: "To'liq ekran",
       exitFullscreen: "To'liq ekrandan chiqish"
     },
-    // Cheksiz aylantirish
     infinitescroll: {
       loading: 'Yuklanmoqda...',
       finished: "Ko'proq ma'lumot yo'q",
       error: "Yuklash muvaffaqiyatsiz, qayta urinib ko'rish uchun bosing",
       retry: "Qayta urinib ko'rish uchun bosing"
     },
-    // Xabar
     message: {
       close: 'Yopish'
     },
-    // Bildirishnoma
     notification: {
       close: 'Yopish'
     },
-    // Yuklash
     loading: {
       text: 'Yuklanmoqda...'
     },
-    // Spin
     spin: {
       text: 'Yuklanmoqda...'
     },
-    // Baholash
     rate: {
       texts: ['Juda yomon', 'Xafa', "O'rtacha", 'Qoniqarli', 'Ajablanarli']
     },
-    // Ogohlantirish
     alert: {
       close: 'Yopish'
     },
-    // Teg
     tag: {
       close: 'Yopish'
     },
-    // Tablar
     tabs: {
       close: 'Yopish',
       add: "Qo'shish",
       more: "Ko'proq"
     },
-    // Qadamlar
     steps: {
       finish: 'Tugadi',
       process: 'Jarayonda',
       wait: 'Kutmoqda',
       error: 'Xato'
     },
-    // Taraqqiyot
     progress: {
       success: 'Muvaffaqiyat',
       exception: 'Istisno',
       warning: 'Ogohlantirish'
     },
-    // Skeleton
     skeleton: {
       loading: 'Yuklanmoqda...'
     },
-    // Bo\'sh
     empty: {
       description: "Ma'lumot yo'q",
       noData: "Ma'lumot yo'q",
@@ -517,7 +462,6 @@ export const uzUz: Language = {
       networkError: 'Tarmoq xatosi',
       serverError: 'Server xatosi'
     },
-    // Natija
     result: {
       success: 'Muvaffaqiyat',
       error: 'Xato',
@@ -525,72 +469,58 @@ export const uzUz: Language = {
       info: "Ma'lumot",
       backHome: 'Bosh sahifaga qaytish'
     },
-    // Waterfall
     waterfall: {
       loading: 'Yuklanmoqda...',
       noMore: "Ko'proq ma'lumot yo'q",
       empty: "Ma'lumot yo'q"
     },
-    // Tavsiflar
     descriptions: {
       colon: ':'
     },
-    // Slider
     slider: {
       tipFormatter: '{value}'
     },
-    // Switch
     switch: {
       on: 'YOQILGAN',
       off: "O'CHIRILGAN"
     },
-    // Checkbox
     checkbox: {
       selectAll: 'Barchasini tanlash'
     },
-    // Radio
     radio: {},
-    // Menyu
     menu: {
       collapse: "Menyni yig'ish",
       expand: 'Menyni kengaytirish'
     },
-    // Karta
     card: {
       collapse: "Yig'ish",
       expand: 'Kengaytirish'
     },
-    // Yig\'ish
     collapse: {
       expand: 'Kengaytirish',
       collapse: "Yig'ish"
     },
-    // Tooltip
     tooltip: {},
-    // Popover
     popover: {},
-    // Badge
     badge: {},
-    // Avatar
     avatar: {
       error: 'Yuklash muvaffaqiyatsiz'
     },
-    // Watermark
     watermark: {},
-    // Divider
     divider: {},
-    // Carousel
     carousel: {
       prev: 'Oldingi',
       next: 'Keyingi'
     },
-    // Marquee
     marquee: {},
-    // Affix
     affix: {},
-    // Anchor
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
+    },
     anchor: {},
-    // Mention
     mention: {
       placeholder: 'Iltimos, kiriting',
       loading: 'Yuklanmoqda...',
@@ -687,7 +617,6 @@ export const uzUz: Language = {
       galleryItem: 'Galereya {index}',
       close: 'Yopish'
     },
-    // AI Components
     ai: {
       bubble: {
         citations: 'Iqtiboslar'
@@ -697,7 +626,8 @@ export const uzUz: Language = {
         agent: 'Agent',
         document: 'Hujjat',
         table: 'Jadval',
-        knowledge: 'Bilim'
+        knowledge: 'Bilim',
+        file: 'File'
       },
       codeBlock: {
         copyCode: 'Kodni nusxalash',
@@ -716,7 +646,8 @@ export const uzUz: Language = {
       },
       sender: {
         placeholder: 'Xabar yuborish...',
-        dragTip: "Fayllarni yuklash uchun qo'yib yuboring"
+        dragTip: "Fayllarni yuklash uchun qo'yib yuboring",
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
         thoughtProcess: 'Fikrlash jarayoni',
@@ -751,7 +682,8 @@ export const uzUz: Language = {
         versions: 'Versiyalar',
         rendering: 'Komponentni render qilish...',
         renderingChart: 'Grafikni render qilish...',
-        renderingCanvas: 'Kanvasni tayyorlash...'
+        renderingCanvas: 'Kanvasni tayyorlash...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
         trigger: 'Gapirish uchun bosing',

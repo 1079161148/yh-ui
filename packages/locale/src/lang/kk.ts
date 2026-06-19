@@ -3,91 +3,81 @@ import type { Language } from '../index'
 export const kk: Language = {
   name: 'kk',
   yh: {
-    // Жалпы
     common: {
-      yes: '\u0418\u04D9',
-      no: '\u0416\u043E\u049B',
-      confirm: '\u0420\u0430\u0441\u0442\u0430\u0443',
-      cancel: '\u0411\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443',
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435',
-      close: '\u0416\u0430\u0431\u0443',
-      clear: '\u0422\u0430\u0437\u0430\u043B\u0430\u0443',
-      reset:
-        '\u049A\u0430\u043B\u043F\u044B\u043D\u0430 \u043A\u0435\u043B\u0442\u0456\u0440\u0443',
-      save: '\u0421\u0430\u049B\u0442\u0430\u0443',
-      delete: '\u0416\u043E\u044E',
-      edit: '\u04E8\u04A3\u0434\u0435\u0443',
-      add: '\u049A\u043E\u0441\u0443',
-      search: '\u0406\u0437\u0434\u0435\u0443',
-      refresh: '\u0416\u0430\u04A3\u0430\u0440\u0442\u0443',
-      expand: '\u041A\u0435\u04A3\u0435\u0439\u0442\u0443',
-      collapse: '\u0416\u0438\u044E',
-      more: '\u041A\u04E9\u0431\u0456\u0440\u0435\u043A',
-      noData: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      noMatch:
-        '\u0421\u04D9\u0439\u043A\u0435\u0441 \u0434\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      selectAll:
-        '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0442\u0430\u04A3\u0434\u0430\u0443',
-      unselectAll:
-        '\u0411\u0430\u0440\u043B\u044B\u049B \u0442\u0430\u04A3\u0434\u0430\u0443\u0434\u044B \u0436\u043E\u044E'
+      yes: 'Иә',
+      no: 'Жоқ',
+      confirm: 'Растау',
+      cancel: 'Болдырмау',
+      loading: 'Жүктелуде',
+      close: 'Жабу',
+      clear: 'Тазалау',
+      reset: 'Қалпына келтіру',
+      save: 'Сақтау',
+      delete: 'Жою',
+      edit: 'Өңдеу',
+      add: 'Қосу',
+      search: 'Іздеу',
+      refresh: 'Жаңарту',
+      expand: 'Кеңейту',
+      collapse: 'Жию',
+      more: 'Көбірек',
+      noData: 'Деректер жоқ',
+      noMatch: 'Сәйкес деректер жоқ',
+      selectAll: 'Барлығын таңдау',
+      unselectAll: 'Барлық таңдауды жою'
     },
-    // Түс таңдау
     colorpicker: {
-      confirm: '\u0416\u0430\u0440\u0430\u0439\u0434\u044B',
-      clear: '\u0422\u0430\u0437\u0430\u043B\u0430\u0443',
-      eyeDropper: '\u041F\u0438\u043F\u0435\u0442\u043A\u0430',
-      suggestionDark:
-        '\u0410\u049B \u043C\u04D9\u0442\u0456\u043D \u0435\u04A3 \u0436\u0430\u049B\u0441\u044B',
-      suggestionLight:
-        '\u049A\u0430\u0440\u0430 \u043C\u04D9\u0442\u0456\u043D \u0435\u04A3 \u0436\u0430\u049B\u0441\u044B',
-      recentColors: '\u0421\u043E\u04A3\u0493\u044B \u0442\u04AF\u0441\u0442\u0435\u0440',
-      presetColors:
-        '\u0410\u043B\u0434\u044B\u043D \u0430\u043B\u0430 \u043E\u0440\u043D\u0430\u0442\u044B\u043B\u0493\u0430\u043D \u0442\u04AF\u0441\u0442\u0435\u0440'
+      confirm: 'Жарайды',
+      clear: 'Тазалау',
+      eyeDropper: 'Пипетка',
+      suggestionDark: 'Ақ мәтін ең жақсы',
+      suggestionLight: 'Қара мәтін ең жақсы',
+      recentColors: 'Соңғы түстер',
+      presetColors: 'Алдын ала орнатылған түстер'
     },
-    // Күн таңдау
     datepicker: {
-      now: '\u049A\u0430\u0437\u0456\u0440',
-      today: '\u0411\u04AF\u0433\u0456\u043D',
-      cancel: '\u0411\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443',
-      clear: '\u0422\u0430\u0437\u0430\u043B\u0430\u0443',
-      confirm: '\u0416\u0430\u0440\u0430\u0439\u0434\u044B',
-      selectDate: '\u041A\u04AF\u043D\u0434\u0456 \u0442\u0430\u04A3\u0434\u0430\u0443',
-      selectTime: '\u0423\u0430\u049B\u044B\u0442\u0442\u044B \u0442\u0430\u04A3\u0434\u0430\u0443',
-      startDate: '\u0411\u0430\u0441\u0442\u0430\u043B\u0443 \u043A\u04AF\u043D\u0456',
-      startTime: '\u0411\u0430\u0441\u0442\u0430\u043B\u0443 \u0443\u0430\u049B\u044B\u0442\u044B',
-      endDate: '\u0410\u044F\u049B\u0442\u0430\u043B\u0443 \u043A\u04AF\u043D\u0456',
-      endTime: '\u0410\u044F\u049B\u0442\u0430\u043B\u0443 \u0443\u0430\u049B\u044B\u0442\u044B',
+      now: 'Қазір',
+      today: 'Бүгін',
+      cancel: 'Болдырмау',
+      clear: 'Тазалау',
+      confirm: 'Жарайды',
+      selectDate: 'Күнді таңдау',
+      selectTime: 'Уақытты таңдау',
+      startDate: 'Басталу күні',
+      startTime: 'Басталу уақыты',
+      endDate: 'Аяқталу күні',
+      endTime: 'Аяқталу уақыты',
       year: '',
       month: '',
       day: '',
-      week: '\u0410\u043F\u0442\u0430',
+      week: 'Апта',
       monthBeforeYear: true,
-      prevYear: '\u0410\u043B\u0434\u044B\u04A3\u0493\u044B \u0436\u044B\u043B',
-      nextYear: '\u041A\u0435\u043B\u0435\u0441\u0456 \u0436\u044B\u043B',
-      prevMonth: '\u0410\u043B\u0434\u044B\u04A3\u0493\u044B \u0430\u0439',
-      nextMonth: '\u041A\u0435\u043B\u0435\u0441\u0456 \u0430\u0439',
+      prevYear: 'Алдыңғы жыл',
+      nextYear: 'Келесі жыл',
+      prevMonth: 'Алдыңғы ай',
+      nextMonth: 'Келесі ай',
       weeks: {
-        sun: '\u0416\u0441',
-        mon: '\u0414\u0441',
-        tue: '\u0421\u0441',
-        wed: '\u0421\u0440',
-        thu: '\u0411\u0441',
-        fri: '\u0416\u043C',
-        sat: '\u0421\u0431'
+        sun: 'Жс',
+        mon: 'Дс',
+        tue: 'Сс',
+        wed: 'Ср',
+        thu: 'Бс',
+        fri: 'Жм',
+        sat: 'Сб'
       },
       months: {
-        jan: '\u049A\u0430\u04A3',
-        feb: '\u0410\u049B\u043F',
-        mar: '\u041D\u0430\u0443',
-        apr: '\u0421\u04D9\u0443',
-        may: '\u041C\u0430\u043C',
-        jun: '\u041C\u0430\u0443',
-        jul: '\u0428\u0456\u043B',
-        aug: '\u0422\u0430\u043C',
-        sep: '\u049A\u044B\u0440',
-        oct: '\u049A\u0430\u0437',
-        nov: '\u049A\u0430\u0440',
-        dec: '\u0416\u0435\u043B'
+        jan: 'Қаң',
+        feb: 'Ақп',
+        mar: 'Нау',
+        apr: 'Сәу',
+        may: 'Мам',
+        jun: 'Мау',
+        jul: 'Шіл',
+        aug: 'Там',
+        sep: 'Қыр',
+        oct: 'Қаз',
+        nov: 'Қар',
+        dec: 'Жел'
       },
       quarters: {
         q1: 'Q1',
@@ -96,733 +86,679 @@ export const kk: Language = {
         q4: 'Q4'
       }
     },
-    // Уақыт таңдау
     timepicker: {
-      confirm: '\u0416\u0430\u0440\u0430\u0439\u0434\u044B',
-      cancel: '\u0411\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443',
-      now: '\u049A\u0430\u0437\u0456\u0440',
-      placeholder:
-        '\u0423\u0430\u049B\u044B\u0442\u0442\u044B \u0442\u0430\u04A3\u0434\u0430\u0443',
-      startPlaceholder:
-        '\u0411\u0430\u0441\u0442\u0430\u043B\u0443 \u0443\u0430\u049B\u044B\u0442\u044B',
-      endPlaceholder:
-        '\u0410\u044F\u049B\u0442\u0430\u043B\u0443 \u0443\u0430\u049B\u044B\u0442\u044B',
-      selectTime: '\u0423\u0430\u049B\u044B\u0442\u0442\u044B \u0442\u0430\u04A3\u0434\u0430\u0443'
+      confirm: 'Жарайды',
+      cancel: 'Болдырмау',
+      now: 'Қазір',
+      placeholder: 'Уақытты таңдау',
+      startPlaceholder: 'Басталу уақыты',
+      endPlaceholder: 'Аяқталу уақыты',
+      selectTime: 'Уақытты таңдау'
     },
-    // Уақыт таңдау
     timeselect: {
-      placeholder: '\u0423\u0430\u049B\u044B\u0442\u0442\u044B \u0442\u0430\u04A3\u0434\u0430\u0443'
+      placeholder: 'Уақытты таңдау'
     },
-    // Ағаш
     tree: {
-      emptyText: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      checkAll:
-        '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0442\u0435\u043A\u0441\u0435\u0440\u0443',
-      uncheckAll:
-        '\u0411\u0430\u0440\u043B\u044B\u049B \u0442\u0435\u043A\u0441\u0435\u0440\u0443\u0434\u0456 \u0436\u043E\u044E',
-      expandAll:
-        '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u043A\u0435\u04A3\u0435\u0439\u0442\u0443',
-      collapseAll: '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0436\u0438\u044E'
+      emptyText: 'Деректер жоқ',
+      loading: 'Жүктелуде...',
+      checkAll: 'Барлығын тексеру',
+      uncheckAll: 'Барлық тексеруді жою',
+      expandAll: 'Барлығын кеңейту',
+      collapseAll: 'Барлығын жию'
     },
-    // Ағаш таңдау
     treeselect: {
-      placeholder: '\u0422\u0430\u04A3\u0434\u0430\u0443',
-      emptyText: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      noMatch:
-        '\u0421\u04D9\u0439\u043A\u0435\u0441 \u0434\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B'
+      placeholder: 'Таңдау',
+      emptyText: 'Деректер жоқ',
+      loading: 'Жүктелуде...',
+      noMatch: 'Сәйкес деректер жоқ'
     },
-    // Күнтізбе
     calendar: {
-      prevMonth: '\u0410\u043B\u0434\u044B\u04A3\u0493\u044B \u0430\u0439',
-      nextMonth: '\u041A\u0435\u043B\u0435\u0441\u0456 \u0430\u0439',
-      prevYear: '\u0410\u043B\u0434\u044B\u04A3\u0493\u044B \u0436\u044B\u043B',
-      nextYear: '\u041A\u0435\u043B\u0435\u0441\u0456 \u0436\u044B\u043B',
-      today: '\u0411\u04AF\u0433\u0456\u043D',
-      week: '\u0410\u043F\u0442\u0430',
-      holiday: '\u041C\u0435\u0440\u0435\u043A\u0435',
-      workday: '\u0416\u04B1\u043C\u044B\u0441',
+      prevMonth: 'Алдыңғы ай',
+      nextMonth: 'Келесі ай',
+      prevYear: 'Алдыңғы жыл',
+      nextYear: 'Келесі жыл',
+      today: 'Бүгін',
+      week: 'Апта',
+      holiday: 'Мереке',
+      workday: 'Жұмыс',
       monthHeaderFormat: 'MMMM YYYY',
       weeks: {
-        sun: '\u0416\u0441',
-        mon: '\u0414\u0441',
-        tue: '\u0421\u0441',
-        wed: '\u0421\u0440',
-        thu: '\u0411\u0441',
-        fri: '\u0416\u043C',
-        sat: '\u0421\u0431'
+        sun: 'Жс',
+        mon: 'Дс',
+        tue: 'Сс',
+        wed: 'Ср',
+        thu: 'Бс',
+        fri: 'Жм',
+        sat: 'Сб'
       }
     },
-    // Автоматтық толтыру
     autocomplete: {
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      placeholder: '\u0415\u043D\u0433\u0456\u0437\u0456\u04A3\u0456\u0437',
-      noData: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      noMatch:
-        '\u0421\u04D9\u0439\u043A\u0435\u0441 \u0434\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B'
+      loading: 'Жүктелуде...',
+      placeholder: 'Енгізіңіз',
+      noData: 'Деректер жоқ',
+      noMatch: 'Сәйкес деректер жоқ'
     },
-    // Кері санау
     countdown: {
-      days: '\u043A\u04AF\u043D',
-      hours: '\u0441\u0430\u0493\u0430\u0442',
-      minutes: '\u043C\u0438\u043D\u0443\u0442',
-      seconds: '\u0441\u0435\u043A\u0443\u043D\u0434',
-      milliseconds: '\u043C\u0438\u043B\u043B\u0438\u0441\u0435\u043A\u0443\u043D\u0434',
-      finished: '\u0410\u044F\u049B\u0442\u0430\u043B\u0434\u044B'
+      days: 'күн',
+      hours: 'сағат',
+      minutes: 'минут',
+      seconds: 'секунд',
+      milliseconds: 'миллисекунд',
+      finished: 'Аяқталды'
     },
-    // Каскад
     cascader: {
-      noMatch:
-        '\u0421\u04D9\u0439\u043A\u0435\u0441 \u0434\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      placeholder: '\u0422\u0430\u04A3\u0434\u0430\u0443',
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      noData: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B'
+      noMatch: 'Сәйкес деректер жоқ',
+      placeholder: 'Таңдау',
+      loading: 'Жүктелуде...',
+      noData: 'Деректер жоқ'
     },
-    // Ауыстыру
     transfer: {
-      noMatch:
-        '\u0421\u04D9\u0439\u043A\u0435\u0441 \u0434\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      noData: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      titles: ['\u0422\u0456\u0437\u0456\u043C 1', '\u0422\u0456\u0437\u0456\u043C 2'],
-      filterPlaceholder:
-        '\u041A\u0456\u043B\u0442 \u0441\u04E9\u0437\u0434\u0456 \u0435\u043D\u0433\u0456\u0437\u0456\u04A3\u0456\u0437',
-      noCheckedFormat: '{total} \u044D\u043B\u0435\u043C\u0435\u043D\u0442',
-      hasCheckedFormat: '{checked}/{total} \u0442\u0430\u04A3\u0434\u0430\u043B\u0434\u044B',
-      searchPlaceholder:
-        '\u041A\u0456\u043B\u0442 \u0441\u04E9\u0437\u0434\u0456 \u0435\u043D\u0433\u0456\u0437\u0456\u04A3\u0456\u0437'
+      noMatch: 'Сәйкес деректер жоқ',
+      noData: 'Деректер жоқ',
+      titles: ['Тізім 1', 'Тізім 2'],
+      filterPlaceholder: 'Кілт сөзді енгізіңіз',
+      noCheckedFormat: '{total} элемент',
+      hasCheckedFormat: '{checked}/{total} таңдалды',
+      searchPlaceholder: 'Кілт сөзді енгізіңіз'
     },
-    // Кесте
     table: {
-      emptyText: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      confirmFilter: '\u0420\u0430\u0441\u0442\u0430\u0443',
-      resetFilter:
-        '\u049A\u0430\u043B\u043F\u044B\u043D\u0430 \u043A\u0435\u043B\u0442\u0456\u0440\u0443',
-      clearFilter: '\u0411\u0430\u0440\u043B\u044B\u0493\u044B',
-      sumText: '\u049A\u043E\u0441\u044B\u043D\u0434\u044B',
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      index: '\u0418\u043D\u0434\u0435\u043A\u0441',
-      print: '\u0411\u0430\u0441\u044B\u043F \u0448\u044B\u0493\u0430\u0440\u0443',
-      cancel: '\u0411\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443',
-      preview:
-        '\u0411\u0430\u0441\u044B\u043F \u0448\u044B\u0493\u0430\u0440\u0443 \u0430\u043B\u0434\u044B\u043D \u0430\u043B\u0430 \u049B\u0430\u0440\u0430\u0443',
-      printTime:
-        '\u0411\u0430\u0441\u044B\u043F \u0448\u044B\u0493\u0430\u0440\u0443 \u0443\u0430\u049B\u044B\u0442\u044B',
-      total:
-        '\u0411\u0430\u0440\u043B\u044B\u0493\u044B {total} \u044D\u043B\u0435\u043C\u0435\u043D\u0442',
-      page: '\u0411\u0435\u0442 {page}',
-      yes: '\u0418\u04D9',
-      no: '\u0416\u043E\u049B',
-      // Құралдар панелі
+      emptyText: 'Деректер жоқ',
+      confirmFilter: 'Растау',
+      resetFilter: 'Қалпына келтіру',
+      clearFilter: 'Барлығы',
+      sumText: 'Қосынды',
+      loading: 'Жүктелуде...',
+      index: 'Индекс',
+      print: 'Басып шығару',
+      cancel: 'Болдырмау',
+      preview: 'Басып шығару алдын ала қарау',
+      printTime: 'Басып шығару уақыты',
+      total: 'Барлығы {total} элемент',
+      page: 'Бет {page}',
+      yes: 'Иә',
+      no: 'Жоқ',
       toolbar: {
-        refresh: '\u0416\u0430\u04A3\u0430\u0440\u0442\u0443',
-        density: '\u0422\u044B\u0493\u044B\u0437\u0434\u044B\u049B',
-        densityDefault: '\u04D8\u0434\u0435\u043F\u043A\u0456',
-        densityLarge: '\u04AE\u043B\u043A\u0435\u043D',
-        densitySmall: '\u041A\u0456\u0448\u0456',
-        columnSetting:
-          '\u0411\u0430\u0493\u0430\u043D\u0430 \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043B\u0435\u0440\u0456',
-        fullscreen: '\u0422\u043E\u043B\u044B\u049B \u044D\u043A\u0440\u0430\u043D',
-        exitFullscreen:
-          '\u0422\u043E\u043B\u044B\u049B \u044D\u043A\u0440\u0430\u043D\u043D\u0430\u043D \u0448\u044B\u0493\u0443',
-        export: '\u042D\u043A\u0441\u043F\u043E\u0440\u0442\u0442\u0430\u0443',
-        import: '\u0418\u043C\u043F\u043E\u0440\u0442\u0442\u0430\u0443',
-        search: '\u0406\u0437\u0434\u0435\u0443',
-        searchPlaceholder:
-          '\u0406\u0437\u0434\u0435\u0443 \u04AF\u0448\u0456\u043D \u043A\u0456\u043B\u0442 \u0441\u04E9\u0437\u0434\u0435\u0440\u0434\u0456 \u0435\u043D\u0433\u0456\u0437\u0456\u04A3\u0456\u0437'
+        refresh: 'Жаңарту',
+        density: 'Тығыздық',
+        densityDefault: 'Әдепкі',
+        densityLarge: 'Үлкен',
+        densitySmall: 'Кіші',
+        columnSetting: 'Бағана параметрлері',
+        fullscreen: 'Толық экран',
+        exitFullscreen: 'Толық экраннан шығу',
+        export: 'Экспорттау',
+        import: 'Импорттау',
+        search: 'Іздеу',
+        searchPlaceholder: 'Іздеу үшін кілт сөздерді енгізіңіз'
       },
-      // Сүзгі
       filter: {
-        selectAll:
-          '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0442\u0430\u04A3\u0434\u0430\u0443',
-        selectInvert:
-          '\u0422\u0430\u04A3\u0434\u0430\u0443\u0434\u044B \u043A\u0435\u0440\u0456 \u049B\u0430\u0439\u0442\u0430\u0440\u0443',
-        empty: '\u0411\u043E\u0441',
-        notEmpty: '\u0411\u043E\u0441 \u0435\u043C\u0435\u0441',
-        contains: '\u049A\u0430\u043C\u0442\u0438\u0434\u044B',
-        notContains: '\u049A\u0430\u043C\u0442\u044B\u043C\u0430\u0439\u0434\u044B',
-        equals: '\u0422\u0435\u04A3',
-        notEquals: '\u0422\u0435\u04A3 \u0435\u043C\u0435\u0441',
-        startsWith: '\u0411\u0430\u0441\u0442\u0430\u043B\u0430\u0434\u044B',
-        endsWith: '\u0410\u044F\u049B\u0442\u0430\u043B\u0430\u0434\u044B',
-        greaterThan: '\u04AE\u043B\u043A\u0435\u043D',
-        lessThan: '\u041A\u0456\u0448\u0456',
-        between: '\u0410\u0440\u0430\u0441\u044B\u043D\u0434\u0430'
+        selectAll: 'Барлығын таңдау',
+        selectInvert: 'Таңдауды кері қайтару',
+        empty: 'Бос',
+        notEmpty: 'Бос емес',
+        contains: 'Қамтиды',
+        notContains: 'Қамтымайды',
+        equals: 'Тең',
+        notEquals: 'Тең емес',
+        startsWith: 'Басталады',
+        endsWith: 'Аяқталады',
+        greaterThan: 'Үлкен',
+        lessThan: 'Кіші',
+        between: 'Арасында'
       },
-      // Сұрыптау
       sort: {
-        asc: '\u04E8\u0441\u0443',
-        desc: '\u041A\u0435\u043C\u0443',
-        clear:
-          '\u0421\u04B1\u0440\u044B\u043F\u0442\u0430\u0443\u0434\u044B \u0442\u0430\u0437\u0430\u043B\u0430\u0443'
+        asc: 'Өсу',
+        desc: 'Кему',
+        clear: 'Сұрыптауды тазалау'
       },
-      // Экспорттау
       export: {
-        title:
-          '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440\u0434\u0456 \u044D\u043A\u0441\u043F\u043E\u0440\u0442\u0442\u0430\u0443',
-        filename: '\u0424\u0430\u0439\u043B \u0430\u0442\u0430\u0443\u044B',
-        type: '\u0424\u0430\u0439\u043B \u0442\u04AF\u0440\u0456',
-        scope:
-          '\u042D\u043A\u0441\u043F\u043E\u0440\u0442\u0442\u0430\u0443 \u0430\u0443\u049B\u044B\u043C\u044B',
-        scopeAll:
-          '\u0411\u0430\u0440\u043B\u044B\u049B \u0434\u0435\u0440\u0435\u043A\u0442\u0435\u0440',
-        scopeSelected:
-          '\u0422\u0430\u04A3\u0434\u0430\u043B\u0493\u0430\u043D \u0434\u0435\u0440\u0435\u043A\u0442\u0435\u0440',
-        scopeCurrentPage: '\u0410\u0493\u044B\u043C\u0434\u0430\u0493\u044B \u0431\u0435\u0442',
-        includeHeader:
-          '\u0422\u0430\u049B\u044B\u0440\u044B\u043F\u0442\u044B \u049B\u043E\u0441\u0443',
-        exporting:
-          '\u042D\u043A\u0441\u043F\u043E\u0440\u0442\u0442\u0430\u043B\u0443\u0434\u0430...',
-        success:
-          '\u042D\u043A\u0441\u043F\u043E\u0440\u0442\u0442\u0430\u0443 \u0441\u04D9\u0442\u0442\u0456',
-        error:
-          '\u042D\u043A\u0441\u043F\u043E\u0440\u0442\u0442\u0430\u0443 \u0441\u04D9\u0442\u0441\u0456\u0437'
+        title: 'Деректерді экспорттау',
+        filename: 'Файл атауы',
+        type: 'Файл түрі',
+        scope: 'Экспорттау ауқымы',
+        scopeAll: 'Барлық деректер',
+        scopeSelected: 'Таңдалған деректер',
+        scopeCurrentPage: 'Ағымдағы бет',
+        includeHeader: 'Тақырыпты қосу',
+        exporting: 'Экспортталуда...',
+        success: 'Экспорттау сәтті',
+        error: 'Экспорттау сәтсіз'
       },
-      // Импорттау
       import: {
-        title:
-          '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440\u0434\u0456 \u0438\u043C\u043F\u043E\u0440\u0442\u0442\u0430\u0443',
-        selectFile: '\u0424\u0430\u0439\u043B\u0434\u044B \u0442\u0430\u04A3\u0434\u0430\u0443',
-        dragTip:
-          '\u0416\u04AF\u043A\u0442\u0435\u0443 \u04AF\u0448\u0456\u043D \u0444\u0430\u0439\u043B\u0434\u044B \u0431\u0430\u0441\u044B\u04A3\u044B\u0437 \u043D\u0435\u043C\u0435\u0441\u0435 \u0441\u04AF\u0439\u0440\u0435\u04A3\u0456\u0437',
-        importing: '\u0418\u043C\u043F\u043E\u0440\u0442\u0442\u0430\u043B\u0443\u0434\u0430...',
-        success:
-          '\u0418\u043C\u043F\u043E\u0440\u0442\u0442\u0430\u0443 \u0441\u04D9\u0442\u0442\u0456',
-        error:
-          '\u0418\u043C\u043F\u043E\u0440\u0442\u0442\u0430\u0443 \u0441\u04D9\u0442\u0441\u0456\u0437',
-        preview:
-          '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440\u0434\u0456 \u0430\u043B\u0434\u044B\u043D \u0430\u043B\u0430 \u049B\u0430\u0440\u0430\u0443',
-        confirm:
-          '\u0418\u043C\u043F\u043E\u0440\u0442\u0442\u0430\u0443\u0434\u044B \u0440\u0430\u0441\u0442\u0430\u0443'
+        title: 'Деректерді импорттау',
+        selectFile: 'Файлды таңдау',
+        dragTip: 'Жүктеу үшін файлды басыңыз немесе сүйреңіз',
+        importing: 'Импортталуда...',
+        success: 'Импорттау сәтті',
+        error: 'Импорттау сәтсіз',
+        preview: 'Деректерді алдын ала қарау',
+        confirm: 'Импорттауды растау'
       },
-      // Басып шығару
       printConfig: {
-        title:
-          '\u0411\u0430\u0441\u044B\u043F \u0448\u044B\u0493\u0430\u0440\u0443 \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043B\u0435\u0440\u0456',
-        pageTitle: '\u0411\u0435\u0442 \u0442\u0430\u049B\u044B\u0440\u044B\u0431\u044B',
-        pageHeader: '\u0422\u0430\u049B\u044B\u0440\u044B\u043F',
-        pageFooter: '\u0422\u04E9\u043C\u0435\u043D\u0433\u0456 \u0436\u0430\u049B',
-        printAll:
-          '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0431\u0430\u0441\u044B\u043F \u0448\u044B\u0493\u0430\u0440\u0443',
-        printSelected:
-          '\u0422\u0430\u04A3\u0434\u0430\u043B\u0493\u0430\u043D\u0434\u044B \u0431\u0430\u0441\u044B\u043F \u0448\u044B\u0493\u0430\u0440\u0443',
-        printCurrentPage:
-          '\u0410\u0493\u044B\u043C\u0434\u0430\u0493\u044B \u0431\u0435\u0442\u0442\u0456 \u0431\u0430\u0441\u044B\u043F \u0448\u044B\u0493\u0430\u0440\u0443',
-        landscape: '\u041A\u04E9\u043B\u0434\u0435\u043D\u0435\u04A3',
-        portrait: '\u0422\u0456\u043A',
-        printing:
-          '\u0411\u0430\u0441\u044B\u043F \u0448\u044B\u0493\u0430\u0440\u0443\u0434\u0430...'
+        title: 'Басып шығару параметрлері',
+        pageTitle: 'Бет тақырыбы',
+        pageHeader: 'Тақырып',
+        pageFooter: 'Төменгі жақ',
+        printAll: 'Барлығын басып шығару',
+        printSelected: 'Таңдалғанды басып шығару',
+        printCurrentPage: 'Ағымдағы бетті басып шығару',
+        landscape: 'Көлденең',
+        portrait: 'Тік',
+        printing: 'Басып шығаруда...'
       },
-      // Бағана параметрлері
       columnSetting: {
-        title:
-          '\u0411\u0430\u0493\u0430\u043D\u0430 \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043B\u0435\u0440\u0456',
-        showAll:
-          '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u043A\u04E9\u0440\u0441\u0435\u0442\u0443',
-        hideAll:
-          '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0436\u0430\u0441\u044B\u0440\u0443',
-        reset:
-          '\u049A\u0430\u043B\u043F\u044B\u043D\u0430 \u043A\u0435\u043B\u0442\u0456\u0440\u0443',
-        fixedLeft: '\u0421\u043E\u043B\u0493\u0430 \u0431\u0435\u043A\u0456\u0442\u0443',
-        fixedRight: '\u041E\u04A3\u0493\u0430 \u0431\u0435\u043A\u0456\u0442\u0443',
-        unfixed: '\u0411\u043E\u0441\u0430\u0442\u0443'
+        title: 'Бағана параметрлері',
+        showAll: 'Барлығын көрсету',
+        hideAll: 'Барлығын жасыру',
+        reset: 'Қалпына келтіру',
+        fixedLeft: 'Солға бекіту',
+        fixedRight: 'Оңға бекіту',
+        unfixed: 'Босату'
       },
-      // Контекст мәзірі
       contextMenu: {
-        copy: '\u041A\u04E9\u0448\u0456\u0440\u0443',
-        copyRow: '\u0416\u043E\u043B\u0434\u044B \u043A\u04E9\u0448\u0456\u0440\u0443',
-        copyCell: '\u04B0\u044F\u0448\u044B\u049B\u0442\u044B \u043A\u04E9\u0448\u0456\u0440\u0443',
-        paste: '\u049A\u043E\u044E',
-        insertRowAbove:
-          '\u0416\u043E\u0493\u0430\u0440\u044B \u0436\u043E\u043B \u049B\u043E\u0441\u0443',
-        insertRowBelow:
-          '\u0422\u04E9\u043C\u0435\u043D \u0436\u043E\u043B \u049B\u043E\u0441\u0443',
-        deleteRow: '\u0416\u043E\u043B\u0434\u044B \u0436\u043E\u044E',
-        deleteSelectedRows:
-          '\u0422\u0430\u04A3\u0434\u0430\u043B\u0493\u0430\u043D \u0436\u043E\u043B\u0434\u0430\u0440\u0434\u044B \u0436\u043E\u044E',
-        exportSelected:
-          '\u0422\u0430\u04A3\u0434\u0430\u043B\u0493\u0430\u043D\u0434\u044B \u044D\u043A\u0441\u043F\u043E\u0440\u0442\u0442\u0430\u0443'
+        copy: 'Көшіру',
+        copyRow: 'Жолды көшіру',
+        copyCell: 'Ұяшықты көшіру',
+        paste: 'Қою',
+        insertRowAbove: 'Жоғары жол қосу',
+        insertRowBelow: 'Төмен жол қосу',
+        deleteRow: 'Жолды жою',
+        deleteSelectedRows: 'Таңдалған жолдарды жою',
+        exportSelected: 'Таңдалғанды экспорттау'
       },
-      // Таңдау
       selection: {
-        selectAll:
-          '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0442\u0430\u04A3\u0434\u0430\u0443',
-        selectInvert:
-          '\u0422\u0430\u04A3\u0434\u0430\u0443\u0434\u044B \u043A\u0435\u0440\u0456 \u049B\u0430\u0439\u0442\u0430\u0440\u0443',
-        selectNone:
-          '\u0422\u0430\u04A3\u0434\u0430\u0443\u0434\u044B \u0442\u0430\u0437\u0430\u043B\u0430\u0443',
-        selected:
-          '{count} \u044D\u043B\u0435\u043C\u0435\u043D\u0442 \u0442\u0430\u04A3\u0434\u0430\u043B\u0434\u044B'
+        selectAll: 'Барлығын таңдау',
+        selectInvert: 'Таңдауды кері қайтару',
+        selectNone: 'Таңдауды тазалау',
+        selected: '{count} элемент таңдалды'
       },
-      // Кеңейту
       expand: {
-        expandAll:
-          '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u043A\u0435\u04A3\u0435\u0439\u0442\u0443',
-        collapseAll: '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0436\u0438\u044E'
+        expandAll: 'Барлығын кеңейту',
+        collapseAll: 'Барлығын жию'
       },
-      // Ағаш
       tree: {
-        expandAll:
-          '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u043A\u0435\u04A3\u0435\u0439\u0442\u0443',
-        collapseAll: '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0436\u0438\u044E',
-        expandLevel:
-          '{level} \u0434\u0435\u04A3\u0433\u0435\u0439\u0433\u0435 \u0434\u0435\u0439\u0456\u043D \u043A\u0435\u04A3\u0435\u0439\u0442\u0443'
+        expandAll: 'Барлығын кеңейту',
+        collapseAll: 'Барлығын жию',
+        expandLevel: '{level} деңгейге дейін кеңейту'
       },
-      // Сүйреу
       drag: {
-        dragTip:
-          '\u049A\u0430\u0439\u0442\u0430 \u0440\u0435\u0442\u0442\u0435\u0443 \u04AF\u0448\u0456\u043D \u0441\u04AF\u0439\u0440\u0435\u04A3\u0456\u0437',
-        dropTip:
-          '\u041E\u0440\u043D\u0430\u043B\u0430\u0441\u0442\u044B\u0440\u0443 \u04AF\u0448\u0456\u043D \u0442\u0430\u0441\u0442\u0430\u04A3\u044B\u0437'
+        dragTip: 'Қайта реттеу үшін сүйреңіз',
+        dropTip: 'Орналастыру үшін тастаңыз'
       }
     },
-    // Хабарлама қорабы
     messagebox: {
-      title: '\u0425\u0430\u0431\u0430\u0440\u043B\u0430\u043C\u0430',
-      confirm: '\u0416\u0430\u0440\u0430\u0439\u0434\u044B',
-      cancel: '\u0411\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443',
-      close: '\u0416\u0430\u0431\u0443',
-      error:
-        '\u0416\u0430\u0440\u0430\u043C\u0441\u044B\u0437 \u0435\u043D\u0433\u0456\u0437\u0443',
-      alert: '\u0415\u0441\u043A\u0435\u0440\u0442\u0443',
-      prompt: '\u0421\u04B1\u0440\u0430\u0443',
-      inputPlaceholder: '\u0415\u043D\u0433\u0456\u0437\u0456\u04A3\u0456\u0437'
+      title: 'Хабарлама',
+      confirm: 'Жарайды',
+      cancel: 'Болдырмау',
+      close: 'Жабу',
+      error: 'Жарамсыз енгізу',
+      alert: 'Ескерту',
+      prompt: 'Сұрау',
+      inputPlaceholder: 'Енгізіңіз'
     },
-    // Жүктеу
     upload: {
-      deleteTip:
-        '\u0436\u043E\u044E \u04AF\u0448\u0456\u043D delete \u0431\u0430\u0441\u044B\u04A3\u044B\u0437',
-      delete: '\u0416\u043E\u044E',
-      preview: '\u0410\u043B\u0434\u044B\u043D \u0430\u043B\u0430 \u049B\u0430\u0440\u0430\u0443',
-      continue: '\u0416\u0430\u043B\u0493\u0430\u0441\u0442\u044B\u0440\u0443',
-      upload:
-        '\u0416\u04AF\u043A\u0442\u0435\u0443 \u04AF\u0448\u0456\u043D \u0431\u0430\u0441\u044B\u04A3\u044B\u0437',
-      tip: '<em>\u0416\u04AF\u043A\u0442\u0435\u0443</em> \u04AF\u0448\u0456\u043D \u0444\u0430\u0439\u043B\u0434\u044B \u043E\u0441\u044B \u0430\u0439\u043C\u0430\u049B\u049B\u0430 \u0431\u0430\u0441\u044B\u04A3\u044B\u0437 \u043D\u0435\u043C\u0435\u0441\u0435 \u0441\u04AF\u0439\u0440\u0435\u04A3\u0456\u0437',
-      dragTip:
-        '\u0424\u0430\u0439\u043B\u0434\u044B \u043E\u0441\u044B \u0436\u0435\u0440\u0433\u0435 \u0442\u0430\u0441\u0442\u0430\u04A3\u044B\u0437 \u043D\u0435\u043C\u0435\u0441\u0435 \u0436\u04AF\u043A\u0442\u0435\u0443 \u04AF\u0448\u0456\u043D \u0431\u0430\u0441\u044B\u04A3\u044B\u0437',
-      uploading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      success: '\u0416\u04AF\u043A\u0442\u0435\u0443 \u0441\u04D9\u0442\u0442\u0456',
-      error: '\u0416\u04AF\u043A\u0442\u0435\u0443 \u0441\u04D9\u0442\u0441\u0456\u0437',
-      retry: '\u049A\u0430\u0439\u0442\u0430 \u0431\u0430\u0439\u049B\u0430\u0443',
-      cancel:
-        '\u0416\u04AF\u043A\u0442\u0435\u0443\u0434\u0456 \u0431\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443',
-      fileTypeError:
-        '\u0424\u0430\u0439\u043B \u0442\u04AF\u0440\u0456 \u049B\u043E\u043B\u0434\u0430\u0443 \u043A\u04E9\u0440\u0441\u0435\u0442\u0456\u043B\u043C\u0435\u0439\u0434\u0456',
-      fileSizeError:
-        '\u0424\u0430\u0439\u043B \u04E9\u043B\u0448\u0435\u043C\u0456 \u0448\u0435\u043A\u0442\u0435\u043D \u0430\u0441\u044B\u043F \u043A\u0435\u0442\u0442\u0456',
-      fileCountError:
-        '\u0424\u0430\u0439\u043B \u0441\u0430\u043D\u044B \u0448\u0435\u043A\u0442\u0435\u043D \u0430\u0441\u044B\u043F \u043A\u0435\u0442\u0442\u0456'
+      deleteTip: 'жою үшін delete басыңыз',
+      delete: 'Жою',
+      preview: 'Алдын ала қарау',
+      continue: 'Жалғастыру',
+      upload: 'Жүктеу үшін басыңыз',
+      tip: '<em>Жүктеу</em> үшін файлды осы аймаққа басыңыз немесе сүйреңіз',
+      dragTip: 'Файлды осы жерге тастаңыз немесе жүктеу үшін басыңыз',
+      uploading: 'Жүктелуде...',
+      success: 'Жүктеу сәтті',
+      error: 'Жүктеу сәтсіз',
+      retry: 'Қайта байқау',
+      cancel: 'Жүктеуді болдырмау',
+      fileTypeError: 'Файл түрі қолдау көрсетілмейді',
+      fileSizeError: 'Файл өлшемі шектен асып кетті',
+      fileCountError: 'Файл саны шектен асып кетті'
     },
-    // Форма
     form: {
-      validationFailed:
-        '\u0422\u0435\u043A\u0441\u0435\u0440\u0443 \u0441\u04D9\u0442\u0441\u0456\u0437',
-      required: '\u041C\u0456\u043D\u0434\u0435\u0442\u0442\u0456',
-      pleaseInput: '\u0415\u043D\u0433\u0456\u0437\u0456\u04A3\u0456\u0437',
-      pleaseSelect: '\u0422\u0430\u04A3\u0434\u0430\u04A3\u044B\u0437'
+      validationFailed: 'Тексеру сәтсіз',
+      required: 'Міндетті',
+      pleaseInput: 'Енгізіңіз',
+      pleaseSelect: 'Таңдаңыз'
     },
-    // Батырма
     button: {
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...'
+      loading: 'Жүктелуде...'
     },
-    // Енгізу
     input: {
-      placeholder: '\u0415\u043D\u0433\u0456\u0437\u0456\u04A3\u0456\u0437',
-      clear: '\u0422\u0430\u0437\u0430\u043B\u0430\u0443',
-      showPassword:
-        '\u049A\u04B1\u043F\u0438\u044F \u0441\u04E9\u0437\u0434\u0456 \u043A\u04E9\u0440\u0441\u0435\u0442\u0443',
-      hidePassword:
-        '\u049A\u04B1\u043F\u0438\u044F \u0441\u04E9\u0437\u0434\u0456 \u0436\u0430\u0441\u044B\u0440\u0443',
-      copy: '\u041A\u04E9\u0448\u0456\u0440\u0443',
-      copied: '\u041A\u04E9\u0448\u0456\u0440\u0456\u043B\u0434\u0456'
+      placeholder: 'Енгізіңіз',
+      clear: 'Тазалау',
+      showPassword: 'Құпия сөзді көрсету',
+      hidePassword: 'Құпия сөзді жасыру',
+      copy: 'Көшіру',
+      copied: 'Көшірілді'
     },
-    // Сан енгізу
     inputnumber: {
-      placeholder: '\u0421\u0430\u043D \u0435\u043D\u0433\u0456\u0437\u0456\u04A3\u0456\u0437',
-      increase: '\u0410\u0440\u0442\u0442\u044B\u0440\u0443',
-      decrease: '\u0410\u0437\u0430\u0439\u0442\u0443'
+      placeholder: 'Сан енгізіңіз',
+      increase: 'Арттыру',
+      decrease: 'Азайту'
     },
-    // Тег енгізу
     inputtag: {
-      placeholder: '\u0415\u043D\u0433\u0456\u0437\u0456\u04A3\u0456\u0437',
-      add: '\u049A\u043E\u0441\u0443',
-      remove: '\u0416\u043E\u044E'
+      placeholder: 'Енгізіңіз',
+      add: 'Қосу',
+      remove: 'Жою'
     },
-    // Навигация жолы
     breadcrumb: {
-      label: '\u041D\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044F \u0436\u043E\u043B\u044B',
-      more: '\u041A\u04E9\u0431\u0456\u0440\u0435\u043A'
+      label: 'Навигация жолы',
+      more: 'Көбірек'
     },
-    // Жоғарыға оралу
     backtop: {
-      text: '\u0416\u043E\u0493\u0430\u0440\u044B\u0493\u0430 \u043E\u0440\u0430\u043B\u0443'
+      text: 'Жоғарыға оралу'
     },
-    // Таңдау
     select: {
-      placeholder: '\u0422\u0430\u04A3\u0434\u0430\u04A3\u044B\u0437',
-      noData: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      noMatch:
-        '\u0421\u04D9\u0439\u043A\u0435\u0441 \u0434\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      selectAll:
-        '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0442\u0430\u04A3\u0434\u0430\u0443',
-      clearAll:
-        '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0442\u0430\u0437\u0430\u043B\u0430\u0443'
+      placeholder: 'Таңдаңыз',
+      noData: 'Деректер жоқ',
+      loading: 'Жүктелуде...',
+      noMatch: 'Сәйкес деректер жоқ',
+      selectAll: 'Барлығын таңдау',
+      clearAll: 'Барлығын тазалау'
     },
-    // Беттеме
     pagination: {
-      goto: '\u0411\u0430\u0440\u0443',
+      goto: 'Бару',
       page: '',
-      total: '\u0411\u0430\u0440\u043B\u044B\u0493\u044B {total}',
-      pageSize: '/\u0431\u0435\u0442',
-      prev: '\u0410\u043B\u0434\u044B\u04A3\u0493\u044B',
-      next: '\u041A\u0435\u043B\u0435\u0441\u0456',
-      first: '\u0411\u0456\u0440\u0456\u043D\u0448\u0456',
-      last: '\u0421\u043E\u04A3\u0493\u044B',
+      total: 'Барлығы {total}',
+      pageSize: '/бет',
+      prev: 'Алдыңғы',
+      next: 'Келесі',
+      first: 'Бірінші',
+      last: 'Соңғы',
       pageClassifier: ''
     },
-    // Растау popup
     popconfirm: {
-      confirm: '\u0416\u0430\u0440\u0430\u0439\u0434\u044B',
-      cancel: '\u0411\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443',
-      dontAskAgain:
-        '\u049A\u0430\u0439\u0442\u0430 \u0441\u04B1\u0440\u0430\u043C\u0430\u04A3\u044B\u0437'
+      confirm: 'Жарайды',
+      cancel: 'Болдырмау',
+      dontAskAgain: 'Қайта сұрамаңыз'
     },
-    // Диалог
     dialog: {
-      confirm: '\u0416\u0430\u0440\u0430\u0439\u0434\u044B',
-      cancel: '\u0411\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443',
-      close: '\u0416\u0430\u0431\u0443',
-      maximize: '\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u0434\u0430\u0443',
-      restore:
-        '\u049A\u0430\u043B\u043F\u044B\u043D\u0430 \u043A\u0435\u043B\u0442\u0456\u0440\u0443'
+      confirm: 'Жарайды',
+      cancel: 'Болдырмау',
+      close: 'Жабу',
+      maximize: 'Максималдау',
+      restore: 'Қалпына келтіру'
     },
-    // Сүйретпе
     drawer: {
-      close: '\u0416\u0430\u0431\u0443',
-      confirm: '\u0416\u0430\u0440\u0430\u0439\u0434\u044B',
-      cancel: '\u0411\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443'
+      close: 'Жабу',
+      confirm: 'Жарайды',
+      cancel: 'Болдырмау'
     },
-    // Төмендегі мәзір
     dropdown: {
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...'
+      loading: 'Жүктелуде...'
     },
-    // Сурет
     image: {
-      error: '\u0421\u04D8\u0422\u0421\u0406\u0417',
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      preview: '\u0410\u043B\u0434\u044B\u043D \u0430\u043B\u0430 \u049B\u0430\u0440\u0430\u0443',
-      zoomIn: '\u04AE\u043B\u043A\u0435\u0439\u0442\u0443',
-      zoomOut: '\u041A\u0456\u0448\u0456\u0440\u0435\u0439\u0442\u0443',
-      rotateLeft: '\u0421\u043E\u043B\u0493\u0430 \u0431\u04B1\u0440\u0443',
-      rotateRight: '\u041E\u04A3\u0493\u0430 \u0431\u04B1\u0440\u0443',
-      originalSize:
-        '\u0411\u0430\u0441\u0442\u0430\u043F\u049B\u044B \u04E9\u043B\u0448\u0435\u043C',
-      fullscreen: '\u0422\u043E\u043B\u044B\u049B \u044D\u043A\u0440\u0430\u043D'
+      error: 'СӘТСІЗ',
+      loading: 'Жүктелуде...',
+      preview: 'Алдын ала қарау',
+      zoomIn: 'Үлкейту',
+      zoomOut: 'Кішірейту',
+      rotateLeft: 'Солға бұру',
+      rotateRight: 'Оңға бұру',
+      originalSize: 'Бастапқы өлшем',
+      fullscreen: 'Толық экран'
     },
-    // Сурет көруші
     imageviewer: {
-      close: '\u0416\u0430\u0431\u0443',
-      prev: '\u0410\u043B\u0434\u044B\u04A3\u0493\u044B',
-      next: '\u041A\u0435\u043B\u0435\u0441\u0456',
-      zoomIn: '\u04AE\u043B\u043A\u0435\u0439\u0442\u0443',
-      zoomOut: '\u041A\u0456\u0448\u0456\u0440\u0435\u0439\u0442\u0443',
-      rotateLeft: '\u0421\u043E\u043B\u0493\u0430 \u0431\u04B1\u0440\u0443',
-      rotateRight: '\u041E\u04A3\u0493\u0430 \u0431\u04B1\u0440\u0443',
-      reset:
-        '\u049A\u0430\u043B\u043F\u044B\u043D\u0430 \u043A\u0435\u043B\u0442\u0456\u0440\u0443',
-      fullscreen: '\u0422\u043E\u043B\u044B\u049B \u044D\u043A\u0440\u0430\u043D',
-      exitFullscreen:
-        '\u0422\u043E\u043B\u044B\u049B \u044D\u043A\u0440\u0430\u043D\u043D\u0430\u043D \u0448\u044B\u0493\u0443'
+      close: 'Жабу',
+      prev: 'Алдыңғы',
+      next: 'Келесі',
+      zoomIn: 'Үлкейту',
+      zoomOut: 'Кішірейту',
+      rotateLeft: 'Солға бұру',
+      rotateRight: 'Оңға бұру',
+      reset: 'Қалпына келтіру',
+      fullscreen: 'Толық экран',
+      exitFullscreen: 'Толық экраннан шығу'
     },
-    // Шексіз айналдыру
     infinitescroll: {
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      finished: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      error:
-        '\u0416\u04AF\u043A\u0442\u0435\u0443 \u0441\u04D9\u0442\u0441\u0456\u0437, \u049B\u0430\u0439\u0442\u0430 \u0431\u0430\u0439\u049B\u0430\u0443 \u04AF\u0448\u0456\u043D \u0431\u0430\u0441\u044B\u04A3\u044B\u0437',
-      retry:
-        '\u049A\u0430\u0439\u0442\u0430 \u0431\u0430\u0439\u049B\u0430\u0443 \u04AF\u0448\u0456\u043D \u0431\u0430\u0441\u044B\u04A3\u044B\u0437'
+      loading: 'Жүктелуде...',
+      finished: 'Деректер жоқ',
+      error: 'Жүктеу сәтсіз, қайта байқау үшін басыңыз',
+      retry: 'Қайта байқау үшін басыңыз'
     },
-    // Хабарлама
     message: {
-      close: '\u0416\u0430\u0431\u0443'
+      close: 'Жабу'
     },
-    // Хабарландыру
     notification: {
-      close: '\u0416\u0430\u0431\u0443'
+      close: 'Жабу'
     },
-    // Жүктеу
     loading: {
-      text: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...'
+      text: 'Жүктелуде...'
     },
-    // Айналдыру
     spin: {
-      text: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...'
+      text: 'Жүктелуде...'
     },
-    // Бағалау
     rate: {
-      texts: [
-        '\u04E8\u0442\u0435 \u043D\u0430\u0448\u0430\u0440',
-        '\u041A\u04AF\u0439\u0456\u043D\u0433\u0435\u043D',
-        '\u041E\u0440\u0442\u0430\u0448\u0430',
-        '\u049A\u0430\u043D\u0430\u0493\u0430\u0442\u0442\u0430\u043D\u0493\u0430\u043D',
-        '\u0422\u0430\u04A3\u0493\u0430\u043B\u0493\u0430\u043D'
-      ]
+      texts: ['Өте нашар', 'Күйінген', 'Орташа', 'Қанағаттанған', 'Таңғалған']
     },
-    // Ескерту
     alert: {
-      close: '\u0416\u0430\u0431\u0443'
+      close: 'Жабу'
     },
-    // Тег
     tag: {
-      close: '\u0416\u0430\u0431\u0443'
+      close: 'Жабу'
     },
-    // Қоймалар
     tabs: {
-      close: '\u0416\u0430\u0431\u0443',
-      add: '\u049A\u043E\u0441\u0443',
-      more: '\u041A\u04E9\u0431\u0456\u0440\u0435\u043A'
+      close: 'Жабу',
+      add: 'Қосу',
+      more: 'Көбірек'
     },
-    // Қадамдар
     steps: {
-      finish: '\u0410\u044F\u049B\u0442\u0430\u043B\u0434\u044B',
-      process: '\u0416\u0430\u043B\u0493\u0430\u0441\u0443\u0434\u0430',
-      wait: '\u041A\u04AF\u0442\u0443\u0434\u0435',
-      error: '\u049A\u0430\u0442\u0435'
+      finish: 'Аяқталды',
+      process: 'Жалғасуда',
+      wait: 'Күтуде',
+      error: 'Қате'
     },
-    // Прогресс
     progress: {
-      success: '\u0421\u04D9\u0442\u0442\u0456',
-      exception: '\u0415\u0440\u0435\u043A\u0448\u0435\u043B\u0456\u043A',
-      warning: '\u0415\u0441\u043A\u0435\u0440\u0442\u0443'
+      success: 'Сәтті',
+      exception: 'Ерекшелік',
+      warning: 'Ескерту'
     },
-    // Скелет
     skeleton: {
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...'
+      loading: 'Жүктелуде...'
     },
-    // Бос
     empty: {
-      description: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      noData: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      noResult: '\u041D\u04D9\u0442\u0438\u0436\u0435\u043B\u0435\u0440 \u0436\u043E\u049B',
-      networkError: '\u0416\u0435\u043B\u0456 \u049B\u0430\u0442\u0435\u0441\u0456',
-      serverError: '\u0421\u0435\u0440\u0432\u0435\u0440 \u049B\u0430\u0442\u0435\u0441\u0456'
+      description: 'Деректер жоқ',
+      noData: 'Деректер жоқ',
+      noResult: 'Нәтижелер жоқ',
+      networkError: 'Желі қатесі',
+      serverError: 'Сервер қатесі'
     },
-    // Нәтиже
     result: {
-      success: '\u0421\u04D9\u0442\u0442\u0456',
-      error: '\u049A\u0430\u0442\u0435',
-      warning: '\u0415\u0441\u043A\u0435\u0440\u0442\u0443',
-      info: '\u0410\u049B\u043F\u0430\u0440\u0430\u0442',
-      backHome:
-        '\u0411\u0430\u0441\u0442\u044B \u0431\u0435\u0442\u043A\u0435 \u043E\u0440\u0430\u043B\u0443'
+      success: 'Сәтті',
+      error: 'Қате',
+      warning: 'Ескерту',
+      info: 'Ақпарат',
+      backHome: 'Басты бетке оралу'
     },
-    // Су ағынды
     waterfall: {
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      noMore: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B',
-      empty: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B'
+      loading: 'Жүктелуде...',
+      noMore: 'Деректер жоқ',
+      empty: 'Деректер жоқ'
     },
-    // Сипаттамалар
     descriptions: {
       colon: ':'
     },
-    // Слайдер
     slider: {
       tipFormatter: '{value}'
     },
-    // Ауыстырғыш
     switch: {
-      on: '\u049A\u041E\u0421\u0423\u041B\u042B',
-      off: '\u04E8\u0428\u0406\u0420\u0423\u041B\u0406'
+      on: 'ҚОСУЛЫ',
+      off: 'ӨШІРУЛІ'
     },
-    // Белгілеу қорабы
     checkbox: {
-      selectAll:
-        '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u0442\u0430\u04A3\u0434\u0430\u0443'
+      selectAll: 'Барлығын таңдау'
     },
-    // Радио
     radio: {},
-    // Мәзір
     menu: {
-      collapse: '\u041C\u04D9\u0437\u0456\u0440\u0434\u0456 \u0436\u0438\u044E',
-      expand:
-        '\u041C\u04D9\u0437\u0456\u0440\u0434\u0456 \u043A\u0435\u04A3\u0435\u0439\u0442\u0443'
+      collapse: 'Мәзірді жию',
+      expand: 'Мәзірді кеңейту'
     },
-    // Карта
     card: {
-      collapse: '\u0416\u0438\u044E',
-      expand: '\u041A\u0435\u04A3\u0435\u0439\u0442\u0443'
+      collapse: 'Жию',
+      expand: 'Кеңейту'
     },
-    // Жию
     collapse: {
-      expand: '\u041A\u0435\u04A3\u0435\u0439\u0442\u0443',
-      collapse: '\u0416\u0438\u044E'
+      expand: 'Кеңейту',
+      collapse: 'Жию'
     },
-    // Кеңес
     tooltip: {},
-    // Popover
     popover: {},
-    // Белгі
     badge: {},
-    // Аватар
     avatar: {
-      error: '\u0416\u04AF\u043A\u0442\u0435\u0443 \u0441\u04D9\u0442\u0441\u0456\u0437'
+      error: 'Жүктеу сәтсіз'
     },
-    // Су белгісі
     watermark: {},
-    // Бөлгіш
     divider: {},
-    // Карусель
     carousel: {
-      prev: '\u0410\u043B\u0434\u044B\u04A3\u0493\u044B',
-      next: '\u041A\u0435\u043B\u0435\u0441\u0456'
+      prev: 'Алдыңғы',
+      next: 'Келесі'
     },
-    // Marquee
     marquee: {},
-    // Бекіту
     affix: {},
-    // Якорь
-    anchor: {},
-    // Mention
-    mention: {
-      placeholder: '\u0415\u043D\u0433\u0456\u0437\u0456\u043D\u0456\u0437',
-      loading: '\u0416\u04AF\u043A\u0442\u0435\u043B\u0443\u0434\u0435...',
-      noData: '\u0414\u0435\u0440\u0435\u043A\u0442\u0435\u0440 \u0436\u043E\u049B'
+    flow: {
+      zoomIn: 'Zoom In',
+      zoomOut: 'Zoom Out',
+      fitView: 'Fit View',
+      lock: 'Toggle Interactivity'
     },
-    // AI Components
+    anchor: {},
+    mention: {
+      placeholder: 'Енгізініз',
+      loading: 'Жүктелуде...',
+      noData: 'Деректер жоқ'
+    },
+    skuselector: {
+      placeholder: 'Select specifications',
+      emptyText: 'No specifications',
+      stock: 'Stock',
+      price: 'Price',
+      selected: 'Selected',
+      outOfStock: 'Out of Stock'
+    },
+    productcard: {
+      viewDetails: 'View Details',
+      buyNow: 'Buy Now',
+      addToCart: 'Add to Cart',
+      sold: 'Sold',
+      soldOut: 'Sold Out',
+      vip: 'VIP'
+    },
+    price: {
+      original: 'Original'
+    },
+    couponcard: {
+      available: 'Claim Now',
+      used: 'Used',
+      expired: 'Expired',
+      received: 'Received',
+      limit: 'Orders over {threshold}',
+      noThreshold: 'No threshold',
+      validPeriod: 'Validity',
+      ruleTitle: 'Usage Rules'
+    },
+    luckydraw: {
+      start: 'Start',
+      drawing: 'Drawing...',
+      end: 'Winner!',
+      retry: 'Retry'
+    },
+    filterbar: {
+      all: 'All',
+      sort: 'Sort',
+      filter: 'Filter',
+      cancel: 'Cancel',
+      reset: 'Reset',
+      confirm: 'Confirm',
+      noOptions: 'No options',
+      asc: 'Ascending',
+      desc: 'Descending',
+      selected: 'Selected'
+    },
+    submitbar: {
+      total: 'Total: ',
+      selected: '{count} selected',
+      submit: 'Checkout',
+      allSelect: 'Select All'
+    },
+    categorynav: {
+      all: 'All',
+      noData: 'No Data',
+      loading: 'Loading...'
+    },
+    smartaddress: {
+      placeholder: 'Paste address here, auto-detect name, phone, location',
+      parse: 'Smart Parse',
+      province: 'Province/City/District',
+      city: 'City',
+      district: 'District/County',
+      street: 'Street/Town',
+      detail: 'Detailed Address',
+      phone: 'Phone',
+      name: 'Recipient',
+      parseSuccess: 'Address parsed successfully',
+      parseFailed: 'Parse failed, please fill manually',
+      required: 'Please fill complete address',
+      provinceKeywords: ['Province', 'State'],
+      cityKeywords: ['City', 'Prefecture'],
+      districtKeywords: ['District', 'County', 'Township'],
+      streetKeywords: ['Street', 'Road', 'Ave', 'Lane']
+    },
+    ganttchart: {
+      taskName: 'Task Name',
+      searchPlaceholder: 'Search tasks...',
+      zoom: 'Zoom',
+      day: 'Day',
+      week: 'Week',
+      month: 'Month',
+      year: 'Year',
+      milestone: 'Milestone'
+    },
+    imagemagnifier: {
+      switchToImage: 'Switch to image {index}',
+      galleryItem: 'Gallery {index}',
+      close: 'Close'
+    },
     ai: {
       bubble: {
-        citations: '\u0421\u0456\u043B\u0442\u0435\u043C\u0435\u043B\u0435\u0440'
+        citations: 'Сілтемелер'
       },
       mention: {
-        placeholder:
-          '@ \u0410\u0433\u0435\u043D\u0442, \u049A\u04B1\u0436\u0430\u0442 \u043D\u0435\u043C\u0435\u0441\u0435 \u041A\u0435\u0441\u0442\u0435\u043D\u0456 \u0431\u0435\u043B\u0433\u0456\u043B\u0435\u0443...',
-        agent: '\u0410\u0433\u0435\u043D\u0442',
-        document: '\u049A\u04B1\u0436\u0430\u0442',
-        table: '\u041A\u0435\u0441\u0442\u0435',
-        knowledge: '\u0411\u0456\u043B\u0456\u043C'
+        placeholder: '@ Агент, Құжат немесе Кестені белгілеу...',
+        agent: 'Агент',
+        document: 'Құжат',
+        table: 'Кесте',
+        knowledge: 'Білім',
+        file: 'File'
       },
       codeBlock: {
-        copyCode: '\u041A\u043E\u0434\u0442\u044B \u043A\u04E9\u0448\u0456\u0440\u0443',
-        copied: '\u041A\u04E9\u0448\u0456\u0440\u0456\u043B\u0434\u0456!',
-        run: '\u041A\u043E\u0434\u0442\u044B \u043E\u0440\u044B\u043D\u0434\u0430\u0443',
-        edit: '\u04E8\u04A3\u0434\u0435\u0443',
-        save: '\u0421\u0430\u049B\u0442\u0430\u0443',
-        cancel: '\u0411\u043E\u043B\u0434\u044B\u0440\u043C\u0430\u0443'
+        copyCode: 'Кодты көшіру',
+        copied: 'Көшірілді!',
+        run: 'Кодты орындау',
+        edit: 'Өңдеу',
+        save: 'Сақтау',
+        cancel: 'Болдырмау'
       },
       codeRunner: {
-        run: '\u041E\u0440\u044B\u043D\u0434\u0430\u0443',
-        stop: '\u0422\u043E\u049B\u0442\u0430\u0442\u0443',
-        clear: '\u0422\u0430\u0437\u0430\u043B\u0430\u0443',
-        reset: '\u049A\u0430\u0439\u0442\u0430 \u043E\u0440\u043D\u0430\u0442\u0443',
-        placeholder:
-          '\u041A\u043E\u0434\u0442\u044B \u043E\u0440\u044B\u043D\u0434\u0430\u0443 \u04AF\u0448\u0456\u043D \u041E\u0440\u044B\u043D\u0434\u0430\u0443 \u0442\u04AF\u0439\u043C\u0435\u0441\u0456\u043D \u0431\u0430\u0441\u044B\u04A3\u044B\u0437...'
+        run: 'Орындау',
+        stop: 'Тоқтату',
+        clear: 'Тазалау',
+        reset: 'Қайта орнату',
+        placeholder: 'Кодты орындау үшін Орындау түймесін басыңыз...'
       },
       sender: {
-        placeholder:
-          '\u0425\u0430\u0431\u0430\u0440\u043B\u0430\u043C\u0430 \u0436\u0456\u0431\u0435\u0440\u0443...',
-        dragTip:
-          '\u0424\u0430\u0439\u043B\u0434\u0430\u0440\u0434\u044B \u0436\u04AF\u043A\u0442\u0435\u0443 \u04AF\u0448\u0456\u043D \u0431\u043E\u0441\u0430\u0442\u044B\u04A3\u044B\u0437'
+        placeholder: 'Хабарлама жіберу...',
+        dragTip: 'Файлдарды жүктеу үшін босатыңыз',
+        noCommands: 'No matching commands found'
       },
       thoughtChain: {
-        thoughtProcess: '\u041E\u0439\u043B\u0430\u0443 \u043F\u0440\u043E\u0446\u0435\u0441\u0456',
-        thinking: '\u041E\u0439\u043B\u0430\u0443\u0434\u0430...',
-        defaultTitle: '\u0416\u0430\u04A3\u0430 \u049B\u0430\u0434\u0430\u043C',
-        addNode: '\u049A\u0430\u0434\u0430\u043C \u049B\u043E\u0441\u0443'
+        thoughtProcess: 'Ойлау процесі',
+        thinking: 'Ойлауда...',
+        defaultTitle: 'Жаңа қадам',
+        addNode: 'Қадам қосу'
       },
       thinking: {
-        start: '\u041E\u0439\u043B\u0430\u0443\u0434\u044B \u0431\u0430\u0441\u0442\u0430\u0443',
-        thinking: '\u041E\u0439\u043B\u0430\u0443\u0434\u0430...',
-        complete: '\u041E\u0439\u043B\u0430\u0443 \u0430\u044F\u049B\u0442\u0430\u043B\u0434\u044B',
-        error: '\u041E\u0439\u043B\u0430\u0443 \u049B\u0430\u0442\u0435\u0441\u0456'
+        start: 'Ойлауды бастау',
+        thinking: 'Ойлауда...',
+        complete: 'Ойлау аяқталды',
+        error: 'Ойлау қатесі'
       },
       welcome: {
-        title: '\u0421\u0430\u043B\u0435\u043C, \u043C\u0435\u043D YH AI',
+        title: 'Салем, мен YH AI',
         description:
-          '\u0421\u0456\u0437\u0433\u0435 \u0431\u0430\u0493\u0434\u0430\u0440\u043B\u0430\u043C\u0430\u043B\u0430\u0443\u0434\u0430, \u049B\u04B1\u0436\u0430\u0442\u0442\u0430\u0440\u0434\u044B \u0430\u0443\u0434\u0430\u0440\u0443\u0434\u0430 \u043D\u0435\u043C\u0435\u0441\u0435 \u0448\u044B\u0493\u0430\u0440\u043C\u0430\u0448\u044B\u043B\u044B\u049B \u0436\u0430\u0437\u0443\u0434\u0430 \u043A\u04E9\u043C\u0435\u043A\u0442\u0435\u0441\u0435 \u0430\u043B\u0430\u043C\u044B\u043D. \u0411\u04AF\u0433\u0456\u043D \u0441\u0456\u0437\u0433\u0435 \u043D\u0435 \u0456\u0441\u0442\u0435\u0439 \u0430\u043B\u0430\u043C\u044B\u043D?'
+          'Сізге бағдарламалауда, құжаттарды аударуда немесе шығармашылық жазуда көмектесе аламын. Бүгін сізге не істей аламын?'
       },
       action: {
-        copy: '\u041A\u04E9\u0448\u0456\u0440\u0443',
-        regenerate: '\u049A\u0430\u0439\u0442\u0430 \u049B\u04B1\u0440\u0443',
-        share: '\u0411\u04E9\u043B\u0456\u0441\u0443',
-        like: '\u04B0\u043D\u0430\u0439\u0434\u044B',
-        dislike: '\u04B0\u043D\u0430\u043C\u0430\u0439\u0434\u044B',
-        edit: '\u04E8\u04A3\u0434\u0435\u0443',
-        delete: '\u0416\u043E\u044E'
+        copy: 'Көшіру',
+        regenerate: 'Қайта құру',
+        share: 'Бөлісу',
+        like: 'Ұнайды',
+        dislike: 'Ұнамайды',
+        edit: 'Өңдеу',
+        delete: 'Жою'
       },
       artifacts: {
-        preview: '\u0410\u043B\u0434\u044B\u043D \u0430\u043B\u0430 \u049B\u0430\u0440\u0430\u0443',
-        inline: '\u0416\u043E\u043B \u0456\u0448\u0456\u043D\u0434\u0435',
-        code: '\u0411\u0430\u0441\u0442\u0430\u043F\u049B\u044B \u043A\u043E\u0434',
-        versions: '\u041D\u04B1\u0441\u049B\u0430\u043B\u0430\u0440',
-        rendering:
-          '\u041A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442\u0442\u0456 \u043A\u04E9\u0440\u0441\u0435\u0442\u0443...',
-        renderingChart:
-          '\u0414\u0438\u0430\u0433\u0440\u0430\u043C\u043C\u0430\u043D\u044B \u043A\u04E9\u0440\u0441\u0435\u0442\u0443...',
-        renderingCanvas:
-          '\u041A\u0435\u043D\u0435\u043F \u0434\u0430\u0439\u044B\u043D\u0434\u0430\u0443...'
+        preview: 'Алдын ала қарау',
+        inline: 'Жол ішінде',
+        code: 'Бастапқы код',
+        versions: 'Нұсқалар',
+        rendering: 'Компонентті көрсету...',
+        renderingChart: 'Диаграмманы көрсету...',
+        renderingCanvas: 'Кенеп дайындау...',
+        chartLoadError: 'Chart loading failed'
       },
       voice: {
-        trigger:
-          '\u0421\u04E9\u0439\u043B\u0435\u0443 \u04AF\u0448\u0456\u043D \u0431\u0430\u0441\u044B\u04A3\u044B\u0437',
-        listening: '\u0422\u044B\u04A3\u0434\u0430\u0443\u0434\u0430...'
+        trigger: 'Сөйлеу үшін басыңыз',
+        listening: 'Тыңдауда...'
       },
       agent: {
-        uses: '\u043F\u0430\u0439\u0434\u0430\u043B\u0430\u043D\u0443',
-        use: '\u049A\u0430\u0437\u0456\u0440 \u043F\u0430\u0439\u0434\u0430\u043B\u0430\u043D\u0443',
-        favorite: '\u0422\u0430\u04A3\u0434\u0430\u0443\u043B\u044B',
-        unfavorite:
-          '\u0422\u0430\u04A3\u0434\u0430\u0443\u0434\u0430\u043D \u0430\u043B\u044B\u043F \u0442\u0430\u0441\u0442\u0430\u0443',
-        share: '\u0411\u04E9\u043B\u0456\u0441\u0443',
-        online: '\u041E\u043D\u043B\u0430\u0439\u043D',
-        offline: '\u041E\u0444\u043B\u0430\u0439\u043D',
-        busy: '\u0411\u043E\u0441 \u0435\u043C\u0435\u0441',
-        verified: '\u0420\u0430\u0441\u0442\u0430\u043B\u0493\u0430\u043D',
-        rating: '\u0411\u0430\u0493\u0430',
-        reviews: '\u043F\u0456\u043A\u0456\u0440',
-        responseTime:
-          '\u041E\u0440\u0442\u0430\u0448\u0430 \u0436\u0430\u0443\u0430\u043F \u0443\u0430\u049B\u044B\u0442\u044B',
-        ms: '\u043C\u0441'
+        uses: 'пайдалану',
+        use: 'Қазір пайдалану',
+        favorite: 'Таңдаулы',
+        unfavorite: 'Таңдаудан алып тастау',
+        share: 'Бөлісу',
+        online: 'Онлайн',
+        offline: 'Офлайн',
+        busy: 'Бос емес',
+        verified: 'Расталған',
+        rating: 'Баға',
+        reviews: 'пікір',
+        responseTime: 'Орташа жауап уақыты',
+        ms: 'мс'
       },
       sources: {
-        references: '\u0421\u0456\u043B\u0442\u0435\u043C\u0435\u043B\u0435\u0440',
-        referencedSources:
-          '\u0421\u0456\u043B\u0442\u0435\u043B\u0433\u0435\u043D \u0434\u0435\u0440\u0435\u043A\u043A\u04E9\u0437\u0434\u0435\u0440',
-        relevant: '\u0421\u0259\u0439\u043A\u0435\u0441\u0442\u0456\u043A',
-        viewOriginal:
-          '\u0422\u04AF\u043F\u043D\u04B1\u0441\u049B\u0430\u043D\u044B \u043A\u04E9\u0440\u0443',
-        showAll:
-          '\u0411\u0430\u0440\u043B\u044B\u0493\u044B\u043D \u043A\u04E9\u0440\u0441\u0435\u0442\u0443',
-        more: '\u043A\u04E9\u043F \u0434\u0435\u0440\u0435\u043A\u043A\u04E9\u0437\u0434\u0435\u0440',
-        drawerTitle: '\u0421\u0456\u043B\u0442\u0435\u043C\u0435\u043B\u0435\u0440',
-        expandMore:
-          '\u041A\u04E9\u0431\u0456\u0440\u0435\u043A \u043A\u04E9\u0440\u0441\u0435\u0442\u0443',
-        collapseMore: '\u0416\u0438\u044E',
-        noSources:
-          '\u0414\u0435\u0440\u0435\u043A\u043A\u04E9\u0437\u0434\u0435\u0440 \u0436\u043E\u049B',
-        today: '\u0411\u04AF\u0433\u0456\u043D',
-        last7Days: '\u0421\u043E\u04A3\u0493\u044B 7 \u043A\u04AF\u043D',
-        last30Days: '\u0421\u043E\u04A3\u0493\u044B 30 \u043A\u04AF\u043D',
-        earlier: '\u0411\u04B1\u0440\u044B\u043D',
-        pinned: '\u0411\u0435\u043A\u0456\u0442\u0456\u043B\u0433\u0435\u043D'
+        references: 'Сілтемелер',
+        referencedSources: 'Сілтелген дереккөздер',
+        relevant: 'Сəйкестік',
+        viewOriginal: 'Түпнұсқаны көру',
+        showAll: 'Барлығын көрсету',
+        more: 'көп дереккөздер',
+        drawerTitle: 'Сілтемелер',
+        expandMore: 'Көбірек көрсету',
+        collapseMore: 'Жию',
+        noSources: 'Дереккөздер жоқ',
+        today: 'Бүгін',
+        last7Days: 'Соңғы 7 күн',
+        last30Days: 'Соңғы 30 күн',
+        earlier: 'Бұрын',
+        pinned: 'Бекітілген'
       },
       conversations: {
-        today: '\u0411\u04AF\u0433\u0456\u043D',
-        last7Days: '\u0421\u043E\u04A3\u0493\u044B 7 \u043A\u04AF\u043D',
-        last30Days: '\u0421\u043E\u04A3\u0493\u044B 30 \u043A\u04AF\u043D',
-        earlier: '\u0411\u04B1\u0440\u044B\u043D',
-        pinned: '\u0411\u0435\u043A\u0456\u0442\u0456\u043B\u0433\u0435\u043D',
-        pin: '\u0411\u0435\u043A\u0456\u0442\u0443',
-        unpin: '\u0411\u0435\u043A\u0456\u0442\u0443\u0434\u0456 \u0430\u043B\u0443',
-        newConversation: '\u0416\u0430\u04A3\u0430 \u0441\u04E9\u0439\u043B\u0435\u0441\u0443',
-        rename: '\u0410\u0442\u0430\u0443\u044B\u043D \u04E9\u0437\u0433\u0435\u0440\u0442\u0443',
-        delete: '\u0416\u043E\u044E',
-        deleteConfirm:
-          '\u041E\u0441\u044B \u0441\u04E9\u0439\u043B\u0435\u0441\u0443\u0434\u0456 \u0436\u043E\u044E\u0434\u044B \u0440\u0430\u0441\u0442\u0430\u0439\u0441\u044B\u0437 \u0431\u0430?'
+        today: 'Бүгін',
+        last7Days: 'Соңғы 7 күн',
+        last30Days: 'Соңғы 30 күн',
+        earlier: 'Бұрын',
+        pinned: 'Бекітілген',
+        pin: 'Бекіту',
+        unpin: 'Бекітуді алу',
+        newConversation: 'Жаңа сөйлесу',
+        noData: 'No conversations yet',
+        rename: 'Атауын өзгерту',
+        delete: 'Жою',
+        deleteConfirm: 'Осы сөйлесуді жоюды растайсыз ба?'
+      },
+      attachments: {
+        dropTip: 'Drop files here to upload',
+        clickToUpload: 'Click or drag files to upload',
+        uploadSuccess: 'Upload success',
+        uploadError: 'Upload failed',
+        deleteConfirm: 'Are you sure to delete this file?',
+        fileTooLarge: 'File size cannot exceed {size}',
+        invalidFileType: 'Invalid file type'
+      },
+      mermaid: {
+        image: 'Image',
+        code: 'Code',
+        zoomIn: 'Zoom In',
+        zoomOut: 'Zoom Out',
+        reset: 'Reset',
+        download: 'Download',
+        copyCode: 'Copy Code',
+        rendering: 'Rendering...',
+        renderError: 'Render failed',
+        renderSuccess: 'Render success',
+        retry: 'Retry'
       }
     }
   }
 }
+
 export default kk
