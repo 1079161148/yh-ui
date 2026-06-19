@@ -80,12 +80,13 @@ describe('remaining coverage wave', () => {
   it('useRequest debounce/throttle branches return resolved promises', async () => {
     const svc = vi.fn().mockResolvedValue({ data: 1 })
     const d = useRequest(svc, { manual: true, debounceWait: 20 })
-    await expect(d.run(1 as any)).resolves.toBeUndefined()
+    const p1 = d.run(1 as any)
     vi.advanceTimersByTime(25)
+    await expect(p1).resolves.toEqual({ data: 1 })
 
     const t = useRequest(svc, { manual: true, throttleWait: 20 })
-    await expect(t.run(2 as any)).resolves.toBeUndefined()
-    vi.advanceTimersByTime(25)
+    const p2 = t.run(2 as any)
+    await expect(p2).resolves.toEqual({ data: 1 })
   })
 
   it('useQueue covers retry/retryAll/remove/start-resume branches', async () => {
