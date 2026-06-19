@@ -172,6 +172,12 @@ describe('HttpCache', () => {
       expect(onRequest(cfg)).toBe(cfg)
     })
 
+    it('defaults to enabled when no options are specified', () => {
+      const { onRequest } = createHttpCacheInterceptor()
+      const cfg = { method: 'GET', url: '/a', headers: {} } as any
+      expect(onRequest(cfg)).not.toBe(cfg)
+    })
+
     it('onRequest skips non-GET methods', () => {
       const { onRequest } = createHttpCacheInterceptor({ enabled: true })
       const cfg = { method: 'POST', url: '/a', headers: {} } as any

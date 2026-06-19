@@ -120,4 +120,67 @@ describe('YhAiThinking', () => {
     })
     expect(wrapper.find('.custom-thought').exists()).toBe(true)
   })
+
+  // ─── classNames & styles ─────────────────────────────────
+  it('should map classNames and styles to sub-elements', () => {
+    const classNames = {
+      root: 'my-root-class',
+      header: 'my-header-class',
+      title: 'my-title-class',
+      icon: 'my-icon-class',
+      arrow: 'my-arrow-class',
+      body: 'my-body-class',
+      content: 'my-content-class'
+    }
+    const styles = {
+      root: { color: 'red' },
+      header: { color: 'blue' },
+      title: { color: 'green' },
+      icon: { color: 'yellow' },
+      arrow: { color: 'pink' },
+      body: { color: 'purple' },
+      content: { color: 'orange' }
+    }
+    const wrapper = mount(AiThinking, {
+      props: {
+        modelValue: true,
+        content: 'test',
+        classNames,
+        styles: styles as any
+      }
+    })
+
+    expect(wrapper.find('.yh-ai-thinking').classes()).toContain('my-root-class')
+    expect(wrapper.find('.yh-ai-thinking').element.getAttribute('style')).toContain('color: red')
+
+    expect(wrapper.find('.yh-ai-thinking__header').classes()).toContain('my-header-class')
+    expect(wrapper.find('.yh-ai-thinking__header').element.getAttribute('style')).toContain(
+      'color: blue'
+    )
+
+    expect(wrapper.find('.yh-ai-thinking__title').classes()).toContain('my-title-class')
+    expect(wrapper.find('.yh-ai-thinking__title').element.getAttribute('style')).toContain(
+      'color: green'
+    )
+
+    expect(wrapper.find('.yh-ai-thinking__icon-wrapper').classes()).toContain('my-icon-class')
+    expect(wrapper.find('.yh-ai-thinking__icon-wrapper').element.getAttribute('style')).toContain(
+      'color: yellow'
+    )
+
+    expect(wrapper.find('.yh-ai-thinking__arrow').classes()).toContain('my-arrow-class')
+    expect(wrapper.find('.yh-ai-thinking__arrow').element.getAttribute('style')).toContain(
+      'color: pink'
+    )
+
+    expect(wrapper.find('.yh-ai-thinking__body').classes()).toContain('my-body-class')
+    expect(wrapper.find('.yh-ai-thinking__body').element.getAttribute('style')).toContain(
+      'color: purple'
+    )
+
+    expect(wrapper.find('.yh-ai-thinking__content').classes()).toContain('my-content-class')
+    expect(wrapper.find('.yh-ai-thinking__content').element.getAttribute('style')).toContain(
+      'color: orange'
+    )
+  })
 })

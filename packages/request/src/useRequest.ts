@@ -223,8 +223,9 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
 
     try {
       // 执行请求
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response = await service(...runParams, { signal: abortController.signal } as any)
+      const response = await (service as (...args: unknown[]) => Promise<unknown>)(...runParams, {
+        signal: abortController.signal
+      })
 
       // 检查是否被取消
       if (currentRunCount !== runCount.value) {
@@ -314,33 +315,69 @@ export function useRequest<TData = unknown, TParams extends unknown[] = unknown[
 
   let wrappedRun = run as unknown as CancelableRunFn
   let cancelFn: (() => void) | undefined
+  let pendingPromises: Array<{
+    resolve: (val: RequestResponse<TData>) => void
+    reject: (err: unknown) => void
+  }> = []
 
   if (debounceWait) {
     const debounced = debounce(
-      ((...args: TParams) => {
-        run(...args).catch(() => {})
-      }) as (...args: unknown[]) => void,
+      (async (...args: TParams) => {
+        const currentPromises = [...pendingPromises]
+        pendingPromises = []
+        try {
+          const res = await run(...args)
+          currentPromises.forEach((p) => p.resolve(res))
+        } catch (err) {
+          currentPromises.forEach((p) => p.reject(err))
+        }
+      }) as unknown as (...args: unknown[]) => void,
       debounceWait
     )
     wrappedRun = ((...args: TParams) => {
-      debounced(...args)
-      return Promise.resolve() as unknown as Promise<RequestResponse<TData>>
+      return new Promise<RequestResponse<TData>>((resolve, reject) => {
+        pendingPromises.push({ resolve, reject })
+        debounced(...args)
+      })
     }) as unknown as CancelableRunFn
-    wrappedRun.cancel = () => debounced.cancel()
-    cancelFn = () => debounced.cancel()
+    wrappedRun.cancel = () => {
+      debounced.cancel()
+      const currentPromises = [...pendingPromises]
+      pendingPromises = []
+      const cancelError: CancelableError = new Error('Request canceled')
+      cancelError.isCanceled = true
+      currentPromises.forEach((p) => p.reject(cancelError))
+    }
+    cancelFn = wrappedRun.cancel
   } else if (throttleWait) {
     const throttled = throttle(
-      ((...args: TParams) => {
-        run(...args).catch(() => {})
-      }) as (...args: unknown[]) => void,
+      (async (...args: TParams) => {
+        const currentPromises = [...pendingPromises]
+        pendingPromises = []
+        try {
+          const res = await run(...args)
+          currentPromises.forEach((p) => p.resolve(res))
+        } catch (err) {
+          currentPromises.forEach((p) => p.reject(err))
+        }
+      }) as unknown as (...args: unknown[]) => void,
       throttleWait
     )
     wrappedRun = ((...args: TParams) => {
-      throttled(...args)
-      return Promise.resolve() as unknown as Promise<RequestResponse<TData>>
+      return new Promise<RequestResponse<TData>>((resolve, reject) => {
+        pendingPromises.push({ resolve, reject })
+        throttled(...args)
+      })
     }) as unknown as CancelableRunFn
-    wrappedRun.cancel = () => throttled.cancel()
-    cancelFn = () => throttled.cancel()
+    wrappedRun.cancel = () => {
+      throttled.cancel()
+      const currentPromises = [...pendingPromises]
+      pendingPromises = []
+      const cancelError: CancelableError = new Error('Request canceled')
+      cancelError.isCanceled = true
+      currentPromises.forEach((p) => p.reject(cancelError))
+    }
+    cancelFn = wrappedRun.cancel
   }
 
   // 组件卸载时取消所有请求和定时器

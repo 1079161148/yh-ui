@@ -174,7 +174,7 @@ describe('YhAiCodeBlock', () => {
     const wrapper = mount(AiCodeBlock, {
       props: {
         code: 'const a = 1',
-        showEdit: true
+        editable: true
       }
     })
 

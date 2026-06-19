@@ -170,7 +170,7 @@ describe('Request class — HTTP verbs, body, response types, cancel, retry', ()
     expect(headers['X-A']).toBe('1')
   })
 
-  it('requestKey aborts previous in-flight request', async () => {
+  it('requestKey aborts previous in-flight request when abortSameKey is true', async () => {
     let resolveFirst!: (v: any) => void
     const first = new Promise((r) => {
       resolveFirst = r
@@ -183,8 +183,8 @@ describe('Request class — HTTP verbs, body, response types, cancel, retry', ()
       } as any)
 
     const req = new Request()
-    const p1 = req.get('/same', { requestKey: 'k1' }).catch(() => {})
-    const p2 = req.get('/same', { requestKey: 'k1' })
+    const p1 = req.get('/same', { requestKey: 'k1', abortSameKey: true }).catch(() => {})
+    const p2 = req.get('/same', { requestKey: 'k1', abortSameKey: true })
     resolveFirst({
       ok: true,
       text: vi.fn().mockResolvedValue('{"n":1}')
@@ -192,6 +192,50 @@ describe('Request class — HTTP verbs, body, response types, cancel, retry', ()
     await p1
     const out = await p2
     expect(out.data).toEqual({ n: 2 })
+  })
+
+  it('requestKey does NOT abort previous request when abortSameKey is not true', async () => {
+    let resolveFirst!: (v: any) => void
+    const first = new Promise((r) => {
+      resolveFirst = r
+    })
+    vi.mocked(fetch)
+      .mockImplementationOnce(() => first as any)
+      .mockResolvedValue({
+        ok: true,
+        text: vi.fn().mockResolvedValue('{"n":2}')
+      } as any)
+
+    const req = new Request()
+    const p1 = req.get('/same', { requestKey: 'k1' })
+    const p2 = req.get('/same', { requestKey: 'k1' })
+    resolveFirst({
+      ok: true,
+      text: vi.fn().mockResolvedValue('{"n":1}')
+    })
+    const out1 = await p1
+    const out2 = await p2
+    expect(out1.data).toEqual({ n: 1 })
+    expect(out2.data).toEqual({ n: 2 })
+  })
+
+  it('external AbortSignal cancels request', async () => {
+    vi.mocked(fetch).mockImplementation((url, options) => {
+      return new Promise((resolve, reject) => {
+        if (options?.signal?.aborted) {
+          reject(new DOMException('The user aborted a request.', 'AbortError'))
+          return
+        }
+        options?.signal?.addEventListener('abort', () => {
+          reject(new DOMException('The user aborted a request.', 'AbortError'))
+        })
+      })
+    })
+    const req = new Request()
+    const controller = new AbortController()
+    const p = req.get('/external', { signal: controller.signal })
+    controller.abort()
+    await expect(p).rejects.toThrow()
   })
 
   it('cancel and cancelAll run without error', async () => {
@@ -276,10 +320,11 @@ describe('useRequest / SWR / Polling — branches', () => {
   it('useRequest: throttleWait coalesces calls', async () => {
     const svc = vi.fn().mockResolvedValue({ data: 1 })
     const { run } = useRequest(svc, { manual: true, throttleWait: 200 })
-    run(1)
-    run(2)
-    run(3)
+    const p1 = run(1).catch(() => {})
+    const p2 = run(2).catch(() => {})
+    const p3 = run(3).catch(() => {})
     vi.advanceTimersByTime(250)
+    await Promise.all([p1, p2, p3])
     expect(svc.mock.calls.length).toBeGreaterThanOrEqual(1)
   })
 
@@ -384,5 +429,37 @@ describe('useRequest / SWR / Polling — branches', () => {
     resume()
     await nextTick()
     expect(svc.mock.calls.length).toBeGreaterThanOrEqual(n)
+  })
+
+  it('useRequest: debounce and throttle run() return true Promise and reject on cancel', async () => {
+    const svc = vi.fn().mockResolvedValue({ data: 'hello' })
+
+    // 1. Debounce test
+    const { run: runDebounced, cancel: cancelDebounced } = useRequest(svc, {
+      manual: true,
+      debounceWait: 100
+    })
+
+    const p1 = runDebounced()
+    vi.advanceTimersByTime(50)
+    // p1 should still be pending. Let's cancel it.
+    cancelDebounced()
+    await expect(p1).rejects.toThrow('Request canceled')
+
+    const p2 = runDebounced()
+    vi.advanceTimersByTime(150)
+    const res2 = await p2
+    expect(res2.data).toBe('hello')
+
+    // 2. Throttle test
+    const { run: runThrottled, cancel: cancelThrottled } = useRequest(svc, {
+      manual: true,
+      throttleWait: 100
+    })
+
+    const p3 = runThrottled()
+    vi.advanceTimersByTime(150)
+    const res3 = await p3
+    expect(res3.data).toBe('hello')
   })
 })

@@ -92,6 +92,9 @@ export function createMockStorage() {
     setItem: (key: string, value: string) => store.set(key, value),
     removeItem: (key: string) => store.delete(key),
     clear: () => store.clear(),
+    get length() {
+      return store.size
+    },
     getStore: () => store
   }
 }

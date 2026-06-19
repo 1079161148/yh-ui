@@ -181,7 +181,7 @@ onMounted(() => {
       <div :class="ns.e('actions')" @click.stop>
         <slot name="actions"></slot>
         <YhButton
-          v-if="showEdit && !isEditing"
+          v-if="(editable || showEdit) && !isEditing"
           size="small"
           text
           @click="handleEdit"

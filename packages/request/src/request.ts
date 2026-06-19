@@ -208,12 +208,33 @@ export class Request implements RequestInstance {
 
     // 存储 AbortController
     if (options.requestKey) {
-      // 取消之前的相同 key 请求
-      const prevController = this.abortControllers.get(options.requestKey)
-      if (prevController) {
-        prevController.abort()
+      // 取消之前的相同 key 请求 (仅当 abortSameKey 为 true 时)
+      if (options.abortSameKey === true) {
+        const prevController = this.abortControllers.get(options.requestKey)
+        if (prevController) {
+          prevController.abort()
+        }
       }
       this.abortControllers.set(options.requestKey, controller)
+    }
+
+    // 监听外部传入的 signal
+    if (options.signal) {
+      if (options.signal.aborted) {
+        controller.abort(options.signal.reason)
+      } else {
+        const onExternalAbort = () => {
+          controller.abort(options.signal?.reason)
+        }
+        options.signal.addEventListener('abort', onExternalAbort)
+        const cleanup = () => {
+          options.signal?.removeEventListener('abort', onExternalAbort)
+        }
+        controller.signal.addEventListener('abort', () => {
+          cleanup()
+        })
+        ;(options as Record<string, unknown>)._abortCleanup = cleanup
+      }
     }
 
     // 超时自动取消
@@ -403,7 +424,16 @@ export class Request implements RequestInstance {
       }
     }
 
-    return executeRequest()
+    try {
+      return await executeRequest()
+    } finally {
+      const cleanup = (mergedOptions as Record<string, unknown>)._abortCleanup as
+        | (() => void)
+        | undefined
+      if (cleanup) {
+        cleanup()
+      }
+    }
   }
 
   /**

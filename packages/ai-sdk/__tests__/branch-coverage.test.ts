@@ -124,6 +124,70 @@ describe('branch coverage — ReAct / Plan / RAG', () => {
     await rag.addDocuments([{ content: 'orphan' }])
     expect((await rag.retrieve('x')).length).toBe(0)
   })
+
+  it('createRAGSystem: MMR and Hybrid retrieval strategies', async () => {
+    const mmrRag = createRAGSystem({
+      knowledgeBaseId: 'kb_mmr',
+      topK: 2,
+      similarityThreshold: 0.1,
+      strategy: 'mmr'
+    })
+    await mmrRag.addDocuments([
+      { content: 'apple juice beverage', metadata: { id: 1 } },
+      { content: 'orange juice drink', metadata: { id: 2 } },
+      { content: 'banana milk shake', metadata: { id: 3 } }
+    ])
+    const mmrResults = await mmrRag.retrieve('juice')
+    expect(mmrResults.length).toBeGreaterThan(0)
+    expect(mmrResults[0].content).toContain('juice')
+
+    const hybridRag = createRAGSystem({
+      knowledgeBaseId: 'kb_hybrid',
+      topK: 2,
+      similarityThreshold: 0.1,
+      strategy: 'hybrid'
+    })
+    await hybridRag.addDocuments([
+      { content: 'apple juice beverage', metadata: { id: 1 } },
+      { content: 'orange juice drink', metadata: { id: 2 } },
+      { content: 'banana milk shake', metadata: { id: 3 } }
+    ])
+    const hybridResults = await hybridRag.retrieve('juice')
+    expect(hybridResults.length).toBeGreaterThan(0)
+    expect(hybridResults[0].content).toContain('juice')
+  })
+
+  it('createPlanExecuteAgent: maxSteps limit constraint', async () => {
+    const agent = createPlanExecuteAgent({
+      maxSteps: 1,
+      tools: [
+        {
+          name: 'noop',
+          description: 'noop',
+          parameters: {},
+          execute: async () => 'ok'
+        }
+      ]
+    })
+
+    const llm = async (prompt: string) => {
+      if (prompt.includes('分解')) {
+        return JSON.stringify([
+          { step: 'Step 1', tool: 'noop', input: {} },
+          { step: 'Step 2', tool: 'noop', input: {} }
+        ])
+      }
+      if (prompt.includes('根据当前步骤')) {
+        return JSON.stringify({ tool: 'noop', input: {} })
+      }
+      return 'summary output'
+    }
+
+    const out = await agent.execute('run task', llm)
+    expect(out.plan.length).toBe(2)
+    expect(out.plan[0].status).toBe('completed')
+    expect(out.plan[1].status).toBe('pending')
+  })
 })
 
 describe('branch coverage — compressor / cost / tracer / safety', () => {

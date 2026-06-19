@@ -262,12 +262,17 @@ const handleDragEnd = () => {
       ns.is('thinking', currentStatus === 'thinking' || currentStatus === 'loading'),
       ns.is('timeline', itemsToUse && itemsToUse.length > 0),
       ns.is('draggable', draggable),
-      className
+      className,
+      classNames?.root || ''
     ]"
-    :style="[themeStyle, style]"
+    :style="[themeStyle, style, styles?.root || {}]"
   >
     <!-- 进度条 -->
-    <div v-if="showProgress && itemsToUse && itemsToUse.length > 0" :class="ns.e('progress-bar')">
+    <div
+      v-if="showProgress && itemsToUse && itemsToUse.length > 0"
+      :class="[ns.e('progress-bar'), classNames?.progressBar || '']"
+      :style="styles?.progressBar || {}"
+    >
       <div :class="ns.e('progress-fill')" :style="{ width: currentProgress + '%' }"></div>
     </div>
 
@@ -281,8 +286,10 @@ const handleDragEnd = () => {
           ns.is('last', index === itemsToUse.length - 1),
           ns.is('active', item.status === 'thinking' || item.status === 'loading'),
           ns.is('drag-over', dragOverIndex === index),
-          ns.is('dragging', draggedIndex === index)
+          ns.is('dragging', draggedIndex === index),
+          classNames?.item || ''
         ]"
+        :style="styles?.item || {}"
         :draggable="draggable"
         @dragstart="handleDragStart($event, index)"
         @dragover="handleDragOver($event, index)"
@@ -290,8 +297,19 @@ const handleDragEnd = () => {
         @drop="handleDrop($event, index)"
         @dragend="handleDragEnd"
       >
-        <div :class="ns.e('item-dot-wrapper')">
-          <div :class="[ns.e('item-dot'), ns.m(dotSize), ns.m(item.status || 'none')]">
+        <div
+          :class="[ns.e('item-dot-wrapper'), classNames?.itemDotWrapper || '']"
+          :style="styles?.itemDotWrapper || {}"
+        >
+          <div
+            :class="[
+              ns.e('item-dot'),
+              ns.m(dotSize),
+              ns.m(item.status || 'none'),
+              classNames?.itemDot || ''
+            ]"
+            :style="styles?.itemDot || {}"
+          >
             <YhIcon
               :name="item.icon || getStatusIcon(item.status)"
               :class="{ 'is-loading': item.status === 'thinking' || item.status === 'loading' }"
@@ -299,16 +317,32 @@ const handleDragEnd = () => {
           </div>
           <div
             v-if="index < itemsToUse.length - 1"
-            :class="[ns.e('item-line'), { 'is-gradient': lineGradient }]"
+            :class="[
+              ns.e('item-line'),
+              { 'is-gradient': lineGradient },
+              classNames?.itemLine || ''
+            ]"
+            :style="styles?.itemLine || {}"
           ></div>
         </div>
 
-        <div :class="ns.e('item-main')">
-          <div :class="ns.e('item-header')" @click="toggleItemExpand(index)">
+        <div
+          :class="[ns.e('item-main'), classNames?.itemMain || '']"
+          :style="styles?.itemMain || {}"
+        >
+          <div
+            :class="[ns.e('item-header'), classNames?.itemHeader || '']"
+            :style="styles?.itemHeader || {}"
+            @click="toggleItemExpand(index)"
+          >
             <!-- 拖拽手柄 -->
             <YhIcon v-if="draggable" name="rank" :class="ns.e('drag-handle')" />
 
-            <span :class="ns.e('item-title')">{{ item.title }}</span>
+            <span
+              :class="[ns.e('item-title'), classNames?.itemTitle || '']"
+              :style="styles?.itemTitle || {}"
+              >{{ item.title }}</span
+            >
 
             <!-- 节点进度 -->
             <span v-if="item.progress !== undefined" :class="ns.e('item-progress')">
@@ -336,7 +370,8 @@ const handleDragEnd = () => {
           <Transition name="yh-ai-thought-collapse">
             <div
               v-if="itemExpandedStates[index] && (item.content || item.description)"
-              :class="ns.e('item-content')"
+              :class="[ns.e('item-content'), classNames?.itemContent || '']"
+              :style="styles?.itemContent || {}"
               @click="handleItemClick(item, index)"
             >
               <!-- 支持 Markdown：内容来自 renderMarkdown，仅用于受控的思维链节点 -->
@@ -363,7 +398,11 @@ const handleDragEnd = () => {
 
     <!-- 单节点/传统模式 -->
     <template v-else>
-      <div :class="ns.e('header')" @click="toggleExpand">
+      <div
+        :class="[ns.e('header'), classNames?.header || '']"
+        :style="styles?.header || {}"
+        @click="toggleExpand"
+      >
         <div :class="ns.e('icon')">
           <YhIcon
             :name="getStatusIcon(currentStatus)"
@@ -373,12 +412,18 @@ const handleDragEnd = () => {
             ]"
           />
         </div>
-        <div :class="ns.e('title')">{{ displayTitle }}</div>
+        <div :class="[ns.e('title'), classNames?.title || '']" :style="styles?.title || {}">{{
+          displayTitle
+        }}</div>
         <YhIcon name="arrow-down" :class="[ns.e('arrow'), { 'is-expanded': isExpanded }]" />
       </div>
 
       <Transition name="yh-ai-thought-collapse">
-        <div v-if="isExpanded" :class="ns.e('content')">
+        <div
+          v-if="isExpanded"
+          :class="[ns.e('content'), classNames?.content || '']"
+          :style="styles?.content || {}"
+        >
           <slot>
             <div :class="ns.e('text')">{{ content }}</div>
           </slot>

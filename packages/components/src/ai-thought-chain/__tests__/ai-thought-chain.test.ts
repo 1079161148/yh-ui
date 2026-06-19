@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @vitest-environment happy-dom
  */
 import { describe, it, expect } from 'vitest'
@@ -341,5 +341,149 @@ describe('YhAiThoughtChain', () => {
     const html = wrapper.find('.yh-ai-thought-chain__item-content').html()
     expect(html).toContain('https://example.com')
     expect(html).not.toContain('href="javascript:')
+  })
+
+  it('should map classNames and styles to sub-elements in timeline and single mode', async () => {
+    // 1. Test timeline mode
+    const classNames = {
+      root: 'chain-root',
+      progressBar: 'chain-bar',
+      item: 'chain-item',
+      itemDotWrapper: 'chain-dot-wrap',
+      itemDot: 'chain-dot',
+      itemLine: 'chain-line',
+      itemMain: 'chain-main',
+      itemHeader: 'chain-item-hdr',
+      itemTitle: 'chain-title',
+      itemContent: 'chain-item-content'
+    }
+    const styles = {
+      root: { color: 'red' },
+      progressBar: { color: 'blue' },
+      item: { color: 'green' },
+      itemDotWrapper: { color: 'yellow' },
+      itemDot: { color: 'pink' },
+      itemLine: { color: 'purple' },
+      itemMain: { color: 'orange' },
+      itemHeader: { color: 'cyan' },
+      itemTitle: { color: 'magenta' },
+      itemContent: { color: 'brown' }
+    }
+
+    const items = [
+      { title: 'Step 1', content: 'hello', status: 'complete' as const, expanded: true }
+    ]
+    const wrapper = mount(AiThoughtChain, {
+      props: {
+        items,
+        showProgress: true,
+        classNames,
+        styles: styles as any
+      }
+    })
+
+    expect(wrapper.find('.yh-ai-thought-chain').classes()).toContain('chain-root')
+    expect(wrapper.find('.yh-ai-thought-chain').element.getAttribute('style')).toContain(
+      'color: red'
+    )
+
+    expect(wrapper.find('.yh-ai-thought-chain__progress-bar').classes()).toContain('chain-bar')
+    expect(
+      wrapper.find('.yh-ai-thought-chain__progress-bar').element.getAttribute('style')
+    ).toContain('color: blue')
+
+    expect(wrapper.find('.yh-ai-thought-chain__item').classes()).toContain('chain-item')
+    expect(wrapper.find('.yh-ai-thought-chain__item').element.getAttribute('style')).toContain(
+      'color: green'
+    )
+
+    expect(wrapper.find('.yh-ai-thought-chain__item-dot-wrapper').classes()).toContain(
+      'chain-dot-wrap'
+    )
+    expect(
+      wrapper.find('.yh-ai-thought-chain__item-dot-wrapper').element.getAttribute('style')
+    ).toContain('color: yellow')
+
+    expect(wrapper.find('.yh-ai-thought-chain__item-dot').classes()).toContain('chain-dot')
+    expect(wrapper.find('.yh-ai-thought-chain__item-dot').element.getAttribute('style')).toContain(
+      'color: pink'
+    )
+
+    // Since there's only 1 item, line is not rendered. Let's add a second item to verify line styling.
+    const wrapper2 = mount(AiThoughtChain, {
+      props: {
+        items: [
+          { title: 'Step 1', status: 'complete' as const },
+          { title: 'Step 2', status: 'complete' as const }
+        ],
+        classNames,
+        styles: styles as any
+      }
+    })
+    expect(wrapper2.find('.yh-ai-thought-chain__item-line').classes()).toContain('chain-line')
+    expect(
+      wrapper2.find('.yh-ai-thought-chain__item-line').element.getAttribute('style')
+    ).toContain('color: purple')
+
+    expect(wrapper.find('.yh-ai-thought-chain__item-main').classes()).toContain('chain-main')
+    expect(wrapper.find('.yh-ai-thought-chain__item-main').element.getAttribute('style')).toContain(
+      'color: orange'
+    )
+
+    expect(wrapper.find('.yh-ai-thought-chain__item-header').classes()).toContain('chain-item-hdr')
+    expect(
+      wrapper.find('.yh-ai-thought-chain__item-header').element.getAttribute('style')
+    ).toContain('color: cyan')
+
+    expect(wrapper.find('.yh-ai-thought-chain__item-title').classes()).toContain('chain-title')
+    expect(
+      wrapper.find('.yh-ai-thought-chain__item-title').element.getAttribute('style')
+    ).toContain('color: magenta')
+
+    expect(wrapper.find('.yh-ai-thought-chain__item-content').classes()).toContain(
+      'chain-item-content'
+    )
+    expect(
+      wrapper.find('.yh-ai-thought-chain__item-content').element.getAttribute('style')
+    ).toContain('color: brown')
+
+    // 2. Test single mode
+    const singleClassNames = {
+      header: 'single-hdr',
+      title: 'single-title',
+      content: 'single-content'
+    }
+    const singleStyles = {
+      header: { color: 'red' },
+      title: { color: 'blue' },
+      content: { color: 'green' }
+    }
+    const wrapperSingle = mount(AiThoughtChain, {
+      props: {
+        title: 'Thought',
+        content: 'detail',
+        classNames: singleClassNames,
+        styles: singleStyles as any
+      }
+    })
+    // Expand single node
+    await wrapperSingle.find('.yh-ai-thought-chain__header').trigger('click')
+
+    expect(wrapperSingle.find('.yh-ai-thought-chain__header').classes()).toContain('single-hdr')
+    expect(
+      wrapperSingle.find('.yh-ai-thought-chain__header').element.getAttribute('style')
+    ).toContain('color: red')
+
+    expect(wrapperSingle.find('.yh-ai-thought-chain__title').classes()).toContain('single-title')
+    expect(
+      wrapperSingle.find('.yh-ai-thought-chain__title').element.getAttribute('style')
+    ).toContain('color: blue')
+
+    expect(wrapperSingle.find('.yh-ai-thought-chain__content').classes()).toContain(
+      'single-content'
+    )
+    expect(
+      wrapperSingle.find('.yh-ai-thought-chain__content').element.getAttribute('style')
+    ).toContain('color: green')
   })
 })

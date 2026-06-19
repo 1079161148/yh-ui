@@ -233,6 +233,8 @@ export function useSSE(options: UseSSEOptions = {}): UseSSEReturn {
     // 开始回调
     onStart?.()
 
+    let abortCleanup: (() => void) | undefined
+
     try {
       // 构建 URL
       let url = config.url || ''
@@ -272,6 +274,31 @@ export function useSSE(options: UseSSEOptions = {}): UseSSEReturn {
 
       // 创建 AbortController
       abortController = new AbortController()
+      const onAbort = () => {
+        if (reader) {
+          reader.cancel().catch(() => {})
+          reader = null
+        }
+        loading.value = false
+      }
+      abortController.signal.addEventListener('abort', onAbort)
+
+      if (config.signal) {
+        if (config.signal.aborted) {
+          abortController.abort(config.signal.reason)
+        } else {
+          const onExternalAbort = () => {
+            abortController?.abort(config.signal?.reason)
+          }
+          config.signal.addEventListener('abort', onExternalAbort)
+          abortCleanup = () => {
+            config.signal?.removeEventListener('abort', onExternalAbort)
+          }
+          abortController.signal.addEventListener('abort', () => {
+            if (abortCleanup) abortCleanup()
+          })
+        }
+      }
       fetchInit.signal = abortController.signal
 
       // 发送请求
@@ -343,6 +370,7 @@ export function useSSE(options: UseSSEOptions = {}): UseSSEReturn {
       error.value = errObj
       onError?.(errObj)
     } finally {
+      if (abortCleanup) abortCleanup()
       loading.value = false
     }
   }

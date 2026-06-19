@@ -4,6 +4,31 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.60] - 2026-06-19
+
+> 修复了 YhAiCodeBlock, YhAiThinking, YhAiThoughtChain, Request 核心类, useSSE, createHttpCacheInterceptor, useRequest, XRequest, useConversation, useAIChat, createRAGSystem, createPlanExecuteAgent 等组件与工具中的 12 项 Bug 与设计缺陷，补充了完善的单元测试用例，所有单元测试与类型校验全量通过。
+
+### Added
+
+- **ai-sdk**: 为 `createRAGSystem` 的 RAG 检索器实现了 MMR (最大边际相关性) 检索策略与 Hybrid (混合相似度与关键词检索) 检索策略。
+- **ai-sdk**: 为 `createPlanExecuteAgent` 添加了 `maxSteps` 属性支持，控制 Agent 最大执行规划步骤上限。
+
+### Changed
+
+- **ai-code-block**: 统一 `editable` 属性的 API 语义，在模板和组件实现中真正消费公开的 `editable` 属性，而非仅依赖内部 `showEdit`。
+- **request**: 优化 `requestKey` 重复请求过滤机制，仅当显式设置 `abortSameKey: true` 时才取消相同的旧请求。
+- **request**: 合并外部传入的 `AbortSignal` 与内部 `timeout` 机制产生的 `AbortSignal`，确保外部控制器 `AbortController.abort()` 可以按约定正确取消请求，不再直接覆盖。
+
+### Fixed
+
+- **ai-thinking**: 修复了语义化样式属性 `classNames` 和 `styles` 在类型中有定义但在模板中未绑定的缺陷，完成了子元素的样式映射。
+- **ai-thought-chain**: 修复了样式扩展属性 `classNames` 和 `styles` 在根节点和内部节点渲染中没有被正确消费的缺陷。
+- **request**: 修复 `createHttpCacheInterceptor()` 在启用拦截器且传入默认参数时未能正确生效的 Bug。
+- **request**: 修复 `useRequest` 在启用防抖与节流模式后 `run()` 返回的 Promise 丢失真实响应及取消请求时未正确 reject 的问题。
+- **request**: 补齐了 `XRequest` 的 `cache.strategy` 配置（支持 `memory` / `localStorage` / `sessionStorage`），加入 SSR 环境的 Storage 保护规避报错。
+- **ai-sdk**: 修复 `useConversation` 和 `useConversations` 会话历史加载还原时将 Date 对象当作 string 处理的缺陷，支持在 JSON 反序列化时自动恢复 Date 实例。
+- **ai-sdk**: 修复 `useAIChat` 流式请求失败或被立即中止（stop）时，保留空 assistant 消息气泡的缺陷，无数据时将自动移除该占位。
+
 ## [1.0.59] - 2026-06-18
 
 > 修复了 YhDatePicker、YhSelect、YhImage、v-loading、YhTimePicker、YhTimeSelect、YhMention、YhDrawer、YhColorPicker、YhAiBubble、YhAiMention、YhAiEditorSender、YhAiVoiceTrigger、YhAiThoughtChain、YhAiAttachments、YhAiCodeRunner、YhAiArtifacts、YhAiMermaid 等组件的系列 Bug，增加并同步了完整的单元测试用例，所有单元测试与文档构建通过。

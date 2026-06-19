@@ -28,6 +28,7 @@ import { createMockFetch, createMockStorage, wait } from './mocks'
 const mockFetch = createMockFetch()
 global.fetch = vi.fn(mockFetch) as typeof fetch
 global.localStorage = createMockStorage() as unknown as Storage
+global.sessionStorage = createMockStorage() as unknown as Storage
 
 describe('StreamableValue', () => {
   it('should create a streamable value with initial value', () => {
@@ -1083,5 +1084,108 @@ describe('createStreamingChatCompletion buffering', () => {
     }
 
     expect(yielded).toEqual(['Hello'])
+  })
+})
+
+describe('AI-SDK bug fixes: XRequest cache, Date parsing, useAIChat cleanup', () => {
+  beforeEach(() => {
+    vi.restoreAllMocks()
+    vi.stubGlobal('fetch', vi.fn())
+    if (typeof localStorage !== 'undefined') localStorage.clear()
+    if (typeof sessionStorage !== 'undefined') sessionStorage.clear()
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it('XRequest respects cache strategy localStorage/sessionStorage', async () => {
+    const mockResponse = {
+      ok: true,
+      status: 200,
+      json: async () => ({ content: 'cached-data' }),
+      text: async () => '{"content":"cached-data"}',
+      body: null
+    }
+    vi.mocked(fetch).mockResolvedValue(mockResponse as any)
+
+    // 1. localStorage strategy
+    const cacheConfigLS = { enabled: true, strategy: 'localStorage' as const, ttl: 1000 }
+    await XRequest({ url: '/api/cache-ls' }, {}, { cache: cacheConfigLS })
+    expect(localStorage.length).toBe(1)
+
+    // 2. sessionStorage strategy
+    const cacheConfigSS = { enabled: true, strategy: 'sessionStorage' as const, ttl: 1000 }
+    await XRequest({ url: '/api/cache-ss' }, {}, { cache: cacheConfigSS })
+    expect(sessionStorage.length).toBe(1)
+  })
+
+  it('useConversation / useConversations restores Date objects after localStorage parse', () => {
+    // 1. useConversation
+    const storageKey = 'test-conversation-key'
+    localStorage.setItem(
+      storageKey,
+      JSON.stringify([
+        {
+          id: 'msg-1',
+          role: 'user',
+          content: 'hello',
+          createdAt: new Date('2026-06-19T00:00:00.000Z')
+        }
+      ])
+    )
+    const { loadHistory, messages } = useConversation({ persist: true, storageKey })
+    loadHistory()
+    expect(messages.value[0].createdAt).toBeInstanceOf(Date)
+
+    // 2. useConversations
+    const storageKeyConvs = 'test-conversations-key'
+    localStorage.setItem(
+      storageKeyConvs,
+      JSON.stringify({
+        conversations: [
+          {
+            id: 'c-1',
+            title: 'test',
+            createdAt: new Date('2026-06-19T00:00:00.000Z'),
+            updatedAt: new Date('2026-06-19T00:00:00.000Z'),
+            messages: [
+              {
+                id: 'm-1',
+                role: 'user',
+                content: 'hi',
+                createdAt: new Date('2026-06-19T00:00:00.000Z')
+              }
+            ]
+          }
+        ],
+        currentId: 'c-1'
+      })
+    )
+    const { conversations } = useConversations({ persist: true, storageKey: storageKeyConvs })
+    expect(conversations.value[0].createdAt).toBeInstanceOf(Date)
+    expect(conversations.value[0].updatedAt).toBeInstanceOf(Date)
+    expect(conversations.value[0].messages[0].createdAt).toBeInstanceOf(Date)
+  })
+
+  it('useAIChat removes empty assistant message on immediate abort or failure', async () => {
+    // Mock fetch to reject immediately to trigger the failure path
+    vi.mocked(fetch).mockRejectedValue(new Error('Immediate network failure'))
+
+    const onError = vi.fn()
+    const { sendMessageStream, messages } = useAIChat({
+      api: '/api/chat',
+      stream: true,
+      streamInterval: 0,
+      onError
+    })
+
+    await sendMessageStream('Hello')
+    await nextTick()
+
+    expect(onError).toHaveBeenCalled()
+    // Should contain only the user message, empty assistant placeholder must be removed
+    expect(messages.value).toHaveLength(1)
+    expect(messages.value[0].role).toBe('user')
   })
 })

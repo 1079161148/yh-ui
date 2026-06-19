@@ -449,7 +449,7 @@ export function useReActAgent(config: AgentConfig) {
  * ```
  */
 export function createPlanExecuteAgent(config: { tools?: AgentTool[]; maxSteps?: number }) {
-  const { tools = [] } = config
+  const { tools = [], maxSteps } = config
 
   const plans = ref<
     Array<{ id: string; description: string; status: 'pending' | 'completed' | 'failed' }>
@@ -498,7 +498,12 @@ export function createPlanExecuteAgent(config: { tools?: AgentTool[]; maxSteps?:
     }
 
     // 2. 执行计划
+    let stepCount = 0
     for (const plan of plans.value) {
+      if (maxSteps !== undefined && maxSteps > 0 && stepCount >= maxSteps) {
+        break
+      }
+      stepCount++
       currentPlan.value = plan.id
       plan.status = 'pending'
 
@@ -732,16 +737,112 @@ export function createRAGSystem(config: RAGConfig) {
 
     const chunks = vectorStore.get(knowledgeBaseId) || []
 
-    // 基于 query 计算相似度评分
-    const scoredChunks = chunks.map((chunk) => ({
-      ...chunk,
-      score: calculateSimilarity(query, chunk.content)
-    }))
+    if (strategy === 'mmr') {
+      // MMR (Maximal Marginal Relevance) 策略
+      // 1. 先筛选出 2 * k 个候选文档，使用 similarity 评分
+      const candidates = chunks
+        .map((chunk) => ({
+          ...chunk,
+          score: calculateSimilarity(query, chunk.content)
+        }))
+        .filter((c) => c.score >= similarityThreshold)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 2 * k)
 
-    // 按 score 从大到小排序
-    const sorted = [...scoredChunks].sort((a, b) => b.score - a.score).slice(0, k)
+      if (candidates.length === 0) return []
 
-    return sorted.filter((c) => c.score >= similarityThreshold)
+      // 2. 迭代选择 MMR 最大的文档
+      const selected: typeof candidates = []
+      const lambda = 0.5
+
+      while (selected.length < k && candidates.length > 0) {
+        let bestIndex = -1
+        let bestMmrScore = -Infinity
+
+        for (let i = 0; i < candidates.length; i++) {
+          const cand = candidates[i]
+          let maxSimWithSelected = 0
+          for (const sel of selected) {
+            const sim = calculateSimilarity(cand.content, sel.content)
+            if (sim > maxSimWithSelected) {
+              maxSimWithSelected = sim
+            }
+          }
+
+          const mmrScore = lambda * cand.score - (1 - lambda) * maxSimWithSelected
+          if (mmrScore > bestMmrScore) {
+            bestMmrScore = mmrScore
+            bestIndex = i
+          }
+        }
+
+        if (bestIndex !== -1) {
+          selected.push(candidates[bestIndex])
+          candidates.splice(bestIndex, 1)
+        } else {
+          break
+        }
+      }
+
+      return selected
+    } else if (strategy === 'hybrid') {
+      // Hybrid (混合检索) 策略: 结合余弦相似度与关键字匹配度
+      const tokenize = (str: string): string[] => {
+        const words = str
+          .toLowerCase()
+          .split(/[\s,.<>?/;:'"[{}]|`~!@#$%^&*()_\-+=，。！？；：‘’“”【】『』]+/g)
+          .filter(Boolean)
+        const tokens: string[] = []
+        for (const w of words) {
+          if (/[\u4e00-\u9fa5]/.test(w)) {
+            for (const char of w) {
+              tokens.push(char)
+            }
+          } else {
+            tokens.push(w)
+          }
+        }
+        return tokens
+      }
+
+      const queryTokens = tokenize(query)
+
+      const scoredChunks = chunks.map((chunk) => {
+        const simScore = calculateSimilarity(query, chunk.content)
+
+        let kwScore = 0
+        if (queryTokens.length > 0) {
+          const contentLower = chunk.content.toLowerCase()
+          let matchCount = 0
+          for (const token of queryTokens) {
+            if (contentLower.includes(token)) {
+              matchCount++
+            }
+          }
+          kwScore = matchCount / queryTokens.length
+        }
+
+        // 50% 词袋余弦相似度 + 50% 关键字覆盖度
+        const hybridScore = 0.5 * simScore + 0.5 * kwScore
+
+        return {
+          ...chunk,
+          score: hybridScore
+        }
+      })
+
+      const sorted = [...scoredChunks].sort((a, b) => b.score - a.score).slice(0, k)
+      return sorted.filter((c) => c.score >= similarityThreshold)
+    } else {
+      // 默认 similarity 策略
+      const scoredChunks = chunks.map((chunk) => ({
+        ...chunk,
+        score: calculateSimilarity(query, chunk.content)
+      }))
+
+      const sorted = [...scoredChunks].sort((a, b) => b.score - a.score).slice(0, k)
+      return sorted.filter((c) => c.score >= similarityThreshold)
+    }
   }
 
   /**

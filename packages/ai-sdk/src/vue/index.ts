@@ -268,14 +268,42 @@ function getCache(config: XRequestConfig, cacheConfig: CacheConfig): unknown | n
   if (!cacheConfig.enabled) return null
 
   const key = cacheConfig.key || generateCacheKey(config)
-  const cached = cacheStorage.get(key)
+  const strategy = cacheConfig.strategy || 'memory'
 
-  if (cached && cached.expiry > Date.now()) {
-    return cached.data
-  }
-
-  if (cached) {
-    cacheStorage.delete(key)
+  if (strategy === 'localStorage' && typeof localStorage !== 'undefined') {
+    try {
+      const stored = localStorage.getItem(key)
+      if (stored) {
+        const cached = JSON.parse(stored)
+        if (cached && cached.expiry > Date.now()) {
+          return cached.data
+        }
+        localStorage.removeItem(key)
+      }
+    } catch {
+      // Ignore
+    }
+  } else if (strategy === 'sessionStorage' && typeof sessionStorage !== 'undefined') {
+    try {
+      const stored = sessionStorage.getItem(key)
+      if (stored) {
+        const cached = JSON.parse(stored)
+        if (cached && cached.expiry > Date.now()) {
+          return cached.data
+        }
+        sessionStorage.removeItem(key)
+      }
+    } catch {
+      // Ignore
+    }
+  } else {
+    const cached = cacheStorage.get(key)
+    if (cached && cached.expiry > Date.now()) {
+      return cached.data
+    }
+    if (cached) {
+      cacheStorage.delete(key)
+    }
   }
 
   return null
@@ -289,11 +317,24 @@ function setCache(config: XRequestConfig, cacheConfig: CacheConfig, data: unknow
 
   const key = cacheConfig.key || generateCacheKey(config)
   const ttl = cacheConfig.ttl || 5 * 60 * 1000 // 默认 5 分钟
+  const expiry = Date.now() + ttl
+  const strategy = cacheConfig.strategy || 'memory'
 
-  cacheStorage.set(key, {
-    data,
-    expiry: Date.now() + ttl
-  })
+  if (strategy === 'localStorage' && typeof localStorage !== 'undefined') {
+    try {
+      localStorage.setItem(key, JSON.stringify({ data, expiry }))
+    } catch {
+      // Ignore
+    }
+  } else if (strategy === 'sessionStorage' && typeof sessionStorage !== 'undefined') {
+    try {
+      sessionStorage.setItem(key, JSON.stringify({ data, expiry }))
+    } catch {
+      // Ignore
+    }
+  } else {
+    cacheStorage.set(key, { data, expiry })
+  }
 }
 
 /**
@@ -305,6 +346,40 @@ export function clearCache(): void {
     if (value.expiry < now) {
       cacheStorage.delete(key)
     }
+  }
+
+  if (typeof localStorage !== 'undefined') {
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i)
+        if (key && key.startsWith('yh-ai-cache-')) {
+          const stored = localStorage.getItem(key)
+          if (stored) {
+            const cached = JSON.parse(stored)
+            if (cached && cached.expiry < now) {
+              localStorage.removeItem(key)
+            }
+          }
+        }
+      }
+    } catch {}
+  }
+
+  if (typeof sessionStorage !== 'undefined') {
+    try {
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const key = sessionStorage.key(i)
+        if (key && key.startsWith('yh-ai-cache-')) {
+          const stored = sessionStorage.getItem(key)
+          if (stored) {
+            const cached = JSON.parse(stored)
+            if (cached && cached.expiry < now) {
+              sessionStorage.removeItem(key)
+            }
+          }
+        }
+      }
+    } catch {}
   }
 }
 
@@ -542,7 +617,13 @@ export function useConversation(config: ConversationConfig = {}) {
       const stored = localStorage.getItem(storageKey)
       if (stored) {
         try {
-          messages.value = JSON.parse(stored)
+          const parsed = JSON.parse(stored)
+          messages.value = (parsed || []).map(
+            (m: { createdAt?: string | Date; [key: string]: unknown }) => ({
+              ...m,
+              createdAt: m.createdAt ? new Date(m.createdAt) : undefined
+            })
+          ) as ConversationMessage[]
         } catch {
           messages.value = []
         }
@@ -663,7 +744,23 @@ export function useConversations(options: UseConversationsOptions = {}) {
         const stored = localStorage.getItem(storageKey)
         if (stored) {
           const parsed = JSON.parse(stored)
-          conversations.value = parsed.conversations || []
+          conversations.value = (parsed.conversations || []).map(
+            (c: {
+              id: string
+              messages?: Array<{ createdAt?: string | Date; [key: string]: unknown }>
+              createdAt: string | Date
+              updatedAt: string | Date
+              [key: string]: unknown
+            }) => ({
+              ...c,
+              createdAt: new Date(c.createdAt),
+              updatedAt: new Date(c.updatedAt),
+              messages: (c.messages || []).map((m) => ({
+                ...m,
+                createdAt: m.createdAt ? new Date(m.createdAt) : undefined
+              }))
+            })
+          ) as Conversation[]
           currentId.value = parsed.currentId || null
 
           // 确保当前会话存在
@@ -1240,7 +1337,8 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
         messages.value.find((m) => m.id === assistantMessage.id) || assistantMessage
       onFinish?.(finalMessage)
     } catch (err) {
-      if ((err as Error).name !== 'AbortError') {
+      const isAbort = (err as Error).name === 'AbortError'
+      if (!isAbort) {
         const errorObj = err instanceof Error ? err : new Error(String(err))
         error.value = errorObj
         onError?.(errorObj)
@@ -1249,6 +1347,21 @@ export function useAIChat(options: UseAIChatOptions): UseAIChatReturn {
           if (currentMessage.value) {
             currentMessage.value.content = fallbackContent
           }
+        }
+      }
+
+      // Cleanup empty assistant message if no content was received and fallback not used
+      const lastMsg = messages.value[messages.value.length - 1]
+      const needsCleanup =
+        lastMsg &&
+        lastMsg.id === assistantMessage.id &&
+        !lastMsg.content &&
+        (!lastMsg.toolCalls || lastMsg.toolCalls.length === 0)
+
+      if (needsCleanup && (isAbort || !enableFallback)) {
+        messages.value = messages.value.filter((m) => m.id !== assistantMessage.id)
+        if (currentMessage.value?.id === assistantMessage.id) {
+          currentMessage.value = null
         }
       }
     } finally {

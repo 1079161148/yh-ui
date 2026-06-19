@@ -151,4 +151,22 @@ describe('useSSE', () => {
     expect(loading.value).toBe(false)
     expect(mockReader.cancel).toHaveBeenCalled()
   })
+
+  it('can abort using external AbortSignal', async () => {
+    const { start, loading } = useSSE()
+    const mockReader = {
+      read: vi.fn().mockImplementation(() => new Promise(() => {})), // Hangs
+      cancel: vi.fn()
+    }
+    vi.mocked(fetch).mockResolvedValue({ ok: true, body: { getReader: () => mockReader } } as any)
+
+    const controller = new AbortController()
+    start({ url: '/api/sse', signal: controller.signal })
+    expect(loading.value).toBe(true)
+
+    controller.abort()
+    await Promise.resolve()
+
+    expect(loading.value).toBe(false)
+  })
 })

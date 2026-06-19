@@ -68,11 +68,21 @@ const toggleExpand = () => {
 
 <template>
   <div
-    :class="[ns.b(), ns.m(status), ns.is('expanded', isExpanded), className]"
-    :style="[themeStyle, style]"
+    :class="[
+      ns.b(),
+      ns.m(status),
+      ns.is('expanded', isExpanded),
+      className,
+      classNames?.root || ''
+    ]"
+    :style="[themeStyle, style, styles?.root || {}]"
   >
-    <div :class="ns.e('header')" @click="toggleExpand">
-      <div :class="ns.e('icon-wrapper')">
+    <div
+      :class="[ns.e('header'), classNames?.header || '']"
+      :style="styles?.header || {}"
+      @click="toggleExpand"
+    >
+      <div :class="[ns.e('icon-wrapper'), classNames?.icon || '']" :style="styles?.icon || {}">
         <YhIcon
           :name="statusIcon"
           :class="[
@@ -81,12 +91,22 @@ const toggleExpand = () => {
           ]"
         />
       </div>
-      <div :class="ns.e('title')">{{ displayTitle }}</div>
-      <YhIcon name="arrow-down" :class="[ns.e('arrow'), { 'is-expanded': isExpanded }]" />
+      <div :class="[ns.e('title'), classNames?.title || '']" :style="styles?.title || {}">
+        {{ displayTitle }}
+      </div>
+      <YhIcon
+        name="arrow-down"
+        :class="[ns.e('arrow'), { 'is-expanded': isExpanded }, classNames?.arrow || '']"
+        :style="styles?.arrow || {}"
+      />
     </div>
 
-    <div v-show="isExpanded && ($slots.default || content)" :class="ns.e('body')">
-      <div :class="ns.e('content')">
+    <div
+      v-show="isExpanded && ($slots.default || content)"
+      :class="[ns.e('body'), classNames?.body || '']"
+      :style="styles?.body || {}"
+    >
+      <div :class="[ns.e('content'), classNames?.content || '']" :style="styles?.content || {}">
         <slot>{{ content }}</slot>
       </div>
     </div>

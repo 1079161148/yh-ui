@@ -250,13 +250,14 @@ export class HttpCache {
  */
 export function createHttpCacheInterceptor(options: HttpCacheOptions = {}) {
   const cache = new HttpCache(options)
+  const isEnabled = options.enabled !== false
 
   return {
     /**
      * 请求拦截 - 添加条件请求头
      */
     onRequest: (config: InternalRequestOptions): InternalRequestOptions => {
-      if (!options.enabled) return config
+      if (!isEnabled) return config
 
       // 只对 GET 请求启用缓存
       if (config.method !== 'GET') return config
@@ -276,7 +277,7 @@ export function createHttpCacheInterceptor(options: HttpCacheOptions = {}) {
      * 响应拦截 - 处理条件响应
      */
     onResponse: <T>(response: RequestResponse<T>): RequestResponse<T> => {
-      if (!options.enabled) return response
+      if (!isEnabled) return response
 
       // 只对 GET 请求处理缓存
       if (response.config.method !== 'GET') return response
