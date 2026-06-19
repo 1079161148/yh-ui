@@ -732,7 +732,7 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#409eff' }]
   ],
   themeConfig: {
-    logo: '/yh-ui/logo.svg',
+    logo: '/logo.svg',
     sidebar,
     socialLinks: [{ icon: 'github', link: 'https://github.com/1079161148/yh-ui' }],
     footer: {
