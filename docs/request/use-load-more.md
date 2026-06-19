@@ -93,7 +93,7 @@ const { data, loading, loadingMore, noMore, loadMore, reload } = useLoadMore(
     await new Promise(resolve => setTimeout(resolve, 800))
     const list = Array.from({ length: size }, (_, i) => {
       const id = (page - 1) * size + i + 1
-      return { id, title: \\\`文章标题 #\\\\\\\${id}\\\` }
+      return { id, title: \`文章标题 #\${id}\` }
     })
     return { data: list, total: 9 }
   },
@@ -149,7 +149,7 @@ const { data, loading, loadingMore, loadMore, canLoadMore, pagination } = useLoa
     await new Promise(resolve => setTimeout(resolve, 600))
     const list = Array.from({ length: size }, (_, i) => {
       const id = (page - 1) * size + i + 1
-      return { id, title: \\\`文章标题 #\\\\\\\${id}\\\` }
+      return { id, title: \`文章标题 #\${id}\` }
     })
     return { data: list, total: 15 }
   },

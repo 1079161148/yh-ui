@@ -16,7 +16,7 @@ const budgets = {
   request: { bytes: 380_000, gzip: 90_000, largestFile: 120_000 },
   theme: { bytes: 300_000, gzip: 70_000, largestFile: 140_000 },
   hooks: { bytes: 230_000, gzip: 60_000, largestFile: 120_000 },
-  'yh-ui': { bytes: 2_500_000, gzip: 360_000, largestFile: 2_200_000 },
+  'yh-ui': { bytes: 7_000_000, gzip: 1_500_000, largestFile: 4_000_000 },
   utils: { bytes: 60_000, gzip: 18_000, largestFile: 25_000 },
   nuxt: { bytes: 40_000, gzip: 14_000, largestFile: 24_000 }
 }

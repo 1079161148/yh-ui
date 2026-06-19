@@ -317,22 +317,19 @@ const jsBenchCode = toJs(tsBenchCode)
 <!-- 表格数据区 -->
 
 <yh-table
-:data="benchData"
-:columns="benchColumns"
-:virtual-config="{ enabled: true, rowHeight: benchRowHeight, buffer: benchBuffer }"
-height="460px"
-border
-stripe
-row-key="id"
-ref="tableRef"
-
-> <template #empty>
-
-    <div style="padding: 40px; text-align: center; color: var(--vp-c-text-3);">
-      点击「开始压测」加载数据
-    </div>
-
-  </template>
+  :data="benchData"
+  :columns="benchColumns"
+  :virtual-config="{ enabled: true, rowHeight: benchRowHeight, buffer: benchBuffer }"
+  height="460px"
+  border
+  stripe
+  row-key="id"
+  ref="tableRef">
+<template #empty>
+<div style="padding: 40px; text-align: center; color: var(--vp-c-text-3);">
+点击「开始压测」加载数据
+</div>
+</template>
 </yh-table>
 
 </DemoBlock>
