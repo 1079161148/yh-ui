@@ -293,11 +293,9 @@ Adjust parameters and click **Run Benchmark** to measure rendering performance m
   row-key="id"
   ref="tableRef">
   <template #empty>
-
     <div style="padding: 40px; text-align: center; color: var(--vp-c-text-3);">
       Click "Run Benchmark" to load data
     </div>
-
   </template>
 </yh-table>
 
