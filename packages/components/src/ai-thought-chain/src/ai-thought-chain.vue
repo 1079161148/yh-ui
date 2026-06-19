@@ -412,9 +412,9 @@ const handleDragEnd = () => {
             ]"
           />
         </div>
-        <div :class="[ns.e('title'), classNames?.title || '']" :style="styles?.title || {}">{{
-          displayTitle
-        }}</div>
+        <div :class="[ns.e('title'), classNames?.title || '']" :style="styles?.title || {}">
+          {{ displayTitle }}
+        </div>
         <YhIcon name="arrow-down" :class="[ns.e('arrow'), { 'is-expanded': isExpanded }]" />
       </div>
 
