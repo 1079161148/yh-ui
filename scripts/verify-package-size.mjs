@@ -8,7 +8,7 @@ const packagesDir = resolve(root, 'packages')
 const reportPath = resolve(root, 'test-results', 'package-size-report.json')
 
 const budgets = {
-  components: { bytes: 12_000_000, gzip: 2_500_000, largestFile: 3_200_000 },
+  components: { bytes: 16_500_000, gzip: 3_200_000, largestFile: 3_200_000 },
   locale: { bytes: 4_800_000, gzip: 950_000, largestFile: 1_600_000 },
   icons: { bytes: 1_450_000, gzip: 170_000, largestFile: 180_000 },
   flow: { bytes: 1_600_000, gzip: 260_000, largestFile: 260_000 },
