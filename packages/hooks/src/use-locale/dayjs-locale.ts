@@ -6,16 +6,11 @@ import dayjs from '../dayjs'
 
 // 仅静态导入默认语言包（en 永远不走动态加载）
 
-// 使用 Vite 的 glob 导入所有可用语言包（按需懒加载）
-// 路径相对于当前文件，向上 4 层至 monorepo 根部 node_modules
-// 显式排除 en.js（已静态导入）
-const dayjsLocales =
-  typeof import.meta.glob === 'function'
-    ? import.meta.glob(
-        ['../../../../node_modules/dayjs/locale/*.js', '../../../../dayjs/locale/*.js'],
-        { eager: false }
-      )
-    : {}
+// NOTE: import.meta.glob is a Vite-only build-time feature and cannot appear in
+// library dist files because consumers that use rollup or other bundlers cannot
+// parse it. Locale loading falls back to the dynamic-import path below which is
+// standard ESM and works in every runtime/bundler.
+const dayjsLocales: Record<string, () => Promise<unknown>> = {}
 
 // 已加载的 locale 缓存（en 已默认注入）
 const loadedLocales = new Set<string>(['en'])
