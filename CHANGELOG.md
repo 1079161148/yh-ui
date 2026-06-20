@@ -4,6 +4,26 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.62] - 2026-06-20
+
+> 修复了 `@yh-ui/request` 中 `requestKey` 对应 AbortController 在请求完成后未回收导致内存泄漏的问题；修复了 `@yh-ui/flow` 中 `./plugins` 子路径导出路径错误（`ERR_MODULE_NOT_FOUND`）；通过 `pnpm-workspace.yaml` 强制将 `entities` 升级到 `7.0.1`，彻底消除 Vite 6 / Rolldown 下第三方 sourcemap 警告；全量通过 4757 项单元测试与类型校验。
+
+### Fixed
+
+- **request**: 修复 `abortControllers` Map 在请求正常完成后未删除对应 controller 导致的内存泄漏，在请求 `finally` 块中按 `requestKey` 清理当前 controller，并增加实例对比防止并发场景下误删覆盖者。
+- **flow**: 修复 `@yh-ui/flow/plugins` 子路径导出指向错误（`./dist/plugins.mjs` 实际不存在），改为正确的 `./dist/plugins/index.mjs`，解决按文档导入时的 `ERR_MODULE_NOT_FOUND`。
+- **build**: 在 `pnpm-workspace.yaml` 中强制将 `entities` 升级至 `^7.0.1`，消除 `markdown-it` 间接依赖 `entities@4.5.0` 在 Vite 6 / Rolldown sourcemap 包边界校验下产生的警告（remote sourceRoot 问题）。
+
+### Changed
+
+- **request**: 将请求选项对象中的 `as any` 类型断言替换为 `as Record<string, unknown>`，消除 ESLint `@typescript-eslint/no-explicit-any` 警告。
+- **hooks**: 清理 `build.config.ts` 中未使用的 `catch` 块变量 `e`，消除 ESLint `no-unused-vars` 警告，确保 `--max-warnings 0` 通过。
+
+### Notes
+
+- 新增 `packages/yh-ui/__tests__/node-load.test.ts` 覆盖 Node ESM 加载场景，测试超时调整为 20s 防止 CI 抖动。
+- 新增 4 项 `@yh-ui/request` 单元测试，覆盖 requestKey 控制器回收的正常完成、异常、并发覆盖与无 key 等边界场景。
+
 ## [1.0.61] - 2026-06-19
 
 > 修复了 `useRequest` 防抖/节流分支的测试死锁问题；修复了 `ai-thought-chain` ESLint 多行 HTML 元素内容换行警告；完善了 `utils`、`hooks`、`theme`、`request` 等核心工具包的边界性稳健性，全量通过单元测试与类型校验。

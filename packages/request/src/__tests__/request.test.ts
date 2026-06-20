@@ -180,4 +180,130 @@ describe('Request Class', () => {
     const fetchCall = vi.mocked(fetch).mock.calls[0]
     expect((fetchCall[1]?.headers as Record<string, string>)['X-Test']).toBe('1')
   })
+
+  it('cleans up AbortController from map on successful request', async () => {
+    const mockResponse = { ok: true, text: vi.fn().mockResolvedValue('{"success":true}') }
+    vi.mocked(fetch).mockResolvedValue(mockResponse as any)
+
+    const reqInstance = new Request()
+    const abortControllersMap = (reqInstance as any).abortControllers
+
+    expect(abortControllersMap.size).toBe(0)
+    await reqInstance.get('/api', { requestKey: 'test-success-key' })
+    expect(abortControllersMap.size).toBe(0)
+  })
+
+  it('cleans up AbortController from map on failed request', async () => {
+    const mockResponseError = {
+      ok: false,
+      status: 500,
+      text: vi.fn().mockResolvedValue('Internal Error')
+    }
+    vi.mocked(fetch).mockResolvedValue(mockResponseError as any)
+
+    const reqInstance = new Request()
+    const abortControllersMap = (reqInstance as any).abortControllers
+
+    expect(abortControllersMap.size).toBe(0)
+    await expect(reqInstance.get('/api', { requestKey: 'test-fail-key' })).rejects.toThrow()
+    expect(abortControllersMap.size).toBe(0)
+  })
+
+  it('cleans up AbortController from map on aborted request', async () => {
+    const mockResponse = { ok: true, text: vi.fn().mockResolvedValue('{"success":true}') }
+    vi.mocked(fetch).mockImplementation((url, options) => {
+      return new Promise((resolve, reject) => {
+        if (options?.signal?.aborted) {
+          return reject(new DOMException('The user aborted a request.', 'AbortError'))
+        }
+        const timer = setTimeout(() => {
+          resolve(mockResponse as any)
+        }, 50)
+        options?.signal?.addEventListener('abort', () => {
+          clearTimeout(timer)
+          reject(new DOMException('The user aborted a request.', 'AbortError'))
+        })
+      })
+    })
+
+    const reqInstance = new Request()
+    const abortControllersMap = (reqInstance as any).abortControllers
+
+    const promise = reqInstance.get('/api', { requestKey: 'test-abort-key' })
+    expect(abortControllersMap.size).toBe(1)
+    expect(abortControllersMap.has('test-abort-key')).toBe(true)
+
+    reqInstance.cancel('test-abort-key')
+    await expect(promise).rejects.toThrow()
+    expect(abortControllersMap.size).toBe(0)
+  })
+
+  it('preserves the latest controller and deletes only the matching controller during key overrides', async () => {
+    let resolveFirst: any
+    let resolveSecond: any
+    const firstPromise = new Promise((resolve) => {
+      resolveFirst = resolve
+    })
+    const secondPromise = new Promise((resolve) => {
+      resolveSecond = resolve
+    })
+
+    const mockResponse = { ok: true, text: vi.fn().mockResolvedValue('{"success":true}') }
+
+    const createMockFetch = (triggerPromise: Promise<void>) => {
+      return (url: any, options: any) => {
+        return new Promise((resolve, reject) => {
+          if (options?.signal?.aborted) {
+            return reject(new DOMException('The user aborted a request.', 'AbortError'))
+          }
+          const onAbort = () => {
+            reject(new DOMException('The user aborted a request.', 'AbortError'))
+          }
+          options?.signal?.addEventListener('abort', onAbort)
+          triggerPromise
+            .then(() => {
+              options?.signal?.removeEventListener('abort', onAbort)
+              resolve(mockResponse as any)
+            })
+            .catch((err) => {
+              options?.signal?.removeEventListener('abort', onAbort)
+              reject(err)
+            })
+        })
+      }
+    }
+
+    vi.mocked(fetch)
+      .mockImplementationOnce(createMockFetch(firstPromise))
+      .mockImplementationOnce(createMockFetch(secondPromise))
+
+    const reqInstance = new Request()
+    const abortControllersMap = (reqInstance as any).abortControllers
+
+    // Start first request
+    const p1 = reqInstance.get('/api', { requestKey: 'test-key', abortSameKey: true })
+    const firstController = abortControllersMap.get('test-key')
+    expect(firstController).toBeDefined()
+
+    // Start second request with same key
+    const p2 = reqInstance.get('/api', { requestKey: 'test-key', abortSameKey: true })
+    const secondController = abortControllersMap.get('test-key')
+    expect(secondController).toBeDefined()
+    expect(secondController).not.toBe(firstController)
+
+    // First request should be aborted by the second request
+    await expect(p1).rejects.toThrow()
+    // Resolving first fetch task
+    resolveFirst()
+
+    // The map should still contain the second controller
+    expect(abortControllersMap.get('test-key')).toBe(secondController)
+
+    // Resolve second request
+    resolveSecond()
+    await p2
+
+    // Now the map should be empty
+    expect(abortControllersMap.size).toBe(0)
+  })
 })

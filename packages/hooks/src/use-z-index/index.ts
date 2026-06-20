@@ -9,6 +9,8 @@ import type { InjectionKey, Ref } from 'vue'
 // 默认初始 z-index
 const defaultInitialZIndex = 2000
 
+import { useConfig } from '../use-config'
+
 // z-index 注入 Key
 export const zIndexContextKey: InjectionKey<Ref<number | undefined>> = Symbol('zIndexContextKey')
 
@@ -58,12 +60,12 @@ export const createZIndexCounter = (initialValue = defaultInitialZIndex) => {
  * const { currentZIndex, nextZIndex } = useZIndex()
  */
 export const useZIndex = (zIndexOverrides?: Ref<number>) => {
-  const injectedZIndex = inject(zIndexContextKey, undefined)
+  const { globalZIndex } = useConfig()
   const appCounter = inject(zIndexCounterKey, null)
 
   const initialZIndex = computed(() => {
     const override = unref(zIndexOverrides)
-    return override ?? unref(injectedZIndex) ?? defaultInitialZIndex
+    return override ?? unref(globalZIndex) ?? defaultInitialZIndex
   })
 
   const currentZIndex = computed(() => initialZIndex.value)

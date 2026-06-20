@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils'
 import { defineComponent, inject } from 'vue'
 import { YhConfigProvider, configProviderContextKey } from '../index'
 import { en } from '@yh-ui/locale'
+import { useConfig, useNamespace } from '@yh-ui/hooks'
 
 const ChildComponent = defineComponent({
   setup() {
@@ -105,5 +106,64 @@ describe('ConfigProvider', () => {
     })
 
     expect(wrapper.find('.size').text()).toBe('small')
+  })
+
+  it('YhConfigProvider and hooks should fall back to global options when props are not specified', () => {
+    const Child = defineComponent({
+      setup() {
+        const { globalSize, globalZIndex } = useConfig()
+        const ns = useNamespace('button')
+        return { globalSize, globalZIndex, ns }
+      },
+      template:
+        '<div class="size">{{ globalSize }}</div><div class="zindex">{{ globalZIndex }}</div><div class="class">{{ ns.b() }}</div>'
+    })
+
+    const wrapper = mount(YhConfigProvider, {
+      global: {
+        provide: {
+          'yh-ui-options': {
+            size: 'small',
+            zIndex: 9999,
+            namespace: 'custom-ns'
+          }
+        }
+      },
+      slots: {
+        default: Child
+      }
+    })
+
+    expect(wrapper.find('.size').text()).toBe('small')
+    expect(wrapper.find('.zindex').text()).toBe('9999')
+    expect(wrapper.find('.class').text()).toBe('custom-ns-button')
+  })
+
+  it('hooks should resolve options from globalOptions when rendered without ConfigProvider', () => {
+    const Child = defineComponent({
+      setup() {
+        const { globalSize, globalZIndex } = useConfig()
+        const ns = useNamespace('button')
+        return { globalSize, globalZIndex, ns }
+      },
+      template:
+        '<div class="size">{{ globalSize }}</div><div class="zindex">{{ globalZIndex }}</div><div class="class">{{ ns.b() }}</div>'
+    })
+
+    const wrapper = mount(Child, {
+      global: {
+        provide: {
+          'yh-ui-options': {
+            size: 'small',
+            zIndex: 9999,
+            namespace: 'custom-ns'
+          }
+        }
+      }
+    })
+
+    expect(wrapper.find('.size').text()).toBe('small')
+    expect(wrapper.find('.zindex').text()).toBe('9999')
+    expect(wrapper.find('.class').text()).toBe('custom-ns-button')
   })
 })

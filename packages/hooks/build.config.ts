@@ -77,6 +77,21 @@ export default defineBuildConfig({
           legalComments: 'eof'
         })
       ])
+
+      // Post-process CJS dayjs-locale files to replace `import.meta` with `undefined`
+      const fs = await import('fs/promises')
+      const targetCjs = resolve(__dirname, 'dist/use-locale/dayjs-locale.cjs')
+      try {
+        let content = await fs.readFile(targetCjs, 'utf8')
+        if (content.includes('import.meta')) {
+          content = content.replace(/typeof\s+import\.meta\.glob/g, 'typeof undefined')
+          content = content.replace(/import\.meta\.glob/g, 'undefined')
+          content = content.replace(/import\.meta/g, 'undefined')
+          await fs.writeFile(targetCjs, content, 'utf8')
+        }
+      } catch {
+        // Ignore if file doesn't exist
+      }
     }
   }
 })

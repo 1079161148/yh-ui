@@ -1,6 +1,6 @@
 {
   "name": "@yh-ui/flow",
-  "version": "1.0.61",
+  "version": "1.0.62",
   "description": "YH-UI High-performance Flow Chart Component",
   "type": "module",
   "sideEffects": false,
@@ -12,6 +12,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
+    },
+    "./plugins": {
+      "types": "./dist/plugins/index.d.ts",
+      "import": "./dist/plugins/index.mjs",
+      "require": "./dist/plugins/index.cjs"
     },
     "./*": {
       "types": "./dist/*.d.ts",

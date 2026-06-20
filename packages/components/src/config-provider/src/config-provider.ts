@@ -1,12 +1,22 @@
-import { defineComponent, provide, renderSlot, watch, computed, ref, h, onMounted } from 'vue'
+import {
+  defineComponent,
+  provide,
+  renderSlot,
+  watch,
+  computed,
+  ref,
+  h,
+  onMounted,
+  inject
+} from 'vue'
 import type { PropType, ExtractPropTypes } from 'vue'
 import { useTheme, ThemeManager } from '@yh-ui/theme'
 import type { PresetTheme, ThemeColors } from '@yh-ui/theme'
 import { zhCn } from '@yh-ui/locale'
 import type { Language } from '@yh-ui/locale'
 
-import { configProviderContextKey } from '@yh-ui/hooks'
-import type { ConfigProviderContext } from '@yh-ui/hooks'
+import { configProviderContextKey, namespaceContextKey, defaultNamespace } from '@yh-ui/hooks'
+import type { ConfigProviderContext, YhUIOptions } from '@yh-ui/hooks'
 
 export const configProviderProps = {
   theme: {
@@ -14,16 +24,17 @@ export const configProviderProps = {
     default: 'default'
   },
   locale: {
-    type: Object as PropType<Language>,
-    default: zhCn
+    type: Object as PropType<Language>
   },
   size: {
-    type: String as PropType<'small' | 'default' | 'large'>,
-    default: 'default'
+    type: String as PropType<'small' | 'default' | 'large'>
   },
   zIndex: {
-    type: Number,
-    default: 2000
+    type: Number
+  },
+  namespace: {
+    type: String,
+    default: ''
   },
   message: {
     type: Object as PropType<ConfigProviderContext['message']>,
@@ -45,6 +56,7 @@ export default defineComponent({
   name: 'YhConfigProvider',
   props: configProviderProps,
   setup(props, { slots }) {
+    const globalOptions = inject<YhUIOptions | null>('yh-ui-options', null)
     const containerRef = ref<HTMLElement | null>(null)
     // 标记是否已初始化（mounted）
     const isMounted = ref(false)
@@ -126,11 +138,15 @@ export default defineComponent({
     )
 
     const config = computed<ConfigProviderContext>(() => ({
-      size: props.size,
-      zIndex: props.zIndex,
-      locale: props.locale,
+      size: props.size ?? globalOptions?.size ?? 'default',
+      zIndex: props.zIndex ?? globalOptions?.zIndex ?? 2000,
+      locale: props.locale ?? globalOptions?.locale ?? zhCn,
       message: props.message
     }))
+
+    const mergedNamespace = computed(() => {
+      return props.namespace || globalOptions?.namespace || defaultNamespace
+    })
 
     // 为 SSR 提供主题样式
     const themeStyles = computed(() => {
@@ -157,6 +173,7 @@ export default defineComponent({
 
     // 注意：提供 computed 本身而不是 .value，确保子组件能响应式获取更新
     provide(configProviderContextKey, config)
+    provide(namespaceContextKey, mergedNamespace)
 
     return () => {
       // 非全局模式：使用普通 div 容器（不要用 display:contents，否则 CSS 变量无法继承）

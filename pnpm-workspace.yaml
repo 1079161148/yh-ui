@@ -38,6 +38,7 @@ overrides:
   '@vue/server-renderer': ^3.5.27
   '@vue/test-utils': ^2.4.6
   vue-router: ^4.6.4
+  entities: ^7.0.1
 
 packageExtensions:
   '@vue/language-core':

@@ -205,6 +205,7 @@ export class Request implements RequestInstance {
    */
   private createAbortSignal(options: InternalRequestOptions): AbortSignal {
     const controller = new AbortController()
+    ;(options as Record<string, unknown>)._abortController = controller
 
     // 存储 AbortController
     if (options.requestKey) {
@@ -432,6 +433,12 @@ export class Request implements RequestInstance {
         | undefined
       if (cleanup) {
         cleanup()
+      }
+      if (mergedOptions.requestKey) {
+        const currentController = this.abortControllers.get(mergedOptions.requestKey)
+        if (currentController === (mergedOptions as Record<string, unknown>)._abortController) {
+          this.abortControllers.delete(mergedOptions.requestKey)
+        }
       }
     }
   }
