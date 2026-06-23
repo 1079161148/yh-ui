@@ -8,6 +8,7 @@ import {
   nextTick,
   shallowRef,
   onMounted,
+  inject,
   useSlots
 } from 'vue'
 import {
@@ -16,6 +17,11 @@ import {
   type ArtifactVersion,
   type ArtifactEChartsOption
 } from './ai-artifacts'
+import {
+  createSandboxHtml,
+  DEFAULT_SANDBOX_YH_UI_URL,
+  DEFAULT_SANDBOX_YH_UI_CSS_URL
+} from './sandbox-renderer'
 import { YhIcon } from '../../icon'
 import { YhButton } from '../../button'
 import { YhSpin } from '../../spin'
@@ -42,6 +48,33 @@ const { themeStyle } = useComponentTheme(
 
 const internalMode = ref(props.mode)
 const currentVersionState = ref<string | number>(props.data?.currentVersion || '')
+
+const isPreviewable = computed(() => {
+  if (!props.data?.type) return false
+  const type = props.data.type
+  if (slots[type]) return true
+  const previewableTypes = [
+    'html',
+    'sandbox',
+    'echarts',
+    'chart',
+    'canvas',
+    'image',
+    'video',
+    'audio',
+    'pdf',
+    'iframe',
+    'vue'
+  ]
+  return previewableTypes.includes(type)
+})
+
+const activeMode = computed(() => {
+  if (internalMode.value === 'preview' && !isPreviewable.value) {
+    return 'code'
+  }
+  return internalMode.value
+})
 
 const escapeHtml = (value: string) =>
   value
@@ -90,6 +123,12 @@ const getIcon = (type?: string) => {
   if (type === 'canvas') return 'edit'
   if (type === 'sandbox') return 'play'
   if (type === 'diagram') return 'connection'
+  if (type === 'image') return 'image'
+  if (type === 'video') return 'file-video'
+  if (type === 'audio') return 'file-audio'
+  if (type === 'pdf') return 'file-pdf'
+  if (type === 'text') return 'document-text'
+  if (type === 'iframe') return 'link'
   return 'document'
 }
 
@@ -147,12 +186,7 @@ const revokeCurrentUrl = () => {
 
 watch(
   () =>
-    [
-      props.visible,
-      currentVersionData.value?.content,
-      props.data?.type,
-      internalMode.value
-    ] as const,
+    [props.visible, currentVersionData.value?.content, props.data?.type, activeMode.value] as const,
   ([visible, content, type, mode]) => {
     revokeCurrentUrl()
     if (
@@ -286,7 +320,7 @@ const initECharts = async () => {
 // 监听面板显示状态、数据类型、配置以及模式变化，重新渲染图表
 watch(
   () =>
-    [props.visible, isEChartsContainer.value, getEchartsOption.value, internalMode.value] as const,
+    [props.visible, isEChartsContainer.value, getEchartsOption.value, activeMode.value] as const,
   ([newVisible, isChart, , mode]) => {
     if (newVisible && isChart && (mode === 'preview' || mode === 'inline')) {
       nextTick(() => {
@@ -297,9 +331,137 @@ watch(
   { immediate: true }
 )
 
+const vueRendererIframeRef = ref<HTMLIFrameElement | null>(null)
+
+// ── Vue SFC sandbox URL ──────────────────────────────────────────────────────
+// Docs can globally inject bundle URLs via:
+//   app.provide('yhSandboxYhUiUrl', '/yh-ui/playground/yh-ui-sandbox-bundle.js')
+//   app.provide('yhSandboxYhUiCssUrl', '/yh-ui/playground/yh-ui-sandbox-bundle.css')
+//   app.provide('yhSandboxRendererUrl', '/yh-ui/vue-renderer.html')
+// Consumers either rely on the CDN default or pass the props directly.
+const injectedYhUiUrl = inject<string>('yhSandboxYhUiUrl', '')
+const injectedYhUiCssUrl = inject<string>('yhSandboxYhUiCssUrl', '')
+
+/**
+ * Optional injected URL to a static renderer HTML page (e.g., '/yh-ui/vue-renderer.html').
+ * When provided the component uses that same-origin HTML page instead of a blob: URL,
+ * which avoids the COEP issue that blocks cross-origin CSS loading inside blob iframes.
+ * The JS/CSS bundle URLs are forwarded as query params.
+ */
+const injectedRendererUrl = inject<string>('yhSandboxRendererUrl', '')
+
+/** Resolve a root-relative URL to a fully-qualified URL based on the current origin/subpath */
+const resolveRootUrl = (url: string): string => {
+  if (typeof window === 'undefined' || !url.startsWith('/')) return url
+  const pathSegments = window.location.pathname.split('/')
+  const baseIndex = pathSegments.indexOf('yh-ui')
+  const subpath = baseIndex !== -1 ? '/' + pathSegments.slice(1, baseIndex + 1).join('/') : ''
+  if (subpath && !url.startsWith(subpath)) {
+    return `${window.location.origin}${subpath}${url.replace(/^\/+/, '')}`
+  }
+  return `${window.location.origin}${url}`
+}
+
+const resolvedSandboxYhUiUrl = computed(() => {
+  const url = props.sandboxYhUiUrl || injectedYhUiUrl || DEFAULT_SANDBOX_YH_UI_URL
+  return resolveRootUrl(url)
+})
+const resolvedSandboxYhUiCssUrl = computed(() => {
+  const url = props.sandboxYhUiCssUrl || injectedYhUiCssUrl || DEFAULT_SANDBOX_YH_UI_CSS_URL
+  return resolveRootUrl(url)
+})
+
+/**
+ * The actual src used for the Vue SFC sandbox iframe.
+ * - If a static renderer URL is injected (preferred), append jsUrl+cssUrl as query params.
+ *   This avoids the blob: origin COEP issue where cross-origin CSS gets blocked.
+ * - Otherwise fallback to a blob: URL (works in consumer apps without the static renderer file).
+ */
+const vueRendererSrc = computed(() => {
+  if (injectedRendererUrl) {
+    const rendererUrl = resolveRootUrl(injectedRendererUrl)
+    const params = new URLSearchParams({
+      jsUrl: resolvedSandboxYhUiUrl.value,
+      cssUrl: resolvedSandboxYhUiCssUrl.value
+    })
+    return `${rendererUrl}?${params.toString()}`
+  }
+  return vueRendererBlobUrl.value
+})
+
+/** Blob URL fallback – only used when no static renderer URL is injected */
+const vueRendererBlobUrl = ref('')
+
+const revokeSandboxBlobUrl = () => {
+  if (vueRendererBlobUrl.value) {
+    try {
+      URL.revokeObjectURL(vueRendererBlobUrl.value)
+    } catch {
+      // ignore
+    }
+    vueRendererBlobUrl.value = ''
+  }
+}
+
+const createVueSandbox = () => {
+  if (typeof window === 'undefined') return
+  // If using a static renderer page, no blob URL needed
+  if (injectedRendererUrl) return
+  revokeSandboxBlobUrl()
+  const html = createSandboxHtml({
+    yhUiUrl: resolvedSandboxYhUiUrl.value,
+    yhUiCssUrl: resolvedSandboxYhUiCssUrl.value
+  })
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' })
+  vueRendererBlobUrl.value = URL.createObjectURL(blob)
+}
+
+// Recreate sandbox when URL props/injections change (blob fallback only)
+watch([resolvedSandboxYhUiUrl, resolvedSandboxYhUiCssUrl], () => {
+  if (typeof window !== 'undefined' && !injectedRendererUrl) {
+    createVueSandbox()
+  }
+})
+
+const sendVueCodeToRenderer = () => {
+  const iframe = vueRendererIframeRef.value
+  const content = currentVersionData.value?.content
+  if (iframe && iframe.contentWindow && content) {
+    iframe.contentWindow.postMessage(
+      {
+        type: 'render-vue',
+        code: content
+      },
+      '*'
+    )
+  }
+}
+
+const onVueRendererLoad = () => {
+  sendVueCodeToRenderer()
+}
+
+const handleRendererMessage = (event: MessageEvent) => {
+  if (event.data?.type === 'renderer-ready') {
+    sendVueCodeToRenderer()
+  }
+}
+
+watch(
+  () => currentVersionData.value?.content,
+  () => {
+    if (props.data?.type === 'vue') {
+      nextTick(() => {
+        sendVueCodeToRenderer()
+      })
+    }
+  }
+)
+
 // 清理
 onBeforeUnmount(() => {
   revokeCurrentUrl()
+  revokeSandboxBlobUrl()
   if (chartResizeObserver) {
     chartResizeObserver.disconnect()
     chartResizeObserver = null
@@ -308,10 +470,18 @@ onBeforeUnmount(() => {
     echartsInstance.value.dispose()
     echartsInstance.value = null
   }
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('message', handleRendererMessage)
+  }
 })
 
 onMounted(() => {
   loadHighlightStyle()
+  if (typeof window !== 'undefined') {
+    window.addEventListener('message', handleRendererMessage)
+    // Create the sandbox blob URL eagerly so it's ready when the user opens the panel
+    createVueSandbox()
+  }
 })
 
 // 图表高度样式
@@ -324,8 +494,11 @@ const chartContainerStyle = computed(() => ({
   <Transition name="yh-slide-right">
     <div
       v-if="visible"
-      :class="[ns.b(), ns.m(internalMode)]"
-      :style="[{ width: typeof width === 'number' ? width + 'px' : width }, themeStyle]"
+      :class="[ns.b(), ns.m(activeMode), ns.is('fullscreen', props.fullscreen)]"
+      :style="[
+        { width: props.fullscreen ? '100%' : typeof width === 'number' ? width + 'px' : width },
+        themeStyle
+      ]"
     >
       <!-- Header -->
       <div :class="ns.e('header')">
@@ -335,22 +508,22 @@ const chartContainerStyle = computed(() => ({
         </div>
 
         <div :class="ns.e('actions')">
-          <div :class="ns.e('tabs')">
+          <div v-if="isPreviewable" :class="ns.e('tabs')">
             <button
-              :class="[ns.e('tab'), ns.is('active', internalMode === 'preview')]"
+              :class="[ns.e('tab'), ns.is('active', activeMode === 'preview')]"
               @click="toggleMode('preview')"
             >
               {{ t('ai.artifacts.preview') }}
             </button>
             <button
               v-if="data?.type === 'html'"
-              :class="[ns.e('tab'), ns.is('active', internalMode === 'inline')]"
+              :class="[ns.e('tab'), ns.is('active', activeMode === 'inline')]"
               @click="toggleMode('inline')"
             >
               {{ t('ai.artifacts.inline') }}
             </button>
             <button
-              :class="[ns.e('tab'), ns.is('active', internalMode === 'code')]"
+              :class="[ns.e('tab'), ns.is('active', activeMode === 'code')]"
               @click="toggleMode('code')"
             >
               {{ t('ai.artifacts.code') }}
@@ -385,88 +558,197 @@ const chartContainerStyle = computed(() => ({
 
       <!-- Content area -->
       <div :class="ns.e('content')">
-        <template v-if="internalMode === 'preview' || internalMode === 'inline'">
-          <iframe
-            v-if="data?.type === 'html' || data?.type === 'sandbox'"
-            :src="sandboxSrcUrl"
-            :class="ns.e('sandbox')"
-            :sandbox="data?.type === 'sandbox' ? 'allow-scripts' : ''"
-          ></iframe>
+        <template v-if="activeMode === 'preview' || activeMode === 'inline'">
+          <!-- Check if a slot with the name of the type is defined, allowing custom preview rendering -->
+          <template v-if="data?.type && slots[data.type]">
+            <slot :name="data.type" :data="currentVersionData" :title="data.title" />
+          </template>
 
-          <!-- ECharts 图表 (使用 v-show 保持 DOM) -->
-          <div
-            v-show="isEChartsContainer"
-            :class="ns.e('echarts-wrapper')"
-            :style="chartContainerStyle"
-            style="position: relative"
-          >
-            <div
-              ref="echartsRef"
-              :class="ns.e('echarts-container')"
-              style="width: 100%; height: 100%"
-            ></div>
-            <YhSpin
-              v-if="echartsLoading"
-              :class="ns.e('chart-loading')"
-              style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)"
-            >
-              <span>{{ chartLoadingText ?? t('ai.artifacts.renderingChart') }}</span>
-            </YhSpin>
-            <div
-              v-else-if="echartsError"
-              :class="ns.e('chart-error')"
-              style="
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-              "
-            >
-              <YhIcon name="warning" />
-              <span
-                >{{
-                  t('ai.artifacts.chartLoadError') === 'ai.artifacts.chartLoadError'
-                    ? t('common.close') === '关闭'
-                      ? '图表加载失败'
-                      : 'Chart loading failed'
-                    : t('ai.artifacts.chartLoadError')
-                }}: {{ echartsError.message }}</span
-              >
-            </div>
-          </div>
+          <template v-else>
+            <iframe
+              v-if="data?.type === 'html' || data?.type === 'sandbox'"
+              :src="sandboxSrcUrl"
+              :class="ns.e('sandbox')"
+              :sandbox="data?.type === 'sandbox' ? 'allow-scripts' : ''"
+            ></iframe>
 
-          <!-- 其他类型 -->
-          <template v-if="data?.type !== 'html' && data?.type !== 'sandbox' && !isEChartsContainer">
-            <!-- 通用图表 -->
+            <!-- ECharts 图表 (使用 v-show 保持 DOM) -->
             <div
-              v-if="data?.type === 'chart'"
-              :class="ns.e('chart-container')"
+              v-show="isEChartsContainer"
+              :class="ns.e('echarts-wrapper')"
               :style="chartContainerStyle"
+              style="position: relative"
             >
-              <slot name="chart" :data="currentVersionData" :title="data.title">
-                <div :class="ns.e('placeholder')">
-                  <YhIcon name="chart-bar" />
-                  <p>{{ t('ai.artifacts.renderingChart') }}</p>
-                </div>
-              </slot>
+              <div
+                ref="echartsRef"
+                :class="ns.e('echarts-container')"
+                style="width: 100%; height: 100%"
+              ></div>
+              <YhSpin
+                v-if="echartsLoading"
+                :class="ns.e('chart-loading')"
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)"
+              >
+                <span>{{ chartLoadingText ?? t('ai.artifacts.renderingChart') }}</span>
+              </YhSpin>
+              <div
+                v-else-if="echartsError"
+                :class="ns.e('chart-error')"
+                style="
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <YhIcon name="warning" />
+                <span
+                  >{{
+                    t('ai.artifacts.chartLoadError') === 'ai.artifacts.chartLoadError'
+                      ? t('common.close') === '关闭'
+                        ? '图表加载失败'
+                        : 'Chart loading failed'
+                      : t('ai.artifacts.chartLoadError')
+                  }}: {{ echartsError.message }}</span
+                >
+              </div>
             </div>
-            <!-- 画布 -->
-            <div v-else-if="data?.type === 'canvas'" :class="ns.e('canvas-container')">
-              <slot name="canvas" :data="currentVersionData">
-                <div :class="ns.e('placeholder')">
-                  <YhIcon name="edit" />
-                  <p>{{ t('ai.artifacts.renderingCanvas') }}</p>
-                </div>
-              </slot>
-            </div>
-            <!-- 占位 -->
-            <div v-else :class="ns.e('placeholder')">
-              <YhIcon name="sparkles" />
-              <p>{{ t('ai.artifacts.rendering') }}</p>
-            </div>
+
+            <!-- 其他类型 -->
+            <template
+              v-if="data?.type !== 'html' && data?.type !== 'sandbox' && !isEChartsContainer"
+            >
+              <!-- Image Preview -->
+              <div
+                v-if="data?.type === 'image'"
+                :class="ns.e('image-container')"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  overflow: auto;
+                  padding: 16px;
+                  box-sizing: border-box;
+                "
+              >
+                <img
+                  :src="currentVersionData?.content"
+                  style="max-width: 100%; max-height: 100%; object-fit: contain"
+                />
+              </div>
+
+              <!-- Video Preview -->
+              <div
+                v-else-if="data?.type === 'video'"
+                :class="ns.e('video-container')"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 16px;
+                  box-sizing: border-box;
+                "
+              >
+                <video
+                  :src="currentVersionData?.content"
+                  controls
+                  style="max-width: 100%; max-height: 100%"
+                ></video>
+              </div>
+
+              <!-- Audio Preview -->
+              <div
+                v-else-if="data?.type === 'audio'"
+                :class="ns.e('audio-container')"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 16px;
+                  box-sizing: border-box;
+                "
+              >
+                <audio :src="currentVersionData?.content" controls style="max-width: 100%"></audio>
+              </div>
+
+              <!-- PDF Preview -->
+              <iframe
+                v-else-if="data?.type === 'pdf'"
+                :src="currentVersionData?.content"
+                style="width: 100%; height: 100%; border: none"
+              ></iframe>
+
+              <!-- Plain Text Preview -->
+              <pre
+                v-else-if="data?.type === 'text'"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  margin: 0;
+                  padding: 16px;
+                  overflow: auto;
+                  font-family: monospace;
+                  white-space: pre-wrap;
+                  box-sizing: border-box;
+                "
+                >{{ currentVersionData?.content }}</pre
+              >
+
+              <!-- Generic Iframe Preview -->
+              <iframe
+                v-else-if="data?.type === 'iframe'"
+                :src="currentVersionData?.content"
+                style="width: 100%; height: 100%; border: none"
+              ></iframe>
+
+              <!-- Vue SFC Preview (Sandbox) -->
+              <!-- Uses static vue-renderer.html when injected (avoids blob: COEP issue), -->
+              <!-- otherwise falls back to a blob: URL for consumer apps. -->
+              <iframe
+                v-else-if="data?.type === 'vue' && vueRendererSrc"
+                ref="vueRendererIframeRef"
+                :src="vueRendererSrc"
+                style="width: 100%; height: 100%; border: none"
+                @load="onVueRendererLoad"
+              ></iframe>
+
+              <!-- 通用图表 -->
+              <div
+                v-else-if="data?.type === 'chart'"
+                :class="ns.e('chart-container')"
+                :style="chartContainerStyle"
+              >
+                <slot name="chart" :data="currentVersionData" :title="data.title">
+                  <div :class="ns.e('placeholder')">
+                    <YhIcon name="chart-bar" />
+                    <p>{{ t('ai.artifacts.renderingChart') }}</p>
+                  </div>
+                </slot>
+              </div>
+              <!-- 画布 -->
+              <div v-else-if="data?.type === 'canvas'" :class="ns.e('canvas-container')">
+                <slot name="canvas" :data="currentVersionData">
+                  <div :class="ns.e('placeholder')">
+                    <YhIcon name="edit" />
+                    <p>{{ t('ai.artifacts.renderingCanvas') }}</p>
+                  </div>
+                </slot>
+              </div>
+              <!-- 占位 -->
+              <div v-else :class="ns.e('placeholder')">
+                <YhIcon name="sparkles" />
+                <p>{{ t('ai.artifacts.rendering') }}</p>
+              </div>
+            </template>
           </template>
         </template>
 

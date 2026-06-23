@@ -79,16 +79,18 @@ const valueStyleComputed = computed(() => {
 
 // --- 核心计时逻辑 ---
 
-/**
- * 计算初始剩余时间
- */
 function getInitialRemain(): number {
   const serverOffset = props.serverTimeOffset ?? 0
   const now = Date.now() + serverOffset
   const value = props.value
 
   if (isTargetTimestamp(value)) {
-    const target = value instanceof Date ? value.getTime() : value
+    let target = value instanceof Date ? value.getTime() : value
+    if (props.timezoneOffset !== undefined && props.timezoneOffset !== null) {
+      const localOffset = -new Date().getTimezoneOffset()
+      const tzAdjustment = (props.timezoneOffset - localOffset) * 60 * 1000
+      target = target - tzAdjustment
+    }
     return Math.max(0, target - now)
   }
 
@@ -326,7 +328,7 @@ const digits = computed(() => {
 </script>
 
 <template>
-  <div :class="rootClass" :style="themeStyle">
+  <div v-if="keepAliveOnFinish || status !== 'finished'" :class="rootClass" :style="themeStyle">
     <!-- 标题 -->
     <slot name="prefix">
       <span v-if="title" :class="ns.e('title')">{{ title }}</span>

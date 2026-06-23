@@ -397,6 +397,50 @@
     --yh-calendar-cell-height: 120px;
     min-width: 850px;
   }
+
+  @include e(year-body) {
+    padding: 20px 24px 28px;
+    flex: 1;
+    background: var(--yh-bg-color-page);
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include e(months-grid) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 16px 12px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+
+  @include e(month-cell) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    background: var(--yh-bg-color);
+    border-radius: var(--yh-calendar-cell-radius);
+    box-shadow: var(--yh-shadow-sm);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    color: var(--yh-calendar-text);
+    font-weight: bold;
+    font-size: 16px;
+
+    &:hover {
+      color: var(--yh-calendar-primary);
+      transform: scale(1.05);
+      box-shadow: var(--yh-shadow-md);
+    }
+
+    @include when(current-month) {
+      background: var(--yh-calendar-primary-light);
+      color: var(--yh-calendar-primary);
+      border: 1.5px solid var(--yh-calendar-primary);
+    }
+  }
 }
 
 // ===================== 暗黑模式覆盖 =====================
@@ -504,6 +548,24 @@ html.dark {
 
     .yh-calendar__day.is-today:not(.is-selected) .yh-calendar__day-value::after {
       background: rgba(64, 158, 255, 0.75);
+    }
+
+    .yh-calendar__month-cell {
+      background-color: rgba(25, 29, 38, 0.95) !important;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+      color: var(--yh-text-color-regular, #cfd3dc) !important;
+
+      &:hover {
+        background-color: rgba(64, 158, 255, 0.1) !important;
+        color: var(--yh-color-primary, #409eff) !important;
+        box-shadow: inset 0 0 0 1px rgba(64, 158, 255, 0.25) !important;
+      }
+
+      &.is-current-month {
+        background-color: rgba(64, 158, 255, 0.18) !important;
+        color: var(--yh-color-primary, #409eff) !important;
+        box-shadow: inset 0 0 0 1.5px rgba(64, 158, 255, 0.5) !important;
+      }
     }
   }
 }

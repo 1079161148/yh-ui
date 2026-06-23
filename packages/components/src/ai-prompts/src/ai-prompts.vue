@@ -1,5 +1,5 @@
 <template>
-  <div :class="[ns.b(), ns.m(layout)]" :style="themeStyle">
+  <div :class="[ns.b(), ns.m(props.layout)]" :style="themeStyle">
     <!-- Title Section -->
     <div v-if="title || $slots.title" :class="ns.e('header')">
       <slot name="title">

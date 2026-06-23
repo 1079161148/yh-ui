@@ -26,6 +26,7 @@ const isResponsiveVertical = ref(false)
 
 // 响应式监听
 const checkResponsive = () => {
+  if (typeof window === 'undefined') return
   if (props.responsive) {
     isResponsiveVertical.value = window.innerWidth < props.responsiveBreakpoint
   } else {
@@ -34,14 +35,14 @@ const checkResponsive = () => {
 }
 
 onMounted(() => {
-  if (props.responsive) {
+  if (props.responsive && typeof window !== 'undefined') {
     checkResponsive()
     window.addEventListener('resize', checkResponsive)
   }
 })
 
 onUnmounted(() => {
-  if (props.responsive) {
+  if (props.responsive && typeof window !== 'undefined') {
     window.removeEventListener('resize', checkResponsive)
   }
 })

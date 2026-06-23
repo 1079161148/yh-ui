@@ -1,7 +1,7 @@
 # AiArtifacts
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { toJs, _T, _S } from '../../.vitepress/theme/utils/demo-utils'
 
 const visible = ref(false)
@@ -10,6 +10,63 @@ const visibleChart = ref(false)
 const visibleBar = ref(false)
 const visiblePie = ref(false)
 const visibleRadar = ref(false)
+
+const visibleVersional = ref(false)
+const rateVal = ref(4)
+const switchVal = ref(true)
+
+const versionalData = {
+  id: 'artifact-versional',
+  title: 'Multi-version Components & Image',
+  type: 'vue',
+  currentVersion: '1',
+  versions: [
+    { version: '1', content: '', description: 'Version v1: Image Preview' },
+    { version: '2', content: '', description: 'Version v2: Components Preview' }
+  ]
+}
+
+const onVersionChange = (v: any) => {
+  console.log('Switching version:', v.version)
+}
+
+const visibleMedia = ref(false)
+const mediaType = ref<'image' | 'video' | 'audio' | 'pdf' | 'text' | 'iframe'>('image')
+
+const mediaData = computed(() => {
+  const type = mediaType.value
+  let content = ''
+  let title = ''
+  
+  if (type === 'image') {
+    title = 'sample-image.png'
+    content = '/yh-ui/logo.svg'
+  } else if (type === 'video') {
+    title = 'sample-video.mp4'
+    content = 'https://vjs.zencdn.net/v/oceans.mp4'
+  } else if (type === 'audio') {
+    title = 'sample-audio.mp3'
+    content = 'https://www.w3schools.com/html/horse.mp3'
+  } else if (type === 'pdf') {
+    title = 'sample-doc.pdf'
+    content = '/yh-ui/dummy.pdf'
+  } else if (type === 'text') {
+    title = 'readme.txt'
+    content = 'AiArtifacts supports direct preview of plain text files.\n\nKey features:\n- Preserves whitespace and line wraps\n- Monospace font style\n- Custom scrollbars\n- Clean and minimalist layout'
+  } else if (type === 'iframe') {
+    title = 'External Webpage'
+    content = '/yh-ui/iframe-test.html'
+  }
+  
+  return {
+    id: `media-${type}`,
+    title,
+    type,
+    versions: [
+      { version: '1', content, description: `Previewing ${type} resource` }
+    ]
+  }
+})
 
 const artifactData = {
   id: 'artifact-1',
@@ -199,26 +256,62 @@ const artifactData: ArtifactData = {
 </${_S}>`
 
 const tsVersional = `<${_T}>
+  <yh-button @click="visibleVersional = true">Open Multi-version Artifacts</yh-button>
   <yh-ai-artifacts 
-    v-model:visible="visible"
-    :data="artifactData"
+    v-model:visible="visibleVersional"
+    :data="versionalData"
     @version-change="onVersionChange"
-  />
+  >
+    <!-- Use slot to customize different versions' content rendering -->
+    <template #vue="{ data }">
+      <div v-if="data?.version === '1'" style="padding: 20px; text-align: center;">
+        <h3 style="margin-bottom: 12px; color: var(--yh-text-color-primary);">Version v1: Image Preview</h3>
+        <img src="/yh-ui/logo.svg" style="max-width: 100%; border-radius: 8px; box-shadow: var(--yh-box-shadow-light);" />
+      </div>
+      <div v-else-if="data?.version === '2'" style="padding: 20px;">
+        <h3 style="margin-bottom: 16px; color: var(--yh-text-color-primary);">Version v2: yh-ui Components Preview</h3>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">Button (YhButton):</span>
+            <yh-button type="primary" size="small">Primary</yh-button>
+            <yh-button type="success" size="small">Success</yh-button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">Rate (YhRate):</span>
+            <yh-rate v-model="rateVal" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">Switch (YhSwitch):</span>
+            <yh-switch v-model="switchVal" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+            <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">Progress:</span>
+            <div style="flex: 1; max-width: 200px;">
+              <yh-progress :percentage="75" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </yh-ai-artifacts>
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue';
 import type { ArtifactData, ArtifactVersion } from '@yh-ui/components';
 
-const visible = ref(false);
-const artifactData: ArtifactData = {
-  id: 'artifact-1',
-  title: 'Dashboard Preview',
-  type: 'html',
+const visibleVersional = ref(false);
+const rateVal = ref(4);
+const switchVal = ref(true);
+
+const versionalData: ArtifactData = {
+  id: 'artifact-versional',
+  title: 'Multi-version Components & Image',
+  type: 'vue',
   currentVersion: '1',
   versions: [
-    { version: '1', content: '<h1>Initial Concept</h1><p>Basic layout...</p>', description: 'Initial draft' },
-    { version: '2', content: '<h1 style="color: var(--yh-color-primary);">Styled Version</h1><p>Branding applied...</p>', description: 'Style optimization' }
+    { version: '1', content: '', description: 'Version v1: Image Preview' },
+    { version: '2', content: '', description: 'Version v2: Components Preview' }
   ]
 };
 
@@ -502,6 +595,71 @@ const onRadarClick = (params: unknown) => {
 };
 </${_S}>`
 
+const tsMedia = `<${_T}>
+  <div style="padding: 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+    <span style="font-size: 14px; margin-right: 8px; color: var(--yh-text-color-regular);">Select Type:</span>
+    <yh-button 
+      v-for="t in ['image', 'video', 'audio', 'pdf', 'text', 'iframe']" 
+      :key="t"
+      :type="mediaType === t ? 'primary' : 'default'"
+      size="small"
+      @click="mediaType = t; visibleMedia = true"
+    >
+      {{ t }}
+    </yh-button>
+  </div>
+  <div style="padding: 0 20px 20px;">
+    <yh-button type="success" @click="visibleMedia = true">Open Preview Panel</yh-button>
+  </div>
+  <yh-ai-artifacts 
+     v-model:visible="visibleMedia"
+     :data="mediaData"
+  />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref, computed } from 'vue';
+import type { ArtifactData } from '@yh-ui/components';
+
+const visibleMedia = ref(false);
+const mediaType = ref<'image' | 'video' | 'audio' | 'pdf' | 'text' | 'iframe'>('image');
+
+const mediaData = computed(() => {
+  const type = mediaType.value;
+  let content = '';
+  let title = '';
+  
+  if (type === 'image') {
+    title = 'sample-image.png';
+    content = '/yh-ui/logo.svg';
+  } else if (type === 'video') {
+    title = 'sample-video.mp4';
+    content = 'https://vjs.zencdn.net/v/oceans.mp4';
+  } else if (type === 'audio') {
+    title = 'sample-audio.mp3';
+    content = 'https://www.w3schools.com/html/horse.mp3';
+  } else if (type === 'pdf') {
+    title = 'sample-doc.pdf';
+    content = '/yh-ui/dummy.pdf';
+  } else if (type === 'text') {
+    title = 'readme.txt';
+    content = 'AiArtifacts supports direct preview of plain text files.\\n\\nKey features:\\n- Preserves whitespace and line wraps\\n- Monospace font style\\n- Custom scrollbars\\n- Clean and minimalist layout';
+  } else if (type === 'iframe') {
+    title = 'External Webpage';
+    content = '/yh-ui/iframe-test.html';
+  }
+  
+  return {
+    id: \`media-\${type}\`,
+    title,
+    type,
+    versions: [
+      { version: '1', content, description: \`Preview \${type} resource\` }
+    ]
+  };
+});
+</${_S}>`
+
 const jsBasic = toJs(tsBasic)
 const jsVersional = toJs(tsVersional)
 const jsModes = toJs(tsModes)
@@ -510,6 +668,131 @@ const jsLineChart = toJs(tsLineChart)
 const jsBarChart = toJs(tsBarChart)
 const jsPieChart = toJs(tsPieChart)
 const jsRadarChart = toJs(tsRadarChart)
+const jsMedia = toJs(tsMedia)
+
+const closeScript = ['<', '/script>'].join('')
+const closeTemplate = ['<', '/template>'].join('')
+const openScript = ['<', 'script setup>'].join('')
+const openTemplate = ['<', 'template>'].join('')
+const openScriptTs = ['<', 'script setup lang="ts">'].join('')
+const openStyle = ['<', 'style scoped>'].join('')
+const closeStyle = ['<', '/style>'].join('')
+
+const visibleDynamicVue = ref(false)
+
+const dynamicVueData = {
+  id: 'artifact-dynamic-vue',
+  title: 'dynamic-preview.vue',
+  type: 'vue',
+  versions: [
+    {
+      version: '1',
+      content: `${openTemplate}
+  <div class="dynamic-card">
+    <h3 style="margin-top:0;color:#0284c7;">🚀 Dynamically Compiled Vue Component</h3>
+    <p style="font-size:14px;color:#334155;">This component is compiled and rendered dynamically in a sandbox iframe, with built-in yh-ui components!</p>
+    <div style="margin: 16px 0; display: flex; gap: 8px; align-items: center;">
+      <yh-tag type="success">Compiled</yh-tag>
+      <yh-tag type="warning">Isolated Sandbox</yh-tag>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <yh-rate v-model="rate" />
+    </div>
+    <yh-button type="primary" size="small" @click="onClick">Interactive Click Test</yh-button>
+  </div>
+${closeTemplate}
+
+${openScript}
+import { ref } from 'vue'
+
+const rate = ref(4)
+const onClick = () => {
+  alert('You clicked the button inside the sandbox! Current rating: ' + rate.value)
+}
+${closeScript}
+
+${openStyle}
+.dynamic-card {
+  padding: 20px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border: 1px solid #bae6fd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+${closeStyle}`,
+      description: 'Version v1: Compile SFC dynamically'
+    }
+  ]
+}
+
+const tsDynamicVue = `${openTemplate}
+  <yh-button type="primary" @click="visibleDynamicVue = true">Open Dynamic Preview</yh-button>
+  <yh-ai-artifacts 
+     v-model:visible="visibleDynamicVue"
+     :data="dynamicVueData"
+  />
+${closeTemplate}
+
+${openScriptTs}
+import { ref } from 'vue';
+import type { ArtifactData } from '@yh-ui/yh-ui';
+
+// Helper variables to construct embedded SFC strings (prevents parser misinterpretation)
+const openTemplate = ['<', 'template>'].join('');
+const closeTemplate = ['<', '/template>'].join('');
+const openScript = ['<', 'script setup>'].join('');
+const closeScript = ['<', '/script>'].join('');
+const openStyle = ['<', 'style scoped>'].join('');
+const closeStyle = ['<', '/style>'].join('');
+
+const visibleDynamicVue = ref(false);
+const dynamicVueData: ArtifactData = {
+  id: 'artifact-dynamic-vue',
+  title: 'dynamic-preview.vue',
+  type: 'vue',
+  versions: [
+    {
+      version: '1',
+      content: \`\${openTemplate}
+  <div class="dynamic-card">
+    <h3 style="margin-top:0;color:#0284c7;">🚀 Dynamically Compiled Vue Component</h3>
+    <p style="font-size:14px;color:#334155;">This component is compiled and rendered dynamically in a sandbox iframe, with built-in yh-ui components!</p>
+    <div style="margin: 16px 0; display: flex; gap: 8px; align-items: center;">
+      <yh-tag type="success">Compiled</yh-tag>
+      <yh-tag type="warning">Isolated Sandbox</yh-tag>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <yh-rate v-model="rate" />
+    </div>
+    <yh-button type="primary" size="small" @click="onClick">Interactive Click Test</yh-button>
+  </div>
+\${closeTemplate}
+
+\${openScript}
+import { ref } from 'vue';
+
+const rate = ref(4);
+const onClick = () => {
+  alert('You clicked the button inside the sandbox! Current rating: ' + rate.value);
+};
+\${closeScript}
+
+\${openStyle}
+.dynamic-card {
+  padding: 20px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border: 1px solid #bae6fd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+\${closeStyle}\`,
+      description: 'Version v1: Compile SFC dynamically'
+    }
+  ]
+};
+${closeScript}`
+
+const jsDynamicVue = toJs(tsDynamicVue)
 </script>
 
 `AiArtifacts` is an immersive side rendering panel designed to display complex AI-generated content, such as HTML pages, UI prototypes, large code modules, or **interactive ECharts charts**.
@@ -532,11 +815,49 @@ Control visibility via `v-model:visible` and pass artifact details through the `
 
 ## Multi-version Support
 
-Artifacts allow users to switch between different iterations. Use the `versions` array to provide history and the `version-change` event to monitor user selection.
+Artifacts allow users to switch between different iterations. Use the `versions` array to provide history and the `version-change` event to monitor user selection. You can use slots to customize the rendering of specific versions.
 
 <DemoBlock title="Version Switching" :ts-code="tsVersional" :js-code="jsVersional">
-  <div style="padding: 16px; background: var(--yh-bg-color-page); border-radius: 8px;">
-     Tip: Click v1/v2 at the top of the side panel to experience version switching.
+  <div style="height: 450px; position: relative; border: 1px solid var(--yh-border-color-lighter); overflow: hidden; border-radius: 8px;">
+    <div style="padding: 20px;">
+      <yh-button @click="visibleVersional = true">Open Multi-version Artifacts</yh-button>
+    </div>
+    <yh-ai-artifacts 
+       v-model:visible="visibleVersional"
+       :data="versionalData"
+       @version-change="onVersionChange"
+    >
+      <template #vue="{ data }">
+        <div v-if="data?.version === '1'" style="padding: 20px; text-align: center;">
+          <h3 style="margin-bottom: 12px; color: var(--yh-text-color-primary);">Version v1: Image Preview</h3>
+          <img src="/logo.svg" style="max-width: 100%; border-radius: 8px; box-shadow: var(--yh-box-shadow-light);" />
+        </div>
+        <div v-else-if="data?.version === '2'" style="padding: 20px;">
+          <h3 style="margin-bottom: 16px; color: var(--yh-text-color-primary);">Version v2: yh-ui Components Preview</h3>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">Button (YhButton):</span>
+              <yh-button type="primary" size="small">Primary</yh-button>
+              <yh-button type="success" size="small">Success</yh-button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">Rate (YhRate):</span>
+              <yh-rate v-model="rateVal" />
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">Switch (YhSwitch):</span>
+              <yh-switch v-model="switchVal" />
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+              <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">Progress:</span>
+              <div style="flex: 1; max-width: 200px;">
+                <yh-progress :percentage="75" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </yh-ai-artifacts>
   </div>
 </DemoBlock>
 
@@ -645,37 +966,85 @@ Radar charts are perfect for multi-dimensional competency or KPI assessments. Se
   </div>
 </DemoBlock>
 
+## Multimedia and File Preview
+
+The component supports quick previews of images, videos, audios, PDFs, plain text, and Iframe webpages, automatically matching the rendering and control behaviors based on type.
+
+<DemoBlock title="Multimedia and File Preview" :ts-code="tsMedia" :js-code="jsMedia">
+  <div style="height: 480px; position: relative; border: 1px solid var(--yh-border-color-lighter); overflow: hidden; border-radius: 8px;">
+    <div style="padding: 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+      <span style="font-size: 14px; margin-right: 8px; color: var(--yh-text-color-regular);">Select Type:</span>
+      <yh-button 
+        v-for="t in ['image', 'video', 'audio', 'pdf', 'text', 'iframe']" 
+        :key="t"
+        :type="mediaType === t ? 'primary' : 'default'"
+        size="small"
+        @click="mediaType = t; visibleMedia = true"
+      >
+        {{ t }}
+      </yh-button>
+    </div>
+    <div style="padding: 0 20px 20px;">
+      <yh-button type="success" @click="visibleMedia = true">Open Preview Panel</yh-button>
+    </div>
+    <yh-ai-artifacts 
+       v-model:visible="visibleMedia"
+       :data="mediaData"
+    />
+  </div>
+</DemoBlock>
+
+## Dynamic Vue SFC Compilation Preview
+
+When `data.type` is set to `'vue'` and no custom `#vue` slot is defined by the host application, the component dynamically compiles and renders the Vue Single File Component (SFC) code inside a sandboxed `iframe` using the local built-in compiler and packages (such as `vue3-sfc-loader` and `yh-ui-bundle.js`).
+
+This significantly simplifies previewing AI-generated components in a secure, style-isolated sandboxed environment.
+
+<DemoBlock title="Dynamic Vue SFC Previews" :ts-code="tsDynamicVue" :js-code="jsDynamicVue">
+  <div style="height: 480px; position: relative; border: 1px solid var(--yh-border-color-lighter); overflow: hidden; border-radius: 8px;">
+    <div style="padding: 20px;">
+      <yh-button type="primary" @click="visibleDynamicVue = true">Open Dynamic Preview</yh-button>
+    </div>
+    <yh-ai-artifacts 
+       v-model:visible="visibleDynamicVue"
+       :data="dynamicVueData"
+    />
+  </div>
+</DemoBlock>
+
 ## API
 
 ### Props
 
-| Property             | Description                                    | Type                              | Default           |
-| -------------------- | ---------------------------------------------- | --------------------------------- | ----------------- |
-| `visible`            | Whether visible (supports `v-model:visible`)   | `boolean`                         | `false`           |
-| `data`               | Artifact data structure                        | `ArtifactData`                    | —                 |
-| `width`              | Panel width                                    | `string \| number`                | `'50%'`           |
-| `fullscreen`         | Whether fullscreen                             | `boolean`                         | `false`           |
-| `mode`               | Rendering mode                                 | `'preview' \| 'code' \| 'inline'` | `'preview'`       |
-| `theme-overrides`    | Theme variable overrides                       | `ComponentThemeVars`              | —                 |
-| `echarts-option`     | ECharts chart options (for chart/echarts type) | `ArtifactEChartsOption`           | —                 |
-| `auto-load-e-charts` | Auto load ECharts library                      | `boolean`                         | `true`            |
-| `echarts-theme`      | ECharts theme                                  | `'light' \| 'dark' \| 'default'`  | `'light'`         |
-| `echarts-data-zoom`  | Enable data zoom                               | `boolean`                         | `true`            |
-| `echarts-toolbox`    | Show toolbox                                   | `boolean`                         | `true`            |
-| `chart-height`       | Chart height                                   | `string \| number`                | `400`             |
-| `responsive-width`   | Whether width is responsive                    | `boolean`                         | `true`            |
-| `chart-loading-text` | Placeholder text while chart is loading        | `string`                          | `'加载图表中...'` |
+| Property                | Description                                                                                                                                                                        | Type                              | Default           |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------------- |
+| `visible`               | Whether visible (supports `v-model:visible`)                                                                                                                                       | `boolean`                         | `false`           |
+| `data`                  | Artifact data structure                                                                                                                                                            | `ArtifactData`                    | —                 |
+| `width`                 | Panel width                                                                                                                                                                        | `string \| number`                | `'50%'`           |
+| `fullscreen`            | Whether fullscreen                                                                                                                                                                 | `boolean`                         | `false`           |
+| `mode`                  | Rendering mode                                                                                                                                                                     | `'preview' \| 'code' \| 'inline'` | `'preview'`       |
+| `theme-overrides`       | Theme variable overrides                                                                                                                                                           | `ComponentThemeVars`              | —                 |
+| `echarts-option`        | ECharts chart options (for chart/echarts type)                                                                                                                                     | `ArtifactEChartsOption`           | —                 |
+| `auto-load-e-charts`    | Auto load ECharts library                                                                                                                                                          | `boolean`                         | `true`            |
+| `echarts-theme`         | ECharts theme                                                                                                                                                                      | `'light' \| 'dark' \| 'default'`  | `'light'`         |
+| `echarts-data-zoom`     | Enable data zoom                                                                                                                                                                   | `boolean`                         | `true`            |
+| `echarts-toolbox`       | Show toolbox                                                                                                                                                                       | `boolean`                         | `true`            |
+| `chart-height`          | Chart height                                                                                                                                                                       | `string \| number`                | `400`             |
+| `responsive-width`      | Whether width is responsive                                                                                                                                                        | `boolean`                         | `true`            |
+| `chart-loading-text`    | Placeholder text while chart is loading                                                                                                                                            | `string`                          | `'加载图表中...'` |
+| `sandbox-yh-ui-url`     | yh-ui bundle URL used by the Vue SFC sandbox renderer. When not set, loads the published version from CDN (esm.sh). Docs override globally via `provide('yhSandboxYhUiUrl', ...)`. | `string`                          | CDN auto          |
+| `sandbox-yh-ui-css-url` | yh-ui CSS URL used by the Vue SFC sandbox renderer                                                                                                                                 | `string`                          | CDN auto          |
 
 ### ArtifactData
 
-| Property         | Description                               | Type                                                                                                               |
-| ---------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `id`             | Unique ID                                 | `string`                                                                                                           |
-| `title`          | Title / Filename                          | `string`                                                                                                           |
-| `type`           | Content type                              | `'code' \| 'html' \| 'markdown' \| 'vue' \| 'react' \| 'diagram' \| 'chart' \| 'sandbox' \| 'canvas' \| 'echarts'` |
-| `currentVersion` | Currently selected version label          | `string \| number`                                                                                                 |
-| `versions`       | Version list                              | `ArtifactVersion[]`                                                                                                |
-| `echartsOption`  | ECharts options (for chart/echarts types) | `ArtifactEChartsOption`                                                                                            |
+| Property         | Description                               | Type                                                                                                                                                                               |
+| ---------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`             | Unique ID                                 | `string`                                                                                                                                                                           |
+| `title`          | Title / Filename                          | `string`                                                                                                                                                                           |
+| `type`           | Content type                              | `'code' \| 'html' \| 'markdown' \| 'vue' \| 'react' \| 'diagram' \| 'chart' \| 'sandbox' \| 'canvas' \| 'echarts' \| 'image' \| 'video' \| 'audio' \| 'pdf' \| 'text' \| 'iframe'` |
+| `currentVersion` | Currently selected version label          | `string \| number`                                                                                                                                                                 |
+| `versions`       | Version list                              | `ArtifactVersion[]`                                                                                                                                                                |
+| `echartsOption`  | ECharts options (for chart/echarts types) | `ArtifactEChartsOption`                                                                                                                                                            |
 
 ### ArtifactVersion
 

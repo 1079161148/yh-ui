@@ -19,6 +19,11 @@ export interface HistoryPluginOptions {
   onHistoryChange?: (canUndo: boolean, canRedo: boolean, historyLength: number) => void
   /** 启用自动捕获节点/边变化（注意性能影响），默认 false */
   autoCapture?: boolean
+  /**
+   * 状态恢复回调 — 在 undo/redo 恢复快照后调用，
+   * 用于通知父组件同步 nodes/edges（emit update:nodes / update:edges）
+   */
+  onStateRestore?: (nodes: Node[], edges: Edge[]) => void
 }
 
 export interface HistorySnapshot {
@@ -54,7 +59,8 @@ const defaultOptions: Required<HistoryPluginOptions> = {
   maxHistory: 100,
   enableKeyboard: true,
   onHistoryChange: () => {},
-  autoCapture: false
+  autoCapture: false,
+  onStateRestore: () => {}
 }
 
 /**
@@ -122,6 +128,9 @@ export function createHistoryPlugin(options: HistoryPluginOptions = {}): FlowPlu
     if (prevState) {
       _flow.nodes.value = snapshot(prevState.nodes)
       _flow.edges.value = snapshot(prevState.edges)
+      opts.onStateRestore(_flow.nodes.value, _flow.edges.value)
+      _flow.emit('update:nodes', _flow.nodes.value)
+      _flow.emit('update:edges', _flow.edges.value)
     }
     notifyChange()
   }
@@ -134,6 +143,9 @@ export function createHistoryPlugin(options: HistoryPluginOptions = {}): FlowPlu
     if (nextState) {
       _flow.nodes.value = snapshot(nextState.nodes)
       _flow.edges.value = snapshot(nextState.edges)
+      opts.onStateRestore(_flow.nodes.value, _flow.edges.value)
+      _flow.emit('update:nodes', _flow.nodes.value)
+      _flow.emit('update:edges', _flow.edges.value)
     }
     notifyChange()
   }
@@ -153,6 +165,9 @@ export function createHistoryPlugin(options: HistoryPluginOptions = {}): FlowPlu
     if (state) {
       _flow.nodes.value = snapshot(state.nodes)
       _flow.edges.value = snapshot(state.edges)
+      opts.onStateRestore(_flow.nodes.value, _flow.edges.value)
+      _flow.emit('update:nodes', _flow.nodes.value)
+      _flow.emit('update:edges', _flow.edges.value)
     }
     notifyChange()
   }

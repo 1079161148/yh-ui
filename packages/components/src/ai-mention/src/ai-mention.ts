@@ -39,7 +39,8 @@ export interface AiMentionFileNode {
 /** 文件树加载函数 */
 export type AiMentionFileLoader = (
   keyword: string,
-  type: 'document' | 'table' | 'file' | 'knowledge'
+  type: 'document' | 'table' | 'file' | 'knowledge',
+  fileRoot?: string
 ) => Promise<AiMentionFileNode[]>
 
 export const aiMentionProps = {

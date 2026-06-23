@@ -209,6 +209,25 @@ $date-picker-sizes: (
       box-shadow: none;
       border: none;
     }
+
+    @include m(has-presets-left) {
+      display: flex !important;
+      flex-direction: row;
+      --yh-date-picker-panel-width: 500px !important;
+    }
+    @include m(has-presets-right) {
+      display: flex !important;
+      flex-direction: row-reverse;
+      --yh-date-picker-panel-width: 500px !important;
+    }
+    @include m(has-presets-top) {
+      display: flex !important;
+      flex-direction: column;
+    }
+    @include m(has-presets-bottom) {
+      display: flex !important;
+      flex-direction: column-reverse;
+    }
   }
 
   @include e(header) {
@@ -480,7 +499,6 @@ $date-picker-sizes: (
     }
   }
 
-  /* 快捷预设区域 */
   @include e(presets) {
     display: flex;
     flex-wrap: wrap;
@@ -488,6 +506,33 @@ $date-picker-sizes: (
     padding: 12px 24px;
     background: var(--yh-date-picker-item-hover);
     border-top: 1px solid rgba(0, 0, 0, 0.04);
+
+    @include is(left) {
+      flex-direction: column;
+      border-top: none;
+      border-right: 1px solid rgba(0, 0, 0, 0.04);
+      padding: 24px 12px;
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    @include is(right) {
+      flex-direction: column;
+      border-top: none;
+      border-left: 1px solid rgba(0, 0, 0, 0.04);
+      padding: 24px 12px;
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    @include is(top) {
+      border-top: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    @include is(bottom) {
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
+    }
   }
 
   @include e(preset-item) {

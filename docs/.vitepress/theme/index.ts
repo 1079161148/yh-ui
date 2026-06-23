@@ -349,5 +349,13 @@ export default {
     // eslint-disable-next-line vue/multi-word-component-names
     app.component('Icon', YhIconify)
     app.component('YhIconifyIcon', YhIconify)
+
+    // 为文档中所有 YhAiArtifacts 实例注入本地 playground bundle 地址，
+    // 使 Vue SFC 动态编译预览使用本地构建版本（与当前开发版本保持同步），
+    // 而不是 CDN 上发布的版本。
+    // 消费端如需覆盖，可通过 prop 传入自己的 bundle 地址。
+    app.provide('yhSandboxYhUiUrl', '/yh-ui/playground/yh-ui-sandbox-bundle.js')
+    app.provide('yhSandboxYhUiCssUrl', '/yh-ui/playground/yh-ui-sandbox-bundle.css')
+    app.provide('yhSandboxRendererUrl', '/yh-ui/vue-renderer.html')
   }
 } satisfies Theme

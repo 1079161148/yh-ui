@@ -72,12 +72,10 @@ const handleItemClick = (command: string | number | object) => {
 // 处理显示/隐藏事件
 const handleShow = () => {
   emit('show')
-  emit('update:visible', true)
 }
 
 const handleHide = () => {
   emit('hide')
-  emit('update:visible', false)
 }
 
 // 处理按钮点击（分割模式）

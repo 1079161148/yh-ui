@@ -160,4 +160,23 @@ describe('YhImageViewer', () => {
     expect(typeof exposed?.reset).toBe('function')
     expect(typeof exposed?.next).toBe('function')
   })
+
+  it('should rebuild viewerJS when urlList changes', async () => {
+    const wrapper = mount(YhImageViewer, {
+      props: {
+        urlList,
+        viewerMode: 'viewerjs',
+        teleported: false
+      }
+    })
+
+    await nextTick()
+    await new Promise((r) => setTimeout(r, 100))
+
+    await wrapper.setProps({ urlList: [...urlList, 'https://picsum.photos/400/302'] })
+    await nextTick()
+    await new Promise((r) => setTimeout(r, 100))
+
+    expect(wrapper.find('.yh-viewer').exists()).toBe(false)
+  })
 })

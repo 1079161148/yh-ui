@@ -174,4 +174,16 @@ describe('SkuSelector', () => {
     expect(wrapper.find('.custom-label').exists()).toBe(true)
     expect(wrapper.find('.custom-value').exists()).toBe(true)
   })
+
+  it('does not disable item with no stock when checkStock is false', async () => {
+    const wrapper = mount(SkuSelector, {
+      props: {
+        specs,
+        skus,
+        checkStock: false
+      }
+    })
+    const items = wrapper.findAll('.yh-sku-selector__value')
+    expect(items[1].classes()).not.toContain('is-disabled')
+  })
 })

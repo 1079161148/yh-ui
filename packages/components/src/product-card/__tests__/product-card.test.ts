@@ -251,4 +251,41 @@ describe('ProductCard', () => {
     wrapper.unmount()
     vi.unstubAllGlobals()
   })
+
+  it('emits exposure when exposure transitions from false to true dynamically', async () => {
+    let callback: IntersectionObserverCallback | undefined
+    const observe = vi.fn()
+    const disconnect = vi.fn()
+    const Observer = vi.fn(function (this: IntersectionObserver, cb: IntersectionObserverCallback) {
+      callback = cb
+      return { observe, disconnect }
+    })
+    vi.stubGlobal('IntersectionObserver', Observer)
+
+    const wrapper = mount(ProductCard, {
+      props: {
+        ...props,
+        exposure: false,
+        exposureThreshold: 0.5,
+        exposureOnce: true
+      }
+    })
+
+    expect(observe).not.toHaveBeenCalled()
+
+    await wrapper.setProps({ exposure: true })
+    await nextTick()
+
+    expect(observe).toHaveBeenCalled()
+    callback?.(
+      [{ isIntersecting: true, intersectionRatio: 0.5 } as IntersectionObserverEntry],
+      {} as IntersectionObserver
+    )
+    await nextTick()
+
+    expect(wrapper.emitted('expose')).toBeTruthy()
+    expect(disconnect).toHaveBeenCalled()
+    wrapper.unmount()
+    vi.unstubAllGlobals()
+  })
 })

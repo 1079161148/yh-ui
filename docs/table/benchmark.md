@@ -326,6 +326,7 @@ const jsBenchCode = toJs(tsBenchCode)
   row-key="id"
   ref="tableRef">
 <template #empty>
+
 <div style="padding: 40px; text-align: center; color: var(--vp-c-text-3);">
 点击「开始压测」加载数据
 </div>

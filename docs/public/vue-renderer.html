@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue SFC Renderer Sandbox</title>
+    <script>
+      // Polyfill process before any module code runs
+      window.process = { env: { NODE_ENV: 'production' } }
+
+      // Resolve bundle URLs from query params, falling back to defaults relative to this file's origin
+      const params = new URLSearchParams(window.location.search)
+      const origin = window.location.origin
+
+      // Helper to resolve a path relative to this origin (handles /yh-ui/ subpath prefix)
+      function resolveUrl(paramName, defaultPath) {
+        const v = params.get(paramName)
+        if (v) {
+          // If it's already absolute, use as-is; if relative, prepend origin
+          return v.startsWith('http') ? v : origin + v
+        }
+        // Use defaultPath relative to this html file's location (same subpath)
+        const pathParts = window.location.pathname.split('/')
+        // Find the subpath up to and including 'yh-ui' (or root)
+        const yhIdx = pathParts.indexOf('yh-ui')
+        const base = yhIdx !== -1 ? '/' + pathParts.slice(1, yhIdx + 1).join('/') : ''
+        return origin + base + defaultPath
+      }
+
+      const cssUrl = resolveUrl('cssUrl', '/playground/yh-ui-sandbox-bundle.css')
+      const jsUrl = resolveUrl('jsUrl', '/playground/yh-ui-sandbox-bundle.js')
+
+      // Write the stylesheet link synchronously
+      document.write('<link rel="stylesheet" href="' + cssUrl + '">')
+      document.write(
+        '<script>window.__YH_UI_BUNDLE_URL__ = ' + JSON.stringify(jsUrl) + ';<\/script>'
+      )
+    </script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background-color: var(--yh-ai-artifacts-bg-color, #ffffff);
+        color: var(--yh-text-color-primary, #303133);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      #app {
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: #909399;
+        font-size: 14px;
+      }
+      .loading-spinner {
+        width: 28px;
+        height: 28px;
+        border: 3px solid #ebeef5;
+        border-top-color: #409eff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-bottom: 12px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>正在编译并渲染组件...</p>
+      </div>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3.5.27/dist/vue.esm-browser.js",
+          "dayjs": "https://esm.sh/dayjs@1.11.13",
+          "dayjs/": "https://esm.sh/dayjs@1.11.13/",
+          "@floating-ui/dom": "https://esm.sh/@floating-ui/dom@1.7.4",
+          "@floating-ui/core": "https://esm.sh/@floating-ui/core@1.7.1",
+          "async-validator": "https://esm.sh/async-validator@4.2.5",
+          "dompurify": "https://esm.sh/dompurify@3.3.3"
+        }
+      }
+    </script>
+
+    <!-- Load vue3-sfc-loader from CDN -->
+    <script src="https://unpkg.com/vue3-sfc-loader@0.9.5/dist/vue3-sfc-loader.js"></script>
+
+    <script type="module">
+      import * as Vue from 'vue'
+      window.Vue = Vue
+
+      // Load YH-UI runtime bundle from the URL resolved in the head script
+      // The sandbox bundle exports named exports only (no default), so we use { install }
+      const yhUiModule = await import(/* @vite-ignore */ window.__YH_UI_BUNDLE_URL__)
+      // Prefer default export (if future builds add it), fall back to named install
+      const YhUi = yhUiModule.default || { install: yhUiModule.install }
+
+      let currentApp = null
+
+      // Set up message listener from parent window
+      window.addEventListener('message', async (event) => {
+        const { type, code } = event.data || {}
+        if (type === 'render-vue' && code) {
+          try {
+            if (currentApp) {
+              currentApp.unmount()
+              currentApp = null
+            }
+
+            const { loadModule } = window['vue3-sfc-loader']
+
+            const options = {
+              moduleCache: {
+                vue: Vue
+              },
+              async getFile(url) {
+                if (url === 'App.vue') return code
+                return ''
+              },
+              addStyle(styleStr) {
+                const style = document.createElement('style')
+                style.textContent = styleStr
+                document.head.appendChild(style)
+              }
+            }
+
+            const component = await loadModule('App.vue', options)
+
+            const app = Vue.createApp(component)
+            // Register YH-UI components
+            app.use(YhUi)
+
+            // Clear loading indicator
+            const appEl = document.getElementById('app')
+            appEl.innerHTML = ''
+
+            // Mount the compiled component
+            app.mount('#app')
+            currentApp = app
+          } catch (err) {
+            const appEl = document.getElementById('app')
+            appEl.innerHTML = `
+            <div style="padding: 20px; color: #f56c6c; border: 1px solid #fde2e2; background-color: #fef0f0; border-radius: 8px; font-family: monospace; white-space: pre-wrap; font-size: 13px; line-height: 1.6; margin: 10px; box-shadow: 0 2px 12px 0 rgba(0,0,0,0.05);">
+              <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 16px;">组件编译/渲染失败:</h3>
+              <div style="overflow-x: auto;">${err.stack || err.message || err}</div>
+            </div>
+          `
+          }
+        }
+      })
+
+      // Notify parent window that the renderer is ready
+      window.parent.postMessage({ type: 'renderer-ready' }, '*')
+    </script>
+  </body>
+</html>

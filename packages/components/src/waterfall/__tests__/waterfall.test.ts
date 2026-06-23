@@ -146,4 +146,35 @@ describe('Waterfall', () => {
     const exposed = (wrapper.vm as any).$?.exposed
     expect(typeof exposed?.layout).toBe('function')
   })
+
+  it('should clear old timer and prevent expired height overwrite when loading toggles rapidly', async () => {
+    vi.useFakeTimers()
+    const wrapper = mount(YhWaterfall, {
+      props: { items, loading: false }
+    })
+
+    const vm = wrapper.vm as any
+    // Mock offsetHeight
+    Object.defineProperty(wrapper.element, 'offsetHeight', { value: 600, configurable: true })
+
+    // 1. loading changes from false -> true -> false -> true rapidly
+    await wrapper.setProps({ loading: true })
+    expect(vm.minContainerHeight).toBe('600px')
+
+    await wrapper.setProps({ loading: false })
+    // Timer should be scheduled to reset height in 300ms
+
+    await wrapper.setProps({ loading: true })
+    // Timer should be cleared synchronously
+
+    // Advance 300ms
+    vi.advanceTimersByTime(300)
+    await nextTick()
+
+    // Height should NOT be reset to 'auto' since loading went back to true before timer fired
+    expect(vm.minContainerHeight).toBe('600px')
+
+    // Clean up
+    vi.useRealTimers()
+  })
 })

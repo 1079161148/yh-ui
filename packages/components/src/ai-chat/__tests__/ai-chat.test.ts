@@ -274,4 +274,37 @@ describe('YhAiChat', () => {
     expect(content.scrollTop).toBe(480)
     wrapper.unmount()
   })
+
+  it('should scroll content to bottom when messages update in virtual scroll mode', async () => {
+    const messages = Array.from({ length: 50 }, (_, index) =>
+      makeMsg(String(index), index % 2 === 0 ? 'user' : 'assistant', `msg-${index}`)
+    )
+    const wrapper = mount(AiChat, {
+      attachTo: document.body,
+      props: {
+        messages,
+        virtualScroll: true,
+        virtualHeight: 360,
+        estimatedItemHeight: 40
+      }
+    })
+
+    await nextTick()
+
+    // Trigger update
+    const newMessages = [
+      ...messages,
+      ...Array.from({ length: 10 }, (_, index) =>
+        makeMsg(String(50 + index), index % 2 === 0 ? 'user' : 'assistant', `msg-${50 + index}`)
+      )
+    ]
+    await wrapper.setProps({ messages: newMessages })
+    await nextTick()
+    await nextTick()
+
+    const content = wrapper.find('.yh-ai-chat__content').element as HTMLDivElement
+    expect(content.scrollTop).toBe(2360) // 59 * 40
+
+    wrapper.unmount()
+  })
 })

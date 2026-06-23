@@ -1,7 +1,7 @@
 # AiArtifacts 智能组件
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { toJs, _T, _S } from '../.vitepress/theme/utils/demo-utils'
 
 const visible = ref(false)
@@ -10,6 +10,63 @@ const visibleChart = ref(false)
 const visibleBar = ref(false)
 const visiblePie = ref(false)
 const visibleRadar = ref(false)
+
+const visibleVersional = ref(false)
+const rateVal = ref(4)
+const switchVal = ref(true)
+
+const versionalData = {
+  id: 'artifact-versional',
+  title: '多版本组件与图片展示',
+  type: 'vue',
+  currentVersion: '1',
+  versions: [
+    { version: '1', content: '', description: '版本 v1: 示例图片预览' },
+    { version: '2', content: '', description: '版本 v2: 内置组件预览' }
+  ]
+}
+
+const onVersionChange = (v: any) => {
+  console.log('切换版本:', v.version)
+}
+
+const visibleMedia = ref(false)
+const mediaType = ref<'image' | 'video' | 'audio' | 'pdf' | 'text' | 'iframe'>('image')
+
+const mediaData = computed(() => {
+  const type = mediaType.value
+  let content = ''
+  let title = ''
+  
+  if (type === 'image') {
+    title = '示例图片.png'
+    content = '/yh-ui/logo.svg'
+  } else if (type === 'video') {
+    title = '示例视频.mp4'
+    content = 'https://vjs.zencdn.net/v/oceans.mp4'
+  } else if (type === 'audio') {
+    title = '示例音频.mp3'
+    content = 'https://www.w3schools.com/html/horse.mp3'
+  } else if (type === 'pdf') {
+    title = '示例文档.pdf'
+    content = '/yh-ui/dummy.pdf'
+  } else if (type === 'text') {
+    title = '说明文档.txt'
+    content = 'AiArtifacts 支持直接预览纯文本文件。\n\n特性：\n- 保留所有空格 and 换行\n- 等宽字体排版\n- 自动包含滚动条\n- 纯净的卡片展示风格'
+  } else if (type === 'iframe') {
+    title = '外部网页预览'
+    content = '/yh-ui/iframe-test.html'
+  }
+  
+  return {
+    id: `media-${type}`,
+    title,
+    type,
+    versions: [
+      { version: '1', content, description: `预览 ${type} 资源` }
+    ]
+  }
+})
 
 const artifactData = {
   id: 'artifact-1',
@@ -208,26 +265,62 @@ const artifactData: ArtifactData = {
 </${_S}>`
 
 const tsVersional = `<${_T}>
+  <yh-button @click="visibleVersional = true">打开多版本 Artifacts</yh-button>
   <yh-ai-artifacts 
-    v-model:visible="visible"
-    :data="artifactData"
+    v-model:visible="visibleVersional"
+    :data="versionalData"
     @version-change="onVersionChange"
-  />
+  >
+    <!-- 使用 slot 自定义不同版本的内容渲染 -->
+    <template #vue="{ data }">
+      <div v-if="data?.version === '1'" style="padding: 20px; text-align: center;">
+        <h3 style="margin-bottom: 12px; color: var(--yh-text-color-primary);">版本 v1: 图片预览</h3>
+        <img src="/yh-ui/logo.svg" style="max-width: 100%; border-radius: 8px; box-shadow: var(--yh-box-shadow-light);" />
+      </div>
+      <div v-else-if="data?.version === '2'" style="padding: 20px;">
+        <h3 style="margin-bottom: 16px; color: var(--yh-text-color-primary);">版本 v2: yh-ui 内置组件预览</h3>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">按钮组件 (YhButton):</span>
+            <yh-button type="primary" size="small">主要按钮</yh-button>
+            <yh-button type="success" size="small">成功按钮</yh-button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">评分组件 (YhRate):</span>
+            <yh-rate v-model="rateVal" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">开关组件 (YhSwitch):</span>
+            <yh-switch v-model="switchVal" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+            <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">进度条组件:</span>
+            <div style="flex: 1; max-width: 200px;">
+              <yh-progress :percentage="75" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </yh-ai-artifacts>
 </${_T}>
 
 <${_S} setup lang="ts">
 import { ref } from 'vue';
 import type { ArtifactData, ArtifactVersion } from '@yh-ui/components';
 
-const visible = ref(false);
-const artifactData: ArtifactData = {
-  id: 'artifact-1',
-  title: '控制台原型预览',
-  type: 'html',
+const visibleVersional = ref(false);
+const rateVal = ref(4);
+const switchVal = ref(true);
+
+const versionalData: ArtifactData = {
+  id: 'artifact-versional',
+  title: '多版本组件与图片展示',
+  type: 'vue',
   currentVersion: '1',
   versions: [
-    { version: '1', content: '<h1>初始草图</h1><p>基础布局...</p>', description: '初始版本' },
-    { version: '2', content: '<h1 style="color: var(--yh-color-primary);">视觉强化版</h1><p>适配主题色...</p>', description: '样式优化' }
+    { version: '1', content: '', description: '版本 v1: 示例图片预览' },
+    { version: '2', content: '', description: '版本 v2: 内置组件预览' }
   ]
 };
 
@@ -515,6 +608,71 @@ const onRadarClick = (params: unknown) => {
 };
 </${_S}>`
 
+const tsMedia = `<${_T}>
+  <div style="padding: 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+    <span style="font-size: 14px; margin-right: 8px; color: var(--yh-text-color-regular);">选择预览类型：</span>
+    <yh-button 
+      v-for="t in ['image', 'video', 'audio', 'pdf', 'text', 'iframe']" 
+      :key="t"
+      :type="mediaType === t ? 'primary' : 'default'"
+      size="small"
+      @click="mediaType = t; visibleMedia = true"
+    >
+      {{ t }}
+    </yh-button>
+  </div>
+  <div style="padding: 0 20px 20px;">
+    <yh-button type="success" @click="visibleMedia = true">打开预览面板</yh-button>
+  </div>
+  <yh-ai-artifacts 
+     v-model:visible="visibleMedia"
+     :data="mediaData"
+  />
+</${_T}>
+
+<${_S} setup lang="ts">
+import { ref, computed } from 'vue';
+import type { ArtifactData } from '@yh-ui/components';
+
+const visibleMedia = ref(false);
+const mediaType = ref<'image' | 'video' | 'audio' | 'pdf' | 'text' | 'iframe'>('image');
+
+const mediaData = computed(() => {
+  const type = mediaType.value;
+  let content = '';
+  let title = '';
+  
+  if (type === 'image') {
+    title = '示例图片.png';
+    content = '/yh-ui/logo.svg';
+  } else if (type === 'video') {
+    title = '示例视频.mp4';
+    content = 'https://vjs.zencdn.net/v/oceans.mp4';
+  } else if (type === 'audio') {
+    title = '示例音频.mp3';
+    content = 'https://www.w3schools.com/html/horse.mp3';
+  } else if (type === 'pdf') {
+    title = '示例文档.pdf';
+    content = '/yh-ui/dummy.pdf';
+  } else if (type === 'text') {
+    title = '说明文档.txt';
+    content = 'AiArtifacts 支持直接预览纯文本文件。\\n\\n特性：\\n- 保留所有空格和换行\\n- 等宽字体排版\\n- 自动包含滚动条\\n- 纯净的卡片展示风格';
+  } else if (type === 'iframe') {
+    title = '外部网页预览';
+    content = '/yh-ui/iframe-test.html';
+  }
+  
+  return {
+    id: \`media-\${type}\`,
+    title,
+    type,
+    versions: [
+      { version: '1', content, description: \`预览 \${type} 资源\` }
+    ]
+  };
+});
+</${_S}>`
+
 const jsBasic = toJs(tsBasic)
 const jsVersional = toJs(tsVersional)
 const jsModes = toJs(tsModes)
@@ -523,6 +681,131 @@ const jsLineChart = toJs(tsLineChart)
 const jsBarChart = toJs(tsBarChart)
 const jsPieChart = toJs(tsPieChart)
 const jsRadarChart = toJs(tsRadarChart)
+const jsMedia = toJs(tsMedia)
+
+const closeScript = ['<', '/script>'].join('')
+const closeTemplate = ['<', '/template>'].join('')
+const openScript = ['<', 'script setup>'].join('')
+const openTemplate = ['<', 'template>'].join('')
+const openScriptTs = ['<', 'script setup lang="ts">'].join('')
+const openStyle = ['<', 'style scoped>'].join('')
+const closeStyle = ['<', '/style>'].join('')
+
+const visibleDynamicVue = ref(false)
+
+const dynamicVueData = {
+  id: 'artifact-dynamic-vue',
+  title: '动态组件预览.vue',
+  type: 'vue',
+  versions: [
+    {
+      version: '1',
+      content: `${openTemplate}
+  <div class="dynamic-card">
+    <h3 style="margin-top:0;color:#0284c7;">🚀 动态编译的 Vue 组件</h3>
+    <p style="font-size:14px;color:#334155;">这是在沙箱中动态编译并渲染的组件，包含了 yh-ui 的内置组件！</p>
+    <div style="margin: 16px 0; display: flex; gap: 8px; align-items: center;">
+      <yh-tag type="success">编译成功</yh-tag>
+      <yh-tag type="warning">沙箱隔离</yh-tag>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <yh-rate v-model="rate" />
+    </div>
+    <yh-button type="primary" size="small" @click="onClick">点击交互测试</yh-button>
+  </div>
+${closeTemplate}
+
+${openScript}
+import { ref } from 'vue'
+
+const rate = ref(4)
+const onClick = () => {
+  alert('你点击了沙箱内部的按钮！当前评分: ' + rate.value)
+}
+${closeScript}
+
+${openStyle}
+.dynamic-card {
+  padding: 20px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border: 1px solid #bae6fd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+${closeStyle}`,
+      description: '版本 v1: 动态编译 SFC'
+    }
+  ]
+}
+
+const tsDynamicVue = `${openTemplate}
+  <yh-button type="primary" @click="visibleDynamicVue = true">打开动态编译预览</yh-button>
+  <yh-ai-artifacts 
+     v-model:visible="visibleDynamicVue"
+     :data="dynamicVueData"
+  />
+${closeTemplate}
+
+${openScriptTs}
+import { ref } from 'vue';
+import type { ArtifactData } from '@yh-ui/yh-ui';
+
+// 用于构造内嵌 SFC 字符串的辅助变量（避免解析器误判标签）
+const openTemplate = ['<', 'template>'].join('');
+const closeTemplate = ['<', '/template>'].join('');
+const openScript = ['<', 'script setup>'].join('');
+const closeScript = ['<', '/script>'].join('');
+const openStyle = ['<', 'style scoped>'].join('');
+const closeStyle = ['<', '/style>'].join('');
+
+const visibleDynamicVue = ref(false);
+const dynamicVueData: ArtifactData = {
+  id: 'artifact-dynamic-vue',
+  title: '动态组件预览.vue',
+  type: 'vue',
+  versions: [
+    {
+      version: '1',
+      content: \`\${openTemplate}
+  <div class="dynamic-card">
+    <h3 style="margin-top:0;color:#0284c7;">🚀 动态编译的 Vue 组件</h3>
+    <p style="font-size:14px;color:#334155;">这是在沙箱中动态编译并渲染的组件，包含了 yh-ui 的内置组件！</p>
+    <div style="margin: 16px 0; display: flex; gap: 8px; align-items: center;">
+      <yh-tag type="success">编译成功</yh-tag>
+      <yh-tag type="warning">沙箱隔离</yh-tag>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <yh-rate v-model="rate" />
+    </div>
+    <yh-button type="primary" size="small" @click="onClick">点击交互测试</yh-button>
+  </div>
+\${closeTemplate}
+
+\${openScript}
+import { ref } from 'vue';
+
+const rate = ref(4);
+const onClick = () => {
+  alert('你点击了沙箱内部的按钮！当前评分: ' + rate.value);
+};
+\${closeScript}
+
+\${openStyle}
+.dynamic-card {
+  padding: 20px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border: 1px solid #bae6fd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+\${closeStyle}\`,
+      description: '版本 v1: 动态编译 SFC'
+    }
+  ]
+};
+${closeScript}`
+
+const jsDynamicVue = toJs(tsDynamicVue)
 </script>
 
 `AiArtifacts` 是一个沉浸式的侧边渲染面板，专门用于展示 AI 生成的复杂内容，如 HTML 页面、React/Vue 原型、长代码模块、结构化文档以及**交互式 ECharts 图表**。
@@ -548,8 +831,46 @@ const jsRadarChart = toJs(tsRadarChart)
 Artifact 允许用户在不同的迭代版本之间自由切换，通过 `versions` 数组提供历史记录。您可以通过 `version-change` 事件监听用户的切换行为。
 
 <DemoBlock title="版本切换" :ts-code="tsVersional" :js-code="jsVersional">
-  <div style="padding: 16px; background: var(--yh-bg-color-page); border-radius: 8px;">
-     提示：在侧边面板顶部点击 v1/v2 即可体验版本切换。
+  <div style="height: 450px; position: relative; border: 1px solid var(--yh-border-color-lighter); overflow: hidden; border-radius: 8px;">
+    <div style="padding: 20px;">
+      <yh-button @click="visibleVersional = true">打开多版本 Artifacts</yh-button>
+    </div>
+    <yh-ai-artifacts 
+       v-model:visible="visibleVersional"
+       :data="versionalData"
+       @version-change="onVersionChange"
+    >
+      <template #vue="{ data }">
+        <div v-if="data?.version === '1'" style="padding: 20px; text-align: center;">
+          <h3 style="margin-bottom: 12px; color: var(--yh-text-color-primary);">版本 v1: 图片预览</h3>
+          <img src="/logo.svg" style="max-width: 100%; border-radius: 8px; box-shadow: var(--yh-box-shadow-light);" />
+        </div>
+        <div v-else-if="data?.version === '2'" style="padding: 20px;">
+          <h3 style="margin-bottom: 16px; color: var(--yh-text-color-primary);">版本 v2: yh-ui 内置组件预览</h3>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">按钮组件 (YhButton):</span>
+              <yh-button type="primary" size="small">主要按钮</yh-button>
+              <yh-button type="success" size="small">成功按钮</yh-button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">评分组件 (YhRate):</span>
+              <yh-rate v-model="rateVal" />
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">开关组件 (YhSwitch):</span>
+              <yh-switch v-model="switchVal" />
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+              <span style="font-size: 14px; width: 120px; color: var(--yh-text-color-regular);">进度条组件:</span>
+              <div style="flex: 1; max-width: 200px;">
+                <yh-progress :percentage="75" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </yh-ai-artifacts>
   </div>
 </DemoBlock>
 
@@ -658,37 +979,85 @@ Artifact 允许用户在不同的迭代版本之间自由切换，通过 `versio
   </div>
 </DemoBlock>
 
+## 多媒体与文件预览
+
+组件支持图像、音视频、PDF、纯文本和 Iframe 网页的快速预览，并根据类型自动匹配渲染和操作交互。
+
+<DemoBlock title="多媒体与文件预览" :ts-code="tsMedia" :js-code="jsMedia">
+  <div style="height: 480px; position: relative; border: 1px solid var(--yh-border-color-lighter); overflow: hidden; border-radius: 8px;">
+    <div style="padding: 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+      <span style="font-size: 14px; margin-right: 8px; color: var(--yh-text-color-regular);">选择预览类型：</span>
+      <yh-button 
+        v-for="t in ['image', 'video', 'audio', 'pdf', 'text', 'iframe']" 
+        :key="t"
+        :type="mediaType === t ? 'primary' : 'default'"
+        size="small"
+        @click="mediaType = t; visibleMedia = true"
+      >
+        {{ t }}
+      </yh-button>
+    </div>
+    <div style="padding: 0 20px 20px;">
+      <yh-button type="success" @click="visibleMedia = true">打开预览面板</yh-button>
+    </div>
+    <yh-ai-artifacts 
+       v-model:visible="visibleMedia"
+       :data="mediaData"
+    />
+  </div>
+</DemoBlock>
+
+## 动态 Vue 组件编译预览
+
+当 `data.type` 设为 `'vue'` 时，如果主应用没有提供名为 `#vue` 的自定义插槽，组件会在沙箱 `iframe` 中使用本地内置的编译器和运行时包（如 `vue3-sfc-loader` 和 `yh-ui-bundle.js`）实时渲染编译传入的 Vue 单文件组件 (SFC) 源码。
+
+这极大地简化了 AI 生成组件的沉浸式效果测试，提供了高度安全的沙箱隔离和完美的样式局部生效环境。
+
+<DemoBlock title="动态 Vue 组件编译预览" :ts-code="tsDynamicVue" :js-code="jsDynamicVue">
+  <div style="height: 480px; position: relative; border: 1px solid var(--yh-border-color-lighter); overflow: hidden; border-radius: 8px;">
+    <div style="padding: 20px;">
+      <yh-button type="primary" @click="visibleDynamicVue = true">打开动态编译预览</yh-button>
+    </div>
+    <yh-ai-artifacts 
+       v-model:visible="visibleDynamicVue"
+       :data="dynamicVueData"
+    />
+  </div>
+</DemoBlock>
+
 ## API
 
 ### Props
 
-| 属性名               | 说明                                   | 类型                              | 默认值            |
-| -------------------- | -------------------------------------- | --------------------------------- | ----------------- |
-| `visible`            | 是否可见（支持 `v-model:visible`）     | `boolean`                         | `false`           |
-| `data`               | Artifact 数据结构                      | `ArtifactData`                    | —                 |
-| `width`              | 面板宽度                               | `string \| number`                | `'50%'`           |
-| `fullscreen`         | 是否全屏展示                           | `boolean`                         | `false`           |
-| `mode`               | 渲染模式                               | `'preview' \| 'code' \| 'inline'` | `'preview'`       |
-| `theme-overrides`    | 主题变量覆盖                           | `ComponentThemeVars`              | —                 |
-| `echarts-option`     | ECharts 图表配置（chart/echarts 类型） | `ArtifactEChartsOption`           | —                 |
-| `auto-load-e-charts` | 是否自动加载 ECharts 库                | `boolean`                         | `true`            |
-| `echarts-theme`      | ECharts 主题                           | `'light' \| 'dark' \| 'default'`  | `'light'`         |
-| `echarts-data-zoom`  | 是否启用数据缩放                       | `boolean`                         | `true`            |
-| `echarts-toolbox`    | 是否显示工具栏                         | `boolean`                         | `true`            |
-| `chart-height`       | 图表高度                               | `string \| number`                | `400`             |
-| `responsive-width`   | 是否响应式宽度                         | `boolean`                         | `true`            |
-| `chart-loading-text` | 图表加载时的占位文案                   | `string`                          | `'加载图表中...'` |
+| 属性名                  | 说明                                                                                                                                        | 类型                              | 默认值            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------------- |
+| `visible`               | 是否可见（支持 `v-model:visible`）                                                                                                          | `boolean`                         | `false`           |
+| `data`                  | Artifact 数据结构                                                                                                                           | `ArtifactData`                    | —                 |
+| `width`                 | 面板宽度                                                                                                                                    | `string \| number`                | `'50%'`           |
+| `fullscreen`            | 是否全屏展示                                                                                                                                | `boolean`                         | `false`           |
+| `mode`                  | 渲染模式                                                                                                                                    | `'preview' \| 'code' \| 'inline'` | `'preview'`       |
+| `theme-overrides`       | 主题变量覆盖                                                                                                                                | `ComponentThemeVars`              | —                 |
+| `echarts-option`        | ECharts 图表配置（chart/echarts 类型）                                                                                                      | `ArtifactEChartsOption`           | —                 |
+| `auto-load-e-charts`    | 是否自动加载 ECharts 库                                                                                                                     | `boolean`                         | `true`            |
+| `echarts-theme`         | ECharts 主题                                                                                                                                | `'light' \| 'dark' \| 'default'`  | `'light'`         |
+| `echarts-data-zoom`     | 是否启用数据缩放                                                                                                                            | `boolean`                         | `true`            |
+| `echarts-toolbox`       | 是否显示工具栏                                                                                                                              | `boolean`                         | `true`            |
+| `chart-height`          | 图表高度                                                                                                                                    | `string \| number`                | `400`             |
+| `responsive-width`      | 是否响应式宽度                                                                                                                              | `boolean`                         | `true`            |
+| `chart-loading-text`    | 图表加载时的占位文案                                                                                                                        | `string`                          | `'加载图表中...'` |
+| `sandbox-yh-ui-url`     | Vue SFC 沙箱渲染器使用的 yh-ui Bundle URL。未传时默认从 CDN（esm.sh）加载已发布版本；文档站通过 `provide('yhSandboxYhUiUrl', ...)` 全局覆盖 | `string`                          | CDN 自动          |
+| `sandbox-yh-ui-css-url` | Vue SFC 沙箱渲染器使用的 yh-ui CSS URL                                                                                                      | `string`                          | CDN 自动          |
 
 ### ArtifactData
 
-| 属性名           | 说明                                       | 类型                                                                                                               |
-| ---------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `id`             | 唯一标识                                   | `string`                                                                                                           |
-| `title`          | 标题/文件名                                | `string`                                                                                                           |
-| `type`           | 类型                                       | `'code' \| 'html' \| 'markdown' \| 'vue' \| 'react' \| 'diagram' \| 'chart' \| 'sandbox' \| 'canvas' \| 'echarts'` |
-| `currentVersion` | 当前选中版本号                             | `string \| number`                                                                                                 |
-| `versions`       | 版本列表                                   | `ArtifactVersion[]`                                                                                                |
-| `echartsOption`  | ECharts 图表配置（chart/echarts 类型使用） | `ArtifactEChartsOption`                                                                                            |
+| 属性名           | 说明                                       | 类型                                                                                                                                                                               |
+| ---------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`             | 唯一标识                                   | `string`                                                                                                                                                                           |
+| `title`          | 标题/文件名                                | `string`                                                                                                                                                                           |
+| `type`           | 类型                                       | `'code' \| 'html' \| 'markdown' \| 'vue' \| 'react' \| 'diagram' \| 'chart' \| 'sandbox' \| 'canvas' \| 'echarts' \| 'image' \| 'video' \| 'audio' \| 'pdf' \| 'text' \| 'iframe'` |
+| `currentVersion` | 当前选中版本号                             | `string \| number`                                                                                                                                                                 |
+| `versions`       | 版本列表                                   | `ArtifactVersion[]`                                                                                                                                                                |
+| `echartsOption`  | ECharts 图表配置（chart/echarts 类型使用） | `ArtifactEChartsOption`                                                                                                                                                            |
 
 ### ArtifactVersion
 

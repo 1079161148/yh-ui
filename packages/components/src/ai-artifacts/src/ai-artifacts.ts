@@ -11,8 +11,14 @@ export type ArtifactType =
   | 'chart'
   | 'sandbox'
   | 'canvas'
-  /** 交互式图表 - 使用 ECharts */
   | 'echarts'
+  | 'image'
+  | 'video'
+  | 'audio'
+  | 'pdf'
+  | 'text'
+  | 'iframe'
+  | (string & {})
 
 export interface ArtifactVersion {
   /**
@@ -191,6 +197,32 @@ export const aiArtifactsProps = {
   chartLoadingText: {
     type: String,
     default: undefined
+  },
+
+  // ========== Vue SFC 沙箱相关属性 ==========
+
+  /**
+   * Vue SFC 沙箱渲染器使用的 yh-ui bundle URL。
+   * 默认使用 esm.sh CDN（会自动打包 @yh-ui/icons 等所有依赖，只需外部化 vue）。
+   * 消费端可传入自托管的 bundle 地址，文档站可通过 provide('yhSandboxYhUiUrl', ...) 全局覆盖。
+   *
+   * @example '/assets/yh-ui-sandbox-bundle.js'
+   * @default 'https://esm.sh/@yh-ui/yh-ui?external=vue'
+   */
+  sandboxYhUiUrl: {
+    type: String,
+    default: undefined
+  },
+
+  /**
+   * Vue SFC 沙箱渲染器使用的 yh-ui CSS URL。
+   *
+   * @example '/assets/yh-ui-bundle.css'
+   * @default 'https://unpkg.com/@yh-ui/yh-ui/dist/style.css'
+   */
+  sandboxYhUiCssUrl: {
+    type: String,
+    default: undefined
   }
 }
 
@@ -211,6 +243,7 @@ export type AiArtifactsEmits = typeof aiArtifactsEmits
 export interface AiArtifactsSlots {
   chart?: (props: { data: ArtifactVersion | null; title: string }) => unknown
   canvas?: (props: { data: ArtifactVersion | null }) => unknown
+  [key: string]: ((props: { data: ArtifactVersion | null; title: string }) => unknown) | undefined
 }
 
 export type AiArtifactsSlotTypes = SlotsType<AiArtifactsSlots>

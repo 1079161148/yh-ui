@@ -137,6 +137,7 @@ const flattenedNodes = computed(() => {
 
 // 处理节点点击
 const handleNodeClick = (node: TreeNode, e: MouseEvent) => {
+  if (dragNode.value) return
   if (node.disabled) return
 
   // 总是更新当前节点 Key (内部追踪)

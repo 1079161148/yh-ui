@@ -133,9 +133,14 @@ const layoutComponents = computed(() => {
 })
 
 defineExpose<PaginationExpose>({
-  currentPage: internalCurrentPage.value,
-  pageSize: props.pageSize,
-  pageCount: pageCount.value
+  currentPage: computed({
+    get: () => internalCurrentPage.value,
+    set: (val: number) => {
+      internalCurrentPage.value = val
+    }
+  }) as unknown as number,
+  pageSize: computed(() => props.pageSize) as unknown as number,
+  pageCount: computed(() => pageCount.value) as unknown as number
 })
 </script>
 

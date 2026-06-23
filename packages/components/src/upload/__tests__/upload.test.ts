@@ -493,4 +493,33 @@ describe('Upload', () => {
     expect(typeof wrapper.vm.handleFiles).toBe('function')
     expect(typeof wrapper.vm.submit).toBe('function')
   })
+
+  it('should filter by rules and beforeUpload before checking limit', async () => {
+    const validFile = new File(['valid'], 'valid.png', { type: 'image/png' })
+    const invalidFile = new File(['invalid'], 'invalid.txt', { type: 'text/plain' })
+
+    const wrapper = mount(YhUpload, {
+      props: {
+        fileList: [
+          { name: 'existing.png', uid: 99, status: 'success' } as any,
+          { name: 'existing2.png', uid: 98, status: 'success' } as any
+        ],
+        limit: 3,
+        accept: 'image/*'
+      }
+    })
+
+    const input = wrapper.find('input[type="file"]')
+    Object.defineProperty(input.element, 'files', {
+      value: [validFile, invalidFile]
+    })
+    await input.trigger('change')
+    await nextTick()
+    await nextTick()
+
+    expect(wrapper.emitted('exceed')).toBeFalsy()
+    expect(wrapper.emitted('update:fileList')).toBeTruthy()
+    const emittedFileList = (wrapper.emitted('update:fileList')![0] as any)[0]
+    expect(emittedFileList.length).toBe(3)
+  })
 })

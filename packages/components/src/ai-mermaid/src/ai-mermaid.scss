@@ -112,7 +112,7 @@ $theme-vars: (
     &.is-active {
       color: var(--yh-ai-mermaid-primary-color);
       border-color: var(--yh-ai-mermaid-primary-color);
-      background: rgba(var(--yh-ai-mermaid-primary-color), 0.1);
+      background: color-mix(in srgb, var(--yh-ai-mermaid-primary-color) 10%, transparent);
     }
   }
 

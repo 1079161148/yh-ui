@@ -72,6 +72,20 @@ describe('YhAiVoiceTrigger', () => {
     expect(wrapper.emitted('cancel')).toBeTruthy()
   })
 
+  it('should reset local state and emit stop/cancel in uncontrolled mode on cancel button click', async () => {
+    const wrapper = mount(AiVoiceTrigger)
+
+    // Start recording in uncontrolled mode
+    await wrapper.find('.yh-ai-voice-trigger__trigger').trigger('click')
+    expect((wrapper.vm as any).localRecording).toBe(true)
+
+    // Trigger cancel
+    await wrapper.find('.yh-ai-voice-trigger__cancel').trigger('click')
+    expect((wrapper.vm as any).localRecording).toBe(false)
+    expect(wrapper.emitted('stop')).toBeTruthy()
+    expect(wrapper.emitted('cancel')).toBeTruthy()
+  })
+
   // ─── Visualizer ──────────────────────────────────────────
   it('should generate simulated amplitudes on visualizer interval', async () => {
     const wrapper = mount(AiVoiceTrigger, {

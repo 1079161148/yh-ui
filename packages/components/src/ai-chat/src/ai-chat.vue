@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNamespace, useLocale } from '@yh-ui/hooks'
-import { ref, watch, nextTick, computed } from 'vue'
+import { watch, nextTick, computed } from 'vue'
 import YhAiSender from '../../ai-sender/src/ai-sender.vue'
 import YhAiBubble from '../../ai-bubble/src/ai-bubble.vue'
 import { YhButton } from '../../button'
@@ -20,18 +20,19 @@ const ns = useNamespace('ai-chat')
 const { t } = useLocale()
 const { themeStyle } = useComponentTheme('ai-chat', props.themeOverrides)
 
-const contentRef = ref<HTMLElement>()
-
 // 虚拟滚动
 const virtualScrollEnabled = computed(() => props.virtualScroll && props.messages.length > 50)
 
-const { visibleItems, totalHeight, offsetY, startIndex, onScroll, scrollToIndex } =
+const { visibleItems, totalHeight, offsetY, startIndex, onScroll, scrollToIndex, containerRef } =
   useVirtualScroll({
     items: computed(() => props.messages),
     itemHeight: props.estimatedItemHeight,
     containerHeight: props.virtualHeight,
     overscan: 5
   })
+
+// contentRef and virtualScroll containerRef refer to the same element
+const contentRef = containerRef as typeof containerRef
 
 // Auto-scroll logic
 const scrollToBottom = () => {
@@ -83,7 +84,7 @@ const handleClear = () => {
     <!-- Messages List -->
     <div
       :class="ns.e('content')"
-      ref="contentRef"
+      ref="containerRef"
       :style="virtualScrollEnabled ? { height: props.virtualHeight + 'px', overflow: 'auto' } : {}"
       @scroll="virtualScrollEnabled ? onScroll($event) : undefined"
     >

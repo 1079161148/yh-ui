@@ -108,7 +108,7 @@ const wrapperClasses = computed(() => [
 
 // 更新下拉框位置
 const updateDropdownPosition = () => {
-  if (!wrapperRef.value || !props.teleported) return
+  if (typeof window === 'undefined' || !wrapperRef.value || !props.teleported) return
 
   const rect = wrapperRef.value.getBoundingClientRect()
 
@@ -169,26 +169,34 @@ const handleScroll = () => {
 // 全局点击关闭建议
 const handleOutsideClick = (e: MouseEvent) => {
   const target = e.target as HTMLElement
-  if (wrapperRef.value?.contains(target) || dropdownRef.value?.contains(target)) {
+  if (
+    wrapperRef.value?.contains(target) ||
+    dropdownRef.value?.contains(target) ||
+    target.closest?.('[data-popper-root]') === dropdownRef.value
+  ) {
     return
   }
   visible.value = false
 }
 
 onMounted(() => {
-  if (props.teleported) {
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('scroll', handleScroll, true)
+  if (typeof window !== 'undefined') {
+    if (props.teleported) {
+      window.addEventListener('resize', handleResize)
+      window.addEventListener('scroll', handleScroll, true)
+    }
+    window.addEventListener('click', handleOutsideClick)
   }
-  window.addEventListener('click', handleOutsideClick)
 })
 
 onBeforeUnmount(() => {
-  if (props.teleported) {
-    window.removeEventListener('resize', handleResize)
-    window.removeEventListener('scroll', handleScroll, true)
+  if (typeof window !== 'undefined') {
+    if (props.teleported) {
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('scroll', handleScroll, true)
+    }
+    window.removeEventListener('click', handleOutsideClick)
   }
-  window.removeEventListener('click', handleOutsideClick)
   if (debounceTimer) {
     clearTimeout(debounceTimer)
   }
@@ -500,6 +508,7 @@ defineExpose<AutocompleteExpose>({
           ref="dropdownRef"
           :class="[ns.e('dropdown'), popperClass]"
           :style="teleported ? dropdownStyle : {}"
+          data-popper-root
           @mousedown="isClickingDropdown = true"
           @mouseup="isClickingDropdown = false"
         >

@@ -40,6 +40,20 @@ const setupObserver = () => {
 onMounted(setupObserver)
 onUnmounted(() => observer?.disconnect())
 
+watch(
+  () => props.exposure,
+  (val) => {
+    if (val) {
+      setupObserver()
+    } else {
+      if (observer) {
+        observer.disconnect()
+        observer = null
+      }
+    }
+  }
+)
+
 const currentImage = ref(props.image)
 const isHovering = ref(false)
 const videoActive = ref(false)

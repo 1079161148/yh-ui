@@ -94,7 +94,7 @@ const dropdownStyle = ref<Record<string, string>>({})
 
 // 更新下拉框位置
 const updateDropdownPosition = () => {
-  if (!wrapperRef.value || !props.teleported) return
+  if (typeof window === 'undefined' || !wrapperRef.value || !props.teleported) return
 
   const rect = wrapperRef.value.getBoundingClientRect()
 
@@ -125,16 +125,20 @@ watch(visible, (val: boolean) => {
 
 // 监听窗口滚动和调整大小
 onMounted(() => {
-  if (props.teleported) {
-    window.addEventListener('scroll', updateDropdownPosition, true)
-    window.addEventListener('resize', updateDropdownPosition)
+  if (typeof window !== 'undefined') {
+    if (props.teleported) {
+      window.addEventListener('scroll', updateDropdownPosition, true)
+      window.addEventListener('resize', updateDropdownPosition)
+    }
   }
 })
 
 onBeforeUnmount(() => {
-  if (props.teleported) {
-    window.removeEventListener('scroll', updateDropdownPosition, true)
-    window.removeEventListener('resize', updateDropdownPosition)
+  if (typeof window !== 'undefined') {
+    if (props.teleported) {
+      window.removeEventListener('scroll', updateDropdownPosition, true)
+      window.removeEventListener('resize', updateDropdownPosition)
+    }
   }
 })
 

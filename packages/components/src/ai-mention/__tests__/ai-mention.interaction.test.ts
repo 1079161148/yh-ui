@@ -363,4 +363,35 @@ describe('YhAiMention 交互', () => {
 
     wrap.unmount()
   })
+
+  it('should emit change event when YhMention changes', async () => {
+    const onChange = vi.fn()
+    const wrap = mountAi({ onChange })
+    const inner = wrap.findComponent(AiMention)
+    const mention = inner.findComponent({ name: 'YhMention' })
+    await mention.vm.$emit('change', 'new value')
+    expect(onChange).toHaveBeenCalledWith('new value')
+    wrap.unmount()
+  })
+
+  it('should prefix paths correctly when fileRoot is set', async () => {
+    const onFileLoad = vi.fn()
+    const wrap = mountAi({
+      fileRoot: '/my-root',
+      onFileLoad
+    })
+    const inner = wrap.findComponent(AiMention)
+    const ta = inner.find('textarea')
+    await ta.setValue('@文档')
+    await ta.trigger('input')
+    await vi.advanceTimersByTimeAsync(120)
+    await flushPromises()
+    await nextTick()
+
+    expect(onFileLoad).toHaveBeenCalled()
+    const loadedNodes = onFileLoad.mock.calls[0][1] as AiMentionFileNode[]
+    expect(loadedNodes[0].path).toBe('/my-root/docs')
+    expect(loadedNodes[0].children?.[0].path).toBe('/my-root/docs/README.md')
+    wrap.unmount()
+  })
 })

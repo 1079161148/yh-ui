@@ -5,7 +5,7 @@
  * 增强版本：多会话支持、XRequest 中间件、缓存重试
  */
 
-import { ref, shallowRef, computed, onUnmounted, type Ref } from 'vue'
+import { ref, shallowRef, computed, onUnmounted, unref, watch, type Ref } from 'vue'
 
 // ============================================
 // Types - 基础类型
@@ -177,6 +177,8 @@ export interface UseConversationsOptions {
   storageKey?: string
   /** 自动生成标题 */
   autoTitle?: boolean
+  /** 消息历史保留条数 */
+  maxHistory?: number
 }
 
 // ============================================
@@ -619,14 +621,42 @@ export function createXRequest(
  * ```
  */
 export function useConversation(config: ConversationConfig = {}) {
-  const { maxHistory = 50, persist = false, storageKey = 'yh-ai-conversation' } = config
+  const maxHistory = computed(() => {
+    const val = unref(config.maxHistory)
+    return typeof val === 'number' ? val : 50
+  })
+  const persist = computed(() => {
+    const val = unref(config.persist)
+    return typeof val === 'boolean' ? val : false
+  })
+  const storageKey = computed(() => {
+    const val = unref(config.storageKey)
+    return typeof val === 'string' ? val : 'yh-ai-conversation'
+  })
 
   const messages = ref<ConversationMessage[]>([])
 
+  watch(maxHistory, (newMax) => {
+    if (messages.value.length > newMax) {
+      messages.value = messages.value.slice(-newMax)
+      saveHistory()
+    }
+  })
+
+  watch(persist, (newVal) => {
+    if (newVal) {
+      loadHistory()
+    }
+  })
+
+  watch(storageKey, () => {
+    loadHistory()
+  })
+
   // 从 localStorage 加载历史
   const loadHistory = () => {
-    if (persist && typeof localStorage !== 'undefined') {
-      const stored = localStorage.getItem(storageKey)
+    if (persist.value && typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem(storageKey.value)
       if (stored) {
         try {
           const parsed = JSON.parse(stored)
@@ -636,7 +666,13 @@ export function useConversation(config: ConversationConfig = {}) {
               createdAt: m.createdAt ? new Date(m.createdAt) : undefined
             })
           ) as ConversationMessage[]
-          messages.value = restored.slice(-maxHistory)
+
+          const sliced = restored.slice(-maxHistory.value)
+          messages.value = sliced
+
+          if (restored.length > maxHistory.value) {
+            saveHistory()
+          }
         } catch {
           messages.value = []
         }
@@ -646,8 +682,12 @@ export function useConversation(config: ConversationConfig = {}) {
 
   // 保存到 localStorage
   const saveHistory = () => {
-    if (persist && typeof localStorage !== 'undefined') {
-      localStorage.setItem(storageKey, JSON.stringify(messages.value))
+    const toSave = messages.value.slice(-maxHistory.value)
+    if (toSave.length !== messages.value.length) {
+      messages.value = toSave
+    }
+    if (persist.value && typeof localStorage !== 'undefined') {
+      localStorage.setItem(storageKey.value, JSON.stringify(toSave))
     }
   }
 
@@ -659,7 +699,10 @@ export function useConversation(config: ConversationConfig = {}) {
       createdAt: new Date()
     }
 
-    messages.value = [...messages.value, newMessage].slice(-maxHistory)
+    messages.value = [...messages.value, newMessage]
+    if (messages.value.length > maxHistory.value) {
+      messages.value = messages.value.slice(-maxHistory.value)
+    }
     saveHistory()
 
     return newMessage
@@ -668,8 +711,8 @@ export function useConversation(config: ConversationConfig = {}) {
   // 清空历史
   const clearHistory = () => {
     messages.value = []
-    if (persist && typeof localStorage !== 'undefined') {
-      localStorage.removeItem(storageKey)
+    if (persist.value && typeof localStorage !== 'undefined') {
+      localStorage.removeItem(storageKey.value)
     }
   }
 
@@ -731,12 +774,26 @@ function generateTitle(messages: ConversationMessage[]): string {
  * ```
  */
 export function useConversations(options: UseConversationsOptions = {}) {
-  const {
-    maxConversations = 50,
-    persist = false,
-    storageKey = 'yh-ai-conversations',
-    autoTitle = true
-  } = options
+  const maxConversations = computed(() => {
+    const val = unref(options.maxConversations)
+    return typeof val === 'number' ? val : 50
+  })
+  const persist = computed(() => {
+    const val = unref(options.persist)
+    return typeof val === 'boolean' ? val : false
+  })
+  const storageKey = computed(() => {
+    const val = unref(options.storageKey)
+    return typeof val === 'string' ? val : 'yh-ai-conversations'
+  })
+  const autoTitle = computed(() => {
+    const val = unref(options.autoTitle)
+    return typeof val === 'boolean' ? val : true
+  })
+  const maxHistory = computed(() => {
+    const val = unref(options.maxHistory)
+    return typeof val === 'number' ? val : 50
+  })
 
   const conversations = ref<Conversation[]>([])
   const currentId = ref<string | null>(null)
@@ -750,11 +807,37 @@ export function useConversations(options: UseConversationsOptions = {}) {
     return currentConversation.value?.messages || []
   })
 
+  watch(maxConversations, (newMax) => {
+    if (conversations.value.length > newMax) {
+      conversations.value = conversations.value.slice(0, newMax)
+      saveConversations()
+    }
+  })
+
+  watch(maxHistory, (newMax) => {
+    conversations.value.forEach((c) => {
+      if (c.messages.length > newMax) {
+        c.messages = c.messages.slice(-newMax)
+      }
+    })
+    saveConversations()
+  })
+
+  watch(persist, (newVal) => {
+    if (newVal) {
+      loadConversations()
+    }
+  })
+
+  watch(storageKey, () => {
+    loadConversations()
+  })
+
   // 加载会话
   const loadConversations = () => {
-    if (persist && typeof localStorage !== 'undefined') {
+    if (persist.value && typeof localStorage !== 'undefined') {
       try {
-        const stored = localStorage.getItem(storageKey)
+        const stored = localStorage.getItem(storageKey.value)
         if (stored) {
           const parsed = JSON.parse(stored)
           const restored = (parsed.conversations || []).map(
@@ -774,12 +857,26 @@ export function useConversations(options: UseConversationsOptions = {}) {
               }))
             })
           ) as Conversation[]
-          conversations.value = restored.slice(-maxConversations)
+
+          // Apply current limits when restoring
+          let list = restored
+          if (list.length > maxConversations.value) {
+            list = list.slice(0, maxConversations.value)
+          }
+          list.forEach((c) => {
+            if (c.messages.length > maxHistory.value) {
+              c.messages = c.messages.slice(-maxHistory.value)
+            }
+          })
+
+          conversations.value = list
+          saveConversations()
           currentId.value = parsed.currentId || null
 
           // 确保当前会话存在
           if (currentId.value && !conversations.value.find((c) => c.id === currentId.value)) {
             currentId.value = conversations.value[0]?.id || null
+            saveConversations()
           }
         }
       } catch {
@@ -791,11 +888,23 @@ export function useConversations(options: UseConversationsOptions = {}) {
 
   // 保存会话
   const saveConversations = () => {
-    if (persist && typeof localStorage !== 'undefined') {
+    let list = conversations.value
+    // Enforce maxConversations limits on list
+    if (list.length > maxConversations.value) {
+      list = list.slice(0, maxConversations.value)
+      conversations.value = list
+    }
+    // Also enforce maxHistory limit on each conversation's messages
+    list.forEach((c) => {
+      if (c.messages.length > maxHistory.value) {
+        c.messages = c.messages.slice(-maxHistory.value)
+      }
+    })
+    if (persist.value && typeof localStorage !== 'undefined') {
       localStorage.setItem(
-        storageKey,
+        storageKey.value,
         JSON.stringify({
-          conversations: conversations.value,
+          conversations: list,
           currentId: currentId.value
         })
       )
@@ -805,15 +914,24 @@ export function useConversations(options: UseConversationsOptions = {}) {
   // 创建会话
   const create = (initialMessages: ConversationMessage[] = []): string => {
     const now = new Date()
+    // Slice initial messages if they exceed maxHistory
+    const messagesToUse =
+      initialMessages.length > maxHistory.value
+        ? initialMessages.slice(-maxHistory.value)
+        : initialMessages
+
     const newConversation: Conversation = {
       id: generateId(),
-      title: autoTitle ? generateTitle(initialMessages) : '新会话',
-      messages: initialMessages,
+      title: autoTitle.value ? generateTitle(messagesToUse) : '新会话',
+      messages: messagesToUse,
       createdAt: now,
       updatedAt: now
     }
 
-    conversations.value = [newConversation, ...conversations.value].slice(0, maxConversations)
+    conversations.value = [newConversation, ...conversations.value]
+    if (conversations.value.length > maxConversations.value) {
+      conversations.value = conversations.value.slice(0, maxConversations.value)
+    }
     currentId.value = newConversation.id
     saveConversations()
 
@@ -868,8 +986,13 @@ export function useConversations(options: UseConversationsOptions = {}) {
       }
       conversation.messages.push(newMessage)
 
+      // 同步调用 useConversation 的切片逻辑
+      if (conversation.messages.length > maxHistory.value) {
+        conversation.messages = conversation.messages.slice(-maxHistory.value)
+      }
+
       // 自动生成标题
-      if (autoTitle && conversation.messages.length <= 2) {
+      if (autoTitle.value && conversation.messages.length <= 2) {
         conversation.title = generateTitle(conversation.messages)
       }
 

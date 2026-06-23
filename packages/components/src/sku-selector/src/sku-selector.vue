@@ -20,7 +20,8 @@ const { themeStyle } = useComponentTheme(
 const { selectedValueIds, isValueSelectable, selectedSku, toggleValue } = useSKU(
   props.specs,
   props.skus,
-  props.modelValue
+  props.modelValue,
+  props.checkStock
 )
 
 const handleValueClick = (index: number, spec: SkuSpec, value: SkuSpecValue) => {

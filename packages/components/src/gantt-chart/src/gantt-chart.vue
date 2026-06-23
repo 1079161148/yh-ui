@@ -394,14 +394,37 @@ const dependenciesLinks = computed<GanttDependencyLink[]>(() => {
   return links
 })
 
-// --- Scroll ---
+let activeScrollTarget: HTMLElement | null = null
+let scrollTimer: ReturnType<typeof setTimeout> | null = null
+
 const handleBodyScroll = (e: Event) => {
   const target = e.target as HTMLElement
-  scrollTop.value = target.scrollTop
+  if (activeScrollTarget && activeScrollTarget !== target) return
+
+  activeScrollTarget = target
+  if (scrollTimer) clearTimeout(scrollTimer)
+  scrollTimer = setTimeout(() => {
+    activeScrollTarget = null
+  }, 100)
+
+  let scrollT = target.scrollTop
+  if (sidebarBodyRef.value && timelineBodyRef.value) {
+    const maxSidebar = sidebarBodyRef.value.scrollHeight - sidebarBodyRef.value.clientHeight
+    const maxTimeline = timelineBodyRef.value.scrollHeight - timelineBodyRef.value.clientHeight
+    if (maxSidebar > 0 && maxTimeline > 0) {
+      const maxScroll = Math.min(maxSidebar, maxTimeline)
+      if (scrollT > maxScroll) {
+        scrollT = maxScroll
+        target.scrollTop = maxScroll
+      }
+    }
+  }
+
+  scrollTop.value = scrollT
   if (sidebarBodyRef.value && target === timelineBodyRef.value) {
-    sidebarBodyRef.value.scrollTop = target.scrollTop
+    sidebarBodyRef.value.scrollTop = scrollT
   } else if (timelineBodyRef.value && target === sidebarBodyRef.value) {
-    timelineBodyRef.value.scrollTop = target.scrollTop
+    timelineBodyRef.value.scrollTop = scrollT
   }
   if (sidebarHeaderRef.value && target === sidebarBodyRef.value) {
     sidebarHeaderRef.value.scrollLeft = target.scrollLeft
@@ -460,8 +483,10 @@ const onDragStart = (e: MouseEvent, task: GanttTask, type: string) => {
   dragInitS = dayjs(task.startDate)
   dragInitE = dayjs(task.endDate)
   dragInitP = task.progress || 0
-  document.addEventListener('mousemove', onDragMove)
-  document.addEventListener('mouseup', onDragEnd)
+  if (typeof document !== 'undefined') {
+    document.addEventListener('mousemove', onDragMove)
+    document.addEventListener('mouseup', onDragEnd)
+  }
 }
 const onDragMove = (e: MouseEvent) => {
   if (!activeDragTask.value) return
@@ -514,8 +539,10 @@ const onDragEnd = () => {
   emit('update:data', [...props.data])
   activeDragTask.value = null
   dragType = null
-  document.removeEventListener('mousemove', onDragMove)
-  document.removeEventListener('mouseup', onDragEnd)
+  if (typeof document !== 'undefined') {
+    document.removeEventListener('mousemove', onDragMove)
+    document.removeEventListener('mouseup', onDragEnd)
+  }
 }
 
 const handleTaskClick = (e: MouseEvent, task: GanttTask) => {
@@ -552,9 +579,21 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  if (scrollTimer) {
+    clearTimeout(scrollTimer)
+    scrollTimer = null
+  }
   if (resizeObserver) {
     resizeObserver.disconnect()
     resizeObserver = null
+  }
+  if (typeof document !== 'undefined') {
+    document.removeEventListener('mousemove', onDragMove)
+    document.removeEventListener('mouseup', onDragEnd)
+  }
+  if (activeDragTask.value) {
+    dragType = null
+    activeDragTask.value = null
   }
 })
 </script>

@@ -15,6 +15,12 @@
   overflow: hidden;
   @include container(ai-artifacts);
 
+  @include when(fullscreen) {
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+
   /* Theme adjustments */
   background: var(--yh-ai-artifacts-bg-color, var(--yh-bg-color-overlay));
 

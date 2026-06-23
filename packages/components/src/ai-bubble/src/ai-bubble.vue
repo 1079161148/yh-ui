@@ -25,6 +25,9 @@ defineOptions({
 })
 
 const props = defineProps(aiBubbleProps)
+const emit = defineEmits<{
+  (e: 'copy-fail', err: unknown): void
+}>()
 
 const ns = useNamespace('ai-bubble')
 const { t } = useLocale()
@@ -38,23 +41,25 @@ const { themeStyle } = useComponentTheme(
 
 // === Audio Playback Logic ===
 const playingAsset = ref<string | null>(null)
-let audioInstance: HTMLAudioElement | null = null
+const audioInstance = ref<HTMLAudioElement | null>(null)
 
 const handleAudioToggle = (url: string) => {
   if (playingAsset.value === url) {
-    audioInstance?.pause()
+    audioInstance.value?.pause()
     playingAsset.value = null
   } else {
-    if (audioInstance) {
-      audioInstance.pause()
+    if (audioInstance.value) {
+      audioInstance.value.pause()
+      audioInstance.value.src = ''
     }
     playingAsset.value = url
-    audioInstance = new Audio(url)
-    audioInstance.play().catch((err) => {
+    const audio = new Audio(url)
+    audioInstance.value = audio
+    audio.play().catch((err) => {
       console.warn('Audio playback failed:', err)
       playingAsset.value = null
     })
-    audioInstance.onended = () => {
+    audio.onended = () => {
       playingAsset.value = null
     }
   }
@@ -269,13 +274,42 @@ const toggleCodeBlock = (id: string) => {
   }
 }
 
+const copyTextToClipboard = async (text: string): Promise<boolean> => {
+  if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch {
+      // Fallback
+    }
+  }
+
+  if (typeof document !== 'undefined') {
+    try {
+      const textarea = document.createElement('textarea')
+      textarea.value = text
+      textarea.style.position = 'fixed'
+      textarea.style.opacity = '0'
+      document.body.appendChild(textarea)
+      textarea.select()
+      const successful = document.execCommand('copy')
+      document.body.removeChild(textarea)
+      if (successful) return true
+    } catch {
+      // Failed fallback
+    }
+  }
+
+  return false
+}
+
 const copyCode = async (code: string, id: string): Promise<void> => {
-  try {
-    await navigator.clipboard.writeText(code)
+  const success = await copyTextToClipboard(code)
+  if (success) {
     copiedCodeBlocks.value.add(id)
     setTimeout(() => copiedCodeBlocks.value.delete(id), 2000)
-  } catch (e) {
-    console.error('Copy failed:', e)
+  } else {
+    emit('copy-fail', new Error('Copy failed'))
   }
 }
 
@@ -315,12 +349,12 @@ const saveEditCode = async (id: string): Promise<void> => {
     editCodeContent.value = monacoEditor.value.getValue()
   }
   // 将当前编辑内容复制到剪贴板，方便在外部粘贴/复用
-  try {
-    await navigator.clipboard.writeText(editCodeContent.value)
+  const success = await copyTextToClipboard(editCodeContent.value)
+  if (success) {
     copiedCodeBlocks.value.add(id)
     setTimeout(() => copiedCodeBlocks.value.delete(id), 2000)
-  } catch (e) {
-    console.error('Copy edited code failed:', e)
+  } else {
+    emit('copy-fail', new Error('Copy failed'))
   }
 
   editingCodeBlock.value = null
@@ -1093,9 +1127,10 @@ watch(
 )
 
 onBeforeUnmount(() => {
-  if (audioInstance) {
-    audioInstance.pause()
-    audioInstance = null
+  if (audioInstance.value) {
+    audioInstance.value.pause()
+    audioInstance.value.src = ''
+    audioInstance.value = null
   }
   if (streamTimer) {
     clearInterval(streamTimer)

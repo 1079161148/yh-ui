@@ -41,6 +41,45 @@ const { themeStyle } = useComponentTheme(
 const now = dayjs()
 // 当前显示的视口日期（年月）
 const displayDate = ref<Dayjs>(props.modelValue ? dayjs(props.modelValue) : now)
+const currentMode = ref<CalendarMode>(props.mode || 'month')
+watch(
+  () => props.mode,
+  (val) => {
+    if (val) currentMode.value = val
+  }
+)
+
+const handleModeChange = (mode: CalendarMode) => {
+  currentMode.value = mode
+  emit('update:mode', mode)
+  emit('panel-change', displayDate.value.toDate(), mode)
+}
+
+const monthsList = computed(() => {
+  const dateLocale = locale.value.yh?.datepicker
+  if (dateLocale?.months) {
+    return [
+      dateLocale.months.jan,
+      dateLocale.months.feb,
+      dateLocale.months.mar,
+      dateLocale.months.apr,
+      dateLocale.months.may,
+      dateLocale.months.jun,
+      dateLocale.months.jul,
+      dateLocale.months.aug,
+      dateLocale.months.sep,
+      dateLocale.months.oct,
+      dateLocale.months.nov,
+      dateLocale.months.dec
+    ]
+  }
+  return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+})
+
+const selectMonth = (monthIndex: number) => {
+  displayDate.value = displayDate.value.month(monthIndex)
+  handleModeChange('month')
+}
 // 当前选中的日期（单选）
 const selectedDate = ref<Dayjs | undefined>(props.modelValue ? dayjs(props.modelValue) : undefined)
 
@@ -82,6 +121,12 @@ const monthKeys = [
 ] as const
 
 const title = computed(() => {
+  if (currentMode.value === 'year') {
+    const dateLocale = locale.value.yh?.datepicker
+    const year = displayDate.value.year()
+    return dateLocale?.year ? `${year}${dateLocale.year}` : `${year}`
+  }
+
   // 1. 优先使用 props 传入的格式
   if (props.monthHeaderFormat) {
     return displayDate.value.format(props.monthHeaderFormat)
@@ -292,7 +337,25 @@ const handleCellHover = (cell: CalendarDateCell) => {
 
 const moveMonth = (delta: number) => {
   displayDate.value = displayDate.value.add(delta, 'month')
-  emit('panel-change', displayDate.value.toDate(), props.mode)
+  emit('panel-change', displayDate.value.toDate(), currentMode.value)
+}
+
+const handlePrev = () => {
+  if (currentMode.value === 'year') {
+    displayDate.value = displayDate.value.subtract(1, 'year')
+    emit('panel-change', displayDate.value.toDate(), 'year')
+  } else {
+    moveMonth(-1)
+  }
+}
+
+const handleNext = () => {
+  if (currentMode.value === 'year') {
+    displayDate.value = displayDate.value.add(1, 'year')
+    emit('panel-change', displayDate.value.toDate(), 'year')
+  } else {
+    moveMonth(1)
+  }
 }
 
 const goToday = () => {
@@ -333,6 +396,17 @@ watch(
   () => props.multipleValue,
   (val) => {
     multipleSelected.value = val?.map((d) => dayjs(d)) || []
+  }
+)
+
+// 监听选择模式变化重置状态
+watch(
+  () => props.selectionMode,
+  () => {
+    selectedDate.value = props.modelValue ? dayjs(props.modelValue) : undefined
+    rangeStart.value = props.rangeValue?.[0] ? dayjs(props.rangeValue[0]) : undefined
+    rangeEnd.value = props.rangeValue?.[1] ? dayjs(props.rangeValue[1]) : undefined
+    multipleSelected.value = props.multipleValue?.map((d) => dayjs(d)) || []
   }
 )
 
@@ -398,14 +472,20 @@ defineExpose<CalendarExpose>({
   <div :class="rootClass" :style="themeStyle">
     <!-- 顶栏 -->
     <div :class="ns.e('header')">
-      <div :class="ns.e('title')">
+      <div
+        :class="ns.e('title')"
+        @click="currentMode === 'month' ? handleModeChange('year') : handleModeChange('month')"
+        style="cursor: pointer"
+      >
         <slot name="header" :date="title">{{ title }}</slot>
       </div>
 
       <div :class="ns.e('controls')">
         <div :class="ns.e('nav-group')">
-          <yh-button class="yh-calendar__nav-btn" size="small" @click="moveMonth(-1)">
-            {{ t('calendar.prevMonth') }}
+          <yh-button class="yh-calendar__nav-btn" size="small" @click="handlePrev()">
+            {{
+              currentMode === 'year' ? t('calendar.prevYear', '上一年') : t('calendar.prevMonth')
+            }}
           </yh-button>
           <yh-button
             class="yh-calendar__nav-btn yh-calendar__nav-btn--today"
@@ -414,8 +494,10 @@ defineExpose<CalendarExpose>({
           >
             {{ t('calendar.today') }}
           </yh-button>
-          <yh-button class="yh-calendar__nav-btn" size="small" @click="moveMonth(1)">
-            {{ t('calendar.nextMonth') }}
+          <yh-button class="yh-calendar__nav-btn" size="small" @click="handleNext()">
+            {{
+              currentMode === 'year' ? t('calendar.nextYear', '下一年') : t('calendar.nextMonth')
+            }}
           </yh-button>
         </div>
       </div>
@@ -423,7 +505,7 @@ defineExpose<CalendarExpose>({
 
     <!-- 表身 -->
     <div :class="ns.e('body')">
-      <table :class="ns.e('table')">
+      <table v-if="currentMode === 'month'" :class="ns.e('table')">
         <thead>
           <tr>
             <th v-if="showWeekNumber" :class="ns.e('week-number-header')">
@@ -497,6 +579,23 @@ defineExpose<CalendarExpose>({
           </tr>
         </tbody>
       </table>
+
+      <!-- 年视图 -->
+      <div v-else :class="ns.e('months-grid')">
+        <div
+          v-for="(monthName, index) in monthsList"
+          :key="index"
+          :class="[
+            ns.e('month-cell'),
+            ns.is('current-month', displayDate.year() === now.year() && index === now.month())
+          ]"
+          @click="selectMonth(index)"
+        >
+          <div :class="ns.e('month-cell-inner')">
+            {{ monthName }}
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 底部插槽 -->

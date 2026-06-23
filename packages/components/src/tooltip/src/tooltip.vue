@@ -88,6 +88,7 @@ const popperClasses = computed(() => [
 // 核心定位逻辑
 const updatePosition = async () => {
   if (!triggerRef.value || !popperRef.value || typeof window === 'undefined') return
+  if (props.showArrow && !arrowRef.value) return
 
   const { x, y, placement, middlewareData } = await computePosition(
     triggerRef.value,
@@ -299,6 +300,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   stopAutoUpdate()
+  cleanup = null
   if (showTimer) {
     clearTimeout(showTimer)
     showTimer = null

@@ -94,6 +94,14 @@ describe('ImageMagnifier', () => {
     expect((wrapper.vm as InstanceType<typeof ImageMagnifier>).currentScale).toBe(3)
   })
 
+  it('resets currentScale to props.scale on mouseleave', async () => {
+    const wrapper = mount(ImageMagnifier, { props: { ...BASE_PROPS, scale: 2 } })
+    const vm = wrapper.vm as any
+    vm.currentScale = 4
+    await wrapper.trigger('mouseleave')
+    expect(vm.currentScale).toBe(2)
+  })
+
   it('exposes currentScale via defineExpose', () => {
     const wrapper = mount(ImageMagnifier, { props: { ...BASE_PROPS, scale: 2.5 } })
     expect((wrapper.vm as InstanceType<typeof ImageMagnifier>).currentScale).toBe(2.5)
@@ -405,5 +413,37 @@ describe('ImageMagnifier', () => {
     expect(wrapper.attributes('style')).toContain(
       '--yh-image-magnifier-preview-shadow: 0 0 20px red'
     )
+  })
+
+  it('applies loadingColor prop to root styles', () => {
+    const wrapper = mount(ImageMagnifier, {
+      props: {
+        ...BASE_PROPS,
+        loadingColor: 'rgb(255, 0, 0)'
+      }
+    })
+    expect(wrapper.attributes('style')).toContain('--yh-magnifier-loading-color: rgb(255, 0, 0)')
+  })
+
+  it('does not throw when document is undefined (SSR environment)', async () => {
+    const wrapper = mount(ImageMagnifier, {
+      props: {
+        ...BASE_PROPS,
+        clickToFullscreen: true
+      }
+    })
+
+    const origDocument = globalThis.document
+    // @ts-ignore
+    delete globalThis.document
+
+    try {
+      const vm = wrapper.vm as any
+      vm.openFullscreen()
+      await nextTick()
+      wrapper.unmount()
+    } finally {
+      globalThis.document = origDocument
+    }
   })
 })

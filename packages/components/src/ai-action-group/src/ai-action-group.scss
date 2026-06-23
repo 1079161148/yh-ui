@@ -68,4 +68,23 @@
     --yh-ai-action-icon-size: 20px;
     --yh-ai-action-gap: 12px;
   }
+
+  /* Variations by variant */
+  @include m(outlined) {
+    border: 1px solid var(--yh-border-color, #e4e7ed);
+    border-radius: calc(var(--yh-ai-action-btn-radius) + 4px);
+    padding: 2px 6px;
+    background-color: var(--yh-bg-color-overlay, #ffffff);
+  }
+  @include m(ghost) {
+    border: 1px solid var(--yh-border-color, #e4e7ed);
+    border-radius: calc(var(--yh-ai-action-btn-radius) + 4px);
+    padding: 2px 6px;
+    background-color: transparent;
+  }
+  @include m(text) {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+  }
 }

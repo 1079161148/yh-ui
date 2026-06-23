@@ -129,8 +129,9 @@ const getRoot = () => {
   if (!isClient || !container.value) return null
 
   if (typeof props.scrollContainer === 'string') {
+    if (typeof document === 'undefined') return null
     return document.querySelector(props.scrollContainer) as HTMLElement
-  } else if (props.scrollContainer instanceof HTMLElement) {
+  } else if (typeof HTMLElement !== 'undefined' && props.scrollContainer instanceof HTMLElement) {
     return props.scrollContainer
   }
 

@@ -151,11 +151,13 @@ const setupObserver = () => {
     return
   }
 
-  // 清理旧的 observer
+  // 清理旧 of observer
   if (observer) {
     observer.disconnect()
     observer = null
   }
+
+  if (!placeholderRef.value) return
 
   const rootContainer = resolveScrollContainer()
 
@@ -250,7 +252,8 @@ watch(
 
 watch(
   () => props.useObserver,
-  () => {
+  async () => {
+    await nextTick()
     if (props.useObserver) {
       if (scrollContainer.value) {
         scrollContainer.value.removeEventListener('scroll', handleScroll)

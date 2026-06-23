@@ -252,4 +252,37 @@ describe('AiConversations', () => {
     await actionBtns[2].trigger('click')
     expect(wrapper.emitted('delete')).toBeTruthy()
   })
+
+  it('should scroll to items via scrollToItem and scrollToIndex', async () => {
+    const virtualData = Array.from({ length: 100 }, (_, i) => ({
+      id: String(i),
+      title: `Conversation ${i}`,
+      updatedAt: Date.now() - i * 1000
+    }))
+    const wrapper = mount(AiConversations, {
+      props: {
+        virtualScroll: true,
+        virtualScrollHeight: 400,
+        virtualScrollItemHeight: 40,
+        data: virtualData
+      }
+    })
+
+    const vm = wrapper.vm as any
+    expect(vm.scrollToIndex).toBeDefined()
+    expect(vm.scrollToItem).toBeDefined()
+
+    // Call scrollToIndex
+    vm.scrollToIndex(10)
+    await nextTick()
+
+    // Check that scrollTop of container element was set
+    const container = wrapper.find('.yh-ai-conversations__list').element
+    expect(container.scrollTop).toBe(400) // 10 * 40
+
+    // Call scrollToItem
+    vm.scrollToItem('20')
+    await nextTick()
+    expect(container.scrollTop).toBe(800) // 20 * 40
+  })
 })

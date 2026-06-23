@@ -110,4 +110,35 @@ describe('YhCalendar', () => {
     expect(wrapper.find('.yh-calendar__week-number-header').exists()).toBe(true)
     expect(wrapper.find('.my-cell').exists()).toBe(true)
   })
+
+  it('supports month and year modes, mode switching, and month selection', async () => {
+    const wrapper = mount(YhCalendar, {
+      props: {
+        mode: 'month'
+      }
+    })
+
+    // Initially in month mode, month table should exist
+    expect(wrapper.find('.yh-calendar__table').exists()).toBe(true)
+    expect(wrapper.find('.yh-calendar__months-grid').exists()).toBe(false)
+
+    // Click title to switch to year mode
+    await wrapper.find('.yh-calendar__title').trigger('click')
+    expect(wrapper.emitted('update:mode')?.[0]).toEqual(['year'])
+    expect(wrapper.emitted('panel-change')).toBeTruthy()
+
+    // Now in year mode, month grid should exist
+    expect(wrapper.find('.yh-calendar__table').exists()).toBe(false)
+    expect(wrapper.find('.yh-calendar__months-grid').exists()).toBe(true)
+
+    // Click on the second month (index 1, Feb)
+    const months = wrapper.findAll('.yh-calendar__month-cell')
+    expect(months.length).toBe(12)
+    await months[1].trigger('click')
+
+    // Selecting a month switches back to month mode
+    expect(wrapper.emitted('update:mode')?.[1]).toEqual(['month'])
+    expect(wrapper.find('.yh-calendar__table').exists()).toBe(true)
+    expect(wrapper.find('.yh-calendar__months-grid').exists()).toBe(false)
+  })
 })

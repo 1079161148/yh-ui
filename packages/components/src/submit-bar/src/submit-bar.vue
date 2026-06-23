@@ -19,7 +19,8 @@ const { t } = useLocale()
 
 const displayPrice = computed(() => {
   const raw = props.centUnit ? props.price / 100 : props.price
-  return raw.toFixed(props.decimalLength)
+  const len = Math.max(0, Math.min(20, Number(props.decimalLength) || 0))
+  return raw.toFixed(len)
 })
 
 const priceLabel = computed(() => props.label || t('submitbar.total'))
@@ -84,8 +85,8 @@ function handleCheck(e: Event) {
             <span :class="ns.e('price')">
               <span :class="ns.e('currency')">{{ currency }}</span>
               <span :class="ns.e('price-int')">{{ displayPrice.split('.')[0] }}</span>
-              <span v-if="decimalLength > 0" :class="ns.e('price-dec')"
-                >.{{ displayPrice.split('.')[1] }}</span
+              <span v-if="Number(decimalLength) > 0" :class="ns.e('price-dec')"
+                >.{{ displayPrice.split('.')[1] || '' }}</span
               >
             </span>
           </slot>

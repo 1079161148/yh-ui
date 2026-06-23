@@ -28,6 +28,10 @@ const internalVisible = ref(false)
 const visible = computed({
   get: () => (props.visible !== null ? props.visible : internalVisible.value),
   set: (val) => {
+    if (props.visible !== null) {
+      emit('update:visible', val)
+      return
+    }
     internalVisible.value = val
     emit('update:visible', val)
   }

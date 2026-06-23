@@ -147,6 +147,7 @@ watch(dropdownVisible, (val) => {
     nextTick(updateDropdownPosition)
     emit('open')
   } else {
+    dropdownStyle.value = {}
     emit('close')
   }
 })
@@ -192,6 +193,7 @@ const debouncedSearch = (keyword: string, trigger: string) => {
 
 // ─── 事件处理：输入 ──────────────────────────────────────────────────────────
 const handleInput = (event: Event) => {
+  if ((event as unknown as { isComposing?: boolean }).isComposing) return
   const target = event.target as HTMLInputElement | HTMLTextAreaElement
   const value = target.value
   // Happy-DOM / JSDOM 中 selectionStart 可能为 null 或 0（尚未更新）

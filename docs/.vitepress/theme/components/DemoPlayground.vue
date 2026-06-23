@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, markRaw, onMounted, ref, shallowRef } from 'vue'
+import { computed, markRaw, onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import { useData, withBase } from 'vitepress'
 import { createPlaygroundProject, decodePlaygroundPayload } from '../utils/demo-sandbox'
 
@@ -7,6 +7,8 @@ const { isDark } = useData()
 const siteBase = withBase('/')
 const vueRuntimeUrl = withBase('/playground/vue-runtime.js')
 const vueServerRendererUrl = withBase('/playground/server-renderer.js')
+
+let observer: MutationObserver | null = null
 
 // 从 URL 解析 demo payload
 const payload = computed(() => {
@@ -31,7 +33,31 @@ const previewOptions = ref<{
   showRuntimeWarning?: boolean
 }>({})
 
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect()
+  }
+})
+
 onMounted(async () => {
+  if (typeof window !== 'undefined') {
+    observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node instanceof HTMLElement) {
+            const iframes = node.querySelectorAll('iframe')
+            iframes.forEach((iframe) => {
+              if (iframe.getAttribute('sandbox')?.includes('allow-same-origin')) {
+                iframe.removeAttribute('sandbox')
+              }
+            })
+          }
+        }
+      }
+    })
+    observer.observe(document.body, { childList: true, subtree: true })
+  }
+
   const value = payload.value
   if (!value) {
     errorMessage.value = '参数缺失或无效，请通过文档页面上的"打开 Playground"按钮进入。'

@@ -116,6 +116,9 @@
       @update="handleEdgeEditUpdate"
       @close="closeEdgeEditPanel"
     />
+
+    <!-- Default Slot for Minimap, Controls, FlowBackground etc. -->
+    <slot />
   </div>
 </template>
 
@@ -358,6 +361,13 @@ const readonly = ref(props.readonly || false)
 // Event Bus - 事件总线
 const eventBus = createEventBus()
 
+eventBus.on('update:nodes', (nodes) => {
+  emit('update:nodes', nodes)
+})
+eventBus.on('update:edges', (edges) => {
+  emit('update:edges', edges)
+})
+
 // Plugin Manager - 插件管理器
 const pluginManager = new PluginManager()
 
@@ -432,22 +442,24 @@ const historyManager = {
   undo: () => {
     const plugin = getHistoryPlugin()
     if (plugin) {
+      // Plugin already calls onStateRestore which emits the events
       plugin.undo()
     } else {
       localHistoryManager.undo()
+      emit('update:nodes', nodesRef.value)
+      emit('update:edges', edgesRef.value)
     }
-    emit('update:nodes', nodesRef.value)
-    emit('update:edges', edgesRef.value)
   },
   redo: () => {
     const plugin = getHistoryPlugin()
     if (plugin) {
+      // Plugin already calls onStateRestore which emits the events
       plugin.redo()
     } else {
       localHistoryManager.redo()
+      emit('update:nodes', nodesRef.value)
+      emit('update:edges', edgesRef.value)
     }
-    emit('update:nodes', nodesRef.value)
-    emit('update:edges', edgesRef.value)
   },
   clear: () => {
     const plugin = getHistoryPlugin()
@@ -1469,6 +1481,10 @@ onMounted(() => {
             enableKeyboard: false,
             onHistoryChange: (canUndo, canRedo) => {
               emit('historyChange', { canUndo, canRedo })
+            },
+            onStateRestore: (nodes, edges) => {
+              emit('update:nodes', nodes)
+              emit('update:edges', edges)
             }
           })
         )
@@ -1505,7 +1521,9 @@ onMounted(() => {
       onEscape: () => selectionManager.clearSelection()
     })
     handleKeyDown = keyboard.handleKeyDown
-    document.addEventListener('keydown', handleKeyDown)
+    if (typeof document !== 'undefined') {
+      document.addEventListener('keydown', handleKeyDown)
+    }
   }
 })
 
@@ -1514,11 +1532,13 @@ onBeforeUnmount(() => {
     resizeObserver.disconnect()
     resizeObserver = null
   }
-  if (props.keyboardShortcuts && handleKeyDown) {
-    document.removeEventListener('keydown', handleKeyDown)
+  if (typeof document !== 'undefined') {
+    if (props.keyboardShortcuts && handleKeyDown) {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+    document.removeEventListener('mousemove', handleMouseMove)
+    document.removeEventListener('mouseup', handleMouseUp)
   }
-  document.removeEventListener('mousemove', handleMouseMove)
-  document.removeEventListener('mouseup', handleMouseUp)
   // Clean up plugins and event bus
   pluginManager.destroyAll()
   eventBus.clear()

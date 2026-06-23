@@ -31,7 +31,7 @@
     <!-- Conversation List with groups -->
     <div
       v-else
-      ref="virtualScrollContainerRef"
+      ref="containerRef"
       :class="[ns.e('list'), ns.is('virtual', virtualScroll)]"
       :style="listStyle"
       @scroll.passive="virtualScroll ? handleVirtualScroll($event) : undefined"
@@ -427,7 +427,8 @@ const {
   totalHeight,
   offsetY,
   onScroll: handleVirtualScroll,
-  scrollToIndex
+  scrollToIndex,
+  containerRef
 } = useVirtualScroll({
   itemHeight: computed(() => props.virtualScrollItemHeight),
   containerHeight: computed(() => props.virtualScrollHeight),

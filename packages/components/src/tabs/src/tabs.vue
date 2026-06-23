@@ -23,6 +23,7 @@ const panes = ref<TabPaneConfig[]>([])
 const activeTab = ref<string | number>(props.modelValue)
 const navRef = ref<HTMLElement>()
 const indicatorRef = ref<HTMLElement>()
+const rootRef = ref<HTMLElement>()
 
 // 同步外部 v-model
 watch(
@@ -145,11 +146,12 @@ const updateIndicator = () => {
   indicatorRef.value.style.transform = ''
 
   // 获取 CSS 变量默认值
-  const computedStyle = getComputedStyle(navRef.value.closest(`.${ns.b()}`) as HTMLElement)
+  const rootEl = navRef.value.closest(`.${ns.b()}`) || rootRef.value
+  const computedStyle = rootEl ? getComputedStyle(rootEl) : null
   const defaultIndicatorWidth =
-    computedStyle.getPropertyValue('--yh-tabs-indicator-width').trim() || '40px'
+    computedStyle?.getPropertyValue('--yh-tabs-indicator-width').trim() || '40px'
   const defaultIndicatorHeight =
-    computedStyle.getPropertyValue('--yh-tabs-indicator-height').trim() || '20px'
+    computedStyle?.getPropertyValue('--yh-tabs-indicator-height').trim() || '20px'
 
   // 使用 getBoundingClientRect 获取更准确的位置
   const navRect = navRef.value.getBoundingClientRect()
@@ -283,7 +285,7 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="tabsClass" :style="tabsStyle">
+  <div ref="rootRef" :class="tabsClass" :style="tabsStyle">
     <!-- 标签栏 -->
     <div ref="navRef" :class="[ns.e('nav'), navClass]">
       <div :class="ns.e('nav-wrap')">

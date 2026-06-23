@@ -91,9 +91,11 @@ watch(
 const innerValue = computed({
   get: () => localValue.value,
   set: (val) => {
-    localValue.value = val
-    emit('update:modelValue', val)
-    emit('change', val)
+    if (localValue.value !== val) {
+      localValue.value = val
+      emit('update:modelValue', val)
+      emit('change', val)
+    }
   }
 })
 

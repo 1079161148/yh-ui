@@ -40,14 +40,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance, onMounted, watch } from 'vue'
 import type { ViewportTransform } from '../types'
+import { useFlowContext } from '../core/FlowContext'
 
-const props = defineProps<{
-  type?: 'dots' | 'grid'
-  color?: string
-  gap?: number
-}>()
+const props = withDefaults(
+  defineProps<{
+    type?: 'dots' | 'grid'
+    color?: string
+    gap?: number
+  }>(),
+  {
+    type: 'dots',
+    color: undefined,
+    gap: 20
+  }
+)
 
 // 唯一 id 防止多实例冲突
 const uid = getCurrentInstance()?.uid ?? Math.random().toString(36).slice(2)
@@ -60,6 +68,13 @@ const gridPathRef = ref<SVGPathElement>()
 
 const INITIAL_GAP = props.gap || 20
 const patternSize = INITIAL_GAP // 静态初始值，由 updateViewport 动态修改
+
+let flowInstance: ReturnType<typeof useFlowContext> | undefined
+try {
+  flowInstance = useFlowContext()
+} catch {
+  // 优雅处理未提供上下文的情况（例如单测中独立渲染）
+}
 
 // ★ 直接 DOM 操作，不走 Vue 响应式
 function updateViewport(t: ViewportTransform) {
@@ -86,6 +101,30 @@ function updateViewport(t: ViewportTransform) {
     gridPathRef.value.setAttribute('d', `M ${scaledGap} 0 L 0 0 0 ${scaledGap}`)
   }
 }
+
+onMounted(() => {
+  if (flowInstance) {
+    updateViewport(flowInstance.viewport.value)
+    watch(
+      flowInstance.viewport,
+      (vp) => {
+        updateViewport(vp)
+      },
+      { deep: true }
+    )
+  }
+})
+
+// 监听属性变化以立即重绘
+watch(
+  () => [props.type, props.color, props.gap],
+  () => {
+    if (flowInstance) {
+      updateViewport(flowInstance.viewport.value)
+    }
+  },
+  { deep: true }
+)
 
 // 暴露给父组件调用
 defineExpose({ updateViewport })

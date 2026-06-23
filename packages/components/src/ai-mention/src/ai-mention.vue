@@ -6,7 +6,8 @@ import {
   aiMentionEmits,
   type AiMentionOption,
   type AiMentionFileNode,
-  type AiMentionExpose
+  type AiMentionExpose,
+  type AiMentionFileLoader
 } from './ai-mention'
 import { YhMention } from '../../mention'
 import { YhIcon } from '../../icon'
@@ -132,9 +133,28 @@ const loadFileTree = async (
     let nodes: AiMentionFileNode[] = []
 
     if (props.fileLoader) {
-      nodes = await props.fileLoader(keyword, type)
+      nodes = await (props.fileLoader as AiMentionFileLoader)(keyword, type, props.fileRoot)
     } else {
       nodes = generateMockFileTree(type, keyword)
+    }
+
+    if (props.fileRoot && props.fileRoot !== '/') {
+      const prefix = props.fileRoot.endsWith('/') ? props.fileRoot.slice(0, -1) : props.fileRoot
+      const applyRoot = (list: AiMentionFileNode[]): AiMentionFileNode[] => {
+        return list.map((node) => {
+          const newNode = { ...node }
+          if (newNode.path) {
+            newNode.path = newNode.path.startsWith('/')
+              ? `${prefix}${newNode.path}`
+              : `${prefix}/${newNode.path}`
+          }
+          if (newNode.children) {
+            newNode.children = applyRoot(newNode.children)
+          }
+          return newNode
+        })
+      }
+      nodes = applyRoot(nodes)
     }
 
     fileTreeData.value = nodes
@@ -519,6 +539,10 @@ watch(showFileTree, (val) => {
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', updatePanelPosition, true)
   window.removeEventListener('resize', updatePanelPosition, true)
+  if (searchDebounceTimer) {
+    clearTimeout(searchDebounceTimer)
+    searchDebounceTimer = null
+  }
 })
 
 const refreshFileTree = () => {
@@ -573,6 +597,7 @@ defineExpose<AiMentionExpose>({
       @blur="emit('blur', $event)"
       @input="emit('input', $event)"
       @keydown="emit('keydown', $event)"
+      @change="emit('change', $event)"
     >
       <template #option="{ option }">
         <div :class="ns.e('option-item')">

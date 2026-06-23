@@ -110,7 +110,7 @@ const dropdownStyle = ref<Record<string, string>>({})
 
 // 更新下拉框位置
 const updateDropdownPosition = () => {
-  if (!wrapperRef.value || !props.teleported) return
+  if (typeof window === 'undefined' || !wrapperRef.value || !props.teleported) return
 
   const rect = wrapperRef.value.getBoundingClientRect()
 
@@ -158,19 +158,23 @@ const handleOutsideClick = (e: MouseEvent) => {
 
 // 监听窗口滚动和调整大小
 onMounted(() => {
-  if (props.teleported) {
-    window.addEventListener('scroll', updateDropdownPosition, true)
-    window.addEventListener('resize', updateDropdownPosition)
+  if (typeof window !== 'undefined') {
+    if (props.teleported) {
+      window.addEventListener('scroll', updateDropdownPosition, true)
+      window.addEventListener('resize', updateDropdownPosition)
+    }
+    window.addEventListener('click', handleOutsideClick)
   }
-  window.addEventListener('click', handleOutsideClick)
 })
 
 onBeforeUnmount(() => {
-  if (props.teleported) {
-    window.removeEventListener('scroll', updateDropdownPosition, true)
-    window.removeEventListener('resize', updateDropdownPosition)
+  if (typeof window !== 'undefined') {
+    if (props.teleported) {
+      window.removeEventListener('scroll', updateDropdownPosition, true)
+      window.removeEventListener('resize', updateDropdownPosition)
+    }
+    window.removeEventListener('click', handleOutsideClick)
   }
-  window.removeEventListener('click', handleOutsideClick)
 })
 
 // 合并选项
@@ -412,12 +416,25 @@ const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement
   query.value = target.value
 
-  if (props.remote && props.remoteMethod) {
-    props.remoteMethod(query.value)
-  } else if (props.filterMethod) {
+  if (!(props.remote && props.remoteMethod) && props.filterMethod) {
     props.filterMethod(query.value)
   }
 }
+
+watch(query, (val) => {
+  if (props.remote && props.remoteMethod) {
+    props.remoteMethod(val)
+  }
+})
+
+watch(
+  () => props.modelValue,
+  () => {
+    if (props.remote && props.remoteMethod) {
+      props.remoteMethod(query.value)
+    }
+  }
+)
 
 // 键盘导航
 const handleKeydown = (event: KeyboardEvent) => {
@@ -599,10 +616,15 @@ provide<SelectContext>(SelectContextKey, {
   onOptionDestroy
 })
 
-defineExpose<SelectExpose>({
+defineExpose<SelectExpose & { triggerRemoteMethod: (val: string) => void }>({
   focus,
   blur,
-  inputRef
+  inputRef,
+  triggerRemoteMethod: (val: string) => {
+    if (props.remote && props.remoteMethod) {
+      props.remoteMethod(val)
+    }
+  }
 })
 </script>
 

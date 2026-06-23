@@ -41,32 +41,46 @@ const defaultLabels = computed<Record<string, string>>(() => ({
   delete: t('ai.action.delete')
 }))
 
-const actionItems = computed(() => {
+interface MappedActionItem {
+  key: string
+  icon: string
+  label?: string
+  tooltip?: string
+  disabled?: boolean
+  _original: ActionItem
+}
+
+const actionItems = computed<MappedActionItem[]>(() => {
   return props.items.map((item) => {
     if (typeof item === 'string') {
       return {
         key: item,
         icon: defaultIcons[item] || 'more',
         label: '', // 通常泡泡底座不需要文字标签
-        tooltip: defaultLabels.value[item] || item
+        tooltip: defaultLabels.value[item] || item,
+        _original: item
       }
     }
     return {
       ...item,
-      icon: item.icon || defaultIcons[item.key] || 'more'
+      icon: item.icon || defaultIcons[item.key] || 'more',
+      _original: item
     }
   })
 })
 
-const handleClick = (item: ActionItem) => {
-  if (typeof item === 'object' && item.disabled) return
-  const key = typeof item === 'string' ? item : item.key
-  emit('click', key, item)
+const handleClick = (item: MappedActionItem | string) => {
+  if (typeof item === 'string') {
+    emit('click', item, item)
+    return
+  }
+  if (item.disabled) return
+  emit('click', item.key, item._original)
 }
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.m(direction), ns.m(size)]" :style="themeStyle">
+  <div :class="[ns.b(), ns.m(direction), ns.m(size), ns.m(props.variant)]" :style="themeStyle">
     <template v-for="(item, index) in actionItems" :key="index">
       <div :class="[ns.e('item'), ns.is('disabled', item.disabled)]" @click="handleClick(item)">
         <!-- 使用 Tooltip 装饰 -->

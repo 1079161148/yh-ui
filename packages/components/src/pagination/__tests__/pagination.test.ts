@@ -235,7 +235,7 @@ describe('Pagination', () => {
     )
   })
 
-  it('should expose pagination state', () => {
+  it('should expose pagination state and stay reactive', async () => {
     const wrapper = mount(YhPagination, {
       global: globalOptions,
       props: {
@@ -248,5 +248,9 @@ describe('Pagination', () => {
     expect(wrapper.vm.currentPage).toBe(2)
     expect(wrapper.vm.pageSize).toBe(20)
     expect(wrapper.vm.pageCount).toBe(5)
+
+    const items = wrapper.findAll('.yh-pagination__item')
+    await items[2].trigger('click') // click page 3
+    expect(wrapper.vm.currentPage).toBe(3)
   })
 })

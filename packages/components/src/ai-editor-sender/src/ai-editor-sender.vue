@@ -106,6 +106,22 @@ watch(
   }
 )
 
+const isComposing = ref(false)
+
+const handleCompositionStart = () => {
+  isComposing.value = true
+}
+
+const handleCompositionEnd = (e: Event) => {
+  isComposing.value = false
+  const val = (e.target as HTMLTextAreaElement).value
+  innerValue.value = val
+  nextTick(() => {
+    autoResize()
+    updateCommandPanelPosition()
+  })
+}
+
 // 计算属性
 const innerValue = computed({
   get: () => localValue.value,
@@ -113,8 +129,10 @@ const innerValue = computed({
     localValue.value = val
     emit('update:modelValue', val)
     emit('change', val)
-    // 检测命令触发
-    checkCommandTrigger(val)
+    // 检测命令触发 (输入法输入过程中不触发)
+    if (!isComposing.value) {
+      checkCommandTrigger(val)
+    }
   }
 })
 
@@ -127,7 +145,12 @@ const autoResize = () => {
 }
 
 const handleInput = (e: Event) => {
-  innerValue.value = (e.target as HTMLTextAreaElement).value
+  const val = (e.target as HTMLTextAreaElement).value
+  if (isComposing.value) {
+    localValue.value = val
+    return
+  }
+  innerValue.value = val
   nextTick(() => {
     autoResize()
     updateCommandPanelPosition()
@@ -329,6 +352,16 @@ const getCommandIcon = (command: AiCommandItem): string => {
   return 'command'
 }
 
+// 显式触发命令面板
+const triggerCommand = (keyword: string) => {
+  showCommandPanel.value = true
+  commandSearchText.value = keyword
+  filterCommands(keyword)
+  selectedCommandIndex.value = 0
+  emit('command-panel-show')
+  emit('command-search', keyword)
+}
+
 // 暴露方法
 defineExpose({
   focus: () => textareaRef.value?.focus(),
@@ -336,7 +369,8 @@ defineExpose({
   clear: () => {
     localValue.value = ''
     hideCommandPanel()
-  }
+  },
+  triggerCommand
 })
 </script>
 
@@ -383,6 +417,8 @@ defineExpose({
         @blur="isFocused = false"
         @input="handleInput"
         @keydown="handleKeyDown"
+        @compositionstart="handleCompositionStart"
+        @compositionend="handleCompositionEnd"
       ></textarea>
     </div>
 

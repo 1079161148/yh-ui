@@ -90,6 +90,7 @@ const watermarkInnerStyle = computed<CSSProperties>(() => {
  * 核心渲染逻辑：生成高质量水印数据
  */
 const renderWatermark = () => {
+  if (typeof document === 'undefined') return
   const canvas = document.createElement('canvas')
   const ratio = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
 
@@ -145,7 +146,7 @@ const renderWatermark = () => {
  * 创建或强制更新水印节点
  */
 const createOrUpdateWatermark = () => {
-  if (!containerRef.value) return
+  if (typeof document === 'undefined' || !containerRef.value) return
 
   if (watermarkRef && watermarkRef.parentNode) {
     watermarkRef.parentNode.removeChild(watermarkRef)
@@ -245,9 +246,18 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  if (darkObserver) darkObserver.disconnect()
-  if (observer) observer.disconnect()
-  if (checkTimer) clearInterval(checkTimer)
+  if (checkTimer) {
+    clearInterval(checkTimer)
+    checkTimer = null
+  }
+  if (observer) {
+    observer.disconnect()
+    observer = null
+  }
+  if (darkObserver) {
+    darkObserver.disconnect()
+    darkObserver = null
+  }
   if (watermarkRef && watermarkRef.parentNode) {
     watermarkRef.parentNode.removeChild(watermarkRef)
   }

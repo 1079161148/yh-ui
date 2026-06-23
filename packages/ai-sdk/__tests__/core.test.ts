@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { nextTick } from 'vue'
+import { nextTick, ref } from 'vue'
 import {
   createStreamableValue,
   useStreamableValue,
@@ -1189,7 +1189,7 @@ describe('AI-SDK bug fixes: XRequest cache, Date parsing, useAIChat cleanup', ()
     expect(messages.value[0].role).toBe('user')
   })
 
-  it('useConversation and useConversations truncate restored arrays by maxHistory / maxConversations', () => {
+  it('useConversation and useConversations truncate restored arrays by maxHistory / maxConversations and update storage', () => {
     // 1. useConversation maxHistory truncation on load
     const storageKeyH = 'test-conversation-trunc'
     localStorage.setItem(
@@ -1204,6 +1204,12 @@ describe('AI-SDK bug fixes: XRequest cache, Date parsing, useAIChat cleanup', ()
     expect(messages.value).toHaveLength(2)
     expect(messages.value[0].content).toBe('msg2')
     expect(messages.value[1].content).toBe('msg3')
+
+    // Verify it wrote back to localStorage immediately
+    const updatedStoredH = JSON.parse(localStorage.getItem(storageKeyH) || '[]')
+    expect(updatedStoredH).toHaveLength(2)
+    expect(updatedStoredH[0].content).toBe('msg2')
+    expect(updatedStoredH[1].content).toBe('msg3')
 
     // 2. useConversations maxConversations truncation on load
     const storageKeyC = 'test-conversations-trunc'
@@ -1224,8 +1230,14 @@ describe('AI-SDK bug fixes: XRequest cache, Date parsing, useAIChat cleanup', ()
       maxConversations: 2
     })
     expect(conversations.value).toHaveLength(2)
-    expect(conversations.value[0].title).toBe('conv2')
-    expect(conversations.value[1].title).toBe('conv3')
+    expect(conversations.value[0].title).toBe('conv1')
+    expect(conversations.value[1].title).toBe('conv2')
+
+    // Verify it wrote back to localStorage immediately
+    const updatedStoredC = JSON.parse(localStorage.getItem(storageKeyC) || '{}')
+    expect(updatedStoredC.conversations).toHaveLength(2)
+    expect(updatedStoredC.conversations[0].title).toBe('conv1')
+    expect(updatedStoredC.conversations[1].title).toBe('conv2')
   })
 
   it('XRequest propagates requestId and extra configurations as headers', async () => {
@@ -1257,5 +1269,83 @@ describe('AI-SDK bug fixes: XRequest cache, Date parsing, useAIChat cleanup', ()
         })
       })
     )
+  })
+
+  it('useConversation and useConversations support reactive options and slice message history/conversations dynamically', async () => {
+    // 1. useConversation dynamic maxHistory change
+    const maxHistoryRef = ref(4)
+    const { messages, addMessage } = useConversation({ maxHistory: maxHistoryRef })
+
+    addMessage({ role: 'user', content: '1' })
+    addMessage({ role: 'user', content: '2' })
+    addMessage({ role: 'user', content: '3' })
+    addMessage({ role: 'user', content: '4' })
+    expect(messages.value).toHaveLength(4)
+
+    // Decrease maxHistory dynamically
+    maxHistoryRef.value = 2
+    await nextTick()
+    expect(messages.value).toHaveLength(2)
+    expect(messages.value[0].content).toBe('3')
+    expect(messages.value[1].content).toBe('4')
+
+    // 2. useConversations dynamic maxConversations and maxHistory change
+    const maxConvsRef = ref(3)
+    const maxHistoryConvsRef = ref(4)
+    const {
+      conversations,
+      create,
+      addMessage: addMsgConv
+    } = useConversations({
+      maxConversations: maxConvsRef,
+      maxHistory: maxHistoryConvsRef
+    })
+
+    // Create 3 conversations
+    const c1 = create()
+    const c2 = create()
+    const c3 = create()
+    expect(conversations.value).toHaveLength(3)
+
+    // Add messages to current conversation (c3)
+    addMsgConv({ role: 'user', content: '1' })
+    addMsgConv({ role: 'user', content: '2' })
+    addMsgConv({ role: 'user', content: '3' })
+    addMsgConv({ role: 'user', content: '4' })
+    expect(conversations.value.find((c) => c.id === c3)?.messages).toHaveLength(4)
+
+    // Decrease maxHistoryConvsRef dynamically
+    maxHistoryConvsRef.value = 2
+    await nextTick()
+    expect(conversations.value.find((c) => c.id === c3)?.messages).toHaveLength(2)
+    expect(conversations.value.find((c) => c.id === c3)?.messages[0].content).toBe('3')
+
+    // Decrease maxConvsRef dynamically
+    maxConvsRef.value = 2
+    await nextTick()
+    expect(conversations.value).toHaveLength(2)
+  })
+
+  it('useConversations.saveConversations slices conversations and messages before writing to localStorage', () => {
+    localStorage.clear()
+    const maxConvsRef = ref(2)
+    const maxHistoryRef = ref(2)
+    const storageKey = 'test-save-slicing'
+
+    const { conversations, create, addMessage } = useConversations({
+      persist: true,
+      storageKey,
+      maxConversations: maxConvsRef,
+      maxHistory: maxHistoryRef
+    })
+
+    create()
+    addMessage({ role: 'user', content: 'm1' })
+    addMessage({ role: 'user', content: 'm2' })
+    addMessage({ role: 'user', content: 'm3' })
+
+    const stored = JSON.parse(localStorage.getItem(storageKey) || '{}')
+    expect(stored.conversations[0].messages).toHaveLength(2)
+    expect(stored.conversations[0].messages[0].content).toBe('m2')
   })
 })

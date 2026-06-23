@@ -206,4 +206,5 @@ export interface AiEditorSenderExpose {
   focus: () => void
   blur: () => void
   clear: () => void
+  triggerCommand: (keyword: string) => void
 }

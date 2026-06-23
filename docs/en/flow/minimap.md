@@ -4,12 +4,35 @@
 
 ## Basic Usage
 
-### Enabling the Minimap
+### Enabling the Minimap (Props Method)
 
 ```vue
 <template>
   <yh-flow :nodes="nodes" :edges="edges" show-minimap />
 </template>
+```
+
+### Using Slots for Sub-components (Recommended Method)
+
+In addition to using props like `show-minimap`, you can also place the minimap, controls, and background components directly inside the default slot of `yh-flow` for more flexible configuration:
+
+```vue
+<template>
+  <yh-flow :nodes="nodes" :edges="edges">
+    <yh-minimap :width="180" :height="130" position="bottom-right" />
+    <yh-controls position="bottom-left" />
+    <yh-flow-background type="grid" />
+  </yh-flow>
+</template>
+
+<script setup lang="ts">
+import {
+  YhFlow,
+  Minimap as YhMinimap,
+  Controls as YhControls,
+  FlowBackground as YhFlowBackground
+} from '@yh-ui/flow'
+</script>
 ```
 
 ### Minimap Position
@@ -99,6 +122,7 @@ const handleLayoutChange = (layout: string) => {
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toJs, _T, _S, _St } from '../../.vitepress/theme/utils/demo-utils'
+import { Minimap, Controls, FlowBackground } from '@yh-ui/flow'
 import type { Node, Edge, ViewportTransform } from '@yh-ui/flow'
 import dagre from 'dagre'
 
@@ -251,6 +275,41 @@ const applyLayout = async (layout = 'dagre', direction = 'TB') => {
 }
 </${_St}>`;
 const jsCode = toJs(tsCode);
+
+const slotNodes = ref<Node[]>([
+  { id: '1', type: 'input', position: { x: 100, y: 120 }, data: { label: 'Slot Placement - Start' }, width: 150, height: 50 },
+  { id: '2', type: 'output', position: { x: 400, y: 120 }, data: { label: 'Slot Placement - End' }, width: 150, height: 50 }
+])
+const slotEdges = ref<Edge[]>([
+  { id: 'e1-2', source: '1', target: '2' }
+])
+
+const tsSlotDemo = `<template>
+  <div style="border: 1px solid #e2e8f0; border-radius: 8px; height: 500px; overflow: hidden;">
+    <yh-flow :nodes="nodes" :edges="edges" style="width: 100%; height: 100%;">
+      <Minimap />
+      <Controls />
+      <FlowBackground type="grid" />
+    </yh-flow>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { Minimap, Controls, FlowBackground } from '@yh-ui/flow'
+import type { Node, Edge } from '@yh-ui/flow'
+
+const nodes = ref<Node[]>([
+  { id: '1', type: 'input', position: { x: 100, y: 120 }, data: { label: 'Slot Placement - Start' }, width: 150, height: 50 },
+  { id: '2', type: 'output', position: { x: 400, y: 120 }, data: { label: 'Slot Placement - End' }, width: 150, height: 50 }
+])
+
+const edges = ref<Edge[]>([
+  { id: 'e1-2', source: '1', target: '2' }
+])
+<\/script>`
+
+const jsSlotDemo = toJs(tsSlotDemo)
 </script>
 
 <DemoBlock title="Interactive Minimap Demo" :ts-code="tsCode" :js-code="jsCode">
@@ -270,6 +329,16 @@ const jsCode = toJs(tsCode);
         @direction-change="handleDirectionChange"
         style="width:100%;height:100%;"
       ></yh-flow>
+  </div>
+</DemoBlock>
+
+<DemoBlock title="Slot-based Sub-components" :ts-code="tsSlotDemo" :js-code="jsSlotDemo">
+  <div style="border:1px solid #e2e8f0;border-radius:8px;height:500px;overflow:hidden;">
+    <yh-flow :nodes="slotNodes" :edges="slotEdges" style="width:100%;height:100%;">
+      <Minimap />
+      <Controls />
+      <FlowBackground type="grid" />
+    </yh-flow>
   </div>
 </DemoBlock>
 

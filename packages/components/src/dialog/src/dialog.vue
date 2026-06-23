@@ -3,7 +3,7 @@
  * YhDialog - 对话框
  * @description 旗舰级弹窗组件，深度对标 市面组件库 / Naive UI。支持亚克力玻璃态、智能拖拽、锁定滚动、焦点捕获等顶级能力。
  */
-import { ref, watch, computed, nextTick, onMounted, onBeforeUnmount, type CSSProperties } from 'vue'
+import { ref, watch, computed, nextTick, onBeforeUnmount, type CSSProperties } from 'vue'
 import { useNamespace, useEventListener, useId, useScrollLock, useLocale } from '@yh-ui/hooks'
 import { useComponentTheme } from '@yh-ui/theme'
 import { YhIcon } from '../../icon'
@@ -25,19 +25,30 @@ const dialogId = useId()
 // 组件级 themeOverrides
 const lastClickPos = ref<{ x: number; y: number } | null>(null)
 
-const handleDocumentClick = (e: MouseEvent) => {
+const handleDocumentClick = (e: PointerEvent) => {
   lastClickPos.value = { x: e.clientX, y: e.clientY }
 }
 
-onMounted(() => {
-  if (typeof window !== 'undefined') {
-    document.addEventListener('click', handleDocumentClick, true)
-  }
-})
+useEventListener(
+  () => (typeof document !== 'undefined' ? document : null),
+  'pointerdown',
+  (e) => handleDocumentClick(e as PointerEvent),
+  true
+)
 
 onBeforeUnmount(() => {
-  if (typeof window !== 'undefined') {
-    document.removeEventListener('click', handleDocumentClick, true)
+  if (typeof document !== 'undefined') {
+    if (activeMouseMoveListener) {
+      document.removeEventListener('mousemove', activeMouseMoveListener)
+      activeMouseMoveListener = null
+    }
+    if (activeMouseUpListener) {
+      document.removeEventListener('mouseup', activeMouseUpListener)
+      activeMouseUpListener = null
+    }
+  }
+  if (typeof window !== 'undefined' && prevFocusedElement) {
+    prevFocusedElement.focus()
   }
 })
 
@@ -58,6 +69,8 @@ useScrollLock(computed(() => props.modelValue && props.lockScroll))
 // 拖拽逻辑增强
 const offset = ref({ x: 0, y: 0 })
 const isDragging = ref(false)
+let activeMouseMoveListener: ((e: MouseEvent) => void) | null = null
+let activeMouseUpListener: ((e: MouseEvent) => void) | null = null
 
 const handleMouseDown = (e: MouseEvent) => {
   if (!props.draggable || props.fullscreen) return
@@ -111,12 +124,21 @@ const handleMouseDown = (e: MouseEvent) => {
   const onMouseUp = (upEvent: MouseEvent) => {
     isDragging.value = false
     emit('dragEnd', upEvent)
-    document.removeEventListener('mousemove', onMouseMove)
-    document.removeEventListener('mouseup', onMouseUp)
+    if (typeof document !== 'undefined') {
+      document.removeEventListener('mousemove', onMouseMove)
+      document.removeEventListener('mouseup', onMouseUp)
+    }
+    activeMouseMoveListener = null
+    activeMouseUpListener = null
   }
 
-  document.addEventListener('mousemove', onMouseMove)
-  document.addEventListener('mouseup', onMouseUp)
+  activeMouseMoveListener = onMouseMove
+  activeMouseUpListener = onMouseUp
+
+  if (typeof document !== 'undefined') {
+    document.addEventListener('mousemove', onMouseMove)
+    document.addEventListener('mouseup', onMouseUp)
+  }
 }
 
 // 焦点管理
@@ -262,6 +284,9 @@ const footerStyle = computed(() => {
 
 // 显示/隐藏逻辑
 const doClose = () => {
+  if (typeof window !== 'undefined' && prevFocusedElement) {
+    prevFocusedElement.focus()
+  }
   emit('update:modelValue', false)
 }
 
@@ -328,6 +353,19 @@ watch(
       emit('opened')
     } else {
       visible.value = false
+      if (isDragging.value) {
+        isDragging.value = false
+        if (typeof document !== 'undefined') {
+          if (activeMouseMoveListener) {
+            document.removeEventListener('mousemove', activeMouseMoveListener)
+            activeMouseMoveListener = null
+          }
+          if (activeMouseUpListener) {
+            document.removeEventListener('mouseup', activeMouseUpListener)
+            activeMouseUpListener = null
+          }
+        }
+      }
       if (typeof window !== 'undefined' && prevFocusedElement) {
         prevFocusedElement.focus()
       }

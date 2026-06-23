@@ -30,7 +30,8 @@ export interface SkuItem {
 export function useSKU(
   specs: SkuSpec[],
   skus: SkuItem[],
-  initialSelection: Array<string | number> = []
+  initialSelection: Array<string | number> = [],
+  checkStock: boolean = true
 ) {
   const selectedValueIds = ref<(string | number)[]>(initialSelection)
 
@@ -40,7 +41,7 @@ export function useSKU(
     const dict: Record<string, number> = {}
 
     skus.forEach((sku) => {
-      if (sku.stock <= 0) return
+      if (checkStock && sku.stock <= 0) return
 
       // 生成当前 SKU 的所有子集组合作为路径
       const powerSet = getPowerSet(sku.specValueIds)
@@ -72,8 +73,8 @@ export function useSKU(
 
     if (!query) return true
 
-    // 如果路径字典中存在该组合，说明有库存可选
-    return !!pathDict.value[query]
+    // 如果路径字典中存在该组合，说明有该 SKU (当不校验库存时) 或有库存可选 (当校验库存时)
+    return query in pathDict.value
   }
 
   // 切换选中

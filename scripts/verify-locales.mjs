@@ -117,9 +117,15 @@ function repairObject(baseline, target) {
     const baseVal = baseline[key]
     const targetVal = target[key]
     if (typeof baseVal === 'object' && baseVal !== null && !Array.isArray(baseVal)) {
-      result[key] = repairObject(baseVal, typeof targetVal === 'object' && targetVal !== null && !Array.isArray(targetVal) ? targetVal : {})
+      result[key] = repairObject(
+        baseVal,
+        typeof targetVal === 'object' && targetVal !== null && !Array.isArray(targetVal)
+          ? targetVal
+          : {}
+      )
     } else {
-      result[key] = targetVal !== undefined && typeof targetVal === typeof baseVal ? targetVal : baseVal
+      result[key] =
+        targetVal !== undefined && typeof targetVal === typeof baseVal ? targetVal : baseVal
     }
   }
   return result
@@ -173,9 +179,27 @@ async function main() {
   console.log(`Baseline language: en (${baselineKeys.length} keys found)`)
 
   const semanticChecks = [
-    { lang: 'ja', checks: [{ path: 'yh.common.yes', expected: 'はい' }, { path: 'yh.common.no', expected: 'いい越' }] }, // wait, no is いいえ, let's fix check below
-    { lang: 'zh-cn', checks: [{ path: 'yh.common.yes', expected: '是' }, { path: 'yh.common.no', expected: '否' }] },
-    { lang: 'en', checks: [{ path: 'yh.common.yes', expected: 'Yes' }, { path: 'yh.common.no', expected: 'No' }] }
+    {
+      lang: 'ja',
+      checks: [
+        { path: 'yh.common.yes', expected: 'はい' },
+        { path: 'yh.common.no', expected: 'いい越' }
+      ]
+    }, // wait, no is いいえ, let's fix check below
+    {
+      lang: 'zh-cn',
+      checks: [
+        { path: 'yh.common.yes', expected: '是' },
+        { path: 'yh.common.no', expected: '否' }
+      ]
+    },
+    {
+      lang: 'en',
+      checks: [
+        { path: 'yh.common.yes', expected: 'Yes' },
+        { path: 'yh.common.no', expected: 'No' }
+      ]
+    }
   ]
 
   let hasErrors = false
@@ -200,7 +224,9 @@ async function main() {
 
     const missingKeys = baselineKeys.filter((k) => !targetPaths[k])
     const extraKeys = targetKeys.filter((k) => !baselinePaths[k])
-    const typeMismatches = baselineKeys.filter((k) => targetPaths[k] && targetPaths[k] !== baselinePaths[k])
+    const typeMismatches = baselineKeys.filter(
+      (k) => targetPaths[k] && targetPaths[k] !== baselinePaths[k]
+    )
 
     // Run semantic checks
     const semanticErrors = []
@@ -219,7 +245,11 @@ async function main() {
       }
     }
 
-    const fileHasIssue = missingKeys.length > 0 || extraKeys.length > 0 || typeMismatches.length > 0 || semanticErrors.length > 0
+    const fileHasIssue =
+      missingKeys.length > 0 ||
+      extraKeys.length > 0 ||
+      typeMismatches.length > 0 ||
+      semanticErrors.length > 0
 
     if (fileHasIssue) {
       console.log(`\nLocale checks for [${langName}]:`)
@@ -230,7 +260,12 @@ async function main() {
         console.log(`  - Extra keys (${extraKeys.length}):`, extraKeys.join(', '))
       }
       if (typeMismatches.length > 0) {
-        console.log(`  - Type mismatches (${typeMismatches.length}):`, typeMismatches.map((k) => `${k} (expected ${baselinePaths[k]}, got ${targetPaths[k]})`).join(', '))
+        console.log(
+          `  - Type mismatches (${typeMismatches.length}):`,
+          typeMismatches
+            .map((k) => `${k} (expected ${baselinePaths[k]}, got ${targetPaths[k]})`)
+            .join(', ')
+        )
       }
       if (semanticErrors.length > 0) {
         console.log(`  - Semantic errors (${semanticErrors.length}):`, semanticErrors.join(', '))
@@ -239,7 +274,7 @@ async function main() {
 
       if (isFix) {
         console.log(`  -> Fixing and rewriting packages/locale/src/lang/${tsFile}...`)
-        
+
         // Correct semantic values if it's ja yes/no
         if (langName === 'ja') {
           if (target.yh?.common) {
@@ -271,11 +306,15 @@ export default ${camelName}
     if (isFix) {
       console.log('\n[FIX COMPLETED] Please rebuild the packages and re-run to verify.')
     } else {
-      console.error('\n[ERROR] Locale consistency check failed. Run `node scripts/verify-locales.mjs --fix` to auto-align structures.')
+      console.error(
+        '\n[ERROR] Locale consistency check failed. Run `node scripts/verify-locales.mjs --fix` to auto-align structures.'
+      )
       process.exit(1)
     }
   } else {
-    console.log('\n[SUCCESS] All locale files are structurally consistent and semantically correct!')
+    console.log(
+      '\n[SUCCESS] All locale files are structurally consistent and semantically correct!'
+    )
   }
 }
 

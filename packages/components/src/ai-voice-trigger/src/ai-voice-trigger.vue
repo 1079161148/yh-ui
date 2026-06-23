@@ -54,9 +54,17 @@ const syncAmplitudes = () => {
 
 const toggleRecording = () => {
   if (props.recording === undefined || props.recording === null) {
+    // Uncontrolled mode
     localRecording.value = !localRecording.value
-    if (localRecording.value) startVisualizer()
-    else stopVisualizer()
+    if (localRecording.value) {
+      emit('update:recording', true)
+      emit('start')
+      startVisualizer()
+    } else {
+      emit('update:recording', false)
+      emit('stop')
+      stopVisualizer()
+    }
     return
   }
 
@@ -74,7 +82,12 @@ const toggleRecording = () => {
 
 const handleCancel = (e: Event) => {
   e.stopPropagation()
+  // In uncontrolled mode, also reset local state
+  if (props.recording === undefined || props.recording === null) {
+    localRecording.value = false
+  }
   emit('update:recording', false)
+  emit('stop')
   emit('cancel')
   stopVisualizer()
 }
@@ -117,7 +130,7 @@ watch(isCurrentlyRecording, (active) => {
         ns.b(),
         ns.m(props.variant),
         ns.m(props.position),
-        ns.is('recording', props.recording || localRecording)
+        ns.is('recording', isCurrentlyRecording)
       ]"
       :style="[
         props.variant !== 'inline'
@@ -133,7 +146,7 @@ watch(isCurrentlyRecording, (active) => {
       <div :class="ns.e('body')">
         <!-- Waveform Visualizer -->
         <Transition name="yh-voice-expand">
-          <div v-if="props.recording || localRecording" :class="ns.e('visualizer')">
+          <div v-if="isCurrentlyRecording" :class="ns.e('visualizer')">
             <!-- Sphere Visualizer (Pulsing Ball) -->
             <template v-if="props.variant === 'sphere'">
               <div :class="ns.e('sphere-glow')"></div>
@@ -171,22 +184,16 @@ watch(isCurrentlyRecording, (active) => {
 
         <!-- Main Trigger Button -->
         <button
-          :class="[ns.e('trigger'), { 'is-active': props.recording || localRecording }]"
+          :class="[ns.e('trigger'), { 'is-active': isCurrentlyRecording }]"
           @click="toggleRecording"
         >
           <span :class="ns.e('mic')">
-            <template v-if="props.variant === 'sphere' && (props.recording || localRecording)">
+            <template v-if="props.variant === 'sphere' && isCurrentlyRecording">
               <div :class="ns.e('sphere-inner')"></div>
             </template>
-            <YhIcon
-              v-else
-              :name="props.recording || localRecording ? 'video-pause' : 'microphone'"
-            />
+            <YhIcon v-else :name="isCurrentlyRecording ? 'video-pause' : 'microphone'" />
           </span>
-          <span
-            v-if="!(props.recording || localRecording) && props.variant === 'inline'"
-            :class="ns.e('label')"
-          >
+          <span v-if="!isCurrentlyRecording && props.variant === 'inline'" :class="ns.e('label')">
             <slot>{{ t('ai.voice.trigger') }}</slot>
           </span>
         </button>

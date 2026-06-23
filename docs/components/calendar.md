@@ -326,6 +326,7 @@ const jsNuxt = toJs(tsNuxt)
 | update:modelValue    | 单选值变化时触发     | `(value: Date) => void`                                   |
 | update:rangeValue    | 范围选择完成时触发   | `(value: [Date \| undefined, Date \| undefined]) => void` |
 | update:multipleValue | 多选值变化时触发     | `(value: Date[]) => void`                                 |
+| update:mode          | 日历模式变化时触发   | `(mode: 'month' \| 'year') => void`                       |
 | change               | 单选值变化时触发     | `(value: Date) => void`                                   |
 | panel-change         | 面板月份变化时触发   | `(date: Date, mode: 'month' \| 'year') => void`           |
 | select               | 选择日期单元格时触发 | `(date: Date, cell: CalendarDateCell) => void`            |

@@ -46,7 +46,6 @@ const priorityComponents = new Set([
   'YhAiMermaid'
 ])
 
-
 const componentGroups = [
   {
     title: 'Base and form components',

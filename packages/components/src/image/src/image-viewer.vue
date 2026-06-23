@@ -31,6 +31,7 @@ const handleClose = () => {
 
 // ViewerJS Logic
 const initViewerJS = async () => {
+  if (typeof document === 'undefined') return
   let ViewerClass
   try {
     ViewerClass = await loadViewer()
@@ -52,7 +53,7 @@ const initViewerJS = async () => {
     ...props.viewerOptions,
     initialViewIndex: props.initialIndex,
     hidden: () => {
-      if (viewerList) {
+      if (viewerList && typeof document !== 'undefined') {
         document.body.removeChild(viewerList)
         viewerList = null
       }
@@ -120,6 +121,24 @@ watch(
   }
 )
 
+watch(
+  () => props.urlList,
+  async () => {
+    if (props.viewerMode === 'viewerjs') {
+      if (viewer) {
+        viewer.destroy()
+        viewer = null
+      }
+      if (typeof document !== 'undefined' && viewerList) {
+        document.body.removeChild(viewerList)
+        viewerList = null
+      }
+      await initViewerJS()
+    }
+  },
+  { deep: true }
+)
+
 const handleKeyDown = (e: KeyboardEvent) => {
   if (props.viewerMode === 'viewerjs') return
 
@@ -137,20 +156,24 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 onMounted(async () => {
-  if (props.viewerMode === 'viewerjs') {
-    await initViewerJS()
-  } else {
-    window.addEventListener('keydown', handleKeyDown)
+  if (typeof window !== 'undefined') {
+    if (props.viewerMode === 'viewerjs') {
+      await initViewerJS()
+    } else {
+      window.addEventListener('keydown', handleKeyDown)
+    }
   }
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeyDown)
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('keydown', handleKeyDown)
+  }
   if (viewer) {
     viewer.destroy()
     viewer = null
   }
-  if (viewerList) {
+  if (typeof document !== 'undefined' && viewerList) {
     document.body.removeChild(viewerList)
     viewerList = null
   }

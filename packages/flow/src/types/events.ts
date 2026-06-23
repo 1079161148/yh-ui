@@ -29,6 +29,8 @@ export interface FlowEvents {
   'connect:start': { connection: Connection; nativeEvent: MouseEvent }
   'connect:end': { connection: Connection; nativeEvent: MouseEvent }
   'connect:cancel': void
+  'update:nodes': Node[]
+  'update:edges': Edge[]
 }
 
 export type FlowEventKey = keyof FlowEvents

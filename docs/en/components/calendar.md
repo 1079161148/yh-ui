@@ -326,6 +326,7 @@ After installing `@yh-ui/nuxt`, you can use `YhCalendar` directly. The static ca
 | update:modelValue    | Triggered when the single value changes   | `(value: Date) => void`                                   |
 | update:rangeValue    | Triggered when range selection completes  | `(value: [Date \| undefined, Date \| undefined]) => void` |
 | update:multipleValue | Triggered when the multiple value changes | `(value: Date[]) => void`                                 |
+| update:mode          | Triggered when calendar mode changes      | `(mode: 'month' \| 'year') => void`                       |
 | change               | Triggered when the single value changes   | `(value: Date) => void`                                   |
 | panel-change         | Triggered when the visible month changes  | `(date: Date, mode: 'month' \| 'year') => void`           |
 | select               | Triggered when a date cell is selected    | `(date: Date, cell: CalendarDateCell) => void`            |

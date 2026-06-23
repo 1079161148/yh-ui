@@ -617,11 +617,12 @@ const jsSizes = toJs(tsSizes)
 
 ### Expose
 
-| 名称     | 说明               | 类型                                 |
-| -------- | ------------------ | ------------------------------------ |
-| focus    | 让输入框获得焦点   | `() => void`                         |
-| blur     | 让输入框失去焦点   | `() => void`                         |
-| inputRef | 内部输入框实例引用 | `Ref<HTMLInputElement \| undefined>` |
+| 名称                | 说明               | 类型                                 |
+| ------------------- | ------------------ | ------------------------------------ |
+| focus               | 让输入框获得焦点   | `() => void`                         |
+| blur                | 让输入框失去焦点   | `() => void`                         |
+| inputRef            | 内部输入框实例引用 | `Ref<HTMLInputElement \| undefined>` |
+| triggerRemoteMethod | 主动触发远程搜索   | `(query: string) => void`            |
 
 ### Option Props
 

@@ -218,7 +218,7 @@ describe('YhAiArtifacts', () => {
     })
 
     await nextTick()
-    expect(createSpy).toHaveBeenCalledTimes(1)
+    expect(createSpy).toHaveBeenCalledTimes(2)
     expect(revokeSpy).toHaveBeenCalledTimes(0)
 
     // Trigger update of version
@@ -232,11 +232,11 @@ describe('YhAiArtifacts', () => {
 
     // Old URL should be revoked, new URL created
     expect(revokeSpy).toHaveBeenCalledTimes(1)
-    expect(createSpy).toHaveBeenCalledTimes(2)
+    expect(createSpy).toHaveBeenCalledTimes(3)
 
     // Unmount while visible
     wrapper.unmount()
-    expect(revokeSpy).toHaveBeenCalledTimes(2)
+    expect(revokeSpy).toHaveBeenCalledTimes(3)
   })
 
   it('should restrict preview iframe with sandbox attribute', async () => {
@@ -278,5 +278,135 @@ describe('YhAiArtifacts', () => {
     })
     await nextTick()
     expect(wrapper.find('.yh-ai-artifacts__echarts-wrapper').isVisible()).toBe(true)
+  })
+
+  it('should render image, video, audio, pdf, text, and iframe preview types correctly', async () => {
+    // 1. Image
+    const wrapperImg = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: {
+          ...mockData,
+          type: 'image',
+          versions: [{ version: 1, content: 'https://example.com/img.png' }]
+        }
+      }
+    })
+    expect(wrapperImg.find('.yh-ai-artifacts__image-container img').attributes('src')).toBe(
+      'https://example.com/img.png'
+    )
+    const imgIcon = wrapperImg.findComponent({ name: 'YhIcon' })
+    expect(imgIcon.props('name')).toBe('image')
+
+    // 2. Video
+    const wrapperVid = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: {
+          ...mockData,
+          type: 'video',
+          versions: [{ version: 1, content: 'https://example.com/vid.mp4' }]
+        }
+      }
+    })
+    expect(wrapperVid.find('.yh-ai-artifacts__video-container video').attributes('src')).toBe(
+      'https://example.com/vid.mp4'
+    )
+    const vidIcon = wrapperVid.findComponent({ name: 'YhIcon' })
+    expect(vidIcon.props('name')).toBe('file-video')
+
+    // 3. Audio
+    const wrapperAud = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: {
+          ...mockData,
+          type: 'audio',
+          versions: [{ version: 1, content: 'https://example.com/aud.mp3' }]
+        }
+      }
+    })
+    expect(wrapperAud.find('.yh-ai-artifacts__audio-container audio').attributes('src')).toBe(
+      'https://example.com/aud.mp3'
+    )
+    const audIcon = wrapperAud.findComponent({ name: 'YhIcon' })
+    expect(audIcon.props('name')).toBe('file-audio')
+
+    // 4. PDF
+    const wrapperPdf = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: {
+          ...mockData,
+          type: 'pdf',
+          versions: [{ version: 1, content: 'https://example.com/doc.pdf' }]
+        }
+      }
+    })
+    expect(wrapperPdf.find('.yh-ai-artifacts__content iframe').attributes('src')).toBe(
+      'https://example.com/doc.pdf'
+    )
+    const pdfIcon = wrapperPdf.findComponent({ name: 'YhIcon' })
+    expect(pdfIcon.props('name')).toBe('file-pdf')
+
+    // 5. Text
+    const wrapperTxt = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: { ...mockData, type: 'text', versions: [{ version: 1, content: 'Hello World' }] }
+      }
+    })
+    expect(wrapperTxt.find('.yh-ai-artifacts__content pre').text()).toBe('Hello World')
+    const txtIcon = wrapperTxt.findComponent({ name: 'YhIcon' })
+    expect(txtIcon.props('name')).toBe('document-text')
+
+    // 6. Iframe
+    const wrapperIframe = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: {
+          ...mockData,
+          type: 'iframe',
+          versions: [{ version: 1, content: 'https://example.com' }]
+        }
+      }
+    })
+    expect(wrapperIframe.find('.yh-ai-artifacts__content iframe').attributes('src')).toBe(
+      'https://example.com'
+    )
+    const iframeIcon = wrapperIframe.findComponent({ name: 'YhIcon' })
+    expect(iframeIcon.props('name')).toBe('link')
+  })
+
+  it('should support dynamic slots for overriding any preview type', async () => {
+    const wrapperCustom = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: {
+          ...mockData,
+          type: 'vue',
+          versions: [{ version: 1, content: '<h1>Custom Vue Component</h1>' }]
+        }
+      },
+      slots: {
+        vue: (slotProps: any) => h('div', { class: 'custom-vue-preview' }, slotProps.data.content)
+      }
+    })
+    await nextTick()
+    expect(wrapperCustom.find('.custom-vue-preview').exists()).toBe(true)
+    expect(wrapperCustom.find('.custom-vue-preview').text()).toBe('<h1>Custom Vue Component</h1>')
+  })
+
+  it('should support fullscreen option', () => {
+    const wrapper = mount(AiArtifacts, {
+      props: {
+        visible: true,
+        data: mockData,
+        fullscreen: true
+      }
+    })
+    const root = wrapper.find('.yh-ai-artifacts')
+    expect(root.classes()).toContain('is-fullscreen')
+    expect((root.element as HTMLElement).style.width).toBe('100%')
   })
 })

@@ -621,11 +621,12 @@ Use `size` to switch between `large`, default, and `small`.
 
 ### Expose
 
-| Name     | Description                       | Type                                 |
-| -------- | --------------------------------- | ------------------------------------ |
-| focus    | Focuses the input                 | `() => void`                         |
-| blur     | Blurs the input                   | `() => void`                         |
-| inputRef | Ref to the internal input element | `Ref<HTMLInputElement \| undefined>` |
+| Name                | Description                                        | Type                                 |
+| ------------------- | -------------------------------------------------- | ------------------------------------ |
+| focus               | Focuses the input                                  | `() => void`                         |
+| blur                | Blurs the input                                    | `() => void`                         |
+| inputRef            | Ref to the internal input element                  | `Ref<HTMLInputElement \| undefined>` |
+| triggerRemoteMethod | Programmatically triggers the remote search method | `(query: string) => void`            |
 
 ### Option Props
 

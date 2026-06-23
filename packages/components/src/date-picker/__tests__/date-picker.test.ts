@@ -342,4 +342,47 @@ describe('YhDatePicker', () => {
     const lastEmit = emits[emits.length - 1]
     expect(lastEmit).toEqual([new Date(2024, 0, 1)])
   })
+
+  it('respects dateFormat prop in rendering the display value', async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        modelValue: new Date(2026, 5, 23),
+        dateFormat: 'YYYY/MM/DD'
+      }
+    })
+    expect(wrapper.find('input').element.value).toBe('2026/06/23')
+  })
+
+  it('applies the appropriate class for different presetPosition options', async () => {
+    const positions = ['left', 'right', 'top', 'bottom'] as const
+    for (const position of positions) {
+      const wrapper = mount(DatePicker, {
+        props: {
+          presets: [{ label: 'Today', value: new Date() }],
+          presetPosition: position,
+          panelOnly: true
+        }
+      })
+      const panel = wrapper.find('.yh-date-picker__panel')
+      expect(panel.classes()).toContain(`yh-date-picker__panel--has-presets-${position}`)
+      expect(wrapper.find('.yh-date-picker__presets').classes()).toContain(`is-${position}`)
+
+      // Verify DOM structure layout
+      if (position === 'left' || position === 'right') {
+        // presets is outside main
+        const firstChild = panel.element.firstElementChild as HTMLElement
+        expect(firstChild.classList.contains('yh-date-picker__presets')).toBe(true)
+      } else if (position === 'top') {
+        // presets is inside main as first child
+        const main = panel.find('.yh-date-picker__main')
+        const firstChild = main.element.firstElementChild as HTMLElement
+        expect(firstChild.classList.contains('yh-date-picker__presets')).toBe(true)
+      } else if (position === 'bottom') {
+        // presets is inside main as last child
+        const main = panel.find('.yh-date-picker__main')
+        const lastChild = main.element.lastElementChild as HTMLElement
+        expect(lastChild.classList.contains('yh-date-picker__presets')).toBe(true)
+      }
+    }
+  })
 })

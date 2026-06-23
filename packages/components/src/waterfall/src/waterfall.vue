@@ -157,29 +157,40 @@ onBeforeUnmount(() => {
     resizeObserver.disconnect()
     resizeObserver = null
   }
+  if (heightResetTimer !== null) {
+    clearTimeout(heightResetTimer)
+    heightResetTimer = null
+  }
 })
 
 const isRefreshing = computed(() => props.loading && props.items && props.items.length > 0)
 
 // 维护一个最小高度，防止切换时抖动
 const minContainerHeight = ref<string>('auto')
+let heightResetTimer: ReturnType<typeof setTimeout> | null = null
 
 watch(
   () => props.loading,
   (val: boolean) => {
     if (val && containerRef.value) {
       // 开启加载时切换，记录当前高度作为最小高度，防止塌陷
+      if (heightResetTimer !== null) {
+        clearTimeout(heightResetTimer)
+        heightResetTimer = null
+      }
       const height = containerRef.value.offsetHeight
       if (height > 0) {
         minContainerHeight.value = `${height}px`
       }
     } else {
       // 加载结束后的重置逻辑
-      nextTick(() => {
-        setTimeout(() => {
-          minContainerHeight.value = 'auto'
-        }, 300) // 延迟重置，给入场动画留出时间
-      })
+      if (heightResetTimer !== null) {
+        clearTimeout(heightResetTimer)
+      }
+      heightResetTimer = setTimeout(() => {
+        minContainerHeight.value = 'auto'
+        heightResetTimer = null
+      }, 300) // 延迟重置，给入场动画留出时间
     }
   }
 )

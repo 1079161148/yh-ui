@@ -15,7 +15,8 @@ const runtimeOutputs = [
   resolve(playgroundOutDir, 'server-renderer.js'),
   resolve(playgroundOutDir, 'yh-ui-runtime.js'),
   resolve(playgroundOutDir, 'yh-ui-bundle.js'),
-  resolve(playgroundOutDir, 'yh-ui-bundle.css')
+  resolve(playgroundOutDir, 'yh-ui-bundle.css'),
+  resolve(playgroundOutDir, 'yh-ui-sandbox-bundle.js')
 ]
 
 const PLAYGROUND_YH_UI_EXTERNALS = [
@@ -127,7 +128,7 @@ async function buildYhUiRuntime() {
     build: {
       ...createSharedConfig().build,
       lib: {
-        entry: resolve(rootDir, 'packages/yh-ui/src/index.ts'),
+        entry: resolve(rootDir, 'packages/yh-ui/src/sandbox-entry.ts'),
         formats: ['es'],
         fileName: () => 'yh-ui-bundle.js',
         cssFileName: 'yh-ui-bundle'
@@ -138,6 +139,56 @@ async function buildYhUiRuntime() {
           inlineDynamicImports: true,
           manualChunks: undefined,
           exports: 'named'
+        }
+      }
+    }
+  })
+}
+
+/**
+ * Self-contained sandbox bundle for the Vue SFC iframe renderer.
+ * Only 'vue' is external – all other deps (@yh-ui/icons, dayjs, @floating-ui/dom, etc.)
+ * are bundled inline so the iframe importmap only needs a single 'vue' entry.
+ * This is the bundle referenced by the docs' yhSandboxYhUiUrl provide value.
+ */
+async function buildYhUiSandboxBundle() {
+  await build({
+    ...createSharedConfig(),
+    resolve: {
+      alias: [
+        {
+          find: '@yh-ui/components',
+          replacement: resolve(rootDir, 'packages/components/src/index.ts')
+        },
+        { find: '@yh-ui/hooks', replacement: resolve(rootDir, 'packages/hooks/src/index.ts') },
+        { find: '@yh-ui/utils', replacement: resolve(rootDir, 'packages/utils/src/index.ts') },
+        { find: '@yh-ui/locale', replacement: resolve(rootDir, 'packages/locale/src/runtime.ts') },
+        {
+          find: /^@yh-ui\/theme\/(.*)$/,
+          replacement: `${resolve(rootDir, 'packages/theme/src')}/$1`
+        },
+        { find: '@yh-ui/theme', replacement: resolve(rootDir, 'packages/theme/src/index.ts') }
+      ]
+    },
+    build: {
+      ...createSharedConfig().build,
+      lib: {
+        entry: resolve(rootDir, 'packages/yh-ui/src/sandbox-entry.ts'),
+        formats: ['es'],
+        // Output name is different from yh-ui-bundle.js to avoid confusion
+        fileName: () => 'yh-ui-sandbox-bundle.js',
+        // Re-use the same CSS – consumers can reference yh-ui-bundle.css
+        cssFileName: 'yh-ui-sandbox-bundle'
+      },
+      rollupOptions: {
+        // Only vue is external; everything else (icons, dayjs, floating-ui …) is bundled
+        external: ['vue'],
+        output: {
+          inlineDynamicImports: true,
+          manualChunks: undefined,
+          // 'auto' preserves the default export from sandbox-entry.ts
+          // so `(await import(...)).default` resolves to { install, createYhUI }
+          exports: 'auto'
         }
       }
     }
@@ -232,6 +283,7 @@ async function main() {
   await buildFlowRuntime()
   await buildHooksRuntime()
   await buildYhUiRuntime()
+  await buildYhUiSandboxBundle()
   await buildYhUiInstallerRuntime()
   await copyVueRuntimeAssets()
   await updateBuildCache('build-playground-runtime', fingerprint, runtimeOutputs)

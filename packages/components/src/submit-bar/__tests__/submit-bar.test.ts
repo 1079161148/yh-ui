@@ -104,4 +104,17 @@ describe('SubmitBar', () => {
     await wrapper.find('.yh-submit-bar__btn').trigger('click')
     expect(wrapper.emitted('submit')).toBeFalsy()
   })
+
+  it('handles string decimalLength safely', () => {
+    const wrapper = mount(SubmitBar, {
+      props: {
+        price: 100.5,
+        centUnit: false,
+        // @ts-ignore
+        decimalLength: '0'
+      }
+    })
+    expect(wrapper.find('.yh-submit-bar__price-int').text()).toBe('101')
+    expect(wrapper.find('.yh-submit-bar__price-dec').exists()).toBe(false)
+  })
 })

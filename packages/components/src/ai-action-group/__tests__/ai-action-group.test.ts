@@ -57,6 +57,14 @@ describe('YhAiActionGroup', () => {
     expect(wrapper.classes()).toContain('yh-ai-action-group--large')
   })
 
+  it('should apply variant classes', () => {
+    const wrapper = mount(AiActionGroup, { props: { items: [], variant: 'outlined' } })
+    expect(wrapper.classes()).toContain('yh-ai-action-group--outlined')
+
+    const wrapper2 = mount(AiActionGroup, { props: { items: [], variant: 'ghost' } })
+    expect(wrapper2.classes()).toContain('yh-ai-action-group--ghost')
+  })
+
   // ─── Click event ─────────────────────────────────────────
   it('should emit click event on item click', async () => {
     const wrapper = mount(AiActionGroup, {

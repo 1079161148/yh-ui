@@ -1170,6 +1170,7 @@ export function createPlaygroundProject(
   const yhUiBundleUrl = resolveSiteAssetUrl(base, 'playground/yh-ui-bundle.js')
   importMap.imports['@yh-ui/yh-ui'] = yhUiBundleUrl
   importMap.imports['@yh-ui/yh-ui/full'] = yhUiBundleUrl
+  importMap.imports['@yh-ui/components'] = yhUiBundleUrl
   importMap.imports['@yh-ui/flow'] = resolveSiteAssetUrl(base, 'playground/yh-flow-runtime.js')
   importMap.imports['@iconify/vue'] =
     `${ESM_CDN}/@iconify/vue@4.1.2?bundle&external=vue&target=esnext`
@@ -1189,6 +1190,9 @@ export function createPlaygroundProject(
     ].join('\n'),
     useCode: [
       `app.use(YhUI)`,
+      `app.provide('yhSandboxYhUiUrl', '${resolveSiteAssetUrl(base, 'playground/yh-ui-sandbox-bundle.js')}')`,
+      `app.provide('yhSandboxYhUiCssUrl', '${resolveSiteAssetUrl(base, 'playground/yh-ui-sandbox-bundle.css')}')`,
+      `app.provide('yhSandboxRendererUrl', '${resolveSiteAssetUrl(base, 'vue-renderer.html')}')`,
       `app.config.globalProperties.navigateTo = (to) => {`,
       `  const target = typeof to === 'string' ? to : to?.path ?? to?.fullPath ?? to?.href ?? '/'`,
       `  if (typeof window !== 'undefined' && typeof target === 'string') {`,

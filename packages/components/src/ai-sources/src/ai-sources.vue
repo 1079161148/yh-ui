@@ -81,9 +81,9 @@ const scrollToSource = (id: string | number) => {
   const el = sourceRefs.value[id]
   if (el) {
     el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    el.classList.add(ns.is('highlighted'))
+    el.classList.add(ns.is('highlighted', true))
     setTimeout(() => {
-      el.classList.remove(ns.is('highlighted'))
+      el.classList.remove(ns.is('highlighted', true))
       highlightedSourceId.value = null
     }, 2000)
   }

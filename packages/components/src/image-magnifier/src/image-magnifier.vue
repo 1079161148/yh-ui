@@ -19,11 +19,12 @@ const { themeStyle } = useComponentTheme(
 
 // ─── Root style ───────────────────────────────────────────────────────────────
 const rootStyle = computed<Record<string, string>>(() => {
-  const { width, height } = props
+  const { width, height, loadingColor } = props
   return {
     ...(themeStyle.value as Record<string, string>),
     width: typeof width === 'number' ? `${width}px` : (width as string),
-    height: typeof height === 'number' ? `${height}px` : (height as string)
+    height: typeof height === 'number' ? `${height}px` : (height as string),
+    ...(loadingColor ? { '--yh-magnifier-loading-color': loadingColor } : {})
   }
 })
 
@@ -143,6 +144,7 @@ const handleMouseEnter = () => {
 
 const handleMouseLeave = () => {
   visible.value = false
+  currentScale.value = props.scale
   emit('leave')
   emit('zoom-end')
 }
@@ -182,18 +184,34 @@ const handleWheel = (e: WheelEvent) => {
 }
 
 // ─── Wheel event (non-passive, must use addEventListener) ─────────────────────
+let wheelListener: ((e: WheelEvent) => void) | null = null
+
 const addWheelListener = () => {
-  containerRef.value?.addEventListener('wheel', handleWheel, { passive: false })
+  if (!props.wheelZoom || !containerRef.value) return
+  removeWheelListener()
+  wheelListener = (e: WheelEvent) => {
+    handleWheel(e)
+  }
+  containerRef.value.addEventListener('wheel', wheelListener, { passive: false })
 }
 const removeWheelListener = () => {
-  containerRef.value?.removeEventListener('wheel', handleWheel)
+  if (wheelListener && containerRef.value) {
+    containerRef.value.removeEventListener('wheel', wheelListener)
+    wheelListener = null
+  }
 }
 
-watch(containerRef, (el) => {
-  if (el) {
-    nextTick(addWheelListener)
-  }
-})
+watch(
+  [containerRef, () => props.wheelZoom],
+  ([el, wz]) => {
+    if (el && wz) {
+      nextTick(addWheelListener)
+    } else {
+      removeWheelListener()
+    }
+  },
+  { immediate: true }
+)
 
 // onUnmounted 统一在下方全屏块中处理
 
@@ -293,6 +311,7 @@ const handleFullscreenKeydown = (e: KeyboardEvent) => {
 // 全屏时锁定 body/html 滚动 + 挂载 Esc 监听
 // 锁定 body 可防止 VitePress 等框架滚动容器遮挡 fixed 弹层
 watch(fullscreenVisible, (val) => {
+  if (typeof document === 'undefined') return
   if (val) {
     document.addEventListener('keydown', handleFullscreenKeydown)
     document.documentElement.style.overflow = 'hidden'
@@ -306,9 +325,11 @@ watch(fullscreenVisible, (val) => {
 
 onUnmounted(() => {
   removeWheelListener()
-  document.removeEventListener('keydown', handleFullscreenKeydown)
-  document.documentElement.style.overflow = ''
-  document.body.style.overflow = ''
+  if (typeof document !== 'undefined') {
+    document.removeEventListener('keydown', handleFullscreenKeydown)
+    document.documentElement.style.overflow = ''
+    document.body.style.overflow = ''
+  }
 })
 
 defineExpose({ visible, currentScale, currentIndex, switchImage })

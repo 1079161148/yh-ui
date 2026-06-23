@@ -723,4 +723,22 @@ describe('YhMention 事件', () => {
 
     wrapper.unmount()
   })
+
+  it('should skip trigger parsing during IME composition', async () => {
+    const wrapper = mount(Mention, {
+      props: { modelValue: '', options: mockOptions, debounce: 0, teleported: false },
+      attachTo: document.body
+    })
+    const input = wrapper.find('input')
+    const el = input.element as HTMLInputElement
+    el.value = '@'
+    const event = new Event('input', { bubbles: true })
+    Object.defineProperty(event, 'isComposing', { value: true })
+    el.dispatchEvent(event)
+    await new Promise((r) => setTimeout(r, 50))
+    await nextTick()
+
+    // Since isComposing is true, search event should not be emitted
+    expect(wrapper.emitted('search')).toBeFalsy()
+  })
 })

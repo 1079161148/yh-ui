@@ -182,6 +182,12 @@ const selectSize = computed(
 
 const getFormat = () => {
   if (props.format) return props.format
+  if (props.dateFormat) {
+    if (props.type.includes('datetime')) {
+      return `${props.dateFormat} ${props.timeFormat || 'HH:mm:ss'}`
+    }
+    return props.dateFormat
+  }
   return DEFAULT_FORMATS[props.type] || 'YYYY-MM-DD'
 }
 
@@ -421,7 +427,8 @@ const DEFAULT_PANEL_WIDTH = 380
 
 const dropdownStyle = ref<Record<string, string>>({})
 const updatePosition = async () => {
-  if (!wrapperRef.value || !props.teleported || props.panelOnly) return
+  if (typeof window === 'undefined' || !wrapperRef.value || !props.teleported || props.panelOnly)
+    return
   await nextTick()
 
   const rect = wrapperRef.value.getBoundingClientRect()
@@ -500,7 +507,7 @@ watch(visible, (val: boolean) => {
     currentView.value = getInitialView(props.type)
     void updatePosition()
     syncInnerDate() // 每次打开时重新校准视图锚点
-    if (!props.panelOnly) {
+    if (!props.panelOnly && typeof window !== 'undefined') {
       window.addEventListener('click', handleOutsideClick, true)
       if (props.teleported) {
         window.addEventListener('scroll', updatePosition, true)
@@ -511,7 +518,7 @@ watch(visible, (val: boolean) => {
     if (!confirmed.value) {
       emitChange(originalValue.value)
     }
-    if (!props.panelOnly) {
+    if (!props.panelOnly && typeof window !== 'undefined') {
       window.removeEventListener('click', handleOutsideClick, true)
       window.removeEventListener('scroll', updatePosition, true)
       window.removeEventListener('resize', updatePosition)
@@ -583,7 +590,7 @@ const handleConfirmClick = () => {
 
 onMounted(() => {
   syncInnerDate() // 初始同步一次日期，确保 panel-only 或初始状态正确
-  if (visible.value && !props.panelOnly) {
+  if (visible.value && !props.panelOnly && typeof window !== 'undefined') {
     void updatePosition()
     window.addEventListener('click', handleOutsideClick, true)
     if (props.teleported) {
@@ -594,7 +601,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  if (!props.panelOnly) {
+  if (!props.panelOnly && typeof window !== 'undefined') {
     window.removeEventListener('click', handleOutsideClick, true)
     window.removeEventListener('scroll', updatePosition, true)
     window.removeEventListener('resize', updatePosition)
@@ -682,99 +689,19 @@ onBeforeUnmount(() => {
         <div
           ref="panelRef"
           v-if="visible"
-          :class="[ns.e('panel'), popperClass, ns.is('plain', panelOnly)]"
+          :class="[
+            ns.e('panel'),
+            popperClass,
+            ns.is('plain', panelOnly),
+            presets.length > 0 ? ns.em('panel', 'has-presets-' + presetPosition) : ''
+          ]"
           :style="!panelOnly && props.teleported ? dropdownStyle : {}"
           @click.stop
         >
-          <div :class="ns.e('header')">
-            <div :class="ns.e('header-group')">
-              <button
-                :class="[ns.e('header-btns'), ns.em('header-btns', 'double-left')]"
-                @click="moveYear(-1)"
-              >
-                «
-              </button>
-              <button
-                v-if="currentView === 'date'"
-                :class="[ns.e('header-btns'), ns.em('header-btns', 'left')]"
-                @click="moveMonth(-1)"
-              >
-                ‹
-              </button>
-            </div>
-            <span :class="ns.e('header-label')" @click="handleHeaderClick">{{ headerLabel }}</span>
-            <div :class="ns.e('header-group')">
-              <button
-                v-if="currentView === 'date'"
-                :class="[ns.e('header-btns'), ns.em('header-btns', 'right')]"
-                @click="moveMonth(1)"
-              >
-                ›
-              </button>
-              <button
-                :class="[ns.e('header-btns'), ns.em('header-btns', 'double-right')]"
-                @click="moveYear(1)"
-              >
-                »
-              </button>
-            </div>
-          </div>
-
-          <div :class="ns.e('content')">
-            <DateTable
-              v-if="currentView === 'date'"
-              :date="innerDate"
-              :selected-date="parsedSelectedDate"
-              :selection-mode="type === 'week' ? 'week' : 'date'"
-              :range-state="parsedRangeState"
-              :disabled-date="disabledDate"
-              :first-day-of-week="firstDayOfWeek"
-              :cell-shape="cellShape"
-              :cell-render="cellRender"
-              @select="handleSelect"
-              @hover="(val: Date | null) => (rangeHoverDate = val)"
-            >
-              <template #date-cell="slotProps">
-                <slot name="date-cell" v-bind="slotProps" />
-              </template>
-            </DateTable>
-            <MonthTable
-              v-else-if="currentView === 'month'"
-              :date="innerDate"
-              :selected-date="parsedSelectedDate"
-              :range-state="parsedRangeState"
-              :disabled-date="disabledDate"
-              :cell-shape="cellShape"
-              @select="handleSelect"
-              @hover="(val: Date | null) => (rangeHoverDate = val)"
-            />
-            <YearTable
-              v-else-if="currentView === 'year'"
-              :date="innerDate"
-              :selected-date="parsedSelectedDate"
-              :range-state="parsedRangeState"
-              :disabled-date="disabledDate"
-              :cell-shape="cellShape"
-              @select="handleSelect"
-              @hover="(val: Date | null) => (rangeHoverDate = val)"
-            />
-            <QuarterTable
-              v-else-if="currentView === 'quarter'"
-              :date="innerDate"
-              :selected-date="parsedSelectedDate"
-              :range-state="parsedRangeState"
-              :disabled-date="disabledDate"
-              :cell-shape="cellShape"
-              @select="handleSelect"
-              @hover="(val: Date | null) => (rangeHoverDate = val)"
-            />
-          </div>
-
-          <div v-if="$slots.extra" :class="ns.e('extra')">
-            <slot name="extra"></slot>
-          </div>
-
-          <div v-if="presets.length > 0" :class="ns.e('presets')">
+          <div
+            v-if="presets.length > 0 && (presetPosition === 'left' || presetPosition === 'right')"
+            :class="[ns.e('presets'), ns.is(presetPosition)]"
+          >
             <button
               v-for="p in presets"
               :key="p.label"
@@ -785,47 +712,120 @@ onBeforeUnmount(() => {
             </button>
           </div>
 
-          <div v-if="shouldShowFooter" :class="ns.e('footer')">
-            <slot name="footer">
-              <div v-if="type === 'datetime'" :class="ns.e('footer-time')">
-                <select v-model="timeState.hour" @change="updateSingleTime">
-                  <option v-for="h in 24" :key="h - 1" :value="h - 1">
-                    {{ String(h - 1).padStart(2, '0') }}
-                  </option>
-                </select>
-                <span :class="ns.e('time-separator')">:</span>
-                <select v-model="timeState.minute" @change="updateSingleTime">
-                  <option v-for="m in 60" :key="m - 1" :value="m - 1">
-                    {{ String(m - 1).padStart(2, '0') }}
-                  </option>
-                </select>
-                <span
-                  v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
-                  :class="ns.e('time-separator')"
-                  >:</span
+          <div :class="ns.e('main')">
+            <div
+              v-if="presets.length > 0 && presetPosition === 'top'"
+              :class="[ns.e('presets'), ns.is('top')]"
+            >
+              <button
+                v-for="p in presets"
+                :key="p.label"
+                :class="ns.e('preset-item')"
+                @click="handlePresetClick(p)"
+              >
+                {{ p.label }}
+              </button>
+            </div>
+            <div :class="ns.e('header')">
+              <div :class="ns.e('header-group')">
+                <button
+                  :class="[ns.e('header-btns'), ns.em('header-btns', 'double-left')]"
+                  @click="moveYear(-1)"
                 >
-                <select
-                  v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
-                  v-model="timeState.second"
-                  @change="updateSingleTime"
+                  «
+                </button>
+                <button
+                  v-if="currentView === 'date'"
+                  :class="[ns.e('header-btns'), ns.em('header-btns', 'left')]"
+                  @click="moveMonth(-1)"
                 >
-                  <option v-for="s in 60" :key="s - 1" :value="s - 1">
-                    {{ String(s - 1).padStart(2, '0') }}
-                  </option>
-                </select>
+                  ‹
+                </button>
               </div>
-              <div v-else-if="type === 'datetimerange'" :class="ns.e('footer-time-range')">
-                <div :class="ns.e('footer-time')">
-                  <span :class="ns.e('time-label')"
-                    >{{ t('datepicker.startTime') || 'Start' }}:</span
-                  >
-                  <select v-model="startTimeState.hour" @change="updateRangeStartTime">
+              <span :class="ns.e('header-label')" @click="handleHeaderClick">{{
+                headerLabel
+              }}</span>
+              <div :class="ns.e('header-group')">
+                <button
+                  v-if="currentView === 'date'"
+                  :class="[ns.e('header-btns'), ns.em('header-btns', 'right')]"
+                  @click="moveMonth(1)"
+                >
+                  ›
+                </button>
+                <button
+                  :class="[ns.e('header-btns'), ns.em('header-btns', 'double-right')]"
+                  @click="moveYear(1)"
+                >
+                  »
+                </button>
+              </div>
+            </div>
+
+            <div :class="ns.e('content')">
+              <DateTable
+                v-if="currentView === 'date'"
+                :date="innerDate"
+                :selected-date="parsedSelectedDate"
+                :selection-mode="type === 'week' ? 'week' : 'date'"
+                :range-state="parsedRangeState"
+                :disabled-date="disabledDate"
+                :first-day-of-week="firstDayOfWeek"
+                :cell-shape="cellShape"
+                :cell-render="cellRender"
+                @select="handleSelect"
+                @hover="(val: Date | null) => (rangeHoverDate = val)"
+              >
+                <template #date-cell="slotProps">
+                  <slot name="date-cell" v-bind="slotProps" />
+                </template>
+              </DateTable>
+              <MonthTable
+                v-else-if="currentView === 'month'"
+                :date="innerDate"
+                :selected-date="parsedSelectedDate"
+                :range-state="parsedRangeState"
+                :disabled-date="disabledDate"
+                :cell-shape="cellShape"
+                @select="handleSelect"
+                @hover="(val: Date | null) => (rangeHoverDate = val)"
+              />
+              <YearTable
+                v-else-if="currentView === 'year'"
+                :date="innerDate"
+                :selected-date="parsedSelectedDate"
+                :range-state="parsedRangeState"
+                :disabled-date="disabledDate"
+                :cell-shape="cellShape"
+                @select="handleSelect"
+                @hover="(val: Date | null) => (rangeHoverDate = val)"
+              />
+              <QuarterTable
+                v-else-if="currentView === 'quarter'"
+                :date="innerDate"
+                :selected-date="parsedSelectedDate"
+                :range-state="parsedRangeState"
+                :disabled-date="disabledDate"
+                :cell-shape="cellShape"
+                @select="handleSelect"
+                @hover="(val: Date | null) => (rangeHoverDate = val)"
+              />
+            </div>
+
+            <div v-if="$slots.extra" :class="ns.e('extra')">
+              <slot name="extra"></slot>
+            </div>
+
+            <div v-if="shouldShowFooter" :class="ns.e('footer')">
+              <slot name="footer">
+                <div v-if="type === 'datetime'" :class="ns.e('footer-time')">
+                  <select v-model="timeState.hour" @change="updateSingleTime">
                     <option v-for="h in 24" :key="h - 1" :value="h - 1">
                       {{ String(h - 1).padStart(2, '0') }}
                     </option>
                   </select>
                   <span :class="ns.e('time-separator')">:</span>
-                  <select v-model="startTimeState.minute" @change="updateRangeStartTime">
+                  <select v-model="timeState.minute" @change="updateSingleTime">
                     <option v-for="m in 60" :key="m - 1" :value="m - 1">
                       {{ String(m - 1).padStart(2, '0') }}
                     </option>
@@ -837,59 +837,104 @@ onBeforeUnmount(() => {
                   >
                   <select
                     v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
-                    v-model="startTimeState.second"
-                    @change="updateRangeStartTime"
+                    v-model="timeState.second"
+                    @change="updateSingleTime"
                   >
                     <option v-for="s in 60" :key="s - 1" :value="s - 1">
                       {{ String(s - 1).padStart(2, '0') }}
                     </option>
                   </select>
                 </div>
-                <div :class="ns.e('footer-time')">
-                  <span :class="ns.e('time-label')">{{ t('datepicker.endTime') || 'End' }}:</span>
-                  <select v-model="endTimeState.hour" @change="updateRangeEndTime">
-                    <option v-for="h in 24" :key="h - 1" :value="h - 1">
-                      {{ String(h - 1).padStart(2, '0') }}
-                    </option>
-                  </select>
-                  <span :class="ns.e('time-separator')">:</span>
-                  <select v-model="endTimeState.minute" @change="updateRangeEndTime">
-                    <option v-for="m in 60" :key="m - 1" :value="m - 1">
-                      {{ String(m - 1).padStart(2, '0') }}
-                    </option>
-                  </select>
-                  <span
-                    v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
-                    :class="ns.e('time-separator')"
-                    >:</span
-                  >
-                  <select
-                    v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
-                    v-model="endTimeState.second"
-                    @change="updateRangeEndTime"
-                  >
-                    <option v-for="s in 60" :key="s - 1" :value="s - 1">
-                      {{ String(s - 1).padStart(2, '0') }}
-                    </option>
-                  </select>
+                <div v-else-if="type === 'datetimerange'" :class="ns.e('footer-time-range')">
+                  <div :class="ns.e('footer-time')">
+                    <span :class="ns.e('time-label')"
+                      >{{ t('datepicker.startTime') || 'Start' }}:</span
+                    >
+                    <select v-model="startTimeState.hour" @change="updateRangeStartTime">
+                      <option v-for="h in 24" :key="h - 1" :value="h - 1">
+                        {{ String(h - 1).padStart(2, '0') }}
+                      </option>
+                    </select>
+                    <span :class="ns.e('time-separator')">:</span>
+                    <select v-model="startTimeState.minute" @change="updateRangeStartTime">
+                      <option v-for="m in 60" :key="m - 1" :value="m - 1">
+                        {{ String(m - 1).padStart(2, '0') }}
+                      </option>
+                    </select>
+                    <span
+                      v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                      :class="ns.e('time-separator')"
+                      >:</span
+                    >
+                    <select
+                      v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                      v-model="startTimeState.second"
+                      @change="updateRangeStartTime"
+                    >
+                      <option v-for="s in 60" :key="s - 1" :value="s - 1">
+                        {{ String(s - 1).padStart(2, '0') }}
+                      </option>
+                    </select>
+                  </div>
+                  <div :class="ns.e('footer-time')">
+                    <span :class="ns.e('time-label')">{{ t('datepicker.endTime') || 'End' }}:</span>
+                    <select v-model="endTimeState.hour" @change="updateRangeEndTime">
+                      <option v-for="h in 24" :key="h - 1" :value="h - 1">
+                        {{ String(h - 1).padStart(2, '0') }}
+                      </option>
+                    </select>
+                    <span :class="ns.e('time-separator')">:</span>
+                    <select v-model="endTimeState.minute" @change="updateRangeEndTime">
+                      <option v-for="m in 60" :key="m - 1" :value="m - 1">
+                        {{ String(m - 1).padStart(2, '0') }}
+                      </option>
+                    </select>
+                    <span
+                      v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                      :class="ns.e('time-separator')"
+                      >:</span
+                    >
+                    <select
+                      v-if="(props.timeFormat || 'HH:mm:ss').toLowerCase().includes('s')"
+                      v-model="endTimeState.second"
+                      @change="updateRangeEndTime"
+                    >
+                      <option v-for="s in 60" :key="s - 1" :value="s - 1">
+                        {{ String(s - 1).padStart(2, '0') }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div :class="ns.e('footer-btns')">
-                <button
-                  v-if="isRange || type.includes('datetime')"
-                  :class="ns.e('footer-btn')"
-                  @click="!panelOnly && (visible = false)"
-                >
-                  {{ t('datepicker.cancel') }}
-                </button>
-                <button
-                  :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]"
-                  @click="handleConfirmClick"
-                >
-                  {{ t('datepicker.confirm') }}
-                </button>
-              </div>
-            </slot>
+                <div :class="ns.e('footer-btns')">
+                  <button
+                    v-if="isRange || type.includes('datetime')"
+                    :class="ns.e('footer-btn')"
+                    @click="!panelOnly && (visible = false)"
+                  >
+                    {{ t('datepicker.cancel') }}
+                  </button>
+                  <button
+                    :class="[ns.e('footer-btn'), ns.e('footer-btn--confirm')]"
+                    @click="handleConfirmClick"
+                  >
+                    {{ t('datepicker.confirm') }}
+                  </button>
+                </div>
+              </slot>
+            </div>
+            <div
+              v-if="presets.length > 0 && presetPosition === 'bottom'"
+              :class="[ns.e('presets'), ns.is('bottom')]"
+            >
+              <button
+                v-for="p in presets"
+                :key="p.label"
+                :class="ns.e('preset-item')"
+                @click="handlePresetClick(p)"
+              >
+                {{ p.label }}
+              </button>
+            </div>
           </div>
         </div>
       </Transition>

@@ -39,16 +39,15 @@ const { visibleItems, totalHeight, offsetY, startIndex, onScroll, scrollToIndex,
 const scrollRef = containerRef
 
 // 自动滚动到底部
-const scrollToBottom = () => {
+const scrollToBottom = async () => {
   if (!props.autoScroll) return
 
-  nextTick(() => {
-    if (props.virtualScroll) {
-      scrollToIndex(props.items.length - 1)
-    } else if (scrollRef.value) {
-      scrollRef.value.scrollTop = scrollRef.value.scrollHeight
-    }
-  })
+  await nextTick()
+  if (props.virtualScroll) {
+    scrollToIndex(props.items.length - 1)
+  } else if (scrollRef.value) {
+    scrollRef.value.scrollTop = scrollRef.value.scrollHeight
+  }
 }
 
 watch(

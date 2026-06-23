@@ -387,48 +387,54 @@ const attrAccept = (file: File, accept: string) => {
  * 处理选中的文件
  */
 const handleFiles = async (files: File[]) => {
-  // 总体限制校验
-  if (props.limit && props.fileList.length + files.length > props.limit) {
-    emit('exceed', files, props.fileList)
-    return
-  }
-
-  const validFiles: UploadFile[] = []
-
-  for (const file of files) {
-    const rawFile = file as UploadRawFile
-
-    // 1. Auto remove: format validation (by accept)
-    if (props.accept && !attrAccept(rawFile, props.accept)) {
+  // 1. 同步校验 accept 和 maxSize
+  const filteredByRules = files.filter((file) => {
+    if (props.accept && !attrAccept(file, props.accept)) {
       console.warn(
-        `[YhUpload] Auto Remove: File format does not match \"${props.accept}\" - ${rawFile.name}`
+        `[YhUpload] Auto Remove: File format does not match "${props.accept}" - ${file.name}`
       )
-      continue
+      return false
     }
-
-    // 2. Auto remove: size validation
-    if (props.maxSize && rawFile.size / 1024 > props.maxSize) {
-      console.warn(`[YhUpload] Auto Remove: File size exceeds limit - ${rawFile.name}`)
-      continue
+    if (props.maxSize && file.size / 1024 > props.maxSize) {
+      console.warn(`[YhUpload] Auto Remove: File size exceeds limit - ${file.name}`)
+      return false
     }
+    return true
+  })
 
-    // 3. beforeUpload 钩子拦截
+  // 2. 异步校验 beforeUpload 并保留结果
+  const passedFiles: { rawFile: UploadRawFile; finalFile: UploadRawFile }[] = []
+  for (const file of filteredByRules) {
+    const rawFile = file as UploadRawFile
+    let finalFile = rawFile
+
     if (props.beforeUpload) {
       try {
         const result = await props.beforeUpload(rawFile)
         if (result === false) continue
         if (result instanceof Blob) {
-          // If the hook returns a new Blob/File, use it instead of the original
           const newRawFile = result as UploadRawFile
           if (!newRawFile.uid) newRawFile.uid = Date.now() + Math.random()
-          // Assign to rawFile for subsequent logic
-          Object.assign(rawFile, newRawFile)
-          // We also need to handle the case where we just use the new object
+          finalFile = newRawFile
         }
       } catch {
         continue
       }
     }
+    passedFiles.push({ rawFile, finalFile })
+  }
+
+  // 3. 基于有效文件数量判断 limit 并触发 exceed
+  if (props.limit && props.fileList.length + passedFiles.length > props.limit) {
+    const rawFilesOnly = passedFiles.map((item) => item.finalFile)
+    emit('exceed', rawFilesOnly, props.fileList)
+    return
+  }
+
+  const validFiles: UploadFile[] = []
+
+  for (const item of passedFiles) {
+    const rawFile = item.finalFile
 
     // 分配 UID
     if (!rawFile.uid) rawFile.uid = Date.now() + Math.random()
@@ -443,7 +449,7 @@ const handleFiles = async (files: File[]) => {
       raw: rawFile
     }
 
-    // 4. 智能缩略图：仅对真正的图片生成预览图
+    // 智能缩略图：仅对真正的图片生成预览图
     if (props.listType.includes('picture')) {
       if (props.thumbnailRequest) {
         uploadFile.url = await props.thumbnailRequest(rawFile)

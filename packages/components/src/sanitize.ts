@@ -329,8 +329,11 @@ export function sanitizeHighlightedHtml(
     .replace(/<object[\s\S]*?>[\s\S]*?<\/object>/gi, '')
     .replace(/<embed[\s\S]*?>/gi, '')
     .replace(/<img[\s\S]*?>/gi, '')
-    .replace(/\son[a-z-]+\s*=\s*(['"]).*?\1/gi, '')
-    .replace(/\son[a-z-]+\s*=\s*[^\s>]+/gi, '')
+    .replace(/<[^>]+>/g, (tag) => {
+      return tag
+        .replace(/\son[a-z-]+\s*=\s*(['"]).*?\1/gi, '')
+        .replace(/\son[a-z-]+\s*=\s*[^\s>]+/gi, '')
+    })
     .replace(/javascript:/gi, '')
 }
 

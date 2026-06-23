@@ -782,15 +782,35 @@ describe('Countdown.vue', () => {
       expect(wrapper.vm.getRemain()).toBeLessThan(remainBefore)
     })
 
-    it('应该处理 timezoneOffset', () => {
-      // 虽然目前 .vue 没用，但 props 里有，为了覆盖率可以传一下
+    it('应该处理 timezoneOffset 并校准时间', () => {
+      const localOffset = -new Date().getTimezoneOffset()
+      const targetTime = BASE_TIME + 3600 * 1000
       const wrapper = mount(YhCountdown, {
         props: {
-          value: 10000,
-          timezoneOffset: 480
+          value: targetTime,
+          timezoneOffset: localOffset + 10,
+          autoStart: false
         }
       })
-      expect(wrapper.props('timezoneOffset')).toBe(480)
+      // Target adjusted by (10) * 60 * 1000 = 600,000 ms.
+      // So remain = (targetTime - 600000) - BASE_TIME = 3000000 ms.
+      expect(wrapper.vm.getRemain()).toBe(3000000)
+    })
+
+    it('应该在 keepAliveOnFinish 为 false 且倒计时结束时隐藏内容', async () => {
+      const wrapper = mount(YhCountdown, {
+        props: {
+          value: 100,
+          keepAliveOnFinish: false,
+          autoStart: true
+        }
+      })
+      await nextTick()
+      expect(wrapper.find('.yh-countdown').exists()).toBe(true)
+
+      vi.advanceTimersByTime(200)
+      await nextTick()
+      expect(wrapper.find('.yh-countdown').exists()).toBe(false)
     })
 
     it('卸载时应清除计时器', async () => {
