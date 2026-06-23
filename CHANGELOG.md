@@ -4,6 +4,35 @@ YH-UI 的重要版本变更会记录在这里。
 
 本项目从 `1.0.8` 开始作为首个面向开发者的正式开源生产版本维护公开变更记录。此前的 `0.x` 与早期 `1.0.x` 构建主要服务于内部开发、发布工程打磨和开源准备，不再作为面向用户的正式变更历史展开。
 
+## [1.0.63] - 2026-06-23
+
+> 本版本修复了组件库核心组件的系列 Bug，优化了构建流程，并消除了消费端 Vite 开发环境下的 Sourcemap 警告。
+
+### Added
+
+- **select**: 在组件的 `Expose` API 中新增并文档化了 `triggerRemoteMethod` 方法，允许外部程序化主动触发远程搜索。
+
+### Fixed
+
+- **autocomplete**: 修复了当 `teleported` 为真时，点击 teleported 下拉框内部元素会误触发 `handleOutsideClick` 关闭下拉框的问题。
+- **tree**: 修复了当拖动节点动作被取消（mouseup/mousedown 触发合成点击）时仍意外展开节点的 bug。
+- **tooltip**: 增加了对 `arrowRef` 在首屏渲染时的非空挂载守卫，并在 `onUnmounted` 时彻底清理 `autoUpdate` 并将引用置空，消除潜在的内存泄漏与报错。
+- **gantt-chart**: 修复了在 sidebarBody 与 timelineBody 同步滚动时高度不同引发的溢出及死循环抖动的 bug，加入了滚动激活源守卫与滚动最大高度限制。
+- **submit-bar**: 修复了当 `decimalLength` 为 `0` 时误在 DOM 中呈现 `undefined` 小数部分的 bug，并对其类型进行了强制 Number 校验。
+- **image-magnifier**: 修复了缩放结束后未能恢复 `props.scale` 原比例、以及多次绑定 passive 轮滑监听器的 bug。
+- **mention**: 修复了输入框关闭后 `dropdownStyle` 未能被置空，导致下一次弹出的定位出现视觉漂移的 bug。
+- **date-picker**: 修复了忽略 `dateFormat` 属性只读 `format` 以及快捷预设配置在 left/right/top/bottom 不同定位下渲染缺失的问题。
+- **countdown**: 修复了在 `getInitialRemain` 中遗漏 `timezoneOffset` 分钟偏移计算、以及结束后未依据 `keepAliveOnFinish` 彻底卸载占位 DOM 元素的 bug。
+- **dialog**: 修复了通过 tracking 鼠标移动拖拽对话框可能引发的 pointerdown 点击穿透冲突，并在对话框关闭时彻底解绑拖拽事件监听器。
+- **select**: 修复了对 `query` 属性响应不敏感，导致在外部改变搜索词或置空时不触发 `remoteMethod` 回调的 bug。
+- **calendar**: 修复了当动态变更 `selectionMode` 属性时，内部的多选、范围等选择态未能正确同步重置的 bug。
+- **popover**: 修复了受控模式下 `visible` 计算属性 setter 函数直接覆盖修改内部 `internalVisible.value` 产生的双向更新死循环 bug。
+- **mermaid**: 修复了 `mermaid.ts` 默认导出被 Rollup/Vite 优化打包为 `export { default }` 后在 Nuxt/Nitro SSR 构建时混淆产生 `default: default` 关键字语法错误的 bug。
+
+### Notes
+
+- 在消费端项目的 `pnpm-workspace.yaml` 中添加了对 `entities` 依赖的版本重载 `entities: ^7.0.1`，消除 Vite dev 模式下远程 `sourceRoot` 路径改写产生的 `points to a source file outside its package` 终端警告。
+
 ## [1.0.62] - 2026-06-20
 
 > 修复了 `@yh-ui/request` 中 `requestKey` 对应 AbortController 在请求完成后未回收导致内存泄漏的问题；修复了 `@yh-ui/flow` 中 `./plugins` 子路径导出路径错误（`ERR_MODULE_NOT_FOUND`）；通过 `pnpm-workspace.yaml` 强制将 `entities` 升级到 `7.0.1`，彻底消除 Vite 6 / Rolldown 下第三方 sourcemap 警告；全量通过 4757 项单元测试与类型校验。
